@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
+import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
                 _nameField(),
                 SizedBox(
@@ -73,11 +74,12 @@ class _BodyState extends State<Body> {
                 ),
                 _passwordField(),
                 SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
                 _btnSignUp(),
+                _btnToLogin(),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Text('OR',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                 SizedBox(
@@ -243,6 +245,35 @@ class _BodyState extends State<Body> {
             AssetImage('images/google.jpg'),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _btnToLogin(){
+    return Container(
+      child: FlatButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => SignIn(),
+          ),
+          );
+        },
+        child: RichText(
+          text: TextSpan(
+              text: 'Already Had an Account?',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: '  Sign In ',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ]
+          ),
+        ),
       ),
     );
   }

@@ -74,7 +74,7 @@ class _BodyState extends State<Body> {
       height: 50,
       child: RaisedButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
         },
         child: Text(
           "SIGN IN",
@@ -95,7 +95,7 @@ class _BodyState extends State<Body> {
       height: 50,
       child: OutlineButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
         },
         child: Text(
           "SIGN UP",

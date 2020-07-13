@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import '../../../constants.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
+import 'package:selendra_marketplace_app/screens/signup/signup.dart';
 
 
 class Body extends StatefulWidget {
@@ -78,6 +79,7 @@ class _BodyState extends State<Body> {
                   height: 20,
                 ),
                 _btnLogin(),
+                _btntoRegister(),
                 SizedBox(
                   height: 20,
                 ),
@@ -121,7 +123,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
   Widget _passwordField(){
     return Container(
       child: TextFormField(
@@ -237,6 +238,33 @@ class _BodyState extends State<Body> {
             style: TextStyle(
               color: Colors.red,
             ),
+          ),
+        ),
+      ) ,
+    );
+
+  }
+
+  Widget _btntoRegister(){
+    return Container(
+      child: FlatButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+        },
+        child: RichText(
+          text: TextSpan(
+              text: 'Haven`t Had an Account?',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              children: <TextSpan> [
+                TextSpan(
+                    text: ' Sign Up',
+                    style: TextStyle(
+                      color: Colors.red,
+                    )
+                )
+              ]
           ),
         ),
       ) ,
