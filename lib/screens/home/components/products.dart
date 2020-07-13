@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
+import '../../../models/products.dart';
+import '../../../models/products.dart';
 import 'item_card.dart';
 import 'package:selendra_marketplace_app/screens/detail/detail_screen.dart';
 
 class Products extends StatefulWidget {
-
 
  @override
   _ProductsState createState() => _ProductsState();
@@ -39,7 +40,9 @@ class _ProductsState extends State<Products> {
               itemBuilder: (context, index) => ItemCard(
                   product: products[index],
                   press: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(
+                        products[index],
+                    )));
                   }
               )),
           onRefresh: _getRefresh,

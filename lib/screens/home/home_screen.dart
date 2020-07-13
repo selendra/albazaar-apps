@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Home',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14
+                fontSize: 12
               ),
             ),
             onTap: (){
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Add a Listing',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14
+                fontSize: 12
               ),
             ),
             onTap: (){
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Purchases',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Listing',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Sales',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Messages',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Notification',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Help',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16
+                  fontSize: 12
               ),
             ),
             onTap: (){
@@ -240,14 +240,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               'Sign Out',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14
+                  fontSize: 12
               ),
             ),
             onTap: (){
               print('Sign Out');
             },
           ),
-
         ],
       ),
     );

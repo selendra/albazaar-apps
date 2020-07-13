@@ -54,7 +54,6 @@ class _ItemCardState extends State<ItemCard> {
                 child: Image.asset(widget.product.image,fit: BoxFit.cover),
               ),
             ),
-
           ),
 
           Padding(

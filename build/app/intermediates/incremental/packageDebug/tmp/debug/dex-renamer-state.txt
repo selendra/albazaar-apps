@@ -1,4 +1,4 @@
-#Sun Jul 12 03:59:34 EDT 2020
-base.0=/home/chay/Desktop/Selendra_Marketplace/selendra_marketplace_app/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Mon Jul 13 06:57:48 EDT 2020
+base.0=/home/chay/selendra-marketplace-mobile/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

@@ -1,41 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/screens/detail/components/body.dart';
+import '../../models/products.dart';
+import '../home/components/products.dart';
+import '../home/components/products.dart';
 
-class DetailScreen extends StatefulWidget {
-  @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
+class DetailScreen extends StatelessWidget {
 
-class _DetailScreenState extends State<DetailScreen> {
+  final Product products;
+  DetailScreen(this.products);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _buildBody(),
+        body: Body(products),
     );
   }
-  Widget _buildBody(){
-    return NestedScrollView(
-      headerSliverBuilder: (context,innerBoxIsScrolled){
-        return <Widget>[
-          SliverAppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            iconTheme: IconThemeData(
-              color: kDefualtColor,
-            ),
-              expandedHeight: MediaQuery.of(context).size.height/2,
-            floating: true,
-            pinned: true,
-            primary: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset('images/pineapple.jpg',fit: BoxFit.fill,),
-            ),
-          ),
-        ];
-      },
-      body: Center(
-        child: Text('Sample Text'),
-      )
-    );
-  }
+
 }
