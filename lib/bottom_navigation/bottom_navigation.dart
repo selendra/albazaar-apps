@@ -14,7 +14,11 @@ class _MyStatefulWidgetState extends State<BottomNavigation> {
   int _selectedIndex = 0;
   PageController _pageController;
 
-
+  final List<Widget> _optionsWidget = <Widget>[
+    HomeScreen(),
+    WalletScreen(),
+    SettingScreen()
+  ];
 
   void _onItemTapped(int index){
     setState(() {

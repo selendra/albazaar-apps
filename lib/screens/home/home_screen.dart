@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/home/components/search.dart';
+import 'package:selendra_marketplace_app/screens/cart/cart.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -36,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       key: _scaffoldState,
       drawer: _buildDrawer(),
       body: _buildAppBar(),
-
     );
   }
 
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 IconButton(
                   icon: Icon(Icons.shopping_cart,color: kDefualtColor,),
                   onPressed: (){
-                    print('Shopping Cart');
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CartScreen()));
                   },
                 ),
               ],
@@ -108,146 +108,167 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Widget _buildDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text('Selendra Marketplace'),
-            accountEmail: Text('selendramarketplace@email.com'),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text('S'),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title:Text(
-              'Home',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12
+    return SafeArea(
+      child: Container(
+        child: Drawer(
+          child: ListView(
+            children: <Widget>[
+              UserAccountsDrawerHeader(
+                accountName: Text('Selendra Marketplace'),
+                accountEmail: Text('selendramarketplace@email.com'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Text('S'),
+                ),
               ),
-            ),
-            onTap: (){
-              print('Home');
-            },
-          ),//Home
-          ListTile(
-            leading: Icon(Icons.add_circle_outline),
-            title:Text(
-              'Add a Listing',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12
+              ListTile(
+                leading: Icon(Icons.home),
+                title:Text(
+                  'Home',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
+              ),//Home
+              ListTile(
+                leading: Icon(Icons.add_circle_outline),
+                title:Text(
+                  'Add a Listing',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Add a Listing');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
+              ),//Add a List
+              Container(
+                height: 2,
+                margin: EdgeInsets.only(left: 20.0,right: 20.0),
+                color: Colors.grey[300],
               ),
-            ),
-            onTap: (){
-              print('Add a Listing');
-            },
-          ),//Add a List
-          Container(
-            height: 2,
-            margin: EdgeInsets.only(left: 20.0,right: 20.0),
-            color: Colors.grey[300],
-          ),
-          ListTile(
-            leading: Icon(Icons.shopping_basket),
-            title:Text(
-              'Purchases',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.shopping_basket),
+                title:Text(
+                  'Purchases',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Purchases');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Purchases');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.list),
-            title:Text(
-              'Listing',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.list),
+                title:Text(
+                  'Listing',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Listing');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Listing');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.monetization_on),
-            title:Text(
-              'Sales',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.monetization_on),
+                title:Text(
+                  'Sales',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Sales');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Sales');
-            },
-          ),
-          Container(
-            height: 2,
-            margin: EdgeInsets.only(left: 20.0,right: 20.0),
-            color: Colors.grey[300],
-          ),
-          ListTile(
-            leading: Icon(Icons.message),
-            title:Text(
-              'Messages',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              Container(
+                height: 2,
+                margin: EdgeInsets.only(left: 20.0,right: 20.0),
+                color: Colors.grey[300],
               ),
-            ),
-            onTap: (){
-              print('Messages');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.notifications),
-            title:Text(
-              'Notification',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.message),
+                title:Text(
+                  'Messages',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Messages');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Messages');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.help),
-            title:Text(
-              'Help',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.notifications),
+                title:Text(
+                  'Notification',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Messages');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Help');
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.input),
-            title:Text(
-              'Sign Out',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12
+              ListTile(
+                leading: Icon(Icons.help),
+                title:Text(
+                  'Help',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Help');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
               ),
-            ),
-            onTap: (){
-              print('Sign Out');
-            },
+              ListTile(
+                leading: Icon(Icons.input),
+                title:Text(
+                  'Sign Out',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
+                  ),
+                ),
+                onTap: (){
+                  print('Sign Out');
+                },
+                dense: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

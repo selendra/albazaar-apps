@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import '../../../models/products.dart';
-import '../../../models/products.dart';
 import 'item_card.dart';
 import 'package:selendra_marketplace_app/screens/detail/detail_screen.dart';
 

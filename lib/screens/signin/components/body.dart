@@ -180,25 +180,25 @@ class _BodyState extends State<Body> {
 
   Widget _btnSocial(Function onTap, AssetImage logo){
     return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 50.0,
-        width: 50.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
+        onTap: onTap,
+        child: Container(
+          height: 50.0,
+          width: 50.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0, 2),
+                blurRadius: 6.0,
+              ),
+            ],
+            image: DecorationImage(
+              image: logo,
             ),
-          ],
-          image: DecorationImage(
-            image: logo,
           ),
-        ),
-      )
+        )
     );
   }
 
@@ -230,7 +230,7 @@ class _BodyState extends State<Body> {
       alignment: Alignment.centerRight,
       child: FlatButton(
         onPressed: (){
-
+          print('forget password');
         },
         child: RichText(
           text: TextSpan(
@@ -242,7 +242,6 @@ class _BodyState extends State<Body> {
         ),
       ) ,
     );
-
   }
 
   Widget _btntoRegister(){

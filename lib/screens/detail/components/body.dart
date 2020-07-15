@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 
 import '../../../constants.dart';
-import '../../../models/products.dart';
 import '../../../models/products.dart';
 
 class Body extends StatefulWidget {
@@ -14,6 +14,25 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  int count = 0;
+
+  void addQty(){
+    setState(() {
+      count++;
+    });
+  }
+  void minusQty(){
+    setState(() {
+      if(count>0){
+        count--;
+      }
+      else{
+        return ;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return _buildBody();
@@ -44,8 +63,23 @@ class _BodyState extends State<Body> {
           ),
         ];
       },
-        body: Container(
-          margin: EdgeInsets.only(top: 10.0,left: 10.0),
+      body: _body(),
+    );
+  }
+
+  Widget _body(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
+        ),
+        color: Colors.grey[100],
+      ),
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,24 +87,71 @@ class _BodyState extends State<Body> {
               Text(
                 widget.product.title,
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 25,
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              SizedBox (height: 10.0,),
+              SizedBox (height: 20.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _btnQtyRow(),
+                  Text(
+                    '\$'+widget.product.price.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 23,
+                      color: kDefualtColor,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.0,),
               Text(
-                '\$'+widget.product.price.toString(),
+                'Product Description',
                 style: TextStyle(
+                  fontSize: 23,
                   fontWeight: FontWeight.w900,
-                  fontSize: 18,
-                  color: kDefualtColor,
                 ),
               ),
-              SizedBox(height: 15.0,),
+              SizedBox(height: 20.0,),
               Text(dummyText),
             ],
           ),
-        )
+        ),
+      ),
     );
   }
+  Widget _btnQty(IconData _iconData,Function onTap){
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 40.0,
+        width: 40.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          border: Border.all(color: kDefualtColor)
+        ),
+        child: Icon(_iconData),
+      ),
+    );
+  }
+
+  Widget _btnQtyRow(){
+    return Container(
+      child: Row(
+        children: <Widget>[
+          _btnQty(Icons.remove,(){minusQty();}),
+          SizedBox(width: 10,),
+          Text('$count',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w900),),
+          SizedBox(width: 10,),
+          _btnQty(Icons.add,(){addQty();}),
+        ],
+      ),
+    );
+  }
+
+
+
 }
