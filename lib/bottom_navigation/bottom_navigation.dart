@@ -3,8 +3,12 @@ import 'package:selendra_marketplace_app/screens/home/home_screen.dart';
 import 'package:selendra_marketplace_app/screens/wallet/wallet_screen.dart';
 import 'package:selendra_marketplace_app/screens/setting/setting_screen.dart';
 import 'package:selendra_marketplace_app/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class BottomNavigation extends StatefulWidget {
+
+
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
@@ -15,7 +19,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation> {
   PageController _pageController;
 
   final List<Widget> _optionsWidget = <Widget>[
-    HomeScreen(),
+    //HomeScreen(),
     WalletScreen(),
     SettingScreen()
   ];

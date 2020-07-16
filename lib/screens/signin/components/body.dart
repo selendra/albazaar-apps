@@ -4,7 +4,10 @@ import 'package:selendra_marketplace_app/constants.dart';
 import '../../../constants.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:selendra_marketplace_app/auth/auth_services.dart';
+import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -13,6 +16,10 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  bool isLogined = false;
   bool _isHidden = true;
   final formKey = GlobalKey<FormState>();
   String _email,_password;
@@ -29,6 +36,46 @@ class _BodyState extends State<Body> {
     }
 
   }
+
+  void onGoogleSignIn () async{
+    await signInWithGoogle().then((value) {
+      if (value==null){
+        Navigator.pop(context);
+      }else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      }
+    });
+    //signInWithGoogle().whenComplete(() => ));
+  }
+  showAlertDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 5),child:Text("Loading" )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
+
+   onFacebookSignIn () async{
+    await signInFacebook(context).then((value){
+      if (value==null){
+        Navigator.pop(context);
+      }
+      else{
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      }
+    });
+  }
+
+
+
   void toggleVisibility(){
     setState(() {
       _isHidden = !_isHidden;
@@ -43,7 +90,6 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_email);
       print(_password);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     }
   }
 
@@ -67,7 +113,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
                 _emailField(),
                 SizedBox(
@@ -79,17 +125,18 @@ class _BodyState extends State<Body> {
                   height: 20,
                 ),
                 _btnLogin(),
-                _btntoRegister(),
-                SizedBox(
-                  height: 20,
-                ),
-                Text('OR',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
                 SizedBox(
                   height: 10,
                 ),
+                _btntoRegister(),
+                SizedBox(
+                  height: 10,
+                ),
+                Text('OR',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                SizedBox(
+                  height: 20,
+                ),
                 _buildBtnSocialRow()
-
-
               ],
             ),
           ),
@@ -209,16 +256,25 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           _btnSocial(
               (){
-                print('Sign In with Facebook');
+                showAlertDialog(context);
+                onFacebookSignIn();
               },
               AssetImage('images/facebook.jpg'),
           ),
-          SizedBox(width: 40),
+          SizedBox(width: 20),
           _btnSocial(
                 (){
-              print('Sign In with Google');
+                  showAlertDialog(context);
+                  onGoogleSignIn();
             },
             AssetImage('images/google.jpg'),
+          ),
+          SizedBox(width: 20),
+          _btnSocial(
+                (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPhoneNumber()));
+            },
+            AssetImage('images/phone.jpg'),
           ),
         ],
       ),
@@ -248,7 +304,7 @@ class _BodyState extends State<Body> {
     return Container(
       child: FlatButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
         },
         child: RichText(
           text: TextSpan(
@@ -268,10 +324,7 @@ class _BodyState extends State<Body> {
         ),
       ) ,
     );
-
   }
-
-
 
 }
 

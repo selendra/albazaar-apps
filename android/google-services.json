@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "996789134951",
+    "firebase_url": "https://selendra-marketplace.firebaseio.com",
+    "project_id": "selendra-marketplace",
+    "storage_bucket": "selendra-marketplace.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996789134951:android:1c57d1109cc658c9c996c2",
+        "android_client_info": {
+          "package_name": "com.example.selendra_marketplace_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkPs9eFhNLphUA5EMZI2hkfa8zsdAFtoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

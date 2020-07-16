@@ -22,13 +22,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.1"
-  auth:
-    dependency: "direct main"
-    description:
-      name: auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -79,7 +72,7 @@ packages:
     source: hosted
     version: "7.3.0"
   firebase_auth:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_auth
       url: "https://pub.dartlang.org"
@@ -125,32 +118,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_login_facebook:
-    dependency: transitive
+  flutter_facebook_login:
+    dependency: "direct main"
     description:
-      name: flutter_login_facebook
+      name: flutter_facebook_login
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2+4"
+    version: "3.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_twitter:
-    dependency: transitive
-    description:
-      name: flutter_twitter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.3"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
   google_sign_in:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_sign_in
       url: "https://pub.dartlang.org"
@@ -191,6 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.12"
+  intl_phone_field:
+    dependency: "direct main"
+    description:
+      name: intl_phone_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   js:
     dependency: transitive
     description:
@@ -198,13 +191,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.2"
-  list_ext:
-    dependency: transitive
-    description:
-      name: list_ext
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.10"
   matcher:
     dependency: transitive
     description:

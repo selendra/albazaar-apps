@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -14,6 +14,8 @@ class _BodyState extends State<Body> {
   final formKey = GlobalKey<FormState>();
   String _email,_password;
   IconData _iconData = Icons.visibility;
+  String _countryCode='KH';
+  String phone;
 
   bool validateAndSave(){
     final form = formKey.currentState;
@@ -40,7 +42,6 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_email);
       print(_password);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     }
   }
   
@@ -58,7 +59,7 @@ class _BodyState extends State<Body> {
               children: <Widget>[
                 Container(
                   child: FlutterLogo(
-                    size: 100,
+                    size: 50,
                   ),
                 ),
                 SizedBox(
@@ -66,15 +67,17 @@ class _BodyState extends State<Body> {
                 ),
                 _nameField(),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 _emailField(),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
+                _phoneCodePick(),
+                SizedBox(height: 10,),
                 _passwordField(),
                 SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
                 _btnSignUp(),
                 _btnToLogin(),
@@ -90,6 +93,27 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
+      ),
+    );
+  }
+  Widget _phoneCodePick(){
+    return Container(
+      child: IntlPhoneField(
+        decoration: InputDecoration(
+          labelText: 'Phone Number',
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent),
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.greenAccent),
+              borderRadius: BorderRadius.all(Radius.circular(30.0))
+          ),
+        ),
+        initialCountryCode: _countryCode,
+        onChanged: (phone) {
+          print(phone.completeNumber);
+        },
       ),
     );
   }
@@ -237,7 +261,7 @@ class _BodyState extends State<Body> {
             },
             AssetImage('images/facebook.jpg'),
           ),
-          SizedBox(width: 40),
+          SizedBox(width: 20),
           _btnSocial(
                 (){
               print('Sign Up with Google');
@@ -253,7 +277,7 @@ class _BodyState extends State<Body> {
     return Container(
       child: FlatButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) => SignIn(),
           ),
           );

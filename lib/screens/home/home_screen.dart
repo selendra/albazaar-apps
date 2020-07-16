@@ -3,8 +3,10 @@ import 'package:selendra_marketplace_app/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/home/components/search.dart';
 import 'package:selendra_marketplace_app/screens/cart/cart.dart';
+import 'package:selendra_marketplace_app/auth/auth_services.dart';
 
 class HomeScreen extends StatefulWidget {
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -114,11 +116,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text('Selendra Marketplace'),
-                accountEmail: Text('selendramarketplace@email.com'),
+                accountName: Text(name),
+                accountEmail: Text(email),
                 currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Text('S'),
+                  backgroundImage: NetworkImage(imageUrl),
                 ),
               ),
               ListTile(
@@ -261,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
                 onTap: (){
-                  print('Sign Out');
+                  signOut(context);
                 },
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
