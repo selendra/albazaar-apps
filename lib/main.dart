@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/welcome/welcome_screen.dart';
+import 'auth/root_service.dart';
 
 void main() {
   runApp(SelendraApp());
@@ -14,7 +15,7 @@ class SelendraApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WelcomeScreen(),
+      home: RootServices(),
     );
   }
 }

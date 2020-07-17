@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/home/components/search.dart';
 import 'package:selendra_marketplace_app/screens/cart/cart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:selendra_marketplace_app/auth/auth_services.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,12 +20,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   List<Tab> tabs = [];
   List<String> titles = ['Fruits','Vegetable','Housing','Ingredients','Crops','Lands'];
 
+  String myEmail;
+  String myName;
+  String myImageUrl;
+
   @override
   void initState() {
     super.initState();
     controller = new TabController(vsync: this, length: 6);
     scrollController = ScrollController();
+    getCurrentUser();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -32,6 +39,31 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     scrollController.dispose();
     super.dispose();
   }
+
+  void getCurrentUser()async {
+    FirebaseAuth _auth = await FirebaseAuth.instance;
+    FirebaseUser user = await _auth.currentUser();
+    setState(() {
+      if (user!=null){
+        for (UserInfo profile in user.providerData) {
+          // Id of the provider (ex: google.com)
+          String providerId = profile.providerId;
+
+          // UID specific to the provider
+          String uid = profile.uid;
+
+          print(providerId);
+
+          // Name, email address, and profile photo Url
+          myName = profile.displayName;
+          myEmail = profile.email;
+          myImageUrl = profile.photoUrl;
+
+        }
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +148,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text(name),
-                accountEmail: Text(email),
+                accountName: Text('$myName'),
+                accountEmail: Text('$myEmail'),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(imageUrl),
+                  backgroundImage: NetworkImage('$myImageUrl'),
                 ),
               ),
               ListTile(
@@ -127,8 +159,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 title:Text(
                   'Home',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
                   ),
                 ),
                 onTap: (){
@@ -142,8 +174,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 title:Text(
                   'Add a Listing',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12
                   ),
                 ),
                 onTap: (){
@@ -273,4 +305,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ),
     );
   }
+
+
 }
