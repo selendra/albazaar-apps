@@ -38,6 +38,30 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "connectivity",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity-0.4.9",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "connectivity_for_web",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_for_web-0.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
+      "name": "connectivity_macos",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_macos-0.1.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "connectivity_platform_interface",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_platform_interface-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "convert",
       "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/convert-2.1.1",
       "packageUri": "lib/",
@@ -182,6 +206,12 @@
       "languageVersion": "1.12"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/nested-0.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "path",
       "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.6.4",
       "packageUri": "lib/",
@@ -204,6 +234,12 @@
       "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///home/chay/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
     },
     {
       "name": "quiver",
@@ -278,7 +314,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-07-16T06:47:09.031436Z",
+  "generated": "2020-07-22T14:02:14.036Z",
   "generator": "pub",
   "generatorVersion": "2.8.4"
 }

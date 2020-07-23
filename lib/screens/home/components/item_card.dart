@@ -21,14 +21,6 @@ class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
 
-    bool _isFavorite = true;
-    IconData _iconFav = Icons.favorite_border;
-
-    void seeFav (){
-      setState(() {
-        _isFavorite = !_isFavorite;
-      });
-    }
 
     return GestureDetector(
       onTap: widget.press,
@@ -55,7 +47,6 @@ class _ItemCardState extends State<ItemCard> {
               ),
             ),
           ),
-
           Padding(
             padding: EdgeInsets.symmetric(vertical: 5),
             child: Text(

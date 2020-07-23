@@ -17,6 +17,7 @@ class WalletScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       brightness: Brightness.light,
       title: Text('Wallet',style: TextStyle(fontWeight: FontWeight.w600,color: kDefualtColor),),
+      leading: Icon(Icons.account_balance_wallet,color: kDefualtColor,),
     );
   }
 

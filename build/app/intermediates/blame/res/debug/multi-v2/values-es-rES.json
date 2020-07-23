@@ -4,7 +4,7 @@
             "outputFile": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-es-rES/values-es-rES.xml",
             "map": [
                 {
-                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/6b7fafd7400b0758fe416bcf95a4e5bb/jetified-facebook-login-5.15.3/res/values-es-rES/values-es-rES.xml",
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/aab8867efa6ef74a096b8ee9ae665551/jetified-facebook-login-5.15.3/res/values-es-rES/values-es-rES.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

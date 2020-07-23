@@ -5,6 +5,9 @@ import 'package:selendra_marketplace_app/screens/home/components/search.dart';
 import 'package:selendra_marketplace_app/screens/cart/cart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:selendra_marketplace_app/auth/auth_services.dart';
+import 'package:selendra_marketplace_app/screens/purchase/purchase_screen.dart';
+import 'package:selendra_marketplace_app/screens/listing/listing_screen.dart';
+import 'package:selendra_marketplace_app/screens/sales/sale_screen.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -15,11 +18,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
+
   TabController controller;
   ScrollController scrollController;
-  List<Tab> tabs = [];
-  List<String> titles = ['Fruits','Vegetable','Housing','Ingredients','Crops','Lands'];
-
   String myEmail;
   String myName;
   String myImageUrl;
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 6);
+    controller = new TabController(vsync: this, length: 7);
     scrollController = ScrollController();
     getCurrentUser();
   }
@@ -40,20 +41,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void getCurrentUser()async {
-    FirebaseAuth _auth = await FirebaseAuth.instance;
+  Future<void> getCurrentUser()async {
+    FirebaseAuth _auth =  FirebaseAuth.instance;
     FirebaseUser user = await _auth.currentUser();
     setState(() {
       if (user!=null){
         for (UserInfo profile in user.providerData) {
           // Id of the provider (ex: google.com)
-          String providerId = profile.providerId;
-
           // UID specific to the provider
-          String uid = profile.uid;
-
-          print(providerId);
-
+          //String uid = profile.uid;
+          //print(providerId);
           // Name, email address, and profile photo Url
           myName = profile.displayName;
           myEmail = profile.email;
@@ -69,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldState,
-      drawer: _buildDrawer(),
       body: _buildAppBar(),
     );
   }
@@ -84,11 +80,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               floating: true,
               pinned: true,
               primary: true,
-              centerTitle: true,
               forceElevated: boxIsScroll,
               brightness: Brightness.light,
               elevation: 0,
+              centerTitle: true,
               backgroundColor: Colors.white,
+              leading: IconButton(icon: Icon(Icons.language,color: kDefualtColor,),),
               title: Text(
                 'SELENDRA',
                 style: TextStyle(
@@ -111,33 +108,30 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   },
                 ),
               ],
-              leading: IconButton(
-                icon: Icon(Icons.menu,color: kDefualtColor,),
-                onPressed: (){
-                  _scaffoldState.currentState.openDrawer();
-                },
-              ),
-              bottom: TabBar(
-                controller: controller,
-                isScrollable: true,
-                indicatorColor: kDefualtColor,
-                unselectedLabelColor: Colors.grey,
-                labelColor: kDefualtColor,
-                labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
-                tabs: <Widget>[
-                  Tab(text:'Fruits',),
-                  Tab(text:'Vegetable',),
-                  Tab(text:'Housing',),
-                  Tab(text:'Ingredient',),
-                  Tab(text:'Crops',),
-                  Tab(text:'Lands',),
-                ],
-              ),
             ),
           ];
         },
         body: Body(controller),
       ),
+    );
+  }
+  Widget _buildTabBar(){
+    return TabBar(
+      controller: controller,
+      isScrollable: true,
+      indicatorColor: kDefualtColor,
+      unselectedLabelColor: Colors.grey,
+      labelColor: kDefualtColor,
+      labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
+      tabs: <Widget>[
+        Tab(text:'All',),
+        Tab(text:'Real Estate',),
+        Tab(text:'Foods',),
+        Tab(text:'Services',),
+        Tab(text:'Fashions',),
+        Tab(text:'Cars',),
+        Tab(text: 'Electronics',)
+      ],
     );
   }
 
@@ -199,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
                 onTap: (){
-                  print('Purchases');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PurchaseScreen()));
                 },
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
@@ -214,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
                 onTap: (){
-                  print('Listing');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListingScreen()));
                 },
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),
@@ -229,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                 ),
                 onTap: (){
-                  print('Sales');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SalesScreen()));
                 },
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(vertical: 0.0,horizontal: 16.0),

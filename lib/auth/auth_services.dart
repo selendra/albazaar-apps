@@ -80,7 +80,18 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 }
 
   void signOut(context) async {
-    await _auth.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
-    print("User Sign Out");
+    FirebaseUser user = await _auth.currentUser();
+    for(UserInfo profile in user.providerData){
+      switch (profile.providerId){
+        case 'facebook.com':
+          facebookLogin.logOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          break;
+        case 'google.com':
+          googleSignIn.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          break;
+        default:
+          await _auth.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          print("User Sign Out");
+      }
+    }
   }
-

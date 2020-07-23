@@ -46,16 +46,17 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-              SizedBox(height: 50,),
+              SizedBox(height: MediaQuery.of(context).size.height/15,),
               Align(
                 alignment: Alignment.center,
                 child: Container(
+
                     child: Image.asset(
                         'images/welcome_icon.png',
                     )
                 ),
               ),
-              SizedBox(height: 50,),
+              SizedBox(height: MediaQuery.of(context).size.height/10,),
               _btnLogin(),
               SizedBox(height: 20,),
               _btnSignUp(),

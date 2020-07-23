@@ -2,20 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/detail/components/body.dart';
 import '../../models/products.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/cart/cart.dart';
 
-class DetailScreen extends StatelessWidget {
+
+class DetailScreen extends StatefulWidget {
 
   final Product products;
   DetailScreen(this.products);
 
   @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool _isFavorite = true;
+
+  IconData _iconFav = Icons.favorite_border;
+
+  void seeFav (){
+    setState(() {
+      _isFavorite = !_isFavorite;
+      if(_isFavorite==true){
+        _iconFav = Icons.favorite;
+        myFav.add(widget.products);
+      }else{
+        _iconFav = Icons.favorite_border;
+      }
+    });
+  }
+
+
+
+  void addItemtoCart(context){
+    cart.add(widget.products);
+    Navigator.pop(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(products),
+      body: Body(widget.products),
       bottomNavigationBar: _buildBottomNavigation(context),
     );
   }
+
   Widget _buildBottomNavigation(context){
     return Container(
       height: 60,
@@ -37,7 +66,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(Icons.favorite_border,color: Colors.red,),
+              child: IconButton(icon: Icon(_iconFav,color: Colors.red,),onPressed: (){seeFav();},),
             )
           ),
           _btnAddToCart(context)
@@ -45,13 +74,14 @@ class DetailScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget _btnAddToCart(context){
     return Container(
       width: 250,
       height: 50,
       child: RaisedButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>CartScreen()));
+          addItemtoCart(context);
         },
         child: Text(
           "Add To Cart",
@@ -66,5 +96,4 @@ class DetailScreen extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/home/home_screen.dart';
 import 'package:selendra_marketplace_app/screens/wallet/wallet_screen.dart';
-import 'package:selendra_marketplace_app/screens/setting/setting_screen.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:selendra_marketplace_app/screens/profile/account_screen.dart';
+import 'package:selendra_marketplace_app/screens/favorite/favorite_screen.dart';
+import 'package:selendra_marketplace_app/screens/addlisting/add_listing.dart';
+import 'package:flutter/services.dart';
+import 'package:selendra_marketplace_app/services/network_alert.dart';
 
 class BottomNavigation extends StatefulWidget {
 
@@ -13,16 +15,12 @@ class BottomNavigation extends StatefulWidget {
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<BottomNavigation> {
+class _MyStatefulWidgetState extends State<BottomNavigation> with TickerProviderStateMixin {
 
   int _selectedIndex = 0;
   PageController _pageController;
-
-  final List<Widget> _optionsWidget = <Widget>[
-    //HomeScreen(),
-    WalletScreen(),
-    SettingScreen()
-  ];
+  int currentIndex = 0;
+  Color _color = Colors.grey;
 
   void _onItemTapped(int index){
     setState(() {
@@ -42,7 +40,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation> {
     // TODO: implement initState
     super.initState();
     _pageController = PageController();
-
   }
   @override
   void dispose() {
@@ -51,13 +48,23 @@ class _MyStatefulWidgetState extends State<BottomNavigation> {
     super.dispose();
   }
 
+  Widget currentScreen = HomeScreen();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          child: _buildBody()
+      body: NetworkAlert(
+           _buildBody(),
       ),
-      bottomNavigationBar: _buildBottomNavigate(),
+      bottomNavigationBar: _buildBottomAppBar(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddListing()));
+        },
+        backgroundColor: kDefualtColor,
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
   Widget _buildBody(){
@@ -70,31 +77,43 @@ class _MyStatefulWidgetState extends State<BottomNavigation> {
         children: <Widget>[
           HomeScreen(),
           WalletScreen(),
-          SettingScreen(),
+          FavoriteScreen(),
+          AccountScreen(),
         ],
       ),
     );
   }
-  Widget _buildBottomNavigate (){
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      elevation: 0,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          title: Text('',style: TextStyle(fontSize: 0),),
-          icon: Icon(Icons.home),
+
+
+  Widget _buildBottomAppBar(){
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(icon: Icon(Icons.home,color: _selectedIndex==0 ? kDefualtColor:_color,size: 30,),onPressed: (){setState(() {
+                _onItemTapped(0);
+              });},),
+              IconButton(icon: Icon(Icons.account_balance_wallet,color: _selectedIndex==1 ? kDefualtColor:_color,size: 30,),
+                onPressed: (){
+                  _onItemTapped(1);
+              },),
+              SizedBox.shrink(),
+              IconButton(icon: Icon(Icons.favorite,color: _selectedIndex==2 ? kDefualtColor:_color,size: 30,),
+                onPressed: (){
+                  _onItemTapped(2);
+                },),
+              IconButton(icon: Icon(Icons.menu,color: _selectedIndex==3 ? kDefualtColor:_color,size: 30,),
+                onPressed: (){
+                  _onItemTapped(3);
+                },),
+            ],
+          ),
         ),
-        BottomNavigationBarItem(
-          title: Text('',style: TextStyle(fontSize: 0),),
-          icon: Icon(Icons.account_balance_wallet),
-        ),
-        BottomNavigationBarItem(
-          title: Text('',style: TextStyle(fontSize: 0),),
-          icon: Icon(Icons.settings),
-        ),
-      ],
-      selectedItemColor: kDefualtColor,
-      onTap: _onItemTapped,
+      ),
     );
   }
 }

@@ -14,19 +14,21 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 10,),
-          Text('ENTER YOUR PHONE NUMBER TO SIGN IN' ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-          Container(
-            height: MediaQuery.of(context).size.height/2,
-            child: Image.asset('images/welcome_icon.png')
-          ),
-          SizedBox(height: 10,),
-          _phoneCodePick(),
-          SizedBox(height: 10,),
-          _btnSignIn(),
-        ],
+      child:SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 10,),
+            Text('ENTER YOUR PHONE NUMBER TO SIGN IN' ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+            Container(
+              height: MediaQuery.of(context).size.height/2,
+              child: Image.asset('images/welcome_icon.png')
+            ),
+            SizedBox(height: 10,),
+            _phoneCodePick(),
+            SizedBox(height: 10,),
+            _btnSignIn(),
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/screens/category/categories.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import '../../../models/products.dart';
 import 'item_card.dart';
 import 'package:selendra_marketplace_app/screens/detail/detail_screen.dart';
+import 'package:selendra_marketplace_app/models/categories.dart';
+import 'package:selendra_marketplace_app/screens/category/categories_list.dart';
+
 
 class Products extends StatefulWidget {
 
@@ -12,15 +17,77 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products> {
 
+  ScrollController controller;
 
   Future<Null> _getRefresh () async{
     await Future.delayed(Duration(seconds: 3));
     return null;
+
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = ScrollController();
+
+  }
   @override
   Widget build(BuildContext context) {
-    return _buildProducts();
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      controller: controller,
+      child: Column(
+        children: <Widget>[
+          Container(
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Categories',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 6),
+                    child: InkWell(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoriesListScreen(category)));},
+                      child: Text(
+                        'See all',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+          ),
+          SizedBox(height: 10,),
+          CategoriesScreen(category),
+          SizedBox(height: 10,),
+          Container(
+              margin: EdgeInsets.all(10.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Recent Products',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              )
+          ),
+          _buildProducts(),
+        ],
+      ),
+    );
   }
   Widget _buildProducts(){
     return Container(

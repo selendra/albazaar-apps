@@ -1,0 +1,365 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.selendra_marketplace_app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:8:5-66
+14-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:8:22-64
+15    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+16    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79
+17-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:22-76
+18    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+18-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:24:5-68
+18-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:24:22-65
+19    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+19-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:26:5-82
+19-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:26:22-79
+20    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+20-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:26:5-110
+20-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:26:22-107
+21
+22    <application
+22-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:9:5-64:19
+23        android:name="io.flutter.app.FlutterApplication"
+23-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:10:9-57
+24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+24-->[androidx.core:core:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/25f737908970f0e5f2feb2f6dabea9da/core-1.1.0/AndroidManifest.xml:24:18-86
+25        android:debuggable="true"
+26        android:icon="@mipmap/ic_launcher"
+26-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-43
+27        android:label="Selendra Marketplace"
+27-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:11:9-45
+28        android:supportsRtl="true" >
+28-->[com.facebook.android:facebook-android-sdk:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d1812101ce4de88db1c83d49b00898bf/jetified-facebook-android-sdk-5.15.3/AndroidManifest.xml:28:18-44
+29        <activity
+29-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:13:9-41:20
+30            android:name="com.example.selendra_marketplace_app.MainActivity"
+30-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:14:13-41
+31            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+31-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:17:13-163
+32            android:hardwareAccelerated="true"
+32-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:18:13-47
+33            android:launchMode="singleTop"
+33-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:15:13-43
+34            android:theme="@style/LaunchTheme"
+34-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:16:13-47
+35            android:windowSoftInputMode="adjustResize" >
+35-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:19:13-55
+36
+37            <!--
+38                 Specifies an Android theme to apply to this Activity as soon as
+39                 the Android process has started. This theme is visible to the user
+40                 while the Flutter UI initializes. After that, this theme continues
+41                 to determine the Window background behind the Flutter UI.
+42            -->
+43            <meta-data
+43-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:24:13-27:17
+44                android:name="io.flutter.embedding.android.NormalTheme"
+44-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:25:15-70
+45                android:resource="@style/NormalTheme" />
+45-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:26:15-52
+46            <!--
+47                 Displays an Android View that continues showing the launch screen
+48                 Drawable until Flutter paints its first frame, then this splash
+49                 screen fades out. A splash screen is useful to avoid any visual
+50                 gap between the end of Android's launch screen and the painting of
+51                 Flutter's first frame.
+52            -->
+53            <meta-data
+53-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:33:13-36:17
+54                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+54-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:34:15-79
+55                android:resource="@drawable/launch_background" />
+55-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:35:15-61
+56
+57            <intent-filter>
+57-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:37:13-40:29
+58                <action android:name="android.intent.action.MAIN" />
+58-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:38:17-68
+58-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:38:25-66
+59
+60                <category android:name="android.intent.category.LAUNCHER" />
+60-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:39:17-76
+60-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:39:27-74
+61            </intent-filter>
+62        </activity>
+63        <!--
+64             Don't delete the meta-data below.
+65             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+66        -->
+67        <meta-data
+67-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:44:9-46:33
+68            android:name="flutterEmbedding"
+68-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:45:13-44
+69            android:value="2" />
+69-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:46:13-30
+70        <meta-data
+70-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:47:9-48:54
+71            android:name="com.facebook.sdk.ApplicationId"
+71-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:47:20-65
+72            android:value="@string/facebook_app_id" />
+72-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:48:13-52
+73
+74        <activity
+74-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:50:9-53:48
+75            android:name="com.facebook.FacebookActivity"
+75-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:50:19-63
+76            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+76-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:51:13-113
+77            android:label="@string/app_name"
+77-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:53:13-45
+78            android:theme="@style/com_facebook_activity_theme" />
+78-->[com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:33:13-63
+79        <activity
+79-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:54:9-63:20
+80            android:name="com.facebook.CustomTabActivity"
+80-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:55:13-58
+81            android:exported="true" >
+81-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:56:13-36
+82            <intent-filter>
+82-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:57:13-62:29
+83                <action android:name="android.intent.action.VIEW" />
+83-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:58:17-69
+83-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:58:25-66
+84
+85                <category android:name="android.intent.category.DEFAULT" />
+85-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:59:17-76
+85-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:59:27-73
+86                <category android:name="android.intent.category.BROWSABLE" />
+86-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:60:17-78
+86-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:60:27-75
+87
+88                <data android:scheme="@string/fb_login_protocol_scheme" />
+88-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:61:17-75
+88-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:61:23-72
+89            </intent-filter>
+90            <intent-filter>
+90-->[com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:39:13-48:29
+91                <action android:name="android.intent.action.VIEW" />
+91-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:58:17-69
+91-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:58:25-66
+92
+93                <category android:name="android.intent.category.DEFAULT" />
+93-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:59:17-76
+93-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:59:27-73
+94                <category android:name="android.intent.category.BROWSABLE" />
+94-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:60:17-78
+94-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:60:27-75
+95
+96                <data
+96-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:61:17-75
+97                    android:host="cct.com.example.selendra_marketplace_app"
+98                    android:scheme="fbconnect" />
+98-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:61:23-72
+99            </intent-filter>
+100        </activity>
+101
+102        <service
+102-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/profile/AndroidManifest.xml:8:9-12:19
+103            android:name="com.google.firebase.components.ComponentDiscoveryService"
+103-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/profile/AndroidManifest.xml:8:18-89
+104            android:directBootAware="true"
+104-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
+105            android:exported="false" >
+105-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:35:13-37
+106            <meta-data
+106-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/profile/AndroidManifest.xml:9:13-11:85
+107                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
+107-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/profile/AndroidManifest.xml:10:17-122
+108                android:value="com.google.firebase.components.ComponentRegistrar" />
+108-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/profile/AndroidManifest.xml:11:17-82
+109            <meta-data
+109-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:36:13-38:85
+110                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+110-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:37:17-109
+111                android:value="com.google.firebase.components.ComponentRegistrar" />
+111-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:38:17-82
+112            <meta-data
+112-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/profile/AndroidManifest.xml:9:13-11:85
+113                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+113-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/profile/AndroidManifest.xml:10:17-123
+114                android:value="com.google.firebase.components.ComponentRegistrar" />
+114-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/profile/AndroidManifest.xml:11:17-82
+115            <meta-data
+115-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:20:13-22:85
+116                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+116-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:21:17-111
+117                android:value="com.google.firebase.components.ComponentRegistrar" />
+117-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:22:17-82
+118            <meta-data
+118-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:30:13-32:85
+119                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+119-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:31:17-139
+120                android:value="com.google.firebase.components.ComponentRegistrar" />
+120-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:32:17-82
+121            <meta-data
+121-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:32:13-34:85
+122                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+122-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:33:17-96
+123                android:value="com.google.firebase.components.ComponentRegistrar" />
+123-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:34:17-82
+124            <meta-data
+124-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:17:13-19:85
+125                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+125-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:18:17-127
+126                android:value="com.google.firebase.components.ComponentRegistrar" />
+126-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:19:17-82
+127        </service>
+128
+129        <activity
+129-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:24:9-31:50
+130            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+130-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:25:13-85
+131            android:excludeFromRecents="true"
+131-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:26:13-46
+132            android:exported="true"
+132-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:27:13-36
+133            android:launchMode="singleTask"
+133-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:28:13-44
+134            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+134-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:29:13-102
+135            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+135-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:30:13-72
+136        <activity android:name="com.facebook.CustomTabMainActivity" />
+136-->[com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:34:9-71
+136-->[com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:34:19-68
+137        <!--
+138         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+139         with the application context. This config is merged in with the host app's manifest,
+140         but there can only be one provider with the same authority activated at any given
+141         point; so if the end user has two or more different apps that use Facebook SDK, only the
+142         first one will be able to use the provider. To work around this problem, we use the
+143         following placeholder in the authority to identify each host application as if it was
+144         a completely different provider.
+145        -->
+146        <provider
+146-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:39:9-42:40
+147            android:name="com.facebook.internal.FacebookInitProvider"
+147-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:40:13-70
+148            android:authorities="com.example.selendra_marketplace_app.FacebookInitProvider"
+148-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:41:13-72
+149            android:exported="false" />
+149-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:42:13-37
+150
+151        <receiver
+151-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:44:9-50:20
+152            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+152-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:45:13-86
+153            android:exported="false" >
+153-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:46:13-37
+154            <intent-filter>
+154-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:47:13-49:29
+155                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+155-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:48:17-95
+155-->[com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:48:25-92
+156            </intent-filter>
+157        </receiver>
+158
+159        <activity
+159-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+160            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+160-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+161            android:excludeFromRecents="true"
+161-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+162            android:exported="false"
+162-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+163            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+163-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+164        <!--
+165            Service handling Google Sign-In user revocation. For apps that do not integrate with
+166            Google Sign-In, this service will never be started.
+167        -->
+168        <service
+168-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+169            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+169-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+170            android:exported="true"
+170-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+171            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+171-->[com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+172
+173        <receiver
+173-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:37:9-44:20
+174            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+174-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:38:13-78
+175            android:exported="true"
+175-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:39:13-36
+176            android:permission="com.google.android.c2dm.permission.SEND" >
+176-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:40:13-73
+177            <intent-filter>
+177-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:41:13-43:29
+178                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+178-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:42:17-81
+178-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:42:25-78
+179            </intent-filter>
+180        </receiver>
+181
+182        <activity
+182-->[com.google.android.gms:play-services-base:17.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+183            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+183-->[com.google.android.gms:play-services-base:17.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+184            android:exported="false"
+184-->[com.google.android.gms:play-services-base:17.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+185            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+185-->[com.google.android.gms:play-services-base:17.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+186
+187        <provider
+187-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:26:9-30:39
+188            android:name="com.google.firebase.provider.FirebaseInitProvider"
+188-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:27:13-77
+189            android:authorities="com.example.selendra_marketplace_app.firebaseinitprovider"
+189-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:28:13-72
+190            android:exported="false"
+190-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:29:13-37
+191            android:initOrder="100" />
+191-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:30:13-36
+192
+193        <receiver
+193-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:29:9-33:20
+194            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+194-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:30:13-85
+195            android:enabled="true"
+195-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:31:13-35
+196            android:exported="false" >
+196-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:32:13-37
+197        </receiver>
+198
+199        <service
+199-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:35:9-38:40
+200            android:name="com.google.android.gms.measurement.AppMeasurementService"
+200-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:36:13-84
+201            android:enabled="true"
+201-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:37:13-35
+202            android:exported="false" />
+202-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:38:13-37
+203        <service
+203-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:39:9-43:72
+204            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+204-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:40:13-87
+205            android:enabled="true"
+205-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:41:13-35
+206            android:exported="false"
+206-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:42:13-37
+207            android:permission="android.permission.BIND_JOB_SERVICE" />
+207-->[com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:43:13-69
+208
+209        <meta-data
+209-->[com.google.android.gms:play-services-basement:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+210            android:name="com.google.android.gms.version"
+210-->[com.google.android.gms:play-services-basement:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+211            android:value="@integer/google_play_services_version" />
+211-->[com.google.android.gms:play-services-basement:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+212    </application>
+213
+214</manifest>

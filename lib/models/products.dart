@@ -14,13 +14,16 @@ class Product {
   });
 }
 
+List<Product> cart =[];
+List<Product> myFav =[];
+
 List<Product> products = [
   Product(
       id: 1,
-      title: "Apple",
-      price: 100,
+      title: "House",
+      price: 1000000,
       description: dummyText,
-      image: "images/apple.jpg",
+      image: "images/photo-house.jpg",
       color: Color(0xFF3D82AE)),
   Product(
       id: 2,
@@ -60,6 +63,101 @@ List<Product> products = [
   ),
 
 ];
+
+List<Product> houses = [
+  Product(
+      id: 1,
+      title: "House",
+      price: 1000000,
+      description: dummyText,
+      image: "images/photo-house.jpg",
+      color: Color(0xFF3D82AE)),
+  Product(
+      id: 2,
+      title: "Flat House",
+      price: 100,
+      description: dummyText,
+      image: "images/photo-house.jpg",
+      color: Color(0xFFD3A984)),
+  Product(
+      id: 3,
+      title: "House",
+      price: 100,
+      description: dummyText,
+      image: "images/photo-house.jpg",
+      color: Color(0xFF989493)),
+  Product(
+      id: 4,
+      title: "Condo",
+      price: 100,
+      description: dummyText,
+      image: "images/photo-house.jpg",
+      color: Color(0xFFE6B398)),
+  Product(
+      id: 5,
+      title: "Room",
+      price: 100,
+      description: dummyText,
+      image: "images/photo-house.jpg",
+      color: Color(0xFFFB7883)),
+  Product(
+    id: 6,
+    title: "Frozen",
+    price: 100,
+    description: dummyText,
+    image: "images/photo-house.jpg",
+    color: Color(0xFFAEAEAE),
+  ),
+
+];
+List<String> houseCategories = ['House for Sale','House for Rent','Apartment for Sale','Apartment for Rent','Land for Sale','Land for Rent','Room for Rent'];
+List<Product> myHouses = [
+  Product(
+      id: 1,
+      title: "House",
+      price: 1000000,
+      description: dummyText,
+      image: "images/new-house.jpg",
+      color: Color(0xFF3D82AE)),
+  Product(
+      id: 2,
+      title: "Flat House",
+      price: 100,
+      description: dummyText,
+      image: "images/new-house.jpg",
+      color: Color(0xFFD3A984)),
+  Product(
+      id: 3,
+      title: "House",
+      price: 100,
+      description: dummyText,
+      image: "images/new-house.jpg",
+      color: Color(0xFF989493)),
+  Product(
+      id: 4,
+      title: "Condo",
+      price: 100,
+      description: dummyText,
+      image: "images/new-house.jpg",
+      color: Color(0xFFE6B398)),
+  Product(
+      id: 5,
+      title: "Room",
+      price: 100,
+      description: dummyText,
+      image: "images/new-house.jpg",
+      color: Color(0xFFFB7883)),
+  Product(
+    id: 6,
+    title: "Frozen",
+    price: 100,
+    description: dummyText,
+    image: "images/new-house.jpg",
+    color: Color(0xFFAEAEAE),
+  ),
+
+];
+
 
 
 String dummyText =

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/abc_list_divider_material.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/res/drawable-v21/abc_list_divider_material.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/abc_edit_text_material.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/notification_action_background.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/25f737908970f0e5f2feb2f6dabea9da/core-1.1.0/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/res/merged/release/drawable-v21/abc_dialog_material_background.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/res/drawable-v21/abc_dialog_material_background.xml"
+    }
+]

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import '../../../constants.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:selendra_marketplace_app/auth/auth_services.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
 
@@ -15,9 +14,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
-  GoogleSignIn _googleSignIn = GoogleSignIn();
-  FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool isLogined = false;
   bool _isHidden = true;
@@ -37,17 +33,23 @@ class _BodyState extends State<Body> {
 
   }
 
-  void onGoogleSignIn () async{
-    await signInWithGoogle().then((value) {
-      if (value==null){
-        Navigator.pop(context);
-      }else{
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-      }
-    });
+   onGoogleSignIn () async{
+    try{
+      await signInWithGoogle().then((value) {
+        if (value==null){
+          Navigator.pop(context);
+        }else{
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+        }
+      });
+    }catch (e){
+      print(e);
+      Navigator.pop(context);
+    }
     //signInWithGoogle().whenComplete(() => ));
   }
-  showAlertDialog(BuildContext context){
+
+   showAlertDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
       content: new Row(
         children: [
@@ -90,6 +92,7 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_email);
       print(_password);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     }
   }
 
@@ -151,7 +154,6 @@ class _BodyState extends State<Body> {
         autocorrect: true,
         decoration: InputDecoration(
           labelText: 'Email',
-          hintText: 'Enter your Email',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(30.0))
@@ -162,7 +164,7 @@ class _BodyState extends State<Body> {
           ),
           prefixIcon: Icon(
             Icons.email,
-            color: Colors.blueAccent,
+            color: kDefualtColor,
           ),
         ),
         validator: (value) =>  value.isEmpty? "Empty email" :null,
@@ -175,7 +177,6 @@ class _BodyState extends State<Body> {
       child: TextFormField(
         decoration: InputDecoration(
           labelText: 'Password',
-          hintText: 'Enter your Password',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -265,7 +266,9 @@ class _BodyState extends State<Body> {
           _btnSocial(
                 (){
                   showAlertDialog(context);
-                  onGoogleSignIn();
+                  if (onGoogleSignIn() == false){
+                    Navigator.pop(context);
+                  }
             },
             AssetImage('images/google.jpg'),
           ),
