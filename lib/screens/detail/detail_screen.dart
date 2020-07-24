@@ -15,6 +15,8 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   bool _isFavorite = true;
+   final snackBar = SnackBar(
+            content: Text('Yay! A SnackBar!'));
 
   IconData _iconFav = Icons.favorite_border;
 
@@ -33,8 +35,16 @@ class _DetailScreenState extends State<DetailScreen> {
 
 
   void addItemtoCart(context){
-    cart.add(widget.products);
-    Navigator.pop(context);
+    if (cart.contains(widget.products)){
+       
+       Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('Item is already in Cart'),
+        duration: Duration(seconds: 3)));
+    }else{
+       cart.add(widget.products);
+       Navigator.pop(context);
+    }  
+    
   }
 
   @override
@@ -79,19 +89,22 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       width: 250,
       height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          addItemtoCart(context);
-        },
-        child: Text(
-          "Add To Cart",
-          style: TextStyle(
-              color: Colors.white
+      child: Builder(
+        builder: (context)
+          => RaisedButton(
+          onPressed: (){
+            addItemtoCart(context); 
+          },
+          child: Text(
+            "Add To Cart",
+            style: TextStyle(
+                color: Colors.white
+            ),
           ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
+          color: kDefualtColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30.0))
+          ),
         ),
       ),
     );

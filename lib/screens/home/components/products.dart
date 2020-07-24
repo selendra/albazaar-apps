@@ -22,16 +22,14 @@ class _ProductsState extends State<Products> {
   Future<Null> _getRefresh () async{
     await Future.delayed(Duration(seconds: 3));
     return null;
-
+  
   }
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = ScrollController();
-
   }
   @override
   Widget build(BuildContext context) {

@@ -20,6 +20,7 @@ class _BodyState extends State<Body> {
   final formKey = GlobalKey<FormState>();
   String _email,_password;
   IconData _iconData = Icons.visibility;
+  TabController _controller;
 
   bool validateAndSave(){
     final form = formKey.currentState;
@@ -115,6 +116,7 @@ class _BodyState extends State<Body> {
                     size: 150,
                   ),
                 ),
+            
                 SizedBox(
                   height: 50,
                 ),
@@ -329,5 +331,26 @@ class _BodyState extends State<Body> {
     );
   }
 
+  Widget _buildTabs(){
+   return DefaultTabController(
+     length: 2,
+    child: Scaffold(
+      appBar: AppBar(
+        bottom: TabBar(
+          tabs: <Widget>[
+            Tab(icon: Icon(Icons.directions_car)),
+            Tab(icon: Icon(Icons.directions_car)),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        children: <Widget>[
+          Icon(Icons.directions_car),
+          Icon(Icons.directions_transit),
+        ],
+      ),
+     ),
+   );
+  }
 }
 

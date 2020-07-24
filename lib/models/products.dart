@@ -15,6 +15,13 @@ class Product {
 }
 
 List<Product> cart =[];
+
+void findDuplicate(){
+  for (int i=0; i<=cart.length; i++){
+    
+  }
+}
+
 List<Product> myFav =[];
 
 List<Product> products = [
