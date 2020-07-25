@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:selendra_marketplace_app/screens/signup/verify_email.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -16,6 +20,7 @@ class _BodyState extends State<Body> {
   IconData _iconData = Icons.visibility;
   String _countryCode='KH';
   String phone;
+  bool _isLoading = false;
 
   bool validateAndSave(){
     final form = formKey.currentState;
@@ -28,6 +33,31 @@ class _BodyState extends State<Body> {
     }
 
   }
+  signUp(String email,String password) async{
+    String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/registerbyemail";
+
+    Map registerInfo = {
+      'email': email,
+      'password': password,
+    };
+
+    var response = await http.post(apiUrl,headers: <String,String>{
+      "accept": "application/json",
+      "Content-Type": "application/json"
+    },body: jsonEncode(<String,String>{
+      'email': email,
+      'password': password,
+    }));
+    if (response.statusCode==200){
+      var responseBody = json.decode(response.body);
+      print(responseBody);
+      print(response.body);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>VerifyEmailScreen(email, password)));
+    }else{
+      print(response.body);
+    }
+  }
+
   void toggleVisibility(){
     setState(() {
       _isHidden = !_isHidden;
@@ -42,6 +72,7 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_email);
       print(_password);
+      signUp(_email,_password);
     }
   }
   
@@ -58,14 +89,11 @@ class _BodyState extends State<Body> {
             child: Column(
               children: <Widget>[
                 Container(
-                  child: FlutterLogo(
-                    size: 50,
-                  ),
+                  child:Image.asset('images/logo.png',height: 150,width: 150,)
                 ),
                 SizedBox(
                   height: 50,
                 ),
-                _nameField(),
                 SizedBox(
                   height: 10,
                 ),
@@ -73,7 +101,6 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 10,
                 ),
-                _phoneCodePick(),
                 SizedBox(height: 10,),
                 _passwordField(),
                 SizedBox(

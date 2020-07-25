@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/category/realestate/real_estate.dart';
 import 'package:selendra_marketplace_app/screens/category/realestate/real_estate_categories.dart';
 
 
@@ -52,7 +51,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(icon: Icon(Icons.close,color: kDefualtColor,),onPressed: (){
-          Navigator.pop(context,false);
+          Navigator.pop(context);
         },),
       ),
       body: _buildListVertical(context),

@@ -7,6 +7,8 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 
 
 
+
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FacebookLogin facebookLogin = FacebookLogin();
@@ -15,6 +17,8 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
   String email="";
   String imageUrl="";
 
+  
+  
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =

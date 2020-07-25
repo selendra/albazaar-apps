@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/screens/otp/otp.dart';
 
 
 class Body extends StatefulWidget {
@@ -61,6 +62,8 @@ class _BodyState extends State<Body> {
       height: 50,
       child: RaisedButton(
         onPressed: (){
+          print('Sign in');
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>OTPScreen()));
         },
         child: Text(
           "Sign In",

@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/services/network_alert.dart';
 
 
@@ -22,24 +21,11 @@ class _RootServicesState extends State<RootServices> {
   String displayName;
   String imageUrl;
 
-  Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _connectivitySubscript;
-
-  void _popupDialog (BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('No Internet Connection !!!'),
-            content: Text('Please check your internet connection ..'),
-          );
-        });
-  }
+  
 
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

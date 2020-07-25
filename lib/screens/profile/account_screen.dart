@@ -22,13 +22,12 @@ class _AccountScreenState extends State<AccountScreen> {
   String myImageUrl;
 
   Future<void> getCurrentUser()async {
-    FirebaseAuth _auth = await FirebaseAuth.instance;
+    FirebaseAuth _auth = FirebaseAuth.instance;
     FirebaseUser user = await _auth.currentUser();
     setState(() {
       if (user!=null){
         for (UserInfo profile in user.providerData) {
           // Id of the provider (ex: google.com)
-          String providerId = profile.providerId;
           // UID specific to the provider
           //String uid = profile.uid;
           //print(providerId);
@@ -45,7 +44,6 @@ class _AccountScreenState extends State<AccountScreen> {
   }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCurrentUser();
   }

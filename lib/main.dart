@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/enums/connectivity_status.dart';
 import 'package:selendra_marketplace_app/services/connectivity_services.dart';
-import 'auth/root_service.dart';
+import 'screens/splashscreen/splashscreen.dart';
 
 
 
@@ -22,7 +22,7 @@ class SelendraApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
 
-        home: RootServices(),
+        home: SplashScreen(),
       ),
     );
   }

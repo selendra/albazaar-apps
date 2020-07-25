@@ -112,6 +112,8 @@ class _BodyState extends State<Body> {
               ),
             ),
             SizedBox(height: 20,),
+            _image(),
+            SizedBox(height: 20,),
             _titleField(),
             SizedBox(height: 10,),
             _descriptionField(),
@@ -119,8 +121,7 @@ class _BodyState extends State<Body> {
             _myCategories(),
             SizedBox(height: 10,),
             _priceField(),
-            SizedBox(height: 10,),
-            _image(),
+            
           ],
         ),
       ),

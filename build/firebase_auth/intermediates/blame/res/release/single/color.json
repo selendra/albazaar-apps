@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/res/merged/release/color/common_google_signin_btn_tint.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/res/color/common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/res/merged/release/color/common_google_signin_btn_text_light.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/res/color/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/res/merged/release/color/common_google_signin_btn_text_dark.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/res/color/common_google_signin_btn_text_dark.xml"
+    }
+]

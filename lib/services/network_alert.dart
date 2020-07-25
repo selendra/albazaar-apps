@@ -12,23 +12,8 @@ class NetworkAlert extends StatefulWidget {
 }
 
 class _NetworkAlertState extends State<NetworkAlert> {
-  Widget _popupDialog(BuildContext context) {
-    setState(() {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('No Internet Connection !!!'),
-              content: Text('Please check your internet connection ..'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('OK')),
-              ],
-            );
-          });
-    });
-  }
+  
+  
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);

@@ -15,13 +15,11 @@ class _RealEstateState extends State<RealEstate> with SingleTickerProviderStateM
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller  = TabController(vsync: this,length: 7);
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     controller.dispose();
     super.dispose();
   }
@@ -32,7 +30,7 @@ class _RealEstateState extends State<RealEstate> with SingleTickerProviderStateM
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Real Estate',
+          'Foods',
           style: TextStyle(
             color: Colors.blue,
             fontWeight: FontWeight.bold,
@@ -48,12 +46,12 @@ class _RealEstateState extends State<RealEstate> with SingleTickerProviderStateM
           labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
           tabs: <Widget>[
             Tab(text: 'All',),
-            Tab(text: 'Sale',),
-            Tab(text: 'Rent',),
-            Tab(text: 'All',),
-            Tab(text: 'All',),
-            Tab(text: 'All',),
-            Tab(text: 'All',),
+            Tab(text: 'Meat',),
+            Tab(text: 'Fruit',),
+            Tab(text: 'Drinks',),
+            Tab(text: 'Vegtable',),
+            Tab(text: 'Seasoning',),
+            Tab(text: 'Desserts',)
           ],
         ),
         elevation: 0,

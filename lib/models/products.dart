@@ -117,7 +117,7 @@ List<Product> houses = [
   ),
 
 ];
-List<String> houseCategories = ['House for Sale','House for Rent','Apartment for Sale','Apartment for Rent','Land for Sale','Land for Rent','Room for Rent'];
+List<String> foodCategories = ['Meats','Fruit','Drinks','Vegetable','Seasoning','Desserts','Other'];
 List<Product> myHouses = [
   Product(
       id: 1,

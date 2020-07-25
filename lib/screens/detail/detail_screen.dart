@@ -33,7 +33,6 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
 
-
   void addItemtoCart(context){
     if (cart.contains(widget.products)){
        

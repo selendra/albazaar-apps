@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     _controller = new TabController(vsync: this, length: 6);
 
@@ -26,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }

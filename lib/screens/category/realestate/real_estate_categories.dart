@@ -31,11 +31,11 @@ class RealEstateCategories extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10.0),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: houseCategories.length,
+        itemCount: foodCategories.length,
         itemBuilder: (context,index){
           return ListTile(
-            onTap: (){ Navigator.pop(context, houseCategories[index]); },
-            title: Text(houseCategories[index]),
+            onTap: (){ Navigator.pop(context, foodCategories[index]); },
+            title: Text(foodCategories[index]),
             trailing: Icon(Icons.arrow_forward_ios,),
           );
         }

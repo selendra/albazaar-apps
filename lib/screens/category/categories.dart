@@ -28,7 +28,7 @@ class CategoriesScreen extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: <Widget>[
-              Image(image: AssetImage(logo),),
+              Image.asset(logo,height: 40,width: 40,),
               SizedBox(height: 5,),
               Text(title,style: TextStyle(fontSize: 12),)
             ],
@@ -40,7 +40,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 60,
       margin: EdgeInsets.symmetric(vertical: 5.0),
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(

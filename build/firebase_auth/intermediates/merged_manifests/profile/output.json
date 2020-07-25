@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "applicationId": "io.flutter.plugins.firebaseauth",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": -1,
+        "outputFile": "firebase_auth-profile.aar",
+        "fullName": "profile",
+        "baseName": "profile",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/profile/AndroidManifest.xml",
+      "properties": {
+        "packageId": "io.flutter.plugins.firebaseauth",
+        "split": ""
+      }
+    }
+  ]
+}

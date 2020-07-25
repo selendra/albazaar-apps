@@ -27,7 +27,7 @@ class _ProductsState extends State<Products> {
 
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     controller = ScrollController();
   }
@@ -38,35 +38,6 @@ class _ProductsState extends State<Products> {
       controller: controller,
       child: Column(
         children: <Widget>[
-          Container(
-              margin: EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Categories',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 6),
-                    child: InkWell(
-                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>CategoriesListScreen(category)));},
-                      child: Text(
-                        'See all',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-          ),
-          SizedBox(height: 10,),
           CategoriesScreen(category),
           SizedBox(height: 10,),
           Container(

@@ -14,13 +14,11 @@ class _SalesScreenState extends State<SalesScreen> with SingleTickerProviderStat
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = TabController(vsync: this,length: 3);
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
   @override
