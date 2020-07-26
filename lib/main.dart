@@ -8,7 +8,7 @@ import 'screens/splashscreen/splashscreen.dart';
 
 
 void main() {
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   runApp(SelendraApp());
 }
 

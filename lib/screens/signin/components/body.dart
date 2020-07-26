@@ -131,7 +131,7 @@ class _BodyState extends State<Body> {
             child: Column(
               children: <Widget>[
                 Container(
-                  child: Image.asset('images/logo.png',height: 150,width: 150,)
+                  child: Image.asset('images/logo.png',height: 100,width: 100,)
                 ),
                 SizedBox(
                   height: 50,

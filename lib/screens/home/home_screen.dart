@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               title: Row(
                 children: <Widget>[
                   Padding(
-                    child: Image.asset('images/sld_market.png', width: 30, height: 30),
+                    child: Image.asset('images/logo.png', width: 30, height: 30),
                     padding: EdgeInsets.only(right: 5)
                   ),
                   Text(
