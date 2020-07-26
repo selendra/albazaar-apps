@@ -1,4 +1,0 @@
-#Sat Jul 25 04:29:44 EDT 2020
-base.0=/home/chay/selendra-marketplace-mobile/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

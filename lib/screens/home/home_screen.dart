@@ -86,13 +86,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               centerTitle: true,
               backgroundColor: Colors.white,
               leading: IconButton(icon: Icon(Icons.language,color: kDefualtColor,),),
-              title: Text(
-                'SELENDRA',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
+              title: Row(
+                children: <Widget>[
+                  Image.asset('images/sld_market.png', width: 30, height: 30),
+                  Text(
+                    'SELENDRA',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                  )
+                ],
               ),
               actions: <Widget>[
                 IconButton(

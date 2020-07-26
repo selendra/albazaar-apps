@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
       setState(() {
          _isLoading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     }else {
       print(response.statusCode);
     

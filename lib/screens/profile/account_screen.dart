@@ -40,6 +40,8 @@ class _AccountScreenState extends State<AccountScreen> {
           }
         }
       }
+      print("Image $myImageUrl");
+      print("$user");
     });
   }
   @override
@@ -62,6 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -69,18 +72,19 @@ class _AccountScreenState extends State<AccountScreen> {
                         'Hello,',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),),
                       SizedBox(height: 5,),
                       Text(
-                        '$myName',style: TextStyle(color: kDefualtColor,fontWeight: FontWeight.bold,fontSize: 25),),
+                        myName ?? 'User name',style: TextStyle(color: kDefualtColor,fontWeight: FontWeight.bold,fontSize: 25),),
                     ],
                   ),
+
                   Container(
                     width: 70,
                     height: 70,
                     decoration: new BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: new DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage('$myImageUrl'),
-                        )
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: myImageUrl != null ? NetworkImage('$myImageUrl') : AssetImage('images/avatar.png'),
+                      )
                     ),
                   ),
 
