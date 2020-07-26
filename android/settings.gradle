@@ -27,4 +27,4 @@ apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gra
 //     def pluginDirectory = flutterProjectRoot.resolve(path).resolve('android').toFile()
 //     include ":$name"
 //     project(":$name").projectDir = pluginDirectory
-// }
+// } 
