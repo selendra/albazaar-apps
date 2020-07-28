@@ -27,7 +27,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseAppBar.getTitle('Purchase', context,'Pending','Complete','All',_controller),
+      appBar: ReuseAppBar.getTitle('Purchase', context,'All','Complete','Pending',_controller),
       body: Body(_controller),
     );
   }

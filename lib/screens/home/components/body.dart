@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'products.dart' as first;
-import 'package:selendra_marketplace_app/screens/category/realestate/real_estate.dart';
+import 'package:selendra_marketplace_app/screens/category/realestate/foods_screen.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_itemcard.dart';
 
@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
         controller: widget.controller,
         children: <Widget>[
           first.Products(),
-          RealEstate(),
+          FoodsScreen(),
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

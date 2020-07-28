@@ -135,19 +135,6 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 20,),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                child: Text(
-                  'CONTACT DETAIL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20,),
             _nameField(),
             SizedBox(height: 10,),
             _phoneNumberField(),
@@ -329,10 +316,6 @@ class _BodyState extends State<Body> {
       child: Column(
         children: <Widget>[
           FlatButton(child: Text('Please more about our Rule &Policy'),onPressed: (){print('rule & policy');},),
-          SwitchListTile(
-            title: Text('Accepte the policy'),
-            value: false,
-          ),
           Expanded(
             child: Container(
 

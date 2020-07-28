@@ -37,8 +37,8 @@
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/25f737908970f0e5f2feb2f6dabea9da/core-1.1.0/AndroidManifest.xml:24:18-86
 24        android:debuggable="true"
-25        android:icon="@mipmap/ic_launcher"
-25-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-43
+25        android:icon="@mipmap/logo"
+25-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-36
 26        android:label="Selendra Marketplace"
 26-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:11:9-45
 27        android:supportsRtl="true" >

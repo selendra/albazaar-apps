@@ -1,4 +1,4 @@
-import 'package:selendra_marketplace_app/screens/category/realestate/real_estate.dart';
+import 'package:selendra_marketplace_app/screens/category/realestate/foods_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,7 +14,7 @@ class CategoriesScreen extends StatelessWidget {
     print('$index');
     switch (index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>RealEstate()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsScreen()));
         break;
     }
   }

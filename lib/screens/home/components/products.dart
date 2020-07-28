@@ -38,21 +38,9 @@ class _ProductsState extends State<Products> {
       controller: controller,
       child: Column(
         children: <Widget>[
+          SizedBox(height: 10,),
           CategoriesScreen(category),
           SizedBox(height: 10,),
-          Container(
-              margin: EdgeInsets.all(10.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Recent Products',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              )
-          ),
           _buildProducts(),
         ],
       ),

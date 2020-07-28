@@ -107,14 +107,6 @@ class _BodyState extends State<Body> {
                 ],
               ),
               SizedBox(height: 20.0,),
-              Text(
-                'Product Description',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              SizedBox(height: 20.0,),
               Text(widget.product.description),
             ],
           ),

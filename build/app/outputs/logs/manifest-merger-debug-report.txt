@@ -5,10 +5,11 @@ INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/Androi
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:1:1-65:12
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:1:1-65:12
 MERGED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:1:1-65:12
-MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
+MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
-MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:shared_preferences] /home/chay/selendra-marketplace-mobile/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [androidx.multidex:multidex:2.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/e1f74fe21271973a012decf38a876fcf/multidex-2.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.android:facebook-android-sdk:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d1812101ce4de88db1c83d49b00898bf/jetified-facebook-android-sdk-5.15.3/AndroidManifest.xml:21:1-31:12
@@ -18,12 +19,12 @@ MERGED from [com.facebook.android:facebook-share:5.15.3] /home/chay/.gradle/cach
 MERGED from [com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:21:1-52:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/e3ef02d00ad48e92598367d43171f13c/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:17:1-39:12
-MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:2:1-10:12
-MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/431c6559d21636266de5c98c9803917d/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/9ad6ea6b085b16b13c620e6d2ef01351/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-analytics:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/25fdf5599327d75b8ef12464833124d6/jetified-firebase-analytics-17.4.3/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:17:1-36:12
 MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:17:1-47:12
@@ -135,10 +136,10 @@ MERGED from [com.facebook.android:facebook-share:5.15.3] /home/chay/.gradle/cach
 MERGED from [com.facebook.android:facebook-share:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b9df10e07530379c414af214af331356/jetified-facebook-share-5.15.3/AndroidManifest.xml:28:5-29:19
 MERGED from [com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:29:5-50:19
 MERGED from [com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:29:5-50:19
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:16:5-24:19
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:22:5-37:19
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-analytics:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/25fdf5599327d75b8ef12464833124d6/jetified-firebase-analytics-17.4.3/AndroidManifest.xml:7:5-20
@@ -194,7 +195,7 @@ MERGED from [com.android.installreferrer:installreferrer:1.0] /home/chay/.gradle
 	android:label
 		ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:11:9-45
 	android:icon
-		ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-43
+		ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-36
 	android:name
 		ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:10:9-57
 activity#com.example.selendra_marketplace_app.MainActivity
@@ -289,14 +290,16 @@ uses-sdk
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml
-MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
-MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/chay/selendra-marketplace-mobile/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/chay/selendra-marketplace-mobile/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [androidx.multidex:multidex:2.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/e1f74fe21271973a012decf38a876fcf/multidex-2.0.0/AndroidManifest.xml:20:5-43
@@ -315,18 +318,18 @@ MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/chay/.gradle/caches/
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/e3ef02d00ad48e92598367d43171f13c/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/24e93684a9e7535634db75c46415c088/appcompat-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:7:5-9:41
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
-MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:5:5-7:41
-MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/431c6559d21636266de5c98c9803917d/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/431c6559d21636266de5c98c9803917d/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/9ad6ea6b085b16b13c620e6d2ef01351/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/9ad6ea6b085b16b13c620e6d2ef01351/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/838b4beb74b8ff8a4b68af8ef72f6067/jetified-firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:17.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/9846431f847ada44a32fc7643b5607b1/jetified-firebase-database-collection-17.0.1/AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-analytics:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/25fdf5599327d75b8ef12464833124d6/jetified-firebase-analytics-17.4.3/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-analytics:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/25fdf5599327d75b8ef12464833124d6/jetified-firebase-analytics-17.4.3/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:20:5-44
@@ -447,6 +450,30 @@ INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/debug/Andro
 	android:minSdkVersion
 		INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml
 		INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d9ca32d03ddee694fc5819ba611a07b5/jetified-play-services-measurement-impl-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d9ca32d03ddee694fc5819ba611a07b5/jetified-play-services-measurement-impl-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/106e7e2712a9baddbe15168bc552e1fc/jetified-play-services-measurement-sdk-api-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/106e7e2712a9baddbe15168bc552e1fc/jetified-play-services-measurement-sdk-api-17.4.3/AndroidManifest.xml:24:5-79
+MERGED from [io.grpc:grpc-android:1.21.0] /home/chay/.gradle/caches/transforms-2/files-2.1/7629cea33ef8947b300ce17eda1c453e/jetified-grpc-android-1.21.0/AndroidManifest.xml:11:5-79
+MERGED from [io.grpc:grpc-android:1.21.0] /home/chay/.gradle/caches/transforms-2/files-2.1/7629cea33ef8947b300ce17eda1c453e/jetified-grpc-android-1.21.0/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
 MERGED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
@@ -477,30 +504,6 @@ ADDED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebas
 		ADDED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-122
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79
-MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79
-MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:23:5-79
-MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:22:5-79
-MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:22:5-79
-MERGED from [com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:10:5-79
-MERGED from [com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:10:5-79
-MERGED from [com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-measurement:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/e2ffc07509a61d98d59e69d06a65fc80/jetified-play-services-measurement-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-measurement-impl:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d9ca32d03ddee694fc5819ba611a07b5/jetified-play-services-measurement-impl-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-measurement-impl:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/d9ca32d03ddee694fc5819ba611a07b5/jetified-play-services-measurement-impl-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/106e7e2712a9baddbe15168bc552e1fc/jetified-play-services-measurement-sdk-api-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/106e7e2712a9baddbe15168bc552e1fc/jetified-play-services-measurement-sdk-api-17.4.3/AndroidManifest.xml:24:5-79
-MERGED from [io.grpc:grpc-android:1.21.0] /home/chay/.gradle/caches/transforms-2/files-2.1/7629cea33ef8947b300ce17eda1c453e/jetified-grpc-android-1.21.0/AndroidManifest.xml:11:5-79
-MERGED from [io.grpc:grpc-android:1.21.0] /home/chay/.gradle/caches/transforms-2/files-2.1/7629cea33ef8947b300ce17eda1c453e/jetified-grpc-android-1.21.0/AndroidManifest.xml:11:5-79
-	android:name
-		ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
-uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
-	android:name
-		ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
 meta-data#com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar
 ADDED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
 	android:value
@@ -537,12 +540,6 @@ intent-filter#action:name:android.intent.action.VIEW+category:name:android.inten
 ADDED from [com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:39:13-48:29
 intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:cct.com.example.selendra_marketplace_app+data:scheme:fbconnect
 ADDED from [com.facebook.android:facebook-common:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/cb1f5ffe7a2f55ae98fe6c7f91e5bdda/jetified-facebook-common-5.15.3/AndroidManifest.xml:39:13-48:29
-meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
-ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:20:13-22:85
-	android:value
-		ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:22:17-82
-	android:name
-		ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:21:17-111
 activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
 ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
 	android:excludeFromRecents
@@ -561,6 +558,12 @@ ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle
 		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
 	android:name
 		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/chay/.gradle/caches/transforms-2/files-2.1/a1bc769a62ed8199bfbe66136b25a2c2/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
+ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:20:13-22:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:21:17-111
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:24:5-68
 MERGED from [com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:24:5-68

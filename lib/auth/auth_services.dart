@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -98,4 +99,10 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
           print("User Sign Out");
       }
     }
+  }
+
+  void signOutByEmail(context)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs?.clear();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
   }

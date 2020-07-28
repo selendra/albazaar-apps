@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/screens/signup/signup_phonenumber.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:selendra_marketplace_app/screens/signup/verify_email.dart';
+import 'package:selendra_marketplace_app/auth/auth_services.dart';
+import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 
 
 class Body extends StatefulWidget {
@@ -18,9 +19,10 @@ class _BodyState extends State<Body> {
   final formKey = GlobalKey<FormState>();
   String _email,_password;
   IconData _iconData = Icons.visibility;
-  String _countryCode='KH';
   String phone;
   bool _isLoading = false;
+  String alertText ;
+  
 
   bool validateAndSave(){
     final form = formKey.currentState;
@@ -31,16 +33,36 @@ class _BodyState extends State<Body> {
     }else{
       return false;
     }
-
+    
   }
+  showAlertDialog(BuildContext context) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {Navigator.pop(context);},
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(alertText),
+    content: Text("Please check your email or verify email. "),
+    actions: [
+      okButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
   signUp(String email,String password) async{
     String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/registerbyemail";
-
-    Map registerInfo = {
-      'email': email,
-      'password': password,
-    };
-
+    setState(() {
+      _isLoading = true;
+    });
     var response = await http.post(apiUrl,headers: <String,String>{
       "accept": "application/json",
       "Content-Type": "application/json"
@@ -49,10 +71,15 @@ class _BodyState extends State<Body> {
       'password': password,
     }));
     if (response.statusCode==200){
-      var responseBody = json.decode(response.body);
+      setState(() {
+        _isLoading = false;
+      });
+      var responseBody = jsonDecode(response.body);
       print(responseBody);
       print(response.body);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>VerifyEmailScreen(email, password)));
+      alertText = responseBody['message'];
+      showAlertDialog(context);
+      
     }else{
       print(response.body);
     }
@@ -75,21 +102,58 @@ class _BodyState extends State<Body> {
       signUp(_email,_password);
     }
   }
+    onGoogleSignIn () async{
+    try{
+      await signInWithGoogle().then((value) {
+        if (value==null){
+          Navigator.pop(context);
+        }else{
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+        }
+      });
+    }catch (e){
+      print(e);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    //signInWithGoogle().whenComplete(() => ));
+  }
+
   
-  
+   onFacebookSignIn () async{
+    await signInFacebook(context).then((value){
+      if (value==null){
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pop(context);
+      }
+      else{
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.all(30),
         padding: EdgeInsets.symmetric(vertical: 20),
-        child: SingleChildScrollView(
+        child: _isLoading ? Center(child: CircularProgressIndicator(),) : SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Column(
               children: <Widget>[
                 Container(
-                  child:Image.asset('images/logo.png',height: 150,width: 150,)
+                  child:Image.asset('images/logo.png',height: 100,width: 100,)
                 ),
                 SizedBox(
                   height: 50,
@@ -123,27 +187,7 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  Widget _phoneCodePick(){
-    return Container(
-      child: IntlPhoneField(
-        decoration: InputDecoration(
-          labelText: 'Phone Number',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueAccent),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-        ),
-        initialCountryCode: _countryCode,
-        onChanged: (phone) {
-          print(phone.completeNumber);
-        },
-      ),
-    );
-  }
+
   Widget _emailField(){
     return Container(
       child: TextFormField(
@@ -151,7 +195,6 @@ class _BodyState extends State<Body> {
         autocorrect: true,
         decoration: InputDecoration(
           labelText: 'Email',
-          hintText: 'Enter your Email',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(30.0))
@@ -162,7 +205,8 @@ class _BodyState extends State<Body> {
           ),
           prefixIcon: Icon(
             Icons.email,
-            color: Colors.blueAccent,
+            color: kDefualtColor,
+
           ),
         ),
         validator: (value) =>  value.isEmpty? "Empty email" :null,
@@ -203,7 +247,6 @@ class _BodyState extends State<Body> {
       child: TextFormField(
         decoration: InputDecoration(
           labelText: 'Password',
-          hintText: 'Enter your Password',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -218,7 +261,7 @@ class _BodyState extends State<Body> {
           ),
           suffixIcon: IconButton(
             icon: Icon(_iconData,),
-            color: kDefualtColor  ,
+            color: kDefualtColor,
             onPressed: (){
               toggleVisibility();
             },
@@ -276,6 +319,7 @@ class _BodyState extends State<Body> {
         )
     );
   }
+  
 
   Widget _buildBtnSocialRow(){
     return Container(
@@ -284,16 +328,29 @@ class _BodyState extends State<Body> {
         children: <Widget>[
           _btnSocial(
                 (){
-              print('Sign Up with Facebook');
+              setState(() {
+                _isLoading = true;
+              });
+              onFacebookSignIn();
             },
             AssetImage('images/facebook.jpg'),
           ),
           SizedBox(width: 20),
           _btnSocial(
                 (){
-              print('Sign Up with Google');
+              setState(() {
+                _isLoading = true;
+              });
+              onGoogleSignIn();
             },
             AssetImage('images/google.jpg'),
+          ),
+          SizedBox(width: 20),
+           _btnSocial(
+                (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpPhoneNumber()));
+            },
+            AssetImage('images/phone.jpg'),
           ),
         ],
       ),

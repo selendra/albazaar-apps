@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/wallet/components/body.dart';
+
 
 
 class WalletScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class WalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Body(),
+      body: _buildCreateWallet(context),
     );
   }
   Widget _buildAppBar(){
@@ -20,5 +20,40 @@ class WalletScreen extends StatelessWidget {
       leading: Icon(Icons.account_balance_wallet,color: kDefualtColor,),
     );
   }
+  Widget _buildCreateWallet(context){
+    return Container(
+      margin: EdgeInsets.all(30.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset('images/cryto_wallet.jpg'),
+          SizedBox(height: 50,),
+          _btnCreateWallet(context),
+        ],
+      ),
+    );
+  }
+  Widget _btnCreateWallet(context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 50,
+      child: RaisedButton(
+        onPressed: (){
+          print('Create Wallet');
+        },
+        child: Text(
+          "Create Wallet",
+          style: TextStyle(
+              color: Colors.white
+          ),
+        ),
+        color: kDefualtColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0))
+        ),
+      ),
+    );
+  }
+  
 
 }

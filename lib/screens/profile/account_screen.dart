@@ -107,7 +107,7 @@ class _AccountScreenState extends State<AccountScreen> {
             ReuseInkwell.getItem('Message', Icons.message, (){}),
             ReuseInkwell.getItem('Notification', Icons.notifications, (){}),
             ReuseInkwell.getItem('Settings', Icons.settings, (){Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingScreen()));}),
-            ReuseInkwell.getItem('Sign Out', Icons.input, (){signOut(context);}),
+            ReuseInkwell.getItem('Sign Out', Icons.input, (){signOut(context);signOutByEmail(context);})
           ],
         ),
       ),

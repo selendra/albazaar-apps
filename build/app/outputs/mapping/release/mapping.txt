@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 2.0.74
 # min_api: 16
-# pg_map_id: 736cbde
+# pg_map_id: 2244bcd
 # common_typos_disable
 android.support.v4.media.MediaBrowserCompat$CustomActionCallback -> android.support.v4.media.a:
     void onError(java.lang.String,android.os.Bundle,android.os.Bundle) -> a
@@ -22798,6 +22798,24 @@ io.flutter.plugins.googlesignin.GoogleSignInWrapper -> io.flutter.plugins.b.d:
     com.google.android.gms.auth.api.signin.GoogleSignInAccount getLastSignedInAccount(android.content.Context) -> a
     boolean hasPermissions(com.google.android.gms.auth.api.signin.GoogleSignInAccount,com.google.android.gms.common.api.Scope) -> b
     void requestPermissions(android.app.Activity,int,com.google.android.gms.auth.api.signin.GoogleSignInAccount,com.google.android.gms.common.api.Scope[]) -> c
+io.flutter.plugins.sharedpreferences.MethodCallHandlerImpl -> io.flutter.plugins.c.a:
+    android.content.SharedPreferences preferences -> a
+    void onMethodCall(io.flutter.plugin.common.MethodCall,io.flutter.plugin.common.MethodChannel$Result) -> a
+    void commitAsync(android.content.SharedPreferences$Editor,io.flutter.plugin.common.MethodChannel$Result) -> b
+    java.util.List decodeList(java.lang.String) -> c
+    java.lang.String encodeList(java.util.List) -> d
+    java.util.Map getAllPrefs() -> e
+io.flutter.plugins.sharedpreferences.MethodCallHandlerImpl$1 -> io.flutter.plugins.c.a$a:
+    android.content.SharedPreferences$Editor val$editor -> a
+    io.flutter.plugin.common.MethodChannel$Result val$result -> b
+    java.lang.Boolean doInBackground(java.lang.Void[]) -> a
+    void onPostExecute(java.lang.Boolean) -> b
+io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin -> io.flutter.plugins.c.b:
+    io.flutter.plugin.common.MethodChannel channel -> a
+    void setupChannel(io.flutter.plugin.common.BinaryMessenger,android.content.Context) -> a
+    void teardownChannel() -> b
+    void onAttachedToEngine(io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterPluginBinding) -> c
+    void onDetachedFromEngine(io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterPluginBinding) -> h
 io.flutter.util.PathUtils -> d.a.c.a:
     java.lang.String getCacheDirectory(android.content.Context) -> a
     java.lang.String getFilesDir(android.content.Context) -> b

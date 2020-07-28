@@ -7,15 +7,15 @@ class Wallet {
 }
 List<Wallet> wallets = [
   Wallet(
-      'Ethereum',
-      '000000'
+      'Selendra (SEL)',
+      '0.00'
   ),
   Wallet(
       'Maker Dai',
       '0.00'
   ),
   Wallet(
-      'Selendra Token',
-      '0'
+      'Ethereum',
+      '000000'
   )
 ];

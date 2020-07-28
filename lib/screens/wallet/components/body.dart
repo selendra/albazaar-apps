@@ -17,12 +17,48 @@ class _BodyState extends State<Body> {
       child: Container(
         margin: EdgeInsets.only(top:10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            _total(),
+            SizedBox(height: 16,),
             _buildWallet(),
             SizedBox(height: 16,),
             _btnAdd(),
           ],
         )
+      ),
+    );
+  }
+  Widget _total(){
+    return Container(
+      margin: EdgeInsets.all(30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(children: <Widget>[
+            Text('Total: ',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25),),  
+            SizedBox(height: 5,),
+            Text('000000',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),), 
+          ],),
+          Container(
+            width: 100,
+            height: 40,
+            child: RaisedButton(
+              onPressed: (){},
+              child: Text(
+                'Withdrawal',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12
+                )   
+              ),
+              color: kDefualtColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0))
+              ),
+            ),
+          ),          
+        ],
       ),
     );
   }

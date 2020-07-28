@@ -24,7 +24,7 @@ class _SalesScreenState extends State<SalesScreen> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseAppBar.getTitle('Sales', context, 'Pending', 'Complete', 'All', _controller),
+      appBar: ReuseAppBar.getTitle('Sales', context, 'All', 'Complete', 'Pending', _controller),
       body: Body(_controller),
     );
   }

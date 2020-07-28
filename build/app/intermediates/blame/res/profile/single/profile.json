@@ -1,7 +1,27 @@
 [
     {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-mdpi_logo.png.flat",
+        "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-mdpi/logo.png"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-xxxhdpi_logo.png.flat",
+        "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-xxxhdpi/logo.png"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-hdpi_logo.png.flat",
+        "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-hdpi/logo.png"
+    },
+    {
         "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-xhdpi_ic_launcher.png.flat",
         "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-xhdpi_logo.png.flat",
+        "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-xhdpi/logo.png"
+    },
+    {
+        "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/mipmap-xxhdpi_logo.png.flat",
+        "source": "/home/chay/selendra-marketplace-mobile/android/app/src/main/res/mipmap-xxhdpi/logo.png"
     },
     {
         "merged": "/home/chay/selendra-marketplace-mobile/build/app/intermediates/res/merged/profile/drawable_launch_background.xml.flat",

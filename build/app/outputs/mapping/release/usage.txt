@@ -109,6 +109,7 @@ androidx.viewpager.R$integer
 com.google.firebase.firestore.core.FirestoreClient$$Lambda$3
 com.google.android.gms.internal.firebase_auth.zzp$zzq
 com.google.firebase.firestore.local.LocalStore$$Lambda$4
+com.google.common.util.concurrent.ExecutionSequencer$RunningState
 androidx.media.AudioAttributesImplBase:
     void <init>(int,int,int,int)
     public static androidx.media.AudioAttributesImpl fromBundle(android.os.Bundle)
@@ -116,13 +117,13 @@ androidx.media.AudioAttributesImplBase:
     public int getVolumeControlStream()
     public int getRawLegacyStreamType()
     public android.os.Bundle toBundle()
-com.google.common.util.concurrent.ExecutionSequencer$RunningState
 com.google.common.collect.AbstractMapBasedMultimap$RandomAccessWrappedList
 com.google.common.reflect.Reflection
 kotlin.collections.ArraysKt___ArraysJvmKt
 io.grpc.internal.TransportFrameUtil
 com.google.firebase.firestore.R$integer
 com.facebook.share.internal.LikeActionController$GetOGObjectLikesRequestWrapper
+io.flutter.plugins.sharedpreferences.R$style
 com.google.api.LogDescriptor$1
 io.opencensus.tags.NoopTags$1
 com.google.android.gms.common.api.internal.TaskApiCall:
@@ -414,11 +415,11 @@ androidx.fragment.app.FragmentStatePagerAdapter
 okio.Options
 com.google.android.gms.internal.firebase_auth.zzjw
 com.google.protobuf.UnknownFieldSetLite
-androidx.annotation.InspectableProperty$FlagEntry
 com.google.common.io.BaseEncoding$4
+androidx.annotation.InspectableProperty$FlagEntry
 com.google.common.util.concurrent.AggregateFuture
-android.support.v4.media.session.MediaSessionCompat$MediaSessionImplApi21$ExtraSession
 com.google.common.html.HtmlEscapers
+android.support.v4.media.session.MediaSessionCompat$MediaSessionImplApi21$ExtraSession
 androidx.legacy.v4.R$color
 io.grpc.stub.ServerCalls$StreamingServerCallHandler$StreamingServerCallListener
 io.grpc.Metadata$AsciiKey:
@@ -446,9 +447,9 @@ com.google.android.gms.auth.api.credentials.CredentialPickerConfig$Prompt
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat$RangeInfoCompat
 com.google.api.ControlOrBuilder
 com.google.android.gms.common.internal.ISignInButtonCreator
+com.google.common.cache.RemovalCause$2
 androidx.core.widget.TextViewCompat$OreoCallback:
     private static final int MENU_ITEM_ORDER_PROCESS_TEXT_INTENT_ACTIONS_START
-com.google.common.cache.RemovalCause$2
 com.google.common.collect.TreeMultiset$Reference
 com.google.firebase.auth.api.internal.zzbv
 com.google.common.base.CharMatcher$JavaLetter
@@ -577,9 +578,9 @@ androidx.collection.SparseArrayCompat:
     public boolean containsValue(java.lang.Object)
 com.google.common.collect.LinkedHashMultiset
 com.google.android.gms.internal.firebase_auth.zzgm
+com.google.common.collect.SortedLists
 androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments:
     public float getProgress()
-com.google.common.collect.SortedLists
 io.grpc.HttpConnectProxiedSocketAddress
 kotlin.sequences.SequencesKt___SequencesKt$minus$1$iterator$1
 com.google.firestore.v1.TargetChange$TargetChangeType
@@ -941,8 +942,8 @@ androidx.vectordrawable.R$dimen
 io.grpc.internal.ReadableBuffers$BufferInputStream
 androidx.annotation.RawRes
 androidx.fragment.R$dimen
-io.grpc.util.RoundRobinLoadBalancer$RoundRobinPicker
 io.grpc.internal.ManagedChannelImpl$LbHelperImpl$1LoadBalancerRefreshNameResolution
+io.grpc.util.RoundRobinLoadBalancer$RoundRobinPicker
 androidx.core.util.Consumer
 androidx.lifecycle.Lifecycling:
     static androidx.lifecycle.GenericLifecycleObserver getCallback(java.lang.Object)
@@ -969,8 +970,8 @@ androidx.appcompat.graphics.drawable.StateListDrawable:
     void clearMutated()
     private static final java.lang.String TAG
     private static final boolean DEBUG
-androidx.vectordrawable.graphics.drawable.Animatable2Compat$AnimationCallback$1
 com.google.common.collect.ImmutableSortedSet$SerializedForm
+androidx.vectordrawable.graphics.drawable.Animatable2Compat$AnimationCallback$1
 bolts.AndroidExecutors$UIThreadExecutor
 com.facebook.appevents.internal.SourceApplicationInfo$1
 androidx.core.app.NotificationCompat$BigPictureStyle
@@ -1028,8 +1029,8 @@ com.google.common.util.concurrent.ServiceManager$EmptyServiceManagerWarning
 com.google.zxing.pdf417.encoder.BarcodeRow:
     void set(int,byte)
 com.google.firestore.v1.TransactionOptions$ReadWrite
-androidx.annotation.RestrictTo$Scope
 com.google.common.util.concurrent.CycleDetectingLockFactory
+androidx.annotation.RestrictTo$Scope
 com.google.zxing.aztec.encoder.AztecCode:
     public boolean isCompact()
     public int getSize()
@@ -1108,8 +1109,8 @@ com.google.api.UsageOrBuilder
 com.google.common.collect.EvictingQueue
 com.google.firebase.firestore.util.AsyncQueue$TimerId
 io.opencensus.metrics.LabelKey
-androidx.core.app.JobIntentService
 com.google.common.collect.ImmutableAsList
+androidx.core.app.JobIntentService
 com.google.common.collect.LexicographicalOrdering
 com.google.zxing.qrcode.decoder.BitMatrixParser
 androidx.appcompat.widget.ActivityChooserView$1
@@ -1221,6 +1222,7 @@ androidx.appcompat.widget.LinearLayoutCompat:
     private static final int INDEX_FILL
 android.support.v4.media.session.MediaControllerCompat$MediaControllerExtraData
 com.google.firebase.firestore.local.LruGarbageCollector$Scheduler
+com.google.common.util.concurrent.ThreadFactoryBuilder
 androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat:
     public static androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat create(android.content.Context,int,android.content.res.Resources$Theme)
     public void addState(int[],android.graphics.drawable.Drawable,int)
@@ -1234,7 +1236,6 @@ androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat:
     private static final java.lang.String TRANSITION_MISSING_DRAWABLE_ERROR
     private static final java.lang.String TRANSITION_MISSING_FROM_TO_ID
     private static final java.lang.String ITEM_MISSING_DRAWABLE_ERROR
-com.google.common.util.concurrent.ThreadFactoryBuilder
 kotlin.collections.AbstractMutableCollection
 com.google.firebase.firestore.local.SQLiteSchema
 com.google.common.hash.AbstractHashFunction
@@ -1281,9 +1282,9 @@ com.google.firebase.iid.internal.FirebaseInstanceIdInternal:
 com.google.common.util.concurrent.Service$State$2
 com.google.firebase.firestore.local.SQLiteSchema$$Lambda$5
 com.google.common.collect.Multimaps$AsMap$EntrySet$1
-androidx.viewpager.widget.PagerTabStrip
 com.google.common.collect.AbstractMapEntry
 com.google.common.primitives.package-info
+androidx.viewpager.widget.PagerTabStrip
 com.google.firebase.firestore.proto.WriteBatch
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplBase$6
 com.squareup.okhttp.internal.framed.FramedStream$FramedDataSink
@@ -1587,8 +1588,8 @@ androidx.slidingpanelayout.R$attr
 io.grpc.internal.Http2ClientStreamTransportState
 com.google.android.gms.internal.firebase_auth.zzjg
 com.google.common.reflect.Types$ClassOwnership$2
-androidx.annotation.ArrayRes
 com.google.common.util.concurrent.Callables$1
+androidx.annotation.ArrayRes
 com.google.android.gms.measurement.internal.zzir:
     protected final void zza(java.util.concurrent.atomic.AtomicReference,boolean)
 androidx.core.content.MimeTypeFilter
@@ -1610,8 +1611,8 @@ com.google.gson.stream.JsonWriter:
     public com.google.gson.stream.JsonWriter value(double)
 kotlin.collections.UArraySortingKt
 kotlin.Experimental$Level
-androidx.core.text.PrecomputedTextCompat$PrecomputedTextFutureTask$PrecomputedTextCallback
 com.google.common.collect.ForwardingNavigableSet$StandardDescendingSet
+androidx.core.text.PrecomputedTextCompat$PrecomputedTextFutureTask$PrecomputedTextCallback
 com.google.android.gms.auth.api.credentials.zzc
 com.google.protobuf.Value$1
 com.google.common.collect.AbstractSortedMultiset
@@ -1792,9 +1793,9 @@ com.google.firebase.auth.ActionCodeSettings$Builder:
     public com.google.firebase.auth.ActionCodeSettings$Builder setDynamicLinkDomain(java.lang.String)
 com.google.android.gms.internal.firebase_auth.zzgn
 com.google.firebase.firestore.DocumentChange
+com.google.common.collect.MultimapBuilder$MultimapBuilderWithKeys$2
 android.support.v4.media.session.MediaSessionCompat$ResultReceiverWrapper:
     public void <init>(android.os.ResultReceiver)
-com.google.common.collect.MultimapBuilder$MultimapBuilderWithKeys$2
 androidx.core.util.Pools
 androidx.annotation.MenuRes
 com.google.zxing.common.PerspectiveTransform
@@ -1829,9 +1830,9 @@ kotlin.coroutines.jvm.internal.DebugMetadata
 com.facebook.share.internal.CameraEffectFeature
 com.google.common.collect.TreeRangeMap$SubRangeMap$SubRangeMapAsMap$3
 com.google.android.gms.common.internal.ResourceUtils
-com.google.android.gms.common.images.ImageManager$OnImageLoadedListener
-io.grpc.internal.SerializingExecutor$FieldUpdaterAtomicHelper
 io.grpc.internal.KeepAliveManager$State
+io.grpc.internal.SerializingExecutor$FieldUpdaterAtomicHelper
+com.google.android.gms.common.images.ImageManager$OnImageLoadedListener
 androidx.core.graphics.drawable.RoundedBitmapDrawableFactory$DefaultRoundedBitmapDrawable
 kotlin.InitializedLazyImpl
 com.google.firebase.firestore.local.RemoteDocumentCache
@@ -1991,9 +1992,9 @@ com.google.errorprone.annotations.concurrent.LockMethod
 io.grpc.internal.RetriableStream$1MaxOutboundMessageSizeEntry
 io.grpc.internal.CensusStatsModule$ClientCallTracer
 androidx.core.app.JobIntentService$JobWorkEnqueuer
+com.google.common.collect.AbstractMapBasedMultimap$WrappedList$WrappedListIterator
 androidx.lifecycle.LifecycleRegistry:
     public int getObserverCount()
-com.google.common.collect.AbstractMapBasedMultimap$WrappedList$WrappedListIterator
 com.google.zxing.pdf417.decoder.PDF417CodewordDecoder
 com.google.common.util.concurrent.Uninterruptibles:
     public static void awaitUninterruptibly(java.util.concurrent.CountDownLatch)
@@ -2075,9 +2076,9 @@ com.google.common.util.concurrent.Service$State$1
 kotlin.jvm.internal.ArrayIterator
 com.facebook.internal.FileLruCache$StreamHeader
 io.opencensus.trace.samplers.AutoValue_ProbabilitySampler
-android.support.v4.media.MediaBrowserCompat$MediaBrowserImplBase$5
 com.google.common.base.Splitter
 com.google.common.collect.Ordering$ArbitraryOrdering
+android.support.v4.media.MediaBrowserCompat$MediaBrowserImplBase$5
 com.google.zxing.qrcode.decoder.DataMask$7
 kotlin.io.CloseableKt
 com.google.protobuf.Option$1
@@ -2177,10 +2178,10 @@ io.grpc.InternalServerInterceptors
 android.support.customtabs.ICustomTabsCallback
 androidx.versionedparcelable.VersionedParcelStream$1
 com.google.firebase.auth.internal.zzax
+com.google.android.gms.internal.auth-api-phone.zzk
 com.facebook.internal.InstallReferrerUtil:
     private void <init>()
     private static final java.lang.String IS_REFERRER_UPDATED
-com.google.android.gms.internal.auth-api-phone.zzk
 androidx.loader.content.AsyncTaskLoader$LoadTask:
     public void waitForLoader()
 androidx.core.os.LocaleListCompatWrapper
@@ -2243,8 +2244,8 @@ com.google.android.gms.common.internal.service.Common:
     public void <init>()
 com.google.common.cache.RemovalCause
 com.facebook.internal.Mutable
-androidx.core.os.BuildCompat
 com.google.common.collect.EnumHashBiMap
+androidx.core.os.BuildCompat
 com.google.zxing.oned.EAN8Writer:
     private static final int CODE_WIDTH
 com.google.zxing.Writer:
@@ -2280,8 +2281,8 @@ com.facebook.internal.FacebookSignatureValidator:
     private static final java.lang.String MSR_HASH
     private static final java.lang.String FBF_HASH
 com.google.android.gms.security.ProviderInstaller$ProviderInstallListener
-androidx.browser.customtabs.CustomTabsSessionToken
 com.google.common.hash.HashingInputStream
+androidx.browser.customtabs.CustomTabsSessionToken
 com.google.common.collect.TransformedListIterator
 com.google.common.collect.ImmutableMultisetGwtSerializationDependencies
 com.google.protobuf.MutabilityOracle
@@ -2356,8 +2357,8 @@ com.google.api.Distribution$BucketOptions$Linear$Builder
 kotlin.time.TestClock
 com.google.common.collect.MultimapBuilder$EnumSetSupplier
 com.google.firestore.v1.TargetChangeOrBuilder
-androidx.drawerlayout.widget.DrawerLayout$SavedState
 com.google.common.collect.AbstractBiMap$Inverse
+androidx.drawerlayout.widget.DrawerLayout$SavedState
 io.opencensus.stats.ViewData$AggregationWindowData$CumulativeData
 com.google.android.gms.auth.api.signin.internal.GoogleSignInOptionsExtensionParcelable:
     public void <init>(com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension)
@@ -2382,6 +2383,7 @@ com.google.common.reflect.ClassPath
 com.google.type.DayOfWeekProto
 com.google.firebase.firestore.local.IndexCursor
 com.google.android.gms.internal.common.zzg
+com.google.common.primitives.Longs$LongArrayAsList
 androidx.core.app.ActivityCompat:
     protected void <init>()
     public static void setPermissionCompatDelegate(androidx.core.app.ActivityCompat$PermissionCompatDelegate)
@@ -2399,7 +2401,6 @@ androidx.core.app.ActivityCompat:
     public static boolean shouldShowRequestPermissionRationale(android.app.Activity,java.lang.String)
     public static androidx.core.view.DragAndDropPermissionsCompat requestDragAndDropPermissions(android.app.Activity,android.view.DragEvent)
     public static void recreate(android.app.Activity)
-com.google.common.primitives.Longs$LongArrayAsList
 kotlin.coroutines.CoroutineContext
 com.google.firebase.database.collection.LLRBRedValueNode
 io.grpc.internal.TransportTracer$1
@@ -2412,8 +2413,8 @@ com.facebook.internal.BundleJSONConverter$1:
 com.google.firebase.firestore.GeoPoint
 io.grpc.internal.RetriableStream$Substream
 com.google.protobuf.DescriptorProtos$MethodOptions$Builder
-androidx.annotation.WorkerThread
 com.google.common.graph.GraphBuilder
+androidx.annotation.WorkerThread
 com.google.common.collect.AbstractMapBasedMultimap$SortedAsMap
 com.facebook.share.model.ShareMessengerURLActionButton$WebviewHeightRatio
 io.grpc.Metadata$1:
@@ -2514,9 +2515,9 @@ androidx.appcompat.widget.LinearLayoutCompat$OrientationMode
 com.google.common.base.CommonPattern
 com.google.android.gms.internal.firebase_auth.zzkx
 com.google.common.collect.StandardRowSortedTable$1
+io.grpc.ServerServiceDefinition$Builder
 androidx.appcompat.view.menu.SubMenuWrapperICS:
     public synthetic bridge java.lang.Object getWrappedObject()
-io.grpc.ServerServiceDefinition$Builder
 com.facebook.internal.FileLruCache$CloseCallbackOutputStream
 kotlin.coroutines.experimental.SequenceBuilderIterator
 com.google.firebase.firestore.remote.RemoteStore$RemoteStoreCallback
@@ -2552,8 +2553,8 @@ com.google.firebase.provider.FirebaseInitProvider:
     static final java.lang.String EMPTY_APPLICATION_ID_PROVIDER_AUTHORITY
 com.google.common.collect.FluentIterable
 com.google.common.collect.NullsFirstOrdering
-android.support.v4.media.session.MediaControllerCompatApi23$TransportControls
 com.google.common.collect.Sets$5$1$1
+android.support.v4.media.session.MediaControllerCompatApi23$TransportControls
 com.google.common.collect.AbstractMultimap$EntrySet
 com.google.android.gms.internal.firebase_auth.zzlj
 com.google.protobuf.DescriptorProtos$DescriptorProto
@@ -2569,8 +2570,8 @@ kotlin.ranges.UIntProgressionIterator
 com.google.firebase.firestore.local.SQLiteSchema$$Lambda$6
 com.google.firestore.v1.BeginTransactionResponse$1
 com.facebook.share.internal.LikeDialog$NativeHandler$1
-androidx.media.AudioAttributesCompat$AudioManagerHidden
 com.google.common.collect.RegularImmutableMap
+androidx.media.AudioAttributesCompat$AudioManagerHidden
 com.google.android.gms.common.api.internal.zaq:
     public final com.google.android.gms.common.ConnectionResult getConnectionResult(com.google.android.gms.common.api.Api)
     public final com.google.android.gms.common.ConnectionResult blockingConnect(long,java.util.concurrent.TimeUnit)
@@ -2587,8 +2588,8 @@ com.google.api.AuthenticationRule$Builder
 com.google.common.collect.Sets$2$1
 kotlin.jvm.internal.TypeReference$WhenMappings
 com.google.zxing.aztec.detector.Detector
-androidx.media.MediaBrowserServiceCompat$ServiceBinderImpl$4
 com.google.common.cache.CacheBuilderSpec$MaximumWeightParser
+androidx.media.MediaBrowserServiceCompat$ServiceBinderImpl$4
 com.google.firebase.firestore.proto.Target
 com.google.android.gms.internal.firebase_auth.zzz
 androidx.legacy.coreutils.R$color
@@ -2630,8 +2631,8 @@ com.google.android.gms.common.GoogleApiAvailabilityLight:
     static final java.lang.String TRACKING_SOURCE_NOTIFICATION
 kotlin.sequences.SequencesKt___SequencesKt$minus$2
 okio.DeflaterSink
-android.support.v4.media.session.MediaSessionCompatApi23
 io.grpc.MethodDescriptor$PrototypeMarshaller
+android.support.v4.media.session.MediaSessionCompatApi23
 io.grpc.PersistentHashArrayMappedTrie$CompressedIndex
 com.google.protobuf.GeneratedMessageLite$EqualsVisitor$NotEqualsException
 com.google.common.util.concurrent.ExecutionSequencer$3
@@ -2954,8 +2955,8 @@ com.google.android.gms.tasks.TaskExecutors:
 com.google.firestore.v1.Document$FieldsDefaultEntryHolder
 com.google.firestore.v1.WriteResult
 com.squareup.okhttp.internal.http.HttpEngine$2
-androidx.slidingpanelayout.widget.SlidingPaneLayout$PanelSlideListener
 com.google.common.graph.DirectedGraphConnections$1
+androidx.slidingpanelayout.widget.SlidingPaneLayout$PanelSlideListener
 com.google.common.cache.RemovalListeners$1$1
 kotlin.text.TypeAliasesKt
 com.google.zxing.multi.qrcode.detector.MultiFinderPatternFinder$ModuleSizeComparator
@@ -3214,8 +3215,8 @@ com.google.api.Distribution$BucketOptions$Exponential$Builder
 com.google.common.primitives.UnsignedBytes$LexicographicalComparatorHolder$UnsafeComparator
 com.google.android.gms.internal.firebase_auth.zzp$zzc
 kotlin.io.ExceptionsKt
-com.google.android.gms.auth.account.zzd
 com.google.android.gms.common.internal.ClientIdentity
+com.google.android.gms.auth.account.zzd
 com.google.firebase.firestore.util.AsyncQueue$$Lambda$4
 io.opencensus.trace.config.TraceConfig$NoopTraceConfig
 io.grpc.ManagedChannelProvider$ProviderNotFoundException
@@ -3257,8 +3258,8 @@ com.google.protobuf.DescriptorProtos$GeneratedCodeInfo$AnnotationOrBuilder
 com.google.common.collect.Iterators$6
 com.google.common.util.concurrent.Runnables$1
 kotlin.jvm.functions.Function22
-android.support.v4.media.MediaBrowserCompatApi26$SubscriptionCallbackProxy
 com.google.common.io.MultiInputStream
+android.support.v4.media.MediaBrowserCompatApi26$SubscriptionCallbackProxy
 io.grpc.PersistentHashArrayMappedTrie$CollisionLeaf
 androidx.annotation.FloatRange
 androidx.appcompat.graphics.drawable.DrawerArrowDrawable$ArrowDirection
@@ -3431,8 +3432,8 @@ kotlin.jvm.functions.Function1
 io.grpc.android.BuildConfig
 com.google.common.collect.Interners$InternerImpl
 io.grpc.internal.ProxyDetectorImpl
-androidx.appcompat.app.AlertController$1
 com.google.common.collect.Maps$FilteredEntryMap$EntrySet$1
+androidx.appcompat.app.AlertController$1
 com.google.common.collect.Cut$AboveAll
 kotlin.jvm.internal.FloatCompanionObject
 androidx.core.view.ViewPropertyAnimatorListenerAdapter
@@ -3591,8 +3592,8 @@ androidx.slidingpanelayout.widget.SlidingPaneLayout$AccessibilityDelegate
 com.google.android.gms.measurement.AppMeasurementContentProvider
 kotlin.collections.MutableMapWithDefaultImpl
 com.google.firebase.firestore.model.DatabaseId
-androidx.core.view.ViewPropertyAnimatorCompat$2
 com.google.common.collect.TreeBasedTable$TreeRow
+androidx.core.view.ViewPropertyAnimatorCompat$2
 androidx.appcompat.R$attr:
     private void <init>()
 kotlin.collections.AbstractIterator
@@ -3668,8 +3669,8 @@ androidx.multidex.R
 com.google.android.gms.auth.zzb
 com.google.zxing.pdf417.decoder.BarcodeMetadata
 com.google.android.gms.internal.firebase_auth.zzky
-androidx.core.os.ParcelableCompat$ParcelableCompatCreatorHoneycombMR2
 com.google.common.io.Files
+androidx.core.os.ParcelableCompat$ParcelableCompatCreatorHoneycombMR2
 com.google.firestore.v1.CommitResponse$Builder
 com.google.common.hash.Crc32cHashFunction
 com.google.android.gms.common.api.internal.ListenerHolder$ListenerKey:
@@ -3684,11 +3685,11 @@ com.facebook.internal.BundleJSONConverter:
 com.google.firebase.firestore.core.IndexRange$Builder
 kotlin.sequences.SequencesKt___SequencesKt$minus$1
 com.google.android.gms.common.images.zaa
-androidx.media.MediaBrowserServiceCompatApi26
 com.google.common.util.concurrent.ExecutionSequencer$4
+androidx.media.MediaBrowserServiceCompatApi26
 io.grpc.internal.ServiceConfigInterceptor$1DelayedHedgingPolicyProvider
-android.support.v4.media.session.MediaSessionCompatApi22
 com.google.common.collect.LinkedListMultimap$KeyList
+android.support.v4.media.session.MediaSessionCompatApi22
 com.google.android.gms.auth.api.signin.GoogleSignInResult:
     public boolean isSuccess()
 androidx.browser.customtabs.CustomTabsSessionToken$1
@@ -3775,6 +3776,7 @@ com.google.android.gms.internal.auth-api.zzf
 io.grpc.LoadBalancer$ResolvedAddresses$Builder
 kotlin.sequences.FlatteningSequence$iterator$1
 kotlin.collections.ArraysKt___ArraysJvmKt$asList$3
+io.flutter.plugins.sharedpreferences.R$dimen
 com.google.common.primitives.UnsignedBytes$LexicographicalComparatorHolder$PureJavaComparator
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$thenBy$1
 com.google.firebase.firestore.remote.RemoteSerializer$1
@@ -3782,16 +3784,16 @@ okio.ForwardingTimeout
 io.grpc.okhttp.internal.framed.FrameReader
 io.opencensus.metrics.export.AutoValue_Summary
 io.grpc.internal.DelayedStream$14
-androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
 com.google.common.eventbus.Dispatcher$LegacyAsyncDispatcher$EventWithSubscriber
+androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
 com.google.firebase.auth.UserProfileChangeRequest:
     public final java.lang.String zza()
     public android.net.Uri getPhotoUri()
     public final boolean zzb()
     public final boolean zzc()
 com.facebook.internal.FileLruCache$BufferFile$2
-androidx.print.PrintHelper$PrintUriAdapter
 com.google.common.hash.Funnels$SequentialFunnel
+androidx.print.PrintHelper$PrintUriAdapter
 com.google.firebase.firestore.remote.AbstractStream$StreamObserver
 io.grpc.internal.GzipInflatingBuffer$State
 com.google.android.gms.common.api.internal.ActivityLifecycleObserver
@@ -3805,6 +3807,7 @@ com.google.android.gms.internal.firebase_auth.zzp$zzl$zza
 com.google.type.Date$1
 com.google.common.cache.RemovalCause$3
 io.grpc.okhttp.ExceptionHandlingFrameWriter
+io.flutter.plugins.sharedpreferences.R
 android.support.v4.media.MediaBrowserCompat$ItemCallback:
     public void <init>()
     final java.lang.Object mItemCallbackObj
@@ -3891,6 +3894,7 @@ kotlin.comparisons.ComparisonsKt__ComparisonsKt$nullsFirst$1
 com.facebook.share.widget.CreateAppGroupDialog
 com.google.common.hash.MessageDigestHashFunction$MessageDigestHasher
 com.facebook.messenger.MessengerUtils
+com.google.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleAsyncTask
 androidx.core.graphics.drawable.IconCompat:
     public static androidx.core.graphics.drawable.IconCompat createWithResource(android.content.Context,int)
     public static androidx.core.graphics.drawable.IconCompat createWithResource(android.content.res.Resources,java.lang.String,int)
@@ -3934,7 +3938,6 @@ androidx.core.graphics.drawable.IconCompat:
     private static final java.lang.String EXTRA_INT2
     private static final java.lang.String EXTRA_TINT_LIST
     private static final java.lang.String EXTRA_TINT_MODE
-com.google.common.util.concurrent.TrustedListenableFutureTask$TrustedFutureInterruptibleAsyncTask
 androidx.legacy.v4.R$drawable
 io.grpc.internal.ManagedChannelImpl$1ChannelCallTracerFactory
 androidx.core.content.res.GradientColorInflaterCompat:
@@ -4098,9 +4101,10 @@ com.google.firebase.firestore.local.LocalStore$$Lambda$1
 android.support.v4.media.session.MediaControllerCompat$MediaControllerImplApi23
 com.google.firebase.firestore.local.SQLitePersistence$$Lambda$1
 androidx.core.text.TextDirectionHeuristicCompat
+com.google.common.hash.LittleEndianByteArray$UnsafeByteArray
 androidx.media.MediaBrowserServiceCompat$BrowserRoot
 androidx.customview.widget.ExploreByTouchHelper$1
-com.google.common.hash.LittleEndianByteArray$UnsafeByteArray
+io.grpc.stub.MetadataUtils$HeaderAttachingClientInterceptor
 androidx.core.app.SharedElementCallback:
     public void <init>()
     private static android.graphics.Bitmap createDrawableBitmap(android.graphics.drawable.Drawable)
@@ -4114,7 +4118,6 @@ androidx.core.app.SharedElementCallback:
     private static final java.lang.String BUNDLE_SNAPSHOT_IMAGE_SCALETYPE
     private static final java.lang.String BUNDLE_SNAPSHOT_IMAGE_MATRIX
 androidx.core.graphics.drawable.IconCompat$IconType
-io.grpc.stub.MetadataUtils$HeaderAttachingClientInterceptor
 com.google.firebase.firestore.util.ExponentialBackoff$$Lambda$1
 io.grpc.internal.IoUtils
 com.google.protobuf.DescriptorProtos$FileOptions$OptimizeMode
@@ -4352,11 +4355,11 @@ com.google.common.collect.Iterators$4
 com.google.rpc.DebugInfo$Builder
 io.grpc.ServerInterceptors$2
 com.google.android.gms.common.internal.SignInButtonConfig
-androidx.appcompat.app.AlertController$ButtonHandler
 com.google.common.graph.MapRetrievalCache$CacheEntry
+androidx.appcompat.app.AlertController$ButtonHandler
 com.squareup.okhttp.Cache
-com.google.gson.internal.LinkedHashTreeMap$LinkedTreeMapIterator
 com.google.android.gms.internal.auth-api.zzp
+com.google.gson.internal.LinkedHashTreeMap$LinkedTreeMapIterator
 com.google.common.cache.LocalCache$EntryFactory$3
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$thenDescending$1
 com.google.firebase.auth.api.internal.zzbz
@@ -4408,6 +4411,7 @@ com.google.android.gms.common.GoogleApiAvailability:
     public static final java.lang.String GOOGLE_PLAY_SERVICES_PACKAGE
 io.grpc.internal.RetriableStream$1SendMessageEntry
 com.google.longrunning.ListOperationsResponse$Builder
+com.google.common.util.concurrent.Callables$4
 androidx.core.widget.TextViewCompat:
     private void <init>()
     private static java.lang.reflect.Field retrieveField(java.lang.String)
@@ -4444,7 +4448,6 @@ androidx.core.widget.TextViewCompat:
     private static java.lang.reflect.Field sMinModeField
     private static boolean sMinModeFieldFetched
     private static final int LINES
-com.google.common.util.concurrent.Callables$4
 com.android.installreferrer.api.InstallReferrerClientImpl$ClientState
 com.facebook.common.R
 com.google.common.collect.ArrayTable$1
@@ -4634,13 +4637,13 @@ androidx.appcompat.widget.AppCompatImageHelper:
     void setInternalImageTint(android.content.res.ColorStateList)
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineFromSuspendFunction$1
 com.facebook.share.internal.LikeActionController$7$1
-com.google.gson.internal.LinkedHashTreeMap$KeySet$1
 com.google.common.cache.CacheLoader$1$1
+com.google.gson.internal.LinkedHashTreeMap$KeySet$1
 androidx.cardview.R$attr:
     private void <init>()
 com.google.common.io.FileBackedOutputStream
-android.support.v4.media.session.MediaSessionCompatApi21
 com.google.common.io.LineProcessor
+android.support.v4.media.session.MediaSessionCompatApi21
 com.google.android.gms.internal.firebase_auth.zzgr
 com.google.android.gms.auth.api.accounttransfer.DeviceMetaData
 com.google.common.util.concurrent.Striped$4
@@ -4849,8 +4852,8 @@ android.support.v4.media.session.MediaControllerCompat$MediaControllerImplBase
 io.opencensus.stats.StatsCollectionState
 io.opencensus.trace.AttributeValue$AttributeValueDouble
 com.google.firebase.database.collection.package-info
-androidx.annotation.RequiresPermission
 com.google.common.math.Quantiles$Scale
+androidx.annotation.RequiresPermission
 com.google.android.gms.internal.auth.zzt
 androidx.core.widget.NestedScrollView:
     public void <init>(android.content.Context)
@@ -4980,9 +4983,9 @@ com.google.firestore.v1.GetDocumentRequest$1
 com.google.common.graph.Graphs$NodeVisitState
 kotlin.io.SerializableKt
 androidx.core.view.ViewCompat$ScrollIndicators
+com.google.common.cache.RemovalListener
 androidx.core.view.NestedScrollingParentHelper:
     public void onStopNestedScroll(android.view.View)
-com.google.common.cache.RemovalListener
 kotlin.jvm.internal.ByteSpreadBuilder
 com.google.protobuf.IntArrayList
 androidx.core.view.accessibility.AccessibilityWindowInfoCompat
@@ -5218,9 +5221,9 @@ com.google.common.base.Joiner$1
 com.google.common.collect.Maps$1
 com.google.common.cache.LocalCache$WeightedStrongValueReference
 com.squareup.okhttp.internal.NamedRunnable
-androidx.browser.browseractions.BrowserActionsIntent$Builder
 com.google.common.base.MoreObjects$1
 com.google.common.util.concurrent.Striped
+androidx.browser.browseractions.BrowserActionsIntent$Builder
 com.google.android.gms.auth.api.credentials.Credential$Builder
 io.grpc.stub.ClientResponseObserver
 com.google.android.gms.measurement.AppMeasurement$Event
@@ -5381,8 +5384,8 @@ com.google.firebase.firestore.remote.ConnectivityMonitor$NetworkStatus
 kotlin.DeprecationLevel
 com.google.firestore.v1.BeginTransactionRequest$1
 io.opencensus.trace.SpanContext
-io.grpc.internal.AbstractManagedChannelImplBuilder$DirectAddressNameResolverFactory$1
 com.google.android.gms.common.util.NumberUtils
+io.grpc.internal.AbstractManagedChannelImplBuilder$DirectAddressNameResolverFactory$1
 com.google.common.collect.MapMakerInternalMap$WeakValueEntry
 com.google.api.Billing
 io.opencensus.trace.TraceOptions$Builder
@@ -5493,14 +5496,15 @@ androidx.appcompat.view.ActionBarPolicy:
 com.google.firebase.auth.api.internal.zzi
 io.flutter.embedding.engine.loader.FlutterLoader$Settings:
     public void setLogTag(java.lang.String)
+io.flutter.plugins.sharedpreferences.BuildConfig
 com.google.android.gms.internal.firebase_auth.zzkn
 com.google.firebase.firestore.core.EventManager$QueryListenersInfo
 android.support.v4.media.MediaBrowserCompatApi21$MediaItem
 com.google.common.collect.StandardTable$Column$EntrySetIterator
 androidx.appcompat.view.menu.MenuItemWrapperJB$ActionProviderWrapperJB:
     public void refreshVisibility()
-androidx.core.app.ShareCompat
 com.google.common.escape.UnicodeEscaper
+androidx.core.app.ShareCompat
 com.facebook.share.internal.LikeActionController$LikeRequestWrapper
 com.google.common.collect.ForwardingNavigableMap
 com.google.firebase.auth.api.internal.zzz
@@ -5616,8 +5620,8 @@ com.google.firebase.installations.remote.FirebaseInstallationServiceClient:
     static final java.lang.String PARSING_EXPIRATION_TIME_ERROR_MESSAGE
 io.grpc.InternalMethodDescriptor
 kotlin.io.TerminateException
-android.support.v4.media.MediaBrowserCompatApi21$SubscriptionCallback
 com.google.common.graph.EndpointPair$Unordered
+android.support.v4.media.MediaBrowserCompatApi21$SubscriptionCallback
 com.google.firebase.firestore.core.KeyFieldFilter
 io.grpc.stub.ServerCalls$StreamingRequestMethod
 okio.ByteString
@@ -5795,9 +5799,9 @@ com.facebook.share.internal.VideoUploader$UploadWorkItemBase
 androidx.appcompat.app.ActionBarDrawerToggle$Delegate
 android.support.v4.media.session.PlaybackStateCompat$CustomAction$Builder
 com.google.protobuf.BoolValueOrBuilder
+com.google.common.cache.LocalCache$WriteQueue
 androidx.appcompat.widget.ButtonBarLayout:
     private static final int PEEK_BUTTON_DP
-com.google.common.cache.LocalCache$WriteQueue
 androidx.appcompat.widget.RtlSpacingHelper:
     public static final int UNDEFINED
 androidx.browser.customtabs.CustomTabsIntent$Builder:
@@ -5849,12 +5853,12 @@ kotlin.sequences.SequencesKt___SequencesKt$minus$2$iterator$1
 io.grpc.okhttp.OkHttpChannelBuilder$NegotiationType
 kotlin.io.FilesKt__FileReadWriteKt$readLines$1
 io.grpc.internal.AutoConfiguredLoadBalancerFactory$PolicySelection
+com.google.common.collect.Iterators$ArrayItr
 androidx.core.view.ActionProvider:
     public android.content.Context getContext()
     public void refreshVisibility()
     public void subUiVisibilityChanged(boolean)
     private static final java.lang.String TAG
-com.google.common.collect.Iterators$ArrayItr
 com.facebook.internal.FileLruCache$2
 com.google.android.gms.internal.firebase_auth.zzu
 kotlin.annotation.Retention
@@ -5977,10 +5981,10 @@ com.facebook.share.Sharer
 com.google.firebase.firestore.model.mutation.MutationBatchResult
 kotlin.LazyKt
 androidx.core.view.accessibility.AccessibilityManagerCompat$TouchExplorationStateChangeListenerWrapper
+com.google.common.cache.RemovalCause$5
 androidx.core.content.res.ColorStateListInflaterCompat:
     private void <init>()
     public static android.content.res.ColorStateList inflate(android.content.res.Resources,int,android.content.res.Resources$Theme)
-com.google.common.cache.RemovalCause$5
 com.google.cloud.audit.AuthenticationInfo$1
 io.grpc.InternalInstrumented
 com.google.common.graph.UndirectedNetworkConnections
@@ -5998,10 +6002,10 @@ io.flutter.plugin.editing.TextInputPlugin:
     android.text.Editable getEditable()
 com.google.common.cache.LocalCache$StrongAccessWriteEntry
 com.google.firestore.v1.ArrayValue$1
-androidx.drawerlayout.widget.DrawerLayout$SimpleDrawerListener
-androidx.core.database.DatabaseUtilsCompat
 com.google.common.util.concurrent.SettableFuture:
     public boolean setFuture(com.google.common.util.concurrent.ListenableFuture)
+androidx.drawerlayout.widget.DrawerLayout$SimpleDrawerListener
+androidx.core.database.DatabaseUtilsCompat
 com.google.common.collect.MapMakerInternalMap$SerializationProxy
 io.flutter.plugins.connectivity.R$integer
 kotlin.collections.ArraysKt___ArraysKt$asSequence$$inlined$Sequence$1
@@ -6036,8 +6040,8 @@ com.google.common.base.Platform:
     private static void logPatternCompilerError(java.util.ServiceConfigurationError)
 com.google.protobuf.BytesValue$Builder
 com.google.protobuf.DoubleValueOrBuilder
-androidx.annotation.AnimRes
 com.google.common.collect.Tables$TransformedTable$3
+androidx.annotation.AnimRes
 kotlin.jvm.internal.Ref$ShortRef
 com.google.firebase.auth.zzc:
     public static com.google.firebase.auth.zzc zza(java.lang.String,java.lang.String,java.lang.String)
@@ -6085,11 +6089,11 @@ com.google.firebase.iid.FirebaseInstanceId:
     public final void zzb(boolean)
 io.grpc.okhttp.AsyncSink$2
 com.google.common.escape.ArrayBasedCharEscaper
+com.google.common.graph.MutableNetwork
 androidx.activity.OnBackPressedDispatcher:
     public void <init>()
     public void addCallback(androidx.activity.OnBackPressedCallback)
     public boolean hasEnabledCallbacks()
-com.google.common.graph.MutableNetwork
 io.opencensus.common.Function
 com.google.common.hash.AbstractNonStreamingHashFunction
 kotlin.ranges.URangesKt
@@ -6255,6 +6259,11 @@ android.support.v4.media.session.IMediaSession$Stub:
     static final int TRANSACTION_setShuffleModeEnabledRemoved
     static final int TRANSACTION_setShuffleMode
     static final int TRANSACTION_sendCustomAction
+io.flutter.plugins.sharedpreferences.MethodCallHandlerImpl:
+    private static final java.lang.String SHARED_PREFERENCES_NAME
+    private static final java.lang.String LIST_IDENTIFIER
+    private static final java.lang.String BIG_INTEGER_PREFIX
+    private static final java.lang.String DOUBLE_PREFIX
 com.google.common.collect.HashBiMap$EntryForValue
 com.google.api.ConfigChange
 androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplBase$3
@@ -6413,8 +6422,8 @@ com.google.common.collect.Maps$EntryFunction$1
 com.google.common.util.concurrent.ListenableScheduledFuture
 com.google.errorprone.annotations.RequiredModifiers
 io.opencensus.stats.NoopStats$NoopViewManager
-androidx.annotation.IntRange
 com.google.common.hash.Murmur3_32HashFunction
+androidx.annotation.IntRange
 com.facebook.share.widget.MessageDialog$NativeHandler
 com.facebook.internal.DialogPresenter
 com.google.errorprone.annotations.RestrictedApi
@@ -6791,8 +6800,8 @@ androidx.core.util.AtomicFile
 androidx.annotation.CallSuper
 androidx.vectordrawable.R$integer
 com.google.common.util.concurrent.AggregateFuture$RunningState$1
-androidx.appcompat.app.AppCompatDelegateImpl$3
 com.google.common.collect.ObjectCountHashMap$MapEntry
+androidx.appcompat.app.AppCompatDelegateImpl$3
 com.google.protobuf.AbstractMessageLite$Builder$LimitedInputStream
 androidx.loader.R$layout
 com.google.android.gms.internal.firebase_auth.zzjy
@@ -6925,6 +6934,7 @@ io.grpc.okhttp.OkHttpProtocolNegotiator
 com.google.common.reflect.Types$ClassOwnership
 com.google.common.base.CaseFormat$1
 com.google.firestore.v1.StructuredQuery
+com.google.common.graph.Traverser$1
 android.support.v4.media.session.MediaSessionCompat$Token:
     void <init>(java.lang.Object,android.support.v4.media.session.IMediaSession)
     public static android.support.v4.media.session.MediaSessionCompat$Token fromToken(java.lang.Object)
@@ -6933,7 +6943,6 @@ android.support.v4.media.session.MediaSessionCompat$Token:
     public java.lang.Object getToken()
     public android.os.Bundle getSessionToken2Bundle()
     public android.os.Bundle toBundle()
-com.google.common.graph.Traverser$1
 com.google.android.gms.internal.firebase_auth.zzp$zzg
 com.facebook.places.internal.BleScannerImpl$1
 io.grpc.NameResolver$1
@@ -6989,8 +6998,8 @@ com.google.common.collect.HashBiMap$ValueSet
 androidx.legacy.app.ActionBarDrawerToggle
 com.google.common.base.JdkPattern$JdkMatcher
 com.google.errorprone.annotations.CheckReturnValue
-com.google.gson.DefaultDateTypeAdapter
 com.google.common.util.concurrent.Futures$FutureCombiner
+com.google.gson.DefaultDateTypeAdapter
 androidx.multidex.MultiDexExtractor
 com.google.api.Distribution$Range
 com.google.android.gms.internal.firebase_auth.zzha
@@ -7007,8 +7016,8 @@ com.google.common.collect.TreeTraverser
 kotlin.TuplesKt
 com.google.common.net.MediaType
 com.google.firestore.v1.StructuredQuery$CompositeFilter$Operator
-androidx.core.view.inputmethod.InputConnectionCompat$2
 com.google.common.collect.GwtTransient
+androidx.core.view.inputmethod.InputConnectionCompat$2
 com.google.firestore.v1.ExistenceFilter$1
 androidx.core.view.accessibility.AccessibilityManagerCompat$AccessibilityStateChangeListenerWrapper
 io.flutter.embedding.engine.systemchannels.LocalizationChannel:
@@ -7041,8 +7050,8 @@ com.google.firebase.auth.api.internal.zzep:
     public abstract void zza(com.google.android.gms.internal.firebase_auth.zzcl,com.google.firebase.auth.api.internal.zzeo)
     public abstract void zza(com.google.android.gms.internal.firebase_auth.zzef,com.google.firebase.auth.api.internal.zzeo)
 kotlin.reflect.KParameter$Kind
-androidx.appcompat.app.ToolbarActionBar$ActionMenuPresenterCallback
 io.grpc.ForwardingClientCallListener$SimpleForwardingClientCallListener
+androidx.appcompat.app.ToolbarActionBar$ActionMenuPresenterCallback
 io.opencensus.trace.Tracestate$Entry
 io.grpc.internal.Http2ClientStreamTransportState$1
 com.facebook.share.internal.ResultProcessor
@@ -7132,6 +7141,7 @@ androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter
 com.google.common.collect.Maps$3
 bolts.WebViewAppLinkResolver$2$2
 io.grpc.ForwardingClientCallListener
+io.flutter.plugins.sharedpreferences.R$drawable
 io.grpc.okhttp.AsyncSink$1
 com.google.firebase.firestore.local.SQLiteSchema$$Lambda$1
 com.google.common.base.Joiner$3
@@ -7154,8 +7164,8 @@ com.google.zxing.oned.rss.DataCharacter
 com.google.firebase.database.collection.R$styleable
 com.facebook.share.widget.MessageDialog$1
 com.google.common.collect.AbstractMapBasedMultiset$2
-androidx.appcompat.app.AppCompatDialog
 com.google.common.collect.ConcurrentHashMultiset$EntrySet
+androidx.appcompat.app.AppCompatDialog
 com.google.android.gms.internal.firebase_auth.zzdf
 io.grpc.perfmark.PerfTag
 io.grpc.okhttp.internal.OptionalMethod
@@ -7196,8 +7206,8 @@ androidx.fragment.app.FragmentActivity:
     static final java.lang.String REQUEST_FRAGMENT_WHO_TAG
     static final int MAX_NUM_PENDING_FRAGMENT_ACTIVITY_RESULTS
 com.google.rpc.RetryInfo
-com.google.firebase.firestore.local.LocalViewChanges
 com.google.firebase.firestore.core.ViewChange
+com.google.firebase.firestore.local.LocalViewChanges
 com.google.common.collect.BoundType
 org.intellij.lang.annotations.JdkConstants$ListSelectionMode
 com.google.common.collect.ArrayTable
@@ -7245,6 +7255,7 @@ com.google.common.base.ExtraObjectsMethodsForWeb:
 io.grpc.internal.RetriableStream$1DecompressorRegistryEntry
 com.google.protobuf.FieldMask$1
 com.google.common.collect.Sets$FilteredSortedSet
+com.google.common.io.LineReader$1
 androidx.appcompat.widget.Toolbar:
     public void <init>(android.content.Context)
     private static boolean isCustomView(android.view.View)
@@ -7260,7 +7271,6 @@ androidx.appcompat.widget.Toolbar:
     public void setContentInsetsAbsolute(int,int)
     public void setMenuCallbacks(androidx.appcompat.view.menu.MenuPresenter$Callback,androidx.appcompat.view.menu.MenuBuilder$Callback)
     private static final java.lang.String TAG
-com.google.common.io.LineReader$1
 com.google.api.MetricDescriptor$Builder
 io.grpc.okhttp.internal.Platform$JettyNegoProvider
 io.grpc.okhttp.internal.Util$1
@@ -7296,8 +7306,8 @@ com.google.common.hash.ChecksumHashFunction$1
 io.flutter.plugin.common.MethodCall:
     public boolean hasArgument(java.lang.String)
 io.grpc.internal.CompositeReadableBuffer$3
-androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionHeuristicLocale
 com.google.common.util.concurrent.ExecutionSequencer
+androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionHeuristicLocale
 com.google.zxing.datamatrix.decoder.Version$1
 androidx.appcompat.widget.AppCompatHintHelper:
     private void <init>()
@@ -7419,8 +7429,8 @@ com.google.common.util.concurrent.Service$State$4
 com.google.android.gms.actions.SearchIntents
 com.facebook.login.R$color
 okio.Okio$1
-android.support.v4.media.MediaBrowserCompat$ConnectionCallback
 com.google.common.collect.Multiset$Entry
+android.support.v4.media.MediaBrowserCompat$ConnectionCallback
 com.google.android.gms.internal.base.zal:
     public abstract java.util.concurrent.ExecutorService zaa(int,int)
 com.google.firebase.firestore.remote.IncomingStreamObserver
@@ -8019,8 +8029,8 @@ io.grpc.okhttp.OkHttpClientStream$TransportState
 com.squareup.okhttp.internal.framed.Http2
 com.google.common.collect.HashBiMap$View
 com.google.firebase.firestore.util.CustomClassMapper
-androidx.core.app.NotificationCompat$BadgeIconType
 com.google.common.collect.Sets$4$1
+androidx.core.app.NotificationCompat$BadgeIconType
 android.support.v4.media.MediaBrowserCompatApi21
 com.google.firebase.firestore.util.Logger
 io.flutter.embedding.engine.loader.ResourceCleaner:
@@ -8114,8 +8124,8 @@ androidx.appcompat.widget.LinearLayoutCompat$LayoutParams:
     public void <init>(int,int,float)
     public void <init>(android.view.ViewGroup$MarginLayoutParams)
     public void <init>(androidx.appcompat.widget.LinearLayoutCompat$LayoutParams)
-androidx.annotation.AnyRes
 com.google.common.collect.LinkedHashMultimap$1
+androidx.annotation.AnyRes
 com.google.android.gms.internal.firebase_auth.zzp$zzw
 com.google.common.graph.MultiEdgesConnecting
 com.facebook.share.widget.AppInviteDialog$NativeHandler$1
@@ -8125,8 +8135,8 @@ com.google.firebase.firestore.local.SQLiteTargetCache$DocumentKeysHolder
 android.support.v4.app.INotificationSideChannel$Stub
 io.opencensus.trace.samplers.ProbabilitySampler
 com.google.api.LoggingOrBuilder
-androidx.media.MediaBrowserServiceCompat$1
 com.google.common.hash.Hashing$Md5Holder
+androidx.media.MediaBrowserServiceCompat$1
 com.google.firestore.v1.ExistenceFilter$Builder
 androidx.vectordrawable.R$attr
 com.google.android.gms.internal.firebase_auth.zzp$zzc$zza
@@ -8137,6 +8147,7 @@ com.facebook.share.R$color
 com.google.zxing.datamatrix.detector.Detector$ResultPointsAndTransitionsComparator
 io.grpc.internal.ForwardingManagedChannel
 androidx.core.app.NavUtils
+com.google.common.collect.Multisets$DecreasingCount
 androidx.core.graphics.ColorUtils:
     private void <init>()
     public static android.graphics.Color compositeColors(android.graphics.Color,android.graphics.Color)
@@ -8170,7 +8181,6 @@ androidx.core.graphics.ColorUtils:
     private static final double XYZ_KAPPA
     private static final int MIN_ALPHA_SEARCH_MAX_ITERATIONS
     private static final int MIN_ALPHA_SEARCH_PRECISION
-com.google.common.collect.Multisets$DecreasingCount
 com.google.common.collect.Maps$2
 io.grpc.util.TransmitStatusRuntimeExceptionInterceptor$SerializingServerCall$7
 androidx.coordinatorlayout.widget.DirectedAcyclicGraph
@@ -8204,8 +8214,8 @@ com.facebook.GraphResponse:
     private static final java.lang.String CODE_KEY
     private static final java.lang.String BODY_KEY
     private static final java.lang.String RESPONSE_LOG_TAG
-androidx.core.net.DatagramSocketWrapper$DatagramSocketImplWrapper
 io.grpc.Compressor
+androidx.core.net.DatagramSocketWrapper$DatagramSocketImplWrapper
 androidx.core.graphics.PathSegment
 com.google.common.collect.AbstractMapBasedMultiset$1
 com.google.zxing.oned.CodaBarReader:
@@ -8353,13 +8363,13 @@ com.google.common.reflect.ClassPath$ClassInfo
 com.google.common.collect.FluentIterable$3$1
 androidx.swiperefreshlayout.widget.SwipeRefreshLayout$OnChildScrollUpCallback
 io.opencensus.metrics.LongGauge$NoopLongGauge
+com.google.common.collect.Synchronized$SynchronizedSet
 androidx.appcompat.view.menu.BaseMenuPresenter:
     public androidx.appcompat.view.menu.MenuView getMenuView(android.view.ViewGroup)
     public boolean flagActionItems()
     public int getId()
     public void setId(int)
     private int mId
-com.google.common.collect.Synchronized$SynchronizedSet
 androidx.annotation.ColorLong
 com.facebook.share.internal.VideoUploader
 io.opencensus.stats.AutoValue_AggregationData_DistributionData
@@ -8553,8 +8563,8 @@ com.google.protobuf.Utf8$UnsafeProcessor
 okio.Okio$4
 com.google.common.collect.Maps$AsMapView$1EntrySetImpl
 okio.ForwardingSink
-android.support.v4.media.session.MediaControllerCompat$TransportControlsApi23
 com.google.common.base.Suppliers$SupplierFunctionImpl
+android.support.v4.media.session.MediaControllerCompat$TransportControlsApi23
 com.squareup.okhttp.internal.framed.ErrorCode
 com.squareup.okhttp.HttpUrl$1
 com.google.android.gms.internal.firebase_auth.zzge
@@ -8646,8 +8656,8 @@ com.google.protobuf.BoolValue
 com.google.firestore.v1.StructuredQuery$Builder
 com.google.common.base.Ascii
 androidx.appcompat.widget.PopupMenu$OnDismissListener
-android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$3
 com.google.common.graph.AbstractBaseGraph$IncidentEdgeSet$Directed$1
+android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$3
 com.google.android.gms.common.internal.GmsClientSupervisor:
     public boolean bindService(java.lang.String,android.content.ServiceConnection,java.lang.String)
     public void unbindService(java.lang.String,android.content.ServiceConnection,java.lang.String)
@@ -8794,8 +8804,8 @@ com.google.common.hash.PrimitiveSink
 com.facebook.BuildConfig
 androidx.core.view.accessibility.AccessibilityManagerCompat
 kotlin.random.FallbackThreadLocalRandom
-androidx.core.view.GestureDetectorCompat$GestureDetectorCompatImplJellybeanMr2
 com.google.common.base.Splitter$SplittingIterator
+androidx.core.view.GestureDetectorCompat$GestureDetectorCompatImplJellybeanMr2
 com.google.zxing.maxicode.decoder.DecodedBitStreamParser
 com.facebook.share.R$dimen
 io.grpc.internal.MessageDeframer$SizeEnforcingInputStream
@@ -9120,8 +9130,8 @@ com.google.zxing.multi.qrcode.QRCodeMultiReader$1
 com.google.firebase.firestore.local.SQLiteTargetCache$$Lambda$4
 com.google.android.gms.internal.firebase_auth.zzlt
 com.google.errorprone.annotations.concurrent.UnlockMethod
-androidx.viewpager.widget.ViewPager$PageTransformer
 com.google.common.collect.Maps$10
+androidx.viewpager.widget.ViewPager$PageTransformer
 com.google.common.collect.CompactHashMap$ValuesView
 com.google.protobuf.Duration
 io.grpc.Metadata$BinaryMarshaller:
@@ -9243,9 +9253,9 @@ com.google.firebase.analytics.connector.AnalyticsConnector:
 com.google.firebase.firestore.R$attr
 com.google.android.gms.measurement.AppMeasurementReceiver:
     public final android.content.BroadcastReceiver$PendingResult doGoAsync()
+com.google.common.collect.RegularImmutableMultiset$1
 androidx.vectordrawable.graphics.drawable.VectorDrawableCompat$VectorDrawableCompatState:
     int[] mCachedThemeAttrs
-com.google.common.collect.RegularImmutableMultiset$1
 com.google.common.graph.PredecessorsFunction
 com.google.common.reflect.TypeToken$SimpleTypeToken
 com.google.common.reflect.TypeToken$TypeFilter$1
@@ -9457,12 +9467,12 @@ androidx.vectordrawable.graphics.drawable.VectorDrawableCompat$VFullPath:
     public boolean canApplyTheme()
     public void applyTheme(android.content.res.Resources$Theme)
     private static final int FILL_TYPE_WINDING
+com.google.common.collect.Sets$UnmodifiableNavigableSet
 androidx.appcompat.widget.TooltipCompatHandler:
     private static final java.lang.String TAG
     private static final long LONG_CLICK_HIDE_TIMEOUT_MS
     private static final long HOVER_HIDE_TIMEOUT_MS
     private static final long HOVER_HIDE_TIMEOUT_SHORT_MS
-com.google.common.collect.Sets$UnmodifiableNavigableSet
 kotlin.sequences.SubSequence$iterator$1
 com.google.api.AuthorizationConfig$1
 kotlin.collections.RingBuffer
@@ -9505,9 +9515,9 @@ io.grpc.ConnectivityStateInfo
 com.google.common.graph.Traverser
 androidx.browser.customtabs.PostMessageServiceConnection
 com.google.common.collect.ImmutableMapValues$2
-androidx.swiperefreshlayout.widget.SwipeRefreshLayout$5
 com.google.common.collect.ForwardingMultimap
 com.google.common.hash.ImmutableSupplier
+androidx.swiperefreshlayout.widget.SwipeRefreshLayout$5
 com.google.api.AuthenticationOrBuilder
 com.google.api.Logging
 com.google.common.primitives.ImmutableLongArray$Builder
@@ -9539,13 +9549,13 @@ io.flutter.view.FlutterView
 com.google.common.collect.SortedLists$1
 com.google.common.cache.LocalCache$HashIterator
 kotlin.text.StringsKt__StringNumberConversionsKt
+com.google.common.collect.Iterables$5
 androidx.core.view.accessibility.AccessibilityClickableSpanCompat:
     public static final java.lang.String SPAN_ID
-com.google.common.collect.Iterables$5
 com.google.firebase.firestore.DocumentChange$1
+com.google.common.util.concurrent.AbstractExecutionThreadService
 com.google.gson.internal.bind.JsonTreeReader:
     public void <init>(com.google.gson.JsonElement)
-com.google.common.util.concurrent.AbstractExecutionThreadService
 androidx.appcompat.view.menu.BaseWrapper:
     public java.lang.Object getWrappedObject()
 io.flutter.embedding.engine.plugins.contentprovider.ContentProviderPluginBinding:
@@ -9612,8 +9622,8 @@ androidx.cardview.R$styleable:
 io.grpc.LoadBalancer
 com.facebook.share.internal.LikeActionController$GetEngagementRequestWrapper
 com.google.android.gms.internal.firebase_auth.zzft
-androidx.appcompat.app.AlertController$AlertParams$3
 com.google.common.graph.MapIteratorCache$1
+androidx.appcompat.app.AlertController$AlertParams$3
 android.support.v4.media.MediaBrowserCompat$CallbackHandler
 io.grpc.internal.ContextRunnable
 com.google.firestore.v1.Target$DocumentsTarget
@@ -9631,10 +9641,10 @@ io.grpc.LoadBalancer$1
 com.google.common.cache.LocalCache$EntryFactory$6
 bolts.WebViewAppLinkResolver
 com.google.firebase.measurement.R
-androidx.core.view.ViewCompat$ScrollAxis
 com.google.common.collect.Multimaps$TransformedEntriesMultimap
-androidx.annotation.HalfFloat
+androidx.core.view.ViewCompat$ScrollAxis
 io.grpc.ClientStreamTracer$Factory
+androidx.annotation.HalfFloat
 io.grpc.internal.CompositeReadableBuffer$1
 com.google.zxing.oned.rss.AbstractRSSReader
 com.google.rpc.QuotaFailure$Builder
@@ -9644,6 +9654,9 @@ kotlin.collections.UByteIterator
 com.google.common.collect.Range$LowerBoundFn
 com.google.android.gms.common.api.internal.zae:
     public void zaa(com.google.android.gms.common.api.internal.zaz,boolean)
+io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin:
+    public static void registerWith(io.flutter.plugin.common.PluginRegistry$Registrar)
+    private static final java.lang.String CHANNEL_NAME
 io.grpc.internal.SerializingExecutor$1
 com.google.android.gms.common.internal.GetServiceRequest:
     public android.os.Bundle getExtraArgs()
@@ -9803,13 +9816,13 @@ com.facebook.share.internal.LikeDialog$1
 androidx.asynclayoutinflater.view.AsyncLayoutInflater$BasicInflater
 androidx.annotation.Nullable
 kotlin.sequences.TakeSequence
-android.support.v4.media.session.MediaSessionCompat$MediaSessionImplApi18
 com.google.common.collect.Collections2$TransformedCollection
+android.support.v4.media.session.MediaSessionCompat$MediaSessionImplApi18
 com.google.firebase.firestore.local.SQLiteMutationQueue$$Lambda$8
 com.google.android.gms.common.util.Clock:
     public abstract long currentThreadTimeMillis()
-android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$2
 com.google.common.collect.Synchronized$SynchronizedCollection
+android.support.v4.media.MediaBrowserCompat$MediaBrowserImplApi21$2
 kotlin.concurrent.LocksKt
 com.facebook.messenger.BuildConfig
 kotlin.ULong
@@ -9987,8 +10000,8 @@ com.google.android.gms.internal.firebase_auth.zzp$zzh
 io.opencensus.trace.AutoValue_AttributeValue_AttributeValueString
 com.google.android.gms.common.api.internal.zaae:
     public void <init>(com.google.android.gms.common.api.internal.ApiKey)
-kotlin.jvm.functions.Function7
 com.google.android.gms.internal.firebase_auth.zzlu
+kotlin.jvm.functions.Function7
 com.google.firestore.v1.BatchGetDocumentsRequest$1
 kotlin.coroutines.experimental.migration.ExperimentalContinuationInterceptorMigration
 com.google.common.base.StandardSystemProperty
@@ -10045,8 +10058,8 @@ io.grpc.internal.GrpcUtil
 io.grpc.internal.CensusStatsModule$StatsClientInterceptor$1$1
 io.grpc.okhttp.OkHttpTlsUpgrader
 io.grpc.Attributes$1
-androidx.appcompat.app.AppCompatDelegateImpl$6
 com.google.common.collect.Maps$4
+androidx.appcompat.app.AppCompatDelegateImpl$6
 io.grpc.Grpc
 kotlin.ranges.ULongProgression$Companion
 javax.annotation.RegEx$Checker
@@ -10119,9 +10132,9 @@ com.google.common.base.Equivalence
 com.google.protobuf.FieldMask
 com.google.zxing.qrcode.detector.FinderPatternInfo
 io.grpc.util.RoundRobinLoadBalancer$1
-androidx.core.app.NotificationManagerCompat$SideChannelManager$ListenerRecord
 com.google.common.collect.ClassToInstanceMap
 com.google.common.util.concurrent.FuturesGetChecked$GetCheckedTypeValidatorHolder$WeakSetValidator
+androidx.core.app.NotificationManagerCompat$SideChannelManager$ListenerRecord
 com.google.zxing.client.result.VINResultParser
 com.google.android.gms.internal.auth.zzas
 com.google.android.gms.internal.firebase_auth.zzcj
@@ -10153,11 +10166,11 @@ io.grpc.okhttp.OkHttpFrameLogger
 com.google.zxing.client.result.URIParsedResult
 com.facebook.core.R$string
 com.google.j2objc.annotations.ObjectiveCName
+com.google.common.io.Files$FileByteSource
 androidx.core.graphics.TypefaceCompatBaseImpl:
     androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry getFontFamily(android.graphics.Typeface)
     private static final java.lang.String TAG
     private static final int INVALID_KEY
-com.google.common.io.Files$FileByteSource
 com.google.android.gms.internal.firebase_auth.zzil
 io.opencensus.trace.Tracestate
 com.google.android.gms.common.stats.LoggingConstants:
@@ -10237,10 +10250,10 @@ com.google.firebase.R$attr
 com.google.android.gms.common.server.response.zaj
 com.facebook.places.internal.LocationPackageManager$1
 com.google.firebase.installations.interop.R$drawable
+io.grpc.NameResolver$ServiceConfigParser
 android.support.v4.os.ResultReceiver:
     public void <init>(android.os.Handler)
     public void send(int,android.os.Bundle)
-io.grpc.NameResolver$ServiceConfigParser
 androidx.arch.core.R
 io.opencensus.trace.NetworkEvent$Builder
 kotlin.coroutines.experimental.jvm.internal.CoroutineIntrinsics
@@ -10268,6 +10281,7 @@ androidx.appcompat.widget.ActionBarContextView:
     public synthetic bridge void animateToVisibility(int)
     public synthetic bridge androidx.core.view.ViewPropertyAnimatorCompat setupAnimatorToVisibility(int,long)
     private static final java.lang.String TAG
+io.flutter.plugins.sharedpreferences.R$id
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi$2
 kotlin.reflect.KMutableProperty1$Setter
 com.google.firebase.firestore.R$layout
@@ -10585,11 +10599,11 @@ com.google.protobuf.Any
 com.google.android.gms.internal.firebase_auth.zzp$zzh$zza
 com.facebook.places.internal.BleScanner
 com.google.android.gms.common.server.response.zal
+com.google.common.collect.TreeBasedTable$1
 androidx.core.util.ObjectsCompat:
     private void <init>()
     public static boolean equals(java.lang.Object,java.lang.Object)
     public static int hashCode(java.lang.Object)
-com.google.common.collect.TreeBasedTable$1
 com.google.common.collect.ForwardingMultiset$StandardElementSet
 io.grpc.internal.AbstractClientStream$TransportState$1
 com.google.firestore.v1.StructuredQuery$Filter
@@ -10656,6 +10670,7 @@ com.google.common.collect.AbstractBiMap$1
 com.google.protobuf.DescriptorProtos$DescriptorProto$ReservedRange$Builder
 com.google.firestore.v1.StructuredQuery$FilterOrBuilder
 com.google.api.LogProto
+io.flutter.plugins.sharedpreferences.R$string
 io.opencensus.common.Clock
 kotlin.coroutines.experimental.SafeContinuation$Fail
 com.google.firestore.v1.Target$QueryTarget
@@ -10794,6 +10809,7 @@ okio.Pipe$PipeSource
 io.grpc.StreamTracer
 com.google.api.HttpRule$PatternCase
 io.grpc.internal.DelayedStream$5
+com.google.common.util.concurrent.AsyncFunction
 androidx.fragment.app.BackStackRecord:
     public int getId()
     public int getBreadCrumbTitleRes()
@@ -10809,7 +10825,6 @@ androidx.fragment.app.BackStackRecord:
     public void commitNowAllowingStateLoss()
     public boolean isEmpty()
     static final java.lang.String TAG
-com.google.common.util.concurrent.AsyncFunction
 kotlin.collections.ArraysKt___ArraysKt$withIndex$6
 com.google.firebase.iid.zzt:
     private static com.google.android.gms.tasks.Task zza(com.google.android.gms.tasks.Task)
@@ -10828,6 +10843,7 @@ io.grpc.android.AndroidChannelBuilder$1
 com.google.firebase.auth.zzm
 com.google.common.collect.Maps$8
 com.facebook.places.internal.ScannerFactory
+io.flutter.plugins.sharedpreferences.R$layout
 com.google.cloud.audit.AuthorizationInfo$Builder
 com.google.api.Distribution$BucketOptions$Linear
 com.google.firebase.auth.MultiFactorInfo:
@@ -10929,8 +10945,8 @@ androidx.cardview.R$dimen:
     private void <init>()
 io.grpc.internal.StreamListener$MessageProducer
 com.google.firebase.firestore.local.SQLiteLruReferenceDelegate
-androidx.core.app.TaskStackBuilder
 io.grpc.ForwardingServerCall
+androidx.core.app.TaskStackBuilder
 com.google.common.collect.RegularContiguousSet$3
 com.google.firebase.firestore.core.FirestoreClient$$Lambda$13
 com.google.common.util.concurrent.CollectionFuture$ListFuture$ListFutureRunningState
@@ -10986,8 +11002,8 @@ io.opencensus.trace.TraceOptions$1
 com.google.android.gms.common.data.DataBufferSafeParcelable
 kotlin.jvm.internal.Ref$DoubleRef
 com.google.firestore.v1.DocumentTransformOrBuilder
-androidx.media.MediaBrowserServiceCompatApi23$ServiceCompatProxy
 com.google.common.collect.Multisets$ViewMultiset
+androidx.media.MediaBrowserServiceCompatApi23$ServiceCompatProxy
 com.squareup.okhttp.internal.http.OkHeaders$1
 androidx.appcompat.app.ActionBar$OnMenuVisibilityListener
 com.google.firebase.R$styleable
@@ -11012,10 +11028,10 @@ com.google.api.ContextRule$1
 kotlin.jvm.internal.MutablePropertyReference2
 com.facebook.login.BuildConfig
 com.google.common.collect.EnumMultiset$2
+com.google.common.hash.ChecksumHashFunction
 androidx.appcompat.widget.AppCompatImageButton:
     public void <init>(android.content.Context)
     public void <init>(android.content.Context,android.util.AttributeSet)
-com.google.common.hash.ChecksumHashFunction
 com.google.firebase.firestore.remote.GrpcCallProvider$$Lambda$5
 androidx.core.R$id:
     private void <init>()
@@ -11039,8 +11055,8 @@ io.grpc.internal.RetriableStream$1
 com.google.android.gms.internal.firebase_auth.zzif$zzd
 com.google.zxing.common.GlobalHistogramBinarizer
 com.google.firebase.firestore.model.DocumentKey$$Lambda$1
-androidx.appcompat.widget.ActionMenuPresenter$SavedState
 com.google.common.hash.Murmur3_32HashFunction$Murmur3_32Hasher
+androidx.appcompat.widget.ActionMenuPresenter$SavedState
 androidx.appcompat.app.WindowDecorActionBar$3
 com.google.common.net.HttpHeaders
 com.google.firebase.firestore.local.MemoryLruReferenceDelegate
@@ -11468,8 +11484,8 @@ androidx.appcompat.R$style:
     private void <init>()
 io.flutter.embedding.android.FlutterEngineConfigurator
 com.google.common.util.concurrent.AbstractExecutionThreadService$1
-androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi21$1
 com.google.common.base.CharMatcher$Is
+androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi21$1
 io.grpc.internal.AbstractManagedChannelImplBuilder$DirectAddressNameResolverFactory
 com.google.common.collect.MapMakerInternalMap$SafeToArraySet
 com.google.android.gms.common.server.response.FastParser$zaa
@@ -11495,8 +11511,8 @@ com.google.android.gms.internal.firebase_auth.zzhg
 com.google.common.hash.Hashing$Sha384Holder
 io.grpc.ServerStreamTracer$ReadOnlyServerCall
 com.google.firebase.firestore.local.SQLiteSchema$$Lambda$14
-androidx.viewpager.widget.ViewPager
 com.google.common.hash.MessageDigestHashFunction
+androidx.viewpager.widget.ViewPager
 kotlin.internal.jdk7.JDK7PlatformImplementations
 com.google.common.collect.FluentIterable$3
 com.google.api.MetricDescriptor$ValueType
@@ -11556,8 +11572,8 @@ com.google.common.math.LinearTransformation$VerticalLinearTransformation
 com.google.android.gms.auth.api.accounttransfer.zzl
 com.google.common.collect.Multisets$1
 com.google.common.util.concurrent.CycleDetectingLockFactory$Policies$2
-android.support.v4.media.session.PlaybackStateCompat$ErrorCode
 com.google.common.base.CaseFormat
+android.support.v4.media.session.PlaybackStateCompat$ErrorCode
 com.facebook.share.internal.LikeActionController$AbstractRequestWrapper$1
 com.squareup.okhttp.internal.DiskLruCache$Editor
 com.google.firestore.v1.DocumentTransform$FieldTransform$ServerValue
@@ -11653,8 +11669,8 @@ com.google.protobuf.WireFormat$FieldType$2
 com.google.common.collect.TreeTraverser$4
 com.google.api.SourceInfo$Builder
 kotlin.collections.CollectionsKt___CollectionsKt$asSequence$$inlined$Sequence$1
-androidx.browser.browseractions.BrowserActionsFallbackMenuUi
 com.google.common.collect.Lists$1
+androidx.browser.browseractions.BrowserActionsFallbackMenuUi
 androidx.core.graphics.TypefaceCompatApi24Impl:
     private static final java.lang.String TAG
     private static final java.lang.String FONT_FAMILY_CLASS
@@ -11677,8 +11693,8 @@ com.google.android.gms.internal.firebase_auth.zzp$zzt$zza
 kotlin.sequences.DropWhileSequence
 androidx.core.app.NotificationCompat$CarExtender$UnreadConversation$Builder
 com.google.protobuf.DescriptorProtos$FileOptions$Builder
-androidx.coordinatorlayout.widget.CoordinatorLayout
 com.google.common.cache.CacheBuilderSpec$AccessDurationParser
+androidx.coordinatorlayout.widget.CoordinatorLayout
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineFromSuspendFunction$2
 com.facebook.share.model.AppInviteContent
 kotlin.reflect.KCallable$DefaultImpls
@@ -11700,10 +11716,10 @@ kotlin.time.Duration
 com.google.protobuf.DescriptorProtos$FileDescriptorSetOrBuilder
 com.google.common.collect.Range$1
 io.grpc.internal.InternalSubchannel$2
+com.google.common.util.concurrent.MoreExecutors$DirectExecutor
 androidx.appcompat.view.menu.ListMenuItemView:
     public boolean showsIcon()
     private static final java.lang.String TAG
-com.google.common.util.concurrent.MoreExecutors$DirectExecutor
 com.google.firebase.firestore.remote.AndroidConnectivityMonitor$DefaultNetworkCallback
 com.google.api.SystemParameterRule$1
 com.google.common.collect.Multimaps$MapMultimap
@@ -11908,8 +11924,8 @@ kotlin.text.StringsKt__IndentKt$prependIndent$1
 kotlin.NumbersKt__BigIntegersKt
 io.grpc.internal.ServerImpl$1
 com.google.firebase.installations.BuildConfig
-android.support.v4.media.session.PlaybackStateCompat$MediaKeyAction
 com.google.common.io.Files$1
+android.support.v4.media.session.PlaybackStateCompat$MediaKeyAction
 com.google.common.collect.Range$RangeLexOrdering
 androidx.core.R$drawable
 com.google.common.util.concurrent.ServiceManager$ServiceManagerState$AwaitHealthGuard
@@ -11947,8 +11963,8 @@ androidx.core.graphics.TypefaceCompatApi28Impl:
 com.google.firebase.auth.api.internal.zzes
 com.google.android.gms.common.api.internal.zabw
 com.google.common.graph.Traverser$TreeTraverser$3
-android.support.v4.media.session.MediaSessionCompat$MediaSessionImplBase$MessageHandler
 io.grpc.ServerServiceDefinition
+android.support.v4.media.session.MediaSessionCompat$MediaSessionImplBase$MessageHandler
 io.grpc.ClientStreamTracer$StreamInfo
 com.google.android.gms.common.internal.IGmsServiceBroker$Stub
 com.google.common.util.concurrent.Striped$SmallLazyStriped
@@ -11957,10 +11973,10 @@ com.google.api.Page$Builder
 com.google.common.util.concurrent.MoreExecutors$DirectExecutorService
 com.google.common.collect.EmptyImmutableSetMultimap
 com.facebook.internal.ImageRequest$Builder
+com.google.common.collect.WellBehavedMap$EntrySet
 com.google.firebase.components.Lazy:
     void <init>(java.lang.Object)
     boolean isInitialized()
-com.google.common.collect.WellBehavedMap$EntrySet
 com.google.android.gms.internal.auth.zzau
 androidx.browser.browseractions.BrowserActionsIntent$BrowserActionsItemId
 kotlin.internal.LowPriorityInOverloadResolution
@@ -12098,8 +12114,8 @@ kotlin.io.FilesKt__FileTreeWalkKt
 kotlin.sequences.DropSequence$iterator$1
 io.grpc.PartialForwardingServerCall
 com.google.protobuf.DescriptorProtos$MethodOptions$IdempotencyLevel
-androidx.appcompat.app.AppCompatDelegate$NightMode
 com.google.common.collect.EnumMultiset$1
+androidx.appcompat.app.AppCompatDelegate$NightMode
 bolts.CancellationToken
 com.google.firebase.firestore.remote.GrpcCallProvider$$Lambda$6
 com.google.common.graph.Network
@@ -12148,6 +12164,7 @@ androidx.appcompat.view.menu.MenuItemImpl:
     private static final int IS_ACTION
     static final int NO_ICON
 com.google.common.primitives.Floats
+io.flutter.plugins.sharedpreferences.R$integer
 kotlin.coroutines.experimental.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineUnchecked$$inlined$buildContinuationByInvokeCall$IntrinsicsKt__IntrinsicsJvmKt$2
 io.grpc.internal.WritableBufferAllocator
 io.grpc.Contexts
@@ -12173,6 +12190,7 @@ com.google.android.gms.measurement.AppMeasurement$OnEventListener
 com.google.firestore.v1.ListenRequest
 com.google.api.CustomHttpPattern$1
 com.google.common.graph.Traverser$GraphTraverser$DepthFirstIterator$NodeAndSuccessors
+com.google.common.collect.EmptyContiguousSet$SerializedForm
 androidx.versionedparcelable.VersionedParcel:
     private void writeCollection(java.util.Collection,int)
     private void writeCollection(java.util.Collection)
@@ -12268,7 +12286,6 @@ androidx.versionedparcelable.VersionedParcel:
     private static final int TYPE_BINDER
     private static final int TYPE_INTEGER
     private static final int TYPE_FLOAT
-com.google.common.collect.EmptyContiguousSet$SerializedForm
 com.google.firestore.v1.BeginTransactionRequest$Builder
 com.google.firestore.v1.Cursor$Builder
 com.google.firebase.events.Publisher:
@@ -12541,11 +12558,11 @@ io.grpc.okhttp.OkHttpClientStream$Sink
 com.google.common.collect.AbstractListMultimap
 com.google.common.util.concurrent.ExecutionSequencer$1
 io.grpc.internal.RetriableStream$ChannelBufferMeter
+com.google.common.math.LinearTransformation$LinearTransformationBuilder
 androidx.core.graphics.TypefaceCompatUtil:
     private void <init>()
     private static final java.lang.String TAG
     private static final java.lang.String CACHE_FILE_PREFIX
-com.google.common.math.LinearTransformation$LinearTransformationBuilder
 io.grpc.ForwardingClientCall
 io.grpc.internal.AbstractServerImplBuilder$DefaultFallbackRegistry
 com.google.common.cache.RemovalNotification
@@ -12585,6 +12602,7 @@ com.google.android.gms.auth.api.credentials.Credentials
 com.google.protobuf.ByteString$ByteIterator
 com.google.protobuf.DescriptorProtos$SourceCodeInfo
 com.facebook.share.internal.ShareContentValidation$ApiValidator
+com.google.common.math.LongMath
 androidx.core.content.res.FontResourcesParserCompat:
     private void <init>()
     private static final int NORMAL_WEIGHT
@@ -12593,7 +12611,6 @@ androidx.core.content.res.FontResourcesParserCompat:
     public static final int FETCH_STRATEGY_ASYNC
     public static final int INFINITE_TIMEOUT_VALUE
     private static final int DEFAULT_TIMEOUT_MILLIS
-com.google.common.math.LongMath
 io.grpc.internal.ServerImpl$ServerTransportListenerImpl$1StreamCreated
 com.facebook.share.ShareApi$5
 com.google.firestore.v1.StructuredQuery$UnaryFilter$OperandTypeCase
@@ -12612,8 +12629,8 @@ com.google.android.gms.internal.firebase_auth.zzff:
     public final com.google.android.gms.internal.firebase_auth.zzjx zza()
     public final synthetic com.google.firebase.auth.api.internal.zzel zza(com.google.android.gms.internal.firebase_auth.zzjn)
 org.intellij.lang.annotations.Flow
-androidx.core.app.FrameMetricsAggregator$MetricType
 com.google.common.collect.Multisets$2
+androidx.core.app.FrameMetricsAggregator$MetricType
 com.google.common.collect.ImmutableList$SubList
 com.google.common.collect.AbstractSortedKeySortedSetMultimap
 com.google.longrunning.GetOperationRequestOrBuilder
@@ -12624,8 +12641,8 @@ io.opencensus.trace.propagation.TextFormat$Getter
 io.grpc.stub.MetadataUtils$HeaderAttachingClientInterceptor$HeaderAttachingClientCall
 com.google.firebase.firestore.FirebaseFirestore$$Lambda$1
 com.google.firebase.firestore.util.FileUtil
-kotlin.sequences.DistinctIterator
 com.google.android.gms.internal.firebase_messaging.zzs
+kotlin.sequences.DistinctIterator
 com.google.firestore.v1.Target$DocumentsTargetOrBuilder
 kotlin.jvm.internal.markers.KMutableMap
 io.grpc.internal.SubchannelChannel$2$1
@@ -12715,8 +12732,8 @@ com.google.common.util.concurrent.InterruptibleTask$1
 com.google.firebase.auth.api.internal.zzcd
 io.grpc.stub.ServerCalls$StreamingServerCallHandler
 com.squareup.okhttp.Dns
-androidx.media.VolumeProviderCompat$ControlType
 com.google.common.collect.Tables$ImmutableCell
+androidx.media.VolumeProviderCompat$ControlType
 com.facebook.appevents.codeless.internal.EventBinding:
     public com.facebook.appevents.codeless.internal.EventBinding$ActionType getType()
     public com.facebook.appevents.codeless.internal.EventBinding$MappingMethod getMethod()
@@ -12807,8 +12824,8 @@ androidx.fragment.app.FragmentController:
     public androidx.collection.SimpleArrayMap retainLoaderNonConfig()
     public void restoreLoaderNonConfig(androidx.collection.SimpleArrayMap)
     public void dumpLoaders(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[])
-androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi26$1
 com.google.common.graph.ElementOrder$Type
+androidx.media.MediaBrowserServiceCompat$MediaBrowserServiceImplApi26$1
 com.google.android.gms.common.internal.zac
 com.google.common.hash.BloomFilterStrategies$2
 androidx.media.MediaBrowserServiceCompatApi23$MediaBrowserServiceAdaptor
@@ -12941,9 +12958,9 @@ kotlin.sequences.TakeWhileSequence
 com.google.common.collect.Multisets$3$1
 io.opencensus.tags.TagMetadata
 androidx.multidex.MultiDex$V14$JBMR11ElementConstructor
+com.google.common.collect.ForwardingDeque
 androidx.fragment.app.FragmentManagerImpl$FragmentLifecycleCallbacksHolder:
     void <init>(androidx.fragment.app.FragmentManager$FragmentLifecycleCallbacks,boolean)
-com.google.common.collect.ForwardingDeque
 com.google.common.escape.Escaper
 io.opencensus.trace.Tracestate$Builder
 com.google.zxing.client.result.URLTOResultParser
@@ -13127,8 +13144,8 @@ com.facebook.places.R$styleable
 org.checkerframework.checker.nullness.compatqual.MonotonicNonNullDecl
 io.grpc.internal.Deframer
 androidx.media.MediaSessionManager
-android.support.v4.media.RatingCompat$StarStyle
 com.google.common.collect.TreeRangeSet$SubRangeSetRangesByLowerBound$2
+android.support.v4.media.RatingCompat$StarStyle
 com.google.firebase.firestore.ServerTimestamp
 kotlin.LateinitKt
 com.google.android.gms.tasks.zzk:
@@ -13143,8 +13160,8 @@ com.google.android.gms.internal.firebase_auth.zzkd
 com.squareup.okhttp.internal.framed.Settings
 io.grpc.internal.LogExceptionRunnable
 io.grpc.inprocess.InProcessTransport$2
-androidx.appcompat.app.AlertDialog
 com.google.common.cache.LoadingCache
+androidx.appcompat.app.AlertDialog
 io.flutter.embedding.engine.plugins.shim.ShimRegistrar:
     public android.content.Context context()
     public android.content.Context activeContext()
@@ -13283,9 +13300,9 @@ androidx.activity.R$styleable
 io.grpc.InternalCallOptions
 bolts.Task$12
 kotlin.jvm.functions.Function4
-com.google.firestore.v1.FirestoreGrpc$FirestoreImplBase
 com.google.android.gms.auth.api.Auth$AuthCredentialsOptions$Builder:
     public com.google.android.gms.auth.api.Auth$AuthCredentialsOptions$Builder forceEnableSaveDialog()
+com.google.firestore.v1.FirestoreGrpc$FirestoreImplBase
 bolts.AppLinkNavigation$NavigationResult
 com.google.firebase.firestore.util.AsyncQueue$$Lambda$2
 io.grpc.internal.TimeProvider
@@ -13626,8 +13643,8 @@ com.google.android.gms.dynamic.IFragmentWrapper$Stub$zza
 com.google.common.util.concurrent.AggregateFutureState$SafeAtomicHelper
 androidx.core.content.SharedPreferencesCompat$EditorCompat
 com.facebook.share.ShareApi$6
-androidx.appcompat.view.WindowCallbackWrapper
 io.grpc.ServiceDescriptor
+androidx.appcompat.view.WindowCallbackWrapper
 com.google.firebase.analytics.connector.internal.zze
 com.google.zxing.client.result.GeoResultParser
 kotlin.collections.ArraysKt___ArraysKt$asSequence$$inlined$Sequence$9
@@ -13661,9 +13678,6 @@ com.google.api.MonitoredResourceProto
 androidx.appcompat.widget.FitWindowsLinearLayout:
     public void <init>(android.content.Context)
 androidx.core.app.ComponentActivity$ExtraData
-com.google.android.gms.common.internal.AccountAccessor:
-    public final android.accounts.Account getAccount()
-    public boolean equals(java.lang.Object)
 com.google.android.gms.auth.zzd:
     public static java.lang.String getToken(android.content.Context,java.lang.String,java.lang.String)
     public static java.lang.String getToken(android.content.Context,java.lang.String,java.lang.String,android.os.Bundle)
@@ -13680,6 +13694,9 @@ com.google.android.gms.auth.zzd:
     public static final int CHANGE_TYPE_ACCOUNT_REMOVED
     public static final int CHANGE_TYPE_ACCOUNT_RENAMED_FROM
     public static final int CHANGE_TYPE_ACCOUNT_RENAMED_TO
+com.google.android.gms.common.internal.AccountAccessor:
+    public final android.accounts.Account getAccount()
+    public boolean equals(java.lang.Object)
 com.google.firebase.auth.api.internal.zzdf
 io.grpc.internal.GrpcUtil$AcceptEncodingMarshaller
 com.facebook.share.model.ShareMessengerMediaTemplateContent
@@ -13693,8 +13710,8 @@ com.facebook.internal.WorkQueue
 com.google.common.hash.BloomFilterStrategies$1
 io.grpc.util.RoundRobinLoadBalancer$Ref
 kotlin.comparisons.UComparisonsKt___UComparisonsKt
-androidx.annotation.PluralsRes
 com.google.common.collect.HashBasedTable$Factory
+androidx.annotation.PluralsRes
 com.google.firestore.v1.StructuredQuery$Filter$Builder
 kotlin.reflect.KProperty2
 com.google.rpc.QuotaFailureOrBuilder
@@ -13731,8 +13748,8 @@ kotlin.io.FilesKt
 com.facebook.internal.ImageResponseCache$BufferedHttpInputStream
 kotlin.jvm.internal.LongCompanionObject
 com.google.firebase.firestore.util.AsyncQueue
-androidx.browser.customtabs.TrustedWebUtils
 io.grpc.HttpConnectProxiedSocketAddress$Builder
+androidx.browser.customtabs.TrustedWebUtils
 com.google.firestore.v1.DocumentChangeOrBuilder
 com.google.common.escape.CharEscaperBuilder$CharArrayDecorator
 com.google.common.reflect.TypeResolver$TypeVariableKey
@@ -13946,14 +13963,15 @@ com.google.common.collect.HashMultiset
 androidx.coordinatorlayout.R
 com.google.firebase.auth.PlayGamesAuthProvider
 com.google.protobuf.DescriptorProtos$EnumValueOptions
+io.grpc.Metadata$TrustedAsciiMarshaller
 androidx.core.os.OperationCanceledException:
     public void <init>()
     public void <init>(java.lang.String)
-io.grpc.Metadata$TrustedAsciiMarshaller
 com.google.firebase.firestore.core.ViewSnapshot$SyncState
 com.google.firestore.v1.Target$1
-android.support.v4.media.ParceledListSliceAdapterApi21
 com.google.common.eventbus.DeadEvent
+android.support.v4.media.ParceledListSliceAdapterApi21
+com.google.common.reflect.Types$2
 androidx.savedstate.SavedStateRegistry:
     public void registerSavedStateProvider(java.lang.String,androidx.savedstate.SavedStateRegistry$SavedStateProvider)
     public void unregisterSavedStateProvider(java.lang.String)
@@ -13961,7 +13979,6 @@ androidx.savedstate.SavedStateRegistry:
     public void runOnNextRecreation(java.lang.Class)
     private androidx.savedstate.Recreator$SavedStateProvider mRecreatorProvider
     private static final java.lang.String SAVED_COMPONENTS_KEY
-com.google.common.reflect.Types$2
 com.google.common.collect.Multimaps$UnmodifiableSortedSetMultimap
 com.google.gson.internal.Streams:
     private void <init>()
@@ -14004,10 +14021,10 @@ kotlin.jvm.JvmSynthetic
 com.google.common.collect.TreeRangeSet$ComplementRangesByLowerBound$1
 io.grpc.internal.DelayedStream$12
 kotlin.reflect.KMutableProperty1
-android.support.v4.media.session.MediaSessionCompat$Callback
 com.google.common.collect.FilteredEntryMultimap$Keys$1$1
-androidx.appcompat.app.AppCompatDelegateImpl$6$1
+android.support.v4.media.session.MediaSessionCompat$Callback
 com.google.common.collect.ImmutableRangeSet$Builder
+androidx.appcompat.app.AppCompatDelegateImpl$6$1
 com.google.android.gms.internal.firebase_auth.zzke
 com.google.common.util.concurrent.MoreExecutors$ScheduledListeningDecorator
 kotlin.io.ConstantsKt
@@ -14095,8 +14112,8 @@ com.google.common.util.concurrent.CycleDetectingLockFactory$CycleDetectingReentr
 androidx.asynclayoutinflater.R$id
 com.google.common.util.concurrent.ServiceManager$ServiceManagerState
 com.google.common.collect.Sets$5$1$1$1
-com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
 com.google.android.gms.dynamic.zad
+com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
 com.google.common.base.Functions$1
 com.google.common.cache.LocalCache$WeightedSoftValueReference
 com.google.android.gms.auth.api.proxy.ProxyResponse
@@ -14328,6 +14345,7 @@ com.google.android.gms.common.util.HexDumpUtils
 com.google.common.collect.AbstractIterator
 androidx.drawerlayout.R$layout
 io.grpc.internal.OobChannel$2
+io.flutter.plugins.sharedpreferences.R$styleable
 com.google.common.util.concurrent.AbstractScheduledService$CustomScheduler$ReschedulableCallable
 io.grpc.Deadline$Ticker
 kotlin.io.FileTreeWalk
@@ -14452,9 +14470,9 @@ com.google.android.gms.dynamic.IFragmentWrapper$Stub
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineUnintercepted$$inlined$createCoroutineFromSuspendFunction$IntrinsicsKt__IntrinsicsJvmKt$2
 com.google.android.gms.internal.firebase_auth.zzp$zzo
 io.grpc.HandlerRegistry
-androidx.appcompat.app.ToolbarActionBar$MenuBuilderCallback
 io.grpc.LoadBalancer$Helper
 io.grpc.Decompressor
+androidx.appcompat.app.ToolbarActionBar$MenuBuilderCallback
 io.grpc.internal.ClientCallImpl$ClientTransportProvider
 io.grpc.internal.AtomicLongCounter
 com.google.protobuf.Enum
@@ -14640,8 +14658,8 @@ com.google.android.gms.base.R$attr
 javax.annotation.concurrent.GuardedBy
 com.google.common.util.concurrent.FuturesGetChecked
 io.grpc.stub.ClientCalls$BlockingResponseStream
-androidx.appcompat.widget.ScrollingTabContainerView$VisibilityAnimListener
 com.google.common.reflect.MutableTypeToInstanceMap$UnmodifiableEntry$2
+androidx.appcompat.widget.ScrollingTabContainerView$VisibilityAnimListener
 io.grpc.ExperimentalApi
 com.google.common.collect.Synchronized$SynchronizedList
 com.google.protobuf.DescriptorProtos$OneofOptions$Builder
@@ -14761,8 +14779,8 @@ androidx.core.content.ContextCompat:
     public static java.lang.Object getSystemService(android.content.Context,java.lang.Class)
     public static java.lang.String getSystemServiceName(android.content.Context,java.lang.Class)
     private static final java.lang.String TAG
-androidx.annotation.Dimension
 com.google.common.base.Splitter$3
+androidx.annotation.Dimension
 com.google.zxing.common.BitArray:
     public void <init>(int)
     public void set(int)
@@ -14775,6 +14793,7 @@ com.google.zxing.common.BitArray:
     public boolean isRange(int,int,boolean)
     public int[] getBitArray()
     public void reverse()
+com.google.common.primitives.Booleans$BooleanComparator
 androidx.core.widget.EdgeEffectCompat:
     public void <init>(android.content.Context)
     public void setSize(int,int)
@@ -14786,7 +14805,6 @@ androidx.core.widget.EdgeEffectCompat:
     public boolean onAbsorb(int)
     public boolean draw(android.graphics.Canvas)
     private android.widget.EdgeEffect mEdgeEffect
-com.google.common.primitives.Booleans$BooleanComparator
 com.google.android.gms.common.internal.safeparcel.SafeParcelable$Constructor
 com.google.zxing.pdf417.decoder.DetectionResult
 okio.Util
@@ -14842,9 +14860,9 @@ com.google.android.gms.internal.auth-api-phone.zzc
 io.grpc.InternalChannelz$ChannelTrace$Builder
 com.google.android.gms.common.server.FavaDiagnosticsEntity
 androidx.core.app.ShareCompat$IntentBuilder
-androidx.fragment.app.FragmentManagerNonConfig
 io.grpc.stub.ClientCalls$BlockingResponseStream$QueuingListener
 com.google.common.collect.MultimapBuilder$2
+androidx.fragment.app.FragmentManagerNonConfig
 com.google.firebase.auth.api.internal.zzca
 com.google.api.MetricDescriptor$MetricKind
 io.grpc.NameResolver$Factory
@@ -14864,8 +14882,8 @@ com.facebook.internal.FetchedAppSettings$DialogFeatureConfig:
     private static final java.lang.String DIALOG_CONFIG_VERSIONS_KEY
     private static final java.lang.String DIALOG_CONFIG_URL_KEY
 io.grpc.CallOptions$Key
-androidx.appcompat.app.ActionBar
 com.google.common.collect.EnumMultiset$2$1
+androidx.appcompat.app.ActionBar
 kotlin.collections.IndexingIterator
 com.google.android.gms.internal.firebase_auth.zzhm$zza
 io.grpc.ProxiedSocketAddress
@@ -14888,6 +14906,7 @@ androidx.core.view.inputmethod.EditorInfoCompat
 io.opencensus.stats.ViewData$2
 com.google.protobuf.DescriptorProtos$EnumDescriptorProto$EnumReservedRangeOrBuilder
 com.google.firebase.auth.internal.zze
+io.flutter.plugins.sharedpreferences.R$attr
 kotlin.text.Regex$fromInt$$inlined$apply$lambda$1
 com.facebook.share.internal.LikeBoxCountView
 com.google.common.util.concurrent.AggregateFutureState$AtomicHelper
@@ -15120,6 +15139,7 @@ com.facebook.internal.FetchedAppSettings:
     public java.lang.String getSmartLoginMenuIconURL()
     public boolean getTrackUninstallEnabled()
 com.google.firebase.firestore.local.SQLiteRemoteDocumentCache
+com.google.common.collect.DenseImmutableTable$ColumnMap
 androidx.core.util.Preconditions:
     public static void checkArgument(boolean)
     public static void checkArgument(boolean,java.lang.Object)
@@ -15128,7 +15148,6 @@ androidx.core.util.Preconditions:
     public static int checkArgumentNonnegative(int,java.lang.String)
     public static int checkArgumentInRange(int,int,int,java.lang.String)
     private void <init>()
-com.google.common.collect.DenseImmutableTable$ColumnMap
 android.support.v4.media.RatingCompat:
     public static android.support.v4.media.RatingCompat newUnratedRating(int)
     public static android.support.v4.media.RatingCompat newHeartRating(boolean)
@@ -15263,9 +15282,9 @@ com.google.android.gms.common.util.PlatformVersion:
     public static boolean isAtLeastLollipopMR1()
     public static boolean isAtLeastM()
     public static boolean isAtLeastQ()
-androidx.core.view.MenuItemCompat$1
 io.grpc.ForwardingServerCallListener$SimpleForwardingServerCallListener
 com.google.common.collect.ImmutableCollection$ArrayBasedBuilder
+androidx.core.view.MenuItemCompat$1
 android.support.v4.media.MediaBrowserCompat$MediaBrowserImplBase$4
 io.opencensus.tags.propagation.TagContextTextFormat
 io.grpc.Deadline$1
@@ -15407,6 +15426,7 @@ com.google.android.gms.common.internal.safeparcel.SafeParcelReader:
     public static android.os.Parcel[] createParcelArray(android.os.Parcel,int)
     public static java.util.ArrayList createParcelList(android.os.Parcel,int)
     public static void readList(android.os.Parcel,int,java.util.List,java.lang.ClassLoader)
+io.flutter.plugins.sharedpreferences.R$color
 androidx.multidex.ZipUtil
 androidx.appcompat.view.ActionMode$Callback
 kotlin.jvm.functions.Function13
@@ -15488,8 +15508,8 @@ com.facebook.core.R$drawable
 com.google.firebase.firestore.core.LimboDocumentChange
 com.google.common.io.Closer$Suppressor
 com.google.type.LatLngOrBuilder
-androidx.annotation.InspectableProperty$ValueType
 io.grpc.stub.annotations.RpcMethod
+androidx.annotation.InspectableProperty$ValueType
 kotlin.coroutines.intrinsics.IntrinsicsKt__IntrinsicsJvmKt$createCoroutineUnintercepted$$inlined$createCoroutineFromSuspendFunction$IntrinsicsKt__IntrinsicsJvmKt$3
 androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener:
     public androidx.appcompat.widget.AbsActionBarView$VisibilityAnimListener withFinalVisibility(androidx.core.view.ViewPropertyAnimatorCompat,int)
@@ -15516,8 +15536,8 @@ io.opencensus.stats.Measure
 com.google.firebase.firestore.model.Document$DocumentState
 com.facebook.share.internal.LikeActionController$9
 com.google.common.net.MediaType$Tokenizer
-androidx.core.app.NotificationManagerCompat$NotifyTask
 com.google.common.util.concurrent.Striped$LargeLazyStriped
+androidx.core.app.NotificationManagerCompat$NotifyTask
 io.grpc.internal.DelayedStream$DelayedStreamListener$4
 com.google.firestore.v1.StructuredQueryOrBuilder
 com.google.firestore.v1.Document$1
@@ -15569,6 +15589,7 @@ com.facebook.internal.Validate:
     public static final java.lang.String CUSTOM_TAB_REDIRECT_URI_PREFIX
 com.google.firebase.firestore.IgnoreExtraProperties
 com.facebook.share.model.ShareMessengerGenericTemplateContent$ImageAspectRatio
+com.google.common.collect.SortedMultisetBridge
 androidx.loader.content.ModernAsyncTask:
     public static void setDefaultExecutor(java.util.concurrent.Executor)
     public static void execute(java.lang.Runnable)
@@ -15583,7 +15604,6 @@ androidx.loader.content.ModernAsyncTask:
     private static final int KEEP_ALIVE
     private static final int MESSAGE_POST_RESULT
     private static final int MESSAGE_POST_PROGRESS
-com.google.common.collect.SortedMultisetBridge
 androidx.core.view.accessibility.AccessibilityManagerCompat$AccessibilityStateChangeListener
 androidx.swiperefreshlayout.R$attr
 com.google.zxing.oned.rss.expanded.decoders.AbstractExpandedDecoder
@@ -15605,6 +15625,7 @@ com.google.common.cache.LocalCache$WeightedWeakValueReference
 com.google.protobuf.DescriptorProtos$SourceCodeInfoOrBuilder
 com.google.common.util.concurrent.ListenerCallQueue$Event
 com.google.firestore.v1.StructuredQuery$CollectionSelectorOrBuilder
+io.grpc.stub.StreamObservers
 androidx.core.graphics.drawable.DrawableCompat:
     public static void clearColorFilter(android.graphics.drawable.Drawable)
     public static android.graphics.drawable.Drawable unwrap(android.graphics.drawable.Drawable)
@@ -15613,9 +15634,8 @@ androidx.core.graphics.drawable.DrawableCompat:
     private static final java.lang.String TAG
     private static java.lang.reflect.Method sSetLayoutDirectionMethod
     private static boolean sSetLayoutDirectionMethodFetched
-io.grpc.stub.StreamObservers
-kotlin.sequences.SequencesKt___SequencesKt$filterNotNull$1
 com.google.android.gms.common.internal.AuthAccountRequest
+kotlin.sequences.SequencesKt___SequencesKt$filterNotNull$1
 com.google.firebase.auth.internal.InternalAuthProvider:
     public abstract com.google.android.gms.tasks.Task getAccessToken(boolean)
     public abstract java.lang.String getUid()
@@ -15793,9 +15813,9 @@ com.google.common.cache.LocalCache$EntryFactory$8
 kotlin.PublishedApi
 androidx.core.widget.TextViewCompat$AutoSizeTextType
 android.support.v4.media.session.MediaSessionCompat$Callback$StubApi24
-androidx.appcompat.app.AlertController$5
 com.google.common.collect.Maps$EntryTransformer
 com.google.common.collect.Sets$CartesianSet$1
+androidx.appcompat.app.AlertController$5
 androidx.appcompat.view.menu.MenuView:
     public abstract void initialize(androidx.appcompat.view.menu.MenuBuilder)
     public abstract int getWindowAnimations()
@@ -15841,10 +15861,10 @@ com.google.zxing.MultiFormatWriter:
 com.facebook.share.internal.LikeDialog$NativeHandler
 com.google.common.cache.LocalCache$EntrySet
 com.google.firebase.firestore.proto.WriteBatchOrBuilder
+com.google.common.collect.ImmutableSortedSetFauxverideShim
 android.support.v4.media.session.PlaybackStateCompatApi22:
     public static java.lang.Object newInstance(int,long,long,float,long,java.lang.CharSequence,long,java.util.List,long,android.os.Bundle)
     private void <init>()
-com.google.common.collect.ImmutableSortedSetFauxverideShim
 com.google.rpc.Help
 com.google.firebase.firestore.proto.Target$TargetTypeCase
 io.grpc.inprocess.InProcessTransport$3
@@ -15898,6 +15918,7 @@ io.flutter.plugin.platform.PlatformPlugin:
 com.google.android.gms.common.api.internal.zzc:
     public final boolean isCreated()
     public final boolean isStarted()
+com.google.common.reflect.TypeToken$TypeFilter$2
 com.google.gson.stream.JsonReader:
     private static final long MIN_INCOMPLETE_INTEGER
     private static final int PEEKED_NONE
@@ -15926,15 +15947,14 @@ com.google.gson.stream.JsonReader:
     private static final int NUMBER_CHAR_EXP_E
     private static final int NUMBER_CHAR_EXP_SIGN
     private static final int NUMBER_CHAR_EXP_DIGIT
-com.google.common.reflect.TypeToken$TypeFilter$2
 com.google.zxing.datamatrix.decoder.Decoder
 com.google.android.gms.auth.api.credentials.zzf
+com.google.common.collect.AbstractSortedMultiset$1DescendingMultisetImpl
 androidx.core.graphics.TypefaceCompatApi21Impl:
     private static final java.lang.String TAG
     private static final java.lang.String FONT_FAMILY_CLASS
     private static final java.lang.String ADD_FONT_WEIGHT_STYLE_METHOD
     private static final java.lang.String CREATE_FROM_FAMILIES_WITH_DEFAULT_METHOD
-com.google.common.collect.AbstractSortedMultiset$1DescendingMultisetImpl
 com.google.api.AdviceOrBuilder
 io.opencensus.stats.ViewData$1
 com.facebook.share.internal.ShareInternalUtility$7
@@ -16312,8 +16332,8 @@ com.facebook.share.model.AppGroupCreationContent
 com.facebook.share.internal.VideoUploader$FinishUploadWorkItem
 com.google.zxing.oned.rss.expanded.decoders.AI013103decoder
 com.facebook.share.widget.AppInviteDialog$WebFallbackHandler
-androidx.core.net.TrafficStatsCompat
 com.google.common.base.AbstractIterator$1
+androidx.core.net.TrafficStatsCompat
 com.squareup.okhttp.internal.http.RouteException
 com.facebook.share.internal.VideoUploader$UploadWorkItemBase$2
 com.google.type.PostalAddress$1
@@ -16335,16 +16355,16 @@ kotlin.text.StringsKt___StringsKt$withIndex$1
 com.google.api.Distribution$RangeOrBuilder
 com.google.common.util.concurrent.SequentialExecutor$1
 com.google.android.gms.internal.firebase_auth.zzin
+com.google.common.collect.SortedIterable
 androidx.activity.ImmLeaksCleaner:
     private static final int NOT_INITIALIAZED
     private static final int INIT_SUCCESS
     private static final int INIT_FAILED
-com.google.common.collect.SortedIterable
 io.opencensus.stats.ViewData$8$1
 io.grpc.internal.RetryPolicy$Provider
 io.grpc.internal.SharedResourceHolder
-androidx.core.app.NotificationCompat$Action$Extender
 com.google.common.collect.ForwardingSet
+androidx.core.app.NotificationCompat$Action$Extender
 io.grpc.okhttp.NegotiationType
 com.google.common.collect.ImmutableMultimap$1
 com.google.android.gms.internal.firebase_auth.zzp$zza$zza
@@ -16383,6 +16403,7 @@ kotlin.coroutines.experimental.SequenceBuilderKt
 com.google.api.Backend
 com.google.type.ColorOrBuilder
 com.google.firebase.firestore.core.SyncEngine$SyncEngineCallback
+com.google.common.hash.AbstractByteHasher
 android.support.v4.media.session.MediaControllerCompat$Callback:
     public void onSessionReady()
     public void onCaptioningEnabledChanged(boolean)
@@ -16390,7 +16411,6 @@ android.support.v4.media.session.MediaControllerCompat$Callback:
     public void onShuffleModeChanged(int)
     public android.support.v4.media.session.IMediaControllerCallback getIControllerCallback()
     void setHandler(android.os.Handler)
-com.google.common.hash.AbstractByteHasher
 com.google.android.gms.common.server.response.zah
 io.grpc.Metadata$IterableAt$1
 com.squareup.okhttp.internal.OptionalMethod
@@ -16421,8 +16441,8 @@ com.google.protobuf.DescriptorProtos$FieldDescriptorProto$Builder
 androidx.appcompat.widget.SwitchCompat
 com.google.firebase.firestore.util.ExponentialBackoff
 androidx.appcompat.view.StandaloneActionMode
-androidx.core.os.MessageCompat
 io.grpc.ClientInterceptors
+androidx.core.os.MessageCompat
 io.flutter.plugin.common.PluginRegistry
 com.google.firebase.firestore.remote.FirestoreChannel$4
 com.google.common.collect.Synchronized$SynchronizedMultiset
@@ -16610,11 +16630,11 @@ com.google.android.gms.internal.measurement.zzes:
     int zzb
     private int zzd
     private boolean zze
+com.google.android.gms.common.util.concurrent.NumberedThreadFactory:
+    private final int priority
 com.google.android.gms.auth.api.Auth$AuthCredentialsOptions:
     private final java.lang.String zzl
     private static final com.google.android.gms.auth.api.Auth$AuthCredentialsOptions zzk
-com.google.android.gms.common.util.concurrent.NumberedThreadFactory:
-    private final int priority
 com.facebook.appevents.AnalyticsUserIDStore:
     void <init>()
 com.google.android.gms.internal.measurement.zzr:
@@ -16820,6 +16840,8 @@ com.google.android.gms.internal.measurement.zzdv:
     public synthetic abstract java.lang.Object clone()
 com.google.android.gms.measurement.internal.zzfm:
     private final java.lang.String zzb
+io.flutter.plugins.sharedpreferences.MethodCallHandlerImpl$1:
+    final synthetic io.flutter.plugins.sharedpreferences.MethodCallHandlerImpl this$0
 com.google.android.gms.internal.firebase_auth.zzd:
     private static final java.lang.ClassLoader zza
 com.google.android.gms.auth.GoogleAuthUtil:
