@@ -8,7 +8,7 @@ class Wallet {
 List<Wallet> wallets = [
   Wallet(
       'Selendra (SEL)',
-      '0.00'
+      '43,729.00'
   ),
   Wallet(
       'Maker Dai',

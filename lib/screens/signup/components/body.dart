@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:selendra_marketplace_app/auth/auth_services.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 
 class Body extends StatefulWidget {
@@ -170,7 +171,7 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 40,
                 ),
-                _btnSignUp(),
+                ReuseButton.getItem('SIGN UP', (){validateAndSubmit();}, context),
                 _btnToLogin(),
                 SizedBox(
                   height: 10,
@@ -215,33 +216,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _nameField(){
-    return Container(
-      child: TextFormField(
-        keyboardType: TextInputType.emailAddress,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'FullName',
-          hintText: 'Enter your FullName',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          prefixIcon: Icon(
-            Icons.person,
-            color: Colors.blueAccent,
-          ),
-        ),
-        validator: (value) =>  value.isEmpty? "Empty email" :null,
-        onSaved: (value) => _email = value,
-      ),
-    );
-  }
-
   Widget _passwordField(){
     return Container(
       child: TextFormField(
@@ -270,28 +244,6 @@ class _BodyState extends State<Body> {
         obscureText: _isHidden,
         validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
         onSaved: (value) => _password = value,
-      ),
-    );
-  }
-
-  Widget _btnSignUp(){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          validateAndSubmit();
-        },
-        child: Text(
-          "SIGN UP",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
       ),
     );
   }

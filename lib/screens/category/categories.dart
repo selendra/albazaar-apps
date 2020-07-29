@@ -1,4 +1,4 @@
-import 'package:selendra_marketplace_app/screens/category/realestate/foods_screen.dart';
+import 'package:selendra_marketplace_app/screens/category/food/foods_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -11,7 +11,6 @@ class CategoriesScreen extends StatelessWidget {
 
 
   void itemTap(int index,context){
-    print('$index');
     switch (index){
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsScreen()));
@@ -19,20 +18,22 @@ class CategoriesScreen extends StatelessWidget {
     }
   }
 
-  Widget itemCategory(Function onTap, String logo,String title){
+  Widget itemCategory(Function onTap, IconData icon, {String title}){
     return InkWell(
       onTap: onTap,
       child: Container(
-          height: 50,
-          width: 60,
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            children: <Widget>[
-              Image.asset(logo,height: 40,width: 40,),
-              SizedBox(height: 5,),
-              Text(title,style: TextStyle(fontSize: 12),)
-            ],
-          )
+        height: 40,
+        width: 40,
+        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        alignment: Alignment.center,
+        child: Icon(icon,size: 30.0,color: Colors.grey,)
+          // Column(
+          //   children: <Widget>[
+          //     Image.asset(logo,height: 40,width: 40,),
+          //     SizedBox(height: 5,),
+          //     // Text(title,style: TextStyle(fontSize: 12),)
+          //   ],
+          // )
       ),
     );
   }
@@ -48,7 +49,7 @@ class CategoriesScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: allCategories.length,
         itemBuilder: (context,index){
-          return itemCategory((){itemTap(index, context);}, allCategories[index].image, allCategories[index].title);
+          return itemCategory(() {itemTap(index, context);},allCategories[index].icon );
         }
       )
     );

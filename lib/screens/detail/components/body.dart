@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
               iconTheme: IconThemeData(
                 color: kDefualtColor,
               ),
-              expandedHeight: MediaQuery.of(context).size.height/2,
+              expandedHeight: MediaQuery.of(context).size.height*0.4,
               floating: true,
               pinned: true,
               primary: true,

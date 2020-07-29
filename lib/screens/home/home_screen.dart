@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/screens/home/components/search.dart';
-import 'package:selendra_marketplace_app/screens/cart/cart.dart';
+
 import 'package:selendra_marketplace_app/constants.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
-  TabController controller;
   ScrollController scrollController;
-  String myEmail;
-  String myName;
-  String myImageUrl;
 
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: 7);
     scrollController = ScrollController();
   }
 
   @override
   void dispose() {
-    controller.dispose();
     scrollController.dispose();
     super.dispose();
   }
@@ -44,11 +35,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildAppBar(){
+  Widget _buildAppBar() {
     return SafeArea(
       child: NestedScrollView(
         controller: scrollController,
-        headerSliverBuilder: (BuildContext context,bool boxIsScroll){
+        headerSliverBuilder: (BuildContext context, bool boxIsScroll) {
           return <Widget>[
             SliverAppBar(
               floating: true,
@@ -57,38 +48,48 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               forceElevated: boxIsScroll,
               brightness: Brightness.light,
               elevation: 0,
-              centerTitle: true,
               backgroundColor: Colors.white,
-              leading: IconButton(icon: Icon(Icons.language,color: kDefualtColor,),onPressed: (){},),
-              title: Text(
-                'SELENDRA',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.language,
+                  color: kDefualtColor,
                 ),
+                onPressed: () {},
+              ),
+              centerTitle: true,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      child:
+                          Image.asset('images/logo.png', width: 30, height: 30),
+                      padding: EdgeInsets.only(right: 5)),
+                  Text(
+                    'SELENDRA',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                  )
+                ],
               ),
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.search,color:kDefualtColor,),
-                  onPressed: (){
+                  icon: Icon(
+                    Icons.search,
+                    color: kDefualtColor,
+                  ),
+                  onPressed: () {
                     showSearch(context: context, delegate: SearchProducts());
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.shopping_cart,color: kDefualtColor,),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CartScreen()));
                   },
                 ),
               ],
             ),
           ];
         },
-        body: Body(controller),
+        body: Body(),
       ),
     );
   }
-
- 
 }

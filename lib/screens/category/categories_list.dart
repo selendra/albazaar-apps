@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/category/realestate/real_estate_categories.dart';
+import 'package:selendra_marketplace_app/screens/category/food/real_estate_categories.dart';
 
 
 class CategoriesListScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
     );
   }
 
-  Widget itemCategory(Function onTap, String logo,String title){
+  Widget itemCategory(Function onTap, String logo,{String title}){
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -89,9 +89,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
               return ListTile(
                 onTap: (){itemTap(index, context);},
                 title: Text(widget.allCategories[index].title),
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(widget.allCategories[index].image),
-                ),
+                leading: Icon(widget.allCategories[index].icon),
               );
             }
         )

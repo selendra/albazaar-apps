@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/resetpass/reset_pass_phone.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 
 class Body extends StatefulWidget {
@@ -201,7 +202,7 @@ class _BodyState extends State<Body> {
               _passwordField(),
               _btntoForgetPass(),
               SizedBox(height: 80,),
-              _btnSignIn(context),
+              ReuseButton.getItem('SIGN IN', (){validateAndSubmit();}, context)
             ],
         ),
           ),
@@ -249,28 +250,7 @@ class _BodyState extends State<Body> {
       ) ,
     );
   }
-  Widget _btnSignIn(context){
-    return Container(
-      width: 150,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          print('Sign in');
-          validateAndSubmit();
-        },
-        child: Text(
-          "Sign In",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
-      ),
-    );
-  }
+  
   Widget _passwordField(){
     return Container(
       child: TextFormField(

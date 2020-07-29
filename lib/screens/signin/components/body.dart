@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/resetpass/reset_by_email.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 
 
@@ -257,7 +258,7 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 20,
                 ),
-                _btnLogin(),
+                ReuseButton.getItem('SIGN IN', (){validateAndSubmit();}, context),
                 SizedBox(
                   height: 10,
                 ),
@@ -330,28 +331,6 @@ class _BodyState extends State<Body> {
         obscureText: _isHidden,
         validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
         onSaved: (value) => _password = value,
-      ),
-    );
-  }
-
-  Widget _btnLogin(){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          validateAndSubmit();
-        },
-        child: Text(
-          "SIGN IN",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
       ),
     );
   }

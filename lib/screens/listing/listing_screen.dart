@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/listing/components/body.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_appbar.dart';
-import 'package:selendra_marketplace_app/constants.dart';
 
 class ListingScreen extends StatefulWidget {
 

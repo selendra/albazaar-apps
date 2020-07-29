@@ -6,6 +6,8 @@ INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/Androi
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:1:1-65:12
 MERGED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:1:1-65:12
 MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
+MERGED from [:flutter_plugin_android_lifecycle] /home/chay/selendra-marketplace-mobile/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
 MERGED from [:shared_preferences] /home/chay/selendra-marketplace-mobile/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
@@ -44,7 +46,6 @@ MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ch
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/bdc52246a89eff6b00f54ed1c9c45f64/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.fragment:fragment:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/ede4b5f15f872d9faf6970042ee31ca6/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.browser:browser:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c45434711f98071ba0cf01308f8be256/browser-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/524faae554b7ba8358e01a675791e97a/vectordrawable-animated-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c09a0032afaafe0958811e1cdedaa61f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -55,6 +56,7 @@ MERGED from [com.facebook.android:facebook-messenger:5.15.3] /home/chay/.gradle/
 MERGED from [com.facebook.android:facebook-core:5.15.3] /home/chay/.gradle/caches/transforms-2/files-2.1/8fb82b23e9a8dedb739d50c5af428e49/jetified-facebook-core-5.15.3/AndroidManifest.xml:21:1-53:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/a88c9c6d9ba83b0c44072741dbedff89/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/84aa6291b0b38e8312ec765088258ba1/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/f7e21ebf8cd6ceaaff69b19001dd480b/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c14f3c56d9c2df94e1655eddbe149215/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/44b79f7fb825b9582c85a7f7016ef635/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
@@ -122,6 +124,8 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.4.3] /h
 		ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:8:22-64
 application
 ADDED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:9:5-64:19
+MERGED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
 MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
@@ -292,6 +296,10 @@ INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/Androi
 INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml
 MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:google_sign_in] /home/chay/selendra-marketplace-mobile/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/chay/selendra-marketplace-mobile/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/chay/selendra-marketplace-mobile/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:flutter_facebook_login] /home/chay/selendra-marketplace-mobile/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
@@ -368,8 +376,6 @@ MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/chay/.g
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/ede4b5f15f872d9faf6970042ee31ca6/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.fragment:fragment:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/ede4b5f15f872d9faf6970042ee31ca6/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.browser:browser:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c45434711f98071ba0cf01308f8be256/browser-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.browser:browser:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c45434711f98071ba0cf01308f8be256/browser-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/524faae554b7ba8358e01a675791e97a/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
@@ -390,6 +396,8 @@ MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/chay/.gradle
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/a88c9c6d9ba83b0c44072741dbedff89/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/84aa6291b0b38e8312ec765088258ba1/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/84aa6291b0b38e8312ec765088258ba1/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/d3c3dc38346d9f203499cdcf3b6acf4f/jetified-activity-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/f7e21ebf8cd6ceaaff69b19001dd480b/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/f7e21ebf8cd6ceaaff69b19001dd480b/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/chay/.gradle/caches/transforms-2/files-2.1/c14f3c56d9c2df94e1655eddbe149215/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
@@ -450,6 +458,30 @@ INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/debug/Andro
 	android:minSdkVersion
 		INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml
 		INJECTED from /home/chay/selendra-marketplace-mobile/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
 MERGED from [com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:13:5-79

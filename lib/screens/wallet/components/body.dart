@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/models/wallet.dart';
 import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,100 +11,108 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return _buildBody();
+    return _body();
   }
-  Widget _buildBody(){
-    return SafeArea(
-      child: Container(
-        margin: EdgeInsets.only(top:10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+
+  Widget _body() {
+    return Stack(
+      children: <Widget>[
+        Column(
           children: <Widget>[
-            _total(),
-            SizedBox(height: 16,),
-            _buildWallet(),
-            SizedBox(height: 16,),
-            _btnAdd(),
-          ],
-        )
-      ),
-    );
-  }
-  Widget _total(){
-    return Container(
-      margin: EdgeInsets.all(30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(children: <Widget>[
-            Text('Total: ',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25),),  
-            SizedBox(height: 5,),
-            Text('000000',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 22),), 
-          ],),
-          Container(
-            width: 100,
-            height: 40,
-            child: RaisedButton(
-              onPressed: (){},
-              child: Text(
-                'Withdrawal',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12
-                )   
-              ),
+            Container(
+              height: MediaQuery.of(context).size.height * .25,
+              width: MediaQuery.of(context).size.width,
               color: kDefualtColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 30),
+                  Text(
+                    'TOTAL BALANCE',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    '43,729.00',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
-          ),          
-        ],
-      ),
-    );
-  }
-  Widget _btnAdd(){
-    return Container(
-      margin: EdgeInsets.all(16.0),
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          print('Add');
-        },
-        child: Text(
-          "ADD",
-          style: TextStyle(
-              color: Colors.white
+            Expanded(
+              child: Container(
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+        Container(
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * .2,
+              right: 10.0,
+              left: 10.0),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: <Widget>[
+                _buildWallet(),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  margin: EdgeInsets.all(16.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ReuseButton.getItem('Add', () {}, context),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ReuseButton.getItem('Withdrawal', () {}, context)
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
-      ),
+        )
+      ],
     );
   }
-  Widget _buildWallet(){
+
+  Widget _buildWallet() {
     return Container(
-      margin: EdgeInsets.all(16.0),
       child: ListView.builder(
           itemCount: wallets.length,
           shrinkWrap: true,
-          itemBuilder: (context,index){
+          itemBuilder: (context, index) {
             return Card(
-              elevation: 2,
+              elevation: 1,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
+                  borderRadius: BorderRadius.circular(22.0),
                   side: BorderSide(
                     color: kDefualtColor,
-                  )
-              ),
+                  )),
               margin: EdgeInsets.all(10.0),
               child: ListTile(
-                trailing: Text(wallets[index].amount,style: TextStyle(fontWeight: FontWeight.w900),),
-                leading: Icon(Icons.attach_money,color: kDefualtColor,),
-                title: Text(wallets[index].title,style: TextStyle(fontWeight: FontWeight.w900),),
+                trailing: Text(
+                  wallets[index].amount,
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
+                leading: ImageIcon(AssetImage('images/logo.png')),
+                title: Text(
+                  wallets[index].title,
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
               ),
             );
           }),

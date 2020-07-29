@@ -174,7 +174,6 @@ class _PinScreenState extends State<PinScreen> {
       pinIndex=0;
     else if(pinIndex==6){
       setPin(pinIndex, "");
-      currentPin[pinIndex-1]=="";
       pinIndex--;
     }else{
       setPin(pinIndex, "");

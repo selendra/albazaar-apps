@@ -4,6 +4,7 @@ import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/otp/otp.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -32,7 +33,7 @@ class _BodyState extends State<Body> {
       }
     });
   }
-   showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
@@ -122,7 +123,7 @@ class _BodyState extends State<Body> {
               SizedBox(height: 10,),
               _passwordField(),
               SizedBox(height: 80,),
-              _btnSignUp(context),
+              ReuseButton.getItem('SIGN UP', (){validateAndSubmit();}, context),
             ],
         ),
           ),
@@ -149,27 +150,6 @@ class _BodyState extends State<Body> {
           print(phone.completeNumber);
          _phone = phone.completeNumber.toString();
         },
-      ),
-    );
-  }
-  Widget _btnSignUp(context){
-    return Container(
-      width: 150,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          validateAndSubmit();
-        },
-        child: Text(
-          "Sign Up",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
       ),
     );
   }

@@ -1,16 +1,18 @@
+import 'package:flutter/material.dart';
+
 class Categories {
   String title;
-  String image;
+  IconData icon;
 
-  Categories(this.title, this.image);
+  Categories({this.title, this.icon});
 }
 List <Categories> category = [
 
-  Categories('Foods','images/vegetable.png'),
-  Categories('Real Estate','images/online-shopping.png'),
-  Categories('Services','images/electrical-service.png'),
-  Categories('Fashion','images/tshirt.png'),
-  Categories('Cars','images/eco-car.png'),
-  Categories('Electronics','images/study.png'),
+  Categories(title: '',icon: Icons.restaurant),
+  Categories(title: '',icon: Icons.restaurant),
+  Categories(title: '',icon: Icons.restaurant),
+  Categories(title: '',icon: Icons.restaurant),
+  Categories(title: '',icon: Icons.restaurant),
+  Categories(title: '',icon: Icons.restaurant),
 
 ];

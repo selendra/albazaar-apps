@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/screens/wallet/components/body.dart';
 
 
 
@@ -9,11 +10,12 @@ class WalletScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildCreateWallet(context),
+      body: Body(),
     );
   }
   Widget _buildAppBar(){
     return AppBar(
+      elevation: 0,
       backgroundColor: Colors.white,
       brightness: Brightness.light,
       title: Text('Wallet',style: TextStyle(fontWeight: FontWeight.w600,color: kDefualtColor),),
