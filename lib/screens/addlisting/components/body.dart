@@ -13,6 +13,8 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
+enum Options { Camera, Gallery }
+
 class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
@@ -27,6 +29,37 @@ class _BodyState extends State<Body> {
   String _phoneNumber;
   String _categories = "Categories";
 
+  Future<void> choiceDialog() async {
+    switch (await showDialog<Options>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Choose an option'),
+            children: <Widget>[
+              SimpleDialogOption(
+                child: Text('Camera'),
+                onPressed: () {
+                  Navigator.pop(context, Options.Camera);
+                },
+              ),
+              SimpleDialogOption(
+                child: Text('Gallery'),
+                onPressed: () {
+                  Navigator.pop(context, Options.Gallery);
+                },
+              )
+            ],
+          );
+        })) {
+      case Options.Camera:
+        cameraImage();
+        break;
+      case Options.Gallery:
+        galleryImage();
+        break;
+    }
+  }
+
   void routeA() async {
     String resultOfC = await Navigator.push(
         context,
@@ -38,12 +71,20 @@ class _BodyState extends State<Body> {
     });
   }
 
-  Future getImage() async {
+  Future galleryImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       _myImage = File(pickedFile.path);
     });
+  }
+  Future cameraImage() async{
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _myImage = File(pickedFile.path);
+    });
+
   }
 
   void checkValidate() {
@@ -253,19 +294,24 @@ class _BodyState extends State<Body> {
   Widget _image() {
     return InkWell(
       onTap: () {
-        getImage();
+        choiceDialog();
       },
       child: Container(
         height: 150,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18.0),
-            border: Border.all(
-              color: kDefualtColor,
-              width: 1,
-            ),
+          borderRadius: BorderRadius.circular(18.0),
+          border: Border.all(
+            color: kDefualtColor,
+            width: 1,
+          ),
         ),
-        child: _myImage == null ? Image(image: NetworkImage('https://static.thenounproject.com/png/187803-200.png'),)  : Image.file(_myImage),
+        child: _myImage == null
+            ? Image(
+                image: NetworkImage(
+                    'https://static.thenounproject.com/png/187803-200.png'),
+              )
+            : Image.file(_myImage),
       ),
     );
   }

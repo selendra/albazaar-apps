@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/otp/otp.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
+import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
+import 'package:selendra_marketplace_app/screens/otp/otp.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -16,23 +16,12 @@ class _BodyState extends State<Body> {
   String _countryCode='KH';
   String _phone;
   bool isLogined = false;
-  bool _isHidden = true;
   bool _isLoading = false;
   final formKey = GlobalKey<FormState>();
   String _password;
-  IconData _iconData = Icons.visibility;
   String alertText;
 
-   void toggleVisibility(){
-    setState(() {
-      _isHidden = !_isHidden;
-      if(_isHidden==true){
-        _iconData = Icons.visibility;
-      }else{
-        _iconData = Icons.visibility_off;
-      }
-    });
-  }
+   
   showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = FlatButton(
@@ -56,35 +45,17 @@ class _BodyState extends State<Body> {
     },
   );
 }
-  signUpWithPhone(String phone,String password) async{
-    String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/registerbyphone";
-    setState(() {
-      _isLoading = true;
-    });
-    var response = await http.post(apiUrl,headers: <String,String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-    },body: jsonEncode(<String,String>{
-      'phone': phone,
-      'password': password,
-    }));
-    if (response.statusCode==200){
+
+  onSignUpWithPhone()async{
+    await ApiPostServices().signUpByPhone(_phone, _password,context).then((value){
       setState(() {
         _isLoading = false;
       });
-      var responseBody = json.decode(response.body);
-      print(responseBody);
-      print(response.body);
-      alertText = responseBody['message'];
-      if(alertText=='Successfully registered!'){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OTPScreen(phone)));
-      }else {
-        showAlertDialog(context);
-      }    
-    }else{
-      print(response.body);
-    }
+      alertText = value;
+      showAlertDialog(context);
+    });
   }
+
   bool validateAndSave(){
     final form = formKey.currentState;
     if(form.validate()){
@@ -98,7 +69,8 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_password);
       print(_phone);
-      signUpWithPhone(_phone, _password);
+      //onSignUpWithPhone();
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>OTPScreen(_phone,_password)));
     }
   }
   
@@ -121,7 +93,7 @@ class _BodyState extends State<Body> {
               SizedBox(height: 50,),
               _phoneCodePick(),
               SizedBox(height: 10,),
-              _passwordField(),
+              _reusePwField(),
               SizedBox(height: 80,),
               ReuseButton.getItem('SIGN UP', (){validateAndSubmit();}, context),
             ],
@@ -153,35 +125,16 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  Widget _passwordField(){
-    return Container(
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Password',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-          prefixIcon: Icon(
-            Icons.lock,
-            color: kDefualtColor,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(_iconData,),
-            color: kDefualtColor,
-            onPressed: (){
-              toggleVisibility();
-            },
-          ),
-        ),
-        obscureText: _isHidden,
-        validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
-        onSaved: (value) => _password = value,
-      ),
+
+  Widget _reusePwField() {
+    return ReusePwField(
+      labelText: 'Password',
+      validator: (value) => value.isEmpty || value.length < 6
+          ? 'Password is empty or less than 6 character'
+          : null,
+      onSaved: (value) => _password = value,
     );
   }
+
+  
 }

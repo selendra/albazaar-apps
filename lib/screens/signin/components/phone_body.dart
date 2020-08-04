@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/resetpass/reset_pass_phone.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-
+import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -15,8 +14,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
-  String _countryCode='KH';
+  String _countryCode = 'KH';
   String _phone;
   bool isLogined = false;
   bool _isHidden = true;
@@ -27,190 +25,190 @@ class _BodyState extends State<Body> {
   String alertText;
   TextEditingController _textEditingController;
 
-   void toggleVisibility(){
+  void toggleVisibility() {
     setState(() {
       _isHidden = !_isHidden;
-      if(_isHidden==true){
+      if (_isHidden == true) {
         _iconData = Icons.visibility;
-      }else{
+      } else {
         _iconData = Icons.visibility_off;
       }
     });
   }
 
-  bool validateAndSave(){
+  bool validateAndSave() {
     final form = formKey.currentState;
-    if(form.validate()){
+    if (form.validate()) {
       form.save();
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-  
+
   showAlertDialog(BuildContext context) {
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {Navigator.pop(context);},
-  );
-
-  AlertDialog alert = AlertDialog(
-    title: Text(alertText),
-    content: Text("Please check again"),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
- showResetAlertDialog(BuildContext context) {
-  // set up the button
-  Widget _okButton = FlatButton(
-    child: Text("Reset"),
-    onPressed: () {
-      
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetPassPhone()));
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
       },
-  );
-  Widget _cancelButton = FlatButton(
-    child: Text('Cancel'),
-    onPressed: (){
-      Navigator.pop(context);
-    },
-  );
+    );
 
-  AlertDialog alert = AlertDialog(
-    title: Text(alertText),
-    content: Text("Please check your email. "),
-    actions: [
-      _cancelButton,
-      _okButton,
-    ],
-  );
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check again"),
+      actions: [
+        okButton,
+      ],
+    );
 
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-  signInWithPhone(String phone,String password) async{
-    String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/loginbyphone";
-    String token;
-    setState(() {
-      _isLoading = true;
-    });
-    var response = await http.post(apiUrl,headers: <String,String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-    },body: jsonEncode(<String,String>{
-      'phone': phone,
-      'password': password,
-    }));
-    if (response.statusCode==200){
-      SharedPreferences isLogin = await SharedPreferences.getInstance();
-      setState(() {
-        _isLoading = false;
-      });
-      var responseJson = json.decode(response.body);
-      print(responseJson);
-      print(response.body);
-      token = responseJson['token'];
-      if (token!=null){
-        isLogin.setBool("isLogin", true);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-      }else {
-        try{
-          alertText = responseJson['error']['message'];
-          showAlertDialog(context);
-        }catch (e){
-          alertText = responseJson['message'];
-          showAlertDialog(context);
-        } 
-      }
-    }else{
-      print(response.body);
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
-  void validateAndSubmit(){
-    if(validateAndSave()){
+
+  showResetAlertDialog(BuildContext context) {
+    // set up the button
+    Widget _okButton = FlatButton(
+      child: Text("Reset"),
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ResetPassPhone()));
+      },
+    );
+    Widget _cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check your email. "),
+      actions: [
+        _cancelButton,
+        _okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  onSignInByPhone() async {
+    await ApiPostServices().signInByPhone(_phone, _password,context).then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+      alertText = value;
+      showAlertDialog(context);
+    });
+  }
+
+  void validateAndSubmit() {
+    if (validateAndSave()) {
       print(_password);
       print(_phone);
-      signInWithPhone(_phone, _password);
+      onSignInByPhone();
     }
   }
-  void forgetPassword(String phoneNumber)async {
-    String apiUrl  = 'https://testnet-api.zeetomic.com/pub/v1/forget-password';
-    var response = await http.post(apiUrl,headers: <String, String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-      },body: jsonEncode(<String,String>{
-        'phone' : '+855'+phoneNumber
-      })
-    );
-    if(response.statusCode == 200){
+
+  onForgetPwPhone() async{
+    await ApiPostServices().forgetPasswordByPhone(_phone).then((value){
+      alertText = value;
+      showResetAlertDialog(context);
+    });
+  }
+
+  void forgetPassword(String phoneNumber) async {
+    String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/forget-password';
+    var response = await http.post(apiUrl,
+        headers: <String, String>{
+          "accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(<String, String>{'phone': '+855' + phoneNumber}));
+    if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       alertText = responseBody['message'];
       showResetAlertDialog(context);
     }
   }
+
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
   }
+
   @override
   void dispose() {
     super.dispose();
     _textEditingController.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _isLoading ? Center(child: CircularProgressIndicator(),) : SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Container(
-            margin: EdgeInsets.all(30.0),
-            child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 10,),
-              Container(
-                  child:Image.asset('images/logo.png',height: 100,width: 100,)
+      child: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Container(
+                  margin: EdgeInsets.all(30.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          child: Image.asset(
+                        'images/logo.png',
+                        height: 100,
+                        width: 100,
+                      )),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      _phoneCodePick(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      _reusePwField(),
+                      _btntoForgetPass(),
+                      SizedBox(
+                        height: 80,
+                      ),
+                      ReuseButton.getItem('SIGN IN', () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        validateAndSubmit();
+                      }, context)
+                    ],
+                  ),
                 ),
-              SizedBox(height: 50,),
-              _phoneCodePick(),
-              SizedBox(height: 10,),
-              _passwordField(),
-              _btntoForgetPass(),
-              SizedBox(height: 80,),
-              ReuseButton.getItem('SIGN IN', (){validateAndSubmit();}, context)
-            ],
-        ),
-          ),
-      ),
-      ),
+              ),
+            ),
     );
-}
-  Widget _phoneCodePick(){
+  }
+
+  Widget _phoneCodePick() {
     return Container(
       child: IntlPhoneField(
         decoration: InputDecoration(
@@ -221,8 +219,7 @@ class _BodyState extends State<Body> {
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(30.0))),
         ),
         initialCountryCode: _countryCode,
         onChanged: (phone) {
@@ -232,11 +229,12 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  Widget _btntoForgetPass(){
+
+  Widget _btntoForgetPass() {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: (){
+        onPressed: () {
           _displayDialog(context);
         },
         child: RichText(
@@ -247,41 +245,22 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-      ) ,
-    );
-  }
-  
-  Widget _passwordField(){
-    return Container(
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Password',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-          prefixIcon: Icon(
-            Icons.lock,
-            color: kDefualtColor,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(_iconData,),
-            color: kDefualtColor,
-            onPressed: (){
-              toggleVisibility();
-            },
-          ),
-        ),
-        obscureText: _isHidden,
-        validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
-        onSaved: (value) => _password = value,
       ),
     );
   }
+
+  Widget _reusePwField() {
+    return ReusePwField(
+      labelText: 'Password',
+      validator: (value) => value.isEmpty || value.length < 6
+          ? 'Password is empty or less than 6 character'
+          : null,
+      onSaved: (value) => _password = value,
+    );
+  }
+
+  
+
   _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -295,18 +274,18 @@ class _BodyState extends State<Body> {
               decoration: InputDecoration(hintText: "Phonenumber"),
             ),
             actions: <Widget>[
-                FlatButton(
-                  child: Text('CANCEL'),
-                  onPressed: () {
-                    _textEditingController.text ='';
-                    Navigator.of(context).pop();
-                  },
-                ),
+              FlatButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  _textEditingController.text = '';
+                  Navigator.of(context).pop();
+                },
+              ),
               FlatButton(
                 child: Text('OK'),
                 onPressed: () {
                   forgetPassword(_textEditingController.text);
-                  _textEditingController.text ='';
+                  _textEditingController.text = '';
                   Navigator.of(context).pop();
                 },
               ),
@@ -315,4 +294,3 @@ class _BodyState extends State<Body> {
         });
   }
 }
-

@@ -9,7 +9,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Selendra Marketplace"
-        android:icon="@mipmap/logo">
+        android:icon="@mipmap/sld">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

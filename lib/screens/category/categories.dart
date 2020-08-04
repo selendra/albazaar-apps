@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
+import 'package:selendra_marketplace_app/constants.dart';
 
 class CategoriesScreen extends StatelessWidget {
 
@@ -26,7 +27,7 @@ class CategoriesScreen extends StatelessWidget {
         width: 40,
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.center,
-        child: Icon(icon,size: 30.0,color: Colors.grey,)
+        child: Icon(icon,size: 30.0,color: kDefualtColor,)
           // Column(
           //   children: <Widget>[
           //     Image.asset(logo,height: 40,width: 40,),
@@ -54,6 +55,4 @@ class CategoriesScreen extends StatelessWidget {
       )
     );
   }
-
-
 }

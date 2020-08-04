@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
+import 'package:selendra_marketplace_app/screens/signup/userinfo/user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
 
 
 class OTPScreen extends StatefulWidget {
-  final String phoneNumber;
-  OTPScreen(this.phoneNumber);
+  final String phoneNumber,password;
+  OTPScreen(this.phoneNumber,this.password);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -20,7 +23,7 @@ class _OTPScreenState extends State<OTPScreen> {
     return Theme(
       data: Theme.of(context).copyWith(scaffoldBackgroundColor: Colors.white,),
       child: Scaffold(
-        body: PinScreen(widget.phoneNumber),
+        body: PinScreen(widget.phoneNumber,widget.password),
       ),
     );
   }
@@ -28,16 +31,18 @@ class _OTPScreenState extends State<OTPScreen> {
 }
 
 class PinScreen extends StatefulWidget {
-  final String phoneNumber;
-  PinScreen(this.phoneNumber);
+  final String phoneNumber,password;
+  PinScreen(this.phoneNumber,this.password);
   @override
   _PinScreenState createState() => _PinScreenState();
 }
 
 class _PinScreenState extends State<PinScreen> {
 
-  bool _isLoading = false;
+  bool _isLoading = false,_isCounting = true;
   String alertText;
+  int _second = 30;
+  Timer _timer;
   List<String> currentPin = ["","","","","",""];
   TextEditingController pinOneController = TextEditingController();
   TextEditingController pinTwoController = TextEditingController();
@@ -55,7 +60,7 @@ class _PinScreenState extends State<PinScreen> {
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () {Navigator.pop(context);},
+    onPressed: () {Navigator.pop(context); startTimer();},
   );
 
   AlertDialog alert = AlertDialog(
@@ -74,6 +79,20 @@ class _PinScreenState extends State<PinScreen> {
     },
   );
 }
+  void startTimer(){
+    const oneSec = const Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec, 
+      (Timer timer) => setState((){
+        if(_second<1){
+          timer.cancel();
+          _isCounting = false;
+        }else{
+          _second = _second-1;
+        }
+      })
+    );
+  }
   void checkVerify(String verifyOTP)async{
     String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/account-confirmation';
      setState(() {
@@ -102,8 +121,9 @@ class _PinScreenState extends State<PinScreen> {
         }
       }catch (e){
         isLogin.setBool('isLogin', true);
+        await ApiPostServices().signInByPhone(widget.phoneNumber, widget.password, context);
         alertText = responseBody['message'];
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UserInfo()));
       }
     }else{
       print(response.body);
@@ -181,6 +201,16 @@ class _PinScreenState extends State<PinScreen> {
       pinIndex--;
     }
   }
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +229,7 @@ class _PinScreenState extends State<PinScreen> {
                       color: kDefualtColor,
                     ),
                   ),
+                  SizedBox(height: 5,),
                   Text(
                     'OTP was send to: '+widget.phoneNumber,
                     style: TextStyle(
@@ -207,6 +238,8 @@ class _PinScreenState extends State<PinScreen> {
                       color: kDefualtColor,
                     ),
                   ),
+                  _isCounting ? 
+                  Text('Invalid in $_second second') :
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(

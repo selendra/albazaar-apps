@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/auth/root_service.dart';
+import 'package:selendra_marketplace_app/services/auth/root_service.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,25 +7,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> RootServices()));
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => RootServices()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Container(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('images/logo.png',height: 200,width: 200,),
-              SizedBox(height: 100,),
+              Image.asset(
+                'images/logo.png',
+                height: 200,
+                width: 200,
+              ),
+              SizedBox(
+                height: 100,
+              ),
               CircularProgressIndicator(),
             ],
           ),

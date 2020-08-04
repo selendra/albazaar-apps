@@ -14,18 +14,18 @@
 14    <uses-permission android:name="android.permission.INTERNET" />
 14-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:8:5-66
 14-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:8:22-64
-15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
-15-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
-16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
-16-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
-17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-17-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
-17-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
-18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-18-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
-18-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+15-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+16    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+16-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
+16-->[:connectivity] /home/chay/selendra-marketplace-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
+17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+17-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+17-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+18-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+18-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
 19    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
 19-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:24:5-68
 19-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:24:22-65
@@ -43,8 +43,8 @@
 25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 25-->[androidx.core:core:1.1.0] /home/chay/.gradle/caches/transforms-2/files-2.1/25f737908970f0e5f2feb2f6dabea9da/core-1.1.0/AndroidManifest.xml:24:18-86
 26        android:debuggable="true"
-27        android:icon="@mipmap/logo"
-27-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-36
+27        android:icon="@mipmap/sld"
+27-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:12:9-35
 28        android:label="Selendra Marketplace"
 28-->/home/chay/selendra-marketplace-mobile/android/app/src/main/AndroidManifest.xml:11:9-45
 29        android:supportsRtl="true" >
@@ -172,75 +172,75 @@
 100            </intent-filter>
 101        </activity>
 102
-103        <provider
-103-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
-104            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-104-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
-105            android:authorities="com.example.selendra_marketplace_app.flutter.image_provider"
-105-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
-106            android:exported="false"
-106-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
-107            android:grantUriPermissions="true" >
-107-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
-108            <meta-data
-108-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
-109                android:name="android.support.FILE_PROVIDER_PATHS"
-109-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
-110                android:resource="@xml/flutter_image_picker_file_paths" />
-110-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
-111        </provider>
-112
-113        <service
-113-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
-114            android:name="com.google.firebase.components.ComponentDiscoveryService"
-114-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:18-89
-115            android:directBootAware="true"
-115-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
-116            android:exported="false" >
-116-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:35:13-37
-117            <meta-data
-117-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
-118                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
-118-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-122
-119                android:value="com.google.firebase.components.ComponentRegistrar" />
-119-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
-120            <meta-data
-120-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
-121                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
-121-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-123
-122                android:value="com.google.firebase.components.ComponentRegistrar" />
-122-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
-123            <meta-data
-123-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:36:13-38:85
-124                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
-124-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:37:17-109
-125                android:value="com.google.firebase.components.ComponentRegistrar" />
-125-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:38:17-82
-126            <meta-data
-126-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:20:13-22:85
-127                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
-127-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:21:17-111
-128                android:value="com.google.firebase.components.ComponentRegistrar" />
-128-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:22:17-82
-129            <meta-data
-129-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:30:13-32:85
-130                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
-130-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:31:17-139
-131                android:value="com.google.firebase.components.ComponentRegistrar" />
-131-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:32:17-82
-132            <meta-data
-132-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:32:13-34:85
-133                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
-133-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:33:17-96
-134                android:value="com.google.firebase.components.ComponentRegistrar" />
-134-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:34:17-82
+103        <service
+103-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+104            android:name="com.google.firebase.components.ComponentDiscoveryService"
+104-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:18-89
+105            android:directBootAware="true"
+105-->[com.google.firebase:firebase-common:19.3.0] /home/chay/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
+106            android:exported="false" >
+106-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:35:13-37
+107            <meta-data
+107-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+108                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
+108-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-122
+109                android:value="com.google.firebase.components.ComponentRegistrar" />
+109-->[:firebase_auth] /home/chay/selendra-marketplace-mobile/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+110            <meta-data
+110-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+111                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+111-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-123
+112                android:value="com.google.firebase.components.ComponentRegistrar" />
+112-->[:firebase_core] /home/chay/selendra-marketplace-mobile/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+113            <meta-data
+113-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:36:13-38:85
+114                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+114-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:37:17-109
+115                android:value="com.google.firebase.components.ComponentRegistrar" />
+115-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:38:17-82
+116            <meta-data
+116-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:20:13-22:85
+117                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+117-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:21:17-111
+118                android:value="com.google.firebase.components.ComponentRegistrar" />
+118-->[com.google.firebase:firebase-firestore:21.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/b0c2a1b037cfdf8d3883f2fccb1d4273/jetified-firebase-firestore-21.4.3/AndroidManifest.xml:22:17-82
+119            <meta-data
+119-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:30:13-32:85
+120                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+120-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:31:17-139
+121                android:value="com.google.firebase.components.ComponentRegistrar" />
+121-->[com.google.android.gms:play-services-measurement-api:17.4.3] /home/chay/.gradle/caches/transforms-2/files-2.1/ea7d4ffce7227b023f8629ce6bcf9166/jetified-play-services-measurement-api-17.4.3/AndroidManifest.xml:32:17-82
+122            <meta-data
+122-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:32:13-34:85
+123                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+123-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:33:17-96
+124                android:value="com.google.firebase.components.ComponentRegistrar" />
+124-->[com.google.firebase:firebase-iid:20.1.5] /home/chay/.gradle/caches/transforms-2/files-2.1/5709630cd597a82b63b000e652481cec/jetified-firebase-iid-20.1.5/AndroidManifest.xml:34:17-82
+125            <meta-data
+125-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:17:13-19:85
+126                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+126-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:18:17-127
+127                android:value="com.google.firebase.components.ComponentRegistrar" />
+127-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:19:17-82
+128        </service>
+129
+130        <provider
+130-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+131            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+131-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+132            android:authorities="com.example.selendra_marketplace_app.flutter.image_provider"
+132-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+133            android:exported="false"
+133-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+134            android:grantUriPermissions="true" >
+134-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
 135            <meta-data
-135-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:17:13-19:85
-136                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
-136-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:18:17-127
-137                android:value="com.google.firebase.components.ComponentRegistrar" />
-137-->[com.google.firebase:firebase-installations:16.2.1] /home/chay/.gradle/caches/transforms-2/files-2.1/547fcba06793e730a19ffc9a4b5c176a/jetified-firebase-installations-16.2.1/AndroidManifest.xml:19:17-82
-138        </service>
+135-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+136                android:name="android.support.FILE_PROVIDER_PATHS"
+136-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+137                android:resource="@xml/flutter_image_picker_file_paths" />
+137-->[:image_picker] /home/chay/selendra-marketplace-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+138        </provider>
 139
 140        <activity
 140-->[com.google.firebase:firebase-auth:19.3.1] /home/chay/.gradle/caches/transforms-2/files-2.1/fc80fde7676cde5e81f87e306c8feb6d/jetified-firebase-auth-19.3.1/AndroidManifest.xml:24:9-31:50

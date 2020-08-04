@@ -5,15 +5,13 @@ import 'package:selendra_marketplace_app/constants.dart';
 import '../../../constants.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-import 'package:selendra_marketplace_app/auth/auth_services.dart';
+import 'package:selendra_marketplace_app/services/auth/auth_services.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/resetpass/reset_by_email.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-
-
+import 'package:selendra_marketplace_app/reuse_widget/reuse_flat_button.dart';
+import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -21,104 +19,64 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   bool isLogined = false;
-  bool _isHidden = true;
   final formKey = GlobalKey<FormState>();
-  String _email,_password;
-  IconData _iconData = Icons.visibility;
+  final _pwKey = GlobalKey<FormFieldState<String>>();
+  String _email, _password, alertText;
+  
   bool _isLoading = false;
-  String alertText;
-  String object;
   TextEditingController _textFieldController;
-  bool validateAndSave(){
+
+  bool validateAndSave() {
     final form = formKey.currentState;
-    if(form.validate()){
+    if (form.validate()) {
       form.save();
       return true;
-    }else{
+    } else {
       return false;
     }
   }
+
   showAlertDialog(BuildContext context) {
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {Navigator.pop(context);},
-  );
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
 
-  AlertDialog alert = AlertDialog(
-    title: Text(alertText),
-    content: Text("Please check your email. "),
-    actions: [
-      okButton,
-    ],
-  );
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check your email. "),
+      actions: [
+        okButton,
+      ],
+    );
 
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-
-  signIn(String email,String password) async{
-    String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/loginbyemail";
-    String token;
-    setState(() {
-      _isLoading =true;
-    });
-    var response = await http.post(apiUrl,headers: <String, String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-    },body: jsonEncode(<String,String>{
-      'email': email,
-      'password': password,
-    }));
-    if(response.statusCode ==200){
-      print('success');
-      print(response.body);
-      SharedPreferences isLogin = await SharedPreferences.getInstance();
-      var responseJson = json.decode(response.body);
-      setState(() {
-         _isLoading = false;
-      });
-      token = responseJson['token'];
-      if (token!=null){
-        isLogin.setBool("isLogin", true);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-      }else {
-        try{
-          alertText = responseJson['error']['message'];
-          showAlertDialog(context);
-        }catch (e){
-          alertText = responseJson['message'];
-          showAlertDialog(context);
-        } 
-      }
-     // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-    }else {
-      print(response.body);
-    
-    }
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
-   onGoogleSignIn () async{
-    try{
+  onGoogleSignIn() async {
+    try {
       await signInWithGoogle().then((value) {
-        if (value==null){
+        if (value == null) {
           Navigator.pop(context);
-        }else{
+        } else {
           setState(() {
             _isLoading = false;
           });
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
-    }catch (e){
+    } catch (e) {
       print(e);
       setState(() {
         _isLoading = false;
@@ -127,102 +85,98 @@ class _BodyState extends State<Body> {
     //signInWithGoogle().whenComplete(() => ));
   }
 
-  
-   onFacebookSignIn () async{
-    await signInFacebook(context).then((value){
-      if (value==null){
+  onFacebookSignIn() async {
+    await signInFacebook(context).then((value) {
+      if (value == null) {
         setState(() {
           _isLoading = false;
         });
         Navigator.pop(context);
-      }
-      else{
+      } else {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => BottomNavigation()));
       }
     });
   }
 
-  void toggleVisibility(){
-    setState(() {
-      _isHidden = !_isHidden;
-      if(_isHidden==true){
-        _iconData = Icons.visibility;
-      }else{
-        _iconData = Icons.visibility_off;
+  onApiSignInByEmail() async {
+    await ApiPostServices().signInByEmail(_email, _password, context).then((value) {
+      if (value == null) {
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+
+        alertText = value;
+        showAlertDialog(context);
       }
     });
   }
-  void validateAndSubmit(){
-    if(validateAndSave()){
-      signIn(_email, _password);
+
+  onForgetPwEmail(String email) async {
+    await ApiPostServices().forgetPasswordByEmail(email).then((value) {
+      if (value == 'Your Email doesn\'t exist') {
+        alertText = value;
+        showAlertDialog(context);
+      } else {
+        showResetAlertDialog(context);
+      }
+    });
+  }
+
+  
+  void validateAndSubmit() {
+    if (validateAndSave()) { 
+      onApiSignInByEmail();
     }
   }
 
   showResetAlertDialog(BuildContext context) {
-  // set up the button
-  Widget _okButton = FlatButton(
-    child: Text("Reset"),
-    onPressed: () {
-      
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetByEmail(_email)));
+    // set up the button
+    Widget _okButton = FlatButton(
+      child: Text("Reset"),
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ResetByEmail(_email)));
       },
-  );
-  Widget _cancelButton = FlatButton(
-    child: Text('Cancel'),
-    onPressed: (){
-      Navigator.pop(context);
-    },
-  );
-
-  AlertDialog alert = AlertDialog(
-    title: Text(alertText),
-    content: Text("Please check your email. "),
-    actions: [
-      _cancelButton,
-      _okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-  void forgetPassword(String email)async {
-    String apiUrl  = 'https://testnet-api.zeetomic.com/pub/v1/forget-password-by-email';
-    var response = await http.post(apiUrl,headers: <String, String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-      },body: jsonEncode(<String,String>{
-        'email' : email
-      })
     );
-    if(response.statusCode == 200){
-      var responseBody = json.decode(response.body);
-      alertText = responseBody['message'];
-      if(alertText == 'Your email does not exist!'){
-         showAlertDialog(context);
-      }else{
-        showResetAlertDialog(context);
-      }
-     
-    }else{
-      alertText = 'Error';
-      showAlertDialog(context);
-    }
+    Widget _cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check your email. "),
+      actions: [
+        _cancelButton,
+        _okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
+
   @override
   void initState() {
     super.initState();
     _textFieldController = TextEditingController();
   }
+
   @override
   void dispose() {
     _textFieldController.dispose();
@@ -233,52 +187,76 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return _buildBody();
   }
-  Widget _buildBody(){
+
+  Widget _buildBody() {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.all(30),
         padding: EdgeInsets.symmetric(vertical: 20),
-        child: _isLoading ? Center(child: CircularProgressIndicator(),):SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: Image.asset('images/logo.png',height: 100,width: 100,)
+        child: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          child: Image.asset(
+                        'images/logo.png',
+                        height: 100,
+                        width: 100,
+                      )),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      _emailField(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _reusePwField(),
+                      _btntoForgetPass(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ReuseButton.getItem('SIGN IN', () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        validateAndSubmit();
+                      }, context),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ReuseFlatButton.getItem(
+                          'Haven\'t Had an Account', 'Sign Up', () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUpScreen()));
+                      }),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'OR',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _buildBtnSocialRow()
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                _emailField(),
-                SizedBox(
-                  height: 20,
-                ),
-                _passwordField(),
-                _btntoForgetPass(),
-                SizedBox(
-                  height: 20,
-                ),
-                ReuseButton.getItem('SIGN IN', (){validateAndSubmit();}, context),
-                SizedBox(
-                  height: 10,
-                ),
-                _btntoRegister(),
-                SizedBox(
-                  height: 10,
-                ),
-                Text('OR',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                SizedBox(
-                  height: 20,
-                ),
-                _buildBtnSocialRow()
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
-  Widget _emailField(){
+
+  Widget _emailField() {
     return Container(
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
@@ -287,8 +265,7 @@ class _BodyState extends State<Body> {
           labelText: 'Email',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(30.0))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -298,44 +275,24 @@ class _BodyState extends State<Body> {
             color: kDefualtColor,
           ),
         ),
-        validator: (value) =>  value.isEmpty? "Empty email" :null,
+        validator: (value) => value.isEmpty ? "Empty email" : null,
         onSaved: (value) => _email = value,
       ),
     );
   }
-  Widget _passwordField(){
-    return Container(
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Password',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
-          ),
-          prefixIcon: Icon(
-            Icons.lock,
-            color: kDefualtColor,
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(_iconData,),
-            color: kDefualtColor,
-            onPressed: (){
-              toggleVisibility();
-            },
-          ),
-        ),
-        obscureText: _isHidden,
-        validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
-        onSaved: (value) => _password = value,
-      ),
+
+  Widget _reusePwField() {
+    return ReusePwField(
+      fieldKey: _pwKey,
+      labelText: 'Password',
+      validator: (value) => value.isEmpty || value.length < 6
+          ? 'Password is empty or less than 6 character'
+          : null,
+      onSaved: (value) => _password = value,
     );
   }
 
-  Widget _btnSocial(Function onTap, AssetImage logo){
+  Widget _btnSocial(Function onTap, AssetImage logo) {
     return InkWell(
         onTap: onTap,
         child: Container(
@@ -355,38 +312,38 @@ class _BodyState extends State<Body> {
               image: logo,
             ),
           ),
-        )
-    );
+        ));
   }
 
-  Widget _buildBtnSocialRow(){
+  Widget _buildBtnSocialRow() {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _btnSocial(
-              (){
-                setState(() {
-                  _isLoading = true;
-                });
-                onFacebookSignIn();
-              },
-              AssetImage('images/facebook.jpg'),
+            () {
+              setState(() {
+                _isLoading = true;
+              });
+              onFacebookSignIn();
+            },
+            AssetImage('images/facebook.jpg'),
           ),
           SizedBox(width: 20),
           _btnSocial(
-                (){
-                setState(() {
-                  _isLoading = true;
-                });
-                onGoogleSignIn();
+            () {
+              setState(() {
+                _isLoading = true;
+              });
+              onGoogleSignIn();
             },
             AssetImage('images/google.jpg'),
           ),
           SizedBox(width: 20),
           _btnSocial(
-                (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPhoneNumber()));
+            () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SignInPhoneNumber()));
             },
             AssetImage('images/phone.jpg'),
           ),
@@ -395,12 +352,12 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _btntoForgetPass(){
+  Widget _btntoForgetPass() {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: (){
-         _displayDialog(context);
+        onPressed: () {
+          _displayDialog(context);
         },
         child: RichText(
           text: TextSpan(
@@ -410,35 +367,10 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-      ) ,
+      ),
     );
   }
 
-  Widget _btntoRegister(){
-    return Container(
-      child: FlatButton(
-        onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpScreen()));
-        },
-        child: RichText(
-          text: TextSpan(
-              text: 'Haven`t Had an Account?',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              children: <TextSpan> [
-                TextSpan(
-                    text: ' Sign Up',
-                    style: TextStyle(
-                      color: Colors.red,
-                    )
-                )
-              ]
-          ),
-        ),
-      ) ,
-    );
-  }
   _displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -454,15 +386,15 @@ class _BodyState extends State<Body> {
               FlatButton(
                 child: Text('CANCEL'),
                 onPressed: () {
-                  _textFieldController.text ='';
+                  _textFieldController.text = '';
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
                 child: Text('OK'),
                 onPressed: () {
-                  forgetPassword(_textFieldController.text);
-                  _textFieldController.text ='';
+                  onForgetPwEmail(_textFieldController.text);
+                  _textFieldController.text = '';
                   Navigator.of(context).pop();
                 },
               ),
@@ -470,8 +402,4 @@ class _BodyState extends State<Body> {
           );
         });
   }
-
- 
-  
 }
-
