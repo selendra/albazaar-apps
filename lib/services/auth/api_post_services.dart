@@ -5,10 +5,11 @@ import 'package:selendra_marketplace_app/models/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/otp/otp.dart';
+import 'package:selendra_marketplace_app/services/auth/api_get_services.dart';
 
 class ApiPostServices {
   String alertText;
-  
+
   Future<String> signInByEmail(String email, String password, context) async {
     String token;
     var response = await http.post(ApiUrl.LOG_IN_URL,
@@ -18,11 +19,13 @@ class ApiPostServices {
           'password': password,
         }));
     if (response.statusCode == 200) {
+       SharedPreferences isToken = await SharedPreferences.getInstance();
       SharedPreferences isLogin = await SharedPreferences.getInstance();
       var responseJson = json.decode(response.body);
       token = responseJson['token'];
       if (token != null) {
         isLogin.setBool("isLogin", true);
+        isToken.setString('token', token);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
@@ -58,6 +61,7 @@ class ApiPostServices {
       if (token != null) {
         isLogin.setBool("isLogin", true);
         isToken.setString('token', token);
+        ApiGetServices().getUserPf(token);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
@@ -128,7 +132,9 @@ class ApiPostServices {
       alertText = responseBody['message'];
       if (alertText == 'Successfully registered!') {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => OTPScreen(phone,password)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => OTPScreen(phone, password)));
       }
     } else {
       print(response.body);
@@ -141,7 +147,7 @@ class ApiPostServices {
     var response = await http.post(ApiUrl.SET_USER_PROFILE,
         headers: <String, String>{
           "accept": "application/json",
-          "authorization": "Bearer " +_token,
+          "authorization": "Bearer " + _token,
           "Content-Type": "application/json"
         },
         body: jsonEncode(<String, String>{
@@ -159,6 +165,23 @@ class ApiPostServices {
     return alertText;
   }
 
+  Future<String> getWallet(String pin, String _token) async {
+    var response = await http.post(ApiUrl.GET_WALLET,
+        headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + _token,
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(<String, String>{"pin": pin}));
+    var responseBody = json.decode(response.body);
+    if (response.statusCode == 200) {
+      alertText = responseBody['message'];
+    } else {
+      alertText = responseBody['error']['message'];
+    }
+    return alertText;
+  }
+
   Future<String> verifyByPhone(String phone, String verifyCode) async {
     var response = await http.post(ApiUrl.VERIFY_BY_PHONE,
         headers: ApiHeader.headers,
@@ -166,8 +189,7 @@ class ApiPostServices {
           'phone': phone,
           'verification_code': verifyCode,
         });
-      if(response.statusCode==200){
-
-      }
+    if (response.statusCode == 200) {}
+    return alertText;
   }
 }

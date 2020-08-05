@@ -4,12 +4,9 @@ import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
+import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 
 class Body extends StatefulWidget {
-
- 
-
   @override
   _BodyState createState() => _BodyState();
 }
@@ -19,10 +16,9 @@ class _BodyState extends State<Body> {
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
-  String firstName, midName, lastName, gender,_token,alertText;
+  String firstName, midName, lastName, gender, _token, alertText;
   int _selectedIndex;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
-
 
   bool validateAndSave() {
     if (_formKey.currentState.validate()) {
@@ -32,17 +28,20 @@ class _BodyState extends State<Body> {
       return false;
     }
   }
+
   void getToken() async {
     SharedPreferences isToken = await SharedPreferences.getInstance();
     _token = isToken.getString('token');
     print(_token);
   }
+
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInPhoneNumber()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => SignIn()));
       },
     );
 
@@ -62,7 +61,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -76,28 +74,31 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void validateAndSubmit(){
-    if (_selectedIndex==0){
-        Scaffold.of(context).showSnackBar(snackBar);
-    }else{
-      if(validateAndSave()){
+  void validateAndSubmit() {
+    if (_selectedIndex == 0) {
+      Scaffold.of(context).showSnackBar(snackBar);
+    } else {
+      if (validateAndSave()) {
         print(_selectedIndex);
-      switch(_selectedIndex){
-        case 1:
-          gender = 'M';
-        break;
-        case 2:
-          gender = 'F';
-        break;
-      }
-      onSetUserPf(firstName,midName,lastName,gender,_token);
-      print(_token);
-      print(firstName);
+        switch (_selectedIndex) {
+          case 1:
+            gender = 'M';
+            break;
+          case 2:
+            gender = 'F';
+            break;
+        }
+        onSetUserPf();
+        print(_token);
+        print(firstName);
       }
     }
   }
-  onSetUserPf(String firstName, String midName, String lastName, String gender, String _token) async{
-    await ApiPostServices().setUserPf(firstName, midName, lastName, gender, _token).then((value){
+
+  onSetUserPf() async {
+    await ApiPostServices()
+        .setUserPf(firstName, midName, lastName, gender, _token)
+        .then((value) {
       alertText = value;
       showAlertDialog(context);
     });
@@ -141,12 +142,9 @@ class _BodyState extends State<Body> {
                 height: 40,
               ),
               ReuseButton.getItem('Submit', () {
-              
                 //validateAndSubmit();
                 validateAndSubmit();
-              
               }, context),
-              
             ],
           ),
         ),
@@ -167,7 +165,9 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-        SizedBox(height: 10,),
+        SizedBox(
+          height: 10,
+        ),
         Container(
           child: Row(
             children: <Widget>[

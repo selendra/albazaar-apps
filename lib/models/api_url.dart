@@ -1,5 +1,3 @@
-
-
 class ApiUrl {
   
   static const LOG_IN_URL = 'https://testnet-api.zeetomic.com/pub/v1/loginbyemail';
@@ -10,6 +8,7 @@ class ApiUrl {
   static const RESET_BY_PHONE = 'https://testnet-api.zeetomic.com/pub/v1/forget-password';
   static const SET_USER_PROFILE = 'https://testnet-api.zeetomic.com/pub/v1/userprofile';
   static const VERIFY_BY_PHONE = 'https://testnet-api.zeetomic.com/pub/v1/account-confirmation';
+  static const GET_WALLET = 'https://testnet-api.zeetomic.com/pub/v1/getwallet';
 
 }
 

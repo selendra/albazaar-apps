@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 import 'package:selendra_marketplace_app/screens/signup/signup_phonenumber.dart';
 import 'package:selendra_marketplace_app/services/auth/auth_services.dart';
@@ -8,6 +7,8 @@ import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_flat_button.dart';
 import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_text_field.dart';
+import 'package:selendra_marketplace_app/reuse_widget/btn_social.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -15,8 +16,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   final formKey = GlobalKey<FormState>();
+  final _emailKey = GlobalKey<FormFieldState<String>>();
   String _email, _password;
   String phone;
   bool _isLoading = false;
@@ -105,7 +106,6 @@ class _BodyState extends State<Body> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pop(context);
       } else {
         setState(() {
           _isLoading = false;
@@ -150,7 +150,7 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      _reusePwField(),
+                      _pwField(),
                       SizedBox(
                         height: 40,
                       ),
@@ -161,7 +161,7 @@ class _BodyState extends State<Body> {
                         validateAndSubmit();
                       }, context),
                       ReuseFlatButton.getItem(
-                          'Already Had an Account?',' Sign In', () {
+                          'Already Had an Account?', ' Sign In', () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -189,31 +189,16 @@ class _BodyState extends State<Body> {
   }
 
   Widget _emailField() {
-    return Container(
-      child: TextFormField(
-        keyboardType: TextInputType.emailAddress,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
-          ),
-          prefixIcon: Icon(
-            Icons.email,
-            color: kDefualtColor,
-          ),
-        ),
-        validator: (value) => value.isEmpty ? "Empty email" : null,
-        onSaved: (value) => _email = value,
-      ),
+    return ReuseTextField(
+      labelText: 'Email',
+      inputType: TextInputType.emailAddress,
+      fieldKey: _emailKey,
+      onSaved: (value) => _email = value,
+      validator: (value) => value.isEmpty ? "Email is empty" : null,
     );
   }
 
-  Widget _reusePwField() {
+  Widget _pwField() {
     return ReusePwField(
       labelText: 'Password',
       validator: (value) => value.isEmpty || value.length < 6
@@ -222,62 +207,29 @@ class _BodyState extends State<Body> {
       onSaved: (value) => _password = value,
     );
   }
-
-  Widget _btnSocial(Function onTap, AssetImage logo) {
-    return InkWell(
-        onTap: onTap,
-        child: Container(
-          height: 50.0,
-          width: 50.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                offset: Offset(0, 2),
-                blurRadius: 6.0,
-              ),
-            ],
-            image: DecorationImage(
-              image: logo,
-            ),
-          ),
-        ));
-  }
-
   Widget _buildBtnSocialRow() {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _btnSocial(
-            () {
-              setState(() {
-                _isLoading = true;
-              });
-              onFacebookSignIn();
-            },
-            AssetImage('images/facebook.jpg'),
-          ),
-          SizedBox(width: 20),
-          _btnSocial(
-            () {
-              setState(() {
-                _isLoading = true;
-              });
-              onGoogleSignIn();
-            },
-            AssetImage('images/google.jpg'),
-          ),
-          SizedBox(width: 20),
-          _btnSocial(
-            () {
-              Navigator.push(context,
+          BtnSocial(() {
+            setState(() {
+              _isLoading = true;
+            });
+            onFacebookSignIn();
+          }, AssetImage('images/facebook.jpg')),
+           SizedBox(width: 20),
+          BtnSocial(() {
+            setState(() {
+              _isLoading = true;
+            });
+            onGoogleSignIn();
+          }, AssetImage('images/google.jpg')),
+           SizedBox(width: 20),
+          BtnSocial(() {
+            Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SignUpPhoneNumber()));
-            },
-            AssetImage('images/phone.jpg'),
-          ),
+          }, AssetImage('images/phone.jpg')),     
         ],
       ),
     );

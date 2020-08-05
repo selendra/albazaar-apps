@@ -20,7 +20,7 @@ class SettingScreen extends StatelessWidget{
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.close,color: kDefualtColor,),onPressed: (){
+        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefualtColor,),onPressed: (){
           Navigator.pop(context);
         },),
       ),

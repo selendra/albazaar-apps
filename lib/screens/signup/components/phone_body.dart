@@ -3,8 +3,9 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-import 'package:selendra_marketplace_app/screens/otp/otp.dart';
+import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _BodyState extends State<Body> {
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () {Navigator.pop(context);},
+    onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignInPhoneNumber()));},
   );
 
   // set up the AlertDialog
@@ -51,7 +52,7 @@ class _BodyState extends State<Body> {
       setState(() {
         _isLoading = false;
       });
-      alertText = value;
+      alertText = value ??"";
       showAlertDialog(context);
     });
   }
@@ -69,8 +70,8 @@ class _BodyState extends State<Body> {
     if(validateAndSave()){
       print(_password);
       print(_phone);
-      //onSignUpWithPhone();
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>OTPScreen(_phone,_password)));
+      onSignUpWithPhone();
+     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OTPScreen(_phone, _password)));
     }
   }
   

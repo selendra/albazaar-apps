@@ -5,19 +5,15 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selendra_marketplace_app/models/user.dart';
 
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FacebookLogin facebookLogin = FacebookLogin();
 
-  String name="";
-  String email="";
-  String imageUrl="";
-
+  
   String alertText;
-
-
   
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -37,9 +33,9 @@ import 'package:shared_preferences/shared_preferences.dart';
     assert(user.displayName != null);
     assert(user.photoUrl != null);*/
 
-    name = user.displayName;
-    email = user.email;
-    imageUrl = user.photoUrl;
+    mUser.firstName = user.displayName;
+    mUser.email = user.email;
+    mUser.profileImg = user.photoUrl;
 
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
@@ -70,9 +66,9 @@ import 'package:shared_preferences/shared_preferences.dart';
       assert(user.displayName != null);
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
-      email = user.email;
-      name = user.displayName;
-      imageUrl = user.photoUrl;
+      mUser.email = user.email;
+      mUser.firstName = user.displayName;
+      mUser.profileImg = user.photoUrl;
       currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       return currentUser;
@@ -84,7 +80,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 }
 
   void signOut(context) async {
-    FirebaseUser user = await _auth.currentUser();
+    try{
+      FirebaseUser user = await _auth.currentUser();
     for(UserInfo profile in user.providerData){
       switch (profile.providerId){
         case 'facebook.com':
@@ -97,6 +94,9 @@ import 'package:shared_preferences/shared_preferences.dart';
           await _auth.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
           print("User Sign Out");
       }
+    }
+    }catch (e){
+      signOutByEmail(context);
     }
   }
 

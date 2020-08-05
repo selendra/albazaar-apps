@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/models/wallet.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -86,6 +87,22 @@ class _BodyState extends State<Body> {
           ),
         )
       ],
+    );
+  }
+  Widget _walletChoice(){
+    return Container(
+      margin: EdgeInsets.all(30.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: Image.asset('images/cryto_wallet.jpg'),
+            ),
+          ReuseButton.getItem('Get Wallet', (){}, context),
+          SizedBox(height: 10,),
+          ReuseButton.getItem('My Wallet', (){}, context),
+        ],
+      ),
     );
   }
 

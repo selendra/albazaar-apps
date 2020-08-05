@@ -17,24 +17,11 @@ class _BodyState extends State<Body> {
   String _countryCode = 'KH';
   String _phone;
   bool isLogined = false;
-  bool _isHidden = true;
   final formKey = GlobalKey<FormState>();
   String _password;
-  IconData _iconData = Icons.visibility;
   bool _isLoading = false;
   String alertText;
   TextEditingController _textEditingController;
-
-  void toggleVisibility() {
-    setState(() {
-      _isHidden = !_isHidden;
-      if (_isHidden == true) {
-        _iconData = Icons.visibility;
-      } else {
-        _iconData = Icons.visibility_off;
-      }
-    });
-  }
 
   bool validateAndSave() {
     final form = formKey.currentState;
@@ -107,7 +94,9 @@ class _BodyState extends State<Body> {
   }
 
   onSignInByPhone() async {
-    await ApiPostServices().signInByPhone(_phone, _password,context).then((value) {
+    await ApiPostServices()
+        .signInByPhone(_phone, _password, context)
+        .then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -124,8 +113,8 @@ class _BodyState extends State<Body> {
     }
   }
 
-  onForgetPwPhone() async{
-    await ApiPostServices().forgetPasswordByPhone(_phone).then((value){
+  onForgetPwPhone() async {
+    await ApiPostServices().forgetPasswordByPhone(_phone).then((value) {
       alertText = value;
       showResetAlertDialog(context);
     });
@@ -192,7 +181,7 @@ class _BodyState extends State<Body> {
                       _reusePwField(),
                       _btntoForgetPass(),
                       SizedBox(
-                        height: 80,
+                        height: MediaQuery.of(context).size.height * 0.1,
                       ),
                       ReuseButton.getItem('SIGN IN', () {
                         setState(() {
@@ -258,8 +247,6 @@ class _BodyState extends State<Body> {
       onSaved: (value) => _password = value,
     );
   }
-
-  
 
   _displayDialog(BuildContext context) async {
     return showDialog(

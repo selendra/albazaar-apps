@@ -60,7 +60,14 @@ class _PinScreenState extends State<PinScreen> {
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    onPressed: () {Navigator.pop(context); startTimer();},
+    onPressed: () {
+      Navigator.pop(context);
+      setState(() {
+        _isCounting = true;
+        _second = 30;
+        startTimer();
+      });
+      },
   );
 
   AlertDialog alert = AlertDialog(
@@ -220,7 +227,7 @@ class _PinScreenState extends State<PinScreen> {
           child: _isLoading ? Center(child: CircularProgressIndicator(),) : Center(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 100,),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.1,),
                   Text(
                     'Enter the OTP Pin',
                     style: TextStyle(
@@ -238,8 +245,9 @@ class _PinScreenState extends State<PinScreen> {
                       color: kDefualtColor,
                     ),
                   ),
-                  _isCounting ? 
-                  Text('Invalid in $_second second') :
+                  SizedBox(height: 5,),
+                  _isCounting ?
+                  Text('Invalid in $_second seconds') :
                   Align(
                     alignment: Alignment.centerRight,
                     child: FlatButton(

@@ -16,7 +16,7 @@ class ReuseAppBar {
       ),
       bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller,context),
       backgroundColor: Colors.white,
-      leading: IconButton(icon: Icon(Icons.close,color: kDefualtColor,),onPressed: (){
+      leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefualtColor,),onPressed: (){
         Navigator.pop(context);
       },),
     );
