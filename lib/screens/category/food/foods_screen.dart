@@ -27,7 +27,7 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Icon(Icons.restaurant,color: kDefualtColor,),
+        title: Image.asset('images/love.png',height: 30,width: 30,),
         bottom: TabBar(
           controller: controller,
           isScrollable: true,

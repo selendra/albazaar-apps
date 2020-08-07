@@ -1,181 +1,171 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:selendra_marketplace_app/screens/signup/userinfo/user_info.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class OTPScreen extends StatefulWidget {
-  final String phoneNumber,password;
-  OTPScreen(this.phoneNumber,this.password);
+  final String phoneNumber, password;
+  OTPScreen(this.phoneNumber, this.password);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(scaffoldBackgroundColor: Colors.white,),
+      data: Theme.of(context).copyWith(
+        scaffoldBackgroundColor: Colors.white,
+      ),
       child: Scaffold(
-        body: PinScreen(widget.phoneNumber,widget.password),
+        body: PinScreen(widget.phoneNumber, widget.password),
       ),
     );
   }
-
 }
 
 class PinScreen extends StatefulWidget {
-  final String phoneNumber,password;
-  PinScreen(this.phoneNumber,this.password);
+  final String phoneNumber, password;
+  PinScreen(this.phoneNumber, this.password);
   @override
   _PinScreenState createState() => _PinScreenState();
 }
 
 class _PinScreenState extends State<PinScreen> {
-
-  bool _isLoading = false,_isCounting = true;
+  bool _isLoading = false, _isCounting = true;
   String alertText;
   int _second = 30;
   Timer _timer;
-  List<String> currentPin = ["","","","","",""];
+  List<String> currentPin = ["", "", "", "", "", ""];
+  
   TextEditingController pinOneController = TextEditingController();
   TextEditingController pinTwoController = TextEditingController();
   TextEditingController pinThreeController = TextEditingController();
   TextEditingController pinFourController = TextEditingController();
   TextEditingController pinFiveController = TextEditingController();
   TextEditingController pinSixController = TextEditingController();
-  
+
   var outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
-    borderSide: BorderSide(color: Colors.transparent)
-  );
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.transparent));
   showAlertDialog(BuildContext context) {
-
-  // set up the button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.pop(context);
-      setState(() {
-        _isCounting = true;
-        _second = 30;
-        startTimer();
-      });
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+        setState(() {
+          _isCounting = true;
+          _second = 30;
+          startTimer();
+        });
       },
-  );
+    );
 
-  AlertDialog alert = AlertDialog(
-    title: Text(alertText),
-    content: Text("Please check again. "),
-    actions: [
-      okButton,
-    ],
-  );
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check again. "),
+      actions: [
+        okButton,
+      ],
+    );
 
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-  void startTimer(){
-    const oneSec = const Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec, 
-      (Timer timer) => setState((){
-        if(_second<1){
-          timer.cancel();
-          _isCounting = false;
-        }else{
-          _second = _second-1;
-        }
-      })
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
-  void checkVerify(String verifyOTP)async{
-    String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/account-confirmation';
-     setState(() {
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = Timer.periodic(
+        oneSec,
+        (Timer timer) => setState(() {
+              if (_second < 1) {
+                timer.cancel();
+                _isCounting = false;
+              } else {
+                _second = _second - 1;
+              }
+            }));
+  }
+
+  void checkVerify(String verifyOTP) async {
+    String apiUrl =
+        'https://testnet-api.selendra.com/pub/v1/account-confirmation';
+    setState(() {
       _isLoading = true;
     });
-    var response = await http.post(apiUrl,headers: <String,String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-    },body: jsonEncode(<String,String>{
-      'phone': widget.phoneNumber,
-      'verification_code': verifyOTP,
-    }));
-    if (response.statusCode==200){
-      SharedPreferences isLogin = await SharedPreferences.getInstance();
+    var response = await http.post(apiUrl,
+        headers: <String, String>{
+          "accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(<String, String>{
+          'phone': widget.phoneNumber,
+          'verification_code': verifyOTP,
+        }));
+    if (response.statusCode == 200) {
       setState(() {
         _isLoading = false;
       });
       var responseBody = json.decode(response.body);
       print(responseBody);
       print(response.body);
-      try{
+      try {
         alertText = responseBody['error']['message'];
         showAlertDialog(context);
-        for (int i=0; i<6; i++){
+        for (int i = 0; i < 6; i++) {
           clearPin();
         }
-      }catch (e){
-        isLogin.setBool('isLogin', true);
-        await ApiPostServices().signInByPhone(widget.phoneNumber, widget.password, context);
+      } catch (e) {
+        await ApiPostServices()
+            .signInByPhone(widget.phoneNumber, widget.password, context);
         alertText = responseBody['message'];
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> UserInfo()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => UserInfo()));
       }
-    }else{
+    } else {
       print(response.body);
       setState(() {
         _isLoading = false;
       });
     }
   }
-  void resendCode(String phoneNumber)async{
-    String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/resend-code';
-    var response = await http.post(apiUrl,headers: <String,String>{
-      "accept": "application/json",
-      "Content-Type": "application/json"
-      },body: jsonEncode(<String,String>{
-      'phone': phoneNumber,
-    }));
-    if(response.statusCode == 200){
-      var responseJson = json.decode(response.body);
-      alertText = responseJson['message'];
+
+  onResendCode(String phoneNumber) async {
+    await ApiPostServices().resendCode(phoneNumber).then((value) {
+      alertText = value;
       showAlertDialog(context);
-    }
+    });
   }
 
   int pinIndex = 0;
 
-  pinIndexSetup(String text){
-    if(pinIndex==0)
-      pinIndex=1;
-    else if(pinIndex<6){
+  pinIndexSetup(String text) {
+    if (pinIndex == 0)
+      pinIndex = 1;
+    else if (pinIndex < 6) {
       pinIndex++;
     }
-    setPin(pinIndex,text);
-    currentPin[pinIndex-1] = text;
+    setPin(pinIndex, text);
+    currentPin[pinIndex - 1] = text;
     String strPin = "";
     currentPin.forEach((element) {
       strPin += element;
     });
-    if(pinIndex==6){
+    if (pinIndex == 6) {
       print(strPin);
       checkVerify(strPin);
     }
-      
   }
-  setPin(int n, String text){
-    switch(n) {
+
+  setPin(int n, String text) {
+    switch (n) {
       case 1:
         pinOneController.text = text;
         break;
@@ -196,23 +186,26 @@ class _PinScreenState extends State<PinScreen> {
         break;
     }
   }
-  clearPin(){
-    if(pinIndex==0)
-      pinIndex=0;
-    else if(pinIndex==6){
+
+  clearPin() {
+    if (pinIndex == 0)
+      pinIndex = 0;
+    else if (pinIndex == 6) {
       setPin(pinIndex, "");
       pinIndex--;
-    }else{
+    } else {
       setPin(pinIndex, "");
-      currentPin[pinIndex-1]="";
+      currentPin[pinIndex - 1] = "";
       pinIndex--;
     }
   }
+
   @override
   void initState() {
     super.initState();
     startTimer();
   }
+
   @override
   void dispose() {
     _timer.cancel();
@@ -222,64 +215,83 @@ class _PinScreenState extends State<PinScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: _isLoading ? Center(child: CircularProgressIndicator(),) : Center(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: MediaQuery.of(context).size.height*0.1,),
-                  Text(
-                    'Enter the OTP Pin',
-                    style: TextStyle(
-                      fontSize: 26.0,
-                      fontWeight: FontWeight.bold,
-                      color: kDefualtColor,
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                    'OTP was send to: '+widget.phoneNumber,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: kDefualtColor,
+                    Text(
+                      'Enter the OTP Pin',
+                      style: TextStyle(
+                        fontSize: 26.0,
+                        fontWeight: FontWeight.bold,
+                        color: kDefualtColor,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5,),
-                  _isCounting ?
-                  Text('Invalid in $_second seconds') :
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      child: Text('Resend Code',style: TextStyle(color: Colors.red),),
-                      onPressed: (){resendCode(widget.phoneNumber);},
-                      )
+                    SizedBox(
+                      height: 5,
                     ),
-                  SizedBox(height: 50,),
-                  _buildPinRow(),
-                  SizedBox(height: 50,),
-                  _buildNumberPad()
-                ],
+                    Text(
+                      'OTP was send to: ' + widget.phoneNumber,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: kDefualtColor,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    _isCounting
+                        ? Text('Invalid in $_second seconds')
+                        : Align(
+                            alignment: Alignment.centerRight,
+                            child: FlatButton(
+                              child: Text(
+                                'Resend Code',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () {
+                                onResendCode(widget.phoneNumber);
+                              },
+                            )),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    _buildPinRow(),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    _buildNumberPad()
+                  ],
+                ),
               ),
-          ),
-        ),
-      );
+      ),
+    );
   }
 
-  Widget _buildPinRow(){
+  Widget _buildPinRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        PINNumber(outlineInputBorder,pinOneController ),
-        PINNumber(outlineInputBorder,pinTwoController ),
-        PINNumber(outlineInputBorder,pinThreeController ),
-        PINNumber(outlineInputBorder,pinFourController ),
-        PINNumber(outlineInputBorder,pinFiveController ),
-        PINNumber(outlineInputBorder,pinSixController ),
+        PINNumber(outlineInputBorder, pinOneController),
+        PINNumber(outlineInputBorder, pinTwoController),
+        PINNumber(outlineInputBorder, pinThreeController),
+        PINNumber(outlineInputBorder, pinFourController),
+        PINNumber(outlineInputBorder, pinFiveController),
+        PINNumber(outlineInputBorder, pinSixController),
       ],
     );
   }
-  Widget _buildNumberPad(){
+
+  Widget _buildNumberPad() {
     return Expanded(
       child: Container(
         alignment: Alignment.center,
@@ -291,13 +303,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(1,(){
+                  KeyBoardNumber(1, () {
                     pinIndexSetup('1');
                   }),
-                  KeyBoardNumber(2,(){
+                  KeyBoardNumber(2, () {
                     pinIndexSetup('2');
                   }),
-                  KeyBoardNumber(3,(){
+                  KeyBoardNumber(3, () {
                     pinIndexSetup('3');
                   }),
                 ],
@@ -305,13 +317,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(4,(){
+                  KeyBoardNumber(4, () {
                     pinIndexSetup('4');
                   }),
-                  KeyBoardNumber(5,(){
+                  KeyBoardNumber(5, () {
                     pinIndexSetup('5');
                   }),
-                  KeyBoardNumber(6,(){
+                  KeyBoardNumber(6, () {
                     pinIndexSetup('6');
                   }),
                 ],
@@ -319,13 +331,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(7,(){
+                  KeyBoardNumber(7, () {
                     pinIndexSetup('7');
                   }),
-                  KeyBoardNumber(8,(){
+                  KeyBoardNumber(8, () {
                     pinIndexSetup('8');
                   }),
-                  KeyBoardNumber(9,(){
+                  KeyBoardNumber(9, () {
                     pinIndexSetup('9');
                   }),
                 ],
@@ -340,7 +352,7 @@ class _PinScreenState extends State<PinScreen> {
                       child: SizedBox(),
                     ),
                   ),
-                  KeyBoardNumber(0,(){
+                  KeyBoardNumber(0, () {
                     pinIndexSetup('0');
                   }),
                   Container(
@@ -350,7 +362,7 @@ class _PinScreenState extends State<PinScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(60.0),
                       ),
-                      onPressed: (){
+                      onPressed: () {
                         clearPin();
                       },
                       child: Icon(
@@ -368,11 +380,12 @@ class _PinScreenState extends State<PinScreen> {
     );
   }
 }
+
 class PINNumber extends StatelessWidget {
   final OutlineInputBorder outlineInputBorder;
   final TextEditingController textEditingController;
 
-  PINNumber(this.outlineInputBorder,this.textEditingController);
+  PINNumber(this.outlineInputBorder, this.textEditingController);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -381,7 +394,7 @@ class PINNumber extends StatelessWidget {
         controller: textEditingController,
         enabled: false,
         obscureText: false,
-        textAlign:  TextAlign.center,
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(16.0),
           border: outlineInputBorder,
@@ -397,11 +410,12 @@ class PINNumber extends StatelessWidget {
     );
   }
 }
+
 class KeyBoardNumber extends StatelessWidget {
   final int n;
   final Function() onPressed;
 
-  KeyBoardNumber(this.n,this.onPressed);
+  KeyBoardNumber(this.n, this.onPressed);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -422,14 +436,11 @@ class KeyBoardNumber extends StatelessWidget {
         child: Text(
           '$n',
           style: TextStyle(
-            fontSize: 24*MediaQuery.of(context).textScaleFactor,
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),
+              fontSize: 24 * MediaQuery.of(context).textScaleFactor,
+              color: Colors.white,
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
 }
-
-

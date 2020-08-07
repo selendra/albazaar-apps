@@ -1,9 +1,5 @@
-import 'package:selendra_marketplace_app/screens/category/food/foods_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:selendra_marketplace_app/models/categories.dart';
-import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class CategoriesScreen extends StatelessWidget {
 
@@ -19,15 +15,15 @@ class CategoriesScreen extends StatelessWidget {
     }
   }
 
-  Widget itemCategory(Function onTap, IconData icon, {String title}){
+  Widget itemCategory(Function onTap, String img, {String title}){
     return InkWell(
       onTap: onTap,
       child: Container(
         height: 40,
         width: 40,
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        margin: EdgeInsets.symmetric(horizontal: 15.0),
         alignment: Alignment.center,
-        child: Icon(icon,size: 30.0,color: kDefualtColor,)
+        child: Image.asset(img,height: 30,width: 40,),
           // Column(
           //   children: <Widget>[
           //     Image.asset(logo,height: 40,width: 40,),
@@ -50,7 +46,7 @@ class CategoriesScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: allCategories.length,
         itemBuilder: (context,index){
-          return itemCategory(() {itemTap(index, context);},allCategories[index].icon );
+          return itemCategory(() {itemTap(index, context);},allCategories[index].img );
         }
       )
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/profile/components/body.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-
+import 'package:selendra_marketplace_app/reuse_widget/reuse_simple_appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
 
@@ -32,22 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefualtColor,),onPressed: (){
-          Navigator.pop(context);
-        },),
-      ),
+      appBar: ReuseSimpleAppBar.getItem('Profile', context),
       body: Body(),
     );
   }

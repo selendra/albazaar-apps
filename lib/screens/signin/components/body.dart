@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
-import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-import 'package:selendra_marketplace_app/services/auth/auth_services.dart';
-import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
-import 'package:selendra_marketplace_app/screens/resetpass/reset_by_email.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_flat_button.dart';
-import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_text_field.dart';
-import 'package:selendra_marketplace_app/reuse_widget/btn_social.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -101,7 +92,7 @@ class _BodyState extends State<Body> {
               MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       print(e.toString());
       setState(() {
         _isLoading = false;
@@ -121,7 +112,6 @@ class _BodyState extends State<Body> {
         setState(() {
           _isLoading = false;
         });
-
         alertText = value;
         showAlertDialog(context);
       }

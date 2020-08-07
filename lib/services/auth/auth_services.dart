@@ -6,62 +6,58 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/models/user.dart';
+import 'package:selendra_marketplace_app/models/acc_balance.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+final FacebookLogin facebookLogin = FacebookLogin();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-  final FacebookLogin facebookLogin = FacebookLogin();
+String alertText;
 
-  
-  String alertText;
-  
-  Future<String> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-    await googleSignInAccount.authentication;
+Future<String> signInWithGoogle() async {
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+  final AuthCredential credential = GoogleAuthProvider.getCredential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
+  final AuthResult authResult = await _auth.signInWithCredential(credential);
+  final FirebaseUser user = authResult.user;
 
-    // Checking if email and name is null
-    /*assert(user.email != null);
+  // Checking if email and name is null
+  /*assert(user.email != null);
     assert(user.displayName != null);
     assert(user.photoUrl != null);*/
 
-    mUser.firstName = user.displayName;
-    mUser.email = user.email;
-    mUser.profileImg = user.photoUrl;
+  mUser.firstName = user.displayName;
+  mUser.email = user.email;
+  mUser.profileImg = user.photoUrl;
 
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+  assert(!user.isAnonymous);
+  assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
+  final FirebaseUser currentUser = await _auth.currentUser();
+  assert(user.uid == currentUser.uid);
 
-    return 'signInWithGoogle succeeded: $user';
-  }
+  return 'signInWithGoogle succeeded: $user';
+}
 
-
-
-
-  Future<FirebaseUser> signInFacebook(BuildContext context) async {
+Future<FirebaseUser> signInFacebook(BuildContext context) async {
   FirebaseUser currentUser;
   // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
   // if you remove above comment then facebook login will take username and pasword for login in Webview
   try {
     final FacebookLoginResult facebookLoginResult =
-    await facebookLogin.logIn(['email', 'public_profile']);
+        await facebookLogin.logIn(['email', 'public_profile']);
     if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
-      FacebookAccessToken facebookAccessToken =
-          facebookLoginResult.accessToken;
+      FacebookAccessToken facebookAccessToken = facebookLoginResult.accessToken;
       final AuthCredential credential = FacebookAuthProvider.getCredential(
           accessToken: facebookAccessToken.token);
-      final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)).user;
       assert(user.email != null);
       assert(user.displayName != null);
       assert(!user.isAnonymous);
@@ -79,29 +75,37 @@ import 'package:selendra_marketplace_app/models/user.dart';
   return currentUser;
 }
 
-  void signOut(context) async {
-    try{
-      FirebaseUser user = await _auth.currentUser();
-    for(UserInfo profile in user.providerData){
-      switch (profile.providerId){
+void signOut(context) async {
+  mBalance.clear();
+  try {
+    FirebaseUser user = await _auth.currentUser();
+    for (UserInfo profile in user.providerData) {
+      switch (profile.providerId) {
         case 'facebook.com':
-          facebookLogin.logOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          facebookLogin.logOut().whenComplete(() => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen())));
           break;
         case 'google.com':
-          googleSignIn.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          googleSignIn.signOut().whenComplete(() => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen())));
           break;
         default:
-          await _auth.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen())));
+          await _auth.signOut().whenComplete(() => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen())));
           print("User Sign Out");
       }
     }
-    }catch (e){
-      signOutByEmail(context);
-    }
+  } catch (e) {
+    signOutByEmail(context);
   }
+}
 
-  void signOutByEmail(context)async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs?.clear();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
-  }
+void signOutByEmail(context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs?.clear();
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+}

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:selendra_marketplace_app/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:selendra_marketplace_app/screens/resetpass/reset_pass_phone.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -97,18 +93,22 @@ class _BodyState extends State<Body> {
     await ApiPostServices()
         .signInByPhone(_phone, _password, context)
         .then((value) {
-      setState(() {
-        _isLoading = false;
-      });
-      alertText = value;
-      showAlertDialog(context);
+      if (value == null) {
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        alertText = value;
+        showAlertDialog(context);
+      }
     });
   }
 
   void validateAndSubmit() {
     if (validateAndSave()) {
-      print(_password);
-      print(_phone);
       onSignInByPhone();
     }
   }
@@ -121,7 +121,7 @@ class _BodyState extends State<Body> {
   }
 
   void forgetPassword(String phoneNumber) async {
-    String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/forget-password';
+    String apiUrl = 'https://testnet-api.selendra.com/pub/v1/forget-password';
     var response = await http.post(apiUrl,
         headers: <String, String>{
           "accept": "application/json",

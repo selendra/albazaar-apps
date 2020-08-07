@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/screens/home/components/search.dart';
-
 import 'package:selendra_marketplace_app/constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen>
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
   ScrollController scrollController;
+ 
 
   @override
   void initState() {

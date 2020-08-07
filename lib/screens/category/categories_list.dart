@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:selendra_marketplace_app/models/categories.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/screens/category/food/real_estate_categories.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 
 class CategoriesListScreen extends StatefulWidget {
@@ -20,7 +16,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
   String stringFromResult;
 
    routB(context) async{
-    final resultC = await  Navigator.push<String>(context, MaterialPageRoute(builder: (context)=>RealEstateCategories()));
+    final resultC = await  Navigator.push<String>(context, MaterialPageRoute(builder: (context)=>FoodCategories()));
     Navigator.pop(context,resultC);
     print(resultC);
 
@@ -58,23 +54,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
     );
   }
 
-  Widget itemCategory(Function onTap, String logo,{String title}){
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-          height: 50,
-          width: 60,
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            children: <Widget>[
-              Image(image: AssetImage(logo),),
-              SizedBox(height: 5,),
-              Text(title,style: TextStyle(fontSize: 12),)
-            ],
-          )
-      ),
-    );
-  }
+ 
 
   Widget _buildListVertical(context){
     return Container(
@@ -89,7 +69,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
               return ListTile(
                 onTap: (){itemTap(index, context);},
                 title: Text(widget.allCategories[index].title),
-                leading: Icon(widget.allCategories[index].icon),
+                leading: Image.asset(widget.allCategories[index].img,height: 30,width: 30,)
               );
             }
         )

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse.inkwell.dart';
-import 'package:selendra_marketplace_app/services/auth/auth_services.dart';
-import 'package:selendra_marketplace_app/screens/purchase/purchase_screen.dart';
-import 'package:selendra_marketplace_app/screens/listing/listing_screen.dart';
-import 'package:selendra_marketplace_app/screens/sales/sale_screen.dart';
-import 'package:selendra_marketplace_app/screens/setting/setting_screen.dart';
-import 'package:selendra_marketplace_app/screens/profile/profile_screen.dart';
-import 'package:selendra_marketplace_app/models/user.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+
 
 class AccountScreen extends StatefulWidget {
   @override

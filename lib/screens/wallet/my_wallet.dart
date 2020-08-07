@@ -6,9 +6,7 @@ import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 class MyWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _body(context),
-    );
+    return  _body(context);
   }
    Widget _body(context) {
     return Stack(

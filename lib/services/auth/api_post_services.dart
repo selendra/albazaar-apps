@@ -19,13 +19,14 @@ class ApiPostServices {
           'password': password,
         }));
     if (response.statusCode == 200) {
-       SharedPreferences isToken = await SharedPreferences.getInstance();
+      SharedPreferences isToken = await SharedPreferences.getInstance();
       SharedPreferences isLogin = await SharedPreferences.getInstance();
       var responseJson = json.decode(response.body);
       token = responseJson['token'];
       if (token != null) {
         isLogin.setBool("isLogin", true);
         isToken.setString('token', token);
+        ApiGetServices().fetchUserPf(token);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
@@ -61,7 +62,7 @@ class ApiPostServices {
       if (token != null) {
         isLogin.setBool("isLogin", true);
         isToken.setString('token', token);
-        ApiGetServices().getUserPf(token);
+        ApiGetServices().fetchUserPf(token);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
@@ -190,6 +191,20 @@ class ApiPostServices {
           'verification_code': verifyCode,
         });
     if (response.statusCode == 200) {}
+    return alertText;
+  }
+
+  Future<String> resendCode(String phoneNumber) async {
+    var response = await http.post(ApiUrl.RESEND_CODE,
+        headers: ApiHeader.headers,
+        body: <String, String>{
+          'phone': phoneNumber,
+        });
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      alertText = responseJson['message'];
+    }
+
     return alertText;
   }
 }

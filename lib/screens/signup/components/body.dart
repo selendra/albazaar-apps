@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/screens/signin/signin.dart';
-import 'package:selendra_marketplace_app/screens/signup/signup_phonenumber.dart';
-import 'package:selendra_marketplace_app/services/auth/auth_services.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_flat_button.dart';
-import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_pw_field.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_text_field.dart';
-import 'package:selendra_marketplace_app/reuse_widget/btn_social.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
   @override

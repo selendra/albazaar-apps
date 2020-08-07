@@ -1,14 +1,16 @@
+import 'package:selendra_marketplace_app/constants.dart';
 class ApiUrl {
-  
-  static const LOG_IN_URL = 'https://testnet-api.zeetomic.com/pub/v1/loginbyemail';
-  static const LOG_IN_PHONE = 'https://testnet-api.zeetomic.com/pub/v1/loginbyphone';
-  static const SIGN_UP_EMAIL = 'https://testnet-api.zeetomic.com/pub/v1/registerbyemail';
-  static const SIGN_UP_PHONE =  'https://testnet-api.zeetomic.com/pub/v1/registerbyphone';
-  static const RESET_BY_EMAIL = 'https://testnet-api.zeetomic.com/pub/v1/forget-password-by-email';
-  static const RESET_BY_PHONE = 'https://testnet-api.zeetomic.com/pub/v1/forget-password';
-  static const SET_USER_PROFILE = 'https://testnet-api.zeetomic.com/pub/v1/userprofile';
-  static const VERIFY_BY_PHONE = 'https://testnet-api.zeetomic.com/pub/v1/account-confirmation';
-  static const GET_WALLET = 'https://testnet-api.zeetomic.com/pub/v1/getwallet';
+  static const LOG_IN_URL = BASE_URL+'/pub/v1/loginbyemail';
+  static const LOG_IN_PHONE = BASE_URL+'/pub/v1/loginbyphone';
+  static const SIGN_UP_EMAIL = BASE_URL+'/pub/v1/registerbyemail';
+  static const SIGN_UP_PHONE =  BASE_URL+'/pub/v1/registerbyphone';
+  static const RESET_BY_EMAIL = BASE_URL+'/pub/v1/forget-password-by-email';
+  static const RESET_BY_PHONE = BASE_URL+'/pub/v1/forget-password';
+  static const SET_USER_PROFILE = BASE_URL+'/pub/v1/userprofile';
+  static const VERIFY_BY_PHONE = BASE_URL+'/pub/v1/account-confirmation';
+  static const GET_WALLET = BASE_URL+'/pub/v1/getwallet';
+  static const RESEND_CODE = BASE_URL+'/pub/v1/resend-code';  
+  static const DISPLAY_PORTFORLIO = BASE_URL+'/pub/v1/portforlio';
 
 }
 

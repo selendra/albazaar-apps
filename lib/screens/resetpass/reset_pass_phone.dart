@@ -62,7 +62,7 @@ class ResetPassPhone extends StatelessWidget {
 }
 
   resetByPhone (String tempCode, String phoneNumber ,String password,context) async{
-    String apiUrl = 'https://testnet-api.zeetomic.com/pub/v1/reset-password';
+    String apiUrl = 'https://testnet-api.selendra.com/pub/v1/reset-password';
 
     var response = await http.post(apiUrl,headers:<String, String>{
         "accept": "application/json",

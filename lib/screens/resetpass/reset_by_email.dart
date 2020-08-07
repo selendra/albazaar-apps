@@ -73,7 +73,7 @@ String validatePassword(String value) {
 }
 
   resetbyEmail(String tempCode,String email,String password,context) async{
-    String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/reset-password-by-email";
+    String apiUrl = "https://testnet-api.selendra.com/pub/v1/reset-password-by-email";
     
     var response = await http.post(apiUrl,headers: <String, String>{
       "accept": "application/json",
