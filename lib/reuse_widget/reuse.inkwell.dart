@@ -8,7 +8,7 @@ class ReuseInkwell{
       child: ListTile(
         title: Text(title),
         leading: Icon(icon),
-        trailing: Icon(Icons.arrow_forward_ios),
+        dense: true,
       ),
     );
   }

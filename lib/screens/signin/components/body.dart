@@ -3,59 +3,24 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
+class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   bool isLogined = false;
-  final formKey = GlobalKey<FormState>();
-  final _pwKey = GlobalKey<FormFieldState<String>>();
-  final _emailKey = GlobalKey<FormFieldState<String>>();
-  String _email, _password, alertText;
-
+  String alertText;
   bool _isLoading = false;
   TextEditingController _textFieldController;
-
-  bool validateAndSave() {
-    final form = formKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: Text(alertText),
-      content: Text("Please check your email. "),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  final PageController _pageController = PageController(initialPage: 0);
+  TabController _tabController;
+  var isPageCanChanged = true;
 
   onGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       await signInWithGoogle().then((value) {
         if (value == null) {
@@ -78,6 +43,9 @@ class _BodyState extends State<Body> {
   }
 
   onFacebookSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       await signInFacebook(context).then((value) {
         if (value == null) {
@@ -100,7 +68,10 @@ class _BodyState extends State<Body> {
     }
   }
 
-  onApiSignInByEmail() async {
+  onApiSignInByEmail(String _email, String _password) async {
+    setState(() {
+      _isLoading = true;
+    });
     await ApiPostServices()
         .signInByEmail(_email, _password, context)
         .then((value) {
@@ -113,7 +84,8 @@ class _BodyState extends State<Body> {
           _isLoading = false;
         });
         alertText = value;
-        showAlertDialog(context);
+        _alertDialog(context);
+        // showAlertDialog(context);
       }
     });
   }
@@ -122,17 +94,28 @@ class _BodyState extends State<Body> {
     await ApiPostServices().forgetPasswordByEmail(email).then((value) {
       if (value == 'Your Email doesn\'t exist') {
         alertText = value;
-        showAlertDialog(context);
+        // _alertDialog(context);
       } else {
         showResetAlertDialog(context);
       }
     });
   }
 
-  void validateAndSubmit() {
-    if (validateAndSave()) {
-      onApiSignInByEmail();
-    }
+  onApiSignInByPhone(String _phone, String _password) async {
+    setState(() {
+      _isLoading = true;
+    });
+    await ApiPostServices()
+        .signInByPhone(_phone, _password, context)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        alertText = value;
+        _alertDialog(context);
+      }
+    });
   }
 
   showResetAlertDialog(BuildContext context) {
@@ -140,8 +123,8 @@ class _BodyState extends State<Body> {
     Widget _okButton = FlatButton(
       child: Text("Reset"),
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ResetByEmail(_email)));
+        /*Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ResetByEmail(_email)));*/
       },
     );
     Widget _cancelButton = FlatButton(
@@ -153,7 +136,7 @@ class _BodyState extends State<Body> {
 
     AlertDialog alert = AlertDialog(
       title: Text(alertText),
-      content: Text("Please check your email. "),
+      content: Text(''),
       actions: [
         _cancelButton,
         _okButton,
@@ -169,15 +152,79 @@ class _BodyState extends State<Body> {
     );
   }
 
+  _alertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return ReuseAlertDialog.getItem(
+              alertText,
+              '',
+              'Cancel',
+              () {
+                Navigator.pop(context);
+              },
+              'OK',
+              () {
+                Navigator.pop(context);
+                print('Ok');
+              });
+        });
+  }
+
+  _resetDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return ReuseAlertDialog.getItem(
+              alertText,
+              '',
+              'Cancel',
+              () {
+                Navigator.pop(context);
+              },
+              'Reset',
+              () {
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResetByEmail(_email)));*/
+              });
+        });
+  }
+
+  onTabChange() {
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        onPageChange(_tabController.index, p: _pageController);
+      }
+    });
+  }
+
+  onPageChange(int index, {PageController p, TabController t}) async {
+    if (p != null) {
+      isPageCanChanged = false;
+      await _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+      isPageCanChanged = true;
+    } else {
+      _tabController.animateTo(index);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _textFieldController = TextEditingController();
+    _tabController = TabController(vsync: this, length: 2);
+    onTabChange();
+    //_pageController = PageController();
   }
 
   @override
   void dispose() {
     _textFieldController.dispose();
+    _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -189,140 +236,65 @@ class _BodyState extends State<Body> {
   Widget _buildBody() {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.all(30),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          child: Image.asset(
-                        'images/logo.png',
-                        height: 100,
-                        width: 100,
-                      )),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      _emailField(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _reusePwField(),
-                      _btntoForgetPass(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ReuseButton.getItem('SIGN IN', () {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        validateAndSubmit();
-                      }, context),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ReuseFlatButton.getItem(
-                          'Haven\'t Had an Account?', ' Sign Up', () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpScreen()));
-                      }),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _buildBtnSocialRow()
-                    ],
+            : Column(
+                children: <Widget>[
+                  Container(
+                      child: Image.asset(
+                    'images/logo.png',
+                    height: 50,
+                    width: 50,
+                  )),
+                  SizedBox(
+                    height: 40,
                   ),
-                ),
+                  ReuseAuthTab(_tabController),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        if (isPageCanChanged) {
+                          onPageChange(index);
+                        }
+                      },
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignInPhoneForm(
+                            onApiSignInByPhone,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignInEmailForm(
+                            onApiSignInByEmail,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ), //emailForm(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
       ),
     );
   }
 
-  Widget _emailField() {
-    return ReuseTextField(
-      labelText: 'Email',
-      fieldKey: _emailKey,
-      inputType: TextInputType.emailAddress,
-      onSaved: (value) => _email = value,
-      validator: (value) => value.isEmpty ? "Email is empty " : null,
-    );
-  }
-
-  Widget _reusePwField() {
-    return ReusePwField(
-      fieldKey: _pwKey,
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? 'Password is empty or less than 6 character'
-          : null,
-      onSaved: (value) => _password = value,
-    );
-  }
-
-  Widget _buildBtnSocialRow() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BtnSocial(() {
-            setState(() {
-              _isLoading = true;
-            });
-            onFacebookSignIn();
-          }, AssetImage('images/facebook.jpg')),
-          SizedBox(width: 20),
-          BtnSocial(() {
-            setState(() {
-              _isLoading = true;
-            });
-            onGoogleSignIn();
-          }, AssetImage('images/google.jpg')),
-          SizedBox(width: 20),
-          BtnSocial(() {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignInPhoneNumber()));
-          }, AssetImage('images/phone.jpg')),
-        ],
-      ),
-    );
-  }
-
-  Widget _btntoForgetPass() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () {
-          _displayDialog(context);
-        },
-        child: RichText(
-          text: TextSpan(
-            text: 'Forget Password?',
-            style: TextStyle(
-              color: Colors.red,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _displayDialog(BuildContext context) async {
+  /*_displayDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -352,5 +324,5 @@ class _BodyState extends State<Body> {
             ],
           );
         });
-  }
+  }*/
 }

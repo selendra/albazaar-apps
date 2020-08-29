@@ -29,10 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 200,
                 width: 200,
               ),
-              SizedBox(
-                height: 100,
-              ),
-              CircularProgressIndicator(),
             ],
           ),
         ),

@@ -111,11 +111,11 @@ class _BodyState extends State<Body> {
           labelText: 'Phone Number',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))
           ),
         ),
         initialCountryCode: _countryCode,

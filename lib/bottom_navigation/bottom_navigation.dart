@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -17,58 +16,10 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+       _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 600), curve: Curves.easeOut);
     });
   }
-
-     String alertText;
-
-    showAlertDialog(BuildContext context) {
-    Widget okButton = FlatButton(
-      child: Text('Ok'),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-    AlertDialog alert = AlertDialog(
-      title: Text(alertText),
-      actions: <Widget>[
-        okButton,
-      ],
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-
-  onfetchPortforlio(String _token) async {
-    await ApiGetServices().fetchPortforlio(_token).then((value) {
-      alertText = value;
-      if(alertText!=''){
-        showAlertDialog(context);
-      }
-    });
-  }
-  checkIsSocialLogIn()async{
-    String _token;
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    _token = isToken.getString('token');
-    if(_token!=null){
-      onfetchPortforlio(_token);
-    }else{
-      alertText = 'Look like you don\'t have a wallet yet!';
-      showAlertDialog(context);
-    }
-  }
-
-  
-
 
   void _pageChange(int index) {
     setState(() {
@@ -80,8 +31,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   void initState() {
     super.initState();
     _pageController = PageController();
-    checkIsSocialLogIn();
-   
   }
 
   @override
@@ -122,7 +71,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
           HomeScreen(),
           WalletScreen(),
           FavoriteScreen(),
-          AccountScreen(),
+          MapScreen(),
         ],
       ),
     );
@@ -172,7 +121,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
               ),
               IconButton(
                 icon: Icon(
-                  Icons.menu,
+                  Icons.location_on,
                   color: _selectedIndex == 3 ? kDefualtColor : _color,
                   size: 30,
                 ),

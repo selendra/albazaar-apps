@@ -4,7 +4,7 @@ class BtnSocial extends StatelessWidget {
   final Function onTap;
   final AssetImage logo;
 
-  BtnSocial(this.onTap,this.logo);
+  const BtnSocial(this.onTap,this.logo);
   
   @override
   Widget build(BuildContext context) {

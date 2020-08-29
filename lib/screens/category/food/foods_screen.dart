@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 
-
 class FoodsScreen extends StatefulWidget {
   @override
   _FoodsScreenState createState() => _FoodsScreenState();
 }
 
-class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStateMixin {
-
+class _FoodsScreenState extends State<FoodsScreen>
+    with SingleTickerProviderStateMixin {
   TabController controller;
 
   @override
   void initState() {
     super.initState();
-    controller  = TabController(vsync: this,length: 7);
+    controller = TabController(vsync: this, length: 7);
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -27,37 +27,70 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Image.asset('images/love.png',height: 30,width: 30,),
+        title: Image.asset(
+          'images/love.png',
+          height: 30,
+          width: 30,
+        ),
         bottom: TabBar(
           controller: controller,
           isScrollable: true,
           indicatorColor: kDefualtColor,
           unselectedLabelColor: Colors.grey,
           labelColor: kDefualtColor,
-          labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
+          labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           tabs: <Widget>[
-            Tab(text: 'All',),
-            Tab(text: 'Meat',),
-            Tab(text: 'Fruit',),
-            Tab(text: 'Drinks',),
-            Tab(text: 'Vegtable',),
-            Tab(text: 'Seasoning',),
-            Tab(text: 'Desserts',)
+            Tab(
+              text: 'All',
+            ),
+            Tab(
+              text: 'Meat',
+            ),
+            Tab(
+              text: 'Fruit',
+            ),
+            Tab(
+              text: 'Drinks',
+            ),
+            Tab(
+              text: 'Vegtable',
+            ),
+            Tab(
+              text: 'Seasoning',
+            ),
+            Tab(
+              text: 'Desserts',
+            )
           ],
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefualtColor,),onPressed: (){
-          Navigator.pop(context);
-        },),
-        actions: <Widget>[   
-          IconButton(icon: Icon(Icons.search,color: kDefualtColor,),onPressed: (){print('search');},)
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kDefualtColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: kDefualtColor,
+            ),
+            onPressed: () {
+              print('search');
+            },
+          )
         ],
       ),
       body: _buildTapBarView(),
     );
   }
-  Widget _buildTapBarView(){
+
+  Widget _buildTapBarView() {
     return Container(
       width: double.infinity,
       child: TabBarView(
@@ -68,34 +101,6 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Pending',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Complete',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
                   'All',
                   style: TextStyle(
                     fontSize: 22,
@@ -110,7 +115,7 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  'Meat',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -124,7 +129,7 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  'Fruit',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -138,7 +143,7 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  'Drinks',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -152,7 +157,35 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  'Vegatble',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Seasoning',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Desserts',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -165,6 +198,4 @@ class _FoodsScreenState extends State<FoodsScreen> with SingleTickerProviderStat
       ),
     );
   }
- 
-  
 }

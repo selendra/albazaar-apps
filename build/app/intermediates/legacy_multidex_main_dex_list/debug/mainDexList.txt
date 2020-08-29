@@ -94,6 +94,7 @@ androidx/core/app/NotificationCompat$BadgeIconType.class
 androidx/core/app/NotificationCompat$GroupAlertBehavior.class
 androidx/core/app/NotificationCompat$NotificationVisibility.class
 androidx/core/app/NotificationCompat$StreamType.class
+androidx/core/app/RemoteInput$EditChoicesBeforeSending.class
 androidx/core/app/RemoteInput$Source.class
 androidx/core/app/ServiceCompat$StopForegroundFlags.class
 androidx/core/content/PermissionChecker$PermissionResult.class
@@ -111,6 +112,10 @@ androidx/core/view/ViewCompat$NestedScrollType.class
 androidx/core/view/ViewCompat$ScrollAxis.class
 androidx/core/view/ViewCompat$ScrollIndicators.class
 androidx/core/widget/TextViewCompat$AutoSizeTextType.class
+androidx/exifinterface/media/ExifInterface$IfdType.class
+androidx/heifwriter/HeifEncoder$InputMode.class
+androidx/heifwriter/HeifWriter$InputMode.class
+androidx/heifwriter/Texture2dProgram$ProgramType.class
 androidx/lifecycle/Lifecycle$Event.class
 androidx/lifecycle/OnLifecycleEvent.class
 androidx/media/AudioAttributesCompat$AttributeContentType.class
@@ -137,6 +142,11 @@ androidx/versionedparcelable/VersionedParcelize.class
 androidx/viewpager/widget/ViewPager$DecorView.class
 com/android/installreferrer/api/InstallReferrerClient$InstallReferrerResponse.class
 com/android/installreferrer/api/InstallReferrerClientImpl$ClientState.class
+com/baseflow/geolocator/tasks/LocationUpdatesUsingLocationManagerTask$GeolocationAccuracy.class
+com/baseflow/googleapiavailability/MethodCallHandlerImpl$GooglePlayServicesAvailability.class
+com/baseflow/location_permissions/LocationPermissionsPlugin$PermissionLevel.class
+com/baseflow/location_permissions/LocationPermissionsPlugin$PermissionStatus.class
+com/baseflow/location_permissions/LocationPermissionsPlugin$ServiceStatus.class
 com/facebook/internal/instrument/crashreport/AutoHandleExceptions.class
 com/facebook/internal/instrument/crashreport/NoAutoExceptionHandling.class
 com/google/android/gms/auth/api/accounttransfer/AuthenticatorTransferCompletionStatus.class
@@ -150,8 +160,10 @@ com/google/android/gms/common/annotation/KeepForSdk.class
 com/google/android/gms/common/annotation/KeepForSdkWithFieldsAndMethods.class
 com/google/android/gms/common/annotation/KeepForSdkWithMembers.class
 com/google/android/gms/common/annotation/KeepName.class
+com/google/android/gms/common/annotation/NonNullApi.class
 com/google/android/gms/common/api/Result.class
 com/google/android/gms/common/internal/HideFirstParty.class
+com/google/android/gms/common/internal/Preconditions.class
 com/google/android/gms/common/internal/ReflectedParcelable.class
 com/google/android/gms/common/internal/ShowFirstParty.class
 com/google/android/gms/common/internal/safeparcel/AbstractSafeParcelable.class
@@ -167,8 +179,9 @@ com/google/android/gms/common/util/DynamiteApi.class
 com/google/android/gms/common/util/RetainForClient.class
 com/google/android/gms/common/util/VisibleForTesting.class
 com/google/android/gms/common/zzc.class
-com/google/android/gms/common/zzm.class
+com/google/android/gms/common/zzl.class
 com/google/android/gms/internal/auth/zzax.class
+com/google/android/gms/location/ActivityTransition$SupportedActivityTransition.class
 com/google/android/gms/stats/CodePackage.class
 com/google/auto/value/AutoAnnotation.class
 com/google/auto/value/AutoOneOf.class

@@ -11,7 +11,8 @@ class ApiUrl {
   static const GET_WALLET = BASE_URL+'/pub/v1/getwallet';
   static const RESEND_CODE = BASE_URL+'/pub/v1/resend-code';  
   static const DISPLAY_PORTFORLIO = BASE_URL+'/pub/v1/portforlio';
-
+  static const GOOGLE_SIGN_IN = BASE_URL+'/oauth/v1/login-from-google';
+  static const ADD_PHONE_NUMBER = BASE_URL+'/pub/v1/add-phonenumber';
 }
 
 

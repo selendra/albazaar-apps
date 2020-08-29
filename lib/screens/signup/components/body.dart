@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_auth_tab.dart';
 
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
-  final formKey = GlobalKey<FormState>();
-  final _emailKey = GlobalKey<FormFieldState<String>>();
-  String _email, _password;
-  String phone;
-  bool _isLoading = false;
+class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+  final emailFormKey = GlobalKey<FormState>();
+  final phoneFormKey = GlobalKey<FormState>();
+
+  bool _isLoading = false, isPageCanChanged = true;
   String alertText;
-
-  bool validateAndSave() {
-    final form = formKey.currentState;
-
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
+  final PageController _pageController = PageController(initialPage: 0);
+  TabController _tabController;
 
   showAlertDialog(BuildContext context) {
     // set up the button
@@ -37,7 +28,7 @@ class _BodyState extends State<Body> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(alertText),
-      content: Text("Please check your email or verify email. "),
+      content: Text(""),
       actions: [
         okButton,
       ],
@@ -51,25 +42,54 @@ class _BodyState extends State<Body> {
     );
   }
 
-  onSignUpByEmail() async {
+  onSignUpByEmail(String _email, String _password) async {
+    setState(() {
+      _isLoading = true;
+    });
     await ApiPostServices().signUpByEmail(_email, _password).then((value) {
       setState(() {
         _isLoading = false;
       });
       alertText = value;
-      showAlertDialog(context);
+      if (alertText != "Your email account already exists!") {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UserInfo(),
+            ));
+      } else {
+        showAlertDialog(context);
+      }
     });
   }
 
-  void validateAndSubmit() {
-    if (validateAndSave()) {
-      print(_email);
-      print(_password);
-      onSignUpByEmail();
-    }
+  onSignUpWithPhone(String _phone, String _password) async {
+    setState(() {
+      _isLoading = true;
+    });
+    await ApiPostServices()
+        .signUpByPhone(_phone, _password, context)
+        .then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+      alertText = value ?? "";
+      showAlertDialog(context);
+      if (alertText != 'Your phone number already exists!') {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => OTPScreen(_phone, _password)));
+      } else {
+        showAlertDialog(context);
+      }
+    });
   }
 
   onGoogleSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       await signInWithGoogle().then((value) {
         if (value == null) {
@@ -92,6 +112,9 @@ class _BodyState extends State<Body> {
   }
 
   onFacebookSignIn() async {
+    setState(() {
+      _isLoading = true;
+    });
     await signInFacebook(context).then((value) {
       if (value == null) {
         setState(() {
@@ -107,121 +130,95 @@ class _BodyState extends State<Body> {
     });
   }
 
+  onTabChange() {
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        onPageChange(_tabController.index, p: _pageController);
+      }
+    });
+  }
+
+  onPageChange(int index, {PageController p, TabController t}) async {
+    if (p != null) {
+      isPageCanChanged = false;
+      await _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+      isPageCanChanged = true;
+    } else {
+      _tabController.animateTo(index);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //_pageController = PageController();
+    _tabController = TabController(vsync: this, length: 2);
+    onTabChange();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.all(30),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          child: Image.asset(
-                        'images/logo.png',
-                        height: 100,
-                        width: 100,
-                      )),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _emailField(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _pwField(),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      ReuseButton.getItem('SIGN UP', () {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        validateAndSubmit();
-                      }, context),
-                      ReuseFlatButton.getItem(
-                          'Already Had an Account?', ' Sign In', () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignIn(),
-                            ));
-                      }),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      _buildBtnSocialRow()
-                    ],
+            : Column(
+                children: <Widget>[
+                  Container(
+                      child: Image.asset(
+                    'images/logo.png',
+                    height: 50,
+                    width: 50,
+                  )),
+                  SizedBox(
+                    height: 40,
                   ),
-                ),
+                  ReuseAuthTab(_tabController),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        onPageChange(index);
+                      },
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignUpPhoneForm(
+                            onSignUpWithPhone,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignUpEmailForm(
+                            onSignUpByEmail,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
-      ),
-    );
-  }
-
-  Widget _emailField() {
-    return ReuseTextField(
-      labelText: 'Email',
-      inputType: TextInputType.emailAddress,
-      fieldKey: _emailKey,
-      onSaved: (value) => _email = value,
-      validator: (value) => value.isEmpty ? "Email is empty" : null,
-    );
-  }
-
-  Widget _pwField() {
-    return ReusePwField(
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? 'Password is empty or less than 6 character'
-          : null,
-      onSaved: (value) => _password = value,
-    );
-  }
-  Widget _buildBtnSocialRow() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BtnSocial(() {
-            setState(() {
-              _isLoading = true;
-            });
-            onFacebookSignIn();
-          }, AssetImage('images/facebook.jpg')),
-           SizedBox(width: 20),
-          BtnSocial(() {
-            setState(() {
-              _isLoading = true;
-            });
-            onGoogleSignIn();
-          }, AssetImage('images/google.jpg')),
-           SizedBox(width: 20),
-          BtnSocial(() {
-            Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SignUpPhoneNumber()));
-          }, AssetImage('images/phone.jpg')),     
-        ],
       ),
     );
   }

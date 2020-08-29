@@ -7,6 +7,7 @@ import 'package:selendra_marketplace_app/screens/category/categories_list.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ enum Options { Camera, Gallery }
 class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
+  final nameKey = GlobalKey<FormFieldState<String>>();
 
   File _myImage;
   final picker = ImagePicker();
@@ -36,17 +38,23 @@ class _BodyState extends State<Body> {
           return SimpleDialog(
             title: Text('Choose an option'),
             children: <Widget>[
-              SimpleDialogOption(
-                child: Text('Camera'),
-                onPressed: () {
-                  Navigator.pop(context, Options.Camera);
-                },
+              Container(
+                height: 40,
+                child: SimpleDialogOption(
+                  child: Text('Camera'),
+                  onPressed: () {
+                    Navigator.pop(context, Options.Camera);
+                  },
+                ),
               ),
-              SimpleDialogOption(
-                child: Text('Gallery'),
-                onPressed: () {
-                  Navigator.pop(context, Options.Gallery);
-                },
+              Container(
+                height: 40,
+                child: SimpleDialogOption(
+                  child: Text('Gallery'),
+                  onPressed: () {
+                    Navigator.pop(context, Options.Gallery);
+                  },
+                ),
               )
             ],
           );
@@ -67,7 +75,7 @@ class _BodyState extends State<Body> {
             builder: (context) => CategoriesListScreen(category)));
     print(resultOfC);
     setState(() {
-      _categories = resultOfC;
+      _categories = resultOfC ?? "Categories";
     });
   }
 
@@ -76,15 +84,16 @@ class _BodyState extends State<Body> {
 
     setState(() {
       _myImage = File(pickedFile.path);
+      ApiPostServices().upLoadImage(_myImage);
     });
   }
-  Future cameraImage() async{
+
+  Future cameraImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
       _myImage = File(pickedFile.path);
     });
-
   }
 
   void checkValidate() {
@@ -137,18 +146,7 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 20,
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                child: Text(
-                  'POST DETAIL',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ),
-            ),
+            title(),
             SizedBox(
               height: 20,
             ),
@@ -170,6 +168,21 @@ class _BodyState extends State<Body> {
             ),
             _priceField(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget title() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Container(
+        child: Text(
+          'POST DETAIL',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[600],
+          ),
         ),
       ),
     );
@@ -217,10 +230,10 @@ class _BodyState extends State<Body> {
           labelText: 'Price',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Price" : null,
@@ -239,10 +252,10 @@ class _BodyState extends State<Body> {
           labelText: 'Description',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Description" : null,
@@ -257,7 +270,7 @@ class _BodyState extends State<Body> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         border: Border.all(color: kDefualtColor, width: 1),
-        borderRadius: BorderRadius.circular(18.0),
+        borderRadius: BorderRadius.circular(kDefualtRadius),
       ),
       child: ListTile(
         title: Text(_categories),
@@ -279,10 +292,10 @@ class _BodyState extends State<Body> {
           labelText: 'Title',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Title" : null,
@@ -300,7 +313,7 @@ class _BodyState extends State<Body> {
         height: 150,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(kDefualtRadius),
           border: Border.all(
             color: kDefualtColor,
             width: 1,
@@ -326,10 +339,10 @@ class _BodyState extends State<Body> {
           labelText: 'Contact Name',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Contact Name" : null,
@@ -348,10 +361,10 @@ class _BodyState extends State<Body> {
           labelText: 'Phone Number',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(18.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(18.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
@@ -367,7 +380,7 @@ class _BodyState extends State<Body> {
         height: 150,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(kDefualtRadius),
           border: Border.all(
             color: kDefualtColor,
             width: 1,

@@ -1,3 +1,5 @@
+import 'package:selendra_marketplace_app/models/acc_balance.dart';
+
 class Wallet {
   String title;
   String amount;
@@ -8,7 +10,7 @@ class Wallet {
 List<Wallet> wallets = [
   Wallet(
       'Selendra (SEL)',
-      '43,729.00'
+      mBalance[1].balance,
   ),
   Wallet(
       'Maker Dai',

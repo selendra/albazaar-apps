@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/models/wallet.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
+import 'package:selendra_marketplace_app/models/acc_balance.dart';
+import 'wallet_list.dart';
 
 class MyWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  _body(context);
+    return _body(context);
   }
-   Widget _body(context) {
+
+  Widget _body(context) {
     return Stack(
       children: <Widget>[
         Column(
@@ -23,13 +25,13 @@ class MyWallet extends StatelessWidget {
                   Text(
                     'TOTAL BALANCE',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
+                      color: Colors.white,
+                      fontSize: 14.0,
                     ),
                   ),
                   SizedBox(height: 20),
                   Text(
-                    '43,729.00',
+                    mBalance[1].balance,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 45.0,
@@ -56,7 +58,7 @@ class MyWallet extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Column(
               children: <Widget>[
-                _buildWallet(),
+                WalletList(),
                 SizedBox(
                   height: 10,
                 ),
@@ -82,33 +84,6 @@ class MyWallet extends StatelessWidget {
       ],
     );
   }
-    Widget _buildWallet() {
-    return Container(
-      child: ListView.builder(
-          itemCount: wallets.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Card(
-              elevation: 1,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(22.0),
-                  side: BorderSide(
-                    color: kDefualtColor,
-                  )),
-              margin: EdgeInsets.all(10.0),
-              child: ListTile(
-                trailing: Text(
-                  wallets[index].amount,
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                ),
-                leading: ImageIcon(AssetImage('images/logo.png')),
-                title: Text(
-                  wallets[index].title,
-                  style: TextStyle(fontWeight: FontWeight.w900),
-                ),
-              ),
-            );
-          }),
-    );
-  }
+
+ 
 }

@@ -19,6 +19,8 @@ class _BodyState extends State<Body> {
       child: NetworkAlert(
         Center(
           child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.all(30.0),
               child: Column(
                 children: <Widget>[
@@ -96,7 +98,7 @@ class _BodyState extends State<Body> {
         color: Colors.white,
         borderSide: BorderSide(color: kDefualtColor, width: 2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
         ),
       ),
     );

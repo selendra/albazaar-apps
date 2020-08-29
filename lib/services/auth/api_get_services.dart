@@ -3,11 +3,12 @@ import 'package:selendra_marketplace_app/models/api_url.dart';
 import 'dart:convert';
 import 'package:selendra_marketplace_app/models/user.dart';
 import 'package:selendra_marketplace_app/models/acc_balance.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ApiGetServices {
   String alertText;
 
-  Future<void> fetchUserPf(String _token) async {
+  Future<User> fetchUserPf(String _token) async {
     var response =
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
@@ -15,6 +16,7 @@ class ApiGetServices {
     });
     var responseBody = json.decode(response.body);
     mUser = User.fromJson(responseBody);
+    return mUser;
   }
 
   Future<String> fetchPortforlio(String _token) async {
@@ -25,14 +27,25 @@ class ApiGetServices {
     });
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      if(responseBody is List){
-        for (var i in responseBody){
+      if (responseBody is List) {
+        for (var i in responseBody) {
           mBalance.add(Balance.fromJson(i));
         }
-      }else{
+      } else {
         alertText = responseBody['error']['message'];
       }
     }
     return alertText ?? '';
+  }
+
+  Future<Placemark> fetchPlaceList(String query) async {
+    var response = await http.get('http://photon.komoot.de/api/?q=$query');
+    print(response.body);
+    if (response.statusCode == 200) {
+      return null;
+    } else {
+      print(response.statusCode);
+    }
+    return null;
   }
 }

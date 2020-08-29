@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/home/components/body.dart';
-import 'package:selendra_marketplace_app/screens/home/components/search.dart';
-import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,7 +12,9 @@ class _HomeScreenState extends State<HomeScreen>
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
   ScrollController scrollController;
- 
+  String imgUrl = mUser.profileImg;
+  String userName;
+  String email;
 
   @override
   void initState() {
@@ -32,6 +33,77 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       key: _scaffoldState,
       body: _buildAppBar(),
+      drawer: _buildDrawer(context),
+    );
+  }
+
+  Widget _buildDrawer(context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: imgUrl == null
+                  ? AssetImage('images/avatar.png')
+                  : NetworkImage(imgUrl),
+            ),
+            accountEmail: Text(mUser.email ?? 'email'),
+            accountName: Text(
+                mUser.firstName?? 'username'),
+          ),
+          ReuseInkwell.getItem('Home', Icons.home, () {
+            Navigator.pop(context);
+          }),
+          ReuseInkwell.getItem('Profile', Icons.person, () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ProfileScreen(mUser.firstName, imgUrl, mUser.email)));
+          }),
+          Container(
+            height: 2,
+            margin: EdgeInsets.only(left: 20.0, right: 20.0),
+            color: Colors.grey[300],
+          ),
+          ReuseInkwell.getItem('Purchase', Icons.shopping_basket, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PurchaseScreen()));
+          }),
+          ReuseInkwell.getItem('Listing', Icons.list, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ListingScreen()));
+          }),
+          ReuseInkwell.getItem('Sale', Icons.monetization_on, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SalesScreen()));
+          }),
+          Container(
+            height: 2,
+            margin: EdgeInsets.only(left: 20.0, right: 20.0),
+            color: Colors.grey[300],
+          ),
+          ReuseInkwell.getItem('Message', Icons.message, () {}),
+          ReuseInkwell.getItem('Notification', Icons.notifications, () {}),
+          ReuseInkwell.getItem('Settings', Icons.settings, () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingScreen()));
+          }),
+          ReuseInkwell.getItem('Sign Out', Icons.input, () {
+            signOut(context);
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget listTile(String title, IconData _iconData, Function _tap) {
+    return ListTile(
+      title: Text(title),
+      leading: Icon(_iconData),
+      onTap: _tap,
+      contentPadding: EdgeInsets.all(0),
     );
   }
 
@@ -51,10 +123,12 @@ class _HomeScreenState extends State<HomeScreen>
               backgroundColor: Colors.white,
               leading: IconButton(
                 icon: Icon(
-                  Icons.language,
+                  Icons.menu,
                   color: kDefualtColor,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
               ),
               centerTitle: true,
               title: Row(
@@ -77,18 +151,21 @@ class _HomeScreenState extends State<HomeScreen>
               actions: <Widget>[
                 IconButton(
                   icon: Icon(
-                    Icons.search,
+                    Icons.shopping_cart,
                     color: kDefualtColor,
                   ),
                   onPressed: () {
-                    showSearch(context: context, delegate: SearchProducts());
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartScreen()));
                   },
                 ),
               ],
             ),
           ];
         },
-        body: Body(),
+        body: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus.unfocus(),
+            child: Body()),
       ),
     );
   }

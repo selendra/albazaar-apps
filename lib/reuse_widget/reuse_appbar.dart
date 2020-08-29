@@ -5,6 +5,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class ReuseAppBar {
   static getTitle(String title,context,appBarItemOne, appBarItemTwo, appBarItemThree, controller){
     return AppBar(
+      brightness: Brightness.light,
       centerTitle: true,
       title: Text(
         title,

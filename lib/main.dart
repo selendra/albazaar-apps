@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/enums/connectivity_status.dart';
 import 'package:selendra_marketplace_app/services/connectivity_services.dart';
 import 'screens/splashscreen/splashscreen.dart';
-
+import 'package:selendra_marketplace_app/services/auth/root_service.dart';
+final navigationKey = GlobalKey<NavigatorState>();
+final sfKey = GlobalKey<ScaffoldState>();
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -17,11 +19,18 @@ class SelendraApp extends StatelessWidget {
     return StreamProvider<ConnectivityStatus>(
       create: (context) => ConnectivityServices().streamController.stream,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+        
+          '/root': (context) => RootServices(),
+ 
+        },
+        debugShowCheckedModeBanner: true,
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: SplashScreen(),
+        navigatorKey: navigationKey,
       ),
     );
   }

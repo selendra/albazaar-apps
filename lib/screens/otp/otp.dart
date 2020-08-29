@@ -38,7 +38,7 @@ class _PinScreenState extends State<PinScreen> {
   int _second = 30;
   Timer _timer;
   List<String> currentPin = ["", "", "", "", "", ""];
-  
+
   TextEditingController pinOneController = TextEditingController();
   TextEditingController pinTwoController = TextEditingController();
   TextEditingController pinThreeController = TextEditingController();
@@ -60,6 +60,32 @@ class _PinScreenState extends State<PinScreen> {
           _second = 30;
           startTimer();
         });
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text(alertText),
+      content: Text("Please check again. "),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  successDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
       },
     );
 
@@ -126,6 +152,7 @@ class _PinScreenState extends State<PinScreen> {
         await ApiPostServices()
             .signInByPhone(widget.phoneNumber, widget.password, context);
         alertText = responseBody['message'];
+        successDialog(context);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => UserInfo()));
       }
@@ -281,12 +308,12 @@ class _PinScreenState extends State<PinScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        PINNumber(outlineInputBorder, pinOneController),
-        PINNumber(outlineInputBorder, pinTwoController),
-        PINNumber(outlineInputBorder, pinThreeController),
-        PINNumber(outlineInputBorder, pinFourController),
-        PINNumber(outlineInputBorder, pinFiveController),
-        PINNumber(outlineInputBorder, pinSixController),
+        ReusePinNum(outlineInputBorder, pinOneController),
+        ReusePinNum(outlineInputBorder, pinTwoController),
+        ReusePinNum(outlineInputBorder, pinThreeController),
+        ReusePinNum(outlineInputBorder, pinFourController),
+        ReusePinNum(outlineInputBorder, pinFiveController),
+        ReusePinNum(outlineInputBorder, pinSixController),
       ],
     );
   }
@@ -303,13 +330,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(1, () {
+                  ReuseKeyBoardNum(1, () {
                     pinIndexSetup('1');
                   }),
-                  KeyBoardNumber(2, () {
+                  ReuseKeyBoardNum(2, () {
                     pinIndexSetup('2');
                   }),
-                  KeyBoardNumber(3, () {
+                  ReuseKeyBoardNum(3, () {
                     pinIndexSetup('3');
                   }),
                 ],
@@ -317,13 +344,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(4, () {
+                  ReuseKeyBoardNum(4, () {
                     pinIndexSetup('4');
                   }),
-                  KeyBoardNumber(5, () {
+                  ReuseKeyBoardNum(5, () {
                     pinIndexSetup('5');
                   }),
-                  KeyBoardNumber(6, () {
+                  ReuseKeyBoardNum(6, () {
                     pinIndexSetup('6');
                   }),
                 ],
@@ -331,13 +358,13 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  KeyBoardNumber(7, () {
+                  ReuseKeyBoardNum(7, () {
                     pinIndexSetup('7');
                   }),
-                  KeyBoardNumber(8, () {
+                  ReuseKeyBoardNum(8, () {
                     pinIndexSetup('8');
                   }),
-                  KeyBoardNumber(9, () {
+                  ReuseKeyBoardNum(9, () {
                     pinIndexSetup('9');
                   }),
                 ],
@@ -352,7 +379,7 @@ class _PinScreenState extends State<PinScreen> {
                       child: SizedBox(),
                     ),
                   ),
-                  KeyBoardNumber(0, () {
+                  ReuseKeyBoardNum(0, () {
                     pinIndexSetup('0');
                   }),
                   Container(
@@ -381,66 +408,4 @@ class _PinScreenState extends State<PinScreen> {
   }
 }
 
-class PINNumber extends StatelessWidget {
-  final OutlineInputBorder outlineInputBorder;
-  final TextEditingController textEditingController;
 
-  PINNumber(this.outlineInputBorder, this.textEditingController);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50.0,
-      child: TextField(
-        controller: textEditingController,
-        enabled: false,
-        obscureText: false,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16.0),
-          border: outlineInputBorder,
-          filled: true,
-          fillColor: Colors.grey[300],
-        ),
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-          color: kDefualtColor,
-        ),
-      ),
-    );
-  }
-}
-
-class KeyBoardNumber extends StatelessWidget {
-  final int n;
-  final Function() onPressed;
-
-  KeyBoardNumber(this.n, this.onPressed);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60.0,
-      height: 60.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: kDefualtColor,
-      ),
-      alignment: Alignment.center,
-      child: MaterialButton(
-        padding: EdgeInsets.all(8.0),
-        onPressed: onPressed,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(60.0),
-        ),
-        height: 90,
-        child: Text(
-          '$n',
-          style: TextStyle(
-              fontSize: 24 * MediaQuery.of(context).textScaleFactor,
-              color: Colors.white,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}

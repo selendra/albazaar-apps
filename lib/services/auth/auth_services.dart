@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:selendra_marketplace_app/models/user.dart';
 import 'package:selendra_marketplace_app/models/acc_balance.dart';
 
@@ -23,14 +23,16 @@ Future<String> signInWithGoogle() async {
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
+  
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
+  print(user);
 
   // Checking if email and name is null
-  /*assert(user.email != null);
-    assert(user.displayName != null);
-    assert(user.photoUrl != null);*/
+  assert(user.email != null);
+  assert(user.displayName != null);
+  assert(user.photoUrl != null);
 
   mUser.firstName = user.displayName;
   mUser.email = user.email;
@@ -58,6 +60,7 @@ Future<FirebaseUser> signInFacebook(BuildContext context) async {
           accessToken: facebookAccessToken.token);
       final FirebaseUser user =
           (await _auth.signInWithCredential(credential)).user;
+      print(credential);
       assert(user.email != null);
       assert(user.displayName != null);
       assert(!user.isAnonymous);
@@ -75,26 +78,28 @@ Future<FirebaseUser> signInFacebook(BuildContext context) async {
   return currentUser;
 }
 
-void signOut(context) async {
+Future<void> signOut(BuildContext context) async {
   mBalance.clear();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs?.clear();
   try {
     FirebaseUser user = await _auth.currentUser();
     for (UserInfo profile in user.providerData) {
       switch (profile.providerId) {
         case 'facebook.com':
-          facebookLogin.logOut().whenComplete(() => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen())));
+          facebookLogin.logOut();
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
           break;
         case 'google.com':
-          googleSignIn.signOut().whenComplete(() => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen())));
+          googleSignIn.signOut();
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
           break;
         default:
-          await _auth.signOut().whenComplete(() => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => WelcomeScreen())));
+          await _auth.signOut();
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
           print("User Sign Out");
       }
     }
@@ -104,8 +109,6 @@ void signOut(context) async {
 }
 
 void signOutByEmail(context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs?.clear();
   Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
 }

@@ -4,32 +4,37 @@ import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dar
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:selendra_marketplace_app/services/network_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
+import 'package:selendra_marketplace_app/models/user.dart';
+import 'api_get_services.dart';
 
 class RootServices extends StatefulWidget {
-
   @override
   _RootServicesState createState() => _RootServicesState();
 }
 
 class _RootServicesState extends State<RootServices> {
-
-
-  void checkUser()async{
-    SharedPreferences isLogin = await SharedPreferences.getInstance();
-    var status = isLogin.getBool("isLogin") ?? false;
-    if(status){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
-    }else{
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
-    }
+  void clearPref() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.remove('first');
+    pref.remove('pin');
   }
 
-  @override
-  void initState() {
-    super.initState();
-    checkUser();
+  void checkUser() async {
+
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+
+    String _token = isToken.getString('token');
+    if (_token!=null) {
+      await ApiGetServices().fetchUserPf(_token).then((value) {
+        mUser = value;
+      });
+      await ApiGetServices().fetchPortforlio(_token);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => BottomNavigation()));
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    }
   }
 
   @override
@@ -41,19 +46,27 @@ class _RootServicesState extends State<RootServices> {
     );
   }
 
-  Widget _handleAuthServices(){
+  Widget _handleAuthServices() {
     return StreamBuilder(
       stream: FirebaseAuth.instance.onAuthStateChanged,
-      builder: (context,snapshot){
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return Center(child: CircularProgressIndicator(),);
-        }
-        else{
+      builder: (context, snapshot) {
+        clearPref();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
           FirebaseUser user = snapshot.data;
-          if(user != null ){
+          if (user != null) {
+            mUser.email = user.email;
+            mUser.firstName = user.displayName;
+            mUser.profileImg = user.photoUrl;
             return BottomNavigation();
-          }else{
-            return WelcomeScreen();
+          } else {
+            checkUser();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         }
       },

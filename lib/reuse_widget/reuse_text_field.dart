@@ -2,15 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 
 class ReuseTextField extends StatefulWidget {
-
-  const ReuseTextField({this.fieldKey,this.labelText,this.inputType,this.onSaved,this.validator,this.onFieldSubmitted});
+  const ReuseTextField(
+      {this.fieldKey,
+      this.labelText,
+      this.inputType,
+      this.onSaved,
+      this.validator,
+      this.onChanged,
+      this.prefixIcon,
+      this.hintText,
+      this.suffixIcon,
+      this.textInputAction,
+      this.onEditingComplete,
+      this.onTap});
 
   final Key fieldKey;
   final String labelText;
+  final String hintText;
   final TextInputType inputType;
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
-  final ValueChanged<String> onFieldSubmitted;
+  final ValueChanged<String> onChanged;
+  final Icon prefixIcon;
+  final Icon suffixIcon;
+  final TextInputAction textInputAction;
+  final VoidCallback onEditingComplete;
+  final Function onTap;
 
   @override
   _ReuseTextFieldState createState() => _ReuseTextFieldState();
@@ -22,20 +39,27 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
     return Container(
       child: TextFormField(
         key: widget.fieldKey,
+        textInputAction: widget.textInputAction,
         keyboardType: widget.inputType,
         decoration: InputDecoration(
           labelText: widget.labelText,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
+          hintText: widget.hintText,
         ),
+        onTap: widget.onTap,
         validator: widget.validator,
         onSaved: widget.onSaved,
-        ),
+        onChanged: widget.onChanged,
+        onEditingComplete: widget.onEditingComplete,
+      ),
     );
   }
 }

@@ -6,6 +6,8 @@ import '../../../models/products.dart';
 import 'item_card.dart';
 import 'package:selendra_marketplace_app/screens/detail/detail_screen.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_search_field.dart';
+import 'package:selendra_marketplace_app/constants.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -13,19 +15,21 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   ScrollController _controller;
+  String dropDownValue = 'EN', _query;
+  final _searchKey = GlobalKey<FormFieldState<String>>();
+  List<Product> mProducts = products;
 
-  Future<Null> _getRefresh() async {
-    await Future.delayed(Duration(seconds: 3));
-    return null;
-  }
+  void filterSearchResults(String query) {
+   
+  } //Now u
 
   @override
   void initState() {
     super.initState();
     _controller = ScrollController();
   }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -40,12 +44,48 @@ class _BodyState extends State<Body> {
       child: Column(
         children: <Widget>[
           SizedBox(
-            height: 5,
+            height: 20,
           ),
+          Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Row(
+                children: [
+                  ReuseSearchField(
+                    fieldKey: _searchKey,
+                    labelText: 'Search',
+                    iconData: Icons.language,
+                    onFieldSubmitted: (value) {
+                      _query = value;
+                      print(_query);
+                    },
+                  ),
+                  Container(
+                      child: DropdownButton<String>(
+                    value: dropDownValue,
+                    underline: Container(
+                      color: Colors.white,
+                    ),
+                    style: TextStyle(color: kDefualtColor),
+                    icon: Icon(
+                      Icons.language,
+                      color: kDefualtColor,
+                    ),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropDownValue = newValue;
+                      });
+                    },
+                    items: <String>['EN', 'KH']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  )),
+                ],
+              )),
           CategoriesScreen(category),
-          SizedBox(
-            height: 5,
-          ),
           _buildProducts(),
         ],
       ),
@@ -57,27 +97,24 @@ class _BodyState extends State<Body> {
       margin: EdgeInsets.only(top: 10.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: RefreshIndicator(
-          child: GridView.builder(
-              itemCount: products.length,
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                childAspectRatio: 0.75,
-              ),
-              itemBuilder: (context, index) => ItemCard(
-                  product: products[index],
-                  press: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailScreen(
-                                  products[index],
-                                )));
-                  })),
-          onRefresh: _getRefresh,
-        ),
+        child: GridView.builder(
+            itemCount: products.length,
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              childAspectRatio: 0.75,
+            ),
+            itemBuilder: (context, index) => ItemCard(
+                product: products[index],
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailScreen(
+                                products[index],
+                              )));
+                })),
       ),
     );
   }

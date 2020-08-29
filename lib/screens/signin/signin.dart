@@ -5,7 +5,9 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(child: Body()),
     );
   }
 }

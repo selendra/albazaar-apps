@@ -15,7 +15,7 @@ class WalletScreen extends StatelessWidget {
   }
   Widget _buildAppBar(){
     return AppBar(
-      elevation: 0,
+      elevation: 0, 
       backgroundColor: Colors.white,
       brightness: Brightness.light,
       title: Text('Wallet',style: TextStyle(fontWeight: FontWeight.w600,color: kDefualtColor),),

@@ -4,12 +4,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class Body extends StatefulWidget {
+class PhoneBody extends StatefulWidget {
   @override
-  _BodyState createState() => _BodyState();
+  _PhoneBodyState createState() => _PhoneBodyState();
 }
 
-class _BodyState extends State<Body> {
+class _PhoneBodyState extends State<PhoneBody> {
   String _countryCode = 'KH';
   String _phone;
   bool isLogined = false;
@@ -204,11 +204,11 @@ class _BodyState extends State<Body> {
           labelText: 'Phone Number',
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(30.0))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
         ),
         initialCountryCode: _countryCode,
         onChanged: (phone) {

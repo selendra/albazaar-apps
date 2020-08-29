@@ -7,7 +7,7 @@ class SignInPhoneNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('', context),
-      body: Body()
+      body: PhoneBody(),
     );
   }
 }

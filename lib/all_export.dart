@@ -5,7 +5,7 @@ export 'bottom_navigation/bottom_navigation.dart';
 
 //add listing screen
 export 'screens/addlisting/add_listing.dart';
-export 'screens/addlisting/components/body.dart';
+
 
 //listing screen 
 export 'screens/listing/listing_screen.dart';
@@ -33,7 +33,7 @@ export 'screens/otp/otp.dart';
 
 //profile screen
 export 'screens/profile/profile_screen.dart';
-export 'screens/profile/account_screen.dart';
+
 
 //purchase screen
 export 'screens/purchase/purchase_screen.dart';
@@ -68,10 +68,18 @@ export 'screens/wallet/wallet_screen.dart';
 //welcome screen
 export 'screens/welcome/welcome_screen.dart';
 
+//map screen
+export 'screens/map/map.dart';
+
 
 //reuse widget
-export 'reuse_widget/btn_social.dart';
+export 'reuse_widget/signin_phone_form.dart';
+export 'reuse_widget/signin_email_form.dart';
+export 'reuse_widget/signup_email_form.dart';
+export 'reuse_widget/signup_phone_form.dart';
+export 'reuse_widget/reuse_btn_social.dart';
 export 'reuse_widget/reuse_appbar.dart';
+export 'reuse_widget/reuse_auth_tab.dart';
 export 'reuse_widget/reuse_button.dart';
 export 'reuse_widget/reuse_flat_button.dart';
 export 'reuse_widget/reuse_itemcard.dart';
@@ -80,6 +88,10 @@ export 'reuse_widget/reuse_tabbar.dart';
 export 'reuse_widget/reuse_text_field.dart';
 export 'reuse_widget/reuse.inkwell.dart';
 export 'reuse_widget/reuse_simple_appbar.dart';
+export 'reuse_widget/reuse_keyboard_num.dart';
+export 'reuse_widget/reuse_pin_num.dart';
+export 'reuse_widget/reuse_alert_dialog.dart';
+
 
 //enums
 export 'enums/connectivity_status.dart';
@@ -93,6 +105,7 @@ export 'models/categories.dart';
 export 'models/products.dart';
 export 'models/user.dart';
 export 'models/wallet.dart';
+export 'models/acc_balance.dart';
 
 //services 
 export 'services/auth/api_post_services.dart';

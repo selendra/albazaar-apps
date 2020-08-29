@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/models/api_url.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
 import 'package:selendra_marketplace_app/screens/otp/otp.dart';
-import 'package:selendra_marketplace_app/services/auth/api_get_services.dart';
+import 'package:selendra_marketplace_app/services/auth/root_service.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiPostServices {
   String alertText;
@@ -20,15 +22,12 @@ class ApiPostServices {
         }));
     if (response.statusCode == 200) {
       SharedPreferences isToken = await SharedPreferences.getInstance();
-      SharedPreferences isLogin = await SharedPreferences.getInstance();
       var responseJson = json.decode(response.body);
       token = responseJson['token'];
       if (token != null) {
-        isLogin.setBool("isLogin", true);
         isToken.setString('token', token);
-        ApiGetServices().fetchUserPf(token);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
           alertText = responseJson['error']['message'];
@@ -53,18 +52,16 @@ class ApiPostServices {
           'password': password,
         }));
     if (response.statusCode == 200) {
-      SharedPreferences isLogin = await SharedPreferences.getInstance();
       SharedPreferences isToken = await SharedPreferences.getInstance();
 
       var responseJson = json.decode(response.body);
 
       token = responseJson['token'];
       if (token != null) {
-        isLogin.setBool("isLogin", true);
+        print(token);
         isToken.setString('token', token);
-        ApiGetServices().fetchUserPf(token);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
           alertText = responseJson['error']['message'];
@@ -136,6 +133,8 @@ class ApiPostServices {
             context,
             MaterialPageRoute(
                 builder: (context) => OTPScreen(phone, password)));
+      } else {
+        return alertText;
       }
     } else {
       print(response.body);
@@ -176,21 +175,72 @@ class ApiPostServices {
         body: jsonEncode(<String, String>{"pin": pin}));
     var responseBody = json.decode(response.body);
     if (response.statusCode == 200) {
-      alertText = responseBody['message'];
+      SharedPreferences isSeed = await SharedPreferences.getInstance();
+      String _seed;
+      if (responseBody['code'] != null) {
+        alertText = responseBody['message'];
+      } else {
+        alertText = responseBody['message'];
+        if (alertText != null) {
+          try {
+            _seed = responseBody['message']['seed'];
+            isSeed.setString('seed', _seed);
+            print(_seed);
+          } catch (e) {
+            print(e);
+          }
+        }
+      }
     } else {
       alertText = responseBody['error']['message'];
     }
+    print(alertText);
     return alertText;
   }
 
   Future<String> verifyByPhone(String phone, String verifyCode) async {
     var response = await http.post(ApiUrl.VERIFY_BY_PHONE,
         headers: ApiHeader.headers,
-        body: <String, String>{
+        body: jsonEncode(<String, String>{
           'phone': phone,
           'verification_code': verifyCode,
-        });
-    if (response.statusCode == 200) {}
+        }));
+
+    if (response.statusCode == 200) {
+      var responseBody = json.decode(response.body);
+      try {
+        alertText = responseBody['error']['message'];
+      } catch (e) {}
+    }
+
+    return alertText;
+  }
+
+  Future<String> addPhoneNumber(String _token, String _phoneNumber) async {
+    var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
+        headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + _token,
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(<String, String>{
+          "phone": _phoneNumber,
+        }));
+    if (response.statusCode == 200) {
+      var responseBody = json.decode(response.body);
+      print(responseBody);
+      if (responseBody != null) {
+        try {
+          alertText = responseBody['message'];
+          if (alertText == null) {
+            alertText = responseBody['error']['message'];
+          }
+        } catch (e) {
+          alertText = responseBody['error']['message'];
+        }
+      }
+      print(alertText);
+    }
     return alertText;
   }
 
@@ -202,9 +252,53 @@ class ApiPostServices {
         });
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
-      alertText = responseJson['message'];
+      try {
+        alertText = responseJson['message'];
+      } catch (e) {
+        alertText = responseJson['error']['message'];
+      }
     }
 
     return alertText;
+  }
+
+  Future<http.StreamedResponse> upLoadImage(File _image) async {
+    /* Upload image to server by use multi part form*/
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+    String token;
+
+    token = isToken.getString('token');
+    /* Compress image file */
+    List<int> compressImage = await FlutterImageCompress.compressWithFile(
+      _image.path,
+      minHeight: 1300,
+      minWidth: 1000,
+      quality: 100,
+    );
+    /* Make request */
+    var request = new http.MultipartRequest(
+        'POST', Uri.parse('https://s3.zeetomic.com/upload'));
+    /* Make Form of Multipart */
+    var multipartFile = new http.MultipartFile.fromBytes(
+      'file',
+      compressImage,
+      filename: 'image_picker.jpg',
+      contentType: MediaType.parse('image/jpeg'),
+    );
+    /* Concate Token With Header */
+    request.headers.addAll({
+      "accept": "application/json",
+      "authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    });
+    request.files.add(multipartFile);
+    /* Start send to server */
+    http.StreamedResponse response = await request.send();
+    /* Getting response */
+    response.stream.transform(utf8.decoder).listen((data) {
+      print("Image url $data");
+    });
+
+    return response;
   }
 }

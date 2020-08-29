@@ -17,7 +17,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
 
    routB(context) async{
     final resultC = await  Navigator.push<String>(context, MaterialPageRoute(builder: (context)=>FoodCategories()));
-    Navigator.pop(context,resultC);
+    Navigator.pop(context,resultC??"Categories");
     print(resultC);
 
   }
