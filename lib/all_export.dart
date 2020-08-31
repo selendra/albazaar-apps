@@ -28,6 +28,10 @@ export 'screens/favorite/favorite_screen.dart';
 //home screen
 export 'screens/home/home_screen.dart';
 
+//map screen
+export 'screens/map/map.dart';
+export 'screens/map/components/type_head.dart';
+
 //otp screen
 export 'screens/otp/otp.dart';
 
@@ -50,10 +54,14 @@ export 'screens/setting/setting_screen.dart';
 
 //sign in screen
 export 'screens/signin/signin.dart';
+export 'screens/signin/components/signin_email_form.dart';
+export 'screens/signin/components/signin_phone_form.dart';
 export 'screens/signin/signin_phonenumber.dart';
 
 //sign up screen
 export 'screens/signup/signup.dart';
+export 'screens/signup/components/signup_email_form.dart';
+export 'screens/signup/components/signup_phone_form.dart';
 export 'screens/signup/signup_phonenumber.dart';
 
 //user info
@@ -73,10 +81,7 @@ export 'screens/map/map.dart';
 
 
 //reuse widget
-export 'reuse_widget/signin_phone_form.dart';
-export 'reuse_widget/signin_email_form.dart';
-export 'reuse_widget/signup_email_form.dart';
-export 'reuse_widget/signup_phone_form.dart';
+
 export 'reuse_widget/reuse_btn_social.dart';
 export 'reuse_widget/reuse_appbar.dart';
 export 'reuse_widget/reuse_auth_tab.dart';

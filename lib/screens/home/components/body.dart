@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/category/categories.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import '../../../models/products.dart';
-import 'item_card.dart';
-import 'package:selendra_marketplace_app/screens/detail/detail_screen.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_search_field.dart';
 import 'package:selendra_marketplace_app/constants.dart';
+import 'product_list.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -20,9 +19,7 @@ class _BodyState extends State<Body> {
   final _searchKey = GlobalKey<FormFieldState<String>>();
   List<Product> mProducts = products;
 
-  void filterSearchResults(String query) {
-   
-  } //Now u
+  void filterSearchResults(String query) {} //Now u
 
   @override
   void initState() {
@@ -86,36 +83,11 @@ class _BodyState extends State<Body> {
                 ],
               )),
           CategoriesScreen(category),
-          _buildProducts(),
+          ProductList(),
         ],
       ),
     );
   }
 
-  Widget _buildProducts() {
-    return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: GridView.builder(
-            itemCount: products.length,
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              childAspectRatio: 0.75,
-            ),
-            itemBuilder: (context, index) => ItemCard(
-                product: products[index],
-                press: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailScreen(
-                                products[index],
-                              )));
-                })),
-      ),
-    );
-  }
+  
 }

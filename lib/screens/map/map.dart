@@ -4,10 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse.inkwell.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/services/auth/api_get_services.dart';
-import 'type_head.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MapScreen extends StatefulWidget {
@@ -18,7 +15,9 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   MapController _mapController = MapController();
   Position _currentPosition;
+  LatLng kDefualtLatLng = LatLng(12.509, 105.634);
   String locate;
+  bool _isLive = false;
   GlobalKey<ExpandableBottomSheetState> _key = GlobalKey();
 
   moveCamera(double lat, double lng) {
@@ -31,35 +30,63 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   _getCurrentLocation() async {
-    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-    geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      if (mounted) {
-        setState(() {
-          _currentPosition = position;
-          moveCamera(_currentPosition.latitude, _currentPosition.longitude);
-        });
-      }
-      print(_currentPosition);
-    }).catchError((e) {
-      print(e);
+    setState(() {
+      _isLive = !_isLive;
     });
+    if (_isLive) {
+      final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+      geolocator
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+          .then((Position position) {
+        if (mounted) {
+          setState(() {
+            _currentPosition = position;
+            moveCamera(_currentPosition.latitude, _currentPosition.longitude);
+            markers.add(Marker(
+              point:
+                  LatLng(_currentPosition.latitude, _currentPosition.longitude),
+              builder: (context) => Container(
+                child: Icon(
+                  Icons.location_on,
+                  color: kDefualtColor,
+                  size: 50,
+                ),
+              ),
+            ));
+          });
+        }
+        print(_currentPosition);
+      }).catchError((e) {
+        print(e);
+      });
+    } else {
+      markers.removeLast();
+      _mapController.move(kDefualtLatLng, kDefaultMapZoom);
+    }
   }
 
-  addressName(double lat, double lng) async {
+  Future<void> zoomIn() async {
+    final z = _mapController.zoom + 1;
+    if (z < 20.0) {
+      print(z);
+      _mapController.move(_mapController.center, z);
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> zoomOut() async {
+    final z = _mapController.zoom - 1;
+    _mapController.move(_mapController.center, z);
+  }
+
+  addressName(LatLng place) async {
     SharedPreferences isLocate = await SharedPreferences.getInstance();
-    List<Placemark> placemark =
-        await Geolocator().placemarkFromCoordinates(lat, lng);
-    print(placemark[0].country);
-    print(placemark[0].administrativeArea);
-    print(placemark[0].locality);
-    print(placemark[0].subAdministrativeArea);
-    print(placemark[0].subThoroughfare);
-    print(placemark[0].thoroughfare); //*
-    print(placemark[0].subLocality); //*
+    List<Placemark> placemark = await Geolocator()
+        .placemarkFromCoordinates(place.latitude, place.longitude);
+    //*
     setState(() {
-      moveCamera(lat, lng);
+      moveCamera(place.latitude, place.longitude);
       //locate = placemark[0].thoroughfare + placemark[0].subLocality;
 
       locate = placemark[0].thoroughfare + placemark[0].subLocality;
@@ -73,14 +100,6 @@ class _MapScreenState extends State<MapScreen> {
     try {
       List<Placemark> placemark =
           await Geolocator().placemarkFromAddress(placeName);
-      print(placemark[0].country);
-      print(placemark[0].administrativeArea);
-      print(placemark[0].locality);
-      print(placemark[0].subAdministrativeArea);
-      print(placemark[0].subThoroughfare);
-      print(placemark[0].thoroughfare); //*
-      print(placemark[0].subLocality);
-      print(placemark[0].position);
       moveCamera(
           placemark[0].position.latitude, placemark[0].position.longitude);
       ApiGetServices().fetchPlaceList(placeName).then((value) {
@@ -91,12 +110,62 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+  var markers = <Marker>[
+    Marker(
+      width: 80,
+      height: 80,
+      anchorPos: AnchorPos.align(AnchorAlign.top),
+      point: LatLng(11.56959, 104.92104),
+      builder: (ctx) => Container(
+        child: InkWell(
+          onTap: () {},
+          child: Icon(
+            Icons.location_on,
+            color: Colors.red,
+            size: 50,
+          ),
+        ),
+      ),
+    ),
+    Marker(
+      width: 80,
+      height: 80,
+      anchorPos: AnchorPos.align(AnchorAlign.top),
+      point: LatLng(11.98750, 105.46491),
+      builder: (ctx) => Container(
+        child: InkWell(
+          onTap: () {},
+          child: Icon(
+            Icons.location_on,
+            color: Colors.red,
+            size: 50,
+          ),
+        ),
+      ),
+    ),
+    Marker(
+      width: 80,
+      height: 80,
+      anchorPos: AnchorPos.align(AnchorAlign.top),
+      point: LatLng(11.60895, 102.98397),
+      builder: (ctx) => Container(
+        child: InkWell(
+          onTap: () {},
+          child: Icon(
+            Icons.location_on,
+            color: Colors.red,
+          ),
+        ),
+      ),
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
-    if (_currentPosition == null) {
+    /*if (_currentPosition == null) {
       _getCurrentLocation();
-    }
+    }*/
   }
 
   @override
@@ -107,11 +176,27 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _currentPosition == null
-            ? Center(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _getCurrentLocation();
+          },
+          child: _isLive
+              ? Icon(
+                  Icons.gps_not_fixed,
+                  color: kDefualtColor,
+                )
+              : Icon(
+                  Icons.gps_fixed,
+                  color: kDefualtColor,
+                ),
+          backgroundColor: Colors.white,
+        ),
+        body:
+            /* Center(
                 child: CircularProgressIndicator(),
               )
-            : SafeArea(child: _bottom()));
+            :*/
+            SafeArea(child: _bottom()));
   }
 
   Widget _bottom() {
@@ -124,86 +209,25 @@ class _MapScreenState extends State<MapScreen> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-              center:
-                  LatLng(_currentPosition.latitude, _currentPosition.longitude),
-              zoom: 15.0,
+              center: _currentPosition != null
+                  ? LatLng(
+                      _currentPosition.latitude, _currentPosition.longitude)
+                  : kDefualtLatLng,
+              zoom: kDefaultMapZoom,
+              screenSize: MediaQuery.of(context).size,
+              slideOnBoundaries: true,
+              maxZoom: kDefaultMaxZoom,
+              minZoom: kDefaultMinZoom,
             ),
             layers: [
               TileLayerOptions(
-                  maxZoom: 20.0,
+                  tileFadeInStart: 0.1,
+                  maxZoom: kDefaultMaxZoom,
                   keepBuffer: 100,
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  urlTemplate: osmMapTemplate,
                   subdomains: ['a', 'b', 'c']),
               MarkerLayerOptions(
-                markers: [
-                  Marker(
-                    width: 80,
-                    height: 80,
-                    anchorPos: AnchorPos.align(AnchorAlign.top),
-                    point: LatLng(
-                        _currentPosition.latitude, _currentPosition.longitude),
-                    builder: (ctx) => Container(
-                      child: InkWell(
-                        onTap: () => addressName(_currentPosition.latitude,
-                            _currentPosition.longitude),
-                        child: Icon(
-                          Icons.location_on,
-                          color: Colors.blue,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Marker(
-                    width: 80,
-                    height: 80,
-                    anchorPos: AnchorPos.align(AnchorAlign.top),
-                    point: LatLng(11.56959, 104.92104),
-                    builder: (ctx) => Container(
-                      child: InkWell(
-                        onTap: () => addressName(11.56959, 104.92104),
-                        child: Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Marker(
-                    width: 80,
-                    height: 80,
-                    anchorPos: AnchorPos.align(AnchorAlign.top),
-                    point: LatLng(11.98750, 105.46491),
-                    builder: (ctx) => Container(
-                      child: InkWell(
-                        onTap: () => addressName(11.98750, 105.46491),
-                        child: Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Marker(
-                    width: 80,
-                    height: 80,
-                    anchorPos: AnchorPos.align(AnchorAlign.top),
-                    point: LatLng(11.60895, 102.98397),
-                    builder: (ctx) => Container(
-                      child: InkWell(
-                        onTap: () => addressName(11.60895, 102.98397),
-                        child: Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                markers: markers,
               ),
             ],
           ),
@@ -218,14 +242,36 @@ class _MapScreenState extends State<MapScreen> {
               child: Column(
                 children: [
                   InkWell(
-                      onTap: () {
-                        _getCurrentLocation();
-                      },
-                      child: Icon(Icons.zoom_in)),
+                    onTap: () => zoomIn(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(kDefualtRadius),
+                          color: Colors.white),
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.add,
+                        color: kDefualtColor,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 10,
                   ),
-                  Icon(Icons.zoom_out),
+                  InkWell(
+                    onTap: () => zoomOut(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(kDefualtRadius),
+                          color: Colors.white),
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.remove,
+                        color: kDefualtColor,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
