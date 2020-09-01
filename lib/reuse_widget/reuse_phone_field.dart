@@ -24,12 +24,12 @@ class _ReusePhoneFieldState extends State<ReusePhoneField> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
         ),
         initialCountryCode: _countryCode,
         onSaved: (value) => widget.onSaved,

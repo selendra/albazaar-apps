@@ -230,10 +230,10 @@ class _BodyState extends State<Body> {
           labelText: 'Price',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Price" : null,
@@ -252,10 +252,10 @@ class _BodyState extends State<Body> {
           labelText: 'Description',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Description" : null,
@@ -269,8 +269,8 @@ class _BodyState extends State<Body> {
       height: 60,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: kDefualtColor, width: 1),
-        borderRadius: BorderRadius.circular(kDefualtRadius),
+        border: Border.all(color: kDefaultColor, width: 1),
+        borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
       child: ListTile(
         title: Text(_categories),
@@ -292,10 +292,10 @@ class _BodyState extends State<Body> {
           labelText: 'Title',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Title" : null,
@@ -313,9 +313,9 @@ class _BodyState extends State<Body> {
         height: 150,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kDefualtRadius),
+          borderRadius: BorderRadius.circular(kDefaultRadius),
           border: Border.all(
-            color: kDefualtColor,
+            color: kDefaultColor,
             width: 1,
           ),
         ),
@@ -339,10 +339,10 @@ class _BodyState extends State<Body> {
           labelText: 'Contact Name',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Contact Name" : null,
@@ -361,10 +361,10 @@ class _BodyState extends State<Body> {
           labelText: 'Phone Number',
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
         ),
         validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
@@ -380,9 +380,9 @@ class _BodyState extends State<Body> {
         height: 150,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kDefualtRadius),
+          borderRadius: BorderRadius.circular(kDefaultRadius),
           border: Border.all(
-            color: kDefualtColor,
+            color: kDefaultColor,
             width: 1,
           ),
         ),

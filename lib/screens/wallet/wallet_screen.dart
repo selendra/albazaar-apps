@@ -18,8 +18,8 @@ class WalletScreen extends StatelessWidget {
       elevation: 0, 
       backgroundColor: Colors.white,
       brightness: Brightness.light,
-      title: Text('Wallet',style: TextStyle(fontWeight: FontWeight.w600,color: kDefualtColor),),
-      leading: Icon(Icons.account_balance_wallet,color: kDefualtColor,),
+      title: Text('Wallet',style: TextStyle(fontWeight: FontWeight.w600,color: kDefaultColor),),
+      leading: Icon(Icons.account_balance_wallet,color: kDefaultColor,),
     );
   }
   

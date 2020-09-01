@@ -10,9 +10,9 @@ class ReuseButton {
       child: RaisedButton(
         onPressed: onTap,
         child: Text(text,style: TextStyle(color: Colors.white),),
-        color: kDefualtColor,
+        color: kDefaultColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
         ),
       ),
     );

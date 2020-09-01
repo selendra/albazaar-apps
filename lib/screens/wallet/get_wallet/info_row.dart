@@ -33,7 +33,7 @@ class InfoRow extends StatelessWidget {
             onTap: onPressed,
             child: Icon(
               Icons.content_copy,
-              color: kDefualtColor,
+              color: kDefaultColor,
               size: 20,
             ),
           ),

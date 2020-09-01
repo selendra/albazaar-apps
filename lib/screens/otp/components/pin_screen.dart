@@ -1,28 +1,10 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class OTPScreen extends StatefulWidget {
-  final String phoneNumber, password;
-  OTPScreen(this.phoneNumber, this.password);
-  @override
-  _OTPScreenState createState() => _OTPScreenState();
-}
-
-class _OTPScreenState extends State<OTPScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        scaffoldBackgroundColor: Colors.white,
-      ),
-      child: Scaffold(
-        body: PinScreen(widget.phoneNumber, widget.password),
-      ),
-    );
-  }
-}
-
-/*class PinScreen extends StatefulWidget {
+class PinScreen extends StatefulWidget {
   final String phoneNumber, password;
   PinScreen(this.phoneNumber, this.password);
   @override
@@ -256,7 +238,7 @@ class _PinScreenState extends State<PinScreen> {
                       style: TextStyle(
                         fontSize: 26.0,
                         fontWeight: FontWeight.bold,
-                        color: kDefualtColor,
+                        color: kDefaultColor,
                       ),
                     ),
                     SizedBox(
@@ -267,7 +249,7 @@ class _PinScreenState extends State<PinScreen> {
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
-                        color: kDefualtColor,
+                        color: kDefaultColor,
                       ),
                     ),
                     SizedBox(
@@ -315,4 +297,4 @@ class _PinScreenState extends State<PinScreen> {
       ],
     );
   }
-}*/
+}

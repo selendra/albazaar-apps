@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
               backgroundColor: Colors.white,
               elevation: 0,
               iconTheme: IconThemeData(
-                color: kDefualtColor,
+                color: kDefaultColor,
               ),
               expandedHeight: MediaQuery.of(context).size.height*0.4,
               floating: true,
@@ -100,7 +100,7 @@ class _BodyState extends State<Body> {
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 23,
-                      color: kDefualtColor,
+                      color: kDefaultColor,
                     ),
                   ),
                 ],
@@ -122,7 +122,7 @@ class _BodyState extends State<Body> {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
-          border: Border.all(color: kDefualtColor)
+          border: Border.all(color: kDefaultColor)
         ),
         child: Icon(_iconData),
       ),

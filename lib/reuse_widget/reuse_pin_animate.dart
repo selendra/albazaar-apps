@@ -4,12 +4,13 @@ import 'package:pinput/pin_put/pin_put.dart';
 
 class ReusePinAnimate extends StatelessWidget {
 
-  final FocusNode pinPutFocusNode;
-  final TextEditingController pinPutController;
+  
   final ValueChanged<String> onSubmit;
 
-  ReusePinAnimate({this.pinPutFocusNode,this.pinPutController,this.onSubmit});
+  ReusePinAnimate({this.onSubmit});
 
+  final FocusNode pinPutFocusNode = FocusNode();
+  final TextEditingController pinPutController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ReusePinAnimate extends StatelessWidget {
   Widget animatingPinBorders(context) {
     BoxDecoration pinPutDecoration = BoxDecoration(
       border: Border.all(color: Colors.greenAccent),
-      borderRadius: BorderRadius.circular(kDefualtRadius),
+      borderRadius: BorderRadius.circular(kDefaultRadius),
     );
     return Container(
       height: 50,
@@ -33,13 +34,13 @@ class ReusePinAnimate extends StatelessWidget {
         focusNode: pinPutFocusNode,
         controller: pinPutController,
         submittedFieldDecoration: pinPutDecoration.copyWith(
-            borderRadius: BorderRadius.circular(kDefualtRadius)),
+            borderRadius: BorderRadius.circular(kDefaultRadius)),
         pinAnimationType: PinAnimationType.slide,
         selectedFieldDecoration: pinPutDecoration,
         followingFieldDecoration: pinPutDecoration.copyWith(
           borderRadius: BorderRadius.circular(5),
           border: Border.all(
-            color: kDefualtColor.withOpacity(.5),
+            color: kDefaultColor.withOpacity(.5),
           ),
         ),
       ),

@@ -13,12 +13,12 @@ class ReuseSimpleAppBar {
       title: Text(
         title,
         style: TextStyle(
-            color: kDefualtColor,
+            color: kDefaultColor,
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
-      leading: IconButton(icon: Icon(Icons.arrow_back,color:kDefualtColor,),onPressed: (){
+      leading: IconButton(icon: Icon(Icons.arrow_back,color:kDefaultColor,),onPressed: (){
         Navigator.pop(context);
       
       },),

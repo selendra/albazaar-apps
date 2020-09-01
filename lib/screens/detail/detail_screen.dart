@@ -96,9 +96,9 @@ class _DetailScreenState extends State<DetailScreen> {
             "Add To Cart",
             style: TextStyle(color: Colors.white),
           ),
-          color: kDefualtColor,
+          color: kDefaultColor,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
         ),
       ),
     );

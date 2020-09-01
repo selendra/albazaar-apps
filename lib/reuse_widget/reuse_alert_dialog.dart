@@ -5,7 +5,7 @@ import 'package:selendra_marketplace_app/constants.dart';
 class ReuseAlertDialog {
    static getItem (String title,String content,String btnOne,Function func1,String btnTwo,Function func2){
      return AlertDialog(
-       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefualtRadius)),
+       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
        title: Text(title),
        content: Text(content),
        actions: [

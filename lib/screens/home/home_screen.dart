@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen>
               leading: IconButton(
                 icon: Icon(
                   Icons.menu,
-                  color: kDefualtColor,
+                  color: kDefaultColor,
                 ),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
                 IconButton(
                   icon: Icon(
                     Icons.shopping_cart,
-                    color: kDefualtColor,
+                    color: kDefaultColor,
                   ),
                   onPressed: () {
                     Navigator.push(context,

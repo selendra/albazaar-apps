@@ -18,7 +18,7 @@ class MyWallet extends StatelessWidget {
             Container(
               height: MediaQuery.of(context).size.height * .25,
               width: MediaQuery.of(context).size.width,
-              color: kDefualtColor,
+              color: kDefaultColor,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 30),
@@ -84,6 +84,4 @@ class MyWallet extends StatelessWidget {
       ],
     );
   }
-
- 
 }

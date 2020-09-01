@@ -46,7 +46,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.close,color: kDefualtColor,),onPressed: (){
+        leading: IconButton(icon: Icon(Icons.close,color: kDefaultColor,),onPressed: (){
           Navigator.pop(context);
         },),
       ),

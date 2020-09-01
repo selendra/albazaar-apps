@@ -6,12 +6,13 @@ export 'bottom_navigation/bottom_navigation.dart';
 //add listing screen
 export 'screens/addlisting/add_listing.dart';
 
-
 //listing screen 
 export 'screens/listing/listing_screen.dart';
 
 //cart screen
 export 'screens/cart/cart.dart';
+
+//otp screen
 
 //categories screen
 export 'screens/category/categories.dart';
@@ -31,13 +32,19 @@ export 'screens/home/home_screen.dart';
 //map screen
 export 'screens/map/map.dart';
 export 'screens/map/components/type_head.dart';
+export 'screens/map/components/expandable_content.dart';
+export 'screens/map/components/zoom_buttons.dart';
+export 'screens/map/components/persistent_header.dart';
 
 //otp screen
 export 'screens/otp/otp.dart';
+export 'screens/otp/components/pin_screen.dart';
+
 
 //profile screen
 export 'screens/profile/profile_screen.dart';
-
+export 'screens/profile/components/profile_dialog.dart';
+export 'screens/profile/components/gender_dropdown.dart';
 
 //purchase screen
 export 'screens/purchase/purchase_screen.dart';
@@ -76,12 +83,7 @@ export 'screens/wallet/wallet_screen.dart';
 //welcome screen
 export 'screens/welcome/welcome_screen.dart';
 
-//map screen
-export 'screens/map/map.dart';
-
-
 //reuse widget
-
 export 'reuse_widget/reuse_btn_social.dart';
 export 'reuse_widget/reuse_appbar.dart';
 export 'reuse_widget/reuse_auth_tab.dart';
@@ -95,7 +97,11 @@ export 'reuse_widget/reuse.inkwell.dart';
 export 'reuse_widget/reuse_simple_appbar.dart';
 export 'reuse_widget/reuse_keyboard_num.dart';
 export 'reuse_widget/reuse_pin_num.dart';
+export 'reuse_widget/reuse_pin_animate.dart';
 export 'reuse_widget/reuse_alert_dialog.dart';
+export 'reuse_widget/reuse_choice_dialog.dart';
+export 'reuse_widget/reuse_num_pad.dart';
+export 'reuse_widget/reuse_dropdown.dart';
 
 
 //enums

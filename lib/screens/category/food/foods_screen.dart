@@ -35,9 +35,9 @@ class _FoodsScreenState extends State<FoodsScreen>
         bottom: TabBar(
           controller: controller,
           isScrollable: true,
-          indicatorColor: kDefualtColor,
+          indicatorColor: kDefaultColor,
           unselectedLabelColor: Colors.grey,
-          labelColor: kDefualtColor,
+          labelColor: kDefaultColor,
           labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           tabs: <Widget>[
             Tab(
@@ -68,7 +68,7 @@ class _FoodsScreenState extends State<FoodsScreen>
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: kDefualtColor,
+            color: kDefaultColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -78,7 +78,7 @@ class _FoodsScreenState extends State<FoodsScreen>
           IconButton(
             icon: Icon(
               Icons.search,
-              color: kDefualtColor,
+              color: kDefaultColor,
             ),
             onPressed: () {
               print('search');

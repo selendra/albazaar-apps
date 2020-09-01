@@ -174,7 +174,7 @@ class _BodyState extends State<Body> {
               Radio(
                 value: 1,
                 groupValue: _selectedIndex,
-                activeColor: kDefualtColor,
+                activeColor: kDefaultColor,
                 onChanged: (val) {
                   print('$val');
                   setSelectedIndex(val);
@@ -184,7 +184,7 @@ class _BodyState extends State<Body> {
               Radio(
                 value: 2,
                 groupValue: _selectedIndex,
-                activeColor: kDefualtColor,
+                activeColor: kDefaultColor,
                 onChanged: (val) {
                   print('$val');
                   setSelectedIndex(val);

@@ -14,7 +14,7 @@ class ReuseAuthTab extends StatelessWidget {
       width: 300.0,
       height: 50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
         color: Colors.white,
       ),
       child: TabBar(
@@ -22,8 +22,8 @@ class ReuseAuthTab extends StatelessWidget {
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: new BubbleTabIndicator(
           indicatorHeight: 40,
-          indicatorRadius: kDefualtRadius,
-          indicatorColor: kDefualtColor,
+          indicatorRadius: kDefaultRadius,
+          indicatorColor: kDefaultColor,
           tabBarIndicatorSize: TabBarIndicatorSize.tab,
         ),
         unselectedLabelColor: Colors.grey,

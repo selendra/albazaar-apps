@@ -30,7 +30,7 @@ class _ReuseSearchFieldState extends State<ReuseSearchField> {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kDefualtRadius),
+        borderRadius: BorderRadius.circular(kDefaultRadius),
         color: Colors.white,
       ),
       width: MediaQuery.of(context).size.width * 0.7,
@@ -41,17 +41,17 @@ class _ReuseSearchFieldState extends State<ReuseSearchField> {
         keyboardType: widget.inputType,
         decoration: InputDecoration(
           labelText: widget.labelText,
-          labelStyle: TextStyle(color: kDefualtColor.withOpacity(0.5)),
+          labelStyle: TextStyle(color: kDefaultColor.withOpacity(0.5)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
           prefixIcon: Icon(
             Icons.search,
-            color: kDefualtColor,
+            color: kDefaultColor,
           ),
         ),
         validator: widget.validator,

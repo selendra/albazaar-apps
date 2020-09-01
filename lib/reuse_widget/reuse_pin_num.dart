@@ -16,7 +16,7 @@ class ReusePinNum extends StatelessWidget {
         obscureText: false,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(kDefualtRadius),
+          contentPadding: EdgeInsets.all(kDefaultRadius),
           border: outlineInputBorder,
           filled: true,
           fillColor: Colors.grey[300],
@@ -24,7 +24,7 @@ class ReusePinNum extends StatelessWidget {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 16,
-          color: kDefualtColor,
+          color: kDefaultColor,
         ),
       ),
     );

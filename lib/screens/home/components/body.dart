@@ -5,8 +5,8 @@ import 'package:selendra_marketplace_app/models/products.dart';
 import '../../../models/products.dart';
 import 'package:selendra_marketplace_app/models/categories.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_search_field.dart';
-import 'package:selendra_marketplace_app/constants.dart';
 import 'product_list.dart';
+import 'drop_down_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -56,30 +56,7 @@ class _BodyState extends State<Body> {
                       print(_query);
                     },
                   ),
-                  Container(
-                      child: DropdownButton<String>(
-                    value: dropDownValue,
-                    underline: Container(
-                      color: Colors.white,
-                    ),
-                    style: TextStyle(color: kDefualtColor),
-                    icon: Icon(
-                      Icons.language,
-                      color: kDefualtColor,
-                    ),
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropDownValue = newValue;
-                      });
-                    },
-                    items: <String>['EN', 'KH']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  )),
+                  DropDownButtons(),
                 ],
               )),
           CategoriesScreen(category),
@@ -88,6 +65,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
-  
 }

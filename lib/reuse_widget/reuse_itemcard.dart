@@ -54,7 +54,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
             ),
             Text(
               "\$${widget.product.price}",
-              style: TextStyle(fontWeight: FontWeight.bold,color: kDefualtColor),
+              style: TextStyle(fontWeight: FontWeight.bold,color: kDefaultColor),
             )
           ],
         ),

@@ -5,11 +5,13 @@ const baseUrl = 'https://testnet-api.selendra.com';
 
 
 //Design material
-const kDefualtColor = Color(0xFF03A9F4);
-const kDefualtRadius = 8.0;
+const kDefaultColor = Color(0xFF03A9F4);
+const kDefaultRadius = 8.0;
+var kDefaultShape =  RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(kDefaultRadius),
+);
 
 //Map
-
 const osmMapTemplate =  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const kDefaultMapZoom = 7.0;
 const kDefaultMaxZoom = 19.0;
@@ -19,11 +21,11 @@ const kDefaultMinZoom = 7.0;
 const kDefualtPInputDecoration = InputDecoration(
   labelText: 'Phone Number',
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kDefualtColor),
-    borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+    borderSide: BorderSide(color: kDefaultColor),
+    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
   ),
   focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.greenAccent),
-      borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+      borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
 );
  

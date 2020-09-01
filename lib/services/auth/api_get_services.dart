@@ -39,7 +39,7 @@ class ApiGetServices {
   }
 
   Future<Placemark> fetchPlaceList(String query) async {
-    var response = await http.get('http://photon.komoot.de/api/?q=$query');
+    var response = await http.get(ApiUrl.MAP_SEARCH+query);
     print(response.body);
     if (response.statusCode == 200) {
       return null;

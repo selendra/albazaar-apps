@@ -13,6 +13,10 @@ class ApiUrl {
   static const DISPLAY_PORTFORLIO = baseUrl+'/pub/v1/portforlio';
   static const GOOGLE_SIGN_IN = baseUrl+'/oauth/v1/login-from-google';
   static const ADD_PHONE_NUMBER = baseUrl+'/pub/v1/add-phonenumber';
+
+
+  //map search
+  static const MAP_SEARCH = 'http://photon.komoot.de/api/?q=';
 }
 
 

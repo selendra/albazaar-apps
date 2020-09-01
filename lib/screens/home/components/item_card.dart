@@ -65,7 +65,7 @@ class _ItemCardState extends State<ItemCard> {
               child: Text(
                 "\$${widget.product.price}",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: kDefualtColor),
+                    fontWeight: FontWeight.bold, color: kDefaultColor),
               ),
             )
           ],

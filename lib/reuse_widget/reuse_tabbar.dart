@@ -6,9 +6,9 @@ class ReuseTabBar{
     return TabBar(
       controller: controller,
       isScrollable: true,
-      indicatorColor: kDefualtColor,
+      indicatorColor: kDefaultColor,
       unselectedLabelColor: Colors.grey,
-      labelColor: kDefualtColor,
+      labelColor: kDefaultColor,
       labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
       tabs: <Widget>[
         Container(

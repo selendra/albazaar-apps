@@ -53,7 +53,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddListing()));
         },
-        backgroundColor: kDefualtColor,
+        backgroundColor: kDefaultColor,
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -89,7 +89,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
               IconButton(
                 icon: Icon(
                   Icons.home,
-                  color: _selectedIndex == 0 ? kDefualtColor : _color,
+                  color: _selectedIndex == 0 ? kDefaultColor : _color,
                   size: 30,
                 ),
                 onPressed: () {
@@ -101,7 +101,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
               IconButton(
                 icon: Icon(
                   Icons.account_balance_wallet,
-                  color: _selectedIndex == 1 ? kDefualtColor : _color,
+                  color: _selectedIndex == 1 ? kDefaultColor : _color,
                   size: 30,
                 ),
                 onPressed: () {
@@ -112,7 +112,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
               IconButton(
                 icon: Icon(
                   Icons.favorite,
-                  color: _selectedIndex == 2 ? kDefualtColor : _color,
+                  color: _selectedIndex == 2 ? kDefaultColor : _color,
                   size: 30,
                 ),
                 onPressed: () {
@@ -122,7 +122,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
               IconButton(
                 icon: Icon(
                   Icons.location_on,
-                  color: _selectedIndex == 3 ? kDefualtColor : _color,
+                  color: _selectedIndex == 3 ? kDefaultColor : _color,
                   size: 30,
                 ),
                 onPressed: () {

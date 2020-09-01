@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 28,
-                          color: kDefualtColor,
+                          color: kDefaultColor,
                         ),
                       ),
                     ),
@@ -92,13 +92,13 @@ class _BodyState extends State<Body> {
         child: Text(
           "SIGN UP",
           style: TextStyle(
-            color: kDefualtColor,
+            color: kDefaultColor,
           ),
         ),
         color: Colors.white,
-        borderSide: BorderSide(color: kDefualtColor, width: 2),
+        borderSide: BorderSide(color: kDefaultColor, width: 2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
         ),
       ),
     );

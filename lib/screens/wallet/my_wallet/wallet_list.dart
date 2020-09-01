@@ -17,9 +17,9 @@ class WalletList extends StatelessWidget {
             return Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(kDefualtRadius),
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
                   side: BorderSide(
-                    color: kDefualtColor,
+                    color: kDefaultColor,
                   )),
               margin: EdgeInsets.all(10.0),
               child: ListTile(

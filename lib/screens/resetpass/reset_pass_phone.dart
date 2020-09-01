@@ -127,7 +127,7 @@ class ResetPassPhone extends StatelessWidget {
             color: Colors.white
         ),
       ),
-      color: kDefualtColor,
+      color: kDefaultColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30.0))
       ),

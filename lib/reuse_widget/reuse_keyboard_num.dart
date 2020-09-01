@@ -13,7 +13,7 @@ class ReuseKeyBoardNum extends StatelessWidget {
       height: 60.0,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: kDefualtColor,
+        color: kDefaultColor,
       ),
       alignment: Alignment.center,
       child: MaterialButton(

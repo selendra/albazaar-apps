@@ -16,7 +16,7 @@ class ReuseChoiceDialog {
       builder: (context) {
         return SimpleDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kDefualtRadius),
+            borderRadius: BorderRadius.circular(kDefaultRadius),
           ),
           title: Text('Choose an option'),
           children: [

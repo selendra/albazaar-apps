@@ -18,7 +18,7 @@ class _BodyState extends State<Body> {
               margin: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(kDefualtRadius),
+                borderRadius: BorderRadius.circular(kDefaultRadius),
               ),
               child: ListTile(
                 title: Text(myFav[index].title),

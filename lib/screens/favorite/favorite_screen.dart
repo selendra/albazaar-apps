@@ -19,7 +19,7 @@ class FavoriteScreen extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: Icon(Icons.favorite,color: kDefualtColor,)
+        leading: Icon(Icons.favorite,color: kDefaultColor,)
       ),
       body: Body(),
     );

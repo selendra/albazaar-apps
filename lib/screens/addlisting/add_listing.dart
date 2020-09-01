@@ -16,7 +16,7 @@ class AddListing extends StatelessWidget {
             fontSize: 18,
           ),
         ),
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefualtColor,),onPressed: (){Navigator.pop(context);},),
+        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefaultColor,),onPressed: (){Navigator.pop(context);},),
       ),
       body: Body(),
     );

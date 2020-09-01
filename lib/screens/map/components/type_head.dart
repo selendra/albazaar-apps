@@ -27,7 +27,7 @@ class _TypeHeadState extends State<TypeHead> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(kDefualtRadius),
+                  borderRadius: BorderRadius.circular(kDefaultRadius),
                   color: Colors.white),
               child: TypeAheadFormField(
                 textFieldConfiguration: TextFieldConfiguration(
@@ -42,11 +42,11 @@ class _TypeHeadState extends State<TypeHead> {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.greenAccent),
                             borderRadius: BorderRadius.all(
-                                Radius.circular(kDefualtRadius))),
+                                Radius.circular(kDefaultRadius))),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: kDefualtColor),
+                          borderSide: BorderSide(color: kDefaultColor),
                           borderRadius:
-                              BorderRadius.all(Radius.circular(kDefualtRadius)),
+                              BorderRadius.all(Radius.circular(kDefaultRadius)),
                         ),
                         labelText: 'Place name')),
                 suggestionsCallback: (pattern) {

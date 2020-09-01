@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:pinput/pin_put/pin_put.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
@@ -40,7 +39,7 @@ class _WalletPinState extends State<WalletPin> {
                 },
                 icon: Icon(
                   Icons.arrow_back,
-                  color: kDefualtColor,
+                  color: kDefaultColor,
                 ),
               ),
             ),
@@ -62,17 +61,13 @@ class _PinScreenState extends State<PinScreen> {
   String _countryCode = 'KH';
   String _phoneNumber, _verifyPin, value;
   bool _seen = false;
-  bool isNotCorrect = false,
-      _isLoading = false,
-      _isBtnOneTap = false;
+  bool isNotCorrect = false, _isLoading = false, _isBtnOneTap = false;
 
   TextEditingController pinOneController = TextEditingController();
   TextEditingController pinTwoController = TextEditingController();
   TextEditingController pinThreeController = TextEditingController();
   TextEditingController pinFourController = TextEditingController();
   final TextEditingController _pinPutController = TextEditingController();
-
-  final FocusNode _pinPutFocusNode = FocusNode();
 
   var outlineInputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
@@ -85,11 +80,11 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   onGetWallet(String _pin) async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    SharedPreferences isPin = await SharedPreferences.getInstance();
-    String firstPin = isPin.getString('pin');
+    SharedPreferences isPref = await SharedPreferences.getInstance();
+
+    String firstPin = isPref.getString('pin');
     String _token;
-    _token = isToken.get('token');
+    _token = isPref.get('token');
     if (firstPin == _pin) {
       setState(() {
         isNotCorrect = false;
@@ -254,7 +249,7 @@ class _PinScreenState extends State<PinScreen> {
     return TextStyle(
       fontSize: 22.0,
       fontWeight: FontWeight.bold,
-      color: kDefualtColor,
+      color: kDefaultColor,
     );
   }
 
@@ -306,84 +301,84 @@ class _PinScreenState extends State<PinScreen> {
     String _seed = isSeed.getString('seed');
     _seed = '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2.';
     return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(kDefualtRadius)),
-              ),
-              title: Text('Wallet Information'),
-              content: Container(
-                height: 290,
-                child: Column(
-                  children: [
-                    Text(
-                        'Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          'Private Key',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Card(
-                            elevation: 2,
-                            color: Colors.grey[50],
-                            child: Container(
-                              margin: EdgeInsets.all(10.0),
-                              child: InfoRow(
-                                '\n$_seed',
-                                () {
-                                  print('Copy');
-                                  Clipboard.setData(
-                                          ClipboardData(text: _seed))
-                                      .then((value) {
-                                    print('success');
-                                    setState(() {
-                                      _isBtnOneTap = true;
-                                    });
-                                  });
-                                },
-                              ),
-                            )),
-                        _isBtnOneTap
-                            ? Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  'Copied',
-                                  style: TextStyle(
-                                      fontSize: 12, color: kDefualtColor),
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    ),
-                  ],
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(kDefaultRadius)),
                 ),
-              ),
-              actions: [
-                FlatButton(
-                    child: Text('Done'),
-                    onPressed: () => checkUserCopy()
-                        ? Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/root', (Route<dynamic> route) => false)
-                        : null),
-              ],
-            );
-          },
-        );
-      });
+                title: Text('Wallet Information'),
+                content: Container(
+                  height: 290,
+                  child: Column(
+                    children: [
+                      Text(
+                          'Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Private Key',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Card(
+                              elevation: 2,
+                              color: Colors.grey[50],
+                              child: Container(
+                                margin: EdgeInsets.all(10.0),
+                                child: InfoRow(
+                                  '\n$_seed',
+                                  () {
+                                    print('Copy');
+                                    Clipboard.setData(
+                                            ClipboardData(text: _seed))
+                                        .then((value) {
+                                      print('success');
+                                      setState(() {
+                                        _isBtnOneTap = true;
+                                      });
+                                    });
+                                  },
+                                ),
+                              )),
+                          _isBtnOneTap
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    'Copied',
+                                    style: TextStyle(
+                                        fontSize: 12, color: kDefaultColor),
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  FlatButton(
+                      child: Text('Done'),
+                      onPressed: () => checkUserCopy()
+                          ? Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/root', (Route<dynamic> route) => false)
+                          : null),
+                ],
+              );
+            },
+          );
+        });
   }
 
   _verifyPhoneDialog(BuildContext context) async {
@@ -393,7 +388,7 @@ class _PinScreenState extends State<PinScreen> {
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
           title: Text('Enter your phone Number'),
           content: _phoneCodePick(),
@@ -434,10 +429,12 @@ class _PinScreenState extends State<PinScreen> {
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
           title: Text('Enter Verify Code'),
-          content: animatingPinBorders(),
+          content: ReusePinAnimate(
+            onSubmit: (value) => _verifyPin = value,
+          ),
           actions: [
             FlatButton(
               child: Text('Cancel'),
@@ -454,35 +451,6 @@ class _PinScreenState extends State<PinScreen> {
           ],
         );
       },
-    );
-  }
-
-  Widget animatingPinBorders() {
-    BoxDecoration pinPutDecoration = BoxDecoration(
-      border: Border.all(color: Colors.greenAccent),
-      borderRadius: BorderRadius.circular(kDefualtRadius),
-    );
-    return Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      child: PinPut(
-        fieldsCount: 6,
-        eachFieldMargin: EdgeInsets.symmetric(horizontal: 2),
-        eachFieldHeight: 40,
-        onSubmit: (String pin) => _verifyPin = pin,
-        focusNode: _pinPutFocusNode,
-        controller: _pinPutController,
-        submittedFieldDecoration: pinPutDecoration.copyWith(
-            borderRadius: BorderRadius.circular(kDefualtRadius)),
-        pinAnimationType: PinAnimationType.slide,
-        selectedFieldDecoration: pinPutDecoration,
-        followingFieldDecoration: pinPutDecoration.copyWith(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            color: kDefualtColor.withOpacity(.5),
-          ),
-        ),
-      ),
     );
   }
 
@@ -527,12 +495,12 @@ class _PinScreenState extends State<PinScreen> {
         decoration: InputDecoration(
           labelText: 'Phone Number',
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius)),
+            borderSide: BorderSide(color: kDefaultColor),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefualtRadius))),
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
         ),
         initialCountryCode: _countryCode,
         maxLength: 10,
@@ -579,7 +547,8 @@ class _PinScreenState extends State<PinScreen> {
                     SizedBox(
                       height: 50,
                     ),
-                    _buildNumberPad()
+                    ReuseNumPad(pinIndexSetup, clearPin),
+                    //_buildNumberPad()
                   ],
                 ),
               ),
@@ -596,95 +565,6 @@ class _PinScreenState extends State<PinScreen> {
         ReusePinNum(outlineInputBorder, pinThreeController),
         ReusePinNum(outlineInputBorder, pinFourController),
       ],
-    );
-  }
-
-  Widget _buildNumberPad() {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  ReuseKeyBoardNum(1, () {
-                    pinIndexSetup('1');
-                  }),
-                  ReuseKeyBoardNum(2, () {
-                    pinIndexSetup('2');
-                  }),
-                  ReuseKeyBoardNum(3, () {
-                    pinIndexSetup('3');
-                  }),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  ReuseKeyBoardNum(4, () {
-                    pinIndexSetup('4');
-                  }),
-                  ReuseKeyBoardNum(5, () {
-                    pinIndexSetup('5');
-                  }),
-                  ReuseKeyBoardNum(6, () {
-                    pinIndexSetup('6');
-                  }),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  ReuseKeyBoardNum(7, () {
-                    pinIndexSetup('7');
-                  }),
-                  ReuseKeyBoardNum(8, () {
-                    pinIndexSetup('8');
-                  }),
-                  ReuseKeyBoardNum(9, () {
-                    pinIndexSetup('9');
-                  }),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    width: 60.0,
-                    child: MaterialButton(
-                      onPressed: null,
-                      child: SizedBox(),
-                    ),
-                  ),
-                  ReuseKeyBoardNum(0, () {
-                    pinIndexSetup('0');
-                  }),
-                  Container(
-                    width: 60,
-                    child: MaterialButton(
-                      height: 60,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(60.0),
-                      ),
-                      onPressed: () {
-                        clearPin();
-                      },
-                      child: Icon(
-                        Icons.backspace,
-                        color: kDefualtColor,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
