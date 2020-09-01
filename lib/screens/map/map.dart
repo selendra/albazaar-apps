@@ -61,7 +61,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             _currentPosition = position;
             animateMove(
                 LatLng(_currentPosition.latitude, _currentPosition.longitude),
-                15.0);
+                kDefaultMaxZoom - 2);
 
             markers.add(Marker(
               point:
@@ -106,7 +106,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           LatLng(
               placemark[0].position.latitude, placemark[0].position.longitude),
           kDefaultMapZoom);
-
       ApiGetServices().fetchPlaceList(placeName).then((value) {
         print(value);
       });

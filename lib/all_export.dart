@@ -22,6 +22,7 @@ export 'screens/category/food/foods_screen.dart';
 
 //detail screen
 export 'screens/detail/detail_screen.dart';
+export 'screens/detail/components/btn_qty.dart';
 
 //favorite screen
 export 'screens/favorite/favorite_screen.dart';
@@ -102,7 +103,7 @@ export 'reuse_widget/reuse_alert_dialog.dart';
 export 'reuse_widget/reuse_choice_dialog.dart';
 export 'reuse_widget/reuse_num_pad.dart';
 export 'reuse_widget/reuse_dropdown.dart';
-
+export 'reuse_widget/reuse_btn_qty.dart';
 
 //enums
 export 'enums/connectivity_status.dart';

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:selendra_marketplace_app/bottom_navigation/bottom_navigation.dart';
-import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
-import 'package:selendra_marketplace_app/services/network_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:selendra_marketplace_app/models/user.dart';
-import 'api_get_services.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class RootServices extends StatefulWidget {
   @override
@@ -20,11 +16,10 @@ class _RootServicesState extends State<RootServices> {
   }
 
   void checkUser() async {
-
     SharedPreferences isToken = await SharedPreferences.getInstance();
 
     String _token = isToken.getString('token');
-    if (_token!=null) {
+    if (_token != null) {
       await ApiGetServices().fetchUserPf(_token).then((value) {
         mUser = value;
       });
@@ -35,6 +30,12 @@ class _RootServicesState extends State<RootServices> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
     }
+  }
+
+  void getUserInfo(FirebaseUser user) {
+    mUser.email = user.email;
+    mUser.firstName = user.displayName;
+    mUser.profileImg = user.photoUrl;
   }
 
   @override
@@ -58,9 +59,7 @@ class _RootServicesState extends State<RootServices> {
         } else {
           FirebaseUser user = snapshot.data;
           if (user != null) {
-            mUser.email = user.email;
-            mUser.firstName = user.displayName;
-            mUser.profileImg = user.photoUrl;
+            getUserInfo(user);
             return BottomNavigation();
           } else {
             checkUser();

@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
-import '../../../constants.dart';
-import '../../../models/products.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
   final Product product;
@@ -13,21 +10,20 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   int count = 0;
 
-  void addQty(){
+  void addQty() {
     setState(() {
       count++;
     });
   }
-  void minusQty(){
+
+  void minusQty() {
     setState(() {
-      if(count>0){
+      if (count > 0) {
         count--;
-      }
-      else{
-        return ;
+      } else {
+        return;
       }
     });
   }
@@ -36,26 +32,27 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return _buildBody();
   }
-  Widget _buildBody(){
+
+  Widget _buildBody() {
     return NestedScrollView(
-        headerSliverBuilder: (context,innerBoxIsScrolled){
-          return <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              iconTheme: IconThemeData(
-                color: kDefaultColor,
-              ),
-              expandedHeight: MediaQuery.of(context).size.height*0.4,
-              floating: true,
-              pinned: true,
-              primary: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: "${widget.product.id}",
-                  child: Image.asset(
-                    widget.product.image,
-                    fit: BoxFit.fill,
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: kDefaultColor,
+            ),
+            expandedHeight: MediaQuery.of(context).size.height * 0.4,
+            floating: true,
+            pinned: true,
+            primary: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Hero(
+                tag: "${widget.product.id}",
+                child: Image.asset(
+                  widget.product.image,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -66,7 +63,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _body(){
+  Widget _body() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -90,13 +87,16 @@ class _BodyState extends State<Body> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              SizedBox (height: 20.0,),
+              SizedBox(
+                height: 20.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  _btnQtyRow(),
+                  //_btnQtyRow(),
+                  BtnQty('$count', addQty, minusQty),
                   Text(
-                    '\$'+widget.product.price.toString(),
+                    '\$' + widget.product.price.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 23,
@@ -105,7 +105,9 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.0,),
+              SizedBox(
+                height: 20.0,
+              ),
               Text(widget.product.description),
             ],
           ),
@@ -113,36 +115,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  Widget _btnQty(IconData _iconData,Function onTap){
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 40.0,
-        width: 40.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          border: Border.all(color: kDefaultColor)
-        ),
-        child: Icon(_iconData),
-      ),
-    );
-  }
 
-  Widget _btnQtyRow(){
-    return Container(
-      child: Row(
-        children: <Widget>[
-          _btnQty(Icons.remove,(){minusQty();}),
-          SizedBox(width: 10,),
-          Text('$count',style: TextStyle(fontSize: 22,fontWeight: FontWeight.w900),),
-          SizedBox(width: 10,),
-          _btnQty(Icons.add,(){addQty();}),
-        ],
-      ),
-    );
-  }
-
-
-
+  
 }
