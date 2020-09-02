@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
-import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -18,33 +18,13 @@ class _BodyState extends State<Body> {
                 return Dismissible(
                   key: UniqueKey(),
                   direction: DismissDirection.endToStart,
-                  background: Container(
-                    color: Colors.red,
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          'Delete',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
+                  background: DimissibleBackground(),
                   onDismissed: (direction) {
                     setState(() {
                       myFav.removeAt(index);
                     });
-                     Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text("Favorite Removed")));
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Favorite Removed")));
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),

@@ -9,90 +9,68 @@ class Body extends StatefulWidget {
 enum Options { Camera, Gallery }
 
 class _BodyState extends State<Body> {
-
   String mValue = mUser.gender;
+  bool _isLoading = false;
 
-  void onSave() {
-    print('save');
+  void setmValue(String value) {
+    setState(() {
+      mValue = value;
+      print(mValue);
+    });
+  }
+
+  void onSave(
+      String firstName, String midName, String lastName, String gender) async {
+    setState(() {
+      _isLoading = true;
+    });
+    await ApiPostServices()
+        .setUserPf(firstName, midName, lastName, gender)
+        .then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+      ProfileDialog().successDialog(context, value);
+    });
   }
 
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            ListTile(
-              onTap: () {
-                //choiceDialog();
-                ReuseChoiceDialog().choiceDialog(context);
-              },
-              title: Text('Profile photo'),
-              trailing: CircleAvatar(
-                backgroundImage: mUser.profileImg != null
-                    ? NetworkImage(mUser.profileImg)
-                    : AssetImage('images/avatar.png'),
-              ),
-            ),
-            Container(
-              height: 2,
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
-              color: Colors.grey[300],
-            ),
-            item(() {
-              ProfileDialog().usernameDialog(context, 'UserName');
-            }, 'Name', mUser.firstName ?? 'username'),
-            item(() {}, 'Account Info', mUser.email ?? 'email'),
-            GenderDropdown(
-              initialValue: mValue,
-              onChanged: (value) {
-                setState(() {
-                  mValue = value;
-                  print(mValue);
-                });
-              },
-            ),
-            item(() {}, 'Phone Number', mUser.phonenumber ?? 'phonenumber'),
-            Container(
-              height: 2,
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
-              color: Colors.grey[300],
-            ),
-            item(() {}, 'Shipping Address', ''),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            Container(
-              margin: EdgeInsets.all(30.0),
-              child: ReuseButton.getItem('Save', () {
-                onSave();
-              }, context),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget item(Function onTap, String title, String trailing) {
-    return InkWell(
-      onTap: onTap,
-      splashColor: Colors.grey,
-      child: ListTile(
-        title: Text(title),
-        trailing: Wrap(
-          children: [
-            Text(
-              trailing,
-              style: TextStyle(
-                fontSize: 12,
+      child: _isLoading
+          ? Container(
+            height: MediaQuery.of(context).size.height,
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
             )
-          ],
-        ),
-      ),
+          : Container(
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: ListTile(
+                      onTap: () {
+                        //choiceDialog();
+                        ReuseChoiceDialog().choiceDialog(context);
+                      },
+                      title: Text('Profile photo'),
+                      trailing: CircleAvatar(
+                        backgroundImage: mUser.profileImg != null
+                            ? NetworkImage(mUser.profileImg)
+                            : AssetImage('images/avatar.png'),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 2,
+                    margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                    color: Colors.grey[300],
+                  ),
+                  ProfileForm(setmValue, mValue, onSave),
+                ],
+              ),
+            ),
     );
   }
 }

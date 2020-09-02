@@ -1,14 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/models/categories.dart';
-import 'package:selendra_marketplace_app/screens/category/categories_list.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-
+import 'package:selendra_marketplace_app/all_export.dart';
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -226,16 +220,7 @@ class _BodyState extends State<Body> {
         maxLines: 1,
         keyboardType: TextInputType.number,
         autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Price',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-        ),
+        decoration: kDefualtPInputDecoration,
         validator: (value) => value.isEmpty ? "Empty Price" : null,
         onSaved: (value) => _price = value,
       ),

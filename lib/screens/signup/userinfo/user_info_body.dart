@@ -3,7 +3,6 @@ import 'package:selendra_marketplace_app/reuse_widget/reuse_text_field.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/services/auth/api_post_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 
 class Body extends StatefulWidget {
@@ -29,19 +28,19 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void getToken() async {
+  /*void getToken() async {
     SharedPreferences isToken = await SharedPreferences.getInstance();
     _token = isToken.getString('token');
     print(_token);
-  }
+  }*/
 
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => SignIn()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
       },
     );
 
@@ -65,7 +64,6 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     _selectedIndex = 0;
-    getToken();
   }
 
   void setSelectedIndex(int val) {
@@ -97,7 +95,7 @@ class _BodyState extends State<Body> {
 
   onSetUserPf() async {
     await ApiPostServices()
-        .setUserPf(firstName, midName, lastName, gender, _token)
+        .setUserPf(firstName, midName, lastName, gender)
         .then((value) {
       alertText = value;
       showAlertDialog(context);

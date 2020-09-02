@@ -49,6 +49,7 @@ export 'screens/otp/components/pin_screen.dart';
 //profile screen
 export 'screens/profile/profile_screen.dart';
 export 'screens/profile/components/profile_dialog.dart';
+export 'screens/profile/components/profile_form.dart';
 export 'screens/profile/components/gender_dropdown.dart';
 
 //purchase screen

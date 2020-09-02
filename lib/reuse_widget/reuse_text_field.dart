@@ -14,7 +14,8 @@ class ReuseTextField extends StatefulWidget {
       this.suffixIcon,
       this.textInputAction,
       this.onEditingComplete,
-      this.onTap});
+      this.onTap,
+      this.initialValue});
 
   final Key fieldKey;
   final String labelText;
@@ -28,6 +29,7 @@ class ReuseTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final VoidCallback onEditingComplete;
   final Function onTap;
+  final String initialValue;
 
   @override
   _ReuseTextFieldState createState() => _ReuseTextFieldState();
@@ -39,6 +41,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
     return Container(
       child: TextFormField(
         key: widget.fieldKey,
+        initialValue: widget.initialValue,
         textInputAction: widget.textInputAction,
         keyboardType: widget.inputType,
         decoration: InputDecoration(

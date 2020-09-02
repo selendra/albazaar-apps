@@ -10,7 +10,15 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
 
 class ApiPostServices {
-  String alertText;
+  String _alertText;
+  Future<String> getToken() async {
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+    String _token;
+    _token = isToken.getString('token');
+    print(_token);
+
+    return _token;
+  }
 
   Future<String> signInByEmail(String email, String password, context) async {
     String token;
@@ -30,16 +38,16 @@ class ApiPostServices {
             context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
-          alertText = responseJson['error']['message'];
+          _alertText = responseJson['error']['message'];
         } catch (e) {
-          alertText = responseJson['message'];
+          _alertText = responseJson['message'];
         }
       }
       // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     } else {
       print(response.body);
     }
-    return alertText;
+    return _alertText;
   }
 
   Future<String> signInByPhone(String phone, String password, context) async {
@@ -64,15 +72,15 @@ class ApiPostServices {
             context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
-          alertText = responseJson['error']['message'];
+          _alertText = responseJson['error']['message'];
         } catch (e) {
-          alertText = responseJson['message'];
+          _alertText = responseJson['message'];
         }
       }
     } else {
       print(response.body);
     }
-    return alertText;
+    return _alertText;
   }
 
   Future<String> forgetPasswordByEmail(String email) async {
@@ -81,9 +89,9 @@ class ApiPostServices {
         body: jsonEncode(<String, String>{'email': email}));
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      alertText = responseBody['message'];
+      _alertText = responseBody['message'];
     }
-    return alertText;
+    return _alertText;
   }
 
   Future<String> forgetPasswordByPhone(String phoneNumber) async {
@@ -92,9 +100,9 @@ class ApiPostServices {
         body: jsonEncode(<String, String>{'phone': '+855' + phoneNumber}));
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      alertText = responseBody['message'];
+      _alertText = responseBody['message'];
     }
-    return alertText;
+    return _alertText;
   }
 
   Future<String> signUpByEmail(String email, String password) async {
@@ -108,12 +116,12 @@ class ApiPostServices {
       var responseBody = jsonDecode(response.body);
       print(responseBody);
       print(response.body);
-      alertText = responseBody['message'];
+      _alertText = responseBody['message'];
     } else {
       print(response.body);
     }
 
-    return alertText;
+    return _alertText;
   }
 
   Future<String> signUpByPhone(String phone, String password, context) async {
@@ -127,42 +135,46 @@ class ApiPostServices {
       var responseBody = json.decode(response.body);
       print(responseBody);
       print(response.body);
-      alertText = responseBody['message'];
-      if (alertText == 'Successfully registered!') {
+      _alertText = responseBody['message'];
+      if (_alertText == 'Successfully registered!') {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => OTPScreen(phone, password)));
       } else {
-        return alertText;
+        return _alertText;
       }
     } else {
       print(response.body);
     }
-    return alertText;
+    return _alertText;
   }
 
-  Future<String> setUserPf(String firstName, String midName, String lastName,
-      String gender, String _token) async {
-    var response = await http.post(ApiUrl.SET_USER_PROFILE,
-        headers: <String, String>{
-          "accept": "application/json",
-          "authorization": "Bearer " + _token,
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{
-          "first_name": firstName,
-          "mid_name": midName,
-          "last_name": lastName,
-          "gender": gender,
-        }));
-    var responseBody = json.decode(response.body);
-    if (response.statusCode == 200) {
-      alertText = responseBody['message'];
-    } else {
-      alertText = responseBody['error']['message'];
-    }
-    return alertText;
+  Future<String> setUserPf(
+      String firstName, String midName, String lastName, String gender) async {
+    await getToken().then((value) async {
+      var response = await http.post(ApiUrl.SET_USER_PROFILE,
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + value,
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(<String, String>{
+            "first_name": firstName,
+            "mid_name": midName,
+            "last_name": lastName,
+            "gender": gender,
+          }));
+
+      var responseBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+        _alertText = responseBody['message'];
+      } else {
+        _alertText = responseBody['error']['message'];
+      }
+    });
+    print(_alertText);
+    return _alertText;
   }
 
   Future<String> getWallet(String pin, String _token) async {
@@ -178,10 +190,10 @@ class ApiPostServices {
       SharedPreferences isSeed = await SharedPreferences.getInstance();
       String _seed;
       if (responseBody['code'] != null) {
-        alertText = responseBody['message'];
+        _alertText = responseBody['message'];
       } else {
-        alertText = responseBody['message'];
-        if (alertText != null) {
+        _alertText = responseBody['message'];
+        if (_alertText != null) {
           try {
             _seed = responseBody['message']['seed'];
             isSeed.setString('seed', _seed);
@@ -192,10 +204,10 @@ class ApiPostServices {
         }
       }
     } else {
-      alertText = responseBody['error']['message'];
+      _alertText = responseBody['error']['message'];
     }
-    print(alertText);
-    return alertText;
+    print(_alertText);
+    return _alertText;
   }
 
   Future<String> verifyByPhone(String phone, String verifyCode) async {
@@ -209,11 +221,11 @@ class ApiPostServices {
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       try {
-        alertText = responseBody['error']['message'];
+        _alertText = responseBody['error']['message'];
       } catch (e) {}
     }
 
-    return alertText;
+    return _alertText;
   }
 
   Future<String> addPhoneNumber(String _token, String _phoneNumber) async {
@@ -231,17 +243,17 @@ class ApiPostServices {
       print(responseBody);
       if (responseBody != null) {
         try {
-          alertText = responseBody['message'];
-          if (alertText == null) {
-            alertText = responseBody['error']['message'];
+          _alertText = responseBody['message'];
+          if (_alertText == null) {
+            _alertText = responseBody['error']['message'];
           }
         } catch (e) {
-          alertText = responseBody['error']['message'];
+          _alertText = responseBody['error']['message'];
         }
       }
-      print(alertText);
+      print(_alertText);
     }
-    return alertText;
+    return _alertText;
   }
 
   Future<String> resendCode(String phoneNumber) async {
@@ -253,13 +265,13 @@ class ApiPostServices {
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       try {
-        alertText = responseJson['message'];
+        _alertText = responseJson['message'];
       } catch (e) {
-        alertText = responseJson['error']['message'];
+        _alertText = responseJson['error']['message'];
       }
     }
 
-    return alertText;
+    return _alertText;
   }
 
   Future<http.StreamedResponse> upLoadImage(File _image) async {

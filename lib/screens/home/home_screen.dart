@@ -50,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             accountEmail: Text(mUser.email ?? 'email'),
             accountName: Text(
-                mUser.firstName?? 'username'),
+                mUser.firstName + ' ' + mUser.midName + '' + mUser.lastName ??
+                    'username'),
           ),
           ReuseInkwell.getItem('Home', Icons.home, () {
             Navigator.pop(context);
