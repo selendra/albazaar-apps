@@ -11,6 +11,10 @@ export 'screens/listing/listing_screen.dart';
 
 //cart screen
 export 'screens/cart/cart.dart';
+export 'screens/cart/components/cart_btn_qty.dart';
+export 'screens/cart/components/checkout_card.dart';
+export 'screens/cart/components/dismissable_background.dart';
+
 
 //otp screen
 
