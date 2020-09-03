@@ -12,7 +12,7 @@ class FavoriteScreen extends StatelessWidget {
         title: Text(
           'Favorite',
           style: TextStyle(
-            color: Colors.blue,
+            color: kDefaultColor,
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),

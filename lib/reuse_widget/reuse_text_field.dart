@@ -15,7 +15,8 @@ class ReuseTextField extends StatefulWidget {
       this.textInputAction,
       this.onEditingComplete,
       this.onTap,
-      this.initialValue});
+      this.initialValue,
+      this.maxLine});
 
   final Key fieldKey;
   final String labelText;
@@ -30,6 +31,7 @@ class ReuseTextField extends StatefulWidget {
   final VoidCallback onEditingComplete;
   final Function onTap;
   final String initialValue;
+  final int maxLine;
 
   @override
   _ReuseTextFieldState createState() => _ReuseTextFieldState();
@@ -57,6 +59,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
         ),
+        maxLines: widget.maxLine,
         onTap: widget.onTap,
         validator: widget.validator,
         onSaved: widget.onSaved,

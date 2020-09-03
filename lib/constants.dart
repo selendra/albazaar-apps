@@ -5,7 +5,7 @@ const baseUrl = 'https://testnet-api.selendra.com';
 
 
 //Design material
-const kDefaultColor = Color(0xFF03A9F4);
+const kDefaultColor = Color(0xFF303F9F);//Color(0xFF03A9F4);
 const kDefaultRadius = 8.0;
 var kDefaultShape =  RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(kDefaultRadius),

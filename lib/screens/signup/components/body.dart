@@ -55,7 +55,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => UserInfo(),
+              builder: (context) => SignIn(),
             ));
       } else {
         showAlertDialog(context);

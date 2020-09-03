@@ -13,12 +13,15 @@ class _HomeScreenState extends State<HomeScreen>
 
   ScrollController scrollController;
   String imgUrl = mUser.profileImg;
-  String userName;
+
+  String userName = mUser.firstName + ' ' + mUser.midName + mUser.lastName;
+
   String email;
 
   @override
   void initState() {
     super.initState();
+    print(userName);
     scrollController = ScrollController();
   }
 
@@ -43,25 +46,21 @@ class _HomeScreenState extends State<HomeScreen>
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: kDefaultColor),
             currentAccountPicture: CircleAvatar(
               backgroundImage: imgUrl == null
                   ? AssetImage('images/avatar.png')
                   : NetworkImage(imgUrl),
             ),
-            accountEmail: Text(mUser.email ?? 'email'),
-            accountName: Text(
-                mUser.firstName + ' ' + mUser.midName + '' + mUser.lastName ??
-                    'username'),
+            accountEmail: Text(mUser.email ?? 'Email'),
+            accountName: Text(userName),
           ),
           ReuseInkwell.getItem('Home', Icons.home, () {
             Navigator.pop(context);
           }),
           ReuseInkwell.getItem('Profile', Icons.person, () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        ProfileScreen(mUser.firstName, imgUrl, mUser.email)));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
           }),
           Container(
             height: 2,
@@ -142,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Text(
                     'SELENDRA',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: kDefaultColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 22,
                     ),

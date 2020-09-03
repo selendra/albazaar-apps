@@ -13,10 +13,11 @@ class _BodyState extends State<Body> {
   bool _isLoading = false;
 
   void setmValue(String value) {
-    setState(() {
+    mValue = value;
+   /* setState(() {
       mValue = value;
       print(mValue);
-    });
+    });*/
   }
 
   void onSave(
@@ -38,7 +39,7 @@ class _BodyState extends State<Body> {
     return SingleChildScrollView(
       child: _isLoading
           ? Container(
-            height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height,
               child: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -48,24 +49,26 @@ class _BodyState extends State<Body> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: ListTile(
-                      onTap: () {
-                        //choiceDialog();
-                        ReuseChoiceDialog().choiceDialog(context);
-                      },
-                      title: Text('Profile photo'),
-                      trailing: CircleAvatar(
-                        backgroundImage: mUser.profileImg != null
-                            ? NetworkImage(mUser.profileImg)
-                            : AssetImage('images/avatar.png'),
+                    margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                    child: Card(
+                      shape: kDefaultShape,
+                      elevation: 0,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: ListTile(
+                          onTap: () {
+                            //choiceDialog();
+                            ReuseChoiceDialog().choiceDialog(context);
+                          },
+                          title: Text('Profile photo'),
+                          trailing: CircleAvatar(
+                            backgroundImage: mUser.profileImg != null
+                                ? NetworkImage(mUser.profileImg)
+                                : AssetImage('images/avatar.png'),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    height: 2,
-                    margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                    color: Colors.grey[300],
                   ),
                   ProfileForm(setmValue, mValue, onSave),
                 ],

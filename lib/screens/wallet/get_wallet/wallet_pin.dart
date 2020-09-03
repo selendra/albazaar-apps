@@ -80,8 +80,10 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   onGetWallet(String _pin) async {
+    setState(() {
+      _isLoading = true;
+    });
     SharedPreferences isPref = await SharedPreferences.getInstance();
-
     String firstPin = isPref.getString('pin');
     String _token;
     _token = isPref.get('token');
@@ -89,12 +91,17 @@ class _PinScreenState extends State<PinScreen> {
       setState(() {
         isNotCorrect = false;
       });
+      print('correct');
+      print(_pin);
       await ApiPostServices().getWallet(_pin, _token).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+        print(value);
         alertText = value;
         if (alertText == 'Opp! You need to verify your phone number first') {
-          //showAlertDialog(context);
-
-          _displayWalletInfo(context, _pin);
+          showAlertDialog(context);
+          //_displayWalletInfo(context, _pin);
         } else {
           Navigator.pop(context);
           clearPref();

@@ -27,7 +27,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     final _zoomTween = Tween<double>(begin: _mapController.zoom, end: desZoom);
 
     var controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this);
+        duration: const Duration(milliseconds: 300), vsync: this);
 
     Animation<double> animation =
         CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
@@ -47,6 +47,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     controller.forward();
   }
 
+  void getName() {}
+
   _getCurrentLocation() async {
     setState(() {
       _isLive = !_isLive;
@@ -62,6 +64,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             animateMove(
                 LatLng(_currentPosition.latitude, _currentPosition.longitude),
                 kDefaultMaxZoom - 2);
+            addressName(
+                LatLng(_currentPosition.latitude, _currentPosition.longitude));
 
             markers.add(Marker(
               point:
@@ -82,6 +86,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       });
     } else {
       markers.removeLast();
+      _key.currentState.contract();
       animateMove(kDefualtLatLng, kDefaultMapZoom);
     }
   }
@@ -126,7 +131,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           child: Icon(
             Icons.location_on,
             color: Colors.red,
-            size: 50,
+            size: 40,
           ),
         ),
       ),
@@ -142,7 +147,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           child: Icon(
             Icons.location_on,
             color: Colors.red,
-            size: 50,
+            size: 40,
           ),
         ),
       ),
@@ -158,6 +163,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           child: Icon(
             Icons.location_on,
             color: Colors.red,
+            size: 40,
           ),
         ),
       ),

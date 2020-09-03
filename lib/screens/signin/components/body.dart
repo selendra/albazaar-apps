@@ -114,6 +114,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         });
         alertText = value;
         _alertDialog(context);
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => RootServices()));
       }
     });
   }
@@ -135,8 +138,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text(alertText),
-      content: Text(''),
+      title: Text('Message'),
+      content: Text(alertText),
       actions: [
         _cancelButton,
         _okButton,
@@ -157,8 +160,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         context: context,
         builder: (context) {
           return ReuseAlertDialog.getItem(
+              'Message',
               alertText,
-              '',
               'Cancel',
               () {
                 Navigator.pop(context);
@@ -293,36 +296,4 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       ),
     );
   }
-
-  /*_displayDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Please input your email'),
-            content: TextField(
-              autofocus: true,
-              controller: _textFieldController,
-              decoration: InputDecoration(hintText: "Email"),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('CANCEL'),
-                onPressed: () {
-                  _textFieldController.text = '';
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  onForgetPwEmail(_textFieldController.text);
-                  _textFieldController.text = '';
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-  }*/
 }

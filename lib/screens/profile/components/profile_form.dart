@@ -38,7 +38,6 @@ class ProfileForm extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: 50,
                         child: ReuseTextField(
                           labelText: 'First Name',
                           initialValue: mUser.firstName,
@@ -49,11 +48,11 @@ class ProfileForm extends StatelessWidget {
                         height: 10,
                       ),
                       Container(
-                        height: 50,
                         child: ReuseTextField(
                           labelText: 'Mid Name',
-                          initialValue:
-                              mUser.midName == 'string' ? '' : mUser.midName,
+                          initialValue: mUser.midName == 'string'
+                              ? 'Email'
+                              : mUser.midName,
                           onSaved: (newValue) => _midName = newValue,
                         ),
                       ),
@@ -61,7 +60,6 @@ class ProfileForm extends StatelessWidget {
                         height: 10,
                       ),
                       Container(
-                        height: 50,
                         child: ReuseTextField(
                           labelText: 'Last Name',
                           initialValue: mUser.lastName,

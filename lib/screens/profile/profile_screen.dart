@@ -3,24 +3,18 @@ import 'package:selendra_marketplace_app/screens/profile/components/body.dart';
 import 'package:selendra_marketplace_app/reuse_widget/reuse_simple_appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
-
-  final String name, url, email;
-  ProfileScreen(this.name,this.url,this.email);
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
   TabController _controller;
-
 
   @override
   void initState() {
-    
     super.initState();
     _controller = new TabController(vsync: this, length: 6);
-
   }
 
   @override
@@ -28,6 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

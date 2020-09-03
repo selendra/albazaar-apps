@@ -27,7 +27,7 @@ class WalletList extends StatelessWidget {
                   wallets[index].amount,
                   style: TextStyle(fontWeight: FontWeight.w900),
                 ),
-                leading: Image.asset('images/logo.png', width: 30, height: 30),
+                leading: Image.asset(wallets[index].logo, width: 30, height: 30),
                 title: Text(
                   wallets[index].title,
                   style: TextStyle(fontWeight: FontWeight.w900),

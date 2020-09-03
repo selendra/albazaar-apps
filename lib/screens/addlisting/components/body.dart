@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -13,7 +14,6 @@ enum Options { Camera, Gallery }
 class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
-  final nameKey = GlobalKey<FormFieldState<String>>();
 
   File _myImage;
   final picker = ImagePicker();
@@ -78,7 +78,7 @@ class _BodyState extends State<Body> {
 
     setState(() {
       _myImage = File(pickedFile.path);
-      ApiPostServices().upLoadImage(_myImage);
+      ApiPostServices().upLoadImage(_myImage).then((value) {});
     });
   }
 
@@ -140,13 +140,9 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 20,
             ),
-            title(),
-            SizedBox(
-              height: 20,
-            ),
             _image(),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             _titleField(),
             SizedBox(
@@ -167,21 +163,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget title() {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Container(
-        child: Text(
-          'POST DETAIL',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.grey[600],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _sellerDetail() {
     return Form(
       key: _formKeySeller,
@@ -190,7 +171,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             _nameField(),
             SizedBox(
@@ -200,13 +181,27 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            _pickLocation(),
+            _streetAddress(),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            ReuseButton.getItem('Submit', () {
+            Row(
+              children: [
+                _pickLocation(),
+                Spacer(),
+                _cityName(),
+              ],
+            ),
+            //_pickLocation(),
+            SizedBox(
+              height: 40,
+            ),
+            ReuseButton.getItem('SUBMIT', () {
               checkValidate();
             }, context),
+            SizedBox(
+              height: 10,
+            ),
             _readPolicy(),
           ],
         ),
@@ -215,22 +210,19 @@ class _BodyState extends State<Body> {
   }
 
   Widget _priceField() {
-    return Container(
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.number,
-        autocorrect: true,
-        decoration: kDefualtPInputDecoration,
-        validator: (value) => value.isEmpty ? "Empty Price" : null,
-        onSaved: (value) => _price = value,
-      ),
+    return ReuseTextField(
+      labelText: 'Price',
+      maxLine: 1,
+      inputType: TextInputType.number,
+      validator: (value) => value.isEmpty ? "Empty Price" : null,
+      onSaved: (newValue) => _price = newValue,
     );
   }
 
   Widget _descriptionField() {
     return Container(
       child: TextFormField(
-        maxLines: 4,
+        maxLines: 3,
         keyboardType: TextInputType.text,
         autocorrect: true,
         decoration: InputDecoration(
@@ -295,7 +287,7 @@ class _BodyState extends State<Body> {
         choiceDialog();
       },
       child: Container(
-        height: 150,
+        height: 100,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(kDefaultRadius),
@@ -358,20 +350,28 @@ class _BodyState extends State<Body> {
     );
   }
 
+  Widget _streetAddress() {
+    return ReuseTextField(
+      labelText: 'Street Address',
+    );
+  }
+
   Widget _pickLocation() {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 150,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-          border: Border.all(
-            color: kDefaultColor,
-            width: 1,
-          ),
-        ),
-        child: Center(child: Text('Pick Location')),
+    return Container(
+      width: MediaQuery.of(context).size.width / 2.3,
+      child: ReuseTextField(
+        textInputAction: TextInputAction.done,
+        labelText: 'State/District',
+      ),
+    );
+  }
+
+  Widget _cityName() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2.3,
+      child: ReuseTextField(
+        labelText: 'City/Province',
+        textInputAction: TextInputAction.done,
       ),
     );
   }

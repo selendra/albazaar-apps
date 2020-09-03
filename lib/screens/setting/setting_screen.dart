@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 import 'package:selendra_marketplace_app/screens/setting/components/body.dart';
 
-
-class SettingScreen extends StatelessWidget{
-
+class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,21 +11,24 @@ class SettingScreen extends StatelessWidget{
         title: Text(
           'Account',
           style: TextStyle(
-            color: Colors.blue,
+            color: kDefaultColor,
             fontWeight: FontWeight.bold,
             fontSize: 22,
           ),
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefaultColor,),onPressed: (){
-          Navigator.pop(context);
-        },),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kDefaultColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Body(),
     );
   }
-
-  
-
 }

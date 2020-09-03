@@ -11,12 +11,20 @@ class AddListing extends StatelessWidget {
         title: Text(
           'Add Listing',
           style: TextStyle(
-            color: Colors.blue,
+            color: kDefaultColor,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: kDefaultColor,),onPressed: (){Navigator.pop(context);},),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kDefaultColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Body(),
     );

@@ -14,8 +14,15 @@ class ProfileDialog {
           ),
           actions: [
             FlatButton(
-              child: Text('OK'),
-              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'OK',
+                style: TextStyle(color: kDefaultColor),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/root', (Route<dynamic> route) => false);
+              },
             ),
           ],
         );

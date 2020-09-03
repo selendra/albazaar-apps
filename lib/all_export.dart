@@ -123,6 +123,7 @@ export 'models/products.dart';
 export 'models/user.dart';
 export 'models/wallet.dart';
 export 'models/acc_balance.dart';
+export 'models/wallet_response.dart';
 
 //services 
 export 'services/auth/api_post_services.dart';

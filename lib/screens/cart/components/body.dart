@@ -46,7 +46,9 @@ class _BodyState extends State<Body> {
                                     cart.removeAt(index);
                                   });
                                   Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text("Product Removed")));
+                                    content: Text("Product Removed"),
+                                    duration: Duration(milliseconds: 300),
+                                  ));
                                 },
                                 background: DimissibleBackground(),
                                 child: Container(
@@ -71,7 +73,7 @@ class _BodyState extends State<Body> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     trailing: CartBtnQty(
-                                        addQty, removeQty, qty,cart[index]),
+                                        addQty, removeQty, qty, cart[index]),
                                   ),
                                 ),
                               );

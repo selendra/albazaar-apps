@@ -8,6 +8,7 @@ import 'package:selendra_marketplace_app/screens/otp/otp.dart';
 import 'package:selendra_marketplace_app/services/auth/root_service.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:selendra_marketplace_app/models/wallet_response.dart';
 
 class ApiPostServices {
   String _alertText;
@@ -68,8 +69,6 @@ class ApiPostServices {
       if (token != null) {
         print(token);
         isToken.setString('token', token);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
           _alertText = responseJson['error']['message'];
@@ -187,23 +186,22 @@ class ApiPostServices {
         body: jsonEncode(<String, String>{"pin": pin}));
     var responseBody = json.decode(response.body);
     if (response.statusCode == 200) {
+      print(responseBody);
       SharedPreferences isSeed = await SharedPreferences.getInstance();
       String _seed;
-      if (responseBody['code'] != null) {
+
+      try {
         _alertText = responseBody['message'];
-      } else {
-        _alertText = responseBody['message'];
-        if (_alertText != null) {
-          try {
-            _seed = responseBody['message']['seed'];
-            isSeed.setString('seed', _seed);
-            print(_seed);
-          } catch (e) {
-            print(e);
-          }
-        }
+      } catch (e) {
+        var wallet = WalletResponse.fromJson(responseBody);
+        print(wallet);
+        print(wallet.message.seed);
+        _seed = responseBody['message']['seed'];
+        print(_seed);
+        isSeed.setString('seed', _seed);
       }
     } else {
+      print(responseBody);
       _alertText = responseBody['error']['message'];
     }
     print(_alertText);
@@ -274,10 +272,10 @@ class ApiPostServices {
     return _alertText;
   }
 
-  Future<http.StreamedResponse> upLoadImage(File _image) async {
+  Future<String> upLoadImage(File _image) async {
     /* Upload image to server by use multi part form*/
     SharedPreferences isToken = await SharedPreferences.getInstance();
-    String token;
+    String token, imageUrl;
 
     token = isToken.getString('token');
     /* Compress image file */
@@ -309,8 +307,9 @@ class ApiPostServices {
     /* Getting response */
     response.stream.transform(utf8.decoder).listen((data) {
       print("Image url $data");
+      imageUrl = data;
     });
 
-    return response;
+    return imageUrl;
   }
 }
