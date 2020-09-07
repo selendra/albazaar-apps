@@ -17,7 +17,6 @@ class _RootServicesState extends State<RootServices> {
 
   void checkUser() async {
     SharedPreferences isToken = await SharedPreferences.getInstance();
-
     String _token = isToken.getString('token');
     if (_token != null) {
       await ApiGetServices().fetchUserPf(_token).then((value) {
@@ -32,11 +31,7 @@ class _RootServicesState extends State<RootServices> {
     }
   }
 
-  void getUserInfo(FirebaseUser user) {
-    mUser.email = user.email;
-    mUser.firstName = user.displayName;
-    mUser.profileImg = user.photoUrl;
-  }
+
 
   @override
   Widget build(BuildContext context) {

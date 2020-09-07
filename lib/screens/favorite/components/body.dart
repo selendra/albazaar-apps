@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/providers/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,19 +11,19 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    final favData = Provider.of<FavoriteProvider>(context);
+    final _fav = favData.items;
     return Container(
-      child: myFav.isNotEmpty
+      child: _fav.isNotEmpty
           ? ListView.builder(
-              itemCount: myFav.length,
+              itemCount: _fav.length,
               itemBuilder: (context, index) {
                 return Dismissible(
                   key: UniqueKey(),
                   direction: DismissDirection.endToStart,
                   background: DimissibleBackground(),
                   onDismissed: (direction) {
-                    setState(() {
-                      myFav.removeAt(index);
-                    });
+                    favData.removeFav(_fav[index]);
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text("Favorite Removed")));
                   },
@@ -33,16 +34,16 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(kDefaultRadius),
                     ),
                     child: ListTile(
-                      title: Text(myFav[index].title),
+                      title: Text(_fav[index].title),
                       subtitle: Text(
-                        myFav[index].description,
+                        _fav[index].description,
                         maxLines: 1,
                       ),
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage(myFav[index].image),
+                        backgroundImage: AssetImage(_fav[index].image),
                       ),
                       onTap: () {
-                        print(myFav[index].title);
+                        print(_fav[index].title);
                       },
                     ),
                   ),

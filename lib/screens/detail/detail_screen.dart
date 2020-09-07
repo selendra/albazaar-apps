@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/detail/components/body.dart';
-import '../../models/products.dart';
+import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/providers/products_provider.dart';
 import 'package:selendra_marketplace_app/constants.dart';
+import 'package:selendra_marketplace_app/providers/favorite_provider.dart';
 
 class DetailScreen extends StatefulWidget {
-  final Product products;
-  DetailScreen(this.products);
+  /*final Product products;
+  DetailScreen(this.products);*/
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -17,7 +19,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   IconData _iconFav = Icons.favorite_border;
 
-  void seeFav(context) {
+  /* void seeFav(context) {
     setState(() {
       _isFavorite = true;
       if (_isFavorite == true) {
@@ -27,9 +29,9 @@ class _DetailScreenState extends State<DetailScreen> {
         }
       }
     });
-  }
+  }*/
 
-  void addItemtoCart(context) {
+  /*void addItemtoCart(context) {
     if (cart.contains(widget.products)) {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text('Item is already in Cart'),
@@ -41,13 +43,48 @@ class _DetailScreenState extends State<DetailScreen> {
       cart.add(widget.products);
       Navigator.pop(context);
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context).settings.arguments as int;
+    final loadedProduct =
+        Provider.of<ProductsProvider>(context).findById(productId);
+    final favProduct = Provider.of<FavoriteProvider>(context);
     return Scaffold(
-      body: Body(widget.products),
-      bottomNavigationBar: _buildBottomNavigation(context),
+      body: Body(),
+      bottomNavigationBar: Container(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            InkWell(
+                onTap: () =>
+                    favProduct.addFav(loadedProduct), //=> seeFav(context),
+                child: Container(
+                    height: 50.0,
+                    width: 50.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          offset: Offset(0, 2),
+                          blurRadius: 6.0,
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      loadedProduct.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.red,
+                    ))),
+            _btnAddToCart(context)
+          ],
+        ),
+      ),
     );
   }
 
@@ -58,7 +95,7 @@ class _DetailScreenState extends State<DetailScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           InkWell(
-              onTap: () => seeFav(context),
+              onTap: () {}, //=> seeFav(context),
               child: Container(
                   height: 50.0,
                   width: 50.0,
@@ -90,7 +127,7 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Builder(
         builder: (context) => RaisedButton(
           onPressed: () {
-            addItemtoCart(context);
+            //addItemtoCart(context);
           },
           child: Text(
             "Add To Cart",

@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:selendra_marketplace_app/models/user.dart';
@@ -14,6 +13,14 @@ final FacebookLogin facebookLogin = FacebookLogin();
 
 String alertText;
 
+void getUserInfo(FirebaseUser user) {
+  mUser.email = user.email;
+  mUser.firstName = user.displayName;
+  mUser.lastName = '';
+  mUser.midName = '';
+  mUser.profileImg = user.photoUrl;
+}
+
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
@@ -23,7 +30,6 @@ Future<String> signInWithGoogle() async {
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
   );
-  
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
@@ -34,9 +40,7 @@ Future<String> signInWithGoogle() async {
   assert(user.displayName != null);
   assert(user.photoUrl != null);
 
-  mUser.firstName = user.displayName;
-  mUser.email = user.email;
-  mUser.profileImg = user.photoUrl;
+  getUserInfo(user);
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
@@ -61,13 +65,14 @@ Future<FirebaseUser> signInFacebook(BuildContext context) async {
       final FirebaseUser user =
           (await _auth.signInWithCredential(credential)).user;
       print(credential);
+
       assert(user.email != null);
       assert(user.displayName != null);
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
-      mUser.email = user.email;
-      mUser.firstName = user.displayName;
-      mUser.profileImg = user.photoUrl;
+
+      getUserInfo(user);
+
       currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       return currentUser;

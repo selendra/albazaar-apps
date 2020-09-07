@@ -105,7 +105,7 @@ class _PinScreenState extends State<PinScreen> {
         } else {
           Navigator.pop(context);
           clearPref();
-          _displayWalletInfo(context, _pin);
+          _displayWalletInfo(context);
           // Navigator.pop(context);
           // Navigator.push(context,
           // MaterialPageRoute(builder: (context) => WalletInfoScreen()));
@@ -303,10 +303,10 @@ class _PinScreenState extends State<PinScreen> {
     return false;
   }
 
-  _displayWalletInfo(BuildContext context, String pin) async {
+  _displayWalletInfo(BuildContext context) async {
     SharedPreferences isSeed = await SharedPreferences.getInstance();
     String _seed = isSeed.getString('seed');
-    _seed = '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2.';
+    print(_seed);
     return showDialog(
         barrierDismissible: false,
         context: context,
@@ -320,7 +320,7 @@ class _PinScreenState extends State<PinScreen> {
                 ),
                 title: Text('Wallet Information'),
                 content: Container(
-                  height: 290,
+                  height: 300,
                   child: Column(
                     children: [
                       Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
@@ -14,25 +15,36 @@ class _BodyState extends State<Body> {
 
   void setmValue(String value) {
     mValue = value;
-   /* setState(() {
+    setState(() {
       mValue = value;
       print(mValue);
-    });*/
+    });
   }
+
+  Future<void> validateAndSubmit() async {}
 
   void onSave(
       String firstName, String midName, String lastName, String gender) async {
     setState(() {
       _isLoading = true;
     });
-    await ApiPostServices()
-        .setUserPf(firstName, midName, lastName, gender)
-        .then((value) {
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+
+    String token = isToken.getString('token');
+    if (token != null) {
+      await ApiPostServices()
+          .setUserPf(firstName, midName, lastName, gender)
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+        ProfileDialog().successDialog(context, value);
+      });
+    } else {
       setState(() {
         _isLoading = false;
       });
-      ProfileDialog().successDialog(context, value);
-    });
+    }
   }
 
   Widget build(BuildContext context) {

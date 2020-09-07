@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 
 class ItemCard extends StatefulWidget {
-  final Product product;
-  final Function press;
+  /* final Product product;
+ 
   const ItemCard({
     Key key,
     this.product,
-    this.press,
-  }) : super(key: key);
+  }) : super(key: key);*/
 
   @override
   _ItemCardState createState() => _ItemCardState();
@@ -18,8 +18,13 @@ class ItemCard extends StatefulWidget {
 class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+
     return GestureDetector(
-      onTap: widget.press,
+      onTap: () {
+        Navigator.of(context).pushNamed('/detail', arguments: product.id,);
+        print(product.id);
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
@@ -44,8 +49,8 @@ class _ItemCardState extends State<ItemCard> {
                   ],
                 ),
                 child: Hero(
-                  tag: "${widget.product.id}",
-                  child: Image.asset(widget.product.image, fit: BoxFit.cover),
+                  tag: "${product.id}",
+                  child: Image.asset(product.image, fit: BoxFit.cover),
                 ),
               ),
             ),
@@ -53,7 +58,7 @@ class _ItemCardState extends State<ItemCard> {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: Text(
                 // products is out demo list
-                widget.product.title,
+                product.title,
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.0,
@@ -63,7 +68,7 @@ class _ItemCardState extends State<ItemCard> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${widget.product.price}",
+                "\$${product.price}",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: kDefaultColor),
               ),

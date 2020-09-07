@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Product {
+class Product with ChangeNotifier {
   final String image, title, description;
   final int price, id, qty;
   final Color color;
+  bool isFavorite;
   Product({
     this.id,
     this.image,
@@ -12,7 +13,14 @@ class Product {
     this.qty,
     this.description,
     this.color,
+    this.isFavorite = false,
   });
+
+  void toggleFavStat() {
+    isFavorite = !isFavorite;
+    print(isFavorite);
+    notifyListeners();
+  }
 }
 
 List<Product> cart = [];
