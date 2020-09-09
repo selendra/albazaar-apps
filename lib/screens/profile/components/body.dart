@@ -7,7 +7,7 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
-enum Options { Camera, Gallery }
+
 
 class _BodyState extends State<Body> {
   String mValue = mUser.gender;

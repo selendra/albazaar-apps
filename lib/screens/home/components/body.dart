@@ -17,7 +17,7 @@ class _BodyState extends State<Body> {
   ScrollController _controller;
   String dropDownValue = 'EN', _query;
   final _searchKey = GlobalKey<FormFieldState<String>>();
-  List<Product> mProducts = products;
+  List<Product> mProducts; //= products;
 
   void filterSearchResults(String query) {} //Now u
 

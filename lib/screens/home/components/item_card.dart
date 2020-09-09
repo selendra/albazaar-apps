@@ -3,27 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/models/products.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 
-class ItemCard extends StatefulWidget {
-  /* final Product product;
- 
-  const ItemCard({
-    Key key,
-    this.product,
-  }) : super(key: key);*/
-
-  @override
-  _ItemCardState createState() => _ItemCardState();
-}
-
-class _ItemCardState extends State<ItemCard> {
+class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/detail', arguments: product.id,);
-        print(product.id);
+        Navigator.of(context).pushNamed(
+          '/detail',
+          arguments: product.id,
+        );
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),

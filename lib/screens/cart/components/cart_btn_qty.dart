@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
+import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class CartBtnQty extends StatelessWidget {
   final Product product;
-  final Function addQty;
-  final Function removeQty;
-  final int qty;
 
-  CartBtnQty(this.addQty, this.removeQty, this.qty, this.product);
+  CartBtnQty(this.product);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          addRemoveInkWell(Icons.remove, () {
-            removeQty();
-          }),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            qty.toString(),
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          addRemoveInkWell(Icons.add, () {
-            addQty();
-          }),
-        ],
+    return Consumer<CartProvider>(
+      builder: (context, value, child) => Container(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            addRemoveInkWell(Icons.remove, () {
+              value.minusQty(product);
+            }),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              product.orderQty.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            addRemoveInkWell(Icons.add, () {
+              //addQty();
+              value.addQty(product);
+            }),
+          ],
+        ),
       ),
     );
   }

@@ -10,14 +10,16 @@ class DimissibleBackground extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            'Delete',
+            'Removed',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           Icon(
             Icons.delete,
             color: Colors.white,
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
         ],
       ),
     );

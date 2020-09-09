@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
 
-class SearchProducts extends SearchDelegate{
+class SearchProducts extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
         icon: Icon(Icons.clear),
-        onPressed: (){
-          query ='';
+        onPressed: () {
+          query = '';
         },
       )
     ];
@@ -18,7 +17,7 @@ class SearchProducts extends SearchDelegate{
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back),
-      onPressed: (){
+      onPressed: () {
         close(context, null);
       },
     );
@@ -31,16 +30,16 @@ class SearchProducts extends SearchDelegate{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-
-    final searchProducts = query.isEmpty
+    /* final searchProducts = query.isEmpty
         ? []
         : products
         .where((element) =>
         element.title
         .toLowerCase().startsWith(query.toLowerCase()))
-        .toList();
+        .toList();*/
 
-    return ListView.builder(
+    return Container();
+    /*ListView.builder(
         itemCount: searchProducts.length,
         itemBuilder: (context,index){
           return ListTile(
@@ -49,7 +48,6 @@ class SearchProducts extends SearchDelegate{
             subtitle: Text(searchProducts[index].price.toString()),
           );
         }
-    );
+    );*/
   }
-
 }

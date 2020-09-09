@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:provider/provider.dart';
 
 class ReuseItemCard extends StatefulWidget {
-
-  final Product product;
-  final Function press;
-  const ReuseItemCard({
-    Key key,
-    this.product,
-    this.press,
-  }) : super(key: key);
-
-
   @override
   _ReuseItemCardState createState() => _ReuseItemCardState();
 }
 
 class _ReuseItemCardState extends State<ReuseItemCard> {
-
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
     return GestureDetector(
-      onTap: widget.press,
+      onTap: () {},
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(kDefaultRadius),
               child: Container(
-                width: 80,
+                width: 120,
                 height: 80,
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -41,20 +36,27 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                     )
                   ],
                 ),
-                child:Image.asset(widget.product.image,fit: BoxFit.cover),
+                child: Image.asset(product.image, fit: BoxFit.cover),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               child: Text(
                 // products is out demo list
-                widget.product.title,
-                style: TextStyle(color: Colors.black,fontSize: 16.0,fontWeight: FontWeight.w600),
+                product.title,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600),
               ),
             ),
-            Text(
-              "\$${widget.product.price}",
-              style: TextStyle(fontWeight: FontWeight.bold,color: kDefaultColor),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                "\$${product.price}",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: kDefaultColor),
+              ),
             )
           ],
         ),
@@ -62,4 +64,3 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
     );
   }
 }
-

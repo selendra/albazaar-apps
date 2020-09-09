@@ -12,7 +12,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final favData = Provider.of<FavoriteProvider>(context);
-    final _fav = favData.items;
+    final   _fav = favData.items;
     return Container(
       child: _fav.isNotEmpty
           ? ListView.builder(

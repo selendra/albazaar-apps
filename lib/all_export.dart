@@ -6,7 +6,7 @@ export 'bottom_navigation/bottom_navigation.dart';
 //add listing screen
 export 'screens/addlisting/add_listing.dart';
 
-//listing screen 
+//listing screen
 export 'screens/listing/listing_screen.dart';
 
 //cart screen
@@ -14,7 +14,6 @@ export 'screens/cart/cart.dart';
 export 'screens/cart/components/cart_btn_qty.dart';
 export 'screens/cart/components/checkout_card.dart';
 export 'screens/cart/components/dismissable_background.dart';
-
 
 //otp screen
 
@@ -44,7 +43,6 @@ export 'screens/map/components/persistent_header.dart';
 //otp screen
 export 'screens/otp/otp.dart';
 export 'screens/otp/components/pin_screen.dart';
-
 
 //profile screen
 export 'screens/profile/profile_screen.dart';
@@ -116,7 +114,12 @@ export 'enums/connectivity_status.dart';
 //constant
 export 'constants.dart';
 
-//models 
+//provider
+export 'providers/cart_provider.dart';
+export 'providers/favorite_provider.dart';
+export 'providers/products_provider.dart';
+
+//models
 export 'models/api_url.dart';
 export 'models/categories.dart';
 export 'models/products.dart';
@@ -125,12 +128,10 @@ export 'models/wallet.dart';
 export 'models/acc_balance.dart';
 export 'models/wallet_response.dart';
 
-//services 
+//services
 export 'services/auth/api_post_services.dart';
 export 'services/auth/api_get_services.dart';
 export 'services/auth/auth_services.dart';
 export 'services/auth/root_service.dart';
 export 'services/connectivity_services.dart';
 export 'services/network_alert.dart';
-
-

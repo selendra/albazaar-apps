@@ -17,5 +17,6 @@ class FavoriteProvider with ChangeNotifier {
 
   void removeFav(Product product) {
     _fav.remove(product);
+    notifyListeners();
   }
 }

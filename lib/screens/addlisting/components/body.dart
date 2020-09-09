@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/providers/products_provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -23,44 +25,8 @@ class _BodyState extends State<Body> {
   String _description;
   String _contactName;
   String _phoneNumber;
+  String _address;
   String _categories = "Categories";
-
-  Future<void> choiceDialog() async {
-    switch (await showDialog<Options>(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-            title: Text('Choose an option'),
-            children: <Widget>[
-              Container(
-                height: 40,
-                child: SimpleDialogOption(
-                  child: Text('Camera'),
-                  onPressed: () {
-                    Navigator.pop(context, Options.Camera);
-                  },
-                ),
-              ),
-              Container(
-                height: 40,
-                child: SimpleDialogOption(
-                  child: Text('Gallery'),
-                  onPressed: () {
-                    Navigator.pop(context, Options.Gallery);
-                  },
-                ),
-              )
-            ],
-          );
-        })) {
-      case Options.Camera:
-        cameraImage();
-        break;
-      case Options.Gallery:
-        galleryImage();
-        break;
-    }
-  }
 
   void routeA() async {
     String resultOfC = await Navigator.push(
@@ -70,23 +36,6 @@ class _BodyState extends State<Body> {
     print(resultOfC);
     setState(() {
       _categories = resultOfC ?? "Categories";
-    });
-  }
-
-  Future galleryImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      _myImage = File(pickedFile.path);
-      ApiPostServices().upLoadImage(_myImage).then((value) {});
-    });
-  }
-
-  Future cameraImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-    setState(() {
-      _myImage = File(pickedFile.path);
     });
   }
 
@@ -103,13 +52,15 @@ class _BodyState extends State<Body> {
         print(_contactName);
         print(_phoneNumber);
         print(_categories);
-        products.add(Product(
-            id: 20,
+        print(_address);
+        
+        /*products.add(Product(
+            id: 20,i
             title: _title,
             price: int.parse(_price),
             description: _description,
             image: "images/new-house.jpg",
-            color: Color(0xFF3D82AE)));
+            color: Color(0xFF3D82AE)));*/
         Navigator.pop(context);
       }
     });
@@ -187,8 +138,7 @@ class _BodyState extends State<Body> {
             ),
             Row(
               children: [
-                _pickLocation(),
-                Spacer(),
+                _district(),
                 _cityName(),
               ],
             ),
@@ -196,9 +146,15 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 40,
             ),
-            ReuseButton.getItem('SUBMIT', () {
-              checkValidate();
-            }, context),
+            Consumer<ProductsProvider>(
+              builder: (context, value, child) => Container(
+                child: ReuseButton.getItem('SUBMIT', () {
+                  checkValidate();
+                  value.addItem(_title, double.parse(_price), _description,
+                      _contactName, _phoneNumber);
+                }, context),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -214,30 +170,20 @@ class _BodyState extends State<Body> {
       labelText: 'Price',
       maxLine: 1,
       inputType: TextInputType.number,
+      textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty ? "Empty Price" : null,
       onSaved: (newValue) => _price = newValue,
     );
   }
 
   Widget _descriptionField() {
-    return Container(
-      child: TextFormField(
-        maxLines: 3,
-        keyboardType: TextInputType.text,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Description',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-        ),
-        validator: (value) => value.isEmpty ? "Empty Description" : null,
-        onSaved: (value) => _description = value,
-      ),
+    return ReuseTextField(
+      maxLine: 3,
+      inputType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      labelText: 'Description',
+      validator: (value) => value.isEmpty ? "Empty Description" : null,
+      onSaved: (value) => _description = value,
     );
   }
 
@@ -260,31 +206,20 @@ class _BodyState extends State<Body> {
   }
 
   Widget _titleField() {
-    return Container(
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.text,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Title',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-        ),
-        validator: (value) => value.isEmpty ? "Empty Title" : null,
-        onSaved: (value) => _title = value,
-      ),
+    return ReuseTextField(
+      labelText: 'Title',
+      maxLine: 1,
+      inputType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      validator: (value) => value.isEmpty ? "Empty Title" : null,
+      onSaved: (value) => _title = value,
     );
   }
 
   Widget _image() {
     return InkWell(
       onTap: () {
-        choiceDialog();
+        ReuseChoiceDialog().choiceDialog(context);
       },
       child: Container(
         height: 100,
@@ -307,56 +242,34 @@ class _BodyState extends State<Body> {
   }
 
   Widget _nameField() {
-    return Container(
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.text,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Contact Name',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-        ),
-        validator: (value) => value.isEmpty ? "Empty Contact Name" : null,
-        onSaved: (value) => _contactName = value,
-      ),
+    return ReuseTextField(
+      labelText: 'Name',
+      maxLine: 1,
+      inputType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      validator: (value) => value.isEmpty ? "Empty Contact Name" : null,
+      onSaved: (value) => _contactName = value,
     );
   }
 
   Widget _phoneNumberField() {
-    return Container(
-      child: TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.number,
-        autocorrect: true,
-        decoration: InputDecoration(
-          labelText: 'Phone Number',
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-        ),
-        validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
-        onSaved: (value) => _phoneNumber = value,
-      ),
+    return ReuseTextField(
+      labelText: 'Phone Number',
+      maxLine: 1,
+      textInputAction: TextInputAction.done,
+      validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
+      onSaved: (value) => _phoneNumber = value,
     );
   }
 
   Widget _streetAddress() {
     return ReuseTextField(
       labelText: 'Street Address',
+      onSaved: (newValue) => _address = newValue,
     );
   }
 
-  Widget _pickLocation() {
+  Widget _district() {
     return Container(
       width: MediaQuery.of(context).size.width / 2.3,
       child: ReuseTextField(
@@ -385,7 +298,7 @@ class _BodyState extends State<Body> {
           FlatButton(
             child: Text('Please more about our Rule &Policy'),
             onPressed: () {
-              print('rule & policy');
+              print('Rule & Policy');
             },
           ),
           Expanded(

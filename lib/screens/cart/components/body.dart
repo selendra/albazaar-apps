@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -7,28 +9,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  int qty = 0;
-
-  void addQty() {
-    setState(() {
-      qty++;
-    });
-  }
-
-  void removeQty() {
-    setState(() {
-      if (qty > 0) {
-        qty--;
-      } else {
-        return;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final _cartData = Provider.of<CartProvider>(context);
+    final _items = _cartData.items;
+    print(_items.length);
     return Container(
-        child: cart.isNotEmpty
+        child: _items.isNotEmpty
             ? Container(
                 child: Column(
                   children: [
@@ -36,15 +23,13 @@ class _BodyState extends State<Body> {
                       child: Container(
                         height: MediaQuery.of(context).size.height / 1.7,
                         child: ListView.builder(
-                            itemCount: cart.length,
+                            itemCount: _items.length,
                             itemBuilder: (context, index) {
                               return Dismissible(
                                 key: UniqueKey(),
                                 direction: DismissDirection.endToStart,
                                 onDismissed: (direction) {
-                                  setState(() {
-                                    cart.removeAt(index);
-                                  });
+                                  _cartData.remove(_items[index]);
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text("Product Removed"),
                                     duration: Duration(milliseconds: 300),
@@ -63,17 +48,19 @@ class _BodyState extends State<Body> {
                                     shape: kDefaultShape,
                                     leading: CircleAvatar(
                                       backgroundImage:
-                                          AssetImage(cart[index].image),
+                                          AssetImage(_items[index].image),
                                     ),
-                                    title: Text(cart[index].title),
+                                    title: Text(_items[index].title),
                                     subtitle: Text(
-                                      '\$ ' + cart[index].price.toString(),
+                                      '\$ ' + _items[index].price.toString(),
                                       style: TextStyle(
                                           color: kDefaultColor,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    trailing: CartBtnQty(
-                                        addQty, removeQty, qty, cart[index]),
+                                    trailing: ChangeNotifierProvider.value(
+                                      value: _items[index],
+                                      child: CartBtnQty(_items[index]),
+                                    ),
                                   ),
                                 ),
                               );
