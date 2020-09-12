@@ -1,5 +1,8 @@
 //all screen export
 
+//main
+export 'main.dart';
+
 //bottom navigation
 export 'bottom_navigation/bottom_navigation.dart';
 
@@ -32,6 +35,8 @@ export 'screens/favorite/favorite_screen.dart';
 
 //home screen
 export 'screens/home/home_screen.dart';
+export 'screens/home/components/drop_down_button.dart';
+export 'screens/home/components/product_list.dart';
 
 //map screen
 export 'screens/map/map.dart';
@@ -83,6 +88,7 @@ export 'screens/splashscreen/splashscreen.dart';
 
 //wallet screen
 export 'screens/wallet/wallet_screen.dart';
+export 'screens/wallet/my_wallet/my_wallet.dart';
 
 //welcome screen
 export 'screens/welcome/welcome_screen.dart';
@@ -107,6 +113,7 @@ export 'reuse_widget/reuse_choice_dialog.dart';
 export 'reuse_widget/reuse_num_pad.dart';
 export 'reuse_widget/reuse_dropdown.dart';
 export 'reuse_widget/reuse_btn_qty.dart';
+export 'reuse_widget/reuse_search_field.dart';
 
 //enums
 export 'enums/connectivity_status.dart';
@@ -134,4 +141,4 @@ export 'services/auth/api_get_services.dart';
 export 'services/auth/auth_services.dart';
 export 'services/auth/root_service.dart';
 export 'services/connectivity_services.dart';
-export 'services/network_alert.dart';
+export 'reuse_widget/network_alert.dart';

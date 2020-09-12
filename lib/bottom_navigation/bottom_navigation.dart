@@ -61,19 +61,17 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   }
 
   Widget _buildBody() {
-    return SizedBox.expand(
-      child: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          _pageChange(index);
-        },
-        children: <Widget>[
-          HomeScreen(),
-          WalletScreen(),
-          FavoriteScreen(),
-          MapScreen(),
-        ],
-      ),
+    return PageView(
+      controller: _pageController,
+      onPageChanged: (index) {
+        _pageChange(index);
+      },
+      children: <Widget>[
+        HomeScreen(),
+        WalletScreen(),
+        FavoriteScreen(),
+        MapScreen(),
+      ],
     );
   }
 

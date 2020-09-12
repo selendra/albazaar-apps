@@ -10,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
-
   ScrollController scrollController;
   String imgUrl = mUser.profileImg;
 
@@ -21,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    print(userName);
+
     scrollController = ScrollController();
   }
 

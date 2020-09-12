@@ -16,7 +16,7 @@ class CheckoutCard extends StatelessWidget {
             margin: EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _textRow('Subtotal', '\$${value.totalPrice}'),
+                _textRow('Subtotal', '\$${value.totalAmount}'),
                 Spacer(),
                 Container(
                   height: 1,
@@ -25,7 +25,7 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                _textRow('Total', '\$${value.totalPrice}'),
+                _textRow('Total', '\$${value.totalAmount}'),
                 SizedBox(
                   height: 60,
                 ),

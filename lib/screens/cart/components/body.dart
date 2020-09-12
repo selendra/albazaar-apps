@@ -13,7 +13,6 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     final _cartData = Provider.of<CartProvider>(context);
     final _items = _cartData.items;
-    print(_items.length);
     return Container(
         child: _items.isNotEmpty
             ? Container(
@@ -29,7 +28,8 @@ class _BodyState extends State<Body> {
                                 key: UniqueKey(),
                                 direction: DismissDirection.endToStart,
                                 onDismissed: (direction) {
-                                  _cartData.remove(_items[index]);
+                                  _cartData
+                                      .removeItem(_items.keys.toList()[index]);
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text("Product Removed"),
                                     duration: Duration(milliseconds: 300),
@@ -47,20 +47,26 @@ class _BodyState extends State<Body> {
                                   child: ListTile(
                                     shape: kDefaultShape,
                                     leading: CircleAvatar(
-                                      backgroundImage:
-                                          AssetImage(_items[index].image),
+                                      backgroundImage: AssetImage(
+                                          _items.values.toList()[index].image),
                                     ),
-                                    title: Text(_items[index].title),
+                                    title: Text(
+                                        _items.values.toList()[index].title),
                                     subtitle: Text(
-                                      '\$ ' + _items[index].price.toString(),
+                                      '\$ ' +
+                                          _items.values
+                                              .toList()[index]
+                                              .price
+                                              .toString(),
                                       style: TextStyle(
                                           color: kDefaultColor,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     trailing: ChangeNotifierProvider.value(
-                                      value: _items[index],
-                                      child: CartBtnQty(_items[index]),
-                                    ),
+                                        value: _items.values.toList()[index],
+                                        child: CartBtnQty(_items.values
+                                            .toList()[index]) //(_items[index]),
+                                        ),
                                   ),
                                 ),
                               );

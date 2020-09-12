@@ -12,7 +12,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final favData = Provider.of<FavoriteProvider>(context);
-    final   _fav = favData.items;
+    final _fav = favData.items;
     return Container(
       child: _fav.isNotEmpty
           ? ListView.builder(
@@ -43,7 +43,8 @@ class _BodyState extends State<Body> {
                         backgroundImage: AssetImage(_fav[index].image),
                       ),
                       onTap: () {
-                        print(_fav[index].title);
+                        Navigator.of(context)
+                            .pushNamed('/detail', arguments: _fav[index].id);
                       },
                     ),
                   ),

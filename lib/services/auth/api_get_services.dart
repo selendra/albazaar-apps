@@ -16,11 +16,14 @@ class ApiGetServices {
     });
     var responseBody = json.decode(response.body);
     mUser = User.fromJson(responseBody);
-    if(mUser.firstName==null && mUser.midName==null && mUser.lastName == null){
+    if (mUser.firstName == null &&
+        mUser.midName == null &&
+        mUser.lastName == null) {
       mUser.firstName = '';
       mUser.midName = '';
       mUser.lastName = '';
     }
+
     return mUser;
   }
 
@@ -44,7 +47,7 @@ class ApiGetServices {
   }
 
   Future<Placemark> fetchPlaceList(String query) async {
-    var response = await http.get(ApiUrl.MAP_SEARCH+query);
+    var response = await http.get(ApiUrl.MAP_SEARCH + query);
     print(response.body);
     if (response.statusCode == 200) {
       return null;

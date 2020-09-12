@@ -3,20 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'sell_info.dart';
+import 'related_product.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
+class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context).settings.arguments as int;
-    final loadedData =
-        Provider.of<ProductsProvider>(context).findById(productId);
-    final productsData = Provider.of<ProductsProvider>(context);
-    final _products = productsData.items;
+    final loadedData = Provider.of<ProductsProvider>(
+      context,
+    ).findById(productId);
     return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) {
         return <Widget>[
@@ -33,9 +28,11 @@ class _BodyState extends State<Body> {
             flexibleSpace: FlexibleSpaceBar(
               background: Hero(
                 tag: "${loadedData.id}",
-                child: Image.asset(
-                  loadedData.image,
-                  fit: BoxFit.fill,
+                child: SizedBox(
+                  child: Image.asset(
+                    loadedData.image,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -95,6 +92,7 @@ class _BodyState extends State<Body> {
                 Card(
                     elevation: 0,
                     child: Container(
+                        height: 200,
                         margin: EdgeInsets.all(10.0),
                         child: Text(loadedData.description))),
                 SizedBox(
@@ -118,21 +116,7 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 10.0,
                 ),
-                Container(
-                  height: 140,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _products.length,
-                    itemBuilder: (context, index) {
-                      return ChangeNotifierProvider.value(
-                        value: _products[index],
-                        child: ReuseItemCard(),
-                      );
-                    },
-                  ),
-                ),
+                RelatedProduct(),
               ],
             ),
           ),

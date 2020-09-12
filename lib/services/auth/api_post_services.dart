@@ -1,20 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:selendra_marketplace_app/models/api_url.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/screens/otp/otp.dart';
-import 'package:selendra_marketplace_app/services/auth/root_service.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:selendra_marketplace_app/models/wallet_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class ApiPostServices {
   String _alertText;
   Future<String> getToken() async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
     String _token;
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+
     _token = isToken.getString('token');
     print(_token);
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/models/cart.dart';
 
 class CartBtnQty extends StatelessWidget {
-  final Product product;
+  final Cart product;
 
   CartBtnQty(this.product);
 
@@ -21,7 +22,7 @@ class CartBtnQty extends StatelessWidget {
               width: 10,
             ),
             Text(
-              product.orderQty.toString(),
+              product.qty.toString(),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(

@@ -53,7 +53,7 @@ class _BodyState extends State<Body> {
         print(_phoneNumber);
         print(_categories);
         print(_address);
-        
+
         /*products.add(Product(
             id: 20,i
             title: _title,
@@ -139,6 +139,9 @@ class _BodyState extends State<Body> {
             Row(
               children: [
                 _district(),
+                SizedBox(
+                  width: 10.0,
+                ),
                 _cityName(),
               ],
             ),

@@ -1,26 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import '../../../constants.dart';
-import 'package:selendra_marketplace_app/screens/signin/signin.dart';
-import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
-import 'package:selendra_marketplace_app/services/network_alert.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
+class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: NetworkAlert(
         Center(
           child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.all(30.0),
               child: Column(
                 children: <Widget>[
@@ -72,7 +62,7 @@ class _BodyState extends State<Body> {
                   SizedBox(
                     height: 20,
                   ),
-                  _btnSignUp(),
+                  _btnSignUp(context),
                 ],
               )),
         ),
@@ -80,7 +70,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _btnSignUp() {
+  Widget _btnSignUp(context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50,

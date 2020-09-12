@@ -1,47 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
+import 'package:selendra_marketplace_app/models/cart.dart';
 
 class CartProvider with ChangeNotifier {
   int quantity = 0;
   double totalPrice = 0;
-  List<Product> _cart = [];
-  List<Product> get items => [..._cart];
+  Map<String, Cart> _items = {};
 
-  void addCart(Product product) {
-    if (!_cart.contains(product)) {
-      _cart.add(product);
-      quantity = product.orderQty;
-      totalPrice = totalPrice + product.price;
+  Map<String, Cart> get items => {..._items};
+
+  void addCart(String productId, String image, String title, double price,
+      int productOrderQty) {
+    if (_items.containsKey(productId)) {
+      _items.update(
+          productId,
+          (existingItem) => Cart(
+              id: DateTime.now().toString(),
+              image: existingItem.image,
+              title: existingItem.title,
+              price: existingItem.price,
+              qty: existingItem.qty + productOrderQty));
     } else {
-      product.orderQty++;
-      totalPrice = totalPrice + product.price;
+      _items.putIfAbsent(
+          productId,
+          () => Cart(
+              id: DateTime.now().toString(),
+              image: image,
+              title: title,
+              price: price,
+              qty: productOrderQty));
+
+      totalPrice = totalPrice + price;
     }
 
     notifyListeners();
   }
 
-  void addQty(Product product) {
-    product.orderQty++;
+  void addQty(Cart product) {
+    product.qty++;
     totalPrice = totalPrice + product.price;
     notifyListeners();
+    
   }
 
-  void minusQty(Product product) {
-    if (product.orderQty > 1) {
-      product.orderQty--;
+  void minusQty(Cart product) {
+    if (product.qty > 1) {
+      product.qty--;
       totalPrice = totalPrice - product.price;
     }
     notifyListeners();
   }
 
-  void remove(Product product) {
-    _cart.remove(product);
-    double price = product.orderQty * product.price;
-    totalPrice = totalPrice - price;
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.qty;
+    });
+    return total;
+  }
 
-    if (_cart.isEmpty) {
-      totalPrice = 0;
-    }
+  void removeItem(String productID) {
+    _items.remove(productID);
     notifyListeners();
   }
 }

@@ -3,19 +3,13 @@ import 'package:selendra_marketplace_app/screens/detail/components/body.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class DetailScreen extends StatefulWidget {
-  @override
-  _DetailScreenState createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
-
+class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context).settings.arguments as int;
     final loadedProduct =
         Provider.of<ProductsProvider>(context).findById(productId);
+    print('rebuild');
     return Scaffold(
       body: Body(),
       bottomNavigationBar: Container(
@@ -48,34 +42,34 @@ class _DetailScreenState extends State<DetailScreen> {
                         color: Colors.red,
                       ))),
             ),
-            _btnAddToCart(loadedProduct),
+            _btnAddToCart(loadedProduct, context),
           ],
         ),
       ),
     );
   }
 
-  Widget _btnAddToCart(Product product) {
+  Widget _btnAddToCart(Product product, context) {
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
         width: 250,
         height: 50,
-        child: Builder(
-          builder: (context) => RaisedButton(
-            onPressed: () {
-              //addItemtoCart(context);
-              value.addCart(product);
-              Navigator.pop(context);
-            },
-            child: Text(
-              "Add To Cart",
-              style: TextStyle(color: Colors.white),
-            ),
-            color: kDefaultColor,
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(kDefaultRadius))),
+        child: RaisedButton(
+          onPressed: () {
+            //addItemtoCart(context);
+            value.addCart(product.id.toString(), product.image, product.title,
+                product.price, product.orderQty);
+
+            print('added');
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Add To Cart",
+            style: TextStyle(color: Colors.white),
           ),
+          color: kDefaultColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
         ),
       ),
     );
