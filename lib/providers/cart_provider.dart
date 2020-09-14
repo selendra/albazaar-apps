@@ -35,18 +35,32 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addQty(Cart product) {
-    product.qty++;
-    totalPrice = totalPrice + product.price;
+  void addQty(String productId) {
+    _items.update(
+        productId,
+        (existingItem) => Cart(
+            id: DateTime.now().toString(),
+            image: existingItem.image,
+            title: existingItem.title,
+            price: existingItem.price,
+            qty: existingItem.qty + 1));
+    // totalPrice = totalPrice + product.price;
     notifyListeners();
-    
   }
 
-  void minusQty(Cart product) {
-    if (product.qty > 1) {
-      product.qty--;
-      totalPrice = totalPrice - product.price;
-    }
+  void minusQty(String productId) {
+    _items.update(
+        productId,
+        (existingItem) => existingItem.qty > 1
+            ? Cart(
+                id: DateTime.now().toString(),
+                image: existingItem.image,
+                title: existingItem.title,
+                price: existingItem.price,
+                qty: existingItem.qty - 1)
+            : null);
+    //totalPrice = totalPrice - product.price;
+
     notifyListeners();
   }
 

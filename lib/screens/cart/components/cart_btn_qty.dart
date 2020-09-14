@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/models/cart.dart';
 
 class CartBtnQty extends StatelessWidget {
-  final Cart product;
+  final String id;
+  final int qty;
 
-  CartBtnQty(this.product);
+  CartBtnQty(this.id, this.qty);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,13 @@ class CartBtnQty extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             addRemoveInkWell(Icons.remove, () {
-              value.minusQty(product);
+              value.minusQty(id);
             }),
             SizedBox(
               width: 10,
             ),
             Text(
-              product.qty.toString(),
+              qty.toString(),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -30,7 +30,7 @@ class CartBtnQty extends StatelessWidget {
             ),
             addRemoveInkWell(Icons.add, () {
               //addQty();
-              value.addQty(product);
+              value.addQty(id);
             }),
           ],
         ),

@@ -72,13 +72,11 @@ export 'screens/setting/setting_screen.dart';
 export 'screens/signin/signin.dart';
 export 'screens/signin/components/signin_email_form.dart';
 export 'screens/signin/components/signin_phone_form.dart';
-export 'screens/signin/signin_phonenumber.dart';
 
 //sign up screen
 export 'screens/signup/signup.dart';
 export 'screens/signup/components/signup_email_form.dart';
 export 'screens/signup/components/signup_phone_form.dart';
-export 'screens/signup/signup_phonenumber.dart';
 
 //user info
 export 'screens/signup/userinfo/user_info.dart';

@@ -7,8 +7,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class ApiPostServices {
-  String _alertText;
+class ApiPostServices with ChangeNotifier {
+  String _alertText, _token;
   Future<String> getToken() async {
     String _token;
     SharedPreferences isToken = await SharedPreferences.getInstance();
@@ -20,7 +20,6 @@ class ApiPostServices {
   }
 
   Future<String> signInByEmail(String email, String password, context) async {
-    String token;
     var response = await http.post(ApiUrl.LOG_IN_URL,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
@@ -30,9 +29,9 @@ class ApiPostServices {
     if (response.statusCode == 200) {
       SharedPreferences isToken = await SharedPreferences.getInstance();
       var responseJson = json.decode(response.body);
-      token = responseJson['token'];
-      if (token != null) {
-        isToken.setString('token', token);
+      _token = responseJson['token'];
+      if (_token != null) {
+        isToken.setString('token', _token);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
@@ -51,7 +50,6 @@ class ApiPostServices {
 
   Future<String> signInByPhone(String phone, String password, context) async {
     String token;
-
     var response = await http.post(ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{

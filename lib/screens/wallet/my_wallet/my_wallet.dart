@@ -11,77 +11,84 @@ class MyWallet extends StatelessWidget {
   }
 
   Widget _body(context) {
-    return Stack(
-      children: <Widget>[
-        Column(
+    final height = MediaQuery.of(context).size.height;
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return Stack(
           children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height * .25,
-              width: MediaQuery.of(context).size.width,
-              color: kDefaultColor,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 30),
-                  Text(
-                    'TOTAL BALANCE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    mBalance[1].balance,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 45.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
-        Container(
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * .2,
-              right: 10.0,
-              left: 10.0),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
+            Column(
               children: <Widget>[
-                WalletList(),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
-                  margin: EdgeInsets.all(16.0),
+                  height: orientation == Orientation.portrait
+                      ? height / 4
+                      : height / 2,
+                  width: MediaQuery.of(context).size.width,
+                  color: kDefaultColor,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
-                        height: 20,
+                      SizedBox(height: 30),
+                      Text(
+                        'TOTAL BALANCE',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.0,
+                        ),
                       ),
-                      ReuseButton.getItem('Add', () {}, context),
-                      SizedBox(
-                        height: 10,
+                      SizedBox(height: 20),
+                      Text(
+                        mBalance[1].balance,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 45.0,
+                            fontWeight: FontWeight.bold),
                       ),
-                      ReuseButton.getItem('Withdrawal', () {}, context)
                     ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
                   ),
                 ),
               ],
             ),
-          ),
-        )
-      ],
+            Container(
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.only(
+                  top: orientation == Orientation.portrait
+                      ? height / 5
+                      : height / 3,
+                  right: 10.0,
+                  left: 10.0),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    WalletList(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 20,
+                          ),
+                          ReuseButton.getItem('Add', () {}, context),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ReuseButton.getItem('Withdrawal', () {}, context)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

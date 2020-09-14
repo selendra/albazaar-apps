@@ -9,7 +9,6 @@ class DetailScreen extends StatelessWidget {
     final productId = ModalRoute.of(context).settings.arguments as int;
     final loadedProduct =
         Provider.of<ProductsProvider>(context).findById(productId);
-    print('rebuild');
     return Scaffold(
       body: Body(),
       bottomNavigationBar: Container(

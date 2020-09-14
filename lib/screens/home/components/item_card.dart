@@ -27,8 +27,8 @@ class ItemCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
               child: Container(
-                width: 180,
-                height: 150,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.4,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(

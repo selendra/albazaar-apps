@@ -41,16 +41,20 @@ class _BodyState extends State<Body> {
                 margin: const EdgeInsets.only(left: 20),
                 child: Row(
                   children: [
-                    ReuseSearchField(
-                      fieldKey: _searchKey,
-                      labelText: 'Search',
-                      iconData: Icons.language,
-                      onFieldSubmitted: (value) {
-                        _query = value;
-                        print(_query);
-                      },
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: ReuseSearchField(
+                        fieldKey: _searchKey,
+                        labelText: 'Search',
+                        iconData: Icons.language,
+                        onFieldSubmitted: (value) {
+                          _query = value;
+                          print(_query);
+                        },
+                      ),
                     ),
-                    DropDownButtons(),
+                    Container(
+                        child: DropDownButtons()),
                   ],
                 )),
             CategoriesScreen(category),

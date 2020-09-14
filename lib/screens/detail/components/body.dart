@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
             iconTheme: IconThemeData(
               color: kDefaultColor,
             ),
-            expandedHeight: MediaQuery.of(context).size.height * 0.4,
+            expandedHeight: MediaQuery.of(context).size.height * 0.5,
             floating: true,
             pinned: true,
             primary: true,
@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                 child: SizedBox(
                   child: Image.asset(
                     loadedData.image,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
               ),

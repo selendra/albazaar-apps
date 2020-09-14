@@ -8,10 +8,9 @@ class SignInEmailForm extends StatelessWidget {
   final Function faceBookSignIn;
   final Function googleSignIn;
 
-  SignInEmailForm(this.signInEmailFunc,this.faceBookSignIn,this.googleSignIn);
+  SignInEmailForm(this.signInEmailFunc, this.faceBookSignIn, this.googleSignIn);
 
   final _emailFormKey = GlobalKey<FormState>();
- 
 
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {

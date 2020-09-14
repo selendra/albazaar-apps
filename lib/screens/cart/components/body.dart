@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
+import 'cart_items.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -24,51 +25,12 @@ class _BodyState extends State<Body> {
                         child: ListView.builder(
                             itemCount: _items.length,
                             itemBuilder: (context, index) {
-                              return Dismissible(
-                                key: UniqueKey(),
-                                direction: DismissDirection.endToStart,
-                                onDismissed: (direction) {
-                                  _cartData
-                                      .removeItem(_items.keys.toList()[index]);
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text("Product Removed"),
-                                    duration: Duration(milliseconds: 300),
-                                  ));
-                                },
-                                background: DimissibleBackground(),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.circular(kDefaultRadius),
-                                  ),
-                                  child: ListTile(
-                                    shape: kDefaultShape,
-                                    leading: CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                          _items.values.toList()[index].image),
-                                    ),
-                                    title: Text(
-                                        _items.values.toList()[index].title),
-                                    subtitle: Text(
-                                      '\$ ' +
-                                          _items.values
-                                              .toList()[index]
-                                              .price
-                                              .toString(),
-                                      style: TextStyle(
-                                          color: kDefaultColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: ChangeNotifierProvider.value(
-                                        value: _items.values.toList()[index],
-                                        child: CartBtnQty(_items.values
-                                            .toList()[index]) //(_items[index]),
-                                        ),
-                                  ),
-                                ),
+                              return CartItems(
+                                _items.values.toList()[index].image,
+                                _items.values.toList()[index].title,
+                                _items.values.toList()[index].price,
+                                _items.values.toList()[index].qty,
+                                _items.keys.toList()[index],
                               );
                             }),
                       ),

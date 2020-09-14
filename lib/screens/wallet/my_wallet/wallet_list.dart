@@ -13,6 +13,7 @@ class WalletList extends StatelessWidget {
       child: ListView.builder(
           itemCount: wallets.length,
           shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Card(
               elevation: 2,
