@@ -29,6 +29,7 @@ export 'screens/category/food/foods_screen.dart';
 //detail screen
 export 'screens/detail/detail_screen.dart';
 export 'screens/detail/components/btn_qty.dart';
+export 'screens/detail/components/btn_add_to_cart.dart';
 
 //favorite screen
 export 'screens/favorite/favorite_screen.dart';
@@ -37,6 +38,8 @@ export 'screens/favorite/favorite_screen.dart';
 export 'screens/home/home_screen.dart';
 export 'screens/home/components/drop_down_button.dart';
 export 'screens/home/components/product_list.dart';
+export 'screens/home/components/search_bar.dart';
+export 'screens/signin/components/sign_in_dialog.dart';
 
 //map screen
 export 'screens/map/map.dart';

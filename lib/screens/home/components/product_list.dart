@@ -14,6 +14,9 @@ class ProductList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GridView.builder(
             itemCount: _products.length,
+            /*productsData.isQueryEmpty
+                ? _products.length
+                : productsData.searchProduct.length,*/
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -21,10 +24,11 @@ class ProductList extends StatelessWidget {
               childAspectRatio: 0.75,
             ),
             itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                value: _products[index],
-                child: ItemCard(
-                    //product: _products[index],
-                    )),
+              value: _products[index],
+              child: ItemCard(
+                  //product: _products[index],
+                  ),
+            ),
           ),
         ));
   }

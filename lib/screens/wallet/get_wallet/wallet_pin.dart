@@ -85,15 +85,13 @@ class _PinScreenState extends State<PinScreen> {
     });
     SharedPreferences isPref = await SharedPreferences.getInstance();
     String firstPin = isPref.getString('pin');
-    String _token;
-    _token = isPref.get('token');
     if (firstPin == _pin) {
       setState(() {
         isNotCorrect = false;
       });
       print('correct');
       print(_pin);
-      await ApiPostServices().getWallet(_pin, _token).then((value) {
+      await ApiPostServices().getWallet(_pin).then((value) {
         setState(() {
           _isLoading = false;
         });

@@ -9,8 +9,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   ScrollController _controller;
-  String dropDownValue = 'EN', _query;
-  final _searchKey = GlobalKey<FormFieldState<String>>();
 
   void filterSearchResults(String query) {} //Now u
 
@@ -37,26 +35,7 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 20,
             ),
-            Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: ReuseSearchField(
-                        fieldKey: _searchKey,
-                        labelText: 'Search',
-                        iconData: Icons.language,
-                        onFieldSubmitted: (value) {
-                          _query = value;
-                          print(_query);
-                        },
-                      ),
-                    ),
-                    Container(
-                        child: DropDownButtons()),
-                  ],
-                )),
+            SearchBar(),
             CategoriesScreen(category),
             ProductList(),
           ],

@@ -69,12 +69,15 @@ class Body extends StatelessWidget {
                   children: <Widget>[
                     //_btnQtyRow(),
                     Consumer<ProductsProvider>(
-                      builder: (context, value, child) =>
-                          BtnQty('${loadedData.orderQty}', () {
-                        value.addOrderQty(loadedData);
-                      }, () {
-                        value.minusOrderQty(loadedData);
-                      }),
+                      builder: (context, value, child) => BtnQty(
+                        '${loadedData.orderQty}',
+                        () {
+                          value.addOrderQty(loadedData);
+                        },
+                        () {
+                          value.minusOrderQty(loadedData);
+                        },
+                      ),
                     ),
                     Text(
                       '\$' + loadedData.price.toString(),
@@ -101,17 +104,6 @@ class Body extends StatelessWidget {
                 ChangeNotifierProvider.value(
                   value: loadedData,
                   child: SellerInfo(),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  'Related Product',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 23,
-                    fontWeight: FontWeight.w900,
-                  ),
                 ),
                 SizedBox(
                   height: 10.0,

@@ -7,20 +7,35 @@ class RelatedProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     final productsData = Provider.of<ProductsProvider>(context);
     final _products = productsData.items;
-    return Container(
-      height: 140,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: _products.length,
-        itemBuilder: (context, index) {
-          return ChangeNotifierProvider.value(
-            value: _products[index],
-            child: ReuseItemCard(),
-          );
-        },
-      ),
+    return Column(
+      children: [
+        Text(
+          'Related Product',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 23,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Container(
+          height: 140,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: _products.length,
+            itemBuilder: (context, index) {
+              return ChangeNotifierProvider.value(
+                value: _products[index],
+                child: ReuseItemCard(),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

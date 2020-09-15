@@ -7,16 +7,19 @@ import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class ApiPostServices with ChangeNotifier {
+class ApiPostServices {
   String _alertText, _token;
-  Future<String> getToken() async {
-    String _token;
-    SharedPreferences isToken = await SharedPreferences.getInstance();
 
+  Future<String> getToken() async {
+    SharedPreferences isToken = await SharedPreferences.getInstance();
     _token = isToken.getString('token');
     print(_token);
-
     return _token;
+  }
+
+  Future<void> setToken(String _token) async {
+    SharedPreferences isToken = await SharedPreferences.getInstance();
+    isToken.setString('token', _token);
   }
 
   Future<String> signInByEmail(String email, String password, context) async {
@@ -27,18 +30,20 @@ class ApiPostServices with ChangeNotifier {
           'password': password,
         }));
     if (response.statusCode == 200) {
-      SharedPreferences isToken = await SharedPreferences.getInstance();
       var responseJson = json.decode(response.body);
       _token = responseJson['token'];
       if (_token != null) {
-        isToken.setString('token', _token);
+        setToken(_token);
+        await ApiGetServices().fetchUserPf(_token);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => RootServices()));
       } else {
         try {
-          _alertText = responseJson['error']['message'];
-        } catch (e) {
           _alertText = responseJson['message'];
+          print(_alertText);
+        } catch (e) {
+          _alertText = responseJson['error']['message'];
+          // print(_alertText);
         }
       }
       // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
@@ -57,14 +62,12 @@ class ApiPostServices with ChangeNotifier {
           'password': password,
         }));
     if (response.statusCode == 200) {
-      SharedPreferences isToken = await SharedPreferences.getInstance();
-
       var responseJson = json.decode(response.body);
 
       token = responseJson['token'];
       if (token != null) {
         print(token);
-        isToken.setString('token', token);
+        setToken(_token);
       } else {
         try {
           _alertText = responseJson['error']['message'];
@@ -172,7 +175,11 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
-  Future<String> getWallet(String pin, String _token) async {
+  Future<String> getWallet(String pin) async {
+    getToken().then((value) {
+      _token = value;
+    });
+
     var response = await http.post(ApiUrl.GET_WALLET,
         headers: <String, String>{
           "accept": "application/json",

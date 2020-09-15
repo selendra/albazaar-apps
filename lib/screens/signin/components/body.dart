@@ -83,8 +83,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           _isLoading = false;
         });
-        alertText = value;
-        _alertDialog(context);
+
+        SignInDialog().errorDialog(context, value);
+        // alertText = value;
+        //_alertDialog(context);
         // showAlertDialog(context);
       }
     });
@@ -112,8 +114,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           _isLoading = false;
         });
-        alertText = value;
-        _alertDialog(context);
+        SignInDialog().errorDialog(context, value);
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => RootServices()));
@@ -153,25 +154,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         return alert;
       },
     );
-  }
-
-  _alertDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return ReuseAlertDialog.getItem(
-              'Message',
-              alertText,
-              'Cancel',
-              () {
-                Navigator.pop(context);
-              },
-              'OK',
-              () {
-                Navigator.pop(context);
-                print('Ok');
-              });
-        });
   }
 
   _resetDialog(BuildContext context) async {

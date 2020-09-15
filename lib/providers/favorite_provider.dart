@@ -11,7 +11,6 @@ class FavoriteProvider with ChangeNotifier {
       _fav.add(product);
       product.isFavorite = true;
       notifyListeners();
-      print(_fav[0]);
     }
   }
 
