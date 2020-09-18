@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/enums/connectivity_status.dart';
-import 'package:selendra_marketplace_app/services/connectivity_services.dart';
-import 'screens/splashscreen/splashscreen.dart';
-import 'package:selendra_marketplace_app/services/auth/root_service.dart';
-import 'providers/products_provider.dart';
-import 'screens/detail/detail_screen.dart';
-import 'package:selendra_marketplace_app/providers/cart_provider.dart';
-import 'package:selendra_marketplace_app/providers/favorite_provider.dart';
+import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
+import 'package:selendra_marketplace_app/core/services/connectivity_services.dart';
+import 'all_export.dart';
+import 'core/providers/products_provider.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();

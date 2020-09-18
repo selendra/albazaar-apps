@@ -4,142 +4,143 @@
 export 'main.dart';
 
 //bottom navigation
-export 'bottom_navigation/bottom_navigation.dart';
+export 'ui/reuse_widget/bottom_navigation.dart';
 
 //add listing screen
-export 'screens/addlisting/add_listing.dart';
+export 'ui/screens/addlisting/add_listing.dart';
 
 //listing screen
-export 'screens/listing/listing_screen.dart';
+export 'ui/screens/listing/listing_screen.dart';
 
 //cart screen
-export 'screens/cart/cart.dart';
-export 'screens/cart/components/cart_btn_qty.dart';
-export 'screens/cart/components/checkout_card.dart';
-export 'screens/cart/components/dismissable_background.dart';
+export 'ui/screens/cart/cart.dart';
+export 'ui/screens/cart/components/cart_btn_qty.dart';
+export 'ui/screens/cart/components/checkout_card.dart';
+export 'ui/screens/cart/components/dismissable_background.dart';
 
 //otp screen
 
 //categories screen
-export 'screens/category/categories.dart';
-export 'screens/category/categories_list.dart';
-export 'screens/category/food/food_categories.dart';
-export 'screens/category/food/foods_screen.dart';
+export 'ui/screens/category/categories.dart';
+export 'ui/screens/category/categories_list.dart';
+export 'ui/screens/category/food/food_categories.dart';
+export 'ui/screens/category/food/foods_screen.dart';
 
 //detail screen
-export 'screens/detail/detail_screen.dart';
-export 'screens/detail/components/btn_qty.dart';
-export 'screens/detail/components/btn_add_to_cart.dart';
+export 'ui/screens/detail/detail_screen.dart';
+export 'ui/screens/detail/components/btn_qty.dart';
+export 'ui/screens/detail/components/btn_add_to_cart.dart';
 
 //favorite screen
-export 'screens/favorite/favorite_screen.dart';
+export 'ui/screens/favorite/favorite_screen.dart';
 
 //home screen
-export 'screens/home/home_screen.dart';
-export 'screens/home/components/drop_down_button.dart';
-export 'screens/home/components/product_list.dart';
-export 'screens/home/components/search_bar.dart';
-export 'screens/signin/components/sign_in_dialog.dart';
+export 'ui/screens/home/home_screen.dart';
+export 'ui/screens/home/components/drop_down_button.dart';
+export 'ui/screens/home/components/product_list.dart';
+export 'ui/screens/home/components/search_bar.dart';
+export 'ui/screens/signin/components/sign_in_dialog.dart';
 
 //map screen
-export 'screens/map/map.dart';
-export 'screens/map/components/type_head.dart';
-export 'screens/map/components/expandable_content.dart';
-export 'screens/map/components/zoom_buttons.dart';
-export 'screens/map/components/persistent_header.dart';
+export 'ui/screens/map/map.dart';
+export 'ui/screens/map/components/type_head.dart';
+export 'ui/screens/map/components/expandable_content.dart';
+export 'ui/screens/map/components/zoom_buttons.dart';
+export 'ui/screens/map/components/persistent_header.dart';
 
 //otp screen
-export 'screens/otp/otp.dart';
-export 'screens/otp/components/pin_screen.dart';
+export 'ui/screens/otp/otp.dart';
+export 'ui/screens/otp/components/pin_screen.dart';
 
 //profile screen
-export 'screens/profile/profile_screen.dart';
-export 'screens/profile/components/profile_dialog.dart';
-export 'screens/profile/components/profile_form.dart';
-export 'screens/profile/components/gender_dropdown.dart';
+export 'ui/screens/profile/profile_screen.dart';
+export 'ui/screens/profile/components/profile_dialog.dart';
+export 'ui/screens/profile/components/profile_form.dart';
+export 'ui/screens/profile/components/gender_dropdown.dart';
 
 //purchase screen
-export 'screens/purchase/purchase_screen.dart';
+export 'ui/screens/purchase/purchase_screen.dart';
 
 //reset screen
-export 'screens/resetpass/reset_by_email.dart';
-export 'screens/resetpass/reset_pass_phone.dart';
+export 'ui/screens/resetpass/reset_by_email.dart';
+export 'ui/screens/resetpass/reset_pass_phone.dart';
 
 //sale screen
-export 'screens/sales/sale_screen.dart';
+export 'ui/screens/sales/sale_screen.dart';
 
 //setting screen
-export 'screens/setting/setting_screen.dart';
+export 'ui/screens/setting/setting_screen.dart';
 
 //sign in screen
-export 'screens/signin/signin.dart';
-export 'screens/signin/components/signin_email_form.dart';
-export 'screens/signin/components/signin_phone_form.dart';
+export 'ui/screens/signin/signin.dart';
+export 'ui/screens/signin/components/signin_email_form.dart';
+export 'ui/screens/signin/components/signin_phone_form.dart';
 
 //sign up screen
-export 'screens/signup/signup.dart';
-export 'screens/signup/components/signup_email_form.dart';
-export 'screens/signup/components/signup_phone_form.dart';
+export 'ui/screens/signup/signup.dart';
+export 'ui/screens/signup/components/signup_email_form.dart';
+export 'ui/screens/signup/components/signup_phone_form.dart';
 
 //user info
-export 'screens/signup/userinfo/user_info.dart';
+export 'ui/screens/signup/userinfo/user_info.dart';
 
 //splash screen
-export 'screens/splashscreen/splashscreen.dart';
+export 'ui/screens/splashscreen/splashscreen.dart';
 
 //wallet screen
-export 'screens/wallet/wallet_screen.dart';
-export 'screens/wallet/my_wallet/my_wallet.dart';
+export 'ui/screens/wallet/wallet_screen.dart';
+export 'ui/screens/wallet/my_wallet/my_wallet.dart';
+export 'ui/screens/wallet/get_wallet/info_row.dart';
 
 //welcome screen
-export 'screens/welcome/welcome_screen.dart';
+export 'ui/screens/welcome/welcome_screen.dart';
 
 //reuse widget
-export 'reuse_widget/reuse_btn_social.dart';
-export 'reuse_widget/reuse_appbar.dart';
-export 'reuse_widget/reuse_auth_tab.dart';
-export 'reuse_widget/reuse_button.dart';
-export 'reuse_widget/reuse_flat_button.dart';
-export 'reuse_widget/reuse_itemcard.dart';
-export 'reuse_widget/reuse_pw_field.dart';
-export 'reuse_widget/reuse_tabbar.dart';
-export 'reuse_widget/reuse_text_field.dart';
-export 'reuse_widget/reuse.inkwell.dart';
-export 'reuse_widget/reuse_simple_appbar.dart';
-export 'reuse_widget/reuse_keyboard_num.dart';
-export 'reuse_widget/reuse_pin_num.dart';
-export 'reuse_widget/reuse_pin_animate.dart';
-export 'reuse_widget/reuse_alert_dialog.dart';
-export 'reuse_widget/reuse_choice_dialog.dart';
-export 'reuse_widget/reuse_num_pad.dart';
-export 'reuse_widget/reuse_dropdown.dart';
-export 'reuse_widget/reuse_btn_qty.dart';
-export 'reuse_widget/reuse_search_field.dart';
+export 'ui/reuse_widget/reuse_btn_social.dart';
+export 'ui/reuse_widget/reuse_appbar.dart';
+export 'ui/reuse_widget/reuse_auth_tab.dart';
+export 'ui/reuse_widget/reuse_button.dart';
+export 'ui/reuse_widget/reuse_flat_button.dart';
+export 'ui/reuse_widget/reuse_itemcard.dart';
+export 'ui/reuse_widget/reuse_pw_field.dart';
+export 'ui/reuse_widget/reuse_tabbar.dart';
+export 'ui/reuse_widget/reuse_text_field.dart';
+export 'ui/reuse_widget/reuse.inkwell.dart';
+export 'ui/reuse_widget/reuse_simple_appbar.dart';
+export 'ui/reuse_widget/reuse_keyboard_num.dart';
+export 'ui/reuse_widget/reuse_pin_num.dart';
+export 'ui/reuse_widget/reuse_pin_animate.dart';
+export 'ui/reuse_widget/reuse_alert_dialog.dart';
+export 'ui/reuse_widget/reuse_choice_dialog.dart';
+export 'ui/reuse_widget/reuse_num_pad.dart';
+export 'ui/reuse_widget/reuse_dropdown.dart';
+export 'ui/reuse_widget/reuse_btn_qty.dart';
+export 'ui/reuse_widget/reuse_search_field.dart';
 
 //enums
-export 'enums/connectivity_status.dart';
+export 'core/enums/connectivity_status.dart';
 
 //constant
-export 'constants.dart';
+export 'core/constants/constants.dart';
 
 //provider
-export 'providers/cart_provider.dart';
-export 'providers/favorite_provider.dart';
-export 'providers/products_provider.dart';
+export 'core/providers/cart_provider.dart';
+export 'core/providers/favorite_provider.dart';
+export 'core/providers/products_provider.dart';
 
 //models
-export 'models/api_url.dart';
-export 'models/categories.dart';
-export 'models/products.dart';
-export 'models/user.dart';
-export 'models/wallet.dart';
-export 'models/acc_balance.dart';
-export 'models/wallet_response.dart';
+export 'core/models/api_url.dart';
+export 'core/models/categories.dart';
+export 'core/models/products.dart';
+export 'core/models/user.dart';
+export 'core/models/wallet.dart';
+export 'core/models/acc_balance.dart';
+export 'core/models/wallet_response.dart';
 
 //services
-export 'services/auth/api_post_services.dart';
-export 'services/auth/api_get_services.dart';
-export 'services/auth/auth_services.dart';
-export 'services/auth/root_service.dart';
-export 'services/connectivity_services.dart';
-export 'reuse_widget/network_alert.dart';
+export 'core/services/auth/api_post_services.dart';
+export 'core/services/auth/api_get_services.dart';
+export 'core/services/auth/auth_services.dart';
+export 'core/services/auth/root_service.dart';
+export 'core/services/connectivity_services.dart';
+export 'ui/reuse_widget/network_alert.dart';
