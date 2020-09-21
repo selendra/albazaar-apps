@@ -9,12 +9,15 @@ class RelatedProduct extends StatelessWidget {
     final _products = productsData.items;
     return Column(
       children: [
-        Text(
-          'Related Product',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 23,
-            fontWeight: FontWeight.w900,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Related Product',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 23,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
         SizedBox(

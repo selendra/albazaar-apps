@@ -1,30 +1,38 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:selendra_marketplace_app/core/models/api_url.dart';
 import 'dart:convert';
-import 'package:selendra_marketplace_app/core/models/user.dart';
-import 'package:selendra_marketplace_app/core/models/acc_balance.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
-class ApiGetServices {
+class ApiGetServices with ChangeNotifier {
+  var _mUser = new User();
+  User get mUser => _mUser;
   String alertText;
 
-  Future<User> fetchUserPf(String _token) async {
+  Future<void> fetchUserPf(String _token) async {
     var response =
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
       "authorization": "Bearer " + _token,
     });
     var responseBody = json.decode(response.body);
-    mUser = User.fromJson(responseBody);
-    if (mUser.firstName == null &&
-        mUser.midName == null &&
-        mUser.lastName == null) {
-      mUser.firstName = '';
-      mUser.midName = '';
-      mUser.lastName = '';
+    _mUser = User.fromJson(responseBody);
+    if (_mUser.firstName == null &&
+        _mUser.midName == null &&
+        _mUser.lastName == null) {
+      _mUser.firstName = '';
+      _mUser.midName = '';
+      _mUser.lastName = '';
     }
 
-    return mUser;
+    print(_mUser.email);
+    notifyListeners();
+  }
+
+  void setGender(String value) {
+    mUser.gender = value;
+    print(mUser.gender);
+    notifyListeners();
   }
 
   Future<String> fetchPortforlio(String _token) async {

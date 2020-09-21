@@ -15,7 +15,7 @@ class User {
   String gender;
   dynamic profileImg;
   DateTime createdAt;
-  
+
   User({
     this.description,
     this.address,
@@ -55,4 +55,3 @@ class User {
   }
 }
 
-var mUser = User();

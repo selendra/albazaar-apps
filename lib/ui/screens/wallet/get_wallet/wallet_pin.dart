@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'info_row.dart';
+import 'package:provider/provider.dart';
 
 class WalletPin extends StatefulWidget {
   @override
@@ -85,33 +86,35 @@ class _PinScreenState extends State<PinScreen> {
     });
     SharedPreferences isPref = await SharedPreferences.getInstance();
     String firstPin = isPref.getString('pin');
+    print('first pin:' + firstPin);
     if (firstPin == _pin) {
       setState(() {
         isNotCorrect = false;
       });
       print('correct');
       print(_pin);
+
       await ApiPostServices().getWallet(_pin).then((value) {
         setState(() {
           _isLoading = false;
         });
         print(value);
-        alertText = value;
-        if (alertText == 'Opp! You need to verify your phone number first') {
+
+        //print(alertText);
+        if (value == 'Opp! You need to verify your phone number first') {
+          print('equal');
+          alertText = value;
           showAlertDialog(context);
-          //_displayWalletInfo(context, _pin);
         } else {
           Navigator.pop(context);
           clearPref();
           _displayWalletInfo(context);
-          // Navigator.pop(context);
-          // Navigator.push(context,
-          // MaterialPageRoute(builder: (context) => WalletInfoScreen()));
         }
       });
     } else {
       setState(() {
         isNotCorrect = true;
+        _isLoading = false;
       });
     }
   }
@@ -210,11 +213,12 @@ class _PinScreenState extends State<PinScreen> {
     if (_seen != true) {
       setState(() {
         _seen = true;
+        isSeen.setBool('first', true);
+        isPin.setString('pin', pin);
       });
-      isSeen.setBool('first', true);
-      isPin.setString('pin', pin);
       print(pin);
     } else {
+      print('correct');
       // Navigator.push(context, MaterialPageRoute(builder: (context) => GetWalletScreen(),));
       onGetWallet(pin);
     }

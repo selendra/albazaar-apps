@@ -30,6 +30,12 @@ class SelendraApp extends StatelessWidget {
         ChangeNotifierProvider<FavoriteProvider>(
           create: (context) => FavoriteProvider(),
         ),
+        ChangeNotifierProvider<ApiGetServices>(
+          create: (context) => ApiGetServices(),
+        ),
+        ChangeNotifierProvider<ApiPostServices>(
+          create: (context) => ApiPostServices(),
+        ),
       ],
       child: MaterialApp(
         initialRoute: '/',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:provider/provider.dart';
 
 class RootServices extends StatefulWidget {
   @override
@@ -19,9 +20,8 @@ class _RootServicesState extends State<RootServices> {
     SharedPreferences isToken = await SharedPreferences.getInstance();
     String _token = isToken.getString('token');
     if (_token != null) {
-      await ApiGetServices().fetchUserPf(_token).then((value) {
-        mUser = value;
-      });
+      Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
+
       await ApiGetServices().fetchPortforlio(_token);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => BottomNavigation()));
@@ -52,7 +52,7 @@ class _RootServicesState extends State<RootServices> {
         } else {
           FirebaseUser user = snapshot.data;
           if (user != null) {
-            getUserInfo(user);
+            
             return BottomNavigation();
           } else {
             checkUser();

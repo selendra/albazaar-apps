@@ -11,7 +11,7 @@ class GenderDropdown extends StatefulWidget {
 }
 
 class _GenderDropdownState extends State<GenderDropdown> {
-  String initialValue = mUser.gender;
+ // String initialValue = _mUser.gender;
   List<String> itemsList = ['M', 'F'];
 
   @override

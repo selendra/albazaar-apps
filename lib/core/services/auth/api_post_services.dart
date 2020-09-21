@@ -6,9 +6,11 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:provider/provider.dart';
 
-class ApiPostServices {
+class ApiPostServices with ChangeNotifier {
   String _alertText, _token;
+  PrefService _pref = PrefService();
 
   Future<String> getToken() async {
     SharedPreferences isToken = await SharedPreferences.getInstance();
@@ -17,10 +19,10 @@ class ApiPostServices {
     return _token;
   }
 
-  Future<void> setToken(String _token) async {
+  /*Future<void> setToken(String _token) async {
     SharedPreferences isToken = await SharedPreferences.getInstance();
     isToken.setString('token', _token);
-  }
+  }*/
 
   Future<String> signInByEmail(String email, String password, context) async {
     var response = await http.post(ApiUrl.LOG_IN_URL,
@@ -33,10 +35,11 @@ class ApiPostServices {
       var responseJson = json.decode(response.body);
       _token = responseJson['token'];
       if (_token != null) {
-        setToken(_token);
-        await ApiGetServices().fetchUserPf(_token);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => RootServices()));
+        _pref.saveString('token', _token);
+        Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
+        //await ApiGetServices().fetchUserPf(_token);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
         try {
           _alertText = responseJson['message'];
@@ -67,7 +70,7 @@ class ApiPostServices {
       token = responseJson['token'];
       if (token != null) {
         print(token);
-        setToken(_token);
+        _pref.saveString('token', token);
       } else {
         try {
           _alertText = responseJson['error']['message'];
@@ -148,25 +151,31 @@ class ApiPostServices {
     return _alertText;
   }
 
-  Future<String> setUserPf(
-      String firstName, String midName, String lastName, String gender) async {
-    await getToken().then((value) async {
-      var response = await http.post(ApiUrl.SET_USER_PROFILE,
-          headers: <String, String>{
-            "accept": "application/json",
-            "authorization": "Bearer " + value,
-            "Content-Type": "application/json"
-          },
-          body: jsonEncode(<String, String>{
+  Future<String> setUserPf(String firstName, String midName, String lastName,
+      String gender, context) async {
+    await _pref.read('token').then((value) async {
+      print(value);
+      var response = await http.post(
+        ApiUrl.SET_USER_PROFILE,
+        headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + value,
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(
+          <String, String>{
             "first_name": firstName,
             "mid_name": midName,
             "last_name": lastName,
             "gender": gender,
-          }));
+          },
+        ),
+      );
 
       var responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
         _alertText = responseBody['message'];
+        Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(value);
       } else {
         _alertText = responseBody['error']['message'];
       }
@@ -176,38 +185,35 @@ class ApiPostServices {
   }
 
   Future<String> getWallet(String pin) async {
-    getToken().then((value) {
-      _token = value;
-    });
+    await _pref.read('token').then((value) async {
+      var response = await http.post(ApiUrl.GET_WALLET,
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + value,
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(<String, String>{"pin": pin}));
+      var responseBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+        // SharedPreferences isSeed = await SharedPreferences.getInstance();
+        String _seed;
 
-    var response = await http.post(ApiUrl.GET_WALLET,
-        headers: <String, String>{
-          "accept": "application/json",
-          "authorization": "Bearer " + _token,
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{"pin": pin}));
-    var responseBody = json.decode(response.body);
-    if (response.statusCode == 200) {
-      print(responseBody);
-      SharedPreferences isSeed = await SharedPreferences.getInstance();
-      String _seed;
-
-      try {
-        _alertText = responseBody['message'];
-      } catch (e) {
-        var wallet = WalletResponse.fromJson(responseBody);
-        print(wallet);
-        print(wallet.message.seed);
-        _seed = responseBody['message']['seed'];
-        print(_seed);
-        isSeed.setString('seed', _seed);
+        try {
+          _alertText = responseBody['message'];
+        } catch (e) {
+          var wallet = WalletResponse.fromJson(responseBody);
+          print(wallet);
+          print(wallet.message.seed);
+          _seed = responseBody['message']['seed'];
+          print(_seed);
+          _pref.saveString('seed', _seed);
+          // isSeed.setString('seed', _seed);
+        }
+      } else {
+        print(responseBody);
+        _alertText = responseBody['error']['message'];
       }
-    } else {
-      print(responseBody);
-      _alertText = responseBody['error']['message'];
-    }
-    print(_alertText);
+    });
     return _alertText;
   }
 
@@ -277,10 +283,13 @@ class ApiPostServices {
 
   Future<String> upLoadImage(File _image) async {
     /* Upload image to server by use multi part form*/
-    SharedPreferences isToken = await SharedPreferences.getInstance();
+    //SharedPreferences isToken = await SharedPreferences.getInstance();
     String token, imageUrl;
 
-    token = isToken.getString('token');
+    // token = isToken.getString('token');
+    await _pref.read('token').then((value) {
+      token = value;
+    });
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,

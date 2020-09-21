@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'sell_info.dart';
 import 'related_product.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -29,11 +30,24 @@ class Body extends StatelessWidget {
               background: Hero(
                 tag: "${loadedData.id}",
                 child: SizedBox(
-                  child: Image.asset(
+                    child: CarouselSlider(
+                  options: CarouselOptions(height: 400.0),
+                  items: [1, 2, 3, 4].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.asset(loadedData.image,
+                              width: double.infinity, fit: BoxFit.cover),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ) /*Image.asset(
                     loadedData.image,
                     fit: BoxFit.fitHeight,
-                  ),
-                ),
+                  ),*/
+                    ),
               ),
             ),
           ),

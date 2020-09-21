@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/ui/screens/welcome/welcome_screen.dart';
-import 'package:selendra_marketplace_app/core/models/user.dart';
+
 import 'package:selendra_marketplace_app/core/models/acc_balance.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -13,13 +13,13 @@ final FacebookLogin facebookLogin = FacebookLogin();
 
 String alertText;
 
-void getUserInfo(FirebaseUser user) {
-  mUser.email = user.email;
-  mUser.firstName = user.displayName;
-  mUser.lastName = '';
-  mUser.midName = '';
-  mUser.profileImg = user.photoUrl;
-}
+/*void getUserInfo(FirebaseUser user) {
+  _mUser.email = user.email;
+  _mUser.firstName = user.displayName;
+  _mUser.lastName = '';
+  _mUser.midName = '';
+  _mUser.profileImg = user.photoUrl;
+}*/
 
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -40,7 +40,7 @@ Future<String> signInWithGoogle() async {
   assert(user.displayName != null);
   assert(user.photoUrl != null);
 
-  getUserInfo(user);
+  //getUserInfo(user);
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
@@ -71,7 +71,7 @@ Future<FirebaseUser> signInFacebook(BuildContext context) async {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
-      getUserInfo(user);
+     // getUserInfo(user);
 
       currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);

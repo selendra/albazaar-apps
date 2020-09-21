@@ -39,7 +39,7 @@ export 'ui/screens/home/home_screen.dart';
 export 'ui/screens/home/components/drop_down_button.dart';
 export 'ui/screens/home/components/product_list.dart';
 export 'ui/screens/home/components/search_bar.dart';
-export 'ui/screens/signin/components/sign_in_dialog.dart';
+export 'ui/screens/home/components/home_drawer.dart';
 
 //map screen
 export 'ui/screens/map/map.dart';
@@ -75,6 +75,7 @@ export 'ui/screens/setting/setting_screen.dart';
 export 'ui/screens/signin/signin.dart';
 export 'ui/screens/signin/components/signin_email_form.dart';
 export 'ui/screens/signin/components/signin_phone_form.dart';
+export 'ui/screens/signin/components/sign_in_dialog.dart';
 
 //sign up screen
 export 'ui/screens/signup/signup.dart';
@@ -143,4 +144,5 @@ export 'core/services/auth/api_get_services.dart';
 export 'core/services/auth/auth_services.dart';
 export 'core/services/auth/root_service.dart';
 export 'core/services/connectivity_services.dart';
+export 'core/services/pref_service.dart';
 export 'ui/reuse_widget/network_alert.dart';

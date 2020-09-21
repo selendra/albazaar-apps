@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -92,7 +91,7 @@ class _BodyState extends State<Body> {
 
   onSetUserPf() async {
     await ApiPostServices()
-        .setUserPf(firstName, midName, lastName, gender)
+        .setUserPf(firstName, midName, lastName, gender,context)
         .then((value) {
       alertText = value;
       showAlertDialog(context);

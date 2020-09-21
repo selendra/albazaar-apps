@@ -20,8 +20,8 @@ class ProfileDialog {
               ),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/root', (Route<dynamic> route) => false);
+                // Navigator.of(context).pushNamedAndRemoveUntil(
+                // '/root', (Route<dynamic> route) => false);
               },
             ),
           ],

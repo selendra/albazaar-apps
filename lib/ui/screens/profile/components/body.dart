@@ -1,51 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
-
-
 class _BodyState extends State<Body> {
-  String mValue = mUser.gender;
   bool _isLoading = false;
-
-  void setmValue(String value) {
-    mValue = value;
-    setState(() {
-      mValue = value;
-      print(mValue);
-    });
-  }
-
-  Future<void> validateAndSubmit() async {}
-
-  void onSave(
-      String firstName, String midName, String lastName, String gender) async {
-    setState(() {
-      _isLoading = true;
-    });
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-
-    String token = isToken.getString('token');
-    if (token != null) {
-      await ApiPostServices()
-          .setUserPf(firstName, midName, lastName, gender)
-          .then((value) {
-        setState(() {
-          _isLoading = false;
-        });
-        ProfileDialog().successDialog(context, value);
-      });
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -73,16 +37,18 @@ class _BodyState extends State<Body> {
                             ReuseChoiceDialog().choiceDialog(context);
                           },
                           title: Text('Profile photo'),
-                          trailing: CircleAvatar(
-                            backgroundImage: mUser.profileImg != null
-                                ? NetworkImage(mUser.profileImg)
-                                : AssetImage('images/avatar.png'),
+                          trailing: Consumer<ApiGetServices>(
+                            builder: (context, value, child) => CircleAvatar(
+                              backgroundImage: value.mUser.profileImg != null
+                                  ? NetworkImage(value.mUser.profileImg)
+                                  : AssetImage('images/avatar.png'),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  ProfileForm(setmValue, mValue, onSave),
+                  ProfileForm(),
                 ],
               ),
             ),
