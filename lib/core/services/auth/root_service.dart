@@ -10,25 +10,29 @@ class RootServices extends StatefulWidget {
 }
 
 class _RootServicesState extends State<RootServices> {
+  PrefService _pref = PrefService();
+
   void clearPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove('first');
     pref.remove('pin');
   }
 
-  void checkUser() async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    String _token = isToken.getString('token');
-    if (_token != null) {
-      Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
-
-      await ApiGetServices().fetchPortforlio(_token);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavigation()));
-    } else {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-    }
+  void checkUser() {
+    _pref.read('token').then(
+      (value) async {
+        String _token = value;
+        if (_token != null) {
+          Provider.of<ApiGetServices>(context, listen: false).fetchUserInfo();
+          await ApiGetServices().fetchPortforlio(_token);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => BottomNavigation()));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        }
+      },
+    );
   }
 
   @override
@@ -52,7 +56,6 @@ class _RootServicesState extends State<RootServices> {
         } else {
           FirebaseUser user = snapshot.data;
           if (user != null) {
-            
             return BottomNavigation();
           } else {
             checkUser();

@@ -30,6 +30,9 @@ class SelendraApp extends StatelessWidget {
         ChangeNotifierProvider<FavoriteProvider>(
           create: (context) => FavoriteProvider(),
         ),
+        ChangeNotifierProvider<Auth>(
+          create: (context) => Auth(),
+        ),
         ChangeNotifierProvider<ApiGetServices>(
           create: (context) => ApiGetServices(),
         ),
@@ -38,6 +41,11 @@ class SelendraApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        builder: (context, child) => ScrollConfiguration(
+          behavior: ScrollBehavior()
+            ..buildViewportChrome(context, child, AxisDirection.down),
+          child: child,
+        ),
         initialRoute: '/',
         routes: {
           '/root': (context) => RootServices(),

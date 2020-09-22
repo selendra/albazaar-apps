@@ -8,6 +8,7 @@ class ApiGetServices with ChangeNotifier {
   var _mUser = new User();
   User get mUser => _mUser;
   String alertText;
+  PrefService _prefService = PrefService();
 
   Future<void> fetchUserPf(String _token) async {
     var response =
@@ -16,7 +17,10 @@ class ApiGetServices with ChangeNotifier {
       "authorization": "Bearer " + _token,
     });
     var responseBody = json.decode(response.body);
+
     _mUser = User.fromJson(responseBody);
+    _prefService.saveString('user', jsonEncode(responseBody));
+
     if (_mUser.firstName == null &&
         _mUser.midName == null &&
         _mUser.lastName == null) {
@@ -26,6 +30,23 @@ class ApiGetServices with ChangeNotifier {
     }
 
     print(_mUser.email);
+    notifyListeners();
+  }
+
+  void fetchUserInfo() {
+    _prefService.read('user').then((value) {
+      var responseBody = json.decode(value);
+      _mUser = User.fromJson(responseBody);
+    });
+  }
+
+  void fetchSocialUserInfo(String email, String displayName, String photoUrl) {
+    _mUser.email = email;
+    _mUser.firstName = displayName;
+    _mUser.lastName = '';
+    _mUser.midName = '';
+    _mUser.profileImg = photoUrl;
+
     notifyListeners();
   }
 

@@ -24,12 +24,6 @@ class _BodyState extends State<Body> {
     }
   }
 
-  /*void getToken() async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    _token = isToken.getString('token');
-    print(_token);
-  }*/
-
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
@@ -91,7 +85,7 @@ class _BodyState extends State<Body> {
 
   onSetUserPf() async {
     await ApiPostServices()
-        .setUserPf(firstName, midName, lastName, gender,context)
+        .setUserPf(firstName, midName, lastName, gender, context)
         .then((value) {
       alertText = value;
       showAlertDialog(context);

@@ -41,7 +41,8 @@ dependencies:
   flutter_image_compress:
   image:
   flutter_typeahead: ^1.8.8
-  carousel_slider: ^2.2.1
+  carousel_pro: ^1.0.0
+  
 
 
 

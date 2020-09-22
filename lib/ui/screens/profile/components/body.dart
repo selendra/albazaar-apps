@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 

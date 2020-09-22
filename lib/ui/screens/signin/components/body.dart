@@ -22,7 +22,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await signInWithGoogle().then((value) {
+      await Auth().signInWithGoogle(context).then((value) {
         if (value == null) {
           Navigator.pop(context);
         } else {
@@ -47,7 +47,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await signInFacebook(context).then((value) {
+      await Auth().signInFacebook(context).then((value) {
         if (value == null) {
           setState(() {
             _isLoading = false;

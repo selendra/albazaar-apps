@@ -85,7 +85,7 @@ class HomeDrawer extends StatelessWidget {
             'Sign Out',
             Icons.input,
             () {
-              signOut(context);
+              Auth().signOut(context);
             },
           ),
         ],
