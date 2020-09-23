@@ -12,7 +12,10 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.of(context).pushNamed('/detail', arguments: product.id);
+      },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
         decoration: BoxDecoration(

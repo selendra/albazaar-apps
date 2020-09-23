@@ -56,6 +56,8 @@ class _RootServicesState extends State<RootServices> {
         } else {
           FirebaseUser user = snapshot.data;
           if (user != null) {
+            Provider.of<ApiGetServices>(context).fetchSocialUserInfo(
+                user.email, user.displayName, user.photoUrl);
             return BottomNavigation();
           } else {
             checkUser();

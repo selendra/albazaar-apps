@@ -74,18 +74,22 @@ class MyWallet extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ),
-                          ReuseButton.getItem('Add', () {}, context),
+                          ReuseButton.getItem('Add', () {
+                            print('add');
+                          }, context),
                           SizedBox(
                             height: 10,
                           ),
-                          ReuseButton.getItem('Withdrawal', () {}, context)
+                          ReuseButton.getItem('Withdrawal', () {
+                            print('withdrawal');
+                          }, context)
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         );
       },

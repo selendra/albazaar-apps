@@ -2,8 +2,6 @@ import 'package:selendra_marketplace_app/core/models/products.dart';
 import 'package:flutter/material.dart';
 
 class ProductsProvider with ChangeNotifier {
-  bool _isQueryEmpty = true;
-
   List<Product> _items = [
     Product(
         id: 1,
@@ -128,11 +126,14 @@ class ProductsProvider with ChangeNotifier {
       color: Color(0xFFAEAEAE),
     ),
   ];
-  List<Product> _searchProduct = [];
-  bool get isQueryEmpty => _isQueryEmpty;
 
   List<Product> get items => [..._items];
+
+  List<Product> _searchProduct = [];
   List<Product> get searchProduct => [..._searchProduct];
+
+  bool _isSearching = false;
+  bool get isSearching => _isSearching;
 
   Product findById(int id) {
     return _items.firstWhere((prod) => prod.id == id);
@@ -158,22 +159,21 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  /*List<Product> searchProducts(String query) {
+  searchProducts(String query) {
     if (query.isNotEmpty) {
-      _isQueryEmpty = false;
-      _items = _items
+      _isSearching = true;
+      _searchProduct = _items
           .where((element) =>
               element.title.toLowerCase().startsWith(query.toLowerCase()))
           .toList();
+      print(_searchProduct.length);
       notifyListeners();
     } else {
-      _isQueryEmpty = true;
+      _isSearching = false;
       notifyListeners();
-      _items = _items;
     }
-    notifyListeners();
-    return _items;
-  }*/
+    //return _items;
+  }
 
   void minusOrderQty(Product product) {
     if (product.orderQty > 1) {

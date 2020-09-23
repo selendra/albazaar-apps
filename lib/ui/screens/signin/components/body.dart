@@ -98,7 +98,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         alertText = value;
         // _alertDialog(context);
       } else {
-        showResetAlertDialog(context);
+        SignInDialog().showResetAlertDialog(context, value);
       }
     });
   }
@@ -120,40 +120,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             context, MaterialPageRoute(builder: (context) => RootServices()));
       }
     });
-  }
-
-  showResetAlertDialog(BuildContext context) {
-    // set up the button
-    Widget _okButton = FlatButton(
-      child: Text("Reset"),
-      onPressed: () {
-        /*Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ResetByEmail(_email)));*/
-      },
-    );
-    Widget _cancelButton = FlatButton(
-      child: Text('Cancel'),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: Text('Message'),
-      content: Text(alertText),
-      actions: [
-        _cancelButton,
-        _okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   _resetDialog(BuildContext context) async {

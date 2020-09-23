@@ -4,25 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 class ApiPostServices with ChangeNotifier {
   String _alertText, _token;
   PrefService _pref = PrefService();
-
-  Future<String> getToken() async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    _token = isToken.getString('token');
-    print(_token);
-    return _token;
-  }
-
-  /*Future<void> setToken(String _token) async {
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    isToken.setString('token', _token);
-  }*/
 
   Future<String> signInByEmail(String email, String password, context) async {
     var response = await http.post(ApiUrl.LOG_IN_URL,
@@ -132,11 +119,11 @@ class ApiPostServices with ChangeNotifier {
           'phone': phone,
           'password': password,
         }));
+
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      print(responseBody);
-      print(response.body);
       _alertText = responseBody['message'];
+
       if (_alertText == 'Successfully registered!') {
         Navigator.pushReplacement(
             context,
