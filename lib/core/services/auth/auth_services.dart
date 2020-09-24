@@ -64,6 +64,7 @@ class Auth with ChangeNotifier {
         print(credential);
         Provider.of<ApiGetServices>(context, listen: false)
             .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+        print(user.photoUrl);
 
         assert(user.email != null);
         assert(user.displayName != null);

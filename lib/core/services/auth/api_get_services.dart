@@ -15,8 +15,7 @@ class ApiGetServices with ChangeNotifier {
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
       "authorization": "Bearer " + _token,
-    });
-    var responseBody = json.decode(response.body);
+    });    var responseBody = json.decode(response.body);
 
     _mUser = User.fromJson(responseBody);
     _prefService.saveString('user', jsonEncode(responseBody));
@@ -46,8 +45,6 @@ class ApiGetServices with ChangeNotifier {
     _mUser.lastName = '';
     _mUser.midName = '';
     _mUser.profileImg = photoUrl;
-
-    notifyListeners();
   }
 
   void setGender(String value) {

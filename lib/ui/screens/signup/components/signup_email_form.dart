@@ -31,21 +31,35 @@ class SignUpEmailForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            _emailField(),
+            ReuseTextField(
+              labelText: AppLocalizeService.of(context).translate('email'),
+              inputType: TextInputType.emailAddress,
+              onSaved: (value) => _email = value,
+              validator: (value) => value.isEmpty ? "Email is empty" : null,
+            ),
             SizedBox(
               height: 20,
             ),
-            _pwField(),
+            ReusePwField(
+              labelText: AppLocalizeService.of(context).translate('password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? 'Password is empty or less then 6 character'
+                  : null,
+              onSaved: (value) => _password = value,
+            ),
             SizedBox(
               height: 40,
             ),
-            ReuseButton.getItem('SIGN UP', () {
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('signup_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(
               height: 10,
             ),
-            ReuseFlatButton.getItem('Already Had an Account?', ' Sign In', () {
+            ReuseFlatButton.getItem(
+                AppLocalizeService.of(context).translate('had_an_account'),
+                AppLocalizeService.of(context).translate('signin_string'), () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -56,7 +70,7 @@ class SignUpEmailForm extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'OR',
+              AppLocalizeService.of(context).translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -66,25 +80,6 @@ class SignUpEmailForm extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _emailField() {
-    return ReuseTextField(
-      labelText: 'Email',
-      inputType: TextInputType.emailAddress,
-      onSaved: (value) => _email = value,
-      validator: (value) => value.isEmpty ? "Email is empty" : null,
-    );
-  }
-
-  Widget _pwField() {
-    return ReusePwField(
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? 'Password is empty or less then 6 character'
-          : null,
-      onSaved: (value) => _password = value,
     );
   }
 

@@ -9,7 +9,10 @@ import 'package:provider/provider.dart';
 
 class ApiPostServices with ChangeNotifier {
   String _alertText, _token;
+
   PrefService _pref = PrefService();
+
+  String get alertText => _alertText;
 
   Future<String> signInByEmail(String email, String password, context) async {
     var response = await http.post(ApiUrl.LOG_IN_URL,
@@ -24,27 +27,24 @@ class ApiPostServices with ChangeNotifier {
       if (_token != null) {
         _pref.saveString('token', _token);
         Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
-        //await ApiGetServices().fetchUserPf(_token);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
-        try {
-          _alertText = responseJson['message'];
-          print(_alertText);
-        } catch (e) {
+        _alertText = responseJson['message'];
+        if (_alertText == null) {
           _alertText = responseJson['error']['message'];
-          // print(_alertText);
+          print(_alertText);
         }
       }
       // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     } else {
       print(response.body);
     }
+    notifyListeners();
     return _alertText;
   }
 
   Future<String> signInByPhone(String phone, String password, context) async {
-    String token;
     var response = await http.post(ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
@@ -54,10 +54,10 @@ class ApiPostServices with ChangeNotifier {
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 
-      token = responseJson['token'];
-      if (token != null) {
-        print(token);
-        _pref.saveString('token', token);
+      _token = responseJson['token'];
+      if (_token != null) {
+        print(_token);
+        _pref.saveString('token', _token);
       } else {
         try {
           _alertText = responseJson['error']['message'];

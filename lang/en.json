@@ -1,0 +1,13 @@
+{
+    "welcome_string": "Welcome to",
+    "signin_string": "SIGN IN",
+    "signup_string": "SIGN UP",
+    "phone": "Phone",
+    "email": "Email",
+    "phone_hint": "Phone Number",
+    "password": "Password",
+    "forget_password": "Forget Password?",
+    "haven't_had_account": "Haven't Had an Account? ",
+    "had_an_account" : "Already Had an Account? ",
+    "or_string": "OR"
+}

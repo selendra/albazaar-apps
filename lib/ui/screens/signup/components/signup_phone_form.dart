@@ -33,19 +33,51 @@ class SignUpPhoneForm extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            _phoneCodePick(),
-            SizedBox(
-              height: 20,
+            Container(
+              child: IntlPhoneField(
+                decoration: InputDecoration(
+                  labelText:
+                      AppLocalizeService.of(context).translate('phone_hint'),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kDefaultColor),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(kDefaultRadius)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.greenAccent),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(kDefaultRadius))),
+                ),
+                initialCountryCode: 'KH',
+                validator: (value) =>
+                    value.isEmpty ? "Phone Number is empty" : null,
+                onChanged: (phone) {
+                  print(phone.completeNumber);
+                  _phone = phone.completeNumber.toString();
+                },
+              ),
             ),
-            _pwField(),
+            SizedBox(
+              height: 10,
+            ),
+            ReusePwField(
+              labelText: AppLocalizeService.of(context).translate('password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? "Password is empty or less than 6 character"
+                  : null,
+              onSaved: (value) => _password = value,
+            ),
             SizedBox(
               height: 40,
             ),
-            ReuseButton.getItem('SIGN UP', () {
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('signup_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(height: 10),
-            ReuseFlatButton.getItem('Already Had an Account?', ' Sign In', () {
+            ReuseFlatButton.getItem(
+                AppLocalizeService.of(context).translate('had_an_account'),
+                AppLocalizeService.of(context).translate('signin_string'), () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -56,7 +88,7 @@ class SignUpPhoneForm extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'OR',
+              AppLocalizeService.of(context).translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -66,30 +98,6 @@ class SignUpPhoneForm extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _phoneCodePick() {
-    return Container(
-      child: IntlPhoneField(
-        decoration: kDefualtPInputDecoration,
-        initialCountryCode: 'KH',
-        validator: (value) => value.isEmpty ? "Phone Number is empty" : null,
-        onChanged: (phone) {
-          print(phone.completeNumber);
-          _phone = phone.completeNumber.toString();
-        },
-      ),
-    );
-  }
-
-  Widget _pwField() {
-    return ReusePwField(
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? "Password is empty or less than 6 character"
-          : null,
-      onSaved: (value) => _password = value,
     );
   }
 

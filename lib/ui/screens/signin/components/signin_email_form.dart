@@ -29,20 +29,49 @@ class SignInEmailForm extends StatelessWidget {
         key: _emailFormKey,
         child: Column(
           children: [
-            _emailField(),
+            ReuseTextField(
+              labelText: AppLocalizeService.of(context).translate('email'),
+              inputType: TextInputType.emailAddress,
+              onSaved: (value) => _email = value,
+              validator: (value) => value.isEmpty ? "Email is empty " : null,
+            ),
             SizedBox(
               height: 20,
             ),
-            _pwField(),
-            _btntoForgetPass(),
+            ReusePwField(
+              labelText: AppLocalizeService.of(context).translate('password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? 'Password is empty or less than 6 character'
+                  : null,
+              onSaved: (value) => _password = value,
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: FlatButton(
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                    text: AppLocalizeService.of(context)
+                        .translate('forget_password'),
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
-            ReuseButton.getItem('SIGN IN', () {
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('signin_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(height: 10),
-            ReuseFlatButton.getItem('Haven\'t Had an Account?', ' Sign Up', () {
+            ReuseFlatButton.getItem(
+                AppLocalizeService.of(context)
+                    .translate('haven\'t_had_account'),
+                AppLocalizeService.of(context).translate('signup_string'), () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
             }),
@@ -50,7 +79,7 @@ class SignInEmailForm extends StatelessWidget {
               height: 5,
             ),
             Text(
-              'OR',
+              AppLocalizeService.of(context).translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -58,42 +87,6 @@ class SignInEmailForm extends StatelessWidget {
             ),
             _buildBtnSocialRow(),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _emailField() {
-    return ReuseTextField(
-      labelText: 'Email',
-      inputType: TextInputType.emailAddress,
-      onSaved: (value) => _email = value,
-      validator: (value) => value.isEmpty ? "Email is empty " : null,
-    );
-  }
-
-  Widget _pwField() {
-    return ReusePwField(
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? 'Password is empty or less than 6 character'
-          : null,
-      onSaved: (value) => _password = value,
-    );
-  }
-
-  Widget _btntoForgetPass() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () {},
-        child: RichText(
-          text: TextSpan(
-            text: 'Forget Password?',
-            style: TextStyle(
-              color: Colors.red,
-            ),
-          ),
         ),
       ),
     );

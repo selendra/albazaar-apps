@@ -1,0 +1,14 @@
+{
+    "welcome_string": "សូមស្វាគមន៍មកកាន់",
+    "signin_string": "ចូលគណនី",
+    "signup_string": "ចុះឈ្មោះ",
+    "phone": "ទូរស័ព្ទ",
+    "email": "អ៊ីមែល",
+    "phone_hint": "លេខទូរស័ព្ទ",
+    "password" : "ពាក្យសម្ងាត់",
+    "forget_password" : "ភ្លេចលេខសំងាត់?",
+    "haven't_had_account" : "មិនមានគណនីទេ? ",
+    "had_an_account" : "មានគណនីរួចហើយ? ",
+    "or_string" : "ឬ"
+
+}

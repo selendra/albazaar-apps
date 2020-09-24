@@ -4,6 +4,7 @@ import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
 import 'package:selendra_marketplace_app/core/services/connectivity_services.dart';
 import 'all_export.dart';
 import 'core/providers/products_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
@@ -46,6 +47,28 @@ class SelendraApp extends StatelessWidget {
             ..buildViewportChrome(context, child, AxisDirection.down),
           child: child,
         ),
+        supportedLocales: [Locale('en', 'US'), Locale('km', 'KH')],
+        localizationsDelegates: [
+          AppLocalizeService.delegate,
+          //build-in localization for material wiidgets
+          GlobalWidgetsLocalizations.delegate,
+
+          GlobalMaterialLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          // Check if the current device locale is supported
+          if (locale != null) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+          }
+          // If the locale of the device is not supported, use the first one
+          // from the list (English, in this case).
+          return supportedLocales.first;
+        },
         initialRoute: '/',
         routes: {
           '/root': (context) => RootServices(),

@@ -26,25 +26,49 @@ class SignInPhoneForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Form(
         key: _phoneFormKey,
         child: Column(
           children: [
-            _phoneCodePick(),
+            _phoneCodePick(context),
             SizedBox(
               height: 10,
             ),
-            _pwField(),
-            _btntoForgetPass(),
+            ReusePwField(
+              labelText: AppLocalizeService.of(context).translate('password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? 'Password is empty or less than 6 character'
+                  : null,
+              onSaved: (value) => _password = value,
+            ),
+            Container(
+              alignment: Alignment.centerRight,
+              child: FlatButton(
+                onPressed: () {},
+                child: RichText(
+                  text: TextSpan(
+                    text: AppLocalizeService.of(context)
+                        .translate('forget_password'),
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
-            ReuseButton.getItem('SIGN IN', () {
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('signin_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(height: 10),
-            ReuseFlatButton.getItem('Haven\'t Had an Account?', ' Sign Up', () {
+            ReuseFlatButton.getItem(
+                AppLocalizeService.of(context)
+                    .translate('haven\'t_had_account'),
+                AppLocalizeService.of(context).translate('signup_string'), () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
             }),
@@ -52,7 +76,7 @@ class SignInPhoneForm extends StatelessWidget {
               height: 5,
             ),
             Text(
-              'OR',
+              AppLocalizeService.of(context).translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -65,22 +89,21 @@ class SignInPhoneForm extends StatelessWidget {
     );
   }
 
-  Widget _phoneCodePick() {
+  Widget _phoneCodePick(context) {
     return IntlPhoneField(
-      decoration: kDefualtPInputDecoration,
+      decoration: InputDecoration(
+        labelText: AppLocalizeService.of(context).translate('phone_hint'),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kDefaultColor),
+          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.greenAccent),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+      ),
       initialCountryCode: 'KH',
       validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
       onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
-    );
-  }
-
-  Widget _pwField() {
-    return ReusePwField(
-      labelText: 'Password',
-      validator: (value) => value.isEmpty || value.length < 6
-          ? 'Password is empty or less than 6 character'
-          : null,
-      onSaved: (value) => _password = value,
     );
   }
 
@@ -97,23 +120,6 @@ class SignInPhoneForm extends StatelessWidget {
             googleSignIn();
           }, AssetImage('images/google.jpg')),
         ],
-      ),
-    );
-  }
-
-  Widget _btntoForgetPass() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () {},
-        child: RichText(
-          text: TextSpan(
-            text: 'Forget Password?',
-            style: TextStyle(
-              color: Colors.red,
-            ),
-          ),
-        ),
       ),
     );
   }

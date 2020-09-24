@@ -169,8 +169,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       child: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.all(20),
-        padding: EdgeInsets.symmetric(vertical: 20),
+        margin: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(),
@@ -180,8 +180,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   Container(
                       child: Image.asset(
                     'images/logo.png',
-                    height: 50,
-                    width: 50,
+                    height: 80,
+                    width: 80,
                   )),
                   SizedBox(
                     height: 40,

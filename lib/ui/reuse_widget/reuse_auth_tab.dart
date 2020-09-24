@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class ReuseAuthTab extends StatelessWidget {
   final TabController _tabController;
   ReuseAuthTab(this._tabController);
   @override
   Widget build(BuildContext context) {
-    return _tabBar();
-  }
-  Widget _tabBar() {
     return Container(
       width: 300.0,
       height: 50,
@@ -29,10 +26,10 @@ class ReuseAuthTab extends StatelessWidget {
         unselectedLabelColor: Colors.grey,
         tabs: [
           Tab(
-            child: Text('Phone'),
+            child: Text(AppLocalizeService.of(context).translate('phone')),
           ),
           Tab(
-            child: Text('Email'),
+            child: Text(AppLocalizeService.of(context).translate('email')),
           ),
         ],
       ),

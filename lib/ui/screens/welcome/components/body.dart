@@ -20,7 +20,8 @@ class Body extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Welcome to',
+                      AppLocalizeService.of(context)
+                          .translate('welcome_string'),
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 22,
@@ -55,7 +56,9 @@ class Body extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 10,
                   ),
-                  ReuseButton.getItem('SIGN IN', () {
+                  ReuseButton.getItem(
+                      AppLocalizeService.of(context).translate('signin_string'),
+                      () {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => SignIn()));
                   }, context),
@@ -80,9 +83,10 @@ class Body extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => SignUpScreen()));
         },
         child: Text(
-          "SIGN UP",
+          AppLocalizeService.of(context).translate('signup_string'),
           style: TextStyle(
             color: kDefaultColor,
+            fontWeight: FontWeight.bold,
           ),
         ),
         color: Colors.white,
