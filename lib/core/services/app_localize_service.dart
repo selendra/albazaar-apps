@@ -33,7 +33,6 @@ class AppLocalizeService {
     return _localizedStrings[key];
   }
 
- 
 }
 
 class _AppLocalizationDelegate

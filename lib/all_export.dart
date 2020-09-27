@@ -128,6 +128,7 @@ export 'core/constants/constants.dart';
 export 'core/providers/cart_provider.dart';
 export 'core/providers/favorite_provider.dart';
 export 'core/providers/products_provider.dart';
+export 'core/providers/lang_provider.dart';
 
 //models
 export 'core/models/api_url.dart';

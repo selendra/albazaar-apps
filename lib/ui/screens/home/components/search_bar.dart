@@ -8,7 +8,7 @@ class SearchBar extends StatelessWidget {
   final _searchKey = GlobalKey<FormFieldState<String>>();
   @override
   Widget build(BuildContext context) {
-     final productData = Provider.of<ProductsProvider>(context);
+    final productData = Provider.of<ProductsProvider>(context);
     return Container(
       margin: const EdgeInsets.only(left: 20),
       child: Row(
@@ -17,7 +17,8 @@ class SearchBar extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.8,
             child: ReuseSearchField(
               fieldKey: _searchKey,
-              labelText: 'Search',
+              labelText:
+                  AppLocalizeService.of(context).translate('search_hint'),
               iconData: Icons.language,
               onFieldSubmitted: (value) {
                 _query = value;

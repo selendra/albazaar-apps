@@ -23,14 +23,14 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ReuseInkwell.getItem(
-            'Home',
+            AppLocalizeService.of(context).translate('home'),
             Icons.home,
             () {
               Navigator.pop(context);
             },
           ),
           ReuseInkwell.getItem(
-            'Profile',
+            AppLocalizeService.of(context).translate('profile'),
             Icons.person,
             () {
               Navigator.push(context,
@@ -82,7 +82,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            'Sign Out',
+            AppLocalizeService.of(context).translate('logout_string'),
             Icons.input,
             () {
               Auth().signOut(context);

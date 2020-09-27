@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
-import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class MapScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   LatLng kDefualtLatLng = LatLng(12.509, 105.634);
   String locate;
   bool _isLive = false;
-  GlobalKey<ExpandableBottomSheetState> _key = GlobalKey();
+  //GlobalKey<ExpandableBottomSheetState> _key = GlobalKey();
 
   animateMove(LatLng desPlace, double desZoom) {
     final _latTween = Tween<double>(
@@ -86,7 +85,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       });
     } else {
       markers.removeLast();
-      _key.currentState.contract();
+      // _key.currentState.contract();
       animateMove(kDefualtLatLng, kDefaultMapZoom);
     }
   }
@@ -99,7 +98,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       animateMove(place, 15.0);
       locate = placemark[0].thoroughfare + placemark[0].subLocality;
     });
-    _key.currentState.expand();
+    //_key.currentState.expand();
   }
 
   searchPlace(String placeName) async {
@@ -173,25 +172,58 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _getCurrentLocation(),
-          child: _isLive
-              ? Icon(
-                  Icons.gps_not_fixed,
-                  color: kDefaultColor,
-                )
-              : Icon(
-                  Icons.gps_fixed,
-                  color: kDefaultColor,
-                ),
-          backgroundColor: Colors.white,
-        ),
-        body: SafeArea(child: _bottom()));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _getCurrentLocation(),
+        child: _isLive
+            ? Icon(
+                Icons.gps_not_fixed,
+                color: kDefaultColor,
+              )
+            : Icon(
+                Icons.gps_fixed,
+                color: kDefaultColor,
+              ),
+        backgroundColor: Colors.white,
+      ),
+      body: Stack(
+        children: [
+          FlutterMap(
+            mapController: _mapController,
+            options: MapOptions(
+              center: _currentPosition != null
+                  ? LatLng(
+                      _currentPosition.latitude, _currentPosition.longitude)
+                  : kDefualtLatLng,
+              zoom: kDefaultMapZoom,
+              screenSize: MediaQuery.of(context).size,
+              slideOnBoundaries: true,
+              maxZoom: kDefaultMaxZoom,
+              minZoom: kDefaultMinZoom,
+            ),
+            layers: [
+              TileLayerOptions(
+                  tileFadeInStart: 0.1,
+                  maxZoom: kDefaultMaxZoom,
+                  keepBuffer: 100,
+                  urlTemplate: osmMapTemplate,
+                  subdomains: ['a', 'b', 'c']),
+              MarkerLayerOptions(
+                markers: markers,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TypeHead(searchPlace),
+          ZoomButtons(_mapController),
+        ],
+      ),
+    ); //SafeArea(child: _bottom()));
   }
 
-  Widget _bottom() {
+  /*Widget _bottom() {
     return ExpandableBottomSheet(
-      key: _key,
       animationCurveExpand: Curves.bounceOut,
       animationCurveContract: Curves.ease,
       background: Stack(
@@ -231,5 +263,5 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       persistentHeader: PersistentHeader(),
       expandableContent: ExpandableContent(locate),
     );
-  }
+  }*/
 }

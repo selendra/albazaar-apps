@@ -8,6 +8,10 @@
     "password": "Password",
     "forget_password": "Forget Password?",
     "haven't_had_account": "Haven't Had an Account? ",
-    "had_an_account" : "Already Had an Account? ",
-    "or_string": "OR"
+    "had_an_account": "Already Had an Account? ",
+    "or_string": "OR",
+    "search_hint": "Search",
+    "home": "Home",
+    "profile": "Profile",
+    "logout_string" : "Log Out"
 }

@@ -14,14 +14,21 @@ void main() {
   runApp(SelendraApp());
 }
 
-class SelendraApp extends StatelessWidget {
-  // This widget is the root of your application.
+class SelendraApp extends StatefulWidget {
+  @override
+  _SelendraAppState createState() => _SelendraAppState();
+}
+
+class _SelendraAppState extends State<SelendraApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         StreamProvider<ConnectivityStatus>(
           create: (context) => ConnectivityServices().streamController.stream,
+        ),
+        ChangeNotifierProvider<LangProvider>(
+          create: (context) => LangProvider(),
         ),
         ChangeNotifierProvider<CartProvider>(
           create: (context) => CartProvider(),
@@ -41,45 +48,48 @@ class SelendraApp extends StatelessWidget {
           create: (context) => ApiPostServices(),
         ),
       ],
-      child: MaterialApp(
-        builder: (context, child) => ScrollConfiguration(
-          behavior: ScrollBehavior()
-            ..buildViewportChrome(context, child, AxisDirection.down),
-          child: child,
-        ),
-        supportedLocales: [Locale('en', 'US'), Locale('km', 'KH')],
-        localizationsDelegates: [
-          AppLocalizeService.delegate,
-          //build-in localization for material wiidgets
-          GlobalWidgetsLocalizations.delegate,
+      child: Consumer<LangProvider>(
+        builder: (context, value, child) => MaterialApp(
+          builder: (context, child) => ScrollConfiguration(
+            behavior: ScrollBehavior()
+              ..buildViewportChrome(context, child, AxisDirection.down),
+            child: child,
+          ),
+          locale: value.manualLocale,
+          supportedLocales: [Locale('en', 'US'), Locale('km', 'KH')],
+          localizationsDelegates: [
+            AppLocalizeService.delegate,
+            //build-in localization for material wiidgets
+            GlobalWidgetsLocalizations.delegate,
 
-          GlobalMaterialLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          // Check if the current device locale is supported
-          if (locale != null) {
-            for (var supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode &&
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
+            GlobalMaterialLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            // Check if the current device locale is supported
+            if (locale != null) {
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode &&
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
               }
             }
-          }
-          // If the locale of the device is not supported, use the first one
-          // from the list (English, in this case).
-          return supportedLocales.first;
-        },
-        initialRoute: '/',
-        routes: {
-          '/root': (context) => RootServices(),
-          '/detail': (context) => DetailScreen(),
-        },
-        debugShowCheckedModeBanner: true,
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+            // If the locale of the device is not supported, use the first one
+            // from the list (English, in this case).
+            return supportedLocales.first;
+          },
+          initialRoute: '/',
+          routes: {
+            '/root': (context) => RootServices(),
+            '/detail': (context) => DetailScreen(),
+          },
+          debugShowCheckedModeBanner: true,
+          theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: SplashScreen(),
+          navigatorKey: navigationKey,
         ),
-        home: SplashScreen(),
-        navigatorKey: navigationKey,
       ),
     );
   }
