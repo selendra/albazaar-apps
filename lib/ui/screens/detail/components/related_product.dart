@@ -12,7 +12,7 @@ class RelatedProduct extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Related Product',
+            AppLocalizeService.of(context).translate('related_product'),
             style: TextStyle(
               color: Colors.grey,
               fontSize: 23,

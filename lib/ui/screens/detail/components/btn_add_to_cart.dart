@@ -23,7 +23,7 @@ class BtnAddToCart extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text(
-            "Add to Cart",
+            AppLocalizeService.of(context).translate('add_to_cart'),
             style: TextStyle(color: Colors.white),
           ),
           color: kDefaultColor,

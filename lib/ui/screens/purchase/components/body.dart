@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class Body extends StatefulWidget {
   final TabController _controller;
@@ -13,7 +14,8 @@ class _BodyState extends State<Body> {
     return _buildTapBarView();
   }
 
-  Widget _buildTapBarView(){
+  Widget _buildTapBarView() {
+    var _lang = AppLocalizeService.of(context);
     return Container(
       width: double.infinity,
       child: TabBarView(
@@ -24,7 +26,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  _lang.translate('all'),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -38,7 +40,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Complete',
+                  _lang.translate('complete'),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -52,7 +54,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Pending',
+                  _lang.translate('pending'),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

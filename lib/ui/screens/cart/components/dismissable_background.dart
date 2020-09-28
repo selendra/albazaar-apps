@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class DimissibleBackground extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class DimissibleBackground extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            'Removed',
+            AppLocalizeService.of(context).translate('remove'),
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           Icon(

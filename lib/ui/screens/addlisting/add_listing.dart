@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/ui/screens/addlisting/components/body.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class AddListing extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class AddListing extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Add Listing',
+          AppLocalizeService.of(context).translate('add_listing'),
           style: TextStyle(
             color: kDefaultColor,
             fontWeight: FontWeight.bold,

@@ -40,6 +40,7 @@ export 'ui/screens/home/components/drop_down_button.dart';
 export 'ui/screens/home/components/product_list.dart';
 export 'ui/screens/home/components/search_bar.dart';
 export 'ui/screens/home/components/home_drawer.dart';
+export 'ui/screens/home/components/search.dart';
 
 //map screen
 export 'ui/screens/map/map.dart';

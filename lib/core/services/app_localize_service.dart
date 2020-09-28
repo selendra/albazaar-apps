@@ -7,7 +7,7 @@ class AppLocalizeService {
   final Locale locale;
   AppLocalizeService(this.locale);
 
-   static AppLocalizeService of(BuildContext context) {
+  static AppLocalizeService of(BuildContext context) {
     return Localizations.of<AppLocalizeService>(context, AppLocalizeService);
   }
 
@@ -29,10 +29,9 @@ class AppLocalizeService {
     return true;
   }
 
-   String translate(String key) {
+  String translate(String key) {
     return _localizedStrings[key];
   }
-
 }
 
 class _AppLocalizationDelegate

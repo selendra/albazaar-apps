@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 class CheckoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
       child: Card(
@@ -16,7 +17,8 @@ class CheckoutCard extends StatelessWidget {
             margin: EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _textRow('Subtotal', '\$${value.totalAmount}'),
+                _textRow(
+                    _lang.translate('sub_total'), '\$${value.totalAmount}'),
                 Spacer(),
                 Container(
                   height: 1,
@@ -25,11 +27,12 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                _textRow('Total', '\$${value.totalAmount}'),
+                _textRow(_lang.translate('total'), '\$${value.totalAmount}'),
                 SizedBox(
                   height: 60,
                 ),
-                ReuseButton.getItem('CHECK OUT', () {}, context),
+                ReuseButton.getItem(
+                    _lang.translate('check_out'), () {}, context),
               ],
             ),
           ),

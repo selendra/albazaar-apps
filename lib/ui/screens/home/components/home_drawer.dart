@@ -43,7 +43,7 @@ class HomeDrawer extends StatelessWidget {
             color: Colors.grey[300],
           ),
           ReuseInkwell.getItem(
-            'Purchase',
+            AppLocalizeService.of(context).translate('purchase'),
             Icons.shopping_basket,
             () {
               Navigator.push(context,
@@ -51,7 +51,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            'Listing',
+            AppLocalizeService.of(context).translate('listing'),
             Icons.list,
             () {
               Navigator.push(context,
@@ -59,7 +59,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            'Sale',
+            AppLocalizeService.of(context).translate('sale'),
             Icons.monetization_on,
             () {
               Navigator.push(context,
@@ -71,10 +71,16 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem('Message', Icons.message, () {}),
-          ReuseInkwell.getItem('Notification', Icons.notifications, () {}),
           ReuseInkwell.getItem(
-            'Settings',
+              AppLocalizeService.of(context).translate('message'),
+              Icons.message,
+              () {}),
+          ReuseInkwell.getItem(
+              AppLocalizeService.of(context).translate('notification'),
+              Icons.notifications,
+              () {}),
+          ReuseInkwell.getItem(
+            AppLocalizeService.of(context).translate('setting'),
             Icons.settings,
             () {
               Navigator.push(context,

@@ -68,14 +68,19 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: <Widget>[
-            _postDetail(),
-            _sellerDetail(),
-          ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: <Widget>[
+              _postDetail(),
+              _sellerDetail(),
+            ],
+          ),
         ),
       ),
     );
@@ -151,7 +156,8 @@ class _BodyState extends State<Body> {
             ),
             Consumer<ProductsProvider>(
               builder: (context, value, child) => Container(
-                child: ReuseButton.getItem('SUBMIT', () {
+                child: ReuseButton.getItem(
+                    AppLocalizeService.of(context).translate('submit'), () {
                   checkValidate();
                   value.addItem(_title, double.parse(_price), _description,
                       _contactName, _phoneNumber);
@@ -170,7 +176,7 @@ class _BodyState extends State<Body> {
 
   Widget _priceField() {
     return ReuseTextField(
-      labelText: 'Price',
+      labelText: AppLocalizeService.of(context).translate('price'),
       maxLine: 1,
       inputType: TextInputType.number,
       textInputAction: TextInputAction.done,
@@ -184,7 +190,7 @@ class _BodyState extends State<Body> {
       maxLine: 3,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      labelText: 'Description',
+      labelText: AppLocalizeService.of(context).translate('description'),
       validator: (value) => value.isEmpty ? "Empty Description" : null,
       onSaved: (value) => _description = value,
     );
@@ -199,7 +205,7 @@ class _BodyState extends State<Body> {
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
       child: ListTile(
-        title: Text(_categories),
+        title: Text(AppLocalizeService.of(context).translate('categories')),
         trailing: Icon(Icons.arrow_forward_ios),
         onTap: () {
           routeA();
@@ -210,7 +216,7 @@ class _BodyState extends State<Body> {
 
   Widget _titleField() {
     return ReuseTextField(
-      labelText: 'Title',
+      labelText: AppLocalizeService.of(context).translate('title'),
       maxLine: 1,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -246,7 +252,7 @@ class _BodyState extends State<Body> {
 
   Widget _nameField() {
     return ReuseTextField(
-      labelText: 'Name',
+      labelText: AppLocalizeService.of(context).translate('name'),
       maxLine: 1,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -257,7 +263,7 @@ class _BodyState extends State<Body> {
 
   Widget _phoneNumberField() {
     return ReuseTextField(
-      labelText: 'Phone Number',
+      labelText: AppLocalizeService.of(context).translate('phone_hint'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
@@ -267,7 +273,7 @@ class _BodyState extends State<Body> {
 
   Widget _streetAddress() {
     return ReuseTextField(
-      labelText: 'Street Address',
+      labelText: AppLocalizeService.of(context).translate('street_address'),
       onSaved: (newValue) => _address = newValue,
     );
   }
@@ -277,7 +283,7 @@ class _BodyState extends State<Body> {
       width: MediaQuery.of(context).size.width / 2.3,
       child: ReuseTextField(
         textInputAction: TextInputAction.done,
-        labelText: 'State/District',
+        labelText: AppLocalizeService.of(context).translate('district'),
       ),
     );
   }
@@ -286,7 +292,7 @@ class _BodyState extends State<Body> {
     return Container(
       width: MediaQuery.of(context).size.width / 2.3,
       child: ReuseTextField(
-        labelText: 'City/Province',
+        labelText: AppLocalizeService.of(context).translate('city_province'),
         textInputAction: TextInputAction.done,
       ),
     );

@@ -36,6 +36,16 @@ class _RootServicesState extends State<RootServices> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    var _lang = Provider.of<LangProvider>(context, listen: false);
+    _pref.read('lang').then((value) {
+      _lang.setLocal(value ?? 'EN');
+      _lang.saveLang();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NetworkAlert(
@@ -56,8 +66,9 @@ class _RootServicesState extends State<RootServices> {
         } else {
           FirebaseUser user = snapshot.data;
           if (user != null) {
-            Provider.of<ApiGetServices>(context).fetchSocialUserInfo(
-                user.email, user.displayName, user.photoUrl);
+            Provider.of<ApiGetServices>(context, listen: false)
+                .fetchSocialUserInfo(
+                    user.email, user.displayName, user.photoUrl);
             return BottomNavigation();
           } else {
             checkUser();

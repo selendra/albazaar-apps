@@ -35,7 +35,8 @@ class _BodyState extends State<Body> {
                             //choiceDialog();
                             ReuseChoiceDialog().choiceDialog(context);
                           },
-                          title: Text('Profile photo'),
+                          title: Text(AppLocalizeService.of(context)
+                              .translate('profile_photo')),
                           trailing: Consumer<ApiGetServices>(
                             builder: (context, value, child) => CircleAvatar(
                               backgroundImage: value.mUser.profileImg != null

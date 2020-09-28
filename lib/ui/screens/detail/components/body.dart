@@ -22,6 +22,16 @@ class Body extends StatelessWidget {
             iconTheme: IconThemeData(
               color: kDefaultColor,
             ),
+            actions: [
+              SizedBox(
+                width: 50,
+              ),
+              InkWell(
+                  onTap: () {
+                    showSearch(context: context, delegate: SearchProducts());
+                  },
+                  child: Icon(Icons.search)),
+            ],
             expandedHeight: MediaQuery.of(context).size.height * 0.5,
             floating: true,
             pinned: true,

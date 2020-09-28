@@ -8,8 +8,6 @@ class DropDownButtons extends StatefulWidget {
 }
 
 class _DropDownButtonsState extends State<DropDownButtons> {
-  String dropDownValue = 'EN';
-
   List<String> itemsList = ['EN', 'KH'];
 
   @override
@@ -22,10 +20,9 @@ class _DropDownButtonsState extends State<DropDownButtons> {
         ),
         style: TextStyle(color: kDefaultColor),
         itemsList: itemsList,
-        initialValue: dropDownValue,
+        initialValue: value.lang,
         onChanged: (myValue) {
           setState(() {
-            dropDownValue = myValue;
             print(myValue);
             value.setLocal(myValue);
           });

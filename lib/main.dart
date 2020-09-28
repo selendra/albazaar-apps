@@ -56,7 +56,10 @@ class _SelendraAppState extends State<SelendraApp> {
             child: child,
           ),
           locale: value.manualLocale,
-          supportedLocales: [Locale('en', 'US'), Locale('km', 'KH')],
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('km', 'KH'),
+          ],
           localizationsDelegates: [
             AppLocalizeService.delegate,
             //build-in localization for material wiidgets

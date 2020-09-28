@@ -37,7 +37,8 @@ class ProfileForm extends StatelessWidget {
                       children: [
                         Container(
                           child: ReuseTextField(
-                            labelText: 'First Name',
+                            labelText: AppLocalizeService.of(context)
+                                .translate('first_name'),
                             initialValue: value.mUser.firstName,
                             onSaved: (newValue) => _firstName = newValue,
                           ),
@@ -47,7 +48,8 @@ class ProfileForm extends StatelessWidget {
                         ),
                         Container(
                           child: ReuseTextField(
-                            labelText: 'Mid Name',
+                            labelText: AppLocalizeService.of(context)
+                                .translate('mid_name'),
                             initialValue: value.mUser.midName,
                             // ? 'Email'
                             //    : _mUser.midName,
@@ -59,7 +61,8 @@ class ProfileForm extends StatelessWidget {
                         ),
                         Container(
                           child: ReuseTextField(
-                            labelText: 'Last Name',
+                            labelText: AppLocalizeService.of(context)
+                                .translate('last_name'),
                             initialValue: value.mUser.lastName,
                             onSaved: (newValue) => _lastName = newValue,
                           ),
@@ -87,10 +90,20 @@ class ProfileForm extends StatelessWidget {
                 elevation: 0,
                 child: Column(
                   children: [
-                    item(() {}, 'Account Info', value.mUser.email ?? 'email'),
-                    item(() {}, 'Phone Number',
+                    item(
+                        () {},
+                        AppLocalizeService.of(context)
+                            .translate('account_info'),
+                        value.mUser.email ?? 'email'),
+                    item(
+                        () {},
+                        AppLocalizeService.of(context).translate('phone_hint'),
                         value.mUser.phonenumber ?? 'phonenumber'),
-                    item(() {}, 'Shipping Address', ''),
+                    item(
+                        () {},
+                        AppLocalizeService.of(context)
+                            .translate('shipping_address'),
+                        ''),
                   ],
                 ),
               ),
@@ -98,7 +111,8 @@ class ProfileForm extends StatelessWidget {
             SizedBox(height: 20),
             Container(
               margin: EdgeInsets.all(30.0),
-              child: ReuseButton.getItem('Save', () {
+              child: ReuseButton.getItem(
+                  AppLocalizeService.of(context).translate('save'), () {
                 //onSave();
                 _formKey.currentState.save();
                 print(_firstName);

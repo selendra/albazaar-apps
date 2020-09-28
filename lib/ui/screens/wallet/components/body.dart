@@ -66,17 +66,20 @@ class _BodyState extends State<Body> {
       checkFirstSeen();
     }
   }
-  onGetWallet()async {
+
+  onGetWallet() async {
     String _token;
     SharedPreferences isToken = await SharedPreferences.getInstance();
     _token = isToken.get('token');
-    if(_token == null ){
+    if (_token == null) {
       alertText = 'Please Sign up with Email or Phone to get wallet';
       showAlertDialog(context);
-    }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>WalletPin()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WalletPin()));
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -100,7 +103,10 @@ class _BodyState extends State<Body> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.1,
           ),
-          ReuseButton.getItem('WALLET', () {onGetWallet();}, context),
+          ReuseButton.getItem(
+              AppLocalizeService.of(context).translate('wallet'), () {
+            onGetWallet();
+          }, context),
         ],
       ),
     );

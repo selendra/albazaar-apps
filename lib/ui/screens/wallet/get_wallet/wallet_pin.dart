@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'info_row.dart';
-import 'package:provider/provider.dart';
 
 class WalletPin extends StatefulWidget {
   @override
@@ -524,6 +523,7 @@ class _PinScreenState extends State<PinScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return SafeArea(
       child: _isLoading
           ? Center(
@@ -536,18 +536,18 @@ class _PinScreenState extends State<PinScreen> {
                   children: <Widget>[
                     _seen
                         ? Text(
-                            'Re-Enter to Confirm',
+                            _lang.translate('reenter_to_confirm'),
                             style: textStyle(),
                           )
                         : Text(
-                            'Enter 4-Digit code',
+                            _lang.translate('enter_4digit_code'),
                             style: textStyle(),
                           ),
                     SizedBox(
                       height: 5,
                     ),
                     isNotCorrect
-                        ? Text('Pw and Confirm Pw does not match')
+                        ? Text(_lang.translate('password_not_match'))
                         : Container(),
                     SizedBox(
                       height: 50,

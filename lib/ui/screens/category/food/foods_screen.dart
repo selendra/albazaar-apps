@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class FoodsScreen extends StatefulWidget {
   @override
@@ -24,6 +25,7 @@ class _FoodsScreenState extends State<FoodsScreen>
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -41,25 +43,25 @@ class _FoodsScreenState extends State<FoodsScreen>
           labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           tabs: <Widget>[
             Tab(
-              text: 'All',
+              text: _lang.translate('all'),
             ),
             Tab(
-              text: 'Meat',
+              text: _lang.translate('meat'),
             ),
             Tab(
-              text: 'Fruit',
+              text: _lang.translate('fruit'),
             ),
             Tab(
-              text: 'Drinks',
+              text: _lang.translate('drinks'),
             ),
             Tab(
-              text: 'Vegtable',
+              text: _lang.translate('vegetable'),
             ),
             Tab(
-              text: 'Seasoning',
+              text: _lang.translate('seasoning'),
             ),
             Tab(
-              text: 'Desserts',
+              text: _lang.translate('desserts'),
             )
           ],
         ),
