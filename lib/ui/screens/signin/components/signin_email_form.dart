@@ -23,6 +23,7 @@ class SignInEmailForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Container(
       margin: EdgeInsets.all(20.0),
       child: Form(
@@ -30,18 +31,19 @@ class SignInEmailForm extends StatelessWidget {
         child: Column(
           children: [
             ReuseTextField(
-              labelText: AppLocalizeService.of(context).translate('email'),
+              labelText: _lang.translate('email'),
               inputType: TextInputType.emailAddress,
               onSaved: (value) => _email = value,
-              validator: (value) => value.isEmpty ? "Email is empty " : null,
+              validator: (value) =>
+                  value.isEmpty ? _lang.translate('email_is_empty') : null,
             ),
             SizedBox(
               height: 20,
             ),
             ReusePwField(
-              labelText: AppLocalizeService.of(context).translate('password'),
+              labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
-                  ? 'Password is empty or less than 6 character'
+                  ? _lang.translate('password_is_empty')
                   : null,
               onSaved: (value) => _password = value,
             ),
@@ -51,8 +53,7 @@ class SignInEmailForm extends StatelessWidget {
                 onPressed: () {},
                 child: RichText(
                   text: TextSpan(
-                    text: AppLocalizeService.of(context)
-                        .translate('forget_password'),
+                    text: _lang.translate('forget_password'),
                     style: TextStyle(
                       color: Colors.red,
                     ),
@@ -63,14 +64,11 @@ class SignInEmailForm extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('signin_string'), () {
+            ReuseButton.getItem(_lang.translate('signin_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(height: 10),
-            ReuseFlatButton.getItem(
-                AppLocalizeService.of(context)
-                    .translate('haven\'t_had_account'),
+            ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
                 AppLocalizeService.of(context).translate('signup_string'), () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
@@ -79,7 +77,7 @@ class SignInEmailForm extends StatelessWidget {
               height: 5,
             ),
             Text(
-              AppLocalizeService.of(context).translate('or_string'),
+              _lang.translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(

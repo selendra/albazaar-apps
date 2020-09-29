@@ -39,7 +39,7 @@ class SignInPhoneForm extends StatelessWidget {
             ReusePwField(
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
-                  ? 'Password is empty or less than 6 character'
+                  ? _lang.translate('password_is_empty')
                   : null,
               onSaved: (value) => _password = value,
             ),
@@ -65,7 +65,8 @@ class SignInPhoneForm extends StatelessWidget {
             }, context),
             SizedBox(height: 10),
             ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
-                AppLocalizeService.of(context).translate('signup_string'), () {
+                AppLocalizeService.of(context).translate('signup_string'),
+                () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
             }),

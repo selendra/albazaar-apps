@@ -6,7 +6,7 @@ String _firstName, _midName, _lastName, _mGender;
 
 class ProfileForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
+  PrefService _prefService = PrefService();
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -20,6 +20,7 @@ class ProfileForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<ApiPostServices>(context);
+    var _lang = AppLocalizeService.of(context);
     return Consumer<ApiGetServices>(
       builder: (context, value, child) => Container(
         child: Column(
@@ -37,8 +38,7 @@ class ProfileForm extends StatelessWidget {
                       children: [
                         Container(
                           child: ReuseTextField(
-                            labelText: AppLocalizeService.of(context)
-                                .translate('first_name'),
+                            labelText: _lang.translate('first_name'),
                             initialValue: value.mUser.firstName,
                             onSaved: (newValue) => _firstName = newValue,
                           ),
@@ -48,8 +48,7 @@ class ProfileForm extends StatelessWidget {
                         ),
                         Container(
                           child: ReuseTextField(
-                            labelText: AppLocalizeService.of(context)
-                                .translate('mid_name'),
+                            labelText: _lang.translate('mid_name'),
                             initialValue: value.mUser.midName,
                             // ? 'Email'
                             //    : _mUser.midName,
@@ -61,8 +60,7 @@ class ProfileForm extends StatelessWidget {
                         ),
                         Container(
                           child: ReuseTextField(
-                            labelText: AppLocalizeService.of(context)
-                                .translate('last_name'),
+                            labelText: _lang.translate('last_name'),
                             initialValue: value.mUser.lastName,
                             onSaved: (newValue) => _lastName = newValue,
                           ),
@@ -90,20 +88,11 @@ class ProfileForm extends StatelessWidget {
                 elevation: 0,
                 child: Column(
                   children: [
-                    item(
-                        () {},
-                        AppLocalizeService.of(context)
-                            .translate('account_info'),
+                    item(() {}, _lang.translate('account_info'),
                         value.mUser.email ?? 'email'),
-                    item(
-                        () {},
-                        AppLocalizeService.of(context).translate('phone_hint'),
+                    item(() {}, _lang.translate('phone_hint'),
                         value.mUser.phonenumber ?? 'phonenumber'),
-                    item(
-                        () {},
-                        AppLocalizeService.of(context)
-                            .translate('shipping_address'),
-                        ''),
+                    item(() {}, _lang.translate('shipping_address'), ''),
                   ],
                 ),
               ),
@@ -111,21 +100,26 @@ class ProfileForm extends StatelessWidget {
             SizedBox(height: 20),
             Container(
               margin: EdgeInsets.all(30.0),
-              child: ReuseButton.getItem(
-                  AppLocalizeService.of(context).translate('save'), () {
+              child: ReuseButton.getItem(_lang.translate('save'), () {
                 //onSave();
-                _formKey.currentState.save();
-                print(_firstName);
-                print(_midName);
-                print(_mGender);
-                data
-                    .setUserPf(_firstName, _midName ?? '', _lastName, _mGender,
-                        context)
-                    .then(
-                  (value) {
-                    ProfileDialog().successDialog(context, value);
-                  },
-                );
+                _prefService.read('token').then((onValue) {
+                  if (onValue != null) {
+                    _formKey.currentState.save();
+                    print(_firstName);
+                    print(_midName);
+                    print(_mGender);
+                    data
+                        .setUserPf(_firstName, _midName ?? '', _lastName,
+                            _mGender, context)
+                        .then(
+                      (value) {
+                        ProfileDialog().successDialog(context, value);
+                      },
+                    );
+                  } else {
+                    print('not save');
+                  }
+                });
               }, context),
             ),
           ],

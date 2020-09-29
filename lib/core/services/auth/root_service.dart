@@ -40,8 +40,8 @@ class _RootServicesState extends State<RootServices> {
     super.initState();
     var _lang = Provider.of<LangProvider>(context, listen: false);
     _pref.read('lang').then((value) {
-      _lang.setLocal(value ?? 'EN');
-      _lang.saveLang();
+      _lang.setLocal(value);
+      _lang.saveLang(context);
     });
   }
 

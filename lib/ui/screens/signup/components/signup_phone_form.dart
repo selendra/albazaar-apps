@@ -24,6 +24,7 @@ class SignUpPhoneForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: Form(
@@ -50,7 +51,7 @@ class SignUpPhoneForm extends StatelessWidget {
                 ),
                 initialCountryCode: 'KH',
                 validator: (value) =>
-                    value.isEmpty ? "Phone Number is empty" : null,
+                    value.isEmpty ? _lang.translate('phone_is_empty') : null,
                 onChanged: (phone) {
                   print(phone.completeNumber);
                   _phone = phone.completeNumber.toString();
@@ -61,23 +62,21 @@ class SignUpPhoneForm extends StatelessWidget {
               height: 10,
             ),
             ReusePwField(
-              labelText: AppLocalizeService.of(context).translate('password'),
+              labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
-                  ? "Password is empty or less than 6 character"
+                  ? _lang.translate('password_is_empty')
                   : null,
               onSaved: (value) => _password = value,
             ),
             SizedBox(
               height: 40,
             ),
-            ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('signup_string'), () {
+            ReuseButton.getItem(_lang.translate('signup_string'), () {
               validateAndSubmit();
             }, context),
             SizedBox(height: 10),
-            ReuseFlatButton.getItem(
-                AppLocalizeService.of(context).translate('had_an_account'),
-                AppLocalizeService.of(context).translate('signin_string'), () {
+            ReuseFlatButton.getItem(_lang.translate('had_an_account'),
+                _lang.translate('signin_string'), () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -88,7 +87,7 @@ class SignUpPhoneForm extends StatelessWidget {
               height: 10,
             ),
             Text(
-              AppLocalizeService.of(context).translate('or_string'),
+              _lang.translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             SizedBox(

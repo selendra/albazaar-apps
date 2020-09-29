@@ -53,9 +53,22 @@
     "district": "District",
     "city_province": "Province/City",
     "submit": "Submit",
-    "meat" : "Meat",
-    "fruit":"Fruit",
-    "drinks":"Drinks",
-    "vegetable" : "Vegetable",
-    "desserts" : "Desserts"
+    "meat": "Meat",
+    "fruit": "Fruit",
+    "drinks": "Drinks",
+    "vegetable": "Vegetable",
+    "desserts": "Desserts",
+    "email_is_empty": "Email is empty",
+    "password_is_empty": "Password is empty or less than 6 character",
+    "choose_an_option": "Choose an option",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "price_is_empty" : "Price is empty",
+    "description_is_empty" : "Description is empty",
+    "contact_name_is_empty" : "Contact name is empty",
+    "phone_number_is_empty" : "Phone number is empty",
+    "policy": "Please read more about our Rule & Policy",
+    "title_is_empty" : "Title is Empty"
+    
+
 }

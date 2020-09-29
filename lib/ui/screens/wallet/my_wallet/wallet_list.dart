@@ -13,22 +13,22 @@ class WalletList extends StatelessWidget {
       child: ListView.builder(
           itemCount: wallets.length,
           shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(kDefaultRadius),
-                  side: BorderSide(
-                    color: kDefaultColor,
-                  )),
-              margin: EdgeInsets.all(10.0),
+                borderRadius: BorderRadius.circular(kDefaultRadius),
+                side: BorderSide(
+                  color: kDefaultColor,
+                ),
+              ),
               child: ListTile(
                 trailing: Text(
                   wallets[index].amount,
                   style: TextStyle(fontWeight: FontWeight.w900),
                 ),
-                leading: Image.asset(wallets[index].logo, width: 30, height: 30),
+                leading:
+                    Image.asset(wallets[index].logo, width: 30, height: 30),
                 title: Text(
                   wallets[index].title,
                   style: TextStyle(fontWeight: FontWeight.w900),

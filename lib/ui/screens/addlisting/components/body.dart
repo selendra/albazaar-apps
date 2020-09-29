@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void checkValidate() {
+  bool checkValidate() {
     setState(() {
       if (_formKeyDetail.currentState.validate() &&
           _formKeySeller.currentState.validate()) {
@@ -62,8 +62,10 @@ class _BodyState extends State<Body> {
             image: "images/new-house.jpg",
             color: Color(0xFF3D82AE)));*/
         Navigator.pop(context);
+        return true;
       }
     });
+    return false;
   }
 
   @override
@@ -159,8 +161,11 @@ class _BodyState extends State<Body> {
                 child: ReuseButton.getItem(
                     AppLocalizeService.of(context).translate('submit'), () {
                   checkValidate();
-                  value.addItem(_title, double.parse(_price), _description,
-                      _contactName, _phoneNumber);
+                  if (checkValidate()) {
+                    value.addItem(_title, double.parse(_price), _description,
+                        _contactName, _phoneNumber);
+                  }
+                  /**/
                 }, context),
               ),
             ),
@@ -180,7 +185,9 @@ class _BodyState extends State<Body> {
       maxLine: 1,
       inputType: TextInputType.number,
       textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty ? "Empty Price" : null,
+      validator: (value) => value.isEmpty
+          ? AppLocalizeService.of(context).translate('price_is_empty')
+          : null,
       onSaved: (newValue) => _price = newValue,
     );
   }
@@ -191,7 +198,9 @@ class _BodyState extends State<Body> {
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       labelText: AppLocalizeService.of(context).translate('description'),
-      validator: (value) => value.isEmpty ? "Empty Description" : null,
+      validator: (value) => value.isEmpty
+          ? AppLocalizeService.of(context).translate('description_is_empty')
+          : null,
       onSaved: (value) => _description = value,
     );
   }
@@ -220,7 +229,9 @@ class _BodyState extends State<Body> {
       maxLine: 1,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty ? "Empty Title" : null,
+      validator: (value) => value.isEmpty
+          ? AppLocalizeService.of(context).translate('title_is_empty')
+          : null,
       onSaved: (value) => _title = value,
     );
   }
@@ -256,7 +267,9 @@ class _BodyState extends State<Body> {
       maxLine: 1,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty ? "Empty Contact Name" : null,
+      validator: (value) => value.isEmpty
+          ? AppLocalizeService.of(context).translate('contact_name_is_empty')
+          : null,
       onSaved: (value) => _contactName = value,
     );
   }
@@ -266,7 +279,9 @@ class _BodyState extends State<Body> {
       labelText: AppLocalizeService.of(context).translate('phone_hint'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty ? "Empty Phone Number" : null,
+      validator: (value) => value.isEmpty
+          ? AppLocalizeService.of(context).translate('phone_number_is_empty')
+          : null,
       onSaved: (value) => _phoneNumber = value,
     );
   }
@@ -305,7 +320,7 @@ class _BodyState extends State<Body> {
       child: Column(
         children: <Widget>[
           FlatButton(
-            child: Text('Please more about our Rule &Policy'),
+            child: Text(AppLocalizeService.of(context).translate('policy')),
             onPressed: () {
               print('Rule & Policy');
             },

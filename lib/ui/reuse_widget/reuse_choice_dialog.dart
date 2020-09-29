@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 enum Options { Camera, Gallery }
 
@@ -18,12 +19,13 @@ class ReuseChoiceDialog {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kDefaultRadius),
           ),
-          title: Text('Choose an option'),
+          title: Text(
+              AppLocalizeService.of(context).translate('choose_an_option')),
           children: [
             Container(
               height: 40,
               child: SimpleDialogOption(
-                child: Text('Camera'),
+                child: Text(AppLocalizeService.of(context).translate('camera')),
                 onPressed: () {
                   cameraImage();
                 },
@@ -32,7 +34,8 @@ class ReuseChoiceDialog {
             Container(
               height: 40,
               child: SimpleDialogOption(
-                child: Text('Gallery'),
+                child:
+                    Text(AppLocalizeService.of(context).translate('gallery')),
                 onPressed: () {
                   galleryImage();
                 },

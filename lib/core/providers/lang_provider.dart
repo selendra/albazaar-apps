@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/services/pref_service.dart';
 
 class LangProvider with ChangeNotifier {
-  Locale _manualLocale = Locale('en', 'US');
+  Locale _manualLocale;
   PrefService _prefService = PrefService();
   String _lang;
 
@@ -27,9 +27,16 @@ class LangProvider with ChangeNotifier {
     _prefService.saveString('lang', languageCode);
   }
 
-  void saveLang() async {
+  void saveLang(context) async {
+    Locale myLocale = Localizations.localeOf(context);
+
+    print(myLocale.countryCode);
     await _prefService.read('lang').then((value) {
       _lang = value;
+      if (value == null) {
+        _lang = myLocale.countryCode;
+      }
+
       notifyListeners();
     });
   }

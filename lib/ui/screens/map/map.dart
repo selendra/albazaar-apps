@@ -212,11 +212,14 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
               ),
             ],
           ),
-          SizedBox(
-            height: 20,
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            child: TypeHead(searchPlace),
           ),
-          TypeHead(searchPlace),
-          ZoomButtons(_mapController),
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            child: ZoomButtons(_mapController),
+          ),
         ],
       ),
     ); //SafeArea(child: _bottom()));

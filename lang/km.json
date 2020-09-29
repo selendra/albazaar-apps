@@ -58,5 +58,16 @@
     "drinks": "ភេសជ្ជៈ",
     "vegetable": "បន្លែ",
     "seasoning": "Season ",
-    "desserts": "បង្អែម"
+    "desserts": "បង្អែម",
+    "email_is_empty": "អ៊ីមែលទទេ",
+    "password_is_empty": "ពាក្យសម្ងាត់គឺទទេ ឬ តិចជាង ៦ តួអក្សរ",
+    "choose_an_option": "ជ្រើសរើសជំរើសមួយ",
+    "camera": "កាមេរ៉ា",
+    "gallery": "រូបថត",
+    "price_is_empty": "តម្លៃគឺទទេ",
+    "description_is_empty": "ការពិពណ៌នាគឺទទេ",
+    "contact_name_is_empty": "ឈ្មោះទំនាក់ទំនងគឺទទេ",
+    "phone_number_is_empty": "លេខទូរស័ព្ទគឺទទេ",
+    "policy": "សូមអានបន្ថែមអំពីច្បាប់និងគោលការណ៍របស់យើង",
+    "title_is_empty": "ចំណងជើងគឺទទេ"
 }
