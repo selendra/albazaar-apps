@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/products_provider.dart';
+
 
 class Body extends StatefulWidget {
   @override
@@ -68,6 +69,41 @@ class _BodyState extends State<Body> {
     return false;
   }
 
+  Future galleryImage() async {
+    try {
+      final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+      setState(() {
+        _myImage = File(pickedFile.path);
+      });
+      if (_myImage != null) {
+        print('File: $_myImage');
+        /*ApiPostServices().upLoadImage(_myImage).then((value){
+          value.stream.transform(utf8.decoder).listen((data){
+
+          });
+        });*/
+
+      }
+      Navigator.pop(context);
+    } on PlatformException {
+      return null;
+    }
+  }
+
+  Future cameraImage() async {
+    try {
+      final pickedFile = await picker.getImage(source: ImageSource.camera);
+      _myImage = File(pickedFile.path);
+
+      setState(() {
+        _myImage = File(pickedFile.path);
+      });
+    } on PlatformException {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -98,7 +134,43 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 20,
             ),
-            _image(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _image(),
+                SizedBox(
+                  width: 10,
+                ),
+                _image(),
+                SizedBox(
+                  width: 5,
+                ),
+                _image(),
+                SizedBox(
+                  width: 5,
+                ),
+                _image(),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _image(),
+                SizedBox(
+                  width: 5,
+                ),
+                _image(),
+                SizedBox(
+                  width: 5,
+                ),
+                _image(),
+                SizedBox(
+                  width: 5,
+                ),
+                _image(),
+              ],
+            ),
             SizedBox(
               height: 10,
             ),
@@ -239,11 +311,11 @@ class _BodyState extends State<Body> {
   Widget _image() {
     return InkWell(
       onTap: () {
-        ReuseChoiceDialog().choiceDialog(context);
+        ReuseChoiceDialog().choiceDialog(context, galleryImage, cameraImage);
       },
       child: Container(
-        height: 100,
-        width: MediaQuery.of(context).size.width,
+        height: 70,
+        width: 70,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(kDefaultRadius),
           border: Border.all(

@@ -22,10 +22,11 @@ class _DropDownButtonsState extends State<DropDownButtons> {
         itemsList: itemsList,
         initialValue: value.lang,
         onChanged: (myValue) {
-          setState(() {
-            print(myValue);
-            value.setLocal(myValue);
-          });
+          setState(
+            () {
+              value.setLocal(myValue);
+            },
+          );
         },
       ),
     );

@@ -69,5 +69,13 @@
     "contact_name_is_empty": "ឈ្មោះទំនាក់ទំនងគឺទទេ",
     "phone_number_is_empty": "លេខទូរស័ព្ទគឺទទេ",
     "policy": "សូមអានបន្ថែមអំពីច្បាប់និងគោលការណ៍របស់យើង",
-    "title_is_empty": "ចំណងជើងគឺទទេ"
+    "title_is_empty": "ចំណងជើងគឺទទេ",
+    "are_you_sure_to_log_out": "តើអ្នកពិតជាចង់ចាកចេញមែនទេ?",
+    "yes": "យល់ព្រម",
+    "no": "ទេ",
+    "general": "ទូទៅ",
+    "language": "ភាសា",
+    "currency": "រូបិយប័ណ្ណ",
+    "version": "កំណែ",
+    "security": "សុវត្ថិភាព"
 }

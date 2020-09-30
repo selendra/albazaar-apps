@@ -32,10 +32,10 @@ class _BodyState extends State<Body> {
       child: Container(
         child: Column(
           children: <Widget>[
+            //SearchBar(),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            SearchBar(),
             CategoriesScreen(category),
             ProductList(),
           ],

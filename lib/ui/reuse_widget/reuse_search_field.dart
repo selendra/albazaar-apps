@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 
-
 class ReuseSearchField extends StatefulWidget {
   const ReuseSearchField(
       {this.fieldKey,
@@ -41,7 +40,8 @@ class _ReuseSearchFieldState extends State<ReuseSearchField> {
         keyboardType: widget.inputType,
         decoration: InputDecoration(
           labelText: widget.labelText,
-          labelStyle: TextStyle(color: kDefaultColor.withOpacity(0.5)),
+          labelStyle:
+              TextStyle(color: kDefaultColor.withOpacity(0.5), fontSize: 14.0),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),

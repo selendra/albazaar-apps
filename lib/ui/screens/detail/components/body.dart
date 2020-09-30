@@ -28,10 +28,24 @@ class Body extends StatelessWidget {
                   margin: EdgeInsets.all(20.0),
                   child: InkWell(
                       onTap: () {
-                        showSearch(
-                            context: context, delegate: SearchProducts());
+                        /* showSearch(
+                            context: context, delegate: SearchProducts());*/
                       },
-                      child: Icon(Icons.search)),
+                      child: Icon(Icons.share)),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20.0, right: 20.0, bottom: 20.0),
+                  child: InkWell(
+                      onTap: () {
+                        /* showSearch(
+                            context: context, delegate: SearchProducts());*/
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen()));
+                      },
+                      child: Icon(Icons.shopping_cart)),
                 ),
               ],
               expandedHeight: MediaQuery.of(context).size.height * 0.5,
@@ -55,6 +69,18 @@ class Body extends StatelessWidget {
                       noRadiusForIndicator: true,
                       boxFit: BoxFit.cover,
                       images: [
+                        Image.asset(
+                          loadedData.image,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          loadedData.image,
+                          fit: BoxFit.cover,
+                        ),
+                        Image.asset(
+                          loadedData.image,
+                          fit: BoxFit.cover,
+                        ),
                         Image.asset(
                           loadedData.image,
                           fit: BoxFit.cover,

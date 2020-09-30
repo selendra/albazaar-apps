@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -6,36 +7,38 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   bool _isTouchIdOn = false;
   bool _isPinOn = false;
 
-
-  void checkTouchID (){
+  void checkTouchID() {
     setState(() {
       _isTouchIdOn = !_isTouchIdOn;
-      if(_isTouchIdOn==true){
+      if (_isTouchIdOn == true) {
         print('Fingerprint Active');
-      }else{
+      } else {
         print('Fingerprint is not Active');
       }
     });
   }
-  void checkPin(){
+
+  void checkPin() {
     setState(() {
       _isPinOn = !_isPinOn;
-      if(_isPinOn==true){
+      if (_isPinOn == true) {
         print('PIN is on');
-      }else{
+      } else {
         print('Pin is Off');
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return _buildBody();
   }
-  Widget _buildBody(){
+
+  Widget _buildBody() {
+    var _lang = AppLocalizeService.of(context);
     return Container(
       child: Column(
         children: <Widget>[
@@ -43,7 +46,7 @@ class _BodyState extends State<Body> {
             color: Colors.grey[200],
             child: ListTile(
               title: Text(
-                'GENERAL',
+                _lang.translate('general'),
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey[600],
@@ -52,34 +55,23 @@ class _BodyState extends State<Body> {
             ),
           ),
           InkWell(
-            onTap: (){
-              print('Accounts');
-            },
-            splashColor: Colors.grey,
-            child: ListTile(
-              title: Text('Accounts'),
-              leading: Icon(Icons.account_circle),
-              trailing: Icon(Icons.arrow_forward_ios),
-            ),
-          ),
-          InkWell(
-            onTap: (){
+            onTap: () {
               print('Language');
             },
             splashColor: Colors.grey,
             child: ListTile(
-              title: Text('Language'),
+              title: Text(_lang.translate('language')),
               leading: Icon(Icons.language),
               trailing: Icon(Icons.arrow_forward_ios),
             ),
           ),
           InkWell(
-            onTap: (){
-              print('Currency');
+            onTap: () {
+              print(_lang.translate('currency'));
             },
             splashColor: Colors.grey,
             child: ListTile(
-              title: Text('Currency'),
+              title: Text(_lang.translate('currency')),
               leading: Icon(Icons.monetization_on),
               trailing: Icon(Icons.arrow_forward_ios),
             ),
@@ -88,7 +80,7 @@ class _BodyState extends State<Body> {
             color: Colors.grey[200],
             child: ListTile(
               title: Text(
-                'SECURITY',
+                _lang.translate('security'),
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey[600],
@@ -98,19 +90,18 @@ class _BodyState extends State<Body> {
           ),
           Container(
               child: SwitchListTile(
-                title: Text('Touch ID'),
-                value: _isTouchIdOn,
-                onChanged: (value){
-                  checkTouchID();
-                },
-                secondary: Icon(Icons.fingerprint),
-              )
-          ),
+            title: Text('Touch ID'),
+            value: _isTouchIdOn,
+            onChanged: (value) {
+              checkTouchID();
+            },
+            secondary: Icon(Icons.fingerprint),
+          )),
           Container(
             child: SwitchListTile(
               title: Text('PIN Code'),
               value: _isPinOn,
-              onChanged: (value){
+              onChanged: (value) {
                 checkPin();
               },
               secondary: Icon(Icons.fiber_pin),
@@ -120,7 +111,7 @@ class _BodyState extends State<Body> {
             color: Colors.grey[200],
             child: ListTile(
               title: Text(
-                'VERSION',
+                _lang.translate('version'),
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey[600],
@@ -140,7 +131,6 @@ class _BodyState extends State<Body> {
               color: Colors.grey[200],
             ),
           )
-
         ],
       ),
     );

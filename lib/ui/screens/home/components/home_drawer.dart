@@ -33,6 +33,7 @@ class HomeDrawer extends StatelessWidget {
             AppLocalizeService.of(context).translate('profile'),
             Icons.person,
             () {
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
@@ -46,6 +47,7 @@ class HomeDrawer extends StatelessWidget {
             AppLocalizeService.of(context).translate('purchase'),
             Icons.shopping_basket,
             () {
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => PurchaseScreen()));
             },
@@ -54,6 +56,7 @@ class HomeDrawer extends StatelessWidget {
             AppLocalizeService.of(context).translate('listing'),
             Icons.list,
             () {
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ListingScreen()));
             },
@@ -62,6 +65,7 @@ class HomeDrawer extends StatelessWidget {
             AppLocalizeService.of(context).translate('sale'),
             Icons.monetization_on,
             () {
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SalesScreen()));
             },
@@ -71,18 +75,27 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
+          ReuseInkwell.getItem(AppLocalizeService.of(context).translate('cart'),
+              Icons.shopping_cart, () {
+            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CartScreen()));
+          }),
           ReuseInkwell.getItem(
               AppLocalizeService.of(context).translate('message'),
-              Icons.message,
-              () {}),
+              Icons.message, () {
+            Navigator.pop(context);
+          }),
           ReuseInkwell.getItem(
               AppLocalizeService.of(context).translate('notification'),
-              Icons.notifications,
-              () {}),
+              Icons.notifications, () {
+            Navigator.pop(context);
+          }),
           ReuseInkwell.getItem(
             AppLocalizeService.of(context).translate('setting'),
             Icons.settings,
             () {
+              Navigator.pop(context);
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => SettingScreen()));
             },
@@ -91,7 +104,8 @@ class HomeDrawer extends StatelessWidget {
             AppLocalizeService.of(context).translate('logout_string'),
             Icons.input,
             () {
-              Auth().signOut(context);
+              HomeDialog().alertDialog(context);
+              //Auth().signOut(context);
             },
           ),
         ],

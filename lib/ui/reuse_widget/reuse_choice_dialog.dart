@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 enum Options { Camera, Gallery }
 
 class ReuseChoiceDialog {
-  File _myImage;
   final picker = ImagePicker();
 
-  Future<void> choiceDialog(BuildContext context) async {
+  Future<void> choiceDialog(
+      BuildContext context, Function galleryImage, Function cameraImage) async {
     switch (await showDialog<Options>(
       context: context,
       builder: (context) {
@@ -54,7 +52,7 @@ class ReuseChoiceDialog {
     }
   }
 
-  Future galleryImage() async {
+  /* Future galleryImage() async {
     try {
       final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -72,17 +70,6 @@ class ReuseChoiceDialog {
       return null;
     }
   }
+*/
 
-  Future cameraImage() async {
-    try {
-      final pickedFile = await picker.getImage(source: ImageSource.camera);
-      _myImage = File(pickedFile.path);
-
-      /*setState(() {
-        _myImage = File(pickedFile.path);
-      });*/
-    } on PlatformException {
-      return null;
-    }
-  }
 }

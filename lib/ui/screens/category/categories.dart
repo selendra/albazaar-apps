@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class CategoriesScreen extends StatelessWidget {
-
-  final List<Categories> allCategories ;
+  final List<Categories> allCategories;
   CategoriesScreen(this.allCategories);
 
-
-  void itemTap(int index,context){
-    switch (index){
+  void itemTap(int index, context) {
+    switch (index) {
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => FoodsScreen()));
         break;
     }
   }
 
-  Widget itemCategory(Function onTap, String img, {String title}){
+  Widget itemCategory(Function onTap, String img, {String title}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -23,14 +22,18 @@ class CategoriesScreen extends StatelessWidget {
         width: 40,
         margin: EdgeInsets.symmetric(horizontal: 15.0),
         alignment: Alignment.center,
-        child: Image.asset(img,height: 30,width: 40,),
-          // Column(
-          //   children: <Widget>[
-          //     Image.asset(logo,height: 40,width: 40,),
-          //     SizedBox(height: 5,),
-          //     // Text(title,style: TextStyle(fontSize: 12),)
-          //   ],
-          // )
+        child: Image.asset(
+          img,
+          height: 30,
+          width: 40,
+        ),
+        // Column(
+        //   children: <Widget>[
+        //     Image.asset(logo,height: 40,width: 40,),
+        //     SizedBox(height: 5,),
+        //     // Text(title,style: TextStyle(fontSize: 12),)
+        //   ],
+        // )
       ),
     );
   }
@@ -38,17 +41,17 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
-      margin: EdgeInsets.symmetric(vertical: 5.0),
-      width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: allCategories.length,
-        itemBuilder: (context,index){
-          return itemCategory(() {itemTap(index, context);},allCategories[index].img );
-        }
-      )
-    );
+        height: 60,
+        //margin: EdgeInsets.symmetric(vertical: 5.0),
+        width: MediaQuery.of(context).size.width,
+        child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: allCategories.length,
+            itemBuilder: (context, index) {
+              return itemCategory(() {
+                itemTap(index, context);
+              }, allCategories[index].img);
+            }));
   }
 }

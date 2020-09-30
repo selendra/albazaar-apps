@@ -44,7 +44,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
       child: TextFormField(
         key: widget.fieldKey,
         initialValue: widget.initialValue,
-        textInputAction: widget.textInputAction,
+        textInputAction: widget.textInputAction ?? TextInputAction.done,
         keyboardType: widget.inputType,
         decoration: InputDecoration(
           labelText: widget.labelText,

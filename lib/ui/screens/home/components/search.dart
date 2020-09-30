@@ -7,7 +7,10 @@ class SearchProducts extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(
+          Icons.clear,
+          color: kDefaultColor,
+        ),
         onPressed: () {
           query = '';
         },
@@ -15,10 +18,18 @@ class SearchProducts extends SearchDelegate {
     ];
   }
 
+  var _searchFieldStyle = TextStyle(color: kDefaultColor);
+
+  @override
+  TextStyle get searchFieldStyle => _searchFieldStyle;
+
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: Icon(
+        Icons.arrow_back,
+        color: kDefaultColor,
+      ),
       onPressed: () {
         close(context, null);
       },
@@ -27,7 +38,11 @@ class SearchProducts extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    return Container(
+      child: Center(
+        child: Text('No products found'),
+      ),
+    );
   }
 
   @override
@@ -36,20 +51,32 @@ class SearchProducts extends SearchDelegate {
     final searchProducts = query.isEmpty
         ? []
         : data.items
-            .where((element) =>
-                element.title.toLowerCase().startsWith(query.toLowerCase()))
+            .where(
+              (element) => element.title.toLowerCase().startsWith(
+                    query.toLowerCase(),
+                  ),
+            )
             .toList();
 
     return Container(
       child: ListView.builder(
-          itemCount: searchProducts.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(searchProducts[index].title),
-              leading: Image.asset(searchProducts[index].image),
-              subtitle: Text(searchProducts[index].price.toString()),
-            );
-          }),
+        itemCount: searchProducts.length,
+        itemBuilder: (context, index) {
+          return searchProducts == null
+              ? Container(
+                  child: Center(
+                    child: Text('No products found'),
+                  ),
+                )
+              : ListTile(
+                  title: Text(searchProducts[index].title),
+                  leading: Image.asset(searchProducts[index].image),
+                  subtitle: Text(
+                    searchProducts[index].price.toString(),
+                  ),
+                );
+        },
+      ),
     );
   }
 }

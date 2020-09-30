@@ -59,7 +59,9 @@ class ItemCard extends StatelessWidget {
               child: Text(
                 "\$${product.price}",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: kDefaultColor),
+                    fontWeight: FontWeight.bold,
+                    color: kDefaultColor,
+                    fontSize: 14.0),
               ),
             )
           ],

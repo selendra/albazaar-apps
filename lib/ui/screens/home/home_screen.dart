@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/ui/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -12,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   ScrollController scrollController;
- 
+
   @override
   void initState() {
     super.initState();
@@ -78,12 +77,13 @@ class _HomeScreenState extends State<HomeScreen>
               actions: <Widget>[
                 IconButton(
                   icon: Icon(
-                    Icons.shopping_cart,
+                    Icons.search,
                     color: kDefaultColor,
                   ),
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartScreen()));
+                    /*Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartScreen()));*/
+                    showSearch(context: context, delegate: SearchProducts());
                   },
                 ),
               ],
