@@ -72,6 +72,7 @@ export 'ui/screens/sales/sale_screen.dart';
 
 //setting screen
 export 'ui/screens/setting/setting_screen.dart';
+export 'ui/screens/setting/components/lang.dart';
 
 //sign in screen
 export 'ui/screens/signin/signin.dart';

@@ -77,5 +77,7 @@
     "language": "Language",
     "currency": "Currency",
     "version" : "Version",
-    "security": "Security"
+    "security": "Security",
+    "english": "English",
+    "khmer" : "Khmer"
 }

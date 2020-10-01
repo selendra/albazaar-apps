@@ -20,7 +20,6 @@ class LangProvider with ChangeNotifier {
         break;
       case 'EN':
         _manualLocale = Locale('en', 'US');
-
         notifyListeners();
         break;
     }

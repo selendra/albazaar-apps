@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -56,7 +57,11 @@ class _BodyState extends State<Body> {
           ),
           InkWell(
             onTap: () {
-              print('Language');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Lang(),
+                  ));
             },
             splashColor: Colors.grey,
             child: ListTile(
@@ -67,7 +72,7 @@ class _BodyState extends State<Body> {
           ),
           InkWell(
             onTap: () {
-              print(_lang.translate('currency'));
+             
             },
             splashColor: Colors.grey,
             child: ListTile(

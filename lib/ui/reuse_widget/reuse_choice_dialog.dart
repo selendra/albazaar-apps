@@ -9,7 +9,8 @@ class ReuseChoiceDialog {
   final picker = ImagePicker();
 
   Future<void> choiceDialog(
-      BuildContext context, Function galleryImage, Function cameraImage) async {
+      BuildContext context, Function galleryImage, Function cameraImage,
+      {int index}) async {
     switch (await showDialog<Options>(
       context: context,
       builder: (context) {
@@ -35,7 +36,7 @@ class ReuseChoiceDialog {
                 child:
                     Text(AppLocalizeService.of(context).translate('gallery')),
                 onPressed: () {
-                  galleryImage();
+                  galleryImage(index);
                 },
               ),
             ),
@@ -47,7 +48,7 @@ class ReuseChoiceDialog {
         cameraImage();
         break;
       case Options.Gallery:
-        galleryImage();
+        galleryImage(index);
         break;
     }
   }

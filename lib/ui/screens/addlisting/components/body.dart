@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -18,7 +17,17 @@ class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
 
-  File _myImage;
+  //List<File> _myImage = List<File>(8);
+  Map<int, File> _myImage = {
+    0: null,
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+  };
+  //File _myImage;
   final picker = ImagePicker();
 
   String _title;
@@ -69,12 +78,13 @@ class _BodyState extends State<Body> {
     return false;
   }
 
-  Future galleryImage() async {
+  Future galleryImage(int index) async {
     try {
       final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
       setState(() {
-        _myImage = File(pickedFile.path);
+        _myImage[index] = File(pickedFile.path);
+        // _myImage.add(File(pickedFile.path));
       });
       if (_myImage != null) {
         print('File: $_myImage');
@@ -91,13 +101,14 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future cameraImage() async {
+  Future cameraImage(int index) async {
     try {
       final pickedFile = await picker.getImage(source: ImageSource.camera);
-      _myImage = File(pickedFile.path);
+      // _myImage.add(File(pickedFile.path));
 
       setState(() {
-        _myImage = File(pickedFile.path);
+        _myImage[index] = File(pickedFile.path);
+        //_myImage.add(File(pickedFile.path));
       });
     } on PlatformException {
       return null;
@@ -132,44 +143,36 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _image(),
-                SizedBox(
-                  width: 10,
+            Container(
+              height: 100,
+              child: ListView.builder(
+                itemCount: _myImage.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () async {
+                    final pickedFile =
+                        await picker.getImage(source: ImageSource.gallery);
+                    _myImage[index] = File(pickedFile.path);
+                    setState(() {});
+                  },
+                  child: GridTile(
+                    child: Card(
+                      child: Center(
+                        child: _myImage[index] == null
+                            ? Image.network(
+                                'https://static.thenounproject.com/png/187803-200.png')
+                            : Image.file(
+                                _myImage[index],
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
+                  ),
                 ),
-                _image(),
-                SizedBox(
-                  width: 5,
-                ),
-                _image(),
-                SizedBox(
-                  width: 5,
-                ),
-                _image(),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _image(),
-                SizedBox(
-                  width: 5,
-                ),
-                _image(),
-                SizedBox(
-                  width: 5,
-                ),
-                _image(),
-                SizedBox(
-                  width: 5,
-                ),
-                _image(),
-              ],
+              ),
             ),
             SizedBox(
               height: 10,
@@ -328,7 +331,7 @@ class _BodyState extends State<Body> {
                 image: NetworkImage(
                     'https://static.thenounproject.com/png/187803-200.png'),
               )
-            : Image.file(_myImage),
+            : null,
       ),
     );
   }
