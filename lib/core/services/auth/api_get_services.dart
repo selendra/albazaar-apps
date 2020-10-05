@@ -15,7 +15,8 @@ class ApiGetServices with ChangeNotifier {
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
       "authorization": "Bearer " + _token,
-    });    var responseBody = json.decode(response.body);
+    });
+    var responseBody = json.decode(response.body);
 
     _mUser = User.fromJson(responseBody);
     _prefService.saveString('user', jsonEncode(responseBody));
@@ -53,22 +54,26 @@ class ApiGetServices with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> fetchPortforlio(String _token) async {
-    var response =
-        await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
-      "accept": "application/json",
-      "authorization": "Bearer " + _token,
-    });
-    if (response.statusCode == 200) {
-      var responseBody = json.decode(response.body);
-      if (responseBody is List) {
-        for (var i in responseBody) {
-          mBalance.add(Balance.fromJson(i));
+  Future<String> fetchPortforlio() async {
+    await _prefService.read('token').then((onValue) async {
+      var response =
+          await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+        "accept": "application/json",
+        "authorization": "Bearer " + onValue,
+      });
+
+      if (response.statusCode == 200) {
+        var responseBody = json.decode(response.body);
+        if (responseBody is List) {
+          for (var i in responseBody) {
+            mBalance.add(Balance.fromJson(i));
+          }
+        } else {
+          alertText = responseBody['error']['message'];
         }
-      } else {
-        alertText = responseBody['error']['message'];
       }
-    }
+    });
+
     return alertText ?? '';
   }
 

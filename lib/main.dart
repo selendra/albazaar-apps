@@ -1,7 +1,6 @@
+//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
-import 'package:selendra_marketplace_app/core/services/connectivity_services.dart';
 import 'all_export.dart';
 import 'core/providers/products_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,6 +10,7 @@ final sfKey = GlobalKey<ScaffoldState>();
 
 void main() {
   // debugPaintSizeEnabled = true;
+  //GestureBinding.instance.resamplingEnabled = true;
   runApp(SelendraApp());
 }
 
@@ -55,6 +55,7 @@ class _SelendraAppState extends State<SelendraApp> {
               ..buildViewportChrome(context, child, AxisDirection.down),
             child: child,
           ),
+          title: 'Selendra Marketplace',
           locale: value.manualLocale,
           supportedLocales: [
             const Locale('en', 'US'),
@@ -89,6 +90,7 @@ class _SelendraAppState extends State<SelendraApp> {
           debugShowCheckedModeBanner: true,
           theme: ThemeData(
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            primaryColor: kDefaultColor,
           ),
           home: SplashScreen(),
           navigatorKey: navigationKey,

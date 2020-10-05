@@ -72,12 +72,14 @@
     "title_is_empty": "ចំណងជើងគឺទទេ",
     "are_you_sure_to_log_out": "តើអ្នកពិតជាចង់ចាកចេញមែនទេ?",
     "yes": "យល់ព្រម",
-    "no": "ទេ",
+    "no": "បោះបង់",
     "general": "ទូទៅ",
     "language": "ភាសា",
     "currency": "រូបិយប័ណ្ណ",
     "version": "កំណែ",
     "security": "សុវត្ថិភាព",
     "english": "អង់គ្លេស",
-    "khmer": "ខ្មែរ"
+    "khmer": "ខ្មែរ",
+    "add": "បន្ថែម",
+    "withdrawal": "ដក"
 }

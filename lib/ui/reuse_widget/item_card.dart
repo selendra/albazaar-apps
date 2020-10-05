@@ -57,7 +57,7 @@ class ItemCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${product.price}",
+                "\$${product.price} /Kg",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,

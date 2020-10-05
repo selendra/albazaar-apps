@@ -19,7 +19,7 @@
     "sale": "Sale",
     "message": "Message",
     "notification": "Notification",
-    "setting": "Setting",
+    "setting": "Settings",
     "profile_photo": "Profile Photo",
     "first_name": "First Name",
     "mid_name": "Mid Name",
@@ -79,5 +79,8 @@
     "version" : "Version",
     "security": "Security",
     "english": "English",
-    "khmer" : "Khmer"
+    "khmer" : "Khmer",
+    "add" : "Add",
+    "withdrawal" : "WithDrawal"
+    
 }

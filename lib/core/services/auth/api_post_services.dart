@@ -55,9 +55,13 @@ class ApiPostServices with ChangeNotifier {
       var responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
+
       if (_token != null) {
         print(_token);
         _pref.saveString('token', _token);
+        Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => BottomNavigation()));
       } else {
         try {
           _alertText = responseJson['error']['message'];
@@ -102,8 +106,6 @@ class ApiPostServices with ChangeNotifier {
         }));
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
-      print(responseBody);
-      print(response.body);
       _alertText = responseBody['message'];
     } else {
       print(response.body);

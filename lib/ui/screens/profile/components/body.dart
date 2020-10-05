@@ -40,7 +40,6 @@ class _BodyState extends State<Body> {
   Future cameraImage() async {
     try {
       final pickedFile = await picker.getImage(source: ImageSource.camera);
-      _myImage = File(pickedFile.path);
 
       setState(() {
         _myImage = File(pickedFile.path);
@@ -71,10 +70,15 @@ class _BodyState extends State<Body> {
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: ListTile(
-                          onTap: () {
+                          onTap: () async {
+                            final pickedFile = await picker.getImage(
+                                source: ImageSource.gallery);
+                            setState(() {
+                              _myImage = File(pickedFile.path);
+                            });
                             //choiceDialog();
-                            ReuseChoiceDialog().choiceDialog(
-                                context, galleryImage, cameraImage);
+                            // ReuseChoiceDialog().choiceDialog(
+                            //     context, galleryImage, cameraImage);
                           },
                           title: Text(AppLocalizeService.of(context)
                               .translate('profile_photo')),

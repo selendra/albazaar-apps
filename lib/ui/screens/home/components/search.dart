@@ -9,7 +9,6 @@ class SearchProducts extends SearchDelegate {
       IconButton(
         icon: Icon(
           Icons.clear,
-          color: kDefaultColor,
         ),
         onPressed: () {
           query = '';
@@ -18,17 +17,16 @@ class SearchProducts extends SearchDelegate {
     ];
   }
 
-  var _searchFieldStyle = TextStyle(color: kDefaultColor);
+  // var _searchFieldStyle = TextStyle(color: kDefaultColor);
 
-  @override
-  TextStyle get searchFieldStyle => _searchFieldStyle;
+  // @override
+  // TextStyle get searchFieldStyle => _searchFieldStyle;
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(
         Icons.arrow_back,
-        color: kDefaultColor,
       ),
       onPressed: () {
         close(context, null);
@@ -38,11 +36,7 @@ class SearchProducts extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('No products found'),
-      ),
-    );
+    return Container();
   }
 
   @override
@@ -62,19 +56,18 @@ class SearchProducts extends SearchDelegate {
       child: ListView.builder(
         itemCount: searchProducts.length,
         itemBuilder: (context, index) {
-          return searchProducts == null
-              ? Container(
-                  child: Center(
-                    child: Text('No products found'),
-                  ),
-                )
-              : ListTile(
-                  title: Text(searchProducts[index].title),
-                  leading: Image.asset(searchProducts[index].image),
-                  subtitle: Text(
-                    searchProducts[index].price.toString(),
-                  ),
-                );
+          return ListTile(
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.of(context)
+                  .pushNamed('/detail', arguments: searchProducts[index].id);
+            },
+            title: Text(searchProducts[index].title),
+            leading: Image.asset(searchProducts[index].image),
+            subtitle: Text(
+              searchProducts[index].price.toString(),
+            ),
+          );
         },
       ),
     );

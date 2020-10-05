@@ -12,7 +12,7 @@ class CartItems extends StatelessWidget {
   final String productId;
   final int qty;
 
-  CartItems(this.image, this.title, this.price,this.qty, this.productId);
+  CartItems(this.image, this.title, this.price, this.qty, this.productId);
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +34,20 @@ class CartItems extends StatelessWidget {
           borderRadius: BorderRadius.circular(kDefaultRadius),
         ),
         child: ListTile(
-          shape: kDefaultShape,
-          leading: CircleAvatar(
-            backgroundImage: AssetImage(image),
-          ),
-          title: Text(title),
-          subtitle: Text(
-            '\$ ' + price.toString(),
-            style: TextStyle(color: kDefaultColor, fontWeight: FontWeight.bold),
-          ),
-          trailing: CartBtnQty(productId,qty)
-        ),
+            shape: kDefaultShape,
+            leading: CircleAvatar(
+              backgroundImage: AssetImage(image),
+            ),
+            title: Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              '\$ ' + price.toString(),
+              style:
+                  TextStyle(color: kDefaultColor, fontWeight: FontWeight.bold),
+            ),
+            trailing: CartBtnQty(productId, qty)),
       ),
     );
   }

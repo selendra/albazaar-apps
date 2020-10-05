@@ -24,7 +24,7 @@ class _RootServicesState extends State<RootServices> {
         String _token = value;
         if (_token != null) {
           Provider.of<ApiGetServices>(context, listen: false).fetchUserInfo();
-          await ApiGetServices().fetchPortforlio(_token);
+          await ApiGetServices().fetchPortforlio();
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => BottomNavigation()));
         } else {

@@ -113,9 +113,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           _isLoading = false;
         });
         SignInDialog().errorDialog(context, value);
-      } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => RootServices()));
       }
     });
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:provider/provider.dart';
 
 class FoodsScreen extends StatefulWidget {
   @override
@@ -25,7 +26,8 @@ class _FoodsScreenState extends State<FoodsScreen>
 
   @override
   Widget build(BuildContext context) {
-    var _lang = AppLocalizeService.of(context);
+    // var _lang = AppLocalizeService.of(context);
+    final productsData = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -34,37 +36,37 @@ class _FoodsScreenState extends State<FoodsScreen>
           height: 30,
           width: 30,
         ),
-        bottom: TabBar(
-          controller: controller,
-          isScrollable: true,
-          indicatorColor: kDefaultColor,
-          unselectedLabelColor: Colors.grey,
-          labelColor: kDefaultColor,
-          labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          tabs: <Widget>[
-            Tab(
-              text: _lang.translate('all'),
-            ),
-            Tab(
-              text: _lang.translate('meat'),
-            ),
-            Tab(
-              text: _lang.translate('fruit'),
-            ),
-            Tab(
-              text: _lang.translate('drinks'),
-            ),
-            Tab(
-              text: _lang.translate('vegetable'),
-            ),
-            Tab(
-              text: _lang.translate('seasoning'),
-            ),
-            Tab(
-              text: _lang.translate('desserts'),
-            )
-          ],
-        ),
+        // bottom: TabBar(
+        //   controller: controller,
+        //   isScrollable: true,
+        //   indicatorColor: kDefaultColor,
+        //   unselectedLabelColor: Colors.grey,
+        //   labelColor: kDefaultColor,
+        //   labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        //   tabs: <Widget>[
+        //     Tab(
+        //       text: _lang.translate('all'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('meat'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('fruit'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('drinks'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('vegetable'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('seasoning'),
+        //     ),
+        //     Tab(
+        //       text: _lang.translate('desserts'),
+        //     )
+        //   ],
+        // ),
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -88,116 +90,117 @@ class _FoodsScreenState extends State<FoodsScreen>
           )
         ],
       ),
-      body: _buildTapBarView(),
+      body: Container(
+          child: ProductList(productsData.items)), //_buildTapBarView(),
     );
   }
 
-  Widget _buildTapBarView() {
-    return Container(
-      width: double.infinity,
-      child: TabBarView(
-        controller: controller,
-        children: <Widget>[
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'All',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Meat',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Fruit',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Drinks',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Vegatble',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Seasoning',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Desserts',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildTapBarView() {
+  //   return Container(
+  //     width: double.infinity,
+  //     child: TabBarView(
+  //       controller: controller,
+  //       children: <Widget>[
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'All',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Meat',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Fruit',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Drinks',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Vegatble',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Seasoning',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: <Widget>[
+  //               Text(
+  //                 'Desserts',
+  //                 style: TextStyle(
+  //                   fontSize: 22,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

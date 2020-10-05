@@ -501,7 +501,7 @@ class _PinScreenState extends State<PinScreen> {
       height: 50,
       child: IntlPhoneField(
         decoration: InputDecoration(
-          labelText: 'Phone Number',
+          labelText: AppLocalizeService.of(context).translate('phone_hint'),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
@@ -512,7 +512,9 @@ class _PinScreenState extends State<PinScreen> {
         ),
         initialCountryCode: _countryCode,
         maxLength: 10,
-        validator: (value) => value = value.isEmpty ? 'Phone is Empty' : null,
+        validator: (value) => value = value.isEmpty
+            ? AppLocalizeService.of(context).translate('phone_number_is_number')
+            : null,
         onChanged: (phone) {
           print(phone.completeNumber);
           _phoneNumber = phone.completeNumber.toString();
@@ -547,7 +549,8 @@ class _PinScreenState extends State<PinScreen> {
                       height: 5,
                     ),
                     isNotCorrect
-                        ? Text(_lang.translate('password_not_match'))
+                        ? Text(_lang.translate('password_not_match'),
+                            style: TextStyle(color: Colors.red))
                         : Container(),
                     SizedBox(
                       height: 50,

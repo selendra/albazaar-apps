@@ -90,6 +90,11 @@ class HomeDrawer extends StatelessWidget {
               AppLocalizeService.of(context).translate('notification'),
               Icons.notifications, () {
             Navigator.pop(context);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NotificationScreen(),
+                ));
           }),
           ReuseInkwell.getItem(
             AppLocalizeService.of(context).translate('setting'),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_button.dart';
-import 'package:selendra_marketplace_app/core/models/acc_balance.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 import 'wallet_list.dart';
 
 class MyWallet extends StatelessWidget {
@@ -11,6 +9,7 @@ class MyWallet extends StatelessWidget {
   }
 
   Widget _body(context) {
+    var _lang = AppLocalizeService.of(context);
     return Stack(
       children: <Widget>[
         Column(
@@ -66,13 +65,13 @@ class MyWallet extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
-                      ReuseButton.getItem('Add', () {
+                      ReuseButton.getItem(_lang.translate('add'), () {
                         print('add');
                       }, context),
                       SizedBox(
                         height: 10,
                       ),
-                      ReuseButton.getItem('Withdrawal', () {
+                      ReuseButton.getItem(_lang.translate('withdrawal'), () {
                         print('withdrawal');
                       }, context)
                     ],

@@ -46,8 +46,8 @@ class _BodyState extends State<Body> {
     }
   }
 
-  onfetchPortforlio(String _token) async {
-    await ApiGetServices().fetchPortforlio(_token).then((value) {
+  onfetchPortforlio() async {
+    await ApiGetServices().fetchPortforlio().then((value) {
       alertText = value;
       if (alertText != '') {
         checkFirstSeen();
@@ -60,7 +60,7 @@ class _BodyState extends State<Body> {
     SharedPreferences isToken = await SharedPreferences.getInstance();
     _token = isToken.getString('token');
     if (_token != null) {
-      onfetchPortforlio(_token);
+      onfetchPortforlio();
     } else {
       alertText = 'Look like you don\'t have a wallet yet!';
       checkFirstSeen();
