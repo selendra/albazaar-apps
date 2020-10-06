@@ -33,13 +33,13 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.white,
                       spreadRadius: 5.0,
                       blurRadius: 5.0,
                     )
                   ],
                 ),
-                child: Image.asset(product.image, fit: BoxFit.cover),
+                child: Image.network(product.image, fit: BoxFit.cover),
               ),
             ),
             Padding(

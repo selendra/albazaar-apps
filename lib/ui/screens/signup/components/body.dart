@@ -133,7 +133,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   onTabChange() {
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        onPageChange(_tabController.index, p: _pageController);
+        setState(() {
+          onPageChange(_tabController.index, p: _pageController);
+        });
       }
     });
   }
@@ -142,7 +144,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     if (p != null) {
       isPageCanChanged = false;
       await _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
       isPageCanChanged = true;
     } else {
       _tabController.animateTo(index);

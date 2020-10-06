@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
-  final String image, title, description, sellerName, sellerPhoneNum;
+  final String image, title, description, sellerName, sellerPhoneNum, category;
   final int id;
   final double price;
   final Color color;
@@ -17,6 +17,7 @@ class Product with ChangeNotifier {
     this.color,
     this.sellerName,
     this.sellerPhoneNum,
+    this.category,
     this.isFavorite = false,
   });
 

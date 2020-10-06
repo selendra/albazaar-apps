@@ -36,7 +36,8 @@ class CartItems extends StatelessWidget {
         child: ListTile(
             shape: kDefaultShape,
             leading: CircleAvatar(
-              backgroundImage: AssetImage(image),
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage(image),
             ),
             title: Text(
               title,

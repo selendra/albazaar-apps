@@ -40,7 +40,8 @@ class _BodyState extends State<Body> {
                         maxLines: 1,
                       ),
                       leading: CircleAvatar(
-                        backgroundImage: AssetImage(_fav[index].image),
+                        backgroundColor: Colors.white,
+                        backgroundImage: NetworkImage(_fav[index].image),
                       ),
                       onTap: () {
                         Navigator.of(context)

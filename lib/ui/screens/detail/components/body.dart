@@ -26,19 +26,12 @@ class Body extends StatelessWidget {
               actions: [
                 Container(
                   margin: EdgeInsets.all(20.0),
-                  child: InkWell(
-                      onTap: () {
-                        /* showSearch(
-                            context: context, delegate: SearchProducts());*/
-                      },
-                      child: Icon(Icons.share)),
+                  child: InkWell(onTap: () {}, child: Icon(Icons.share)),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20.0, right: 20.0, bottom: 20.0),
                   child: InkWell(
                       onTap: () {
-                        /* showSearch(
-                            context: context, delegate: SearchProducts());*/
                         Navigator.pop(context);
                         Navigator.push(
                             context,
@@ -68,40 +61,15 @@ class Body extends StatelessWidget {
                       moveIndicatorFromBottom: 180.0,
                       noRadiusForIndicator: true,
                       boxFit: BoxFit.cover,
-                      images: [
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                        Image.asset(
-                          loadedData.image,
-                          fit: BoxFit.cover,
-                        ),
-                      ],
+                      images: List.generate(
+                        8,
+                        (index) {
+                          return Image.network(
+                            loadedData.image,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

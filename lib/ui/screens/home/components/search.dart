@@ -63,7 +63,7 @@ class SearchProducts extends SearchDelegate {
                   .pushNamed('/detail', arguments: searchProducts[index].id);
             },
             title: Text(searchProducts[index].title),
-            leading: Image.asset(searchProducts[index].image),
+            leading: Image.network(searchProducts[index].image),
             subtitle: Text(
               searchProducts[index].price.toString(),
             ),

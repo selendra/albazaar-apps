@@ -16,6 +16,7 @@ class _FoodsScreenState extends State<FoodsScreen>
   void initState() {
     super.initState();
     controller = TabController(vsync: this, length: 7);
+    Provider.of<ProductsProvider>(context, listen: false).getVegi();
   }
 
   @override
@@ -91,7 +92,7 @@ class _FoodsScreenState extends State<FoodsScreen>
         ],
       ),
       body: Container(
-          child: ProductList(productsData.items)), //_buildTapBarView(),
+          child: ProductList(productsData.vegProduct)), //_buildTapBarView(),
     );
   }
 

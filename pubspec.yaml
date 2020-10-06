@@ -43,6 +43,8 @@ dependencies:
   image:
   flutter_typeahead: ^1.8.8
   carousel_pro: ^1.0.0
+  shimmer: ^1.1.1
+  cached_network_image: ^2.3.2+1
   
 
 

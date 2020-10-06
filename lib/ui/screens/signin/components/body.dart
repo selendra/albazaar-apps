@@ -10,7 +10,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   bool _isLoading = false;
-  TextEditingController _textFieldController;
   final PageController _pageController = PageController(initialPage: 0);
   TabController _tabController;
   var isPageCanChanged = true;
@@ -141,7 +140,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   onTabChange() {
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        onPageChange(_tabController.index, p: _pageController);
+        setState(() {
+          onPageChange(_tabController.index, p: _pageController);
+        });
       }
     });
   }
@@ -150,7 +151,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     if (p != null) {
       isPageCanChanged = false;
       await _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
       isPageCanChanged = true;
     } else {
       _tabController.animateTo(index);
@@ -160,7 +161,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _textFieldController = TextEditingController();
     _tabController = TabController(vsync: this, length: 2);
     onTabChange();
     //_pageController = PageController();
@@ -168,7 +168,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    _textFieldController.dispose();
     _tabController.dispose();
     _pageController.dispose();
     super.dispose();
@@ -202,9 +201,11 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                     height: 40,
                   ),
                   ReuseAuthTab(_tabController),
+                  // tabs(context),
                   SizedBox(
                     height: 40,
                   ),
+
                   Expanded(
                     flex: 2,
                     child: PageView(

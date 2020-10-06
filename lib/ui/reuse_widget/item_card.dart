@@ -31,7 +31,7 @@ class ItemCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey[300],
+                      color: Colors.white,
                       spreadRadius: 5.0,
                       blurRadius: 5.0,
                     )
@@ -39,7 +39,11 @@ class ItemCard extends StatelessWidget {
                 ),
                 child: Hero(
                   tag: "${product.id}",
-                  child: Image.asset(product.image, fit: BoxFit.cover),
+                  child: FadeInImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(product.image),
+                    placeholder: AssetImage('images/loading.gif'),
+                  ),
                 ),
               ),
             ),

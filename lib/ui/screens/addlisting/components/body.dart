@@ -311,30 +311,30 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _image() {
-    return InkWell(
-      onTap: () {
-        ReuseChoiceDialog().choiceDialog(context, galleryImage, cameraImage);
-      },
-      child: Container(
-        height: 70,
-        width: 70,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-          border: Border.all(
-            color: kDefaultColor,
-            width: 1,
-          ),
-        ),
-        child: _myImage == null
-            ? Image(
-                image: NetworkImage(
-                    'https://static.thenounproject.com/png/187803-200.png'),
-              )
-            : null,
-      ),
-    );
-  }
+  // Widget _image() {
+  //   return InkWell(
+  //     onTap: () {
+  //       ReuseChoiceDialog().choiceDialog(context, galleryImage, cameraImage);
+  //     },
+  //     child: Container(
+  //       height: 70,
+  //       width: 70,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(kDefaultRadius),
+  //         border: Border.all(
+  //           color: kDefaultColor,
+  //           width: 1,
+  //         ),
+  //       ),
+  //       child: _myImage == null
+  //           ? Image(
+  //               image: NetworkImage(
+  //                   'https://static.thenounproject.com/png/187803-200.png'),
+  //             )
+  //           : null,
+  //     ),
+  //   );
+  // }
 
   Widget _nameField() {
     return ReuseTextField(
