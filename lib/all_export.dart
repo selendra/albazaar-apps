@@ -18,7 +18,8 @@ export 'ui/screens/cart/components/cart_btn_qty.dart';
 export 'ui/screens/cart/components/checkout_card.dart';
 export 'ui/screens/cart/components/dismissable_background.dart';
 
-//otp screen
+//checkout screen
+export 'ui/screens/checkout/checkout.dart';
 
 //categories screen
 export 'ui/screens/category/categories.dart';

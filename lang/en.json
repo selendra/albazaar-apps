@@ -76,11 +76,13 @@
     "general": "General",
     "language": "Language",
     "currency": "Currency",
-    "version" : "Version",
+    "version": "Version",
     "security": "Security",
     "english": "English",
-    "khmer" : "Khmer",
-    "add" : "Add",
-    "withdrawal" : "WithDrawal"
-    
+    "khmer": "Khmer",
+    "add": "Add",
+    "withdrawal": "WithDrawal",
+    "postcode": "Postcode",
+    "order_note": "Order Note",
+    "confirm": "Confirm"
 }

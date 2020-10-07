@@ -31,8 +31,13 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   height: 60,
                 ),
-                ReuseButton.getItem(
-                    _lang.translate('check_out'), () {}, context),
+                ReuseButton.getItem(_lang.translate('check_out'), () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Checkout(),
+                      ));
+                }, context),
               ],
             ),
           ),

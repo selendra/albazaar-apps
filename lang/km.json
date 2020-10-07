@@ -81,5 +81,8 @@
     "english": "អង់គ្លេស",
     "khmer": "ខ្មែរ",
     "add": "បន្ថែម",
-    "withdrawal": "ដក"
+    "withdrawal": "ដក",
+    "postcode": "លេខកូដប្រៃសណីយ",
+    "order_note": "កំណត់ចំណាំបញ្ជាទិញ",
+    "confirm" : "បញ្ជាក់"
 }
