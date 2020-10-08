@@ -1,5 +1,6 @@
 //import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'all_export.dart';
 import 'core/providers/products_provider.dart';
@@ -20,6 +21,23 @@ class SelendraApp extends StatefulWidget {
 }
 
 class _SelendraAppState extends State<SelendraApp> {
+  @override
+  void initState() {
+    super.initState();
+    precachePicture(
+        ExactAssetPicture(
+            SvgPicture.svgStringDecoder, 'images/undraw_wallet.svg'),
+        null);
+    precachePicture(
+        ExactAssetPicture(
+            SvgPicture.svgStringDecoder, 'images/undraw_loving_it.svg'),
+        null);
+    precachePicture(
+        ExactAssetPicture(
+            SvgPicture.svgStringDecoder, 'images/undraw_empty_cart.svg'),
+        null);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -84,7 +102,6 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           initialRoute: '/',
           routes: {
-            '/root': (context) => RootServices(),
             '/detail': (context) => DetailScreen(),
           },
           debugShowCheckedModeBanner: true,

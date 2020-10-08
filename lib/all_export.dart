@@ -152,7 +152,6 @@ export 'core/models/notification_model.dart';
 export 'core/services/auth/api_post_services.dart';
 export 'core/services/auth/api_get_services.dart';
 export 'core/services/auth/auth_services.dart';
-export 'core/services/auth/root_service.dart';
 export 'core/services/connectivity_services.dart';
 export 'core/services/pref_service.dart';
 export 'core/services/app_localize_service.dart';

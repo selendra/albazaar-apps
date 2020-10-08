@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'cart_items.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -42,11 +43,16 @@ class _BodyState extends State<Body> {
                 ),
               )
             : Center(
-                child: Image.network(
-                  'https://www.kindpng.com/picc/m/174-1749396_empty-cart-your-cart-is-empty-hd-png.png',
-                  width: 300,
-                  height: 300,
+                child: SvgPicture.asset(
+                  'images/undraw_empty_cart.svg',
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.3,
                 ),
+                // child: Image.network(
+                //   'https://www.kindpng.com/picc/m/174-1749396_empty-cart-your-cart-is-empty-hd-png.png',
+                //   width: 300,
+                //   height: 300,
+                // ),
               ));
   }
 }

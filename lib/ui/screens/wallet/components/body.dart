@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/wallet_pin.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -49,6 +50,10 @@ class _BodyState extends State<Body> {
   onfetchPortforlio() async {
     await ApiGetServices().fetchPortforlio().then((value) {
       alertText = value;
+      if (alertText == '200') {
+        alertText = 'Look like you don\'t have a wallet yet!';
+      }
+      print(value);
       if (alertText != '') {
         checkFirstSeen();
       }
@@ -88,26 +93,32 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return mBalance.isEmpty ? _walletChoice() : MyWallet();
+    return mBalance.isEmpty ? Center(child: _walletChoice()) : MyWallet();
   }
 
   Widget _walletChoice() {
-    return Container(
-      margin: EdgeInsets.all(30.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            child: Image.asset('images/cryto_wallet.jpg'),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          ReuseButton.getItem(
-              AppLocalizeService.of(context).translate('wallet'), () {
-            onGetWallet();
-          }, context),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(30.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: SvgPicture.asset(
+                'images/undraw_wallet.svg',
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.height * 0.2,
+                placeholderBuilder: (context) => Center(),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('wallet'), () {
+              onGetWallet();
+            }, context),
+          ],
+        ),
       ),
     );
   }

@@ -10,7 +10,7 @@ class LangProvider with ChangeNotifier {
 
   Locale get manualLocale => _manualLocale;
 
-  void setLocal(String languageCode) {
+  void setLocal(String languageCode, context) {
     _lang = languageCode;
     notifyListeners();
     switch (languageCode) {
@@ -24,19 +24,18 @@ class LangProvider with ChangeNotifier {
         break;
     }
     _prefService.saveString('lang', languageCode);
+    saveLang(languageCode, context);
   }
 
-  void saveLang(context) async {
+  void saveLang(String languageCode, context) async {
     Locale myLocale = Localizations.localeOf(context);
-
+    if (languageCode != null) {
+      _lang = languageCode;
+    } else {
+      _lang = myLocale.countryCode;
+    }
     print(myLocale.countryCode);
-    await _prefService.read('lang').then((value) {
-      _lang = value;
-      if (value == null) {
-        _lang = myLocale.countryCode;
-      }
 
-      notifyListeners();
-    });
+    notifyListeners();
   }
 }

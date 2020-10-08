@@ -16,7 +16,7 @@ class _FoodsScreenState extends State<FoodsScreen>
   void initState() {
     super.initState();
     controller = TabController(vsync: this, length: 7);
-    Provider.of<ProductsProvider>(context, listen: false).getVegi();
+    // Provider.of<ProductsProvider>(context, listen: false).getVegi();
   }
 
   @override

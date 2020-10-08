@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/providers/favorite_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -52,11 +53,16 @@ class _BodyState extends State<Body> {
                 );
               })
           : Center(
-              child: Image.network(
-                'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
-                width: 300,
-                height: 300,
+              child: SvgPicture.asset(
+                'images/undraw_loving_it.svg',
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.3,
               ),
+              // child: Image.network(
+              //   'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
+              //   width: 300,
+              //   height: 300,
+              // ),
             ),
     );
   }

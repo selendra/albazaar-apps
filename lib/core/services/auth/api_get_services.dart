@@ -71,6 +71,7 @@ class ApiGetServices with ChangeNotifier {
         } else {
           alertText = responseBody['error']['message'];
         }
+        alertText = response.statusCode.toString();
       }
     });
 

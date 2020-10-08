@@ -24,7 +24,7 @@ class _DropDownButtonsState extends State<DropDownButtons> {
         onChanged: (myValue) {
           setState(
             () {
-              value.setLocal(myValue);
+              //value.setLocal(myValue);
             },
           );
         },

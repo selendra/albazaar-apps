@@ -209,6 +209,7 @@ class ProductsProvider with ChangeNotifier {
       if (_items[i].category == 'veg') {
         _vegProduct.add(_items[i]);
       }
+
       notifyListeners();
     }
   }

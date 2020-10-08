@@ -83,10 +83,15 @@ class Auth with ChangeNotifier {
     return currentUser;
   }
 
+  Future<FirebaseUser> get currentUser async {
+    return await _auth.currentUser();
+  }
+
   Future<void> signOut(BuildContext context) async {
     mBalance.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs?.remove('token');
+    prefs.remove('seen');
     try {
       FirebaseUser user = await _auth.currentUser();
       for (UserInfo profile in user.providerData) {

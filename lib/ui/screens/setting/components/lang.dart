@@ -18,7 +18,7 @@ class Lang extends StatelessWidget {
               elevation: 1,
               child: ListTile(
                 onTap: () {
-                  data.setLocal('EN');
+                  data.setLocal('EN', context);
                 },
                 title:
                     Text(AppLocalizeService.of(context).translate('english')),
@@ -45,7 +45,7 @@ class Lang extends StatelessWidget {
               elevation: 1,
               child: ListTile(
                 onTap: () {
-                  data.setLocal('KH');
+                  data.setLocal('KH', context);
                 },
                 title: Text(AppLocalizeService.of(context).translate('khmer')),
                 leading: Image.network(

@@ -4,19 +4,44 @@ import 'item_card.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/models/products.dart';
 
-class ProductList extends StatelessWidget {
+class ProductList extends StatefulWidget {
   final List<Product> productsData;
   ProductList(this.productsData);
 
   @override
+  _ProductListState createState() => _ProductListState();
+}
+
+class _ProductListState extends State<ProductList> {
+  ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        //fetch more
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-   
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: GridView.builder(
-          itemCount: productsData.length,
+          itemCount: widget.productsData.length,
+          controller: scrollController,
           /*productsData.isQueryEmpty
                   ? _products.length
                   : productsData.searchProduct.length,*/
@@ -27,7 +52,7 @@ class ProductList extends StatelessWidget {
             childAspectRatio: 0.75,
           ),
           itemBuilder: (context, index) => ChangeNotifierProvider.value(
-            value: productsData[index],
+            value: widget.productsData[index],
             child: ItemCard(
                 //product: _products[index],
                 ),

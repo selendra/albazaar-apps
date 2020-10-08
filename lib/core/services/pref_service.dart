@@ -7,12 +7,12 @@ class PrefService {
     return value;
   }
 
-  saveString(String key, String value) async {
+  Future<void>saveString(String key, String value) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(key, value);
   }
 
-  clear(String key) async {
+  Future<void>clear(String key) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove(key);
   }
