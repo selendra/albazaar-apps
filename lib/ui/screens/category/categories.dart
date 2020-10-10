@@ -5,11 +5,31 @@ class CategoriesScreen extends StatelessWidget {
   final List<Categories> allCategories;
   CategoriesScreen(this.allCategories);
 
-  void itemTap(int index, context) {
+  void itemTap(int index, context, String image) {
     switch (index) {
       case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => FoodsScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
+        break;
+      case 1:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
+        break;
+      case 2:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
+        break;
+      case 3:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
+        break;
+      case 4:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
+        break;
+      case 5:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => FoodsScreen(image)));
         break;
     }
   }
@@ -50,7 +70,7 @@ class CategoriesScreen extends StatelessWidget {
             itemCount: allCategories.length,
             itemBuilder: (context, index) {
               return itemCategory(() {
-                itemTap(index, context);
+                itemTap(index, context, allCategories[index].img);
               }, allCategories[index].img);
             }));
   }

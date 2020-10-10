@@ -11,22 +11,28 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   PrefService _pref = PrefService();
 
-  void checkUser() {
+  Future<void> checkUser() {
     _pref.read('token').then(
       (value) async {
+        print(value);
         String _token = value;
         if (_token != null) {
-          await ApiGetServices().fetchPortforlio().then((onValue) {
-            print(onValue);
-            if (onValue == '200') {
-              Provider.of<ApiGetServices>(context, listen: false)
-                  .fetchUserInfo();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => BottomNavigation()));
-            } else {
-              _pref.clear('token');
-            }
-          });
+          print('not null');
+          await ApiGetServices().fetchPortforlio().then(
+            (onValue) {
+              print(onValue);
+              if (onValue == '200') {
+                Provider.of<ApiGetServices>(context, listen: false)
+                    .fetchUserInfo();
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottomNavigation()));
+              } else {
+                _pref.clear('token');
+              }
+            },
+          );
         } else {
           Auth().currentUser.then(
             (value) {
@@ -57,7 +63,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var _lang = Provider.of<LangProvider>(context, listen: false);
     Timer(Duration(seconds: 2), () {
-      checkUser();
+      //checkUser();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Intro(),
+          ));
       _pref.read('lang').then((value) {
         _lang.setLocal(value, context);
         //_lang.saveLang(context);

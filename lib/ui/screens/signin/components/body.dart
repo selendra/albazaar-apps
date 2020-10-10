@@ -12,7 +12,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   final PageController _pageController = PageController(initialPage: 0);
   TabController _tabController;
-  var isPageCanChanged = true;
+  bool isPageCanChanged = true;
 
   onGoogleSignIn() async {
     setState(() {

@@ -84,5 +84,7 @@
     "withdrawal": "WithDrawal",
     "postcode": "Postcode",
     "order_note": "Order Note",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "kilogram": "Kg",
+    "no_email" : "no email"
 }

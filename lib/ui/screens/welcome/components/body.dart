@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -45,17 +46,20 @@ class Body extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 15,
+                      height: MediaQuery.of(context).size.height * 0.15,
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Container(
-                          child: Image.asset(
-                        'images/welcome_icon.png',
-                      )),
+                        child: SvgPicture.asset(
+                          'images/undraw_Mobile_application.svg',
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 10,
+                      height: MediaQuery.of(context).size.height * 0.15,
                     ),
                     ReuseButton.getItem(
                         AppLocalizeService.of(context)

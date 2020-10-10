@@ -8,14 +8,15 @@ class HomeDrawer extends StatelessWidget {
     final data = Provider.of<ApiGetServices>(context);
     final _mUser = data.mUser;
     String userName = _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
+    final _lang = AppLocalizeService.of(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: kDefaultColor),
-            accountEmail: Text(_mUser.email ?? 'Email'),
-            accountName: Text(userName),
+            accountEmail: Text(_mUser.email ?? _lang.translate('no_email')),
+            accountName: Text(userName ?? 'no username'),
             currentAccountPicture: CircleAvatar(
               backgroundImage: _mUser.profileImg == null
                   ? AssetImage('images/avatar.png')
@@ -23,14 +24,14 @@ class HomeDrawer extends StatelessWidget {
             ),
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('home'),
+            _lang.translate('home'),
             Icons.home,
             () {
               Navigator.pop(context);
             },
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('profile'),
+            _lang.translate('profile'),
             Icons.person,
             () {
               Navigator.pop(context);
@@ -44,7 +45,7 @@ class HomeDrawer extends StatelessWidget {
             color: Colors.grey[300],
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('purchase'),
+            _lang.translate('purchase'),
             Icons.shopping_basket,
             () {
               Navigator.pop(context);
@@ -53,7 +54,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('listing'),
+            _lang.translate('listing'),
             Icons.list,
             () {
               Navigator.pop(context);
@@ -62,7 +63,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('sale'),
+            _lang.translate('sale'),
             Icons.monetization_on,
             () {
               Navigator.pop(context);
@@ -75,20 +76,17 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem(AppLocalizeService.of(context).translate('cart'),
-              Icons.shopping_cart, () {
+          ReuseInkwell.getItem(_lang.translate('cart'), Icons.shopping_cart,
+              () {
             Navigator.pop(context);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => CartScreen()));
           }),
-          ReuseInkwell.getItem(
-              AppLocalizeService.of(context).translate('message'),
-              Icons.message, () {
+          ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
           }),
           ReuseInkwell.getItem(
-              AppLocalizeService.of(context).translate('notification'),
-              Icons.notifications, () {
+              _lang.translate('notification'), Icons.notifications, () {
             Navigator.pop(context);
             Navigator.push(
                 context,
@@ -97,7 +95,7 @@ class HomeDrawer extends StatelessWidget {
                 ));
           }),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('setting'),
+            _lang.translate('setting'),
             Icons.settings,
             () {
               Navigator.pop(context);
@@ -106,7 +104,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            AppLocalizeService.of(context).translate('logout_string'),
+            _lang.translate('logout_string'),
             Icons.input,
             () {
               HomeDialog().alertDialog(context);

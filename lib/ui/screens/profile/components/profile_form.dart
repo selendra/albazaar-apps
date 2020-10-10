@@ -89,7 +89,7 @@ class ProfileForm extends StatelessWidget {
                 child: Column(
                   children: [
                     item(() {}, _lang.translate('account_info'),
-                        value.mUser.email ?? 'email'),
+                        value.mUser.email ?? _lang.translate('no_email')),
                     item(() {}, _lang.translate('phone_hint'),
                         value.mUser.phonenumber ?? 'phonenumber'),
                     item(() {}, _lang.translate('shipping_address'), ''),

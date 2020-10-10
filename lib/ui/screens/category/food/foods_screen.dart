@@ -4,6 +4,8 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 class FoodsScreen extends StatefulWidget {
+  final String _image;
+  FoodsScreen(this._image);
   @override
   _FoodsScreenState createState() => _FoodsScreenState();
 }
@@ -33,7 +35,7 @@ class _FoodsScreenState extends State<FoodsScreen>
       appBar: AppBar(
         centerTitle: true,
         title: Image.asset(
-          'images/love.png',
+          widget._image,
           height: 30,
           width: 30,
         ),
@@ -92,7 +94,8 @@ class _FoodsScreenState extends State<FoodsScreen>
         ],
       ),
       body: Container(
-          child: ProductList(productsData.vegProduct)), //_buildTapBarView(),
+        child: ProductList(productsData.vegProduct),
+      ), //_buildTapBarView(),
     );
   }
 

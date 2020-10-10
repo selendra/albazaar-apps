@@ -59,9 +59,16 @@ class ApiPostServices with ChangeNotifier {
       if (_token != null) {
         print(_token);
         _pref.saveString('token', _token);
-        Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
+        Provider.of<ApiGetServices>(context, listen: false)
+            .fetchPortforlio()
+            .then((onValue) {
+          if (onValue == '200') {
+            Provider.of<ApiGetServices>(context, listen: false)
+                .fetchUserPf(_token);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => BottomNavigation()));
+          }
+        });
       } else {
         try {
           _alertText = responseJson['error']['message'];

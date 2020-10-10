@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
-
 
     return GestureDetector(
       onTap: () {
@@ -63,7 +61,8 @@ class ItemCard extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${product.price} /Kg",
+                "\$${product.price} /" +
+                    AppLocalizeService.of(context).translate('kilogram'),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,

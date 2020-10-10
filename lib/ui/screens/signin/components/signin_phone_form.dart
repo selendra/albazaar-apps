@@ -65,8 +65,7 @@ class SignInPhoneForm extends StatelessWidget {
             }, context),
             SizedBox(height: 10),
             ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
-                AppLocalizeService.of(context).translate('signup_string'),
-                () {
+                AppLocalizeService.of(context).translate('signup_string'), () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
             }),

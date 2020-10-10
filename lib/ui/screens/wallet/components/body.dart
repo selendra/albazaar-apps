@@ -41,7 +41,7 @@ class _BodyState extends State<Body> {
     SharedPreferences isSeen = await SharedPreferences.getInstance();
     bool _seen = (isSeen.getBool('seen') ?? false);
 
-    if (_seen != true) {
+    if (_seen != true && mBalance.isEmpty) {
       isSeen.setBool('seen', true);
       showAlertDialog(context);
     }
@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
   onfetchPortforlio() async {
     await ApiGetServices().fetchPortforlio().then((value) {
       alertText = value;
-      if (alertText == '200') {
+      if (alertText == '200' && mBalance.isEmpty) {
         alertText = 'Look like you don\'t have a wallet yet!';
       }
       print(value);

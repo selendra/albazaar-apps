@@ -4,14 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'all_export.dart';
 import 'core/providers/products_provider.dart';
+import 'core/constants/constants.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
 
 void main() {
-  // debugPaintSizeEnabled = true;
-  //GestureBinding.instance.resamplingEnabled = true;
   runApp(SelendraApp());
 }
 
@@ -21,21 +20,33 @@ class SelendraApp extends StatefulWidget {
 }
 
 class _SelendraAppState extends State<SelendraApp> {
+  List<String> svg = [
+    'images/undraw_wallet.svg',
+    'images/undraw_loving_it.svg',
+    'images/undraw_empty_cart.svg',
+    'images/undraw_Mobile_application.svg'
+  ];
+
   @override
   void initState() {
     super.initState();
-    precachePicture(
-        ExactAssetPicture(
-            SvgPicture.svgStringDecoder, 'images/undraw_wallet.svg'),
-        null);
-    precachePicture(
-        ExactAssetPicture(
-            SvgPicture.svgStringDecoder, 'images/undraw_loving_it.svg'),
-        null);
-    precachePicture(
-        ExactAssetPicture(
-            SvgPicture.svgStringDecoder, 'images/undraw_empty_cart.svg'),
-        null);
+
+    for (int i = 0; i < svg.length; i++) {
+      precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+    }
+    // precachePicture(
+    //     ExactAssetPicture(
+    //         SvgPicture.svgStringDecoder, 'images/undraw_wallet.svg'),
+    //     null);
+    // precachePicture(
+    //     ExactAssetPicture(
+    //         SvgPicture.svgStringDecoder, 'images/undraw_loving_it.svg'),
+    //     null);
+    // precachePicture(
+    //     ExactAssetPicture(
+    //         SvgPicture.svgStringDecoder, 'images/undraw_empty_cart.svg'),
+    //     null);
   }
 
   @override

@@ -10,7 +10,7 @@ class SignInEmailForm extends StatelessWidget {
 
   SignInEmailForm(this.signInEmailFunc, this.faceBookSignIn, this.googleSignIn);
 
-  final _emailFormKey = GlobalKey<FormState>();
+   final _emailFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {

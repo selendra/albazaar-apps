@@ -84,5 +84,7 @@
     "withdrawal": "ដក",
     "postcode": "លេខកូដប្រៃសណីយ",
     "order_note": "កំណត់ចំណាំបញ្ជាទិញ",
-    "confirm" : "បញ្ជាក់"
+    "confirm": "បញ្ជាក់",
+    "kilogram": "គីឡូក្រាម",
+    "no_email": "គ្មានអ៊ីមែល"
 }
