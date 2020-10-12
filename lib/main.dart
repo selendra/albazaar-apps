@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'all_export.dart';
-import 'core/providers/products_provider.dart';
-import 'core/constants/constants.dart';
+import 'core/route/router.dart' as router;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -111,15 +110,12 @@ class _SelendraAppState extends State<SelendraApp> {
             // from the list (English, in this case).
             return supportedLocales.first;
           },
-          initialRoute: '/',
-          routes: {
-            '/detail': (context) => DetailScreen(),
-          },
+          onGenerateRoute: router.generateRoute,
+          initialRoute: SplashScreenView,
           debugShowCheckedModeBanner: true,
-          theme: ThemeData(
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            primaryColor: kDefaultColor,
-          ),
+          theme: ThemeData(cursorColor: kDefaultColor),
+          darkTheme: ThemeData.dark(),
+          routes: {DetailView: (context) => DetailScreen()},
           home: SplashScreen(),
           navigatorKey: navigationKey,
         ),

@@ -3,9 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:selendra_marketplace_app/ui/screens/welcome/welcome_screen.dart';
-import 'package:selendra_marketplace_app/core/models/acc_balance.dart';
-import 'api_get_services.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,6 +26,7 @@ class Auth with ChangeNotifier {
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
     print(user);
+    Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
     // Checking if email and name is null
     assert(user.email != null);
@@ -65,6 +64,7 @@ class Auth with ChangeNotifier {
         Provider.of<ApiGetServices>(context, listen: false)
             .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
         print(user.photoUrl);
+        Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
         assert(user.email != null);
         assert(user.displayName != null);

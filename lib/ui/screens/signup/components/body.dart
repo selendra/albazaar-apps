@@ -52,11 +52,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       });
       alertText = value;
       if (alertText != "Your email account already exists!") {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignIn(),
-            ));
+        Navigator.pushReplacementNamed(context, SignInView);
       } else {
         showAlertDialog(context);
       }
@@ -98,8 +94,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           setState(() {
             _isLoading = false;
           });
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => BottomNavigation()));
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
         }
       });
     } catch (e) {
@@ -124,8 +119,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
       }
     });
   }

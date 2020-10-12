@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
                       ),
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed('/detail', arguments: _fav[index].id);
+                            .pushNamed(DetailView, arguments: _fav[index].id);
                       },
                     ),
                   ),

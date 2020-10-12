@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+//import 'package:selendra_marketplace_app/all_export.dart';
+import 'components/pin_screen.dart';
 
 class OTPScreen extends StatefulWidget {
   final String phoneNumber, password;

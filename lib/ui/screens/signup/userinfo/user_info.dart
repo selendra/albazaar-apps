@@ -3,7 +3,7 @@ import 'user_info_body.dart';
 
 
 
-class UserInfo extends StatelessWidget {
+class UserInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

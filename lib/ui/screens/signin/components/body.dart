@@ -26,8 +26,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           setState(() {
             _isLoading = false;
           });
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => BottomNavigation()));
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
     } catch (e) {
@@ -53,8 +54,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           setState(() {
             _isLoading = false;
           });
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => BottomNavigation()));
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
     } on PlatformException catch (e) {

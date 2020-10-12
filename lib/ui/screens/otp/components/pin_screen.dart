@@ -133,7 +133,7 @@ class _PinScreenState extends State<PinScreen> {
         alertText = responseBody['message'];
         successDialog(context);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => UserInfo()));
+            context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
       }
     } else {
       print(response.body);

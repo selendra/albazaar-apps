@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   PrefService _pref = PrefService();
 
-  Future<void> checkUser() {
+  void checkUser() {
     _pref.read('token').then(
       (value) async {
         print(value);
@@ -24,10 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
               if (onValue == '200') {
                 Provider.of<ApiGetServices>(context, listen: false)
                     .fetchUserInfo();
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigation()));
+                Provider.of<ProductsProvider>(context, listen: false).getVegi();
+                Navigator.pushReplacementNamed(context, BottomNavigationView);
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => BottomNavigation()));
               } else {
                 _pref.clear('token');
               }
@@ -46,8 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       builder: (context) => BottomNavigation(),
                     ));
               } else {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                Navigator.pushReplacementNamed(context, WelcomeView);
+                // Navigator.pushReplacement(context,
+                //     MaterialPageRoute(builder: (context) => WelcomeScreen()));
               }
             },
           );
@@ -63,12 +66,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var _lang = Provider.of<LangProvider>(context, listen: false);
     Timer(Duration(seconds: 2), () {
-      //checkUser();
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Intro(),
-          ));
+      checkUser();
+      // Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => Intro(),
+      //     ));
       _pref.read('lang').then((value) {
         _lang.setLocal(value, context);
         //_lang.saveLang(context);

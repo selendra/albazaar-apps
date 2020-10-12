@@ -27,8 +27,8 @@ class ApiPostServices with ChangeNotifier {
       if (_token != null) {
         _pref.saveString('token', _token);
         Provider.of<ApiGetServices>(context, listen: false).fetchUserPf(_token);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => BottomNavigation()));
+        Provider.of<ProductsProvider>(context, listen: false).getVegi();
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
       } else {
         _alertText = responseJson['message'];
         if (_alertText == null) {
@@ -65,8 +65,8 @@ class ApiPostServices with ChangeNotifier {
           if (onValue == '200') {
             Provider.of<ApiGetServices>(context, listen: false)
                 .fetchUserPf(_token);
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => BottomNavigation()));
+            Provider.of<ProductsProvider>(context, listen: false).getVegi();
+            Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         });
       } else {

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Intro extends StatefulWidget {
+class IntroScreen extends StatefulWidget {
   @override
-  _IntroState createState() => _IntroState();
+  _IntroScreenState createState() => _IntroScreenState();
 }
 
-class _IntroState extends State<Intro> {
+class _IntroScreenState extends State<IntroScreen> {
   PageController _pageController = PageController();
   bool isPageCanChanged = true;
-  int currentIndex;
+  int currentIndex = 0;
 
   void onPageChange(int value) async {
     if (_pageController != null) {
@@ -19,12 +19,6 @@ class _IntroState extends State<Intro> {
       await _pageController.animateToPage(value,
           duration: Duration(milliseconds: 400), curve: Curves.easeOut);
     }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
@@ -44,7 +38,15 @@ class _IntroState extends State<Intro> {
             child: Column(
               children: [
                 SvgPicture.asset('images/undraw_Mobile_application.svg'),
-
+                InkWell(
+                  onTap: () {
+                    onPageChange(currentIndex + 1);
+                  },
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                ),
                 //Text('Welcome to selendra'),
               ],
             ),

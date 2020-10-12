@@ -52,7 +52,7 @@ export 'ui/screens/map/components/persistent_header.dart';
 
 //otp screen
 export 'ui/screens/otp/otp.dart';
-export 'ui/screens/otp/components/pin_screen.dart';
+//  export 'ui/screens/otp/components/pin_screen.dart';
 
 //profile screen
 export 'ui/screens/profile/profile_screen.dart';
@@ -93,6 +93,7 @@ export 'ui/screens/splashscreen/splashscreen.dart';
 
 //wallet screen
 export 'ui/screens/wallet/wallet_screen.dart';
+export 'ui/screens/wallet/get_wallet/wallet_pin.dart';
 export 'ui/screens/wallet/my_wallet/my_wallet.dart';
 export 'ui/screens/wallet/get_wallet/info_row.dart';
 
@@ -100,7 +101,7 @@ export 'ui/screens/wallet/get_wallet/info_row.dart';
 export 'ui/screens/welcome/welcome_screen.dart';
 
 //intro screen
-export 'ui/screens/intro/intro.dart';
+export 'ui/screens/intro/intro_screen.dart';
 
 //notification screen
 export 'ui/screens/notification/notification_screen.dart';

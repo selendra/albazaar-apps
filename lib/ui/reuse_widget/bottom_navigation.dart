@@ -16,8 +16,8 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-       _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 600), curve: Curves.easeOut);
+      _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
     });
   }
 
@@ -50,8 +50,9 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
       bottomNavigationBar: _buildBottomAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddListing()));
+          Navigator.pushNamed(context, AddListingView);
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => AddListing()));
         },
         backgroundColor: kDefaultColor,
         child: Icon(Icons.add),
