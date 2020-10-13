@@ -26,10 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false).getVegi();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => BottomNavigation()));
               } else {
                 _pref.clear('token');
               }
@@ -49,13 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     ));
               } else {
                 Navigator.pushReplacementNamed(context, WelcomeView);
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (context) => WelcomeScreen()));
               }
             },
           );
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => WelcomeScreen()));
         }
       },
     );

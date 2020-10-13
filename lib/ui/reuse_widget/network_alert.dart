@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
 
 class NetworkAlert extends StatefulWidget {
-
   final Widget child;
   NetworkAlert(this.child);
 
@@ -12,8 +11,6 @@ class NetworkAlert extends StatefulWidget {
 }
 
 class _NetworkAlertState extends State<NetworkAlert> {
-  
-  
   @override
   Widget build(BuildContext context) {
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
@@ -21,19 +18,19 @@ class _NetworkAlertState extends State<NetworkAlert> {
     if (connectionStatus == ConnectivityStatus.OFFLINE) {
       return Container(
         child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircularProgressIndicator(),
-                SizedBox(height: 20,),
-                Text('No Internet Connection'),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              Text('No Internet Connection.'),
+            ],
+          ),
         ),
       );
-    }else{
+    } else {
       return widget.child;
     }
-
   }
 }

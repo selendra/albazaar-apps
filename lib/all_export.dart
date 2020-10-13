@@ -78,7 +78,6 @@ export 'ui/screens/setting/components/lang.dart';
 export 'ui/screens/signin/signin.dart';
 export 'ui/screens/signin/components/signin_email_form.dart';
 export 'ui/screens/signin/components/signin_phone_form.dart';
-export 'ui/screens/signin/components/sign_in_dialog.dart';
 
 //sign up screen
 export 'ui/screens/signup/signup.dart';
@@ -122,7 +121,6 @@ export 'ui/reuse_widget/reuse_keyboard_num.dart';
 export 'ui/reuse_widget/reuse_pin_num.dart';
 export 'ui/reuse_widget/reuse_pin_animate.dart';
 export 'ui/reuse_widget/reuse_alert_dialog.dart';
-export 'ui/reuse_widget/reuse_choice_dialog.dart';
 export 'ui/reuse_widget/reuse_num_pad.dart';
 export 'ui/reuse_widget/reuse_dropdown.dart';
 export 'ui/reuse_widget/reuse_btn_qty.dart';

@@ -27,8 +27,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             _isLoading = false;
           });
           Navigator.pushReplacementNamed(context, BottomNavigationView);
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
     } catch (e) {
@@ -37,7 +35,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         _isLoading = false;
       });
     }
-    //signInWithGoogle().whenComplete(() => ));
   }
 
   onFacebookSignIn() async {
@@ -55,8 +52,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             _isLoading = false;
           });
           Navigator.pushReplacementNamed(context, BottomNavigationView);
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => BottomNavigation()));
         }
       });
     } on PlatformException catch (e) {
@@ -82,11 +77,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           _isLoading = false;
         });
-
-        SignInDialog().errorDialog(context, value);
-        // alertText = value;
-        //_alertDialog(context);
-        // showAlertDialog(context);
+        ReuseAlertDialog().successDialog(context, value);
       }
     });
   }
@@ -97,7 +88,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         alertText = value;
         // _alertDialog(context);
       } else {
-        SignInDialog().showResetAlertDialog(context, value);
+        ReuseAlertDialog().resetAlertDialog(context, value);
       }
     });
   }
@@ -113,31 +104,31 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           _isLoading = false;
         });
-        SignInDialog().errorDialog(context, value);
+        ReuseAlertDialog().successDialog(context, value);
       }
     });
   }
 
-  _resetDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return ReuseAlertDialog.getItem(
-              alertText,
-              '',
-              'Cancel',
-              () {
-                Navigator.pop(context);
-              },
-              'Reset',
-              () {
-                /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResetByEmail(_email)));*/
-              });
-        });
-  }
+  // _resetDialog(BuildContext context) async {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return ReuseAlertDialog.getItem(
+  //             alertText,
+  //             '',
+  //             'Cancel',
+  //             () {
+  //               Navigator.pop(context);
+  //             },
+  //             'Reset',
+  //             () {
+  //               /*Navigator.push(
+  //                   context,
+  //                   MaterialPageRoute(
+  //                       builder: (context) => ResetByEmail(_email)));*/
+  //             });
+  //       });
+  // }
 
   onTabChange() {
     _tabController.addListener(() {
@@ -177,10 +168,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody();
-  }
-
-  Widget _buildBody() {
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,

@@ -54,4 +54,3 @@ class User {
     createdAt = DateTime.parse(parseJson["created_at"]);
   }
 }
-

@@ -220,6 +220,7 @@ class _PinScreenState extends State<PinScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -234,7 +235,7 @@ class _PinScreenState extends State<PinScreen> {
                       height: MediaQuery.of(context).size.height * 0.1,
                     ),
                     Text(
-                      'Enter the OTP Pin',
+                      _lang.translate('enter_4digit_code'),
                       style: TextStyle(
                         fontSize: 26.0,
                         fontWeight: FontWeight.bold,
@@ -245,7 +246,7 @@ class _PinScreenState extends State<PinScreen> {
                       height: 5,
                     ),
                     Text(
-                      'OTP was send to: ' + widget.phoneNumber,
+                      _lang.translate('4digit_sent_to') + widget.phoneNumber,
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
@@ -261,7 +262,7 @@ class _PinScreenState extends State<PinScreen> {
                             alignment: Alignment.centerRight,
                             child: FlatButton(
                               child: Text(
-                                'Resend Code',
+                                _lang.translate('resend_code'),
                                 style: TextStyle(color: Colors.red),
                               ),
                               onPressed: () {

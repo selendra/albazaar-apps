@@ -16,32 +16,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController(initialPage: 0);
   TabController _tabController;
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(alertText),
-      content: Text(""),
-      actions: [
-        okButton,
-      ],
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   onSignUpByEmail(String _email, String _password) async {
     setState(() {
       _isLoading = true;
@@ -54,7 +28,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       if (alertText != "Your email account already exists!") {
         Navigator.pushReplacementNamed(context, SignInView);
       } else {
-        showAlertDialog(context);
+        ReuseAlertDialog().successDialog(context, alertText);
+        //showAlertDialog(context);
       }
     });
   }
@@ -70,14 +45,15 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         _isLoading = false;
       });
       alertText = value ?? "";
-      showAlertDialog(context);
+      //  ReuseAlertDialog().successDialog(context, alertText);
       if (alertText != 'Your phone number already exists!') {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => OTPScreen(_phone, _password)));
       } else {
-        showAlertDialog(context);
+        ReuseAlertDialog().successDialog(context, alertText);
+        //showAlertDialog(context);
       }
     });
   }

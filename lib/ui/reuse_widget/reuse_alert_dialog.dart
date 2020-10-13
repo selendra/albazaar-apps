@@ -1,47 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class ReuseAlertDialog {
-   static getItem (String title,String content,String btnOne,Function func1,String btnTwo,Function func2){
-     return AlertDialog(
-       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
-       title: Text(title),
-       content: Text(content),
-       actions: [
-         FlatButton(child: Text(btnOne),onPressed: func1,),
-         FlatButton(child: Text(btnTwo),onPressed: func2,)
-       ],
-       
-     );
-   }
-}
-
-/*class ReuseAlertDialog extends StatelessWidget {
-
-  final String title,content;
-  ReuseAlertDialog({this.title,this.content});
-
-  @override
-    Widget build(BuildContext context){
-    return simpleAlertDialog(context);
-  }
-  simpleAlertDialog(BuildContext context) async {
+  Future<void> successDialog(BuildContext context, String alertText) async {
     return showDialog(
-        context: (context),
-        builder: (context) {
-          return AlertDialog(
-            title: Text(title),
-            actions: [
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: kDefaultShape,
+          title: Text('Message'),
+          content: Text(alertText),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-}*/
+  Future<void> resetAlertDialog(BuildContext context, String alertText) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: kDefaultShape,
+          title: Text('Message'),
+          content: Text(alertText),
+          actions: [
+            FlatButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
