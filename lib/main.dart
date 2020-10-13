@@ -1,4 +1,3 @@
-//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -34,18 +33,6 @@ class _SelendraAppState extends State<SelendraApp> {
       precachePicture(
           ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
-    // precachePicture(
-    //     ExactAssetPicture(
-    //         SvgPicture.svgStringDecoder, 'images/undraw_wallet.svg'),
-    //     null);
-    // precachePicture(
-    //     ExactAssetPicture(
-    //         SvgPicture.svgStringDecoder, 'images/undraw_loving_it.svg'),
-    //     null);
-    // precachePicture(
-    //     ExactAssetPicture(
-    //         SvgPicture.svgStringDecoder, 'images/undraw_empty_cart.svg'),
-    //     null);
   }
 
   @override

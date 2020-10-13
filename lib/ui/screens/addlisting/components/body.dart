@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -17,18 +18,8 @@ class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
 
-  //List<File> _myImage = List<File>(8);
-  Map<int, File> _myImage = {
-    0: null,
-    1: null,
-    2: null,
-    3: null,
-    4: null,
-    5: null,
-    6: null,
-  };
-  //File _myImage;
-  final picker = ImagePicker();
+  List<Asset> images = List<Asset>();
+  String _error = 'No Error Dectected';
 
   String _title;
   String _price;
@@ -78,41 +69,56 @@ class _BodyState extends State<Body> {
     return false;
   }
 
-  Future galleryImage(int index) async {
-    try {
-      final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-      setState(() {
-        _myImage[index] = File(pickedFile.path);
-        // _myImage.add(File(pickedFile.path));
-      });
-      if (_myImage != null) {
-        print('File: $_myImage');
-        /*ApiPostServices().upLoadImage(_myImage).then((value){
-          value.stream.transform(utf8.decoder).listen((data){
-
-          });
-        });*/
-
-      }
-      Navigator.pop(context);
-    } on PlatformException {
-      return null;
-    }
+  Widget buildGridView() {
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      child: GridView.count(
+        crossAxisCount: 3,
+        children: List.generate(images.length, (index) {
+          Asset asset = images[index];
+          return AssetThumb(
+            quality: 100,
+            asset: asset,
+            width: 100,
+            height: 100,
+          );
+        }),
+      ),
+    );
   }
 
-  Future cameraImage(int index) async {
-    try {
-      final pickedFile = await picker.getImage(source: ImageSource.camera);
-      // _myImage.add(File(pickedFile.path));
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = 'No Error Dectected';
 
-      setState(() {
-        _myImage[index] = File(pickedFile.path);
-        //_myImage.add(File(pickedFile.path));
-      });
-    } on PlatformException {
-      return null;
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 8,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+          actionBarTitle: "Selendra App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
     }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      _error = error;
+      print(_error);
+    });
   }
 
   @override
@@ -147,33 +153,55 @@ class _BodyState extends State<Body> {
             ),
             Container(
               height: 100,
-              child: ListView.builder(
-                itemCount: _myImage.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () async {
-                    final pickedFile =
-                        await picker.getImage(source: ImageSource.gallery);
-                    _myImage[index] = File(pickedFile.path);
-                    setState(() {});
-                  },
-                  child: GridTile(
-                    child: Card(
-                      child: Center(
-                        child: _myImage[index] == null
-                            ? Image.network(
-                                'https://static.thenounproject.com/png/187803-200.png')
-                            : Image.file(
-                                _myImage[index],
-                                fit: BoxFit.cover,
-                              ),
-                      ),
-                    ),
+              decoration: BoxDecoration(
+                  //border: BorderSide(color: ),
+                  border: Border.all(color: kDefaultColor),
+                  borderRadius: BorderRadius.circular(kDefaultRadius)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 20.0,
                   ),
-                ),
+                  RaisedButton(
+                    child: Text('Pick Images'),
+                    onPressed: loadAssets,
+                  ),
+                  Expanded(
+                    child: buildGridView(),
+                  ),
+                ],
               ),
             ),
+            // Container(
+            //   height: 100,
+            //   child: ListView.builder(
+            //     itemCount: _myImage.length,
+            //     shrinkWrap: true,
+            //     scrollDirection: Axis.horizontal,
+            //     itemBuilder: (context, index) => GestureDetector(
+            //       onTap: () async {
+            //         final pickedFile =
+            //             await picker.getImage(source: ImageSource.gallery);
+            //         _myImage[index] = File(pickedFile.path);
+            //         setState(() {});
+            //       },
+            //       child: GridTile(
+            //         child: Card(
+            //           child: Center(
+            //             child: _myImage[index] == null
+            //                 ? Image.network(
+            //                     'https://static.thenounproject.com/png/187803-200.png')
+            //                 : Image.file(
+            //                     _myImage[index],
+            //                     fit: BoxFit.cover,
+            //                   ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             SizedBox(
               height: 10,
             ),
@@ -310,31 +338,6 @@ class _BodyState extends State<Body> {
       onSaved: (value) => _title = value,
     );
   }
-
-  // Widget _image() {
-  //   return InkWell(
-  //     onTap: () {
-  //       ReuseChoiceDialog().choiceDialog(context, galleryImage, cameraImage);
-  //     },
-  //     child: Container(
-  //       height: 70,
-  //       width: 70,
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(kDefaultRadius),
-  //         border: Border.all(
-  //           color: kDefaultColor,
-  //           width: 1,
-  //         ),
-  //       ),
-  //       child: _myImage == null
-  //           ? Image(
-  //               image: NetworkImage(
-  //                   'https://static.thenounproject.com/png/187803-200.png'),
-  //             )
-  //           : null,
-  //     ),
-  //   );
-  // }
 
   Widget _nameField() {
     return ReuseTextField(
