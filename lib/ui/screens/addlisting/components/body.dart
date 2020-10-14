@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +5,7 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'image_list.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -21,13 +21,15 @@ class _BodyState extends State<Body> {
   List<Asset> images = List<Asset>();
   String _error = 'No Error Dectected';
 
+  // BuildContext context;
+
   String _title;
   String _price;
   String _description;
   String _contactName;
   String _phoneNumber;
   String _address;
-  String _categories = "Categories";
+  String _categories;
 
   void routeA() async {
     String resultOfC = await Navigator.push(
@@ -71,16 +73,52 @@ class _BodyState extends State<Body> {
 
   Widget buildGridView() {
     return Container(
-      margin: EdgeInsets.all(10.0),
+      height: 200,
+      margin: EdgeInsets.only(top: 10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: kDefaultColor),
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+      ),
       child: GridView.count(
         crossAxisCount: 3,
         children: List.generate(images.length, (index) {
           Asset asset = images[index];
-          return AssetThumb(
-            quality: 100,
-            asset: asset,
-            width: 100,
-            height: 100,
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImageList(images),
+                    ));
+              },
+              child: Stack(
+                children: [
+                  AssetThumb(
+                    quality: 100,
+                    asset: asset,
+                    width: 300,
+                    height: 300,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          images.remove(asset);
+                        });
+                      },
+                      child: Icon(
+                        Icons.remove_circle,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
         }),
       ),
@@ -151,57 +189,12 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                  //border: BorderSide(color: ),
-                  border: Border.all(color: kDefaultColor),
-                  borderRadius: BorderRadius.circular(kDefaultRadius)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 20.0,
+            ReuseButton.getItem('Pick Images', loadAssets, context),
+            images.isNotEmpty
+                ? buildGridView()
+                : Container(
+                    height: 0,
                   ),
-                  RaisedButton(
-                    child: Text('Pick Images'),
-                    onPressed: loadAssets,
-                  ),
-                  Expanded(
-                    child: buildGridView(),
-                  ),
-                ],
-              ),
-            ),
-            // Container(
-            //   height: 100,
-            //   child: ListView.builder(
-            //     itemCount: _myImage.length,
-            //     shrinkWrap: true,
-            //     scrollDirection: Axis.horizontal,
-            //     itemBuilder: (context, index) => GestureDetector(
-            //       onTap: () async {
-            //         final pickedFile =
-            //             await picker.getImage(source: ImageSource.gallery);
-            //         _myImage[index] = File(pickedFile.path);
-            //         setState(() {});
-            //       },
-            //       child: GridTile(
-            //         child: Card(
-            //           child: Center(
-            //             child: _myImage[index] == null
-            //                 ? Image.network(
-            //                     'https://static.thenounproject.com/png/187803-200.png')
-            //                 : Image.file(
-            //                     _myImage[index],
-            //                     fit: BoxFit.cover,
-            //                   ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               height: 10,
             ),
@@ -317,7 +310,11 @@ class _BodyState extends State<Body> {
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
       child: ListTile(
-        title: Text(AppLocalizeService.of(context).translate('categories')),
+        title: _categories == null
+            ? Text(
+                AppLocalizeService.of(context).translate('categories'),
+              )
+            : Text(_categories),
         trailing: Icon(Icons.arrow_forward_ios),
         onTap: () {
           routeA();

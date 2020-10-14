@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
@@ -13,40 +10,31 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool _isLoading = false;
-  File _myImage;
-  final picker = ImagePicker();
+  List<Asset> _images = List<Asset>();
 
-  Future galleryImage() async {
+  Future<void> loadAsset() async {
+    List<Asset> resultList = List<Asset>();
     try {
-      final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-      if (_myImage != null) {
-        print('File: $_myImage');
-        /*ApiPostServices().upLoadImage(_myImage).then((value){
-          value.stream.transform(utf8.decoder).listen((data){
-
-          });
-        });*/
-        setState(() {
-          _myImage = File(pickedFile.path);
-        });
-      }
-      Navigator.pop(context);
-    } on PlatformException {
-      return null;
+      resultList = await MultiImagePicker.pickImages(
+        enableCamera: true,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        maxImages: 1,
+        materialOptions: MaterialOptions(
+          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+          actionBarTitle: "Selendra App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } catch (e) {
+      e.toString();
+      print(e);
     }
-  }
-
-  Future cameraImage() async {
-    try {
-      final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-      setState(() {
-        _myImage = File(pickedFile.path);
-      });
-    } on PlatformException {
-      return null;
-    }
+    if (!mounted) return;
+    setState(() {
+      _images = resultList;
+    });
   }
 
   Widget build(BuildContext context) {
@@ -70,16 +58,7 @@ class _BodyState extends State<Body> {
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: ListTile(
-                          onTap: () async {
-                            final pickedFile = await picker.getImage(
-                                source: ImageSource.gallery);
-                            setState(() {
-                              _myImage = File(pickedFile.path);
-                            });
-                            //choiceDialog();
-                            // ReuseChoiceDialog().choiceDialog(
-                            //     context, galleryImage, cameraImage);
-                          },
+                          onTap: () => loadAsset(),
                           title: Text(AppLocalizeService.of(context)
                               .translate('profile_photo')),
                           trailing: Consumer<ApiGetServices>(
