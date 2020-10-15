@@ -12,8 +12,6 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
-enum Options { Camera, Gallery }
-
 class _BodyState extends State<Body> {
   final _formKeyDetail = GlobalKey<FormState>();
   final _formKeySeller = GlobalKey<FormState>();
@@ -88,10 +86,11 @@ class _BodyState extends State<Body> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImageList(images),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ImageList(images),
+                  ),
+                );
               },
               child: Stack(
                 children: [
@@ -132,7 +131,7 @@ class _BodyState extends State<Body> {
     try {
       resultList = await MultiImagePicker.pickImages(
         maxImages: 8,
-        enableCamera: true,
+        enableCamera: false,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
@@ -157,6 +156,11 @@ class _BodyState extends State<Body> {
       _error = error;
       print(_error);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-
 class CategoriesListScreen extends StatefulWidget {
-
-  final List<Categories> allCategories ;
+  final List<Categories> allCategories;
   CategoriesListScreen(this.allCategories);
 
   @override
@@ -12,19 +10,18 @@ class CategoriesListScreen extends StatefulWidget {
 }
 
 class _CategoriesListScreenState extends State<CategoriesListScreen> {
-
   String stringFromResult;
 
-   routB(context) async{
-    final resultC = await  Navigator.push<String>(context, MaterialPageRoute(builder: (context)=>FoodCategories()));
-    Navigator.pop(context,resultC??"Categories");
+  routB(context) async {
+    final resultC = await Navigator.push<String>(
+        context, MaterialPageRoute(builder: (context) => FoodCategories()));
+    Navigator.pop(context, resultC ?? "Categories");
     print(resultC);
-
   }
 
-  void itemTap(int index,context){
+  void itemTap(int index, context) {
     print('$index');
-    switch (index){
+    switch (index) {
       case 0:
         routB(context);
         break;
@@ -33,30 +30,30 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'All Categories',
-          style: TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.close,color: kDefaultColor,),onPressed: (){
-          Navigator.pop(context);
-        },),
-      ),
+      appBar: ReuseSimpleAppBar.getItem(_lang.translate('categories'), context),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(
+      //     'All Categories',
+      //     style: TextStyle(
+      //       color: Colors.blue,
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 18,
+      //     ),
+      //   ),
+      //   elevation: 0,
+      //   backgroundColor: Colors.white,
+      //   leading: IconButton(icon: Icon(Icons.close,color: kDefaultColor,),onPressed: (){
+      //     Navigator.pop(context);
+      //   },),
+      // ),
       body: _buildListVertical(context),
     );
   }
 
- 
-
-  Widget _buildListVertical(context){
+  Widget _buildListVertical(context) {
     return Container(
         height: MediaQuery.of(context).size.height,
         margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -65,14 +62,17 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             itemCount: widget.allCategories.length,
-            itemBuilder: (context,index){
+            itemBuilder: (context, index) {
               return ListTile(
-                onTap: (){itemTap(index, context);},
-                title: Text(widget.allCategories[index].title),
-                leading: Image.asset(widget.allCategories[index].img,height: 30,width: 30,)
-              );
-            }
-        )
-    );
+                  onTap: () {
+                    itemTap(index, context);
+                  },
+                  title: Text(widget.allCategories[index].title),
+                  leading: Image.asset(
+                    widget.allCategories[index].img,
+                    height: 30,
+                    width: 30,
+                  ));
+            }));
   }
 }

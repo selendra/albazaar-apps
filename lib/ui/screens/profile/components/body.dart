@@ -3,6 +3,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -14,9 +15,10 @@ class _BodyState extends State<Body> {
 
   Future<void> loadAsset() async {
     List<Asset> resultList = List<Asset>();
+
     try {
       resultList = await MultiImagePicker.pickImages(
-        enableCamera: true,
+        enableCamera: false,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         maxImages: 1,
         materialOptions: MaterialOptions(
@@ -29,13 +31,14 @@ class _BodyState extends State<Body> {
       );
     } catch (e) {
       e.toString();
-      print(e);
+      //print(e);
     }
     if (!mounted) return;
     setState(() {
       _images = resultList;
     });
   }
+
 
   Widget build(BuildContext context) {
     return SingleChildScrollView(

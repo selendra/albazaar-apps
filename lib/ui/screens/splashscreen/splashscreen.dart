@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +9,12 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   PrefService _pref = PrefService();
+
+  AnimationController _controller;
+  Animation<double> _animation;
 
   void checkUser() {
     _pref.read('token').then(
@@ -25,7 +30,26 @@ class _SplashScreenState extends State<SplashScreen> {
                 Provider.of<ApiGetServices>(context, listen: false)
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false).getVegi();
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
+                Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          BottomNavigation(),
+                      //transitionDuration: Duration(milliseconds: 2000),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        animation = CurvedAnimation(
+                            curve: Curves.bounceIn, parent: animation);
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                    ));
+                //Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 _pref.clear('token');
               }
@@ -51,40 +75,48 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       },
     );
+    if (!mounted) return;
   }
 
   @override
   void initState() {
     super.initState();
-    var _lang = Provider.of<LangProvider>(context, listen: false);
-    Timer(Duration(seconds: 2), () {
+
+    //fade transition
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
+    _controller.forward();
+    Timer(Duration(milliseconds: 2000), () {
       checkUser();
-      // Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => Intro(),
-      //     ));
-      _pref.read('lang').then((value) {
-        _lang.setLocal(value, context);
-        //_lang.saveLang(context);
-      });
     });
+    //set Language
+    var _lang = Provider.of<LangProvider>(context, listen: false);
+
+    _pref.read('lang').then((value) {
+      _lang.setLocal(value, context);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                'images/logo.png',
-                height: 200,
-                width: 200,
-              ),
-            ],
+      body: Center(
+        child: RotationTransition(
+          // opacity: _animation,
+          turns: _animation,
+          child: Image.asset(
+            'images/logo.png',
+            height: 200,
+            width: 200,
           ),
         ),
       ),

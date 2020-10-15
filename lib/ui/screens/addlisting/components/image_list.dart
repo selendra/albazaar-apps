@@ -17,8 +17,8 @@ class ImageList extends StatelessWidget {
             return AssetThumb(
               quality: 100,
               asset: images[index],
-              height: 300,
-              width: 300,
+              height: 600,
+              width: 600,
             );
           },
         ),
