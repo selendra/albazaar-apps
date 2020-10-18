@@ -5,7 +5,8 @@ class RouteAnimation extends PageRouteBuilder {
   final Widget exitPage;
   RouteAnimation({this.enterPage, this.exitPage})
       : super(
-          pageBuilder: (context, animation, secondaryAnimation) => enterPage,
+          pageBuilder: (context, animation, secondaryAnimation) => exitPage,
+          transitionDuration: Duration(milliseconds: 100),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               Stack(
             children: [

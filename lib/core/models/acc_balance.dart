@@ -17,9 +17,6 @@ class Balance {
     sellingLiabilities = json["selling_liabilities"];
     assetType = json["asset_type"];
   }
-
 }
 
-
-List <Balance> mBalance = [];
-
+List<Balance> mBalance = [];

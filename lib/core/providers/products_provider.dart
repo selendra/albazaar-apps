@@ -11,8 +11,7 @@ class ProductsProvider with ChangeNotifier {
         sellerName: 'Chay',
         sellerPhoneNum: '85776978',
         orderQty: 1,
-        image:
-            "https://github.com/emrade/flutter-ui-fruit-store/blob/master/assets/images/apple.png?raw=true",
+        image: "https://media.timeout.com/images/105692893/image.jpg",
         color: Color(0xFF3D82AE)),
     Product(
         id: 2,
@@ -23,7 +22,7 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/emrade/flutter-ui-fruit-store/blob/master/assets/images/avocado.png?raw=true",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Persea_americana_fruit_2.JPG/1200px-Persea_americana_fruit_2.JPG",
         color: Color(0xFFD3A984)),
     Product(
         id: 3,
@@ -34,7 +33,7 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/emrade/flutter-ui-fruit-store/blob/master/assets/images/grape.png?raw=true",
+            "https://www.goodfruit.com/wp-content/uploads/marquetteGrape36018-1-1000x1264.jpg",
         color: Color(0xFF989493)),
     Product(
         id: 4,
@@ -45,7 +44,7 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/emrade/flutter-ui-fruit-store/blob/master/assets/images/lemon.png?raw=true",
+            "https://cdn.vox-cdn.com/thumbor/AaljX--GNK0VxsnoXfexTOg2TYA=/0x0:5760x3840/1200x800/filters:focal(2420x1460:3340x2380)/cdn.vox-cdn.com/uploads/chorus_image/image/66928266/AdobeStock_320463231.0.0.jpeg",
         color: Color(0xFFE6B398)),
     Product(
         id: 5,
@@ -56,10 +55,21 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/emrade/flutter-ui-fruit-store/blob/master/assets/images/orange.png?raw=true",
+            "https://www.flowerpower.com.au/media/catalog/product/image/291169a6f0/orange-valencia.jpg",
         color: Color(0xFFFB7883)),
     Product(
-      id: 6,
+        id: 6,
+        title: "Banana",
+        price: 100,
+        description: dummyText,
+        sellerName: 'Chay',
+        sellerPhoneNum: '85776978',
+        orderQty: 1,
+        image:
+            "https://www.verywellfit.com/thmb/a4580FjTjbub9q4kI5m9X-Po-p0=/2002x1334/filters:no_upscale():max_bytes(150000):strip_icc()/Bananas-5c6a36a346e0fb0001f0e4a3.jpg",
+        color: Color(0xFFD3A984)),
+    Product(
+      id: 7,
       title: "Lemons",
       price: 100,
       description: dummyText,
@@ -71,7 +81,7 @@ class ProductsProvider with ChangeNotifier {
       color: Color(0xFFAEAEAE),
     ),
     Product(
-        id: 7,
+        id: 8,
         title: "Watermelon",
         price: 1000000,
         description: dummyText,
@@ -82,17 +92,6 @@ class ProductsProvider with ChangeNotifier {
             "https://github.com/hakymz/Flutter-Fruit-App-UI/blob/master/assets/fruits/watermelon.png?raw=true",
         color: Color(0xFF3D82AE)),
     Product(
-        id: 8,
-        title: "Banana",
-        price: 100,
-        description: dummyText,
-        sellerName: 'Chay',
-        sellerPhoneNum: '85776978',
-        orderQty: 1,
-        image:
-            "https://github.com/hakymz/Flutter-Fruit-App-UI/blob/master/assets/fruits/banana.png?raw=true",
-        color: Color(0xFFD3A984)),
-    Product(
         id: 9,
         title: "Mango",
         price: 100,
@@ -101,7 +100,7 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/hakymz/Flutter-Fruit-App-UI/blob/master/assets/fruits/mango.png?raw=true",
+            "https://www.netmeds.com/images/cms/wysiwyg/blog/2019/04/Raw_Mango_898.jpg",
         color: Color(0xFF989493)),
     Product(
         id: 10,
@@ -112,7 +111,7 @@ class ProductsProvider with ChangeNotifier {
         sellerPhoneNum: '85776978',
         orderQty: 1,
         image:
-            "https://github.com/ahkohd/flutter-day2-fruit-app-layout/blob/master/images/guava.png?raw=true",
+            "https://cdn.cdnparenting.com/articles/2019/03/14174045/794794447-H-1024x700.jpg",
         color: Color(0xFFE6B398)),
     Product(
         id: 11,

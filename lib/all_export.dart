@@ -99,6 +99,9 @@ export 'ui/screens/wallet/get_wallet/info_row.dart';
 //welcome screen
 export 'ui/screens/welcome/welcome_screen.dart';
 
+//route
+export 'core/animation/route_animation.dart';
+
 //intro screen
 export 'ui/screens/intro/intro_screen.dart';
 

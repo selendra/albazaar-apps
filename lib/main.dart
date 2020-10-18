@@ -18,23 +18,6 @@ class SelendraApp extends StatefulWidget {
 }
 
 class _SelendraAppState extends State<SelendraApp> {
-  List<String> svg = [
-    'images/undraw_wallet.svg',
-    'images/undraw_loving_it.svg',
-    'images/undraw_empty_cart.svg',
-    'images/undraw_Mobile_application.svg'
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    for (int i = 0; i < svg.length; i++) {
-      precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

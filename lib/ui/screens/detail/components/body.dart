@@ -33,10 +33,11 @@ class Body extends StatelessWidget {
                   child: InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CartScreen()));
+                        Navigator.pushNamed(context, CartView);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => CartScreen()));
                       },
                       child: Icon(Icons.shopping_cart)),
                 ),

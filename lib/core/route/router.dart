@@ -5,112 +5,70 @@ import 'package:selendra_marketplace_app/all_export.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case SplashScreenView:
-      return MaterialPageRoute(
-        builder: (context) => SplashScreen(),
-      );
+      return RouteAnimation(enterPage: SplashScreen());
       break;
     case WelcomeView:
-      return MaterialPageRoute(
-        builder: (context) => WelcomeScreen(),
-      );
+      return RouteAnimation(enterPage: WelcomeScreen());
     case DetailView:
-      return MaterialPageRoute(
-        builder: (context) => DetailScreen(),
-      );
+      return RouteAnimation(enterPage: DetailScreen());
       break;
     case CartView:
-      return MaterialPageRoute(
-        builder: (context) => CartScreen(),
-      );
+      return RouteAnimation(enterPage: CartScreen());
       break;
     case AddListingView:
-      return MaterialPageRoute(
-        builder: (context) => AddListing(),
-      );
+      return RouteAnimation(enterPage: AddListing());
       break;
     case ListingView:
-      return MaterialPageRoute(
-        builder: (context) => ListingScreen(),
-      );
+      return RouteAnimation(enterPage: ListingScreen());
       break;
     case CheckoutView:
-      return MaterialPageRoute(
-        builder: (context) => Checkout(),
-      );
+      return RouteAnimation(enterPage: Checkout());
       break;
     case FavoriteView:
-      return MaterialPageRoute(
-        builder: (context) => FavoriteScreen(),
-      );
+      return RouteAnimation(enterPage: FavoriteScreen());
       break;
     case MapView:
-      return MaterialPageRoute(
-        builder: (context) => MapScreen(),
-      );
+      return RouteAnimation(enterPage: MapScreen());
       break;
     case ProfileView:
-      return MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
-      );
+      return RouteAnimation(enterPage: ProfileScreen());
       break;
     case PurchaseView:
-      return MaterialPageRoute(
-        builder: (context) => PurchaseScreen(),
-      );
+      return RouteAnimation(enterPage: PurchaseScreen());
       break;
     case BottomNavigationView:
-      return MaterialPageRoute(
-        builder: (context) => BottomNavigation(),
+      return RouteAnimation(
+        enterPage: BottomNavigation(),
       );
       break;
     case SettingView:
-      return MaterialPageRoute(
-        builder: (context) => SettingScreen(),
-      );
+      return RouteAnimation(enterPage: SettingScreen());
       break;
     case SignInView:
-      return MaterialPageRoute(
-        builder: (context) => SignIn(),
-      );
+      return RouteAnimation(enterPage: SignIn());
       break;
     case SignUpView:
-      return MaterialPageRoute(
-        builder: (context) => SignUpScreen(),
-      );
+      return RouteAnimation(enterPage: SignUpScreen());
       break;
     case UserInfoView:
-      return MaterialPageRoute(
-        builder: (context) => UserInfoScreen(),
-      );
+      return RouteAnimation(enterPage: UserInfoScreen());
       break;
     case WalletScreenView:
-      return MaterialPageRoute(
-        builder: (context) => WalletScreen(),
-      );
+      return RouteAnimation(enterPage: WalletScreen());
       break;
     case IntroScreenView:
-      return MaterialPageRoute(
-        builder: (context) => IntroScreen(),
-      );
+      return RouteAnimation(enterPage: IntroScreen());
       break;
     case NotificationView:
-      return MaterialPageRoute(
-        builder: (context) => NotificationScreen(),
-      );
+      return RouteAnimation(enterPage: NotificationScreen());
       break;
     case WalletPinView:
-      return MaterialPageRoute(
-        builder: (context) => WalletPin(),
-      );
+      return RouteAnimation(enterPage: WalletPin());
       break;
     case SaleScreenView:
-      return MaterialPageRoute(
-        builder: (context) => SalesScreen(),
-      );
+      return RouteAnimation(enterPage: SalesScreen());
       break;
     default:
-      return MaterialPageRoute(
-        builder: (context) => SplashScreen(),
-      );
+      return RouteAnimation(enterPage: SplashScreen());
   }
 }
