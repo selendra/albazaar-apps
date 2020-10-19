@@ -13,6 +13,7 @@ class Body extends StatelessWidget {
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
+    print(productId);
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -23,24 +24,23 @@ class Body extends StatelessWidget {
               iconTheme: IconThemeData(
                 color: kDefaultColor,
               ),
+              leading: CircleShapeBtn(
+                  () => Navigator.pop(context), Icons.arrow_back),
               actions: [
                 Container(
-                  margin: EdgeInsets.all(20.0),
-                  child: InkWell(onTap: () {}, child: Icon(Icons.share)),
+                  margin: EdgeInsets.all(10.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white.withOpacity(0.8),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: kDefaultColor,
+                    ),
+                  ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 20.0, right: 20.0, bottom: 20.0),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, CartView);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => CartScreen()));
-                      },
-                      child: Icon(Icons.shopping_cart)),
-                ),
+                // CircleShapeBtn(() {
+                //   Navigator.pop(context);
+                //   Navigator.pushNamed(context, CartView);
+                // }, Icons.shopping_cart),
               ],
               expandedHeight: MediaQuery.of(context).size.height * 0.5,
               floating: true,
@@ -48,7 +48,7 @@ class Body extends StatelessWidget {
               primary: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Hero(
-                  tag: "${loadedData.id}",
+                  tag: "$productId",
                   child: SizedBox(
                     child: Carousel(
                       autoplay: false,

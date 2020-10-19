@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/models/products.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class FoodCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'All Categories',
+          _lang.translate('categories'),
           style: TextStyle(
             color: Colors.blue,
             fontWeight: FontWeight.bold,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutCard extends StatelessWidget {
@@ -32,11 +31,7 @@ class CheckoutCard extends StatelessWidget {
                   height: 60,
                 ),
                 ReuseButton.getItem(_lang.translate('check_out'), () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Checkout(),
-                      ));
+                  Navigator.pushReplacementNamed(context, CheckoutView);
                 }, context),
               ],
             ),

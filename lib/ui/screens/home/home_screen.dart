@@ -47,15 +47,9 @@ class _HomeScreenState extends State<HomeScreen>
               brightness: Brightness.light,
               elevation: 0,
               backgroundColor: Colors.white,
-              leading: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: kDefaultColor,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
+              leading: ReuseIconBadge(() {
+                Scaffold.of(context).openDrawer();
+              }, Icons.menu, kDefaultColor, 20.0),
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

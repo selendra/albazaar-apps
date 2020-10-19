@@ -10,8 +10,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case WelcomeView:
       return RouteAnimation(enterPage: WelcomeScreen());
     case DetailView:
-      return RouteAnimation(enterPage: DetailScreen());
-      break;
+      return MaterialPageRoute(
+        builder: (context) => DetailScreen(),
+      );
     case CartView:
       return RouteAnimation(enterPage: CartScreen());
       break;

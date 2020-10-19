@@ -31,6 +31,7 @@ export 'ui/screens/category/food/foods_screen.dart';
 export 'ui/screens/detail/detail_screen.dart';
 export 'ui/screens/detail/components/btn_qty.dart';
 export 'ui/screens/detail/components/btn_add_to_cart.dart';
+export 'ui/screens/detail/components/circle_shape_btn.dart';
 
 //favorite screen
 export 'ui/screens/favorite/favorite_screen.dart';
@@ -130,6 +131,7 @@ export 'ui/reuse_widget/reuse_btn_qty.dart';
 export 'ui/reuse_widget/reuse_search_field.dart';
 export 'ui/reuse_widget/product_list.dart';
 export 'ui/reuse_widget/item_card.dart';
+export 'ui/reuse_widget/reuse_icon_badge.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';

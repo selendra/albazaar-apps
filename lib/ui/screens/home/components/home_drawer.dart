@@ -81,11 +81,30 @@ class HomeDrawer extends StatelessWidget {
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
           }),
-          ReuseInkwell.getItem(
-              _lang.translate('notification'), Icons.notifications, () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, NotificationView);
-          }),
+          // ReuseInkwell.getItem(
+          //     _lang.translate('notification'), Icons.notifications, () {
+          //   Navigator.pop(context);
+          //   Navigator.pushNamed(context, NotificationView);
+          // }),
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, NotificationView);
+            },
+            splashColor: Colors.grey,
+            child: ListTile(
+              title: Text(
+                _lang.translate('notification'),
+              ),
+              leading: Icon(Icons.notifications),
+              dense: true,
+              trailing: Icon(
+                Icons.brightness_1,
+                size: 20.0,
+                color: Colors.red,
+              ),
+            ),
+          ),
           ReuseInkwell.getItem(
             _lang.translate('setting'),
             Icons.settings,

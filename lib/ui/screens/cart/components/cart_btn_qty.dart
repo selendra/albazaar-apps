@@ -50,7 +50,7 @@ class CartBtnQty extends StatelessWidget {
           ),
           child: Icon(
             iconData,
-            color: Colors.black,
+            color: kDefaultColor,
             size: 20,
           ),
         ));
