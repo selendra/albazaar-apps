@@ -6,6 +6,7 @@ class FavoriteProvider with ChangeNotifier {
 
   List<Product> get items => [..._fav];
 
+  //ADD PRODUCT TO FAVORITE LIST
   void addFav(Product product) {
     if (!_fav.contains(product)) {
       _fav.add(product);
@@ -14,6 +15,7 @@ class FavoriteProvider with ChangeNotifier {
     }
   }
 
+  //REMOVE PRODUCT FROM FAVORITE LIST
   void removeFav(Product product) {
     _fav.remove(product);
     product.isFavorite = false;

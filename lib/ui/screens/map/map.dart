@@ -88,6 +88,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       // _key.currentState.contract();
       animateMove(kDefualtLatLng, kDefaultMapZoom);
     }
+    //if (!mounted) return;
   }
 
   addressName(LatLng place) async {
@@ -224,47 +225,4 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       ),
     ); //SafeArea(child: _bottom()));
   }
-
-  /*Widget _bottom() {
-    return ExpandableBottomSheet(
-      animationCurveExpand: Curves.bounceOut,
-      animationCurveContract: Curves.ease,
-      background: Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              center: _currentPosition != null
-                  ? LatLng(
-                      _currentPosition.latitude, _currentPosition.longitude)
-                  : kDefualtLatLng,
-              zoom: kDefaultMapZoom,
-              screenSize: MediaQuery.of(context).size,
-              slideOnBoundaries: true,
-              maxZoom: kDefaultMaxZoom,
-              minZoom: kDefaultMinZoom,
-            ),
-            layers: [
-              TileLayerOptions(
-                  tileFadeInStart: 0.1,
-                  maxZoom: kDefaultMaxZoom,
-                  keepBuffer: 100,
-                  urlTemplate: osmMapTemplate,
-                  subdomains: ['a', 'b', 'c']),
-              MarkerLayerOptions(
-                markers: markers,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TypeHead(searchPlace),
-          ZoomButtons(_mapController),
-        ],
-      ),
-      persistentHeader: PersistentHeader(),
-      expandableContent: ExpandableContent(locate),
-    );
-  }*/
 }

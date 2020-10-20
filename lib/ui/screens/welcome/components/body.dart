@@ -13,7 +13,7 @@ class Body extends StatelessWidget {
             child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.all(30.0),
+                margin: const EdgeInsets.all(30.0),
                 child: Column(
                   children: <Widget>[
                     SizedBox(
@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 5),
+                      margin: const EdgeInsets.only(top: 5),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -64,8 +64,9 @@ class Body extends StatelessWidget {
                     ReuseButton.getItem(
                         AppLocalizeService.of(context)
                             .translate('signin_string'), () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => SignIn()));
+                      Navigator.pushReplacementNamed(context, SignInView);
+                      // Navigator.pushReplacement(context,
+                      //     MaterialPageRoute(builder: (context) => SignIn()));
                     }, context),
                     SizedBox(
                       height: 20,
@@ -85,8 +86,9 @@ class Body extends StatelessWidget {
       height: 50,
       child: OutlineButton(
         onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+          Navigator.pushReplacementNamed(context, SignUpView);
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (context) => SignUpScreen()));
         },
         child: Text(
           AppLocalizeService.of(context).translate('signup_string'),

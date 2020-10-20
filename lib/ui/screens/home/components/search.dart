@@ -53,19 +53,26 @@ class SearchProducts extends SearchDelegate {
             .toList();
 
     return Container(
+      margin: EdgeInsets.all(10.0),
       child: ListView.builder(
         itemCount: searchProducts.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context)
-                  .pushNamed('/detail', arguments: searchProducts[index].id);
-            },
-            title: Text(searchProducts[index].title),
-            leading: Image.network(searchProducts[index].image),
-            subtitle: Text(
-              searchProducts[index].price.toString(),
+          return Card(
+            color: Colors.white,
+            elevation: 1,
+            child: ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .pushNamed('/detail', arguments: searchProducts[index].id);
+              },
+              title: Text(searchProducts[index].title),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(searchProducts[index].image),
+              ),
+              subtitle: Text(
+                searchProducts[index].price.toString(),
+              ),
             ),
           );
         },

@@ -51,6 +51,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, AddListingView);
+
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (context) => AddListing()));
         },

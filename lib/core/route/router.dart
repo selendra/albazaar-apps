@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-//generate route for navigation
+//GENERATE ROUTE FOR NAVIGATIONs
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case SplashScreenView:

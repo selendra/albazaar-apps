@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -22,59 +21,39 @@ class _SplashScreenState extends State<SplashScreen>
   ];
 
   void checkUser() {
+    //READ TOKEN
     _pref.read('token').then(
       (value) async {
         print(value);
-        String _token = value;
-        if (_token != null) {
-          print('not null');
+        if (value != null) {
           await ApiGetServices().fetchPortforlio().then(
             (onValue) {
+              //CHECK IF TOKEN IS VALID
               print(onValue);
               if (onValue == '200') {
+                //FETCH USER PROFILE AND NAVIGATE
                 Provider.of<ApiGetServices>(context, listen: false)
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false).getVegi();
-
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
+                //IF NOT VALID CLEAR TOKEN AND NAVIGATE TO WELCOME SCREEN
                 _pref.clear('token');
+                Navigator.pushReplacementNamed(context, WelcomeView);
               }
             },
           );
         } else {
+          //CHECK SOCIAL ACCOUNT LOGIN USER
           Auth().currentUser.then(
             (value) {
               if (value != null) {
+                //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
                 Provider.of<ApiGetServices>(context, listen: false)
                     .fetchSocialUserInfo(
                         value.email, value.displayName, value.photoUrl);
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BottomNavigation(),
-                    ));
+                Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
-                // Navigator.pushReplacement(
-                //   context,
-                //   new PageRouteBuilder(
-                //     pageBuilder: (context, animation, secondaryAnimation) =>
-                //         WelcomeScreen(),
-                //     transitionDuration: Duration(milliseconds: 500),
-                //     transitionsBuilder:
-                //         (context, animation, secondaryAnimation, child) {
-                //       animation = CurvedAnimation(
-                //           curve: Curves.easeIn, parent: animation);
-                //       return SlideTransition(
-                //         position: Tween<Offset>(
-                //           begin: Offset(1.0, 0.0),
-                //           end: Offset.zero,
-                //         ).animate(animation),
-                //         child: child,
-                //       );
-                //     },
-                //   ),
-                // );
                 Navigator.pushReplacementNamed(context, WelcomeView);
               }
             },
@@ -93,6 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
       checkUser();
     });
 
+    //PRECACH SVG IMAGES
     for (int i = 0; i < svg.length; i++) {
       precachePicture(
           ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
@@ -100,10 +80,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     //SET LANGUAGE
     var _lang = Provider.of<LangProvider>(context, listen: false);
-
-    _pref.read('lang').then((value) {
-      _lang.setLocal(value, context);
-    });
+    _pref.read('lang').then(
+      (value) {
+        _lang.setLocal(value, context);
+      },
+    );
   }
 
   @override

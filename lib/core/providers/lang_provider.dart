@@ -10,6 +10,7 @@ class LangProvider with ChangeNotifier {
 
   Locale get manualLocale => _manualLocale;
 
+  //SET LOCALIZE LANGUAGE
   void setLocal(String languageCode, context) {
     _lang = languageCode;
     notifyListeners();
@@ -27,6 +28,8 @@ class LangProvider with ChangeNotifier {
     saveLang(languageCode, context);
   }
 
+
+  //GET SAVE LANGUAGE CODE
   void saveLang(String languageCode, context) async {
     Locale myLocale = Localizations.localeOf(context);
     if (languageCode != null) {

@@ -60,11 +60,7 @@ class SignUpEmailForm extends StatelessWidget {
             ),
             ReuseFlatButton.getItem(_lang.translate('had_an_account'),
                 _lang.translate('signin_string'), () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignIn(),
-                  ));
+              Navigator.pushReplacementNamed(context, SignInView);
             }),
             SizedBox(
               height: 10,

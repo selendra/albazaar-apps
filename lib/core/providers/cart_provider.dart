@@ -8,6 +8,7 @@ class CartProvider with ChangeNotifier {
 
   Map<String, Cart> get items => {..._items};
 
+  //  ADD PRODUCT TO CART
   void addCart(String productId, String image, String title, double price,
       int productOrderQty) {
     if (_items.containsKey(productId)) {
@@ -35,6 +36,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  //INCRASE QUANTITY OF PRODUCT IN CART
   void addQty(String productId) {
     _items.update(
         productId,
@@ -44,10 +46,11 @@ class CartProvider with ChangeNotifier {
             title: existingItem.title,
             price: existingItem.price,
             qty: existingItem.qty + 1));
-    // totalPrice = totalPrice + product.price;
+
     notifyListeners();
   }
 
+  //DECRESE QUANTITY OF PRODUCT IN CART
   void minusQty(String productId) {
     _items.update(
         productId,
@@ -58,12 +61,17 @@ class CartProvider with ChangeNotifier {
                 title: existingItem.title,
                 price: existingItem.price,
                 qty: existingItem.qty - 1)
-            : null);
-    //totalPrice = totalPrice - product.price;
+            : Cart(
+                id: DateTime.now().toString(),
+                image: existingItem.image,
+                title: existingItem.title,
+                price: existingItem.price,
+                qty: existingItem.qty));
 
     notifyListeners();
   }
 
+  //CALCULATE TOTAL PRICE OF TOTAL ITEM
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, cartItem) {
@@ -72,6 +80,7 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
+  //REMOVE PRODUCT FROM CART
   void removeItem(String productID) {
     _items.remove(productID);
     notifyListeners();

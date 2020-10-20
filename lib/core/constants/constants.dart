@@ -28,7 +28,7 @@ const kDefualtPInputDecoration = InputDecoration(
       borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
 );
 
-//route name
+//Route Name
 const String SplashScreenView = '/';
 const String CartView = '/cart';
 const String AddListingView = '/addlisting';

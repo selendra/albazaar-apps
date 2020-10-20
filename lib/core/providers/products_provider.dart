@@ -2,6 +2,7 @@ import 'package:selendra_marketplace_app/core/models/products.dart';
 import 'package:flutter/material.dart';
 
 class ProductsProvider with ChangeNotifier {
+  //LIST OF ALL PRODUCTS
   List<Product> _items = [
     Product(
         id: 1,
@@ -171,18 +172,17 @@ class ProductsProvider with ChangeNotifier {
             'https://purepng.com/public/uploads/medium/purepng.com-single-carrotcarrotonesinglevegetablesfreshdeliciousefoodhealthy-481521740676q8i3l.png'),
   ];
 
+  List<Product> _vegProduct = [];
+
   List<Product> get items => [..._items];
 
-  List<Product> _vegProduct = [];
   List<Product> get vegProduct => [..._vegProduct];
-
-  bool _isSearching = false;
-  bool get isSearching => _isSearching;
 
   Product findById(int id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
+  //ADD NEW PRODUCT
   void addItem(String _title, double _price, String _description,
       String sellerName, String sellerPhone) {
     _items.add(Product(
@@ -198,11 +198,7 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addOrderQty(Product product) {
-    product.orderQty++;
-    notifyListeners();
-  }
-
+  //FETCH PRODUCTS INTO DIFFERENT CATEGORIES
   void getVegi() {
     for (int i = 0; i < _items.length; i++) {
       if (_items[i].category == 'veg') {
@@ -213,6 +209,13 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  //INCREASE ORDER QUANTITY OF PRODUCT
+  void addOrderQty(Product product) {
+    product.orderQty++;
+    notifyListeners();
+  }
+
+  //DECREASE ORDER QUANTIY OF PRODUCT
   void minusOrderQty(Product product) {
     if (product.orderQty > 1) {
       product.orderQty--;

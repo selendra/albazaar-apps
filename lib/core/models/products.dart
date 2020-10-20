@@ -29,12 +29,12 @@ class Product with ChangeNotifier {
 }
 
 List<String> foodCategories = [
-  'Meats',
+  'Cereals',
   'Fruit',
-  'Drinks',
+  'Fish',
   'Vegetable',
-  'Seasoning',
-  'Desserts',
+  'Meat',
+  'Fertilizer',
   'Other'
 ];
 

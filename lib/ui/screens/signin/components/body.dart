@@ -194,7 +194,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   SizedBox(
                     height: 40,
                   ),
-
                   Expanded(
                     flex: 2,
                     child: PageView(

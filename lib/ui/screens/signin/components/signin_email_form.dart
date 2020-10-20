@@ -10,7 +10,7 @@ class SignInEmailForm extends StatelessWidget {
 
   SignInEmailForm(this.signInEmailFunc, this.faceBookSignIn, this.googleSignIn);
 
-   final _emailFormKey = GlobalKey<FormState>();
+  final _emailFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {
@@ -70,8 +70,7 @@ class SignInEmailForm extends StatelessWidget {
             SizedBox(height: 10),
             ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
                 AppLocalizeService.of(context).translate('signup_string'), () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()));
+              Navigator.pushReplacementNamed(context, SignUpView);
             }),
             SizedBox(
               height: 5,

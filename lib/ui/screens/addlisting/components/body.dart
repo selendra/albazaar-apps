@@ -36,7 +36,7 @@ class _BodyState extends State<Body> {
             builder: (context) => CategoriesListScreen(category)));
     print(resultOfC);
     setState(() {
-      _categories = resultOfC ?? "Categories";
+      _categories = resultOfC;
     });
   }
 
@@ -62,6 +62,7 @@ class _BodyState extends State<Body> {
             description: _description,
             image: "images/new-house.jpg",
             color: Color(0xFF3D82AE)));*/
+
         Navigator.pop(context);
         return true;
       }
@@ -158,11 +159,9 @@ class _BodyState extends State<Body> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
-   
   }
 
   @override
@@ -311,7 +310,7 @@ class _BodyState extends State<Body> {
     return Container(
       height: 60,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: BoxDecoration(  
         border: Border.all(color: kDefaultColor, width: 1),
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
@@ -321,7 +320,10 @@ class _BodyState extends State<Body> {
                 AppLocalizeService.of(context).translate('categories'),
               )
             : Text(_categories),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          color: kDefaultColor,
+        ),
         onTap: () {
           routeA();
         },
@@ -346,7 +348,6 @@ class _BodyState extends State<Body> {
     return ReuseTextField(
       labelText: AppLocalizeService.of(context).translate('name'),
       maxLine: 1,
-      inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('contact_name_is_empty')

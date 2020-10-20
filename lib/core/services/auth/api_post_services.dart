@@ -9,11 +9,10 @@ import 'package:provider/provider.dart';
 
 class ApiPostServices with ChangeNotifier {
   String _alertText, _token;
-
   PrefService _pref = PrefService();
-
   String get alertText => _alertText;
 
+  //USER SIGN IN USING EMAIL AND PASSWORD
   Future<String> signInByEmail(String email, String password, context) async {
     var response = await http.post(ApiUrl.LOG_IN_URL,
         headers: ApiHeader.headers,
@@ -36,7 +35,6 @@ class ApiPostServices with ChangeNotifier {
           print(_alertText);
         }
       }
-      // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     } else {
       print(response.body);
     }
@@ -44,6 +42,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
     var response = await http.post(ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
@@ -82,6 +81,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER RESET THEIR PASSWORD BY EMAIL
   Future<String> forgetPasswordByEmail(String email) async {
     var response = await http.post(ApiUrl.RESET_BY_EMAIL,
         headers: ApiHeader.headers,
@@ -93,6 +93,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER RESET THEIR PASSWORD BY PHONE NUMBER
   Future<String> forgetPasswordByPhone(String phoneNumber) async {
     var response = await http.post(ApiUrl.RESET_BY_PHONE,
         headers: ApiHeader.headers,
@@ -104,6 +105,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER SIGN UP THEIR ACCOUNT USING EMAIL AND PASSWORD
   Future<String> signUpByEmail(String email, String password) async {
     var response = await http.post(ApiUrl.SIGN_UP_EMAIL,
         headers: ApiHeader.headers,
@@ -121,6 +123,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER SIGN UP THEIR ACCOUNT USING PHONE AND PASSWORD
   Future<String> signUpByPhone(String phone, String password, context) async {
     var response = await http.post(ApiUrl.SIGN_UP_PHONE,
         headers: ApiHeader.headers,
@@ -147,6 +150,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER UPDATE THEIR PROFILE INFORMATION
   Future<String> setUserPf(String firstName, String midName, String lastName,
       String gender, context) async {
     await _pref.read('token').then((value) async {
@@ -180,6 +184,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER REQUEST TO GET THEIR PEER TO PEER WALLET
   Future<String> getWallet(String pin) async {
     await _pref.read('token').then((value) async {
       var response = await http.post(ApiUrl.GET_WALLET,
@@ -191,7 +196,6 @@ class ApiPostServices with ChangeNotifier {
           body: jsonEncode(<String, String>{"pin": pin}));
       var responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
-        // SharedPreferences isSeed = await SharedPreferences.getInstance();
         String _seed;
 
         try {
@@ -203,7 +207,6 @@ class ApiPostServices with ChangeNotifier {
           _seed = responseBody['message']['seed'];
           print(_seed);
           _pref.saveString('seed', _seed);
-          // isSeed.setString('seed', _seed);
         }
       } else {
         print(responseBody);
@@ -213,6 +216,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //USER VERIFY THEIR IDENTITY USING PHONE NUMBER
   Future<String> verifyByPhone(String phone, String verifyCode) async {
     var response = await http.post(ApiUrl.VERIFY_BY_PHONE,
         headers: ApiHeader.headers,
@@ -231,6 +235,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //ADD PHONE NUMBER TO THEIR EXISTING ACCOUNT
   Future<String> addPhoneNumber(String _token, String _phoneNumber) async {
     var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
         headers: <String, String>{
@@ -259,6 +264,7 @@ class ApiPostServices with ChangeNotifier {
     return _alertText;
   }
 
+  //RESEND THE OTP CODE BY USING PHONE NUMBER
   Future<String> resendCode(String phoneNumber) async {
     var response = await http.post(ApiUrl.RESEND_CODE,
         headers: ApiHeader.headers,
