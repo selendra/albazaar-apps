@@ -13,7 +13,6 @@ class Body extends StatelessWidget {
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
-    print(productId);
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -37,10 +36,6 @@ class Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                // CircleShapeBtn(() {
-                //   Navigator.pop(context);
-                //   Navigator.pushNamed(context, CartView);
-                // }, Icons.shopping_cart),
               ],
               expandedHeight: MediaQuery.of(context).size.height * 0.5,
               floating: true,

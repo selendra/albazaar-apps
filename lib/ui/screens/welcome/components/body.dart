@@ -11,96 +11,91 @@ class Body extends StatelessWidget {
         child: NetworkAlert(
           Center(
             child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.all(30.0),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      AppLocalizeService.of(context)
+                          .translate('welcome_string'),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 22,
+                        color: Colors.black,
+                      ),
                     ),
-                    Align(
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        AppLocalizeService.of(context)
-                            .translate('welcome_string'),
+                        'Selendra Marketplace',
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
-                          fontSize: 22,
-                          color: Colors.black,
+                          fontSize: 28,
+                          color: kDefaultColor,
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Selendra Marketplace',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 28,
-                            color: kDefaultColor,
-                          ),
-                        ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      child: SvgPicture.asset(
+                        'images/undraw_Mobile_application.svg',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: MediaQuery.of(context).size.width * 0.3,
                       ),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        child: SvgPicture.asset(
-                          'images/undraw_Mobile_application.svg',
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                    ),
-                    ReuseButton.getItem(
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                  ReuseButton.getItem(
+                      AppLocalizeService.of(context).translate('signin_string'),
+                      () {
+                    Navigator.pushReplacementNamed(context, SignInView);
+                  }, context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: OutlineButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, SignUpView);
+                      },
+                      child: Text(
                         AppLocalizeService.of(context)
-                            .translate('signin_string'), () {
-                      Navigator.pushReplacementNamed(context, SignInView);
-                      // Navigator.pushReplacement(context,
-                      //     MaterialPageRoute(builder: (context) => SignIn()));
-                    }, context),
-                    SizedBox(
-                      height: 20,
+                            .translate('signup_string'),
+                        style: TextStyle(
+                          color: kDefaultColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      color: Colors.white,
+                      borderSide: BorderSide(color: kDefaultColor, width: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(kDefaultRadius)),
+                      ),
                     ),
-                    _btnSignUp(context),
-                  ],
-                )),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _btnSignUp(context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: OutlineButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, SignUpView);
-          // Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-        },
-        child: Text(
-          AppLocalizeService.of(context).translate('signup_string'),
-          style: TextStyle(
-            color: kDefaultColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        color: Colors.white,
-        borderSide: BorderSide(color: kDefaultColor, width: 2),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
         ),
       ),
     );

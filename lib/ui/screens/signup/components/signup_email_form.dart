@@ -24,7 +24,7 @@ class SignUpEmailForm extends StatelessWidget {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Form(
         key: _emailFormKey,
         child: Column(

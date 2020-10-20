@@ -26,7 +26,7 @@ class SignUpPhoneForm extends StatelessWidget {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Form(
         key: _phoneFormKey,
         child: Column(
@@ -37,8 +37,7 @@ class SignUpPhoneForm extends StatelessWidget {
             Container(
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText:
-                      AppLocalizeService.of(context).translate('phone_hint'),
+                  labelText: _lang.translate('phone_hint'),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: kDefaultColor),
                     borderRadius:

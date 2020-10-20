@@ -58,10 +58,11 @@ class _BodyState extends State<Body> {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Lang(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Lang(),
+                ),
+              );
             },
             splashColor: Colors.grey,
             child: ListTile(
@@ -71,9 +72,7 @@ class _BodyState extends State<Body> {
             ),
           ),
           InkWell(
-            onTap: () {
-             
-            },
+            onTap: () {},
             splashColor: Colors.grey,
             child: ListTile(
               title: Text(_lang.translate('currency')),

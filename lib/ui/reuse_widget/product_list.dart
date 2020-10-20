@@ -42,9 +42,6 @@ class _ProductListState extends State<ProductList> {
         child: GridView.builder(
           itemCount: widget.productsData.length,
           controller: scrollController,
-          /*productsData.isQueryEmpty
-                  ? _products.length
-                  : productsData.searchProduct.length,*/
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -53,9 +50,7 @@ class _ProductListState extends State<ProductList> {
           ),
           itemBuilder: (context, index) => ChangeNotifierProvider.value(
             value: widget.productsData[index],
-            child: ItemCard(
-                //product: _products[index],
-                ),
+            child: ItemCard(),
           ),
         ),
       ),

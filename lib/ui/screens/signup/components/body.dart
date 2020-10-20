@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_auth_tab.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -8,9 +7,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
-  final emailFormKey = GlobalKey<FormState>();
-  final phoneFormKey = GlobalKey<FormState>();
-
   bool _isLoading = false, isPageCanChanged = true;
   String alertText;
   final PageController _pageController = PageController(initialPage: 0);
@@ -29,7 +25,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         Navigator.pushReplacementNamed(context, SignInView);
       } else {
         ReuseAlertDialog().successDialog(context, alertText);
-        //showAlertDialog(context);
       }
     });
   }
@@ -45,15 +40,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         _isLoading = false;
       });
       alertText = value ?? "";
-      //  ReuseAlertDialog().successDialog(context, alertText);
+
       if (alertText != 'Your phone number already exists!') {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OTPScreen(_phone, _password)));
+            context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
       } else {
         ReuseAlertDialog().successDialog(context, alertText);
-        //showAlertDialog(context);
       }
     });
   }
@@ -79,7 +71,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         _isLoading = false;
       });
     }
-    //signInWithGoogle().whenComplete(() => ));
   }
 
   onFacebookSignIn() async {
@@ -124,7 +115,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    //_pageController = PageController();
     _tabController = TabController(vsync: this, length: 2);
     onTabChange();
   }
@@ -132,6 +122,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _pageController.dispose();
+
     super.dispose();
   }
 
@@ -150,11 +141,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             : Column(
                 children: <Widget>[
                   Container(
-                      child: Image.asset(
-                    'images/logo.png',
-                    height: 80,
-                    width: 80,
-                  )),
+                    child: Image.asset(
+                      'images/logo.png',
+                      height: 80,
+                      width: 80,
+                    ),
+                  ),
                   SizedBox(
                     height: 40,
                   ),

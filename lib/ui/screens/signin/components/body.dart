@@ -161,8 +161,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    _tabController.dispose();
     _pageController.dispose();
+    _tabController.dispose();
+    print('dispose');
     super.dispose();
   }
 
