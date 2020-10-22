@@ -6,9 +6,9 @@ class Lang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<LangProvider>(context);
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(
-          AppLocalizeService.of(context).translate('language'), context),
+      appBar: ReuseSimpleAppBar.getItem(_lang.translate('language'), context),
       body: Container(
         margin: const EdgeInsets.all(10.0),
         child: Column(
@@ -20,10 +20,9 @@ class Lang extends StatelessWidget {
                 onTap: () {
                   data.setLocal('EN', context);
                 },
-                title:
-                    Text(AppLocalizeService.of(context).translate('english')),
+                title: Text(_lang.translate('english')),
                 leading: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png',
+                  engFlag,
                   width: 50,
                   height: 50,
                 ),
@@ -48,9 +47,9 @@ class Lang extends StatelessWidget {
                 onTap: () {
                   data.setLocal('KH', context);
                 },
-                title: Text(AppLocalizeService.of(context).translate('khmer')),
+                title: Text(_lang.translate('khmer')),
                 leading: Image.network(
-                  'https://cdn.webshopapp.com/shops/94414/files/53596372/cambodia-flag-image-free-download.jpg',
+                  khFlag,
                   width: 50,
                   height: 50,
                 ),

@@ -5,7 +5,10 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(child: Body()),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Body(),
+      ),
     );
   }
 }

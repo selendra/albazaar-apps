@@ -24,7 +24,6 @@ class _SplashScreenState extends State<SplashScreen>
     //READ TOKEN
     _pref.read('token').then(
       (value) async {
-        print(value);
         if (value != null) {
           await ApiGetServices().fetchPortforlio().then(
             (onValue) {
@@ -69,8 +68,14 @@ class _SplashScreenState extends State<SplashScreen>
 
     //CHECK AUTH
     Timer(Duration(milliseconds: 2000), () {
-      //checkUser();
-      Navigator.pushReplacementNamed(context, IntroScreenView);
+      _pref.read('isshow').then((onValue) {
+        print(onValue);
+        if (onValue != null) {
+          checkUser();
+        } else {
+          Navigator.pushReplacementNamed(context, IntroScreenView);
+        }
+      });
     });
 
     //PRECACH SVG IMAGES

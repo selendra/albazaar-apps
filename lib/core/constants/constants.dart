@@ -16,17 +16,11 @@ const kDefaultMapZoom = 7.0;
 const kDefaultMaxZoom = 19.0;
 const kDefaultMinZoom = 7.0;
 
-//Decoration Phone Field
-const kDefualtPInputDecoration = InputDecoration(
-  labelText: 'Phone Number',
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kDefaultColor),
-    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-  ),
-  focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.greenAccent),
-      borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-);
+//Flag url
+const String engFlag =
+    'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png';
+const String khFlag =
+    'https://cdn.webshopapp.com/shops/94414/files/53596372/cambodia-flag-image-free-download.jpg';
 
 //Route Name
 const String SplashScreenView = '/';

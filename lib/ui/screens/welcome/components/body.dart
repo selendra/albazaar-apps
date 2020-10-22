@@ -9,6 +9,7 @@ class Body extends StatelessWidget {
     var _lang = AppLocalizeService.of(context);
     return SafeArea(
       child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: NetworkAlert(
           Center(
             child: Container(
