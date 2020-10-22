@@ -70,8 +70,9 @@ class _PinScreenState extends State<PinScreen> {
   final TextEditingController _pinPutController = TextEditingController();
 
   var outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide(color: Colors.transparent));
+    borderRadius: BorderRadius.circular(16),
+    borderSide: BorderSide(color: Colors.transparent),
+  );
 
   void clearPref() async {
     SharedPreferences pref = await SharedPreferences.getInstance();

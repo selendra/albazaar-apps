@@ -7,12 +7,10 @@ String _firstName, _midName, _lastName, _mGender;
 class ProfileForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   PrefService _prefService = PrefService();
+
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_firstName);
-      print(_midName);
-      print(_lastName);
       setUserPf(_firstName, _midName, _lastName);
     }
   }
@@ -26,12 +24,12 @@ class ProfileForm extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               child: Card(
                 elevation: 0,
                 shape: kDefaultShape,
                 child: Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -50,8 +48,6 @@ class ProfileForm extends StatelessWidget {
                           child: ReuseTextField(
                             labelText: _lang.translate('mid_name'),
                             initialValue: value.mUser.midName,
-                            // ? 'Email'
-                            //    : _mUser.midName,
                             onSaved: (newValue) => _midName = newValue,
                           ),
                         ),
@@ -83,7 +79,7 @@ class ProfileForm extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              margin: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
                 elevation: 0,
                 child: Column(
@@ -99,27 +95,26 @@ class ProfileForm extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Container(
-              margin: EdgeInsets.all(30.0),
+              margin: const EdgeInsets.all(30.0),
               child: ReuseButton.getItem(_lang.translate('save'), () {
-                //onSave();
-                _prefService.read('token').then((onValue) {
-                  if (onValue != null) {
-                    _formKey.currentState.save();
-                    print(_firstName);
-                    print(_midName);
-                    print(_mGender);
-                    data
-                        .setUserPf(_firstName, _midName ?? '', _lastName,
-                            _mGender, context)
-                        .then(
-                      (value) {
-                        ProfileDialog().successDialog(context, value);
-                      },
-                    );
-                  } else {
-                    print('not save');
-                  }
-                });
+                _prefService.read('token').then(
+                  (onValue) {
+                    if (onValue != null) {
+                      _formKey.currentState.save();
+
+                      data
+                          .setUserPf(_firstName, _midName ?? '', _lastName,
+                              _mGender, context)
+                          .then(
+                        (value) {
+                          ProfileDialog().successDialog(context, value);
+                        },
+                      );
+                    } else {
+                      print('not save');
+                    }
+                  },
+                );
               }, context),
             ),
           ],
@@ -141,7 +136,7 @@ class ProfileForm extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
               ),
-            )
+            ),
           ],
         ),
       ),

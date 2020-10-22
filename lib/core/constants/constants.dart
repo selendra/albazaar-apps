@@ -50,5 +50,6 @@ const String NotificationView = '/notification';
 const String BottomNavigationView = '/bottomnavigation';
 const String WalletPinView = '/walletpin';
 const String SaleScreenView = '/salescreen';
+const String LangView = '/lang';
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';

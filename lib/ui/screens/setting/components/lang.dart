@@ -10,7 +10,7 @@ class Lang extends StatelessWidget {
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('language'), context),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             Card(
@@ -28,15 +28,16 @@ class Lang extends StatelessWidget {
                   height: 50,
                 ),
                 trailing: Consumer<LangProvider>(
-                  builder: (context, value, child) => value.lang == 'EN'
-                      ? Icon(
-                          Icons.check_circle,
-                          color: kDefaultColor,
-                        )
-                      : Icon(
-                          Icons.check_circle,
-                          color: Colors.white,
-                        ),
+                  builder: (context, value, child) =>
+                      value.lang == 'EN' || value.lang == 'US'
+                          ? Icon(
+                              Icons.check_circle,
+                              color: kDefaultColor,
+                            )
+                          : Icon(
+                              Icons.check_circle,
+                              color: Colors.white,
+                            ),
                 ),
               ),
             ),

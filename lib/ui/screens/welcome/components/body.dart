@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return SafeArea(
       child: SingleChildScrollView(
         child: NetworkAlert(
@@ -22,8 +23,7 @@ class Body extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      AppLocalizeService.of(context)
-                          .translate('welcome_string'),
+                      _lang.translate('welcome_string'),
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 22,
@@ -61,9 +61,7 @@ class Body extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.15,
                   ),
-                  ReuseButton.getItem(
-                      AppLocalizeService.of(context).translate('signin_string'),
-                      () {
+                  ReuseButton.getItem(_lang.translate('signin_string'), () {
                     Navigator.pushReplacementNamed(context, SignInView);
                   }, context),
                   SizedBox(
@@ -77,8 +75,7 @@ class Body extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, SignUpView);
                       },
                       child: Text(
-                        AppLocalizeService.of(context)
-                            .translate('signup_string'),
+                        _lang.translate('signup_string'),
                         style: TextStyle(
                           color: kDefaultColor,
                           fontWeight: FontWeight.bold,
@@ -91,7 +88,7 @@ class Body extends StatelessWidget {
                             BorderRadius.all(Radius.circular(kDefaultRadius)),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

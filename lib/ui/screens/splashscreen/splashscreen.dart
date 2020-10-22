@@ -69,7 +69,8 @@ class _SplashScreenState extends State<SplashScreen>
 
     //CHECK AUTH
     Timer(Duration(milliseconds: 2000), () {
-      checkUser();
+      //checkUser();
+      Navigator.pushReplacementNamed(context, IntroScreenView);
     });
 
     //PRECACH SVG IMAGES
@@ -83,6 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('lang').then(
       (value) {
         _lang.setLocal(value, context);
+        // print(value);
       },
     );
   }
@@ -90,11 +92,13 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          'images/logo.png',
-          height: 200,
-          width: 200,
+      body: NetworkAlert(
+        Center(
+          child: Image.asset(
+            'images/logo.png',
+            height: 200,
+            width: 200,
+          ),
         ),
       ),
     );

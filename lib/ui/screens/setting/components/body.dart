@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
@@ -35,10 +34,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildBody();
-  }
-
-  Widget _buildBody() {
     var _lang = AppLocalizeService.of(context);
     return Container(
       child: Column(
@@ -57,12 +52,7 @@ class _BodyState extends State<Body> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Lang(),
-                ),
-              );
+              Navigator.pushReplacementNamed(context, LangView);
             },
             splashColor: Colors.grey,
             child: ListTile(

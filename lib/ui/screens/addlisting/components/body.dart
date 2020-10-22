@@ -266,7 +266,6 @@ class _BodyState extends State<Body> {
                     value.addItem(_title, double.parse(_price), _description,
                         _contactName, _phoneNumber);
                   }
-                  /**/
                 }, context),
               ),
             ),
@@ -310,7 +309,7 @@ class _BodyState extends State<Body> {
     return Container(
       height: 60,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(  
+      decoration: BoxDecoration(
         border: Border.all(color: kDefaultColor, width: 1),
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),

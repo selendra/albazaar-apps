@@ -11,7 +11,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   ScrollController _controller;
 
-  void filterSearchResults(String query) {} //Now u
+  // void filterSearchResults(String query) {} //Now u
 
   @override
   void initState() {

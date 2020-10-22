@@ -174,7 +174,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.all(20),
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
                 child: CircularProgressIndicator(),

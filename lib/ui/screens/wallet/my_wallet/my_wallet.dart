@@ -16,6 +16,7 @@ class MyWallet extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
+          fit: StackFit.expand,
           children: <Widget>[
             Column(
               children: <Widget>[
@@ -24,6 +25,7 @@ class MyWallet extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   color: kDefaultColor,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       SizedBox(height: 40),
                       Text(

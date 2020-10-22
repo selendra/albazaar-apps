@@ -69,6 +69,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SaleScreenView:
       return RouteAnimation(enterPage: SalesScreen());
       break;
+    case LangView:
+      return RouteAnimation(enterPage: Lang());
+      break;
     default:
       return RouteAnimation(enterPage: SplashScreen());
   }
