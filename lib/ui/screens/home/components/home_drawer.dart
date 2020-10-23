@@ -15,8 +15,14 @@ class HomeDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: kDefaultColor),
-            accountEmail: Text(_mUser.email ?? _lang.translate('no_email')),
-            accountName: Text(userName ?? 'no username'),
+            accountEmail: Text(
+              _mUser.email ?? _lang.translate('no_email'),
+              style: TextStyle(color: Colors.white),
+            ),
+            accountName: Text(
+              userName ?? 'no username',
+              style: TextStyle(color: Colors.white),
+            ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: _mUser.profileImg == null
                   ? AssetImage('images/avatar.png')
@@ -81,11 +87,6 @@ class HomeDrawer extends StatelessWidget {
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
           }),
-          // ReuseInkwell.getItem(
-          //     _lang.translate('notification'), Icons.notifications, () {
-          //   Navigator.pop(context);
-          //   Navigator.pushNamed(context, NotificationView);
-          // }),
           InkWell(
             onTap: () {
               Navigator.pop(context);

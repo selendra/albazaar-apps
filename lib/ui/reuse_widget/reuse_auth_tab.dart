@@ -26,10 +26,20 @@ class ReuseAuthTab extends StatelessWidget {
         unselectedLabelColor: Colors.grey,
         tabs: [
           Tab(
-            child: Text(AppLocalizeService.of(context).translate('phone')),
+            child: Text(
+              AppLocalizeService.of(context).translate('phone'),
+              style: TextStyle(
+                color: _tabController.index == 1 ? Colors.grey : Colors.white,
+              ),
+            ),
           ),
           Tab(
-            child: Text(AppLocalizeService.of(context).translate('email')),
+            child: Text(
+              AppLocalizeService.of(context).translate('email'),
+              style: TextStyle(
+                color: _tabController.index == 0 ? Colors.grey : Colors.white,
+              ),
+            ),
           ),
         ],
       ),

@@ -28,7 +28,7 @@ class Body extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
                         fontSize: 22,
-                        color: Colors.black,
+                        //color: Colors.black,
                       ),
                     ),
                   ),

@@ -38,10 +38,12 @@ class SignUpPhoneForm extends StatelessWidget {
               child: IntlPhoneField(
                 decoration: InputDecoration(
                   labelText: _lang.translate('phone_hint'),
+                  labelStyle: TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: kDefaultColor),
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(kDefaultRadius)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(kDefaultRadius),
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.greenAccent),

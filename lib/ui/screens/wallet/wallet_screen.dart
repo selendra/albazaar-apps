@@ -10,7 +10,7 @@ class WalletScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         brightness: Brightness.light,
         title: Text(
           AppLocalizeService.of(context).translate('wallet'),

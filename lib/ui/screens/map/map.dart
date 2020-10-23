@@ -174,17 +174,18 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kDefaultColor,
         onPressed: () => _getCurrentLocation(),
         child: _isLive
             ? Icon(
                 Icons.gps_not_fixed,
-                color: kDefaultColor,
+                color: Colors.white,
               )
             : Icon(
                 Icons.gps_fixed,
-                color: kDefaultColor,
+                color: Colors.white,
               ),
-        backgroundColor: Colors.white,
+        //  backgroundColor: Colors.white,
       ),
       body: Stack(
         children: [
@@ -214,11 +215,11 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 20),
             child: TypeHead(searchPlace),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 20),
             child: ZoomButtons(_mapController),
           ),
         ],

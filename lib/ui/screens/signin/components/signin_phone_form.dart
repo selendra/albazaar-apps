@@ -90,6 +90,7 @@ class SignInPhoneForm extends StatelessWidget {
   Widget _phoneCodePick(context) {
     return IntlPhoneField(
       decoration: InputDecoration(
+        labelStyle: TextStyle(color: Colors.grey),
         labelText: AppLocalizeService.of(context).translate('phone_hint'),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: kDefaultColor),

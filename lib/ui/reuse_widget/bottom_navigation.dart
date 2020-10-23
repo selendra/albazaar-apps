@@ -56,7 +56,10 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
           //     context, MaterialPageRoute(builder: (context) => AddListing()));
         },
         backgroundColor: kDefaultColor,
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

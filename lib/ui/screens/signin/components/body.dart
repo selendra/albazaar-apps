@@ -105,6 +105,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           _isLoading = false;
         });
         ReuseAlertDialog().successDialog(context, value);
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
       }
     });
   }

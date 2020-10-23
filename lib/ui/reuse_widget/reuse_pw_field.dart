@@ -39,20 +39,29 @@ class _ReusePwFieldState extends State<ReusePwField> {
         onFieldSubmitted: widget.onFieldSubmitted,
         decoration: InputDecoration(
           labelText: widget.labelText,
+          labelStyle: TextStyle(color: Colors.grey),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(kDefaultRadius),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+            borderSide: BorderSide(color: Colors.greenAccent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(kDefaultRadius),
+            ),
+          ),
           suffixIcon: IconButton(
             onPressed: () {
               setState(() {
                 _obscureText = !_obscureText;
               });
             },
-            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+            icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              color: kDefaultColor,
+            ),
           ),
         ),
       ),

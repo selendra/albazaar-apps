@@ -4,7 +4,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class ReuseSimpleAppBar {
   static getItem(String title, context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       elevation: 0,
       brightness: Brightness.light,
       centerTitle: true,

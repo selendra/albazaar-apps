@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              backgroundColor: Colors.white,
+              // backgroundColor: Colors.white,
               elevation: 0,
               iconTheme: IconThemeData(
                 color: kDefaultColor,
@@ -79,7 +79,7 @@ class Body extends StatelessWidget {
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
-            color: Colors.grey[100],
+            //color: Colors.grey[100],
           ),
           child: SingleChildScrollView(
             child: Container(

@@ -17,7 +17,7 @@ class ItemCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Column(
@@ -53,7 +53,7 @@ class ItemCard extends StatelessWidget {
                 // products is out demo list
                 product.title,
                 style: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600),
               ),

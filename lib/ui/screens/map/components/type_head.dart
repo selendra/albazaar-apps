@@ -49,6 +49,7 @@ class _TypeHeadState extends State<TypeHead> {
                             borderRadius: BorderRadius.all(
                                 Radius.circular(kDefaultRadius)),
                           ),
+                          labelStyle: TextStyle(color: kDefaultColor),
                           labelText: AppLocalizeService.of(context)
                               .translate('search_hint'))),
                   suggestionsCallback: (pattern) {

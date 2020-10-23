@@ -19,7 +19,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          // color: Colors.white,
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Column(
@@ -45,10 +45,9 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               child: Text(
-                // products is out demo list
                 product.title,
                 style: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                     fontSize: 14.0,
                     fontWeight: FontWeight.w600),
               ),

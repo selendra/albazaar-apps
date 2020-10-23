@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen>
               forceElevated: boxIsScroll,
               brightness: Brightness.light,
               elevation: 0,
-              backgroundColor: Colors.white,
+              //backgroundColor: Colors.white,
               leading: ReuseIconBadge(() {
                 Scaffold.of(context).openDrawer();
               }, Icons.menu, kDefaultColor, 20.0),

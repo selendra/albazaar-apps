@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -65,25 +67,36 @@ class ApiGetServices with ChangeNotifier {
 
   //FETCH PORTFORLIO OF THE USER
   Future<String> fetchPortforlio() async {
-    await _prefService.read('token').then((onValue) async {
-      var response =
-          await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + onValue,
-      });
+    try {
+      // if (response.statusCode != 200) throw HttpException('${response.statusCode}');
+      await _prefService.read('token').then((onValue) async {
+        var response =
+            await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + onValue,
+        });
 
-      if (response.statusCode == 200) {
-        var responseBody = json.decode(response.body);
-        if (responseBody is List) {
-          for (var i in responseBody) {
-            mBalance.add(Balance.fromJson(i));
+        if (response.statusCode == 200) {
+          var responseBody = json.decode(response.body);
+          if (responseBody is List) {
+            for (var i in responseBody) {
+              mBalance.add(Balance.fromJson(i));
+            }
+          } else {
+            alertText = responseBody['error']['message'];
           }
+          alertText = response.statusCode.toString();
         } else {
-          alertText = responseBody['error']['message'];
+          throw HttpException("${response.statusCode}");
         }
-        alertText = response.statusCode.toString();
-      }
-    });
+      });
+    } on SocketException {
+      print('No Internet connection 😑');
+    } on HttpException {
+      print("Couldn't find the post 😱");
+    } on FormatException {
+      print("Bad response format 👎");
+    }
 
     return alertText ?? '';
   }

@@ -50,7 +50,6 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
         textInputAction: widget.textInputAction ?? TextInputAction.done,
         keyboardType: widget.inputType,
         decoration: InputDecoration(
-          labelText: widget.labelText,
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
@@ -61,6 +60,8 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
           prefixIcon: widget.prefixIcon,
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
+          labelText: widget.labelText,
+          labelStyle: TextStyle(color: Colors.grey),
         ),
         // autofocus: true,
         maxLines: widget.maxLine,

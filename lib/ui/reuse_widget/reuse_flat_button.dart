@@ -7,17 +7,17 @@ class ReuseFlatButton {
         onPressed: onPressed,
         child: RichText(
           text: TextSpan(
-              text: text1,
-              style: TextStyle(
-                color: Colors.black,
+            text: text1,
+            style: TextStyle(color: Colors.black),
+            children: <TextSpan>[
+              TextSpan(
+                text: text2,
+                style: TextStyle(
+                  color: Colors.red,
+                ),
               ),
-              children: <TextSpan>[
-                TextSpan(
-                    text: text2,
-                    style: TextStyle(
-                      color: Colors.red,
-                    ))
-              ]),
+            ],
+          ),
         ),
       ),
     );
