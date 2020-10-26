@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,13 +26,13 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('token').then(
       (value) async {
         if (value != null) {
-          await ApiGetServices().fetchPortforlio().then(
+          await UserProvider().fetchPortforlio().then(
             (onValue) {
               //CHECK IF TOKEN IS VALID
               print(onValue);
               if (onValue == '200') {
                 //FETCH USER PROFILE AND NAVIGATE
-                Provider.of<ApiGetServices>(context, listen: false)
+                Provider.of<UserProvider>(context, listen: false)
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false).getVegi();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
@@ -44,11 +45,11 @@ class _SplashScreenState extends State<SplashScreen>
           );
         } else {
           //CHECK SOCIAL ACCOUNT LOGIN USER
-          Auth().currentUser.then(
+          AuthProvider().currentUser.then(
             (value) {
               if (value != null) {
                 //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
-                Provider.of<ApiGetServices>(context, listen: false)
+                Provider.of<UserProvider>(context, listen: false)
                     .fetchSocialUserInfo(
                         value.email, value.displayName, value.photoUrl);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
@@ -67,16 +68,21 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     //CHECK AUTH
-    Timer(Duration(milliseconds: 2000), () {
-      _pref.read('isshow').then((onValue) {
-        print(onValue);
-        if (onValue != null) {
-          checkUser();
-        } else {
-          Navigator.pushReplacementNamed(context, IntroScreenView);
-        }
-      });
-    });
+    Timer(
+      Duration(milliseconds: 2000),
+      () {
+        _pref.read('isshow').then(
+          (onValue) {
+            print('ishow' + onValue);
+            if (onValue != null) {
+              checkUser();
+            } else {
+              Navigator.pushReplacementNamed(context, IntroScreenView);
+            }
+          },
+        );
+      },
+    );
 
     //PRECACH SVG IMAGES
     for (int i = 0; i < svg.length; i++) {

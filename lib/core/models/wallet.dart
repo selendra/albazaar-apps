@@ -5,23 +5,15 @@ class Wallet {
   String amount;
   String logo;
 
-  Wallet(this.title, this.amount,this.logo);
-
+  Wallet(this.title, this.amount, this.logo);
 }
+
 List<Wallet> wallets = [
   Wallet(
-      'Selendra (SEL)',
-      mBalance[1].balance,
-      'images/logo.png',
+    'Selendra (SEL)',
+    mBalance.data.balance,
+    'images/logo.png',
   ),
-  Wallet(
-      'Maker Dai',
-      '0.00',
-      'images/maker_dai.png'
-  ),
-  Wallet(
-      'Ethereum',
-      '000000',
-      'images/etherium.jpg'
-  )
+  Wallet('Maker Dai', '0.00', 'images/maker_dai.png'),
+  Wallet('Ethereum', '000000', 'images/etherium.jpg')
 ];

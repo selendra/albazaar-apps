@@ -17,9 +17,9 @@ class ProfileForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<ApiPostServices>(context);
+    final data = Provider.of<UserProvider>(context);
     var _lang = AppLocalizeService.of(context);
-    return Consumer<ApiGetServices>(
+    return Consumer<UserProvider>(
       builder: (context, value, child) => Container(
         child: Column(
           children: [
@@ -64,7 +64,7 @@ class ProfileForm extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        Consumer<ApiGetServices>(
+                        Consumer<UserProvider>(
                           builder: (context, value, child) => GenderDropdown(
                             initialValue: _mGender = value.mUser.gender,
                             onChanged: (myValue) {

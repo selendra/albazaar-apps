@@ -194,7 +194,10 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            ReuseButton.getItem('Pick Images', loadAssets, context),
+            ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('pick_image'),
+                loadAssets,
+                context),
             images.isNotEmpty
                 ? buildGridView()
                 : Container(

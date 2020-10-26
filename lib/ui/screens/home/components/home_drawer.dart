@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<ApiGetServices>(context);
+    final data = Provider.of<UserProvider>(context);
     final _mUser = data.mUser;
     String userName = _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);

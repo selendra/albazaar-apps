@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/auth_provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await Auth().signInWithGoogle(context).then((value) {
+      await AuthProvider().signInWithGoogle(context).then((value) {
         if (value == null) {
           Navigator.pop(context);
         } else {
@@ -42,7 +43,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await Auth().signInFacebook(context).then((value) {
+      await AuthProvider().signInFacebook(context).then((value) {
         if (value == null) {
           setState(() {
             _isLoading = false;
@@ -66,26 +67,21 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await ApiPostServices()
+    await AuthProvider()
         .signInByEmail(_email, _password, context)
-        .then((value) {
-      if (value == null) {
+        .then((onValue) {
+      if (onValue != null) {
         setState(() {
           _isLoading = false;
         });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        ReuseAlertDialog().successDialog(context, value);
+        ReuseAlertDialog().successDialog(context, onValue);
       }
     });
   }
 
   onForgetPwEmail(String email) async {
-    await ApiPostServices().forgetPasswordByEmail(email).then((value) {
+    await AuthProvider().forgetPasswordByEmail(email).then((value) {
       if (value == 'Your Email doesn\'t exist') {
-        alertText = value;
         // _alertDialog(context);
       } else {
         ReuseAlertDialog().resetAlertDialog(context, value);
@@ -97,7 +93,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await ApiPostServices()
+    await AuthProvider()
         .signInByPhone(_phone, _password, context)
         .then((value) {
       if (value != null) {
@@ -105,10 +101,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           _isLoading = false;
         });
         ReuseAlertDialog().successDialog(context, value);
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
       }
     });
   }

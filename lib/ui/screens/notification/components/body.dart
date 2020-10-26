@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
         itemCount: _notification.length,
         itemBuilder: (context, index) {
           return Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(kDefaultRadius),

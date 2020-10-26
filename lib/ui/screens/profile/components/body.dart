@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget build(BuildContext context) {
-   // return buildDropDown();
+    // return buildDropDown();
     return SingleChildScrollView(
       child: _isLoading
           ? Container(
@@ -63,7 +63,7 @@ class _BodyState extends State<Body> {
                           onTap: () => loadAsset(),
                           title: Text(AppLocalizeService.of(context)
                               .translate('profile_photo')),
-                          trailing: Consumer<ApiGetServices>(
+                          trailing: Consumer<UserProvider>(
                             builder: (context, value, child) => CircleAvatar(
                               backgroundImage: value.mUser.profileImg != null
                                   ? NetworkImage(value.mUser.profileImg)

@@ -84,7 +84,7 @@ class _BodyState extends State<Body> {
   }
 
   onSetUserPf() async {
-    await ApiPostServices()
+    await UserProvider()
         .setUserPf(firstName, midName, lastName, gender, context)
         .then((value) {
       alertText = value;

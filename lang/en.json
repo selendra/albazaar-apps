@@ -86,7 +86,9 @@
     "order_note": "Order Note",
     "confirm": "Confirm",
     "kilogram": "Kg",
-    "no_email" : "no email",
-    "4digit_sent_to" : "4-Digit Code was sent to: ",
-    "resend_code": "Resend Code"
+    "no_email": "no email",
+    "4digit_sent_to": "4-Digit Code was sent to: ",
+    "resend_code": "Resend Code",
+    "pick_image": "Pick Images",
+    "cereal": "Cereals"
 }

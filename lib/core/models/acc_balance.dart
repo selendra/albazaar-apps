@@ -1,22 +1,35 @@
 class Balance {
-  Balance({
-    this.balance,
-    this.buyingLiabilities,
-    this.sellingLiabilities,
-    this.assetType,
-  });
+  Balance({this.data});
 
-  dynamic balance;
-  dynamic buyingLiabilities;
-  dynamic sellingLiabilities;
-  dynamic assetType;
+  Data data;
 
-  Balance.fromJson(Map<dynamic, dynamic> json) {
-    balance = json["balance"];
-    buyingLiabilities = json["buying_liabilities"];
-    sellingLiabilities = json["selling_liabilities"];
-    assetType = json["asset_type"];
-  }
+  factory Balance.fromMap(Map<String, dynamic> json) => Balance(
+        data: Data.fromMap(json["data"]),
+      );
 }
 
-List<Balance> mBalance = [];
+class Data {
+  Data({
+    this.timestamp,
+    this.balance,
+    this.otherassets,
+  });
+
+  String timestamp;
+  String balance;
+  String otherassets;
+
+  factory Data.fromMap(Map<String, dynamic> json) => Data(
+        timestamp: json["timestamp"],
+        balance: json["balance"],
+        otherassets: json["otherassets"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "timestamp": timestamp,
+        "balance": balance,
+        "otherassets": otherassets,
+      };
+}
+
+var mBalance = Balance();

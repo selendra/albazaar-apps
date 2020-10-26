@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
-import 'package:selendra_marketplace_app/core/services/auth/auth_services.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class HomeDialog {
   Future<void> alertDialog(BuildContext context) async {
@@ -30,7 +28,7 @@ class HomeDialog {
               child: Text(_lang.translate('yes')),
               onPressed: () {
                 Navigator.pop(context);
-                Auth().signOut(context);
+                AuthProvider().signOut(context);
               },
             )
           ],

@@ -19,8 +19,8 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
         decoration: BoxDecoration(
-          // color: Colors.white,
-          borderRadius: BorderRadius.circular(16.0),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(kDefaultRadius * 2),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

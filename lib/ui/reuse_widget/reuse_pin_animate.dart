@@ -3,8 +3,6 @@ import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 class ReusePinAnimate extends StatelessWidget {
-
-  
   final ValueChanged<String> onSubmit;
 
   ReusePinAnimate({this.onSubmit});
@@ -18,6 +16,7 @@ class ReusePinAnimate extends StatelessWidget {
       child: animatingPinBorders(context),
     );
   }
+
   Widget animatingPinBorders(context) {
     BoxDecoration pinPutDecoration = BoxDecoration(
       border: Border.all(color: Colors.greenAccent),
@@ -25,7 +24,7 @@ class ReusePinAnimate extends StatelessWidget {
     );
     return Container(
       height: 50,
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width * 0.1,
       child: PinPut(
         fieldsCount: 6,
         eachFieldMargin: EdgeInsets.symmetric(horizontal: 2),

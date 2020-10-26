@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
+import 'core/providers/auth_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'core/providers/user_provider.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
@@ -27,6 +29,12 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<LangProvider>(
           create: (context) => LangProvider(),
         ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider<AuthProvider>(
+          create: (context) => AuthProvider(),
+        ),
         ChangeNotifierProvider<CartProvider>(
           create: (context) => CartProvider(),
         ),
@@ -34,15 +42,6 @@ class _SelendraAppState extends State<SelendraApp> {
             create: (context) => ProductsProvider()),
         ChangeNotifierProvider<FavoriteProvider>(
           create: (context) => FavoriteProvider(),
-        ),
-        ChangeNotifierProvider<Auth>(
-          create: (context) => Auth(),
-        ),
-        ChangeNotifierProvider<ApiGetServices>(
-          create: (context) => ApiGetServices(),
-        ),
-        ChangeNotifierProvider<ApiPostServices>(
-          create: (context) => ApiPostServices(),
         ),
       ],
       child: Consumer<LangProvider>(
@@ -86,11 +85,7 @@ class _SelendraAppState extends State<SelendraApp> {
             cursorColor: kDefaultColor,
             primaryColor: Colors.white,
             brightness: Brightness.light,
-            // textTheme: TextTheme(
-            //   bodyText1: TextStyle(color: Colors.black),
-            // ),
           ),
-          // darkTheme: ThemeData.dark(),
           routes: {DetailView: (context) => DetailScreen()},
           home: SplashScreen(),
           navigatorKey: navigationKey,

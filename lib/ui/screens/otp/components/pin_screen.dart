@@ -128,7 +128,7 @@ class _PinScreenState extends State<PinScreen> {
           clearPin();
         }
       } catch (e) {
-        await ApiPostServices()
+        await AuthProvider()
             .signInByPhone(widget.phoneNumber, widget.password, context);
         alertText = responseBody['message'];
         successDialog(context);
@@ -144,7 +144,7 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   onResendCode(String phoneNumber) async {
-    await ApiPostServices().resendCode(phoneNumber).then((value) {
+    await AuthProvider().resendCode(phoneNumber).then((value) {
       alertText = value;
       showAlertDialog(context);
     });

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/wallet_pin.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -40,37 +39,40 @@ class _BodyState extends State<Body> {
   Future checkFirstSeen() async {
     SharedPreferences isSeen = await SharedPreferences.getInstance();
     bool _seen = (isSeen.getBool('seen') ?? false);
-
-    if (_seen != true && mBalance.isEmpty) {
+    if (_seen != true && mBalance.data == null) {
       isSeen.setBool('seen', true);
+      alertText = 'Look like you don\'t have a wallet yet!';
       showAlertDialog(context);
     }
   }
 
-  onfetchPortforlio() async {
-    await ApiGetServices().fetchPortforlio().then((value) {
-      alertText = value;
-      if (alertText == '200' && mBalance.isEmpty) {
-        alertText = 'Look like you don\'t have a wallet yet!';
-      }
-      print(value);
-      if (alertText != '') {
-        checkFirstSeen();
-      }
-    });
-  }
+  // onfetchPortforlio() async {
+  //   await ApiGetServices().fetchPortforlio().then((value) {
+  //     alertText = value;
+  //     if (alertText == '200' && mBalance == null) {
+  //       alertText = 'Look like you don\'t have a wallet yet!';
+  //     } else {
+  //       alertText = value;
+  //     }
 
-  checkIsSocialLogIn() async {
-    String _token;
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    _token = isToken.getString('token');
-    if (_token != null) {
-      onfetchPortforlio();
-    } else {
-      alertText = 'Look like you don\'t have a wallet yet!';
-      checkFirstSeen();
-    }
-  }
+  //     print(value);
+  //     if (alertText != '') {
+  //       checkFirstSeen();
+  //     }
+  //   });
+  // }
+
+  // checkIsSocialLogIn() async {
+  //   String _token;
+  //   SharedPreferences isToken = await SharedPreferences.getInstance();
+  //   _token = isToken.getString('token');
+  //   if (_token != null) {
+  //     onfetchPortforlio();
+  //   } else {
+  //     alertText = 'Look like you don\'t have a wallet yet!';
+  //     checkFirstSeen();
+  //   }
+  // }
 
   onGetWallet() async {
     String _token;
@@ -88,38 +90,15 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    checkIsSocialLogIn();
+    checkFirstSeen();
   }
 
   @override
   Widget build(BuildContext context) {
-    return mBalance.isEmpty ? Center(child: _walletChoice()) : MyWallet();
-  }
-
-  Widget _walletChoice() {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(30.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: SvgPicture.asset(
-                'images/undraw_wallet.svg',
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.height * 0.2,
-                placeholderBuilder: (context) => Center(),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('wallet'), () {
-              onGetWallet();
-            }, context),
-          ],
-        ),
-      ),
-    );
+    return mBalance.data == null
+        ? Center(
+            child: WalletChoice(onGetWallet),
+          )
+        : MyWallet();
   }
 }

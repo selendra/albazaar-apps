@@ -16,7 +16,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await ApiPostServices().signUpByEmail(_email, _password).then((value) {
+    await AuthProvider().signUpByEmail(_email, _password).then((value) {
       setState(() {
         _isLoading = false;
       });
@@ -33,7 +33,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await ApiPostServices()
+    await AuthProvider()
         .signUpByPhone(_phone, _password, context)
         .then((value) {
       setState(() {
@@ -55,7 +55,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await Auth().signInWithGoogle(context).then((value) {
+      await AuthProvider().signInWithGoogle(context).then((value) {
         if (value == null) {
           Navigator.pop(context);
         } else {
@@ -77,7 +77,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await Auth().signInFacebook(context).then((value) {
+    await AuthProvider().signInFacebook(context).then((value) {
       if (value == null) {
         setState(() {
           _isLoading = false;

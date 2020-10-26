@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'wallet_list.dart';
+import 'package:provider/provider.dart';
 
 class MyWallet extends StatelessWidget {
-  Future<void> onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 300));
-  }
-
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
+    var fetchBalance = Provider.of<UserProvider>(context);
     return RefreshIndicator(
-      onRefresh: onRefresh,
+      onRefresh: () async {
+        await Future.delayed(Duration(seconds: 1));
+        return fetchBalance.fetchPortforlio();
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -37,7 +38,7 @@ class MyWallet extends StatelessWidget {
                       ),
                       SizedBox(height: 40),
                       Text(
-                        mBalance[1].balance,
+                        mBalance.data.balance,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 45.0,

@@ -17,14 +17,14 @@ class ItemCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          // color: Colors.white,
-          borderRadius: BorderRadius.circular(16.0),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(kDefaultRadius * 2),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(kDefaultRadius * 2),
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.width * 0.4,
@@ -40,6 +40,10 @@ class ItemCard extends StatelessWidget {
                 child: Hero(
                   tag: "${product.id}",
                   child: FadeInImage(
+                    placeholderErrorBuilder: (context, error, stackTrace) =>
+                        Center(
+                      child: Text('Loading...'),
+                    ),
                     fit: BoxFit.cover,
                     image: NetworkImage(product.image),
                     placeholder: AssetImage('images/loading.gif'),

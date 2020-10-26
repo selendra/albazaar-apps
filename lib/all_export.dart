@@ -96,6 +96,8 @@ export 'ui/screens/wallet/wallet_screen.dart';
 export 'ui/screens/wallet/get_wallet/wallet_pin.dart';
 export 'ui/screens/wallet/my_wallet/my_wallet.dart';
 export 'ui/screens/wallet/get_wallet/info_row.dart';
+export 'ui/screens/wallet/components/wallet_choice.dart';
+export 'ui/screens/wallet/get_wallet/dialog.dart';
 
 //welcome screen
 export 'ui/screens/welcome/welcome_screen.dart';
@@ -129,6 +131,7 @@ export 'ui/reuse_widget/reuse_num_pad.dart';
 export 'ui/reuse_widget/reuse_dropdown.dart';
 export 'ui/reuse_widget/reuse_btn_qty.dart';
 export 'ui/reuse_widget/reuse_search_field.dart';
+export 'ui/reuse_widget/reuse_phone_field.dart';
 export 'ui/reuse_widget/product_list.dart';
 export 'ui/reuse_widget/item_card.dart';
 export 'ui/reuse_widget/reuse_icon_badge.dart';
@@ -144,6 +147,8 @@ export 'core/providers/cart_provider.dart';
 export 'core/providers/favorite_provider.dart';
 export 'core/providers/products_provider.dart';
 export 'core/providers/lang_provider.dart';
+export 'core/providers/user_provider.dart';
+export 'core/providers/auth_provider.dart';
 
 //models
 export 'core/models/api_url.dart';
