@@ -17,16 +17,13 @@ class AuthProvider with ChangeNotifier {
 
   PrefService _pref = PrefService();
 
-  String get token {
-    _pref.read('token').then((onValue) {
-      if (onValue != null) {
-        print(onValue);
-        _token = onValue;
-        notifyListeners();
-      }
+  getToken() async {
+    await _pref.read('token').then((onValue) {
+      _token = onValue;
     });
-    return _token;
   }
+
+  String get token => _token;
 
   Future<String> signInWithGoogle(BuildContext context) async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -136,32 +133,41 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING EMAIL AND PASSWORD
   Future<String> signInByEmail(String email, String password, context) async {
-    var response = await http.post(ApiUrl.LOG_IN_URL,
-        headers: ApiHeader.headers,
-        body: jsonEncode(<String, String>{
-          'email': email,
-          'password': password,
-        }));
-    if (response.statusCode == 200) {
-      var responseJson = json.decode(response.body);
-      _token = responseJson['token'];
-      print(_token);
-      if (_token != null) {
-        _pref.saveString('token', _token);
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        Provider.of<ProductsProvider>(context, listen: false).getVegi();
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
-      } else {
-        _alertText = responseJson['message'];
-        if (_alertText == null) {
-          _alertText = responseJson['error']['message'];
-          print(_alertText);
+    try {
+      var response = await http.post(ApiUrl.LOG_IN_URL,
+          headers: ApiHeader.headers,
+          body: jsonEncode(<String, String>{
+            'email': email,
+            'password': password,
+          }));
+      if (response.statusCode == 200) {
+        var responseJson = json.decode(response.body);
+        _token = responseJson['token'];
+        print(_token);
+        if (_token != null) {
+          _pref.saveString('token', _token);
+          getToken();
+          Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+          Provider.of<ProductsProvider>(context, listen: false).getVegi();
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+        } else {
+          _alertText = responseJson['message'];
+          if (_alertText == null) {
+            _alertText = responseJson['error']['message'];
+            print(_alertText);
+          }
         }
+      } else {
+        print(response.body);
       }
-    } else {
-      print(response.body);
+      notifyListeners();
+    } on SocketException {
+      print('No Internet connection 😑');
+    } on HttpException {
+      print("Couldn't find the post 😱");
+    } on FormatException {
+      print("Bad response format 👎");
     }
-    notifyListeners();
     return _alertText;
   }
 

@@ -16,7 +16,7 @@ class _PinScreenState extends State<PinScreen> {
 
   List<String> currentPin = ["", "", "", ""];
   String _countryCode = 'KH';
-  String _phoneNumber, _verifyPin, value;
+  String _phoneNumber, value;
   bool _seen = false;
   PrefService _pref = PrefService();
   bool isCorrect = true, _isLoading = false, _isBtnOneTap = false;
@@ -110,9 +110,16 @@ class _PinScreenState extends State<PinScreen> {
 
   sendCode() async {
     if (_phoneNumber != null) {
+      FocusManager.instance.primaryFocus.unfocus();
+      setState(() {
+        _isLoading = true;
+      });
       print(_phoneNumber);
       await AuthProvider().addPhoneNumber(_phoneNumber).then((onValue) {
         alertText = onValue;
+        setState(() {
+          _isLoading = false;
+        });
         AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
       });
     }
@@ -148,11 +155,6 @@ class _PinScreenState extends State<PinScreen> {
         alertText = responseBody['message'];
         Navigator.pop(context);
         simpleAlertDialog(context);
-        /*Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => WalletPin(),
-            ));*/
       }
     } else {
       print(response.body);
@@ -198,10 +200,10 @@ class _PinScreenState extends State<PinScreen> {
         _isLoading = false;
       });
       if (value == 'Opp! You need to verify your phone number first') {
-        print('equal');
         alertText = value;
         AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
-        // showAlertDialog(context);
+      } else {
+        // AllDialog().verifyPinDialog(context);
       }
     });
   }
@@ -264,20 +266,21 @@ class _PinScreenState extends State<PinScreen> {
 
   simpleAlertDialog(BuildContext context) async {
     return showDialog(
-        context: (context),
-        builder: (context) {
-          return AlertDialog(
-            title: Text(alertText),
-            actions: [
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
+      context: (context),
+      builder: (context) {
+        return AlertDialog(
+          title: Text(alertText),
+          actions: [
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   bool checkUserCopy() {
@@ -369,112 +372,107 @@ class _PinScreenState extends State<PinScreen> {
         });
   }
 
-  _verifyPhoneDialog(BuildContext context) async {
-    return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-          title: Text('Enter your phone Number'),
-          content: _phoneCodePick(),
-          actions: [
-            FlatButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                print('Cancel');
-                Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                if (_phoneNumber != null) {
-                  print('Ok');
-                  FocusManager.instance.primaryFocus.unfocus();
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  Navigator.pop(context);
-                  //  onAddPhoneNumber();
-                } else {
-                  return null;
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // _verifyPhoneDialog(BuildContext context) async {
+  //   return showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+  //         ),
+  //         title: Text('Enter your phone Number'),
+  //         content: _phoneCodePick(),
+  //         actions: [
+  //           FlatButton(
+  //             child: Text('Cancel'),
+  //             onPressed: () {
+  //               print('Cancel');
+  //               Navigator.pop(context);
+  //             },
+  //           ),
+  //           FlatButton(
+  //             child: Text('OK'),
+  //             onPressed: () {
+  //               if (_phoneNumber != null) {
+  //                 print('Ok');
+  //                 Navigator.pop(context);
+  //               } else {
+  //                 return null;
+  //               }
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
-  _verifyPinDialog(BuildContext context) async {
-    return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-          title: Text('Enter Verify Code'),
-          content: ReusePinAnimate(
-            onSubmit: (value) => _verifyPin = value,
-          ),
-          actions: [
-            FlatButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                print('Cancel');
-                Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-                child: Text('OK'),
-                onPressed: () => _pinPutController.text.isNotEmpty
-                    ? checkVerify(_verifyPin)
-                    : null),
-          ],
-        );
-      },
-    );
-  }
+  // _verifyPinDialog(BuildContext context) async {
+  //   return showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+  //         ),
+  //         title: Text('Enter Verify Code'),
+  //         content: ReusePinAnimate(
+  //           onSubmit: (value) => _verifyPin = value,
+  //         ),
+  //         actions: [
+  //           FlatButton(
+  //             child: Text('Cancel'),
+  //             onPressed: () {
+  //               print('Cancel');
+  //               Navigator.pop(context);
+  //             },
+  //           ),
+  //           FlatButton(
+  //               child: Text('OK'),
+  //               onPressed: () => _pinPutController.text.isNotEmpty
+  //                   ? checkVerify(_verifyPin)
+  //                   : null),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("Verify"),
-      onPressed: () {
-        Navigator.pop(context);
-        _verifyPhoneDialog(context);
-      },
-    );
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
+  // showAlertDialog(BuildContext context) {
+  //   // set up the button
+  //   Widget okButton = FlatButton(
+  //     child: Text("Verify"),
+  //     onPressed: () {
+  //       Navigator.pop(context);
+  //       _verifyPhoneDialog(context);
+  //     },
+  //   );
+  //   Widget cancelButton = FlatButton(
+  //     child: Text("Cancel"),
+  //     onPressed: () {
+  //       Navigator.pop(context);
+  //     },
+  //   );
 
-    AlertDialog alert = AlertDialog(
-      title: Text('Oops!!'),
-      content: Text(alertText),
-      actions: [
-        cancelButton,
-        okButton,
-      ],
-    );
+  //   AlertDialog alert = AlertDialog(
+  //     title: Text('Oops!!'),
+  //     content: Text(alertText),
+  //     actions: [
+  //       cancelButton,
+  //       okButton,
+  //     ],
+  //   );
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+  //   // show the dialog
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return alert;
+  //     },
+  //   );
+  // }
 
   Widget _phoneCodePick() {
     return Container(

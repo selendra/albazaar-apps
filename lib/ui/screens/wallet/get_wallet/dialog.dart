@@ -72,4 +72,37 @@ class AllDialog {
       ],
     );
   }
+
+  Future<void> verifyPinDialog(
+      BuildContext context, Function checkVerifyPin) async {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+          ),
+          title: Text('Enter Verify Code'),
+          content: ReusePinAnimate(
+            onSubmit: (value) => print(value),
+          ),
+          actions: [
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                print('Cancel');
+                Navigator.pop(context);
+              },
+            ),
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () => checkVerifyPin,
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

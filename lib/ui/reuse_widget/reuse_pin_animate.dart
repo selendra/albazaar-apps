@@ -24,11 +24,12 @@ class ReusePinAnimate extends StatelessWidget {
     );
     return Container(
       height: 50,
-      width: MediaQuery.of(context).size.width * 0.1,
+      width: 200,
       child: PinPut(
         fieldsCount: 6,
-        eachFieldMargin: EdgeInsets.symmetric(horizontal: 2),
-        eachFieldHeight: 40,
+        eachFieldMargin: EdgeInsets.symmetric(horizontal: 1),
+        eachFieldHeight: 10,
+        eachFieldWidth: 10,
         onSubmit: onSubmit,
         focusNode: pinPutFocusNode,
         controller: pinPutController,

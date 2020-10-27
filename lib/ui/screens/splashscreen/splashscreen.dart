@@ -71,16 +71,14 @@ class _SplashScreenState extends State<SplashScreen>
     Timer(
       Duration(milliseconds: 2000),
       () {
-        _pref.read('isshow').then(
-          (onValue) {
-            print('ishow' + onValue);
-            if (onValue != null) {
-              checkUser();
-            } else {
-              Navigator.pushReplacementNamed(context, IntroScreenView);
-            }
-          },
-        );
+        _pref.read('isshow').then((onValue) {
+          print(onValue);
+          if (onValue == null) {
+            Navigator.pushReplacementNamed(context, IntroScreenView);
+          } else {
+            checkUser();
+          }
+        });
       },
     );
 
