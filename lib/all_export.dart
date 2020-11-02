@@ -99,6 +99,9 @@ export 'ui/screens/wallet/get_wallet/info_row.dart';
 export 'ui/screens/wallet/components/wallet_choice.dart';
 export 'ui/screens/wallet/get_wallet/dialog.dart';
 
+//chat screen
+export 'ui/screens/chat/chat.dart';
+
 //welcome screen
 export 'ui/screens/welcome/welcome_screen.dart';
 
@@ -134,6 +137,7 @@ export 'ui/reuse_widget/reuse_search_field.dart';
 export 'ui/reuse_widget/reuse_phone_field.dart';
 export 'ui/reuse_widget/product_list.dart';
 export 'ui/reuse_widget/item_card.dart';
+export 'ui/reuse_widget/individual_chat.dart';
 export 'ui/reuse_widget/reuse_icon_badge.dart';
 
 //enums

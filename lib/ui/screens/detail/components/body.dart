@@ -30,9 +30,15 @@ class Body extends StatelessWidget {
                   margin: EdgeInsets.all(10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.white.withOpacity(0.8),
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: kDefaultColor,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, CartView);
+                      },
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: kDefaultColor,
+                      ),
                     ),
                   ),
                 ),
@@ -74,13 +80,6 @@ class Body extends StatelessWidget {
           ];
         },
         body: Container(
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.only(
-          //     topLeft: Radius.circular(30.0),
-          //     topRight: Radius.circular(30.0),
-          //   ),
-          //   //color: Colors.grey[100],
-          // ),
           child: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.all(10.0),

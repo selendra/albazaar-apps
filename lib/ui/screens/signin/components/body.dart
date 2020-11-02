@@ -18,23 +18,22 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    try {
-      await AuthProvider().signInWithGoogle(context).then((value) {
-        if (value == null) {
-          Navigator.pop(context);
-        } else {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
-        }
-      });
-    } catch (e) {
-      print(e);
+    await AuthProvider().signInWithGoogle(context).then((value) {
+      if (value == null) {
+        Navigator.pop(context);
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
+      }
+    }).catchError((onError) {
       setState(() {
         _isLoading = false;
       });
-    }
+      ReuseAlertDialog().successDialog(context, onError);
+      print(onError);
+    });
   }
 
   onFacebookSignIn() async {
@@ -75,6 +74,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         });
         ReuseAlertDialog().successDialog(context, onValue);
       }
+    }).catchError((onError) {
+      print(onError);
     });
   }
 

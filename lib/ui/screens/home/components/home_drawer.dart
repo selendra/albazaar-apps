@@ -86,6 +86,7 @@ class HomeDrawer extends StatelessWidget {
           }),
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
+            Navigator.pushNamed(context, ChatView);
           }),
           InkWell(
             onTap: () {

@@ -10,6 +10,11 @@ var kDefaultShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(kDefaultRadius),
 );
 
+var titleTextStyle = TextStyle(
+  fontSize: 22,
+  fontWeight: FontWeight.bold,
+  color: kDefaultColor,
+);
 //Map
 const osmMapTemplate = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const kDefaultMapZoom = 7.0;
@@ -45,5 +50,7 @@ const String BottomNavigationView = '/bottomnavigation';
 const String WalletPinView = '/walletpin';
 const String SaleScreenView = '/salescreen';
 const String LangView = '/lang';
+const String IndividualChatView = '/individualchat';
+const String ChatView = '/chat';
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';

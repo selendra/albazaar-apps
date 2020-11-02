@@ -45,6 +45,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SettingView:
       return RouteAnimation(enterPage: SettingScreen());
       break;
+    case ChatView:
+      return RouteAnimation(enterPage: Chat());
+      break;
+    case IndividualChatView:
+      return RouteAnimation(enterPage: IndividualChat());
+      break;
     case SignInView:
       return RouteAnimation(enterPage: SignIn());
       break;
