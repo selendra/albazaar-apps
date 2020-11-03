@@ -62,9 +62,30 @@ class Chat extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 subtitle: Text('Hello world!'),
-                trailing: Icon(
-                  Icons.check_circle,
-                  color: kDefaultColor,
+                trailing: Column(
+                  children: [
+                    Text(
+                      '12:00 pm',
+                      style: TextStyle(fontSize: 10.0),
+                    ),
+                    SizedBox(height: 10.0),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: kDefaultColor,
+                      ),
+                      child: Center(
+                          child: Text(
+                        '20',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                  ],
                 ),
               ),
             );

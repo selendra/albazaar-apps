@@ -38,51 +38,6 @@ class _PinScreenState extends State<PinScreen> {
     pref.remove('pin');
   }
 
-  // onGetWallet(String _pin) async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   SharedPreferences isPref = await SharedPreferences.getInstance();
-  //   String firstPin = isPref.getString('pin');
-  //   print('first pin:' + firstPin);
-  //   if (firstPin == _pin) {
-  //     setState(() {
-  //       isCorrect = false;
-  //     });
-  //     print('correct');
-  //     print(_pin);
-
-  //     await UserProvider().getWallet(_pin).then((value) {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //       print(value);
-
-  //       //print(alertText);
-  //       if (value == 'Opp! You need to verify your phone number first') {
-  //         print('equal');
-  //         alertText = value;
-  //         showAlertDialog(context);
-  //       } else {
-  //         Navigator.pop(context);
-  //         clearPref();
-  //         String _seed = isPref.getString('seed');
-  //         print(_seed);
-  //         if (_seed != null) {
-  //           _displayWalletInfo(context, _seed);
-  //         } else {
-  //           print('seed null');
-  //         }
-  //       }
-  //     });
-  //   } else {
-  //     setState(() {
-  //       isCorrect = true;
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
-
   int pinIndex = 0;
 
   pinIndexSetup(String text) {
@@ -117,51 +72,73 @@ class _PinScreenState extends State<PinScreen> {
       print(_phoneNumber);
       await AuthProvider().addPhoneNumber(_phoneNumber).then((onValue) {
         alertText = onValue;
-        setState(() {
-          _isLoading = false;
-        });
-        AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
+        if (alertText == 'Something went wrong on our end') {
+          setState(() {
+            _isLoading = false;
+          });
+          AllDialog()
+              .verifyDialog(context, onValue, _phoneCodePick(), sendCode);
+        } else {
+          AllDialog().verifyPinDialog(context, checkVerify);
+        }
       });
     }
   }
 
-  void checkVerify(String verifyOTP) async {
+  // void checkVerify(String verifyOTP) async {
+  //   _pinPutController.text = '';
+  //   String apiUrl =
+  //       'https://testnet-api.selendra.com/pub/v1/account-confirmation';
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //   var response = await http.post(apiUrl,
+  //       headers: <String, String>{
+  //         "accept": "application/json",
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: jsonEncode(<String, String>{
+  //         'phone': _phoneNumber,
+  //         'verification_code': verifyOTP,
+  //       }));
+  //   if (response.statusCode == 200) {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //     var responseBody = json.decode(response.body);
+  //     print(responseBody);
+  //     print(response.body);
+  //     try {
+  //       alertText = responseBody['error']['message'];
+  //       errorDialog(context);
+  //     } catch (e) {
+  //       alertText = responseBody['message'];
+  //       Navigator.pop(context);
+  //       simpleAlertDialog(context);
+  //     }
+  //   } else {
+  //     print(response.body);
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+
+  void checkVerify(String verifyCode) async {
     _pinPutController.text = '';
-    String apiUrl =
-        'https://testnet-api.selendra.com/pub/v1/account-confirmation';
     setState(() {
       _isLoading = true;
     });
-    var response = await http.post(apiUrl,
-        headers: <String, String>{
-          "accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{
-          'phone': _phoneNumber,
-          'verification_code': verifyOTP,
-        }));
-    if (response.statusCode == 200) {
+    await AuthProvider()
+        .verifyByPhone(_phoneNumber, verifyCode)
+        .then((onValue) {
       setState(() {
         _isLoading = false;
       });
-      var responseBody = json.decode(response.body);
-      print(responseBody);
-      print(response.body);
-      try {
-        alertText = responseBody['error']['message'];
-        errorDialog(context);
-      } catch (e) {
-        alertText = responseBody['message'];
-        Navigator.pop(context);
-        simpleAlertDialog(context);
+      if (onValue != null) {
+        AllDialog().simpleAlertDialog(context, onValue);
       }
-    } else {
-      print(response.body);
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    });
   }
 
   void firstPin(String pin) async {
@@ -202,8 +179,12 @@ class _PinScreenState extends State<PinScreen> {
       if (value == 'Opp! You need to verify your phone number first') {
         alertText = value;
         AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
-      } else {
-        // AllDialog().verifyPinDialog(context);
+      } else if (mBalance.data != null) {
+        _pref.read('seed').then((onValue) {
+          if (onValue != null) {
+            _displayWalletInfo(context, onValue);
+          }
+        });
       }
     });
   }
@@ -238,51 +219,6 @@ class _PinScreenState extends State<PinScreen> {
     }
   }
 
-  textStyle() {
-    return TextStyle(
-      fontSize: 22.0,
-      fontWeight: FontWeight.bold,
-      color: kDefaultColor,
-    );
-  }
-
-  errorDialog(BuildContext context) async {
-    return showDialog(
-        context: (context),
-        builder: (context) {
-          return AlertDialog(
-            title: Text(alertText),
-            actions: [
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
-  }
-
-  simpleAlertDialog(BuildContext context) async {
-    return showDialog(
-      context: (context),
-      builder: (context) {
-        return AlertDialog(
-          title: Text(alertText),
-          actions: [
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
-
   bool checkUserCopy() {
     if (_isBtnOneTap) {
       return true;
@@ -292,187 +228,84 @@ class _PinScreenState extends State<PinScreen> {
 
   _displayWalletInfo(BuildContext context, String _seed) async {
     return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(kDefaultRadius)),
-                ),
-                title: Text('Wallet Information'),
-                content: Container(
-                  height: 300,
-                  child: Column(
-                    children: [
-                      Text(
-                          'Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Private Key',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Card(
-                              elevation: 2,
-                              color: Colors.grey[50],
-                              child: Container(
-                                margin: EdgeInsets.all(10.0),
-                                child: InfoRow(
-                                  '\n$_seed',
-                                  () {
-                                    print('Copy');
-                                    Clipboard.setData(
-                                            ClipboardData(text: _seed))
-                                        .then((value) {
-                                      print('success');
-                                      setState(() {
-                                        _isBtnOneTap = true;
-                                      });
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+              ),
+              title: Text('Wallet Information'),
+              content: Container(
+                height: 300,
+                child: Column(
+                  children: [
+                    Text(
+                        'Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'Private Key',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Card(
+                            elevation: 2,
+                            color: Colors.grey[50],
+                            child: Container(
+                              margin: EdgeInsets.all(10.0),
+                              child: InfoRow(
+                                '\n$_seed',
+                                () {
+                                  print('Copy');
+                                  Clipboard.setData(ClipboardData(text: _seed))
+                                      .then((value) {
+                                    print('success');
+                                    setState(() {
+                                      _isBtnOneTap = true;
                                     });
-                                  },
+                                  });
+                                },
+                              ),
+                            )),
+                        _isBtnOneTap
+                            ? Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  'Copied',
+                                  style: TextStyle(
+                                      fontSize: 12, color: kDefaultColor),
                                 ),
-                              )),
-                          _isBtnOneTap
-                              ? Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text(
-                                    'Copied',
-                                    style: TextStyle(
-                                        fontSize: 12, color: kDefaultColor),
-                                  ),
-                                )
-                              : Container(),
-                        ],
-                      ),
-                    ],
-                  ),
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  ],
                 ),
-                actions: [
-                  FlatButton(
-                      child: Text('Done'),
-                      onPressed: () => checkUserCopy()
-                          ? Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/root', (Route<dynamic> route) => false)
-                          : null),
-                ],
-              );
-            },
-          );
-        });
+              ),
+              actions: [
+                FlatButton(
+                    child: Text('Done'),
+                    onPressed: () => checkUserCopy()
+                        ? Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/root', (Route<dynamic> route) => false)
+                        : null),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
-
-  // _verifyPhoneDialog(BuildContext context) async {
-  //   return showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-  //         ),
-  //         title: Text('Enter your phone Number'),
-  //         content: _phoneCodePick(),
-  //         actions: [
-  //           FlatButton(
-  //             child: Text('Cancel'),
-  //             onPressed: () {
-  //               print('Cancel');
-  //               Navigator.pop(context);
-  //             },
-  //           ),
-  //           FlatButton(
-  //             child: Text('OK'),
-  //             onPressed: () {
-  //               if (_phoneNumber != null) {
-  //                 print('Ok');
-  //                 Navigator.pop(context);
-  //               } else {
-  //                 return null;
-  //               }
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // _verifyPinDialog(BuildContext context) async {
-  //   return showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-  //         ),
-  //         title: Text('Enter Verify Code'),
-  //         content: ReusePinAnimate(
-  //           onSubmit: (value) => _verifyPin = value,
-  //         ),
-  //         actions: [
-  //           FlatButton(
-  //             child: Text('Cancel'),
-  //             onPressed: () {
-  //               print('Cancel');
-  //               Navigator.pop(context);
-  //             },
-  //           ),
-  //           FlatButton(
-  //               child: Text('OK'),
-  //               onPressed: () => _pinPutController.text.isNotEmpty
-  //                   ? checkVerify(_verifyPin)
-  //                   : null),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // showAlertDialog(BuildContext context) {
-  //   // set up the button
-  //   Widget okButton = FlatButton(
-  //     child: Text("Verify"),
-  //     onPressed: () {
-  //       Navigator.pop(context);
-  //       _verifyPhoneDialog(context);
-  //     },
-  //   );
-  //   Widget cancelButton = FlatButton(
-  //     child: Text("Cancel"),
-  //     onPressed: () {
-  //       Navigator.pop(context);
-  //     },
-  //   );
-
-  //   AlertDialog alert = AlertDialog(
-  //     title: Text('Oops!!'),
-  //     content: Text(alertText),
-  //     actions: [
-  //       cancelButton,
-  //       okButton,
-  //     ],
-  //   );
-
-  //   // show the dialog
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return alert;
-  //     },
-  //   );
-  // }
 
   Widget _phoneCodePick() {
     return Container(
@@ -518,11 +351,11 @@ class _PinScreenState extends State<PinScreen> {
                     _seen
                         ? Text(
                             _lang.translate('reenter_to_confirm'),
-                            style: textStyle(),
+                            style: titleTextStyle,
                           )
                         : Text(
                             _lang.translate('enter_4digit_code'),
-                            style: textStyle(),
+                            style: titleTextStyle,
                           ),
                     SizedBox(
                       height: 5,

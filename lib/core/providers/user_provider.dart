@@ -131,40 +131,31 @@ class UserProvider with ChangeNotifier {
 
   //FETCH PORTFORLIO OF THE USER
   Future<String> fetchPortforlio() async {
-    try {
-      // if (response.statusCode != 200) throw HttpException('${response.statusCode}');
-      await _prefService.read('token').then((onValue) async {
-        var response =
-            await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
-          "accept": "application/json",
-          "authorization": "Bearer " + onValue,
-        });
-        print(response.statusCode);
-        if (response.statusCode == 200) {
-          var responseBody = json.decode(response.body);
-
-          if (responseBody['error'] == null) {
-            mBalance = Balance.fromMap(responseBody);
-            print(mBalance.data.balance);
-          } else {
-            alertText = responseBody['error']['message'];
-            print(alertText);
-          }
-
-          alertText = response.statusCode.toString();
-          print(alertText);
-        } else {
-          throw HttpException("${response.statusCode}");
-        }
+    await _prefService.read('token').then((onValue) async {
+      var response =
+          await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+        "accept": "application/json",
+        "authorization": "Bearer " + onValue,
       });
-    } on SocketException {
-      print('No Internet connection 😑');
-    } on HttpException {
-      print("Couldn't find the post 😱");
-    } on FormatException {
-      print("Bad response format 👎");
-    }
 
+      if (response.statusCode == 200) {
+        var responseBody = json.decode(response.body);
+        if (responseBody['error'] == null) {
+          mBalance = Balance.fromMap(responseBody);
+          print(mBalance);
+        } else {
+          alertText = responseBody['error']['message'];
+          print(alertText);
+        }
+
+        alertText = response.statusCode.toString();
+        print(alertText);
+      } else {
+        throw HttpException("${response.statusCode}");
+      }
+    });
+
+    notifyListeners();
     return alertText ?? '';
   }
 }

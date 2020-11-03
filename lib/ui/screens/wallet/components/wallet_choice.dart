@@ -1,11 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class WalletChoice extends StatelessWidget {
+class WalletChoice extends StatefulWidget {
   final Function onGetWallet;
+  final Function showAlertDialog;
 
-  WalletChoice(this.onGetWallet);
+  WalletChoice(this.onGetWallet, this.showAlertDialog);
+
+  @override
+  _WalletChoiceState createState() => _WalletChoiceState();
+}
+
+class _WalletChoiceState extends State<WalletChoice> {
+  String alertText;
+
+  Future checkFirstSeen() async {
+    SharedPreferences isSeen = await SharedPreferences.getInstance();
+    bool _seen = (isSeen.getBool('seen') ?? false);
+    if (_seen != true && mBalance.data == null) {
+      isSeen.setBool('seen', true);
+      alertText = 'Look like you don\'t have a wallet yet!';
+      widget.showAlertDialog(context, alertText);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // checkFirstSeen();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +52,7 @@ class WalletChoice extends StatelessWidget {
             ),
             ReuseButton.getItem(
                 AppLocalizeService.of(context).translate('wallet'), () {
-              onGetWallet();
+              widget.onGetWallet();
             }, context),
           ],
         ),

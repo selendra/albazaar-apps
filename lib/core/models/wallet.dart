@@ -1,4 +1,5 @@
 import 'package:selendra_marketplace_app/core/models/acc_balance.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class Wallet {
   String title;
@@ -8,7 +9,7 @@ class Wallet {
   Wallet(this.title, this.amount, this.logo);
 }
 
-List<Wallet> wallets = [
+final List<Wallet> wallets = [
   Wallet(
     'Selendra (SEL)',
     mBalance.data.balance,

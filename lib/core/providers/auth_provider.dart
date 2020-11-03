@@ -102,7 +102,6 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> signOut(BuildContext context) async {
     mBalance = Balance();
-
     _pref?.clear('token');
     _pref.clear('seen');
     try {
@@ -179,6 +178,7 @@ class AuthProvider with ChangeNotifier {
           'phone': phone,
           'password': password,
         }));
+    print(response.body);
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
 
@@ -327,18 +327,35 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<String> verifyByPhone(String phone, String verifyCode) async {
-    var response = await http.post(ApiUrl.VERIFY_BY_PHONE,
+    try {
+      var response = await http.post(
+        ApiUrl.VERIFY_BY_PHONE,
         headers: ApiHeader.headers,
-        body: jsonEncode(<String, String>{
-          'phone': phone,
-          'verification_code': verifyCode,
-        }));
+        body: jsonEncode(
+          <String, String>{
+            'phone': phone,
+            'verification_code': verifyCode,
+          },
+        ),
+      );
 
-    if (response.statusCode == 200) {
-      var responseBody = json.decode(response.body);
-      try {
-        _alertText = responseBody['error']['message'];
-      } catch (e) {}
+      if (response.statusCode == 200) {
+        var repsonseBody = json.decode(response.body);
+
+        _alertText = repsonseBody['message'];
+        if (_alertText == null) {
+          _alertText = repsonseBody['error']['message'];
+        }
+      } else {
+        print(response.statusCode);
+        print(response.body);
+      }
+    } on SocketException {
+      print('No Internet connection 😑');
+    } on HttpException {
+      print("Couldn't find the post 😱");
+    } on FormatException {
+      print("Bad response format 👎");
     }
 
     return _alertText;
@@ -364,7 +381,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   void signOutByEmail(context) async {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    Navigator.pushReplacementNamed(context, WelcomeView);
   }
 }
