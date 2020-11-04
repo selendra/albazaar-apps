@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class PinScreen extends StatefulWidget {
   @override
@@ -84,45 +82,6 @@ class _PinScreenState extends State<PinScreen> {
       });
     }
   }
-
-  // void checkVerify(String verifyOTP) async {
-  //   _pinPutController.text = '';
-  //   String apiUrl =
-  //       'https://testnet-api.selendra.com/pub/v1/account-confirmation';
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   var response = await http.post(apiUrl,
-  //       headers: <String, String>{
-  //         "accept": "application/json",
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: jsonEncode(<String, String>{
-  //         'phone': _phoneNumber,
-  //         'verification_code': verifyOTP,
-  //       }));
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     var responseBody = json.decode(response.body);
-  //     print(responseBody);
-  //     print(response.body);
-  //     try {
-  //       alertText = responseBody['error']['message'];
-  //       errorDialog(context);
-  //     } catch (e) {
-  //       alertText = responseBody['message'];
-  //       Navigator.pop(context);
-  //       simpleAlertDialog(context);
-  //     }
-  //   } else {
-  //     print(response.body);
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   }
-  // }
 
   void checkVerify(String verifyCode) async {
     _pinPutController.text = '';

@@ -57,75 +57,101 @@ class IndividualChat extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage('images/avatar.png'),
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          decoration: BoxDecoration(
-                            color: kDefaultColor,
-                            borderRadius: BorderRadius.circular(4.0),
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Container(
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage('images/avatar.png'),
                           ),
-                          child: Container(
-                            padding: EdgeInsets.all(5.0),
-                            margin: EdgeInsets.all(5.0),
-                            child: Text(
-                              'Hello World! Welcome to Selendra ',
-                              style: TextStyle(color: Colors.white),
-                              overflow: TextOverflow.visible,
+                          SizedBox(
+                            width: 5.0,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                              color: kDefaultColor,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(5.0),
+                              margin: EdgeInsets.all(5.0),
+                              child: Text(
+                                'Hello World! Welcome to Selendra ',
+                                style: TextStyle(color: Colors.white),
+                                overflow: TextOverflow.visible,
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width / 2,
+                            decoration: BoxDecoration(
+                              color: kDefaultColor,
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.all(5.0),
+                              margin: EdgeInsets.all(5.0),
+                              child: Text(
+                                'Hello World! Welcome to Selendra ',
+                                style: TextStyle(color: Colors.white),
+                                overflow: TextOverflow.visible,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.attach_file,
+                        color: kDefaultColor,
+                      ),
+                      onPressed: () {},
+                    ),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Send Messages',
                         ),
-                      ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        color: kDefaultColor,
+                      ),
+                      onPressed: () {},
                     ),
                   ],
                 ),
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.attach_file,
-                      color: kDefaultColor,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Send Messages',
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.send,
-                      color: kDefaultColor,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
