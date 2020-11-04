@@ -48,7 +48,6 @@ class AuthProvider with ChangeNotifier {
     //getUserInfo(user);
     Provider.of<UserProvider>(context, listen: false)
         .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
-    Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
@@ -77,7 +76,6 @@ class AuthProvider with ChangeNotifier {
         Provider.of<UserProvider>(context, listen: false)
             .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
         print(user.photoUrl);
-        Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
         assert(user.email != null);
         assert(user.displayName != null);

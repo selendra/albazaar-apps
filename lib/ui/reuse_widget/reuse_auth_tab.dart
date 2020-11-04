@@ -4,7 +4,9 @@ import 'package:selendra_marketplace_app/all_export.dart';
 
 class ReuseAuthTab extends StatelessWidget {
   final TabController _tabController;
-  ReuseAuthTab(this._tabController);
+  final String firstTab;
+  final String secondTab;
+  ReuseAuthTab(this._tabController, this.firstTab, this.secondTab);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +29,7 @@ class ReuseAuthTab extends StatelessWidget {
         tabs: [
           Tab(
             child: Text(
-              AppLocalizeService.of(context).translate('phone'),
+              firstTab,
               style: TextStyle(
                 color: _tabController.index == 1 ? Colors.grey : Colors.white,
               ),
@@ -35,7 +37,7 @@ class ReuseAuthTab extends StatelessWidget {
           ),
           Tab(
             child: Text(
-              AppLocalizeService.of(context).translate('email'),
+              secondTab,
               style: TextStyle(
                 color: _tabController.index == 0 ? Colors.grey : Colors.white,
               ),

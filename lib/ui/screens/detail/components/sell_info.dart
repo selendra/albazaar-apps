@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/products_provider.dart';
+
 import 'package:provider/provider.dart';
 
 class SellerInfo extends StatelessWidget {
@@ -16,6 +16,11 @@ class SellerInfo extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SellerProfile(product.sellerName),
+                    )),
                 leading: Icon(
                   Icons.person,
                   color: kDefaultColor,

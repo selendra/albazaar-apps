@@ -64,6 +64,7 @@ export 'ui/screens/profile/components/gender_dropdown.dart';
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';
 
+export 'ui/screens/seller_profile/seller_profile.dart';
 //reset screen
 export 'ui/screens/resetpass/reset_by_email.dart';
 export 'ui/screens/resetpass/reset_pass_phone.dart';

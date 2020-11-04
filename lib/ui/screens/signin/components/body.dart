@@ -165,6 +165,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -186,7 +187,11 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   SizedBox(
                     height: 40,
                   ),
-                  ReuseAuthTab(_tabController),
+                  ReuseAuthTab(
+                    _tabController,
+                    _lang.translate('phone'),
+                    _lang.translate('email'),
+                  ),
                   // tabs(context),
                   SizedBox(
                     height: 40,
