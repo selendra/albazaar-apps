@@ -4,8 +4,8 @@ class BtnSocial extends StatelessWidget {
   final Function onTap;
   final AssetImage logo;
 
-  const BtnSocial(this.onTap,this.logo);
-  
+  const BtnSocial(this.onTap, this.logo);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -29,5 +29,4 @@ class BtnSocial extends StatelessWidget {
           ),
         ));
   }
-   
 }

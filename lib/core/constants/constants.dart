@@ -52,5 +52,6 @@ const String SaleScreenView = '/salescreen';
 const String LangView = '/lang';
 const String IndividualChatView = '/individualchat';
 const String ChatView = '/chat';
+const String MyQrView = '/myqr';
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';

@@ -91,5 +91,9 @@
     "resend_code": "ផ្ញើកូដម្តងទៀត",
     "pick_image": "ជ្រើសរើសរូបភាព",
     "cereal": "គ្រាប់ធញ្ញជាតិ",
-    "enter_your_phone_number": "បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក"
+    "enter_your_phone_number": "បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក",
+    "wallet_information": "ព័ត៌មានអំពីកាបូប",
+    "private_key": "សោរឯកជន",
+    "copied": "បានចម្លង",
+    "recieve": "ទទួល"
 }

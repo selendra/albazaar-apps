@@ -72,6 +72,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case WalletPinView:
       return RouteAnimation(enterPage: WalletPin());
       break;
+    case MyQrView:
+      return RouteAnimation(enterPage: MyQr());
+      break;
     case SaleScreenView:
       return RouteAnimation(enterPage: SalesScreen());
       break;

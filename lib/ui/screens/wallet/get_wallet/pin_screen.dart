@@ -88,16 +88,16 @@ class _PinScreenState extends State<PinScreen> {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider()
-        .verifyByPhone(_phoneNumber, verifyCode)
-        .then((onValue) {
-      setState(() {
-        _isLoading = false;
-      });
-      if (onValue != null) {
-        AllDialog().simpleAlertDialog(context, onValue);
-      }
-    });
+    await AuthProvider().verifyByPhone(_phoneNumber, verifyCode).then(
+      (onValue) {
+        setState(() {
+          _isLoading = false;
+        });
+        if (onValue != null) {
+          AllDialog().simpleAlertDialog(context, onValue);
+        }
+      },
+    );
   }
 
   void firstPin(String pin) async {
@@ -136,7 +136,6 @@ class _PinScreenState extends State<PinScreen> {
         _isLoading = false;
       });
       if (value == 'Opp! You need to verify your phone number first') {
-        alertText = value;
         AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
       } else if (mBalance.data != null) {
         _pref.read('seed').then((onValue) {
@@ -186,6 +185,7 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   _displayWalletInfo(BuildContext context, String _seed) async {
+    var _lang = AppLocalizeService.of(context);
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -196,7 +196,7 @@ class _PinScreenState extends State<PinScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
               ),
-              title: Text('Wallet Information'),
+              title: Text(_lang.translate('wallet_information')),
               content: Container(
                 height: 300,
                 child: Column(
@@ -210,7 +210,7 @@ class _PinScreenState extends State<PinScreen> {
                           height: 20,
                         ),
                         Text(
-                          'Private Key',
+                          _lang.translate('private_key'),
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -225,10 +225,8 @@ class _PinScreenState extends State<PinScreen> {
                               child: InfoRow(
                                 '\n$_seed',
                                 () {
-                                  print('Copy');
                                   Clipboard.setData(ClipboardData(text: _seed))
                                       .then((value) {
-                                    print('success');
                                     setState(() {
                                       _isBtnOneTap = true;
                                     });
@@ -240,7 +238,7 @@ class _PinScreenState extends State<PinScreen> {
                             ? Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  'Copied',
+                                  _lang.translate('copied'),
                                   style: TextStyle(
                                       fontSize: 12, color: kDefaultColor),
                                 ),

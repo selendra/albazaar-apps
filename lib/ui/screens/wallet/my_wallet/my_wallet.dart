@@ -39,12 +39,19 @@ class MyWallet extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 40),
-                        Text(
-                          mBalance.data.balance,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 45.0,
-                              fontWeight: FontWeight.bold),
+                        Flexible(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Text(
+                              mBalance.data.balance,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 45.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -81,9 +88,8 @@ class MyWallet extends StatelessWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            ReuseButton.getItem(_lang.translate('withdrawal'),
-                                () {
-                              print('withdrawal');
+                            ReuseButton.getItem(_lang.translate('recieve'), () {
+                              Navigator.pushNamed(context, MyQrView);
                             }, context)
                           ],
                         ),

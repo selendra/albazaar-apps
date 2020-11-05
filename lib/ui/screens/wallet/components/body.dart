@@ -23,7 +23,6 @@ class _BodyState extends State<Body> {
         okButton,
       ],
     );
-
     showDialog(
       barrierDismissible: false,
       context: navigationKey.currentState.overlay.context,

@@ -131,7 +131,7 @@ class IndividualChat extends StatelessWidget {
                         Icons.attach_file,
                         color: kDefaultColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () => print('attach file'),
                     ),
                     Expanded(
                       child: TextField(
@@ -145,7 +145,7 @@ class IndividualChat extends StatelessWidget {
                         Icons.send,
                         color: kDefaultColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () => print('Send'),
                     ),
                   ],
                 ),

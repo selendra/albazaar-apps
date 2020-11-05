@@ -41,7 +41,7 @@ class Chat extends StatelessWidget {
           itemCount: 20,
           itemBuilder: (context, index) {
             return Container(
-              margin: EdgeInsets.only(bottom: 2.0),
+              margin: const EdgeInsets.only(bottom: 2.0),
               height: 70,
               color: Colors.white,
               child: ListTile(

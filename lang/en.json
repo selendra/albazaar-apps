@@ -91,6 +91,10 @@
     "resend_code": "Resend Code",
     "pick_image": "Pick Images",
     "cereal": "Cereals",
-    "enter_your_phone_number": "Enter your phone number"
+    "enter_your_phone_number": "Enter your phone number",
+    "wallet_information": "Wallet Information",
+    "private_key": "Private Key",
+    "copied": "Copied",
+    "recieve": "Recieve"
 
 }

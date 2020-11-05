@@ -61,6 +61,9 @@ export 'ui/screens/profile/components/profile_dialog.dart';
 export 'ui/screens/profile/components/profile_form.dart';
 export 'ui/screens/profile/components/gender_dropdown.dart';
 
+//cart item
+export 'ui/screens/cart/components/cart_items.dart';
+
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';
 
@@ -99,6 +102,7 @@ export 'ui/screens/wallet/my_wallet/my_wallet.dart';
 export 'ui/screens/wallet/get_wallet/info_row.dart';
 export 'ui/screens/wallet/components/wallet_choice.dart';
 export 'ui/screens/wallet/get_wallet/dialog.dart';
+export 'ui/screens/wallet/my_wallet/my_qr.dart';
 
 //chat screen
 export 'ui/screens/chat/chat.dart';
@@ -140,6 +144,8 @@ export 'ui/reuse_widget/product_list.dart';
 export 'ui/reuse_widget/item_card.dart';
 export 'ui/reuse_widget/individual_chat.dart';
 export 'ui/reuse_widget/reuse_icon_badge.dart';
+export 'ui/reuse_widget/reuse_qr_card.dart';
+export 'ui/reuse_widget/network_alert.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';
@@ -172,4 +178,3 @@ export 'core/services/auth/auth_services.dart';
 export 'core/services/connectivity_services.dart';
 export 'core/services/pref_service.dart';
 export 'core/services/app_localize_service.dart';
-export 'ui/reuse_widget/network_alert.dart';
