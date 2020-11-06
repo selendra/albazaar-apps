@@ -146,6 +146,7 @@ export 'ui/reuse_widget/individual_chat.dart';
 export 'ui/reuse_widget/reuse_icon_badge.dart';
 export 'ui/reuse_widget/reuse_qr_card.dart';
 export 'ui/reuse_widget/network_alert.dart';
+export 'ui/reuse_widget/reuse_indicator.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';

@@ -4,7 +4,6 @@ import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'core/providers/user_provider.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
@@ -80,7 +79,7 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           onGenerateRoute: router.generateRoute,
           initialRoute: SplashScreenView,
-          debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
             primaryColor: Colors.white,

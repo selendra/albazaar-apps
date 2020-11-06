@@ -13,7 +13,6 @@ class _MyQrState extends State<MyQr> {
 
   void onPageChange(int value) async {
     if (_pageController != null) {
-      // isPageCanChanged = false;
       setState(() {
         currentIndex = value;
       });
@@ -58,35 +57,9 @@ class _MyQrState extends State<MyQr> {
                   alignment: Alignment.topCenter,
                   child: Container(
                       margin: const EdgeInsets.only(top: 60),
-                      child: BtnSocial(
-                          () {}, AssetImage('images/icon_launcher.png'))),
+                      child: BtnSocial(() {}, AssetImage('images/avatar.png'))),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List<Widget>.generate(
-                        3,
-                        (int index) {
-                          return AnimatedContainer(
-                            duration: Duration(milliseconds: 300),
-                            height: 10.0,
-                            width: index == currentIndex ? 30.0 : 10.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 30.0, horizontal: 10.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.0),
-                              color: index == currentIndex
-                                  ? kDefaultColor
-                                  : kDefaultColor.withOpacity(0.5),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                ReuseIndicator(currentIndex),
               ],
             ),
           ),

@@ -4,11 +4,12 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class Chat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Message',
+          _lang.translate('message'),
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 22, color: kDefaultColor),
         ),
@@ -77,13 +78,14 @@ class Chat extends StatelessWidget {
                         color: kDefaultColor,
                       ),
                       child: Center(
-                          child: Text(
-                        '20',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold),
-                      )),
+                        child: Text(
+                          '20',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ],
                 ),

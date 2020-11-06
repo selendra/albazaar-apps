@@ -78,32 +78,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 onPageChanged: onPageChange,
                 itemBuilder: (context, index) => slidePage[index],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List<Widget>.generate(
-                      slidePage.length,
-                      (int index) {
-                        return AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          height: 10.0,
-                          width: index == currentIndex ? 30.0 : 10.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 30.0, horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            color: index == currentIndex
-                                ? kDefaultColor
-                                : kDefaultColor.withOpacity(0.5),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              ReuseIndicator(currentIndex),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
