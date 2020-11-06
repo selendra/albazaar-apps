@@ -18,6 +18,16 @@ class WalletList extends StatelessWidget {
               ),
             ),
             child: ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  RouteAnimation(
+                    enterPage: TransactionHistory(
+                        title: wallets[index].title,
+                        amount: wallets[index].amount),
+                  ),
+                );
+              },
               trailing: Text(
                 wallets[index].amount,
                 style: TextStyle(fontWeight: FontWeight.w900),

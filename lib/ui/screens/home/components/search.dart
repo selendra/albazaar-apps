@@ -68,7 +68,7 @@ class SearchProducts extends SearchDelegate {
               },
               title: Text(searchProducts[index].title),
               leading: CircleAvatar(
-                backgroundImage: NetworkImage(searchProducts[index].image),
+                backgroundImage: NetworkImage(searchProducts[index]._image),
               ),
               subtitle: Text(
                 searchProducts[index].price.toString(),

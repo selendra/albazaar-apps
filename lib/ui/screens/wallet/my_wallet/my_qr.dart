@@ -29,38 +29,62 @@ class _MyQrState extends State<MyQr> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(viewportFraction: 0.8);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem('Public Key', context),
+      appBar: AppBar(
+        backgroundColor: kDefaultColor,
+        elevation: 0,
+        title: Text(
+          AppLocalizeService.of(context).translate('recieve'),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22.0),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
             color: kDefaultColor,
           ),
-          PageView.builder(
-            controller: _pageController,
-            itemCount: 3,
-            onPageChanged: onPageChange,
-            itemBuilder: (context, index) => Stack(
-              children: [
-                Container(
+          Container(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: wallets.length,
+              onPageChanged: onPageChange,
+              itemBuilder: (context, index) => Stack(
+                children: [
+                  Container(
                     height: MediaQuery.of(context).size.height * 0.6,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 90),
-                    child: ReuseQrCard()),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 60),
-                      child: BtnSocial(() {}, AssetImage('images/avatar.png'))),
-                ),
-                ReuseIndicator(currentIndex),
-              ],
+                        horizontal: 5.0, vertical: 80),
+                    child: ReuseQrCard(
+                      image: wallets[index].logo,
+                      title: wallets[index].title,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                        margin: const EdgeInsets.only(top: 50),
+                        child:
+                            BtnSocial(() {}, AssetImage('images/avatar.png'))),
+                  ),
+                  ReuseIndicator(currentIndex),
+                ],
+              ),
             ),
           ),
         ],

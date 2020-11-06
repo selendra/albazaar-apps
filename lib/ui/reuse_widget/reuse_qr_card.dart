@@ -5,6 +5,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ReuseQrCard extends StatelessWidget {
+  final String image;
+  final String title;
+
+  ReuseQrCard({this.image, this.title});
+
   void copyWallet(String _wallet) {
     Clipboard.setData(
       ClipboardData(
@@ -29,10 +34,17 @@ class ReuseQrCard extends StatelessWidget {
             builder: (context, value, child) => Column(
               children: [
                 SizedBox(
-                  height: 50,
+                  height: 20,
+                ),
+                Text(
+                  title,
+                  style: titleTextStyle,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 QrImage(
-                  embeddedImage: AssetImage('images/icon_launcher.png'),
+                  embeddedImage: AssetImage(image),
                   data: value.mUser.wallet,
                   version: QrVersions.auto,
                   size: 200.0,
@@ -45,7 +57,7 @@ class ReuseQrCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(
-                  height: 50.0,
+                  height: 40.0,
                 ),
                 ReuseButton.getItem('Copy', () {
                   copyWallet(value.mUser.wallet);

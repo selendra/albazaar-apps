@@ -67,6 +67,9 @@ export 'ui/screens/cart/components/cart_items.dart';
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';
 
+//transaction view
+export 'ui/screens/transaction/transaction_history.dart';
+
 export 'ui/screens/seller_profile/seller_profile.dart';
 //reset screen
 export 'ui/screens/resetpass/reset_by_email.dart';
@@ -147,6 +150,7 @@ export 'ui/reuse_widget/reuse_icon_badge.dart';
 export 'ui/reuse_widget/reuse_qr_card.dart';
 export 'ui/reuse_widget/network_alert.dart';
 export 'ui/reuse_widget/reuse_indicator.dart';
+export 'ui/reuse_widget/reuse_flexspace.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';

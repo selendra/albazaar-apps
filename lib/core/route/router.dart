@@ -78,6 +78,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SaleScreenView:
       return RouteAnimation(enterPage: SalesScreen());
       break;
+
+    case TransactionView:
+      return RouteAnimation(enterPage: TransactionHistory());
+      break;
     case LangView:
       return RouteAnimation(enterPage: Lang());
       break;
