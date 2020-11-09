@@ -7,13 +7,13 @@ class MyWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    var fetchBalance = Provider.of<UserProvider>(context);
+    var _fetchBalance = Provider.of<UserProvider>(context);
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: RefreshIndicator(
         onRefresh: () async {
           await Future.delayed(Duration(seconds: 1));
-          return fetchBalance.fetchPortforlio();
+          return _fetchBalance.fetchPortforlio();
         },
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -41,7 +41,8 @@ class MyWallet extends StatelessWidget {
                         SizedBox(height: 40),
                         Flexible(
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 30.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
                               mBalance.data.balance,
                               overflow: TextOverflow.ellipsis,

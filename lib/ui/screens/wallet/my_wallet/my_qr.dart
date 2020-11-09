@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
@@ -10,6 +12,10 @@ class _MyQrState extends State<MyQr> {
   PageController _pageController;
 
   int currentIndex = 0;
+
+  double viewportFraction = 0.8;
+
+  double pageOffset = 0;
 
   void onPageChange(int value) async {
     if (_pageController != null) {
@@ -29,7 +35,12 @@ class _MyQrState extends State<MyQr> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.8);
+    _pageController = PageController(viewportFraction: viewportFraction)
+      ..addListener(() {
+        setState(() {
+          pageOffset = _pageController.page;
+        });
+      });
   }
 
   @override
@@ -64,27 +75,29 @@ class _MyQrState extends State<MyQr> {
               controller: _pageController,
               itemCount: wallets.length,
               onPageChanged: onPageChange,
-              itemBuilder: (context, index) => Stack(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 5.0, vertical: 80),
-                    child: ReuseQrCard(
-                      image: wallets[index].logo,
-                      title: wallets[index].title,
+              itemBuilder: (context, index) {
+                return Stack(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 80),
+                      child: ReuseQrCard(
+                        image: wallets[index].logo,
+                        title: wallets[index].title,
+                      ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                        margin: const EdgeInsets.only(top: 50),
-                        child:
-                            BtnSocial(() {}, AssetImage('images/avatar.png'))),
-                  ),
-                  ReuseIndicator(currentIndex),
-                ],
-              ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: BtnSocial(
+                              () {}, AssetImage('images/avatar.png'))),
+                    ),
+                    ReuseIndicator(currentIndex),
+                  ],
+                );
+              },
             ),
           ),
         ],

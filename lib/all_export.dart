@@ -53,7 +53,6 @@ export 'ui/screens/map/components/persistent_header.dart';
 
 //otp screen
 export 'ui/screens/otp/otp.dart';
-//  export 'ui/screens/otp/components/pin_screen.dart';
 
 //profile screen
 export 'ui/screens/profile/profile_screen.dart';

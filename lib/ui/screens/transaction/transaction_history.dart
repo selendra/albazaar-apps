@@ -11,10 +11,32 @@ class TransactionHistory extends StatelessWidget {
     List<Widget> listItems = List();
 
     for (int i = 0; i < count; i++) {
-      listItems.add(new Padding(
-          padding: new EdgeInsets.all(20.0),
-          child: new Text('Item ${i.toString()}',
-              style: new TextStyle(fontSize: 25.0))));
+      listItems.add(
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kDefaultRadius),
+              side: BorderSide(
+                color: kDefaultColor,
+              ),
+            ),
+            child: ListTile(
+              onTap: () {},
+              trailing: Text(
+                'Amount',
+                style: TextStyle(fontWeight: FontWeight.w900),
+              ),
+              leading: Image.asset('images/logo.png', width: 30, height: 30),
+              title: Text(
+                'Sent',
+                style: TextStyle(fontWeight: FontWeight.w900),
+              ),
+            ),
+          ),
+        ),
+      );
     }
     return listItems;
   }
