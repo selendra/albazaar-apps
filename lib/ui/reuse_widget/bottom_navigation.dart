@@ -14,11 +14,13 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   Color _color = Colors.grey;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeOut);
-    });
+    setState(
+      () {
+        _selectedIndex = index;
+        _pageController.animateToPage(index,
+            duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+      },
+    );
   }
 
   void _pageChange(int index) {

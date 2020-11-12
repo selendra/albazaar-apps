@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
@@ -20,6 +21,10 @@ class SelendraApp extends StatefulWidget {
 class _SelendraAppState extends State<SelendraApp> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         StreamProvider<ConnectivityStatus>(

@@ -143,6 +143,7 @@ class UserProvider with ChangeNotifier {
         if (responseBody['error'] == null) {
           mBalance = Balance.fromMap(responseBody);
           print(mBalance);
+          notifyListeners();
         } else {
           alertText = responseBody['error']['message'];
           print(alertText);

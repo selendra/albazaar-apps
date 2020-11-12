@@ -25,7 +25,7 @@ class ReuseIconBadge extends StatelessWidget {
           top: 0.0,
           right: 0.0,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            margin: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
             child: Icon(
               Icons.brightness_1,
               color: Colors.red,

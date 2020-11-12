@@ -12,7 +12,7 @@ class MyWallet extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       child: RefreshIndicator(
         onRefresh: () async {
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(Duration(seconds: 0));
           return _fetchBalance.fetchPortforlio();
         },
         child: Container(

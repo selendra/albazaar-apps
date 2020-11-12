@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/ui/screens/wallet/components/body.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+import '../../screens/wallet/components/body.dart';
 
 class WalletScreen extends StatelessWidget {
   @override

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
@@ -14,8 +12,6 @@ class _MyQrState extends State<MyQr> {
   int currentIndex = 0;
 
   double viewportFraction = 0.8;
-
-  double pageOffset = 0;
 
   void onPageChange(int value) async {
     if (_pageController != null) {
@@ -35,12 +31,7 @@ class _MyQrState extends State<MyQr> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: viewportFraction)
-      ..addListener(() {
-        setState(() {
-          pageOffset = _pageController.page;
-        });
-      });
+    _pageController = PageController(viewportFraction: viewportFraction);
   }
 
   @override
