@@ -29,7 +29,7 @@ class _WalletChoiceState extends State<WalletChoice> {
   @override
   void initState() {
     super.initState();
-    // checkFirstSeen();
+    checkFirstSeen();
   }
 
   @override

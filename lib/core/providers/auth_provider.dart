@@ -38,7 +38,7 @@ class AuthProvider with ChangeNotifier {
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
     print(user);
-    Provider.of<ProductsProvider>(context, listen: false).getVegi();
+    // Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
     // Checking if email and name is null
     assert(user.email != null);
@@ -143,9 +143,8 @@ class AuthProvider with ChangeNotifier {
         print(_token);
         if (_token != null) {
           _pref.saveString('token', _token);
-          getToken();
           Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-          Provider.of<ProductsProvider>(context, listen: false).getVegi();
+          // Provider.of<ProductsProvider>(context, listen: false).getVegi();
           Navigator.pushReplacementNamed(context, BottomNavigationView);
         } else {
           _alertText = responseJson['message'];
@@ -183,7 +182,6 @@ class AuthProvider with ChangeNotifier {
       _token = responseJson['token'];
 
       if (_token != null) {
-        print(_token);
         _pref.saveString('token', _token);
         Provider.of<UserProvider>(context, listen: false)
             .fetchPortforlio()
@@ -191,7 +189,6 @@ class AuthProvider with ChangeNotifier {
           if (onValue == '200') {
             Provider.of<UserProvider>(context, listen: false)
                 .fetchUserPf(_token);
-            Provider.of<ProductsProvider>(context, listen: false).getVegi();
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         });

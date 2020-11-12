@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
-String _firstName, _midName, _lastName, _mGender;
+class ProfileForm extends StatefulWidget {
+  @override
+  _ProfileFormState createState() => _ProfileFormState();
+}
 
-class ProfileForm extends StatelessWidget {
+class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
+
   PrefService _prefService = PrefService();
+  String _firstName, _midName, _lastName, _mGender;
 
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {

@@ -23,8 +23,10 @@ class WalletList extends StatelessWidget {
                   context,
                   RouteAnimation(
                     enterPage: TransactionHistory(
-                        title: wallets[index].title,
-                        amount: wallets[index].amount),
+                      title: wallets[index].title,
+                      amount: wallets[index].amount,
+                      logo: wallets[index].logo,
+                    ),
                   ),
                 );
               },

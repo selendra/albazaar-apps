@@ -4,8 +4,9 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class TransactionHistory extends StatelessWidget {
   final String title;
   final String amount;
+  final String logo;
 
-  TransactionHistory({this.title, this.amount});
+  TransactionHistory({this.title, this.amount, this.logo});
 
   List _buildList(int count) {
     List<Widget> listItems = List();
@@ -28,7 +29,7 @@ class TransactionHistory extends StatelessWidget {
                 'Amount',
                 style: TextStyle(fontWeight: FontWeight.w900),
               ),
-              leading: Image.asset('images/logo.png', width: 30, height: 30),
+              leading: Image.asset(logo, width: 30, height: 30),
               title: Text(
                 'Sent',
                 style: TextStyle(fontWeight: FontWeight.w900),
@@ -44,48 +45,50 @@ class TransactionHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.3,
-            floating: false,
-            pinned: true,
-            snap: false,
-            title: Text(
-              title,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.0),
-            ),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: MediaQuery.of(context).size.height * 0.3,
+              floating: false,
+              pinned: true,
+              snap: false,
+              title: Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            backgroundColor: kDefaultColor,
-            flexibleSpace: ReuseFlexSpace(amount),
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(
-                  Icons.add_circle,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
                   color: Colors.white,
                 ),
-                tooltip: 'Add new entry',
-                onPressed: () {/* ... */},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-            ],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              _buildList(50),
+              backgroundColor: kDefaultColor,
+              flexibleSpace: ReuseFlexSpace(amount),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(
+                    Icons.add_circle,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Add new entry',
+                  onPressed: () {/* ... */},
+                ),
+              ],
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                _buildList(50),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

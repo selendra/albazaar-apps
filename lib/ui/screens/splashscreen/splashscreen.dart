@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -34,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
                 //FETCH USER PROFILE AND NAVIGATE
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchUserInfo();
-                Provider.of<ProductsProvider>(context, listen: false).getVegi();
+                //Provider.of<ProductsProvider>(context, listen: false).getVegi();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 //IF NOT VALID CLEAR TOKEN AND NAVIGATE TO WELCOME SCREEN
@@ -71,14 +70,16 @@ class _SplashScreenState extends State<SplashScreen>
     Timer(
       Duration(milliseconds: 2000),
       () {
-        _pref.read('isshow').then((onValue) {
-          print(onValue);
-          if (onValue == null) {
-            Navigator.pushReplacementNamed(context, IntroScreenView);
-          } else {
-            checkUser();
-          }
-        });
+        _pref.read('isshow').then(
+          (onValue) {
+            print(onValue);
+            if (onValue == null) {
+              Navigator.pushReplacementNamed(context, IntroScreenView);
+            } else {
+              checkUser();
+            }
+          },
+        );
       },
     );
 
