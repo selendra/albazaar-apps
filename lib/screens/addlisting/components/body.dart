@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/constants.dart';
-import 'package:selendra_marketplace_app/models/categories.dart';
-import 'package:selendra_marketplace_app/screens/category/categories_list.dart';
-import 'package:selendra_marketplace_app/models/products.dart';
-import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+// import 'package:selendra_marketplace_app/constants.dart';
+// import 'package:selendra_marketplace_app/models/categories.dart';
+// import 'package:selendra_marketplace_app/screens/category/categories_list.dart';
+// import 'package:selendra_marketplace_app/models/products.dart';
+// import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Body extends StatefulWidget {
@@ -57,13 +58,13 @@ class _BodyState extends State<Body> {
         print(_contactName);
         print(_phoneNumber);
         print(_categories);
-        products.add(Product(
-            id: 20,
-            title: _title,
-            price: int.parse(_price),
-            description: _description,
-            image: "images/new-house.jpg",
-            color: Color(0xFF3D82AE)));
+        // products.add(Product(
+        //     id: 20,
+        //     title: _title,
+        //     price: int.parse(_price),
+        //     description: _description,
+        //     image: "images/new-house.jpg",
+        //     color: Color(0xFF3D82AE)));
         Navigator.pop(context);
       }
     });
@@ -176,7 +177,7 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(18.0))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
+            borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
           ),
         ),
@@ -198,7 +199,7 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(18.0))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
+            borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
           ),
         ),
@@ -213,7 +214,7 @@ class _BodyState extends State<Body> {
       height: 60,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        border: Border.all(color: kDefualtColor, width: 1),
+        border: Border.all(color: kDefaultColor, width: 1),
         borderRadius: BorderRadius.circular(18.0),
       ),
       child: ListTile(
@@ -238,7 +239,7 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(18.0))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
+            borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
           ),
         ),
@@ -259,7 +260,7 @@ class _BodyState extends State<Body> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18.0),
             border: Border.all(
-              color: kDefualtColor,
+              color: kDefaultColor,
               width: 1,
             ),
         ),
@@ -280,7 +281,7 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(18.0))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
+            borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
           ),
         ),
@@ -302,7 +303,7 @@ class _BodyState extends State<Body> {
               borderSide: BorderSide(color: Colors.greenAccent),
               borderRadius: BorderRadius.all(Radius.circular(18.0))),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefualtColor),
+            borderSide: BorderSide(color: kDefaultColor),
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
           ),
         ),
@@ -321,7 +322,7 @@ class _BodyState extends State<Body> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18.0),
           border: Border.all(
-            color: kDefualtColor,
+            color: kDefaultColor,
             width: 1,
           ),
         ),
