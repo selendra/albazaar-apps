@@ -207,12 +207,14 @@ class AuthProvider with ChangeNotifier {
 
   //USER RESET THEIR PASSWORD BY EMAIL
   Future<String> forgetPasswordByEmail(String email) async {
-    var response = await http.post(ApiUrl.RESET_BY_EMAIL,
+    var response = await http.post(ApiUrl.FORGET_BY_EMAIL,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{'email': email}));
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       _alertText = responseBody['message'];
+    } else {
+      print(response.body);
     }
     return _alertText;
   }
@@ -220,7 +222,7 @@ class AuthProvider with ChangeNotifier {
   //USER RESET THEIR PASSWORD BY PHONE NUMBER
   Future<String> forgetPasswordByPhone(String phoneNumber) async {
     var response = await http.post(
-      ApiUrl.RESET_BY_PHONE,
+      ApiUrl.FORGET_BY_PHONE,
       headers: ApiHeader.headers,
       body: jsonEncode(
         <String, String>{'phone': '+855' + phoneNumber},
@@ -318,6 +320,56 @@ class AuthProvider with ChangeNotifier {
       _alertText = e.toString();
     }
 
+    return _alertText;
+  }
+
+  Future<String> resetByEmail(
+      String _tempCode, String _email, String _password) async {
+    try {
+      var response = await http.post(ApiUrl.RESET_BY_EMAIL,
+          headers: ApiHeader.headers,
+          body: jsonEncode(<String, String>{
+            'temp_code': _tempCode,
+            'email': _email,
+            'password': _password,
+          }));
+
+      if (response.statusCode == 200) {
+        var responseJson = json.decode(response.body);
+        _alertText = responseJson['message'];
+        if (_alertText == null) {
+          _alertText = responseJson['error']['message'];
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      _alertText = e.toString();
+    }
+    return _alertText;
+  }
+
+  Future<String> resetByPhone(
+      String _tempCode, String _phone, String _password) async {
+    try {
+      var response = await http.post(ApiUrl.RESET_BY_PHONE,
+          headers: ApiHeader.headers,
+          body: jsonEncode(<String, String>{
+            'temp_code': _tempCode,
+            'phone': _phone,
+            'password': _password,
+          }));
+
+      if (response.statusCode == 200) {
+        var responseJson = json.decode(response.body);
+        _alertText = responseJson['message'];
+        if (_alertText == null) {
+          _alertText = responseJson['error']['message'];
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      _alertText = e.toString();
+    }
     return _alertText;
   }
 

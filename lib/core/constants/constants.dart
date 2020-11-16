@@ -21,6 +21,10 @@ const kDefaultMapZoom = 7.0;
 const kDefaultMaxZoom = 19.0;
 const kDefaultMinZoom = 7.0;
 
+const String resetPassText =
+    'Enter the email that associated with your account and we\'ll send an email with instruction to reset your password';
+const String newPassText =
+    'Enter the Pin that you have recieve and Enter your new password!!';
 //Flag url
 const String engFlag =
     'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1200px-Flag_of_the_United_Kingdom.svg.png';

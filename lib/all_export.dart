@@ -71,8 +71,8 @@ export 'ui/screens/transaction/transaction_history.dart';
 
 export 'ui/screens/seller_profile/seller_profile.dart';
 //reset screen
-export 'ui/screens/resetpass/reset_by_email.dart';
-export 'ui/screens/resetpass/reset_pass_phone.dart';
+export 'ui/screens/resetpass/reset_by_email/reset_by_email.dart';
+export 'ui/screens/resetpass/reset_by_phone/reset_pass_phone.dart';
 
 //sale screen
 export 'ui/screens/sales/sale_screen.dart';
@@ -150,6 +150,7 @@ export 'ui/reuse_widget/reuse_qr_card.dart';
 export 'ui/reuse_widget/network_alert.dart';
 export 'ui/reuse_widget/reuse_indicator.dart';
 export 'ui/reuse_widget/reuse_flexspace.dart';
+export 'ui/reuse_widget/reuse_reset_form.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';

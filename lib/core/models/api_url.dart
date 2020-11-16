@@ -5,8 +5,10 @@ class ApiUrl {
   static const LOG_IN_PHONE = baseUrl + '/pub/v1/loginbyphone';
   static const SIGN_UP_EMAIL = baseUrl + '/pub/v1/registerbyemail';
   static const SIGN_UP_PHONE = baseUrl + '/pub/v1/registerbyphone';
-  static const RESET_BY_EMAIL = baseUrl + '/pub/v1/forget-password-by-email';
-  static const RESET_BY_PHONE = baseUrl + '/pub/v1/forget-password';
+  static const FORGET_BY_EMAIL = baseUrl + '/pub/v1/forget-password-by-email';
+  static const FORGET_BY_PHONE = baseUrl + '/pub/v1/forget-password';
+  static const RESET_BY_EMAIL = baseUrl + '/pub/v1/reset-password-by-email';
+  static const RESET_BY_PHONE = baseUrl + '/pub/v1/reset-password';
   static const SET_USER_PROFILE = baseUrl + '/pub/v1/userprofile';
   static const VERIFY_BY_PHONE = baseUrl + '/pub/v1/account-confirmation';
   static const GET_WALLET = baseUrl + '/pub/v1/getwallet';
