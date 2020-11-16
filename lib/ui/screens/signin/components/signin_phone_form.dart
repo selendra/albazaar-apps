@@ -46,7 +46,10 @@ class SignInPhoneForm extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetPassPhone()));
+                },
                 child: RichText(
                   text: TextSpan(
                     text: _lang.translate('forget_password'),

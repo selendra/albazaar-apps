@@ -34,6 +34,8 @@ class AuthProvider with ChangeNotifier {
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
+    print(googleSignInAuthentication.accessToken);
+    print(googleSignInAuthentication.idToken);
 
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
@@ -70,6 +72,7 @@ class AuthProvider with ChangeNotifier {
             facebookLoginResult.accessToken;
         final AuthCredential credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
+        print(facebookAccessToken.token);
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
         print(credential);

@@ -73,6 +73,7 @@ export 'ui/screens/seller_profile/seller_profile.dart';
 //reset screen
 export 'ui/screens/resetpass/reset_by_email/reset_by_email.dart';
 export 'ui/screens/resetpass/reset_by_phone/reset_pass_phone.dart';
+export 'ui/screens/resetpass/reset_by_phone/reset_phone_form.dart';
 
 //sale screen
 export 'ui/screens/sales/sale_screen.dart';

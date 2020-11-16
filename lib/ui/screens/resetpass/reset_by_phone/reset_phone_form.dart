@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class ReuseResetForm extends StatelessWidget {
-  final String _email;
-  ReuseResetForm(this._email);
-
-  String _pin, _newPassword;
+class ResetPhoneForm extends StatelessWidget {
+  final String _phone;
+  ResetPhoneForm(this._phone);
 
   final _formKey = GlobalKey<FormState>();
-
+  String _pin, _newPassword;
   void validateAndSubmit(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_pin);
-      print(_newPassword);
-      await AuthProvider()
-          .resetByEmail(_pin, _email, _newPassword)
-          .then((value) {
-        print(value);
-        ReuseAlertDialog().successDialog(context, value);
-      });
+      if (_pin != null && _newPassword != null) {
+        print(_pin);
+        print(_newPassword);
+        await AuthProvider()
+            .resetByPhone(_pin, _phone, _newPassword)
+            .then((value) {
+          print(value);
+          ReuseAlertDialog().successDialog(context, value);
+        });
+      }
     }
   }
 
@@ -61,11 +61,11 @@ class ReuseResetForm extends StatelessWidget {
                         : null,
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   ReuseTextField(
-                    labelText: 'Email Address',
-                    initialValue: _email,
+                    labelText: 'PhoneNumber',
+                    initialValue: _phone,
                   ),
                   SizedBox(
                     height: 20.0,

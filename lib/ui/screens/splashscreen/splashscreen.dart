@@ -76,9 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
             if (onValue == null) {
               Navigator.pushReplacementNamed(context, IntroScreenView);
             } else {
-              //checkUser();
-              Navigator.push(
-                  context, RouteAnimation(enterPage: ResetByEmail()));
+              checkUser();
             }
           },
         );

@@ -33,7 +33,6 @@ class _ReusePwFieldState extends State<ReusePwField> {
         key: widget.fieldKey,
         onTap: widget.onTap,
         obscureText: _obscureText,
-        maxLength: widget.maxLength ?? 16,
         validator: widget.validator,
         onSaved: widget.onSaved,
         onFieldSubmitted: widget.onFieldSubmitted,

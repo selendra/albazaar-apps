@@ -1,161 +1,117 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
-class ResetPassPhone extends StatelessWidget {
-  final TextEditingController tempCodeController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+class ResetPassPhone extends StatefulWidget {
+  @override
+  _ResetPassPhoneState createState() => _ResetPassPhoneState();
+}
 
-  String alertText, title;
+class _ResetPassPhoneState extends State<ResetPassPhone> {
+  final _formKey = GlobalKey<FormState>();
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.pop(context);
-      },
-    );
+  String _phone;
+  bool _isLoading = false;
 
-    AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(alertText),
-      actions: [
-        okButton,
-      ],
-    );
+  void validateAndSubmit(context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      if (_phone != null) {
+        print(_phone);
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  showResetAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = FlatButton(
-        child: Text("OK"),
-        onPressed:
-            () {} //Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPhoneNumber()));},
-        );
-
-    AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(alertText),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  resetByPhone(
-      String tempCode, String phoneNumber, String password, context) async {
-    String apiUrl = 'https://testnet-api.selendra.com/pub/v1/reset-password';
-
-    var response = await http.post(apiUrl,
-        headers: <String, String>{
-          "accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{
-          'temp_code': tempCode,
-          'phone': '+855' + phoneNumber,
-          'password': password,
-        }));
-    if (response.statusCode == 200) {
-      var responseJson = json.decode(response.body);
-      try {
-        alertText = responseJson['error']['message'];
-        title = 'Error';
-        showAlertDialog(context);
-      } catch (e) {
-        alertText = responseJson['message'];
-        title = 'Message';
-        showResetAlertDialog(context);
+        await AuthProvider().forgetPasswordByPhone(_phone).then((value) {
+          print(value);
+          setState(() {
+            _isLoading = false;
+          });
+          if (value != 'Your phone number does not exist!') {
+            Navigator.pop(context);
+            Navigator.push(
+                context, RouteAnimation(enterPage: ResetPhoneForm(_phone)));
+          }
+        });
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        body: Center(
-          child: Container(
-            margin: EdgeInsets.all(30.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _buildText(tempCodeController, 'Reset Code'),
-                _buildText(phoneController, 'Phone Number'),
-                TextField(
-                  autofocus: true,
-                  controller: passController,
-                  decoration: InputDecoration(
-                      hintText: 'New password',
-                      errorText: validatePassword(passController)),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                _btnLogin(context),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: kDefaultColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.info_outline,
+              color: kDefaultColor,
             ),
-          ),
-        ),
+            onPressed: () {},
+          )
+        ],
       ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              color: Colors.white,
+              child: Container(
+                margin: EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Reset Password', style: titleTextStyle),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(resetPassText),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      _phoneCodePick(context),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      ReuseButton.getItem('Send', () {
+                        validateAndSubmit(context);
+                      }, context),
+                    ],
+                  ),
+                ),
+              ),
+            ),
     );
   }
 
-  _btnLogin(context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: () {
-          resetByPhone(tempCodeController.text, phoneController.text,
-              passController.text, context);
-          tempCodeController.text = '';
-          phoneController.text = '';
-          passController.text = '';
-        },
-        child: Text(
-          "Reset",
-          style: TextStyle(color: Colors.white),
+  Widget _phoneCodePick(context) {
+    return IntlPhoneField(
+      decoration: InputDecoration(
+        labelStyle: TextStyle(color: Colors.grey),
+        labelText: AppLocalizeService.of(context).translate('phone_hint'),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: kDefaultColor),
+          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
         ),
-        color: kDefaultColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.greenAccent),
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
       ),
+      initialCountryCode: 'KH',
+      validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+      onSaved: (phone) => _phone = phone.completeNumber.toString(),
     );
-  }
-
-  Widget _buildText(TextEditingController _controller, String _hintText) {
-    return TextField(
-      autofocus: true,
-      controller: _controller,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(hintText: _hintText),
-    );
-  }
-
-  validatePassword(TextEditingController textController) {
-    if (textController.text.length < 6 && textController.text.isEmpty) {
-      return 'Password cannot be less than 6 characters or empty';
-    }
-    return null;
   }
 }

@@ -50,7 +50,10 @@ class SignInEmailForm extends StatelessWidget {
             Container(
               alignment: Alignment.centerRight,
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetByEmail()));
+                },
                 child: RichText(
                   text: TextSpan(
                     text: _lang.translate('forget_password'),

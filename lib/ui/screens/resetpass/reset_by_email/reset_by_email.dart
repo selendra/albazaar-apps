@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class ResetByEmail extends StatelessWidget {
+class ResetByEmail extends StatefulWidget {
+  @override
+  _ResetByEmailState createState() => _ResetByEmailState();
+}
+
+class _ResetByEmailState extends State<ResetByEmail> {
   String alertText, title, _email;
+  bool _isLoading = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -16,9 +22,15 @@ class ResetByEmail extends StatelessWidget {
   }
 
   void _forgetByEmail(String _email, context) async {
+    setState(() {
+      _isLoading = true;
+    });
     await AuthProvider().forgetPasswordByEmail(_email).then((value) {
       print(value);
-
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.pop(context);
       Navigator.push(
           context, RouteAnimation(enterPage: ReuseResetForm(_email)));
     });
@@ -32,7 +44,9 @@ class ResetByEmail extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kDefaultColor),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
@@ -44,45 +58,49 @@ class ResetByEmail extends StatelessWidget {
           )
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        child: Container(
-          margin: EdgeInsets.all(20.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Reset Password', style: titleTextStyle),
-                SizedBox(
-                  height: 10.0,
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              color: Colors.white,
+              child: Container(
+                margin: EdgeInsets.all(20.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Reset Password', style: titleTextStyle),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(resetPassText),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      ReuseTextField(
+                        labelText: 'Email Address',
+                        inputType: TextInputType.emailAddress,
+                        validator: (value) =>
+                            value.isEmpty ? 'Email cannot be empty' : null,
+                        onSaved: (newValue) {
+                          //print(newValue);
+                          _email = newValue;
+                        },
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      ReuseButton.getItem('Send', () {
+                        validateAndSubmit(context);
+                      }, context),
+                    ],
+                  ),
                 ),
-                Text(resetPassText),
-                SizedBox(
-                  height: 20.0,
-                ),
-                ReuseTextField(
-                  labelText: 'Email Address',
-                  inputType: TextInputType.emailAddress,
-                  validator: (value) =>
-                      value.isEmpty ? 'Email cannot be empty' : null,
-                  onSaved: (newValue) {
-                    //print(newValue);
-                    _email = newValue;
-                  },
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                ReuseButton.getItem('Send', () {
-                  validateAndSubmit(context);
-                }, context),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }
