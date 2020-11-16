@@ -90,11 +90,14 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
+    print("Sign in with phone");
+    print(_phone);
+    print(_password);
     setState(() {
       _isLoading = true;
     });
     await AuthProvider()
-        .signInByPhone(_phone, _password, context)
+        .signInByPhone("+855"+_phone, _password, context)
         .then((value) {
       if (value != null) {
         setState(() {

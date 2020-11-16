@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
+
   final String image, title, description, sellerName, sellerPhoneNum, category;
   final int id;
   final double price;

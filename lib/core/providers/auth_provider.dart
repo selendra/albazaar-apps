@@ -172,6 +172,8 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
+    print(phone);
+    print(password);
     var response = await http.post(ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{

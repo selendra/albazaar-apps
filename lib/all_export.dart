@@ -1,4 +1,6 @@
 //all screen export
+export 'package:flutter/material.dart';
+export 'package:provider/provider.dart';
 
 //main
 export 'main.dart';
@@ -176,6 +178,7 @@ export 'core/models/wallet.dart';
 export 'core/models/acc_balance.dart';
 export 'core/models/wallet_response.dart';
 export 'core/models/notification_model.dart';
+export 'core/models/add_product_m.dart';
 
 //services
 export 'core/services/auth/api_post_services.dart';

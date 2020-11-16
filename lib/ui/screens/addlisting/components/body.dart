@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
 class Body extends StatefulWidget {
@@ -13,21 +14,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _formKeyDetail = GlobalKey<FormState>();
-  final _formKeySeller = GlobalKey<FormState>();
+
+  AddProduct _addProduct = AddProduct();
 
   List<Asset> images = List<Asset>();
   String _error = 'No Error Dectected';
 
   // BuildContext context;
-
-  String _title;
-  String _price;
-  String _description;
-  String _contactName;
-  String _phoneNumber;
-  String _address;
-  String _categories;
 
   void routeA() async {
     String resultOfC = await Navigator.push(
@@ -36,38 +29,42 @@ class _BodyState extends State<Body> {
             builder: (context) => CategoriesListScreen(category)));
     print(resultOfC);
     setState(() {
-      _categories = resultOfC;
+      _addProduct.categories.text = resultOfC;
     });
   }
 
-  bool checkValidate() {
-    setState(() {
-      if (_formKeyDetail.currentState.validate() &&
-          _formKeySeller.currentState.validate()) {
-        _formKeyDetail.currentState.save();
-        _formKeySeller.currentState.save();
+  bool toSeller() {
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => FillSeller(addProduct: _addProduct,))
+    );
+    // setState(() {
+    //   if (_addProduct.formKeyDetail.currentState.validate() &&
+    //       _addProduct.formKeySeller.currentState.validate()) {
+    //     _addProduct.formKeyDetail.currentState.save();
+    //     _addProduct.formKeySeller.currentState.save();
 
-        print(_title);
-        print(_price);
-        print(_description);
-        print(_contactName);
-        print(_phoneNumber);
-        print(_categories);
-        print(_address);
+    //     // print(_title);
+    //     // print(_price);
+    //     // print(_description);
+    //     // print(_contactName);
+    //     // print(_phoneNumber);
+    //     // print(_categories);
+    //     // print(_address);
 
-        /*products.add(Product(
-            id: 20,i
-            title: _title,
-            price: int.parse(_price),
-            description: _description,
-            image: "images/new-house.jpg",
-            color: Color(0xFF3D82AE)));*/
+    //     /*products.add(Product(
+    //         id: 20,i
+    //         title: _title,
+    //         price: int.parse(_price),
+    //         description: _description,
+    //         image: "images/new-house.jpg",
+    //         color: Color(0xFF3D82AE)));*/
 
-        Navigator.pop(context);
-        return true;
-      }
-    });
-    return false;
+    //     Navigator.pop(context);
+    //     return true;
+    //   }
+    // });
+    // return false;
   }
 
   Widget buildGridView() {
@@ -176,7 +173,42 @@ class _BodyState extends State<Body> {
           child: Column(
             children: <Widget>[
               _postDetail(),
-              _sellerDetail(),
+              SizedBox(
+                height: 40,
+              ),
+              // Consumer<ProductsProvider>(
+              //   builder: (context, value, child) => Container(
+              //     // margin: EdgeInsets.only(right: 16, left: 16),
+              //     child: ReuseButton.getItem(
+              //         AppLocalizeService.of(context).translate('Next'), () {
+              //       toSeller();
+              //       if (toSeller()) {
+              //         value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
+              //             _addProduct.contactName.text, _addProduct.phoneNumber.text);
+              //       }
+              //     }, context),
+              //   ),
+              // ),
+              Container(
+                margin: EdgeInsets.only(right: 18, left: 18),
+                child: ReuseButton.getItem(
+                  'Next',//AppLocalizeService.of(context).translate('Next'), 
+                  null,
+                  // () {
+                  //   toSeller();
+                  // // if (toSeller()) {
+                  // //   value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
+                  // //       _addProduct.contactName.text, _addProduct.phoneNumber.text);
+                  // // }
+                  // }, 
+                  context
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _readPolicy(),
+              // _sellerDetail(),
             ],
           ),
         ),
@@ -186,7 +218,7 @@ class _BodyState extends State<Body> {
 
   Widget _postDetail() {
     return Form(
-      key: _formKeyDetail,
+      key: _addProduct.formKeyDetail,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -227,7 +259,7 @@ class _BodyState extends State<Body> {
 
   Widget _sellerDetail() {
     return Form(
-      key: _formKeySeller,
+      key: _addProduct.formKeySeller,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -257,25 +289,7 @@ class _BodyState extends State<Body> {
               ],
             ),
             //_pickLocation(),
-            SizedBox(
-              height: 40,
-            ),
-            Consumer<ProductsProvider>(
-              builder: (context, value, child) => Container(
-                child: ReuseButton.getItem(
-                    AppLocalizeService.of(context).translate('submit'), () {
-                  checkValidate();
-                  if (checkValidate()) {
-                    value.addItem(_title, double.parse(_price), _description,
-                        _contactName, _phoneNumber);
-                  }
-                }, context),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _readPolicy(),
+            
           ],
         ),
       ),
@@ -284,6 +298,7 @@ class _BodyState extends State<Body> {
 
   Widget _priceField() {
     return ReuseTextField(
+      controller: _addProduct.price,
       labelText: AppLocalizeService.of(context).translate('price'),
       maxLine: 1,
       inputType: TextInputType.number,
@@ -291,12 +306,13 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
-      onSaved: (newValue) => _price = newValue,
+      // onSaved: (newValue) => _addProduct.price. = newValue,
     );
   }
 
   Widget _descriptionField() {
     return ReuseTextField(
+      controller: _addProduct.description,
       maxLine: 3,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -304,7 +320,7 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('description_is_empty')
           : null,
-      onSaved: (value) => _description = value,
+      // onSaved: (value) => _description = value,
     );
   }
 
@@ -317,11 +333,11 @@ class _BodyState extends State<Body> {
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
       child: ListTile(
-        title: _categories == null
+        title: _addProduct.categories.text.isEmpty
             ? Text(
                 AppLocalizeService.of(context).translate('categories'),
               )
-            : Text(_categories),
+            : Text(_addProduct.categories.text),
         trailing: Icon(
           Icons.arrow_forward_ios,
           color: kDefaultColor,
@@ -335,6 +351,7 @@ class _BodyState extends State<Body> {
 
   Widget _titleField() {
     return ReuseTextField(
+      controller: _addProduct.title,
       labelText: AppLocalizeService.of(context).translate('title'),
       maxLine: 1,
       inputType: TextInputType.text,
@@ -342,38 +359,41 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('title_is_empty')
           : null,
-      onSaved: (value) => _title = value,
+      // onSaved: (value) => _title = value,
     );
   }
 
   Widget _nameField() {
     return ReuseTextField(
+      controller: _addProduct.contactName,
       labelText: AppLocalizeService.of(context).translate('name'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('contact_name_is_empty')
           : null,
-      onSaved: (value) => _contactName = value,
+      // onSaved: (value) => _contactName = value,
     );
   }
 
   Widget _phoneNumberField() {
     return ReuseTextField(
+      controller: _addProduct.phoneNumber,
       labelText: AppLocalizeService.of(context).translate('phone_hint'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('phone_number_is_empty')
           : null,
-      onSaved: (value) => _phoneNumber = value,
+      // onSaved: (value) => _phoneNumber = value,
     );
   }
 
   Widget _streetAddress() {
     return ReuseTextField(
+      controller: _addProduct.address,
       labelText: AppLocalizeService.of(context).translate('street_address'),
-      onSaved: (newValue) => _address = newValue,
+      // onSaved: (newValue) => _address = newValue,
     );
   }
 
@@ -416,4 +436,5 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
 }
