@@ -57,8 +57,14 @@ class _BodyState extends State<Body> {
             splashColor: Colors.grey,
             child: ListTile(
               title: Text(_lang.translate('language')),
-              leading: Icon(Icons.language),
-              trailing: Icon(Icons.arrow_forward_ios),
+              leading: Icon(
+                Icons.language,
+                color: kDefaultColor,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: kDefaultColor,
+              ),
             ),
           ),
           InkWell(
@@ -66,8 +72,14 @@ class _BodyState extends State<Body> {
             splashColor: Colors.grey,
             child: ListTile(
               title: Text(_lang.translate('currency')),
-              leading: Icon(Icons.monetization_on),
-              trailing: Icon(Icons.arrow_forward_ios),
+              leading: Icon(
+                Icons.monetization_on,
+                color: kDefaultColor,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: kDefaultColor,
+              ),
             ),
           ),
           Container(
@@ -82,6 +94,23 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, ResetChoiceView);
+            },
+            splashColor: Colors.grey,
+            child: ListTile(
+              title: Text('Reset Password'),
+              leading: Icon(
+                Icons.lock,
+                color: kDefaultColor,
+              ),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: kDefaultColor,
+              ),
+            ),
+          ),
           Container(
               child: SwitchListTile(
             title: Text('Touch ID'),
@@ -89,7 +118,10 @@ class _BodyState extends State<Body> {
             onChanged: (value) {
               checkTouchID();
             },
-            secondary: Icon(Icons.fingerprint),
+            secondary: Icon(
+              Icons.fingerprint,
+              color: kDefaultColor,
+            ),
           )),
           Container(
             child: SwitchListTile(
@@ -98,7 +130,10 @@ class _BodyState extends State<Body> {
               onChanged: (value) {
                 checkPin();
               },
-              secondary: Icon(Icons.fiber_pin),
+              secondary: Icon(
+                Icons.fiber_pin,
+                color: kDefaultColor,
+              ),
             ),
           ),
           Container(

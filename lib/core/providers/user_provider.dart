@@ -56,6 +56,11 @@ class UserProvider with ChangeNotifier {
     _mUser.profileImg = photoUrl;
   }
 
+  void setLocation(String location) {
+    _mUser.address = location;
+    notifyListeners();
+  }
+
   //UPDATE USER GENDER
   void setGender(String value) {
     mUser.gender = value;

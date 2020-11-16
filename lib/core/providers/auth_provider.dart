@@ -228,7 +228,7 @@ class AuthProvider with ChangeNotifier {
       ApiUrl.FORGET_BY_PHONE,
       headers: ApiHeader.headers,
       body: jsonEncode(
-        <String, String>{'phone': '+855' + phoneNumber},
+        <String, String>{'phone': phoneNumber},
       ),
     );
     if (response.statusCode == 200) {
@@ -373,6 +373,7 @@ class AuthProvider with ChangeNotifier {
       print(e.toString());
       _alertText = e.toString();
     }
+    print(_alertText);
     return _alertText;
   }
 

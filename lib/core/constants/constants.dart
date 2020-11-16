@@ -23,6 +23,8 @@ const kDefaultMinZoom = 7.0;
 
 const String resetPassText =
     'Enter the email that associated with your account and we\'ll send an email with instruction to reset your password';
+const String resetPassPhoneText =
+    'Enter the phone that associated with your account and we\'ll send an sms with instruction to reset your password';
 const String newPassText =
     'Enter the Pin that you have recieve and Enter your new password!!';
 //Flag url
@@ -58,5 +60,6 @@ const String IndividualChatView = '/individualchat';
 const String ChatView = '/chat';
 const String MyQrView = '/myqr';
 const String TransactionView = '/transaction';
+const String ResetChoiceView = '/resetchoice';
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';

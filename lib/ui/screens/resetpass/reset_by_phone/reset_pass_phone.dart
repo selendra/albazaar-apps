@@ -31,6 +31,8 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
             Navigator.pop(context);
             Navigator.push(
                 context, RouteAnimation(enterPage: ResetPhoneForm(_phone)));
+          } else {
+            ReuseAlertDialog().successDialog(context, value);
           }
         });
       }

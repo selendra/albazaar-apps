@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/ui/screens/checkout/components/order_confirmation.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  String _character;
+
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10, top: 10.0),
         child: Column(
           children: [
             Card(
@@ -42,63 +50,155 @@ class Body extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
                 ],
               ),
             ),
-            SizedBox(height: 10.0),
             Card(
               elevation: 0,
               shape: kDefaultShape,
               child: Container(
                 margin: EdgeInsets.all(10.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      ReuseTextField(
-                        labelText: _lang.translate('name'),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('phone'),
-                      ),
-                      SizedBox(height: 10),
-                      ReuseTextField(
-                        labelText: _lang.translate('email'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('postcode'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('shipping_address'),
-                      ),
-                    ],
+                child: Consumer<UserProvider>(
+                  builder: (context, value, child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Shipping Information',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: kDefaultColor,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      RouteAnimation(
+                                          enterPage: OrderConfirmation()));
+                                })
+                          ],
+                        ),
+                        value.mUser.address == null
+                            ? Container()
+                            : Column(
+                                children: [
+                                  ReuseInkwell.getItem(value.mUser.firstName,
+                                      Icons.account_circle, () {}),
+                                  ReuseInkwell.getItem(
+                                      value.mUser.address ?? 'null',
+                                      Icons.location_on,
+                                      () {}),
+                                  ReuseInkwell.getItem(
+                                      value.mUser.phonenumber ?? 'phone',
+                                      Icons.phone,
+                                      () {}),
+                                  ReuseInkwell.getItem(
+                                      value.mUser.email ?? 'email',
+                                      Icons.mail,
+                                      () {}),
+                                ],
+                              )
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => StatefulBuilder(
+                    builder: (context, setState) {
+                      return Container(
+                        color: Colors.white,
+                        height: MediaQuery.of(context).size.height / 2,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: kDefaultColor,
+                                ),
+                              ),
+                              title: Text('Select Payment Method'),
+                            ),
+                            RadioListTile(
+                              activeColor: kDefaultColor,
+                              title: Text('Direct Payment'),
+                              value: 'Direct Payment',
+                              groupValue: _character,
+                              onChanged: (value) {
+                                print(value);
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              activeColor: kDefaultColor,
+                              title: Text('Escrow Payment'),
+                              value: 'Escrow Payment',
+                              groupValue: _character,
+                              onChanged: (value) {
+                                print(value);
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+              child: Card(
+                elevation: 0,
+                shape: kDefaultShape,
+                child: Container(
+                  child: ListTile(
+                    title: Text(
+                      'Select Payment Method',
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.bold),
+                    ),
+                    leading: Icon(Icons.payment),
+                    trailing: Icon(Icons.arrow_forward_ios),
                   ),
                 ),
               ),
             ),
-            Card(
-              elevation: 0,
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                child: ReuseTextField(
-                  labelText: _lang.translate('order_note'),
-                  maxLine: 2,
+            InkWell(
+              onTap: () {},
+              child: Card(
+                elevation: 0,
+                shape: kDefaultShape,
+                child: Container(
+                  child: ListTile(
+                    title: Text(
+                      '6 items selected',
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.bold),
+                    ),
+                    leading: Icon(Icons.local_grocery_store),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             Container(
               margin: EdgeInsets.all(10.0),

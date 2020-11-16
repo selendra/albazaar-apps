@@ -49,15 +49,11 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem(
-            _lang.translate('purchase'),
-            Icons.shopping_basket,
-            () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, PurchaseView);
-              // Navigator.push(context,
-            },
-          ),
+          ReuseInkwell.getItem(_lang.translate('cart'), Icons.shopping_cart,
+              () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, CartView);
+          }),
           ReuseInkwell.getItem(
             _lang.translate('listing'),
             Icons.list,
@@ -79,11 +75,15 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem(_lang.translate('cart'), Icons.shopping_cart,
-              () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, CartView);
-          }),
+          ReuseInkwell.getItem(
+            _lang.translate('purchase'),
+            Icons.shopping_basket,
+            () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, PurchaseView);
+              // Navigator.push(context,
+            },
+          ),
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
             Navigator.pushNamed(context, ChatView);

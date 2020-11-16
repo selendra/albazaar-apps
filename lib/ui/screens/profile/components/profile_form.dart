@@ -11,7 +11,7 @@ class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
 
   PrefService _prefService = PrefService();
-  String _firstName, _midName, _lastName, _mGender;
+  String _firstName, _midName, _lastName, _mGender, _address;
 
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {
@@ -93,7 +93,42 @@ class _ProfileFormState extends State<ProfileForm> {
                         value.mUser.email ?? _lang.translate('no_email')),
                     item(() {}, _lang.translate('phone_hint'),
                         value.mUser.phonenumber ?? 'phonenumber'),
-                    item(() {}, _lang.translate('shipping_address'), ''),
+                    item(() {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) => SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text('Add Shipping Address'),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    _formKey.currentState.save();
+                                    if (_address != null) {
+                                      data.setLocation(_address);
+                                    }
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(20.0),
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: ReuseTextField(
+                                  labelText: 'Shipping Address',
+                                  onSaved: (newValue) => _address = newValue,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }, _lang.translate('shipping_address'),
+                        value.mUser.address ?? 'edit'),
                   ],
                 ),
               ),
