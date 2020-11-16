@@ -17,8 +17,10 @@ class ReuseTextField extends StatefulWidget {
       this.onTap,
       this.initialValue,
       this.maxLine,
-      this.focusNode});
+      this.focusNode,
+      this.controller});
 
+  final TextEditingController controller;
   final Key fieldKey;
   final String labelText;
   final String hintText;
@@ -44,6 +46,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        controller: widget.controller,
         focusNode: widget.focusNode,
         key: widget.fieldKey,
         initialValue: widget.initialValue,
