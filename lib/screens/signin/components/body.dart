@@ -9,6 +9,11 @@ import 'package:selendra_marketplace_app/auth/auth_services.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin_phonenumber.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:selendra_marketplace_app/screens/resetpass/reset_by_email.dart';
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
+
+
 
 class Body extends StatefulWidget {
   @override
@@ -23,20 +28,46 @@ class _BodyState extends State<Body> {
   String _email,_password;
   IconData _iconData = Icons.visibility;
   bool _isLoading = false;
-
+  String alertText;
+  String object;
+  TextEditingController _textFieldController;
   bool validateAndSave(){
     final form = formKey.currentState;
-
     if(form.validate()){
       form.save();
       return true;
     }else{
       return false;
     }
-
   }
+  showAlertDialog(BuildContext context) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {Navigator.pop(context);},
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text(alertText),
+    content: Text("Please check your email. "),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+
   signIn(String email,String password) async{
     String apiUrl = "https://testnet-api.zeetomic.com/pub/v1/loginbyemail";
+    String token;
     setState(() {
       _isLoading =true;
     });
@@ -50,12 +81,27 @@ class _BodyState extends State<Body> {
     if(response.statusCode ==200){
       print('success');
       print(response.body);
+      SharedPreferences isLogin = await SharedPreferences.getInstance();
+      var responseJson = json.decode(response.body);
       setState(() {
          _isLoading = false;
       });
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      token = responseJson['token'];
+      if (token!=null){
+        isLogin.setBool("isLogin", true);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
+      }else {
+        try{
+          alertText = responseJson['error']['message'];
+          showAlertDialog(context);
+        }catch (e){
+          alertText = responseJson['message'];
+          showAlertDialog(context);
+        } 
+      }
+     // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation()));
     }else {
-      print(response.statusCode);
+      print(response.body);
     
     }
   }
@@ -77,7 +123,6 @@ class _BodyState extends State<Body> {
       setState(() {
         _isLoading = false;
       });
-      Navigator.pop(context);
     }
     //signInWithGoogle().whenComplete(() => ));
   }
@@ -116,6 +161,74 @@ class _BodyState extends State<Body> {
     }
   }
 
+  showResetAlertDialog(BuildContext context) {
+  // set up the button
+  Widget _okButton = FlatButton(
+    child: Text("Reset"),
+    onPressed: () {
+      
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>ResetByEmail(_email)));
+      },
+  );
+  Widget _cancelButton = FlatButton(
+    child: Text('Cancel'),
+    onPressed: (){
+      Navigator.pop(context);
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text(alertText),
+    content: Text("Please check your email. "),
+    actions: [
+      _cancelButton,
+      _okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+  void forgetPassword(String email)async {
+    String apiUrl  = 'https://testnet-api.zeetomic.com/pub/v1/forget-password-by-email';
+    var response = await http.post(apiUrl,headers: <String, String>{
+      "accept": "application/json",
+      "Content-Type": "application/json"
+      },body: jsonEncode(<String,String>{
+        'email' : email
+      })
+    );
+    if(response.statusCode == 200){
+      var responseBody = json.decode(response.body);
+      alertText = responseBody['message'];
+      if(alertText == 'Your email does not exist!'){
+         showAlertDialog(context);
+      }else{
+        showResetAlertDialog(context);
+      }
+     
+    }else{
+      alertText = 'Error';
+      showAlertDialog(context);
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    _textFieldController = TextEditingController();
+  }
+  @override
+  void dispose() {
+    _textFieldController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return _buildBody();
@@ -145,7 +258,7 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 20,
                 ),
-                _btnLogin(),
+                ReuseButton.getItem('SIGN IN', (){validateAndSubmit();}, context),
                 SizedBox(
                   height: 10,
                 ),
@@ -209,7 +322,7 @@ class _BodyState extends State<Body> {
           ),
           suffixIcon: IconButton(
             icon: Icon(_iconData,),
-            color: kDefualtColor  ,
+            color: kDefualtColor,
             onPressed: (){
               toggleVisibility();
             },
@@ -218,28 +331,6 @@ class _BodyState extends State<Body> {
         obscureText: _isHidden,
         validator: (value) => value.isEmpty || value.length < 6 ? "Password is empty or less than 6 character" : null,
         onSaved: (value) => _password = value,
-      ),
-    );
-  }
-
-  Widget _btnLogin(){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          validateAndSubmit();
-        },
-        child: Text(
-          "SIGN IN",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
       ),
     );
   }
@@ -309,7 +400,7 @@ class _BodyState extends State<Body> {
       alignment: Alignment.centerRight,
       child: FlatButton(
         onPressed: (){
-          print('forget password');
+         _displayDialog(context);
         },
         child: RichText(
           text: TextSpan(
@@ -347,6 +438,37 @@ class _BodyState extends State<Body> {
         ),
       ) ,
     );
+  }
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Please input your email'),
+            content: TextField(
+              autofocus: true,
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Email"),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  _textFieldController.text ='';
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  forgetPassword(_textFieldController.text);
+                  _textFieldController.text ='';
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 
  

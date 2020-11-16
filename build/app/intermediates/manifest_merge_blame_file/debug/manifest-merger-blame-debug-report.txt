@@ -1,0 +1,314 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.selendra_marketplace_app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:8:5-66
+14-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:8:22-64
+15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+15-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+15-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+16-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+16-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[:connectivity] /home/daveat/Documents/selendra-mkplace/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+17-->[:connectivity] /home/daveat/Documents/selendra-mkplace/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+18-->[:connectivity] /home/daveat/Documents/selendra-mkplace/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
+18-->[:connectivity] /home/daveat/Documents/selendra-mkplace/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
+19    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+19-->[com.android.installreferrer:installreferrer:1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/c5711af9fc3e147b6338dfa5b5870772/jetified-installreferrer-1.0/AndroidManifest.xml:9:5-110
+19-->[com.android.installreferrer:installreferrer:1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/c5711af9fc3e147b6338dfa5b5870772/jetified-installreferrer-1.0/AndroidManifest.xml:9:22-107
+20
+21    <application
+21-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:9:5-64:19
+22        android:name="io.flutter.app.FlutterApplication"
+22-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:10:9-57
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/25f737908970f0e5f2feb2f6dabea9da/core-1.1.0/AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:icon="@mipmap/logo"
+25-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:12:9-36
+26        android:label="Selendra Marketplace"
+26-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:11:9-45
+27        android:supportsRtl="true" >
+27-->[com.facebook.android:facebook-android-sdk:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/d1812101ce4de88db1c83d49b00898bf/jetified-facebook-android-sdk-5.15.3/AndroidManifest.xml:28:18-44
+28        <activity
+28-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:13:9-41:20
+29            android:name="com.example.selendra_marketplace_app.MainActivity"
+29-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:14:13-41
+30            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+30-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:17:13-163
+31            android:hardwareAccelerated="true"
+31-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:18:13-47
+32            android:launchMode="singleTop"
+32-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:15:13-43
+33            android:theme="@style/LaunchTheme"
+33-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:16:13-47
+34            android:windowSoftInputMode="adjustResize" >
+34-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:19:13-55
+35
+36            <!--
+37                 Specifies an Android theme to apply to this Activity as soon as
+38                 the Android process has started. This theme is visible to the user
+39                 while the Flutter UI initializes. After that, this theme continues
+40                 to determine the Window background behind the Flutter UI.
+41            -->
+42            <meta-data
+42-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:24:13-27:17
+43                android:name="io.flutter.embedding.android.NormalTheme"
+43-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:25:15-70
+44                android:resource="@style/NormalTheme" />
+44-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:26:15-52
+45            <!--
+46                 Displays an Android View that continues showing the launch screen
+47                 Drawable until Flutter paints its first frame, then this splash
+48                 screen fades out. A splash screen is useful to avoid any visual
+49                 gap between the end of Android's launch screen and the painting of
+50                 Flutter's first frame.
+51            -->
+52            <meta-data
+52-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:33:13-36:17
+53                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+53-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:34:15-79
+54                android:resource="@drawable/launch_background" />
+54-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:35:15-61
+55
+56            <intent-filter>
+56-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:37:13-40:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:38:17-68
+57-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:38:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:39:17-76
+59-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:39:27-74
+60            </intent-filter>
+61        </activity>
+62        <!--
+63             Don't delete the meta-data below.
+64             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+65        -->
+66        <meta-data
+66-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:44:9-46:33
+67            android:name="flutterEmbedding"
+67-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:45:13-44
+68            android:value="2" />
+68-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:46:13-30
+69        <meta-data
+69-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:47:9-48:54
+70            android:name="com.facebook.sdk.ApplicationId"
+70-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:47:20-65
+71            android:value="@string/facebook_app_id" />
+71-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:48:13-52
+72
+73        <activity
+73-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:50:9-53:48
+74            android:name="com.facebook.FacebookActivity"
+74-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:50:19-63
+75            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+75-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:51:13-113
+76            android:label="@string/app_name"
+76-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:53:13-45
+77            android:theme="@style/com_facebook_activity_theme" />
+77-->[com.facebook.android:facebook-common:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/4e79d65e0d36b671bffa68400099b58a/jetified-facebook-common-5.15.3/AndroidManifest.xml:33:13-63
+78        <activity
+78-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:54:9-63:20
+79            android:name="com.facebook.CustomTabActivity"
+79-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:55:13-58
+80            android:exported="true" >
+80-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:56:13-36
+81            <intent-filter>
+81-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:57:13-62:29
+82                <action android:name="android.intent.action.VIEW" />
+82-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:58:17-69
+82-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:58:25-66
+83
+84                <category android:name="android.intent.category.DEFAULT" />
+84-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:59:17-76
+84-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:59:27-73
+85                <category android:name="android.intent.category.BROWSABLE" />
+85-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:60:17-78
+85-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:60:27-75
+86
+87                <data android:scheme="@string/fb_login_protocol_scheme" />
+87-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:61:17-75
+87-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:61:23-72
+88            </intent-filter>
+89            <intent-filter>
+89-->[com.facebook.android:facebook-common:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/4e79d65e0d36b671bffa68400099b58a/jetified-facebook-common-5.15.3/AndroidManifest.xml:39:13-48:29
+90                <action android:name="android.intent.action.VIEW" />
+90-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:58:17-69
+90-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:58:25-66
+91
+92                <category android:name="android.intent.category.DEFAULT" />
+92-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:59:17-76
+92-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:59:27-73
+93                <category android:name="android.intent.category.BROWSABLE" />
+93-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:60:17-78
+93-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:60:27-75
+94
+95                <data
+95-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:61:17-75
+96                    android:host="cct.com.example.selendra_marketplace_app"
+97                    android:scheme="fbconnect" />
+97-->/home/daveat/Documents/selendra-mkplace/android/app/src/main/AndroidManifest.xml:61:23-72
+98            </intent-filter>
+99        </activity>
+100
+101        <service
+101-->[:firebase_auth] /home/daveat/Documents/selendra-mkplace/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+102            android:name="com.google.firebase.components.ComponentDiscoveryService"
+102-->[:firebase_auth] /home/daveat/Documents/selendra-mkplace/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:18-89
+103            android:directBootAware="true"
+103-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
+104            android:exported="false" >
+104-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:35:13-37
+105            <meta-data
+105-->[:firebase_auth] /home/daveat/Documents/selendra-mkplace/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+106                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
+106-->[:firebase_auth] /home/daveat/Documents/selendra-mkplace/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-122
+107                android:value="com.google.firebase.components.ComponentRegistrar" />
+107-->[:firebase_auth] /home/daveat/Documents/selendra-mkplace/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+108            <meta-data
+108-->[:firebase_core] /home/daveat/Documents/selendra-mkplace/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+109                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+109-->[:firebase_core] /home/daveat/Documents/selendra-mkplace/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-123
+110                android:value="com.google.firebase.components.ComponentRegistrar" />
+110-->[:firebase_core] /home/daveat/Documents/selendra-mkplace/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+111            <meta-data
+111-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:36:13-38:85
+112                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+112-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:37:17-109
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:38:17-82
+114        </service>
+115
+116        <provider
+116-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+117            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+117-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+118            android:authorities="com.example.selendra_marketplace_app.flutter.image_provider"
+118-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+119            android:exported="false"
+119-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+120            android:grantUriPermissions="true" >
+120-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+121            <meta-data
+121-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+122                android:name="android.support.FILE_PROVIDER_PATHS"
+122-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+123                android:resource="@xml/flutter_image_picker_file_paths" />
+123-->[:image_picker] /home/daveat/Documents/selendra-mkplace/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+124        </provider>
+125
+126        <activity
+126-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:24:9-31:50
+127            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+127-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:25:13-85
+128            android:excludeFromRecents="true"
+128-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:26:13-46
+129            android:exported="true"
+129-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:27:13-36
+130            android:launchMode="singleTask"
+130-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:28:13-44
+131            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+131-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:29:13-102
+132            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+132-->[com.google.firebase:firebase-auth:19.2.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/2248341497eef8d7d5e145df13b09685/jetified-firebase-auth-19.2.0/AndroidManifest.xml:30:13-72
+133        <activity android:name="com.facebook.CustomTabMainActivity" />
+133-->[com.facebook.android:facebook-common:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/4e79d65e0d36b671bffa68400099b58a/jetified-facebook-common-5.15.3/AndroidManifest.xml:34:9-71
+133-->[com.facebook.android:facebook-common:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/4e79d65e0d36b671bffa68400099b58a/jetified-facebook-common-5.15.3/AndroidManifest.xml:34:19-68
+134        <activity
+134-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+135            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+135-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+136            android:excludeFromRecents="true"
+136-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+137            android:exported="false"
+137-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+138            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+138-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+139        <!--
+140            Service handling Google Sign-In user revocation. For apps that do not integrate with
+141            Google Sign-In, this service will never be started.
+142        -->
+143        <service
+143-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+144            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+144-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+145            android:exported="true"
+145-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+146            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+146-->[com.google.android.gms:play-services-auth:16.0.1] /home/daveat/.gradle/caches/transforms-2/files-2.1/64a139343bc7d6f9c964ac317a8163b9/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+147
+148        <activity
+148-->[com.google.android.gms:play-services-base:17.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+149            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+149-->[com.google.android.gms:play-services-base:17.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+150            android:exported="false"
+150-->[com.google.android.gms:play-services-base:17.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+151            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+151-->[com.google.android.gms:play-services-base:17.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/16760bd27709f274776098d7f64a4728/jetified-play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+152
+153        <provider
+153-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:26:9-30:39
+154            android:name="com.google.firebase.provider.FirebaseInitProvider"
+154-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:27:13-77
+155            android:authorities="com.example.selendra_marketplace_app.firebaseinitprovider"
+155-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:28:13-72
+156            android:exported="false"
+156-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:29:13-37
+157            android:initOrder="100" />
+157-->[com.google.firebase:firebase-common:19.3.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/04a11a0a7e4c4a64eddfd073dbc9a5c6/jetified-firebase-common-19.3.0/AndroidManifest.xml:30:13-36
+158
+159        <meta-data
+159-->[com.google.android.gms:play-services-basement:17.0.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+160            android:name="com.google.android.gms.version"
+160-->[com.google.android.gms:play-services-basement:17.0.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+161            android:value="@integer/google_play_services_version" />
+161-->[com.google.android.gms:play-services-basement:17.0.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/59c9f96d7f9edfdb0eca1a9021802f93/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+162        <!--
+163         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+164         with the application context. This config is merged in with the host app's manifest,
+165         but there can only be one provider with the same authority activated at any given
+166         point; so if the end user has two or more different apps that use Facebook SDK, only the
+167         first one will be able to use the provider. To work around this problem, we use the
+168         following placeholder in the authority to identify each host application as if it was
+169         a completely different provider.
+170        -->
+171        <provider
+171-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:39:9-42:40
+172            android:name="com.facebook.internal.FacebookInitProvider"
+172-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:40:13-70
+173            android:authorities="com.example.selendra_marketplace_app.FacebookInitProvider"
+173-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:41:13-72
+174            android:exported="false" />
+174-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:42:13-37
+175
+176        <receiver
+176-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:44:9-50:20
+177            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+177-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:45:13-86
+178            android:exported="false" >
+178-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:46:13-37
+179            <intent-filter>
+179-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:47:13-49:29
+180                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+180-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:48:17-95
+180-->[com.facebook.android:facebook-core:5.15.3] /home/daveat/.gradle/caches/transforms-2/files-2.1/c4ac23b77be61952ed7ad70cd60f0a86/jetified-facebook-core-5.15.3/AndroidManifest.xml:48:25-92
+181            </intent-filter>
+182        </receiver>
+183    </application>
+184
+185</manifest>

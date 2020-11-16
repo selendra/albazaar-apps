@@ -1,4 +1,4 @@
-import 'package:selendra_marketplace_app/screens/category/realestate/real_estate.dart';
+import 'package:selendra_marketplace_app/screens/category/food/foods_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -13,20 +13,20 @@ class CategoriesScreen extends StatelessWidget {
   void itemTap(int index,context){
     switch (index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>RealEstate()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodsScreen()));
         break;
     }
   }
 
-  Widget itemCategory(Function onTap, String logo, {String title}){
+  Widget itemCategory(Function onTap, IconData icon, {String title}){
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 50,
-        width: 60,
+        height: 40,
+        width: 40,
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.center,
-        child: Image.asset(logo,height: 40,width: 40,)
+        child: Icon(icon,size: 30.0,color: Colors.grey,)
           // Column(
           //   children: <Widget>[
           //     Image.asset(logo,height: 40,width: 40,),
@@ -49,7 +49,7 @@ class CategoriesScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: allCategories.length,
         itemBuilder: (context,index){
-          return itemCategory(() {itemTap(index, context);}, allCategories[index].image);
+          return itemCategory(() {itemTap(index, context);},allCategories[index].icon );
         }
       )
     );

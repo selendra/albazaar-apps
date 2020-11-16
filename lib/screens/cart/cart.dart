@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/screens/cart/components/body.dart';
 import 'package:selendra_marketplace_app/constants.dart';
 
-
 class CartScreen extends StatelessWidget {
-  
   
   @override
   Widget build(BuildContext context) {

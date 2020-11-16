@@ -4,7 +4,7 @@ import 'package:selendra_marketplace_app/constants.dart';
 import '../../../constants.dart';
 import 'package:selendra_marketplace_app/screens/signin/signin.dart';
 import 'package:selendra_marketplace_app/screens/signup/signup.dart';
-
+import 'package:selendra_marketplace_app/reuse_widget/reuse_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -57,7 +57,7 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height/10,),
-              _btnLogin(),
+              ReuseButton.getItem('SIGN IN', (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));}, context),
               SizedBox(height: 20,),
               _btnSignUp(),
             ],
@@ -66,27 +66,7 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  Widget _btnLogin(){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignIn()));
-        },
-        child: Text(
-          "SIGN IN",
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-        color: kDefualtColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
-      ),
-    );
-  }
+  
   Widget _btnSignUp(){
     return Container(
       width: MediaQuery.of(context).size.width,

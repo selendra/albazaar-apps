@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
-
-
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -16,8 +13,6 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
   String name="";
   String email="";
   String imageUrl="";
-
-  
   
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -42,6 +37,7 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
     imageUrl = user.photoUrl;
 
     assert(!user.isAnonymous);
+    
     assert(await user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();
@@ -98,4 +94,10 @@ import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
           print("User Sign Out");
       }
     }
+  }
+
+  void signOutByEmail(context)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs?.clear();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>WelcomeScreen()));
   }

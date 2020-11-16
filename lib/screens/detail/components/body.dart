@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
               iconTheme: IconThemeData(
                 color: kDefualtColor,
               ),
-              expandedHeight: MediaQuery.of(context).size.height/2,
+              expandedHeight: MediaQuery.of(context).size.height*0.4,
               floating: true,
               pinned: true,
               primary: true,
@@ -105,14 +105,6 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: 20.0,),
-              Text(
-                'Product Description',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.w900,
-                ),
               ),
               SizedBox(height: 20.0,),
               Text(widget.product.description),

@@ -24,7 +24,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Pending',
+                  'All',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'All',
+                  'Pending',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
