@@ -11,7 +11,8 @@ class _ProfileFormState extends State<ProfileForm> {
   final _formKey = GlobalKey<FormState>();
 
   PrefService _prefService = PrefService();
-  String _firstName, _midName, _lastName, _mGender, _address;
+  String _firstName, _midName, _lastName, _mGender;
+  final TextEditingController _shippingController = TextEditingController();
 
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {
@@ -103,11 +104,16 @@ class _ProfileFormState extends State<ProfileForm> {
                               ListTile(
                                 title: Text('Add Shipping Address'),
                                 trailing: IconButton(
-                                  icon: Icon(Icons.add),
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: kDefaultColor,
+                                  ),
                                   onPressed: () {
                                     _formKey.currentState.save();
-                                    if (_address != null) {
-                                      data.setLocation(_address);
+                                    if (_shippingController.text != null) {
+                                      Navigator.pop(context);
+                                      data.setLocation(
+                                          _shippingController.text);
                                     }
                                   },
                                 ),
@@ -120,7 +126,9 @@ class _ProfileFormState extends State<ProfileForm> {
                                         .bottom),
                                 child: ReuseTextField(
                                   labelText: 'Shipping Address',
-                                  onSaved: (newValue) => _address = newValue,
+                                  controller: _shippingController,
+                                  maxLine: 1,
+                                  // initialValue: _shippingController.text,
                                 ),
                               ),
                             ],
@@ -141,7 +149,6 @@ class _ProfileFormState extends State<ProfileForm> {
                   (onValue) {
                     if (onValue != null) {
                       _formKey.currentState.save();
-
                       data
                           .setUserPf(_firstName, _midName ?? '', _lastName,
                               _mGender, context)
@@ -168,16 +175,22 @@ class _ProfileFormState extends State<ProfileForm> {
       onTap: onTap,
       splashColor: Colors.grey,
       child: ListTile(
-        title: Text(title),
-        trailing: Wrap(
-          children: [
-            Text(
+        title: Text(
+          title,
+          maxLines: 1,
+        ),
+        trailing: Container(
+          width: MediaQuery.of(context).size.width / 2.5,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
               trailing,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 12,
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
