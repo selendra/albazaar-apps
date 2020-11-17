@@ -84,7 +84,7 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           onGenerateRoute: router.generateRoute,
           initialRoute: SplashScreenView,
-          debugShowCheckedModeBanner: false,
+          // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
             primaryColor: Colors.white,

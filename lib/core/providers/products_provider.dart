@@ -2,6 +2,8 @@ import 'package:selendra_marketplace_app/core/models/products.dart';
 import 'package:flutter/material.dart';
 
 class ProductsProvider with ChangeNotifier {
+
+  final String myImageUrl = 'https://purepng.com/public/uploads/medium/purepng.com-single-carrotcarrotonesinglevegetablesfreshdeliciousefoodhealthy-481521740676q8i3l.png';
   //LIST OF ALL PRODUCTS
   List<Product> _items = [
     Product(
@@ -190,7 +192,7 @@ class ProductsProvider with ChangeNotifier {
         title: _title,
         price: _price,
         description: _description,
-        image: "images/new-house.jpg",
+        image: myImageUrl,
         sellerName: sellerName,
         sellerPhoneNum: sellerPhone,
         orderQty: 1,

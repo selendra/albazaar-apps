@@ -174,7 +174,7 @@ class AuthProvider with ChangeNotifier {
   Future<String> signInByPhone(String phone, String password, context) async {
     print(phone);
     print(password);
-    var response = await http.post(ApiUrl.LOG_IN_PHONE,
+    var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone",//ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
           'phone': phone,

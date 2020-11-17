@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -21,10 +22,8 @@ class _BodyState extends State<Body> {
   String _error = 'No Error Dectected';
 
   // BuildContext context;
-
   void routeA() async {
-    String resultOfC = await Navigator.push(
-        context,
+    String resultOfC = await Navigator.push(context,
         MaterialPageRoute(
             builder: (context) => CategoriesListScreen(category)));
     print(resultOfC);
@@ -33,11 +32,27 @@ class _BodyState extends State<Body> {
     });
   }
 
-  bool toSeller() {
-    Navigator.push(
+  void onChanged(String value){
+    print("On changed $value");
+    if (
+      _addProduct.title.text.isNotEmpty &&
+      _addProduct.price.text.isNotEmpty
+    ) enableButton(true);
+    else if (_addProduct.enable1) enableButton(false);
+  }
+
+  void enableButton(bool enable){
+    setState((){
+      _addProduct.enable1 = enable;
+    });
+  }
+
+  void toSeller() async {
+    var response = await Navigator.push(
       context, 
       MaterialPageRoute(builder: (context) => FillSeller(addProduct: _addProduct,))
     );
+    if (response) Navigator.pop(context);
     // setState(() {
     //   if (_addProduct.formKeyDetail.currentState.validate() &&
     //       _addProduct.formKeySeller.currentState.validate()) {
@@ -67,59 +82,72 @@ class _BodyState extends State<Body> {
     // return false;
   }
 
-  Widget buildGridView() {
-    return Container(
-      height: 200,
-      margin: EdgeInsets.only(top: 10.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: kDefaultColor),
-        borderRadius: BorderRadius.circular(kDefaultRadius),
-      ),
-      child: GridView.count(
-        crossAxisCount: 3,
-        children: List.generate(images.length, (index) {
-          Asset asset = images[index];
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ImageList(images),
-                  ),
-                );
-              },
-              child: Stack(
-                children: [
-                  AssetThumb(
-                    quality: 100,
-                    asset: asset,
-                    width: 300,
-                    height: 300,
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          images.remove(asset);
-                        });
-                      },
-                      child: Icon(
-                        Icons.remove_circle,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }),
+  Widget buildGridView(Function loadAssets) {
+    return GestureDetector(
+      onTap: loadAssets,
+      child: Container(
+        height: 200,
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 10.0),
+        decoration: BoxDecoration(
+          border: Border.all(color: kDefaultColor),
+          borderRadius: BorderRadius.circular(kDefaultRadius),
+        ),
+        child: SvgPicture.asset('images/icons/add_image.svg')
       ),
     );
+    // Container(
+    //   height: 200,
+    //   margin: EdgeInsets.only(top: 10.0),
+    //   decoration: BoxDecoration(
+    //     border: Border.all(color: kDefaultColor),
+    //     borderRadius: BorderRadius.circular(kDefaultRadius),
+    //   ),
+    //   child: GridView.count(
+    //     crossAxisCount: 3,
+    //     children: List.generate(images.length, (index) {
+    //       Asset asset = images[index];
+    //       return Container(
+    //         margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+    //         child: GestureDetector(
+    //           onTap: () {
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                 builder: (context) => ImageList(images),
+    //               ),
+    //             );
+    //           },
+    //           child: Stack(
+    //             children: [
+    //               AssetThumb(
+    //                 quality: 100,
+    //                 asset: asset,
+    //                 width: 300,
+    //                 height: 300,
+    //               ),
+    //               Positioned(
+    //                 top: 0,
+    //                 right: 0,
+    //                 child: InkWell(
+    //                   onTap: () {
+    //                     setState(() {
+    //                       images.remove(asset);
+    //                     });
+    //                   },
+    //                   child: Icon(
+    //                     Icons.remove_circle,
+    //                     color: Colors.red,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     }),
+    //   ),
+    // );
   }
 
   Future<void> loadAssets() async {
@@ -193,21 +221,16 @@ class _BodyState extends State<Body> {
                 margin: EdgeInsets.only(right: 18, left: 18),
                 child: ReuseButton.getItem(
                   'Next',//AppLocalizeService.of(context).translate('Next'), 
-                  null,
-                  // () {
-                  //   toSeller();
-                  // // if (toSeller()) {
-                  // //   value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
-                  // //       _addProduct.contactName.text, _addProduct.phoneNumber.text);
-                  // // }
-                  // }, 
+                  !_addProduct.enable1 ? null : () {
+                    toSeller();
+                  // if (toSeller()) {
+                  //   value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
+                  //       _addProduct.contactName.text, _addProduct.phoneNumber.text);
+                  // }
+                  }, 
                   context
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              _readPolicy(),
               // _sellerDetail(),
             ],
           ),
@@ -226,15 +249,12 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('pick_image'),
-                loadAssets,
-                context),
-            images.isNotEmpty
-                ? buildGridView()
-                : Container(
-                    height: 0,
-                  ),
+            // images.isNotEmpty
+            //     ? 
+            buildGridView(loadAssets),
+                // : Container(
+                //     height: 0,
+                //   ),
             SizedBox(
               height: 10,
             ),
@@ -306,6 +326,7 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
+      onChanged: onChanged,
       // onSaved: (newValue) => _addProduct.price. = newValue,
     );
   }
@@ -359,32 +380,35 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('title_is_empty')
           : null,
+      onChanged: onChanged,
       // onSaved: (value) => _title = value,
     );
   }
 
   Widget _nameField() {
     return ReuseTextField(
-      controller: _addProduct.contactName,
+      controller: _addProduct.sellerName,
       labelText: AppLocalizeService.of(context).translate('name'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('contact_name_is_empty')
           : null,
+      onChanged: onChanged
       // onSaved: (value) => _contactName = value,
     );
   }
 
   Widget _phoneNumberField() {
     return ReuseTextField(
-      controller: _addProduct.phoneNumber,
+      controller: _addProduct.sellerNumber,
       labelText: AppLocalizeService.of(context).translate('phone_hint'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('phone_number_is_empty')
           : null,
+      onChanged: onChanged
       // onSaved: (value) => _phoneNumber = value,
     );
   }
@@ -413,26 +437,6 @@ class _BodyState extends State<Body> {
       child: ReuseTextField(
         labelText: AppLocalizeService.of(context).translate('city_province'),
         textInputAction: TextInputAction.done,
-      ),
-    );
-  }
-
-  Widget _readPolicy() {
-    return Container(
-      height: 150,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: <Widget>[
-          FlatButton(
-            child: Text(AppLocalizeService.of(context).translate('policy')),
-            onPressed: () {
-              print('Rule & Policy');
-            },
-          ),
-          Expanded(
-            child: Container(),
-          )
-        ],
       ),
     );
   }

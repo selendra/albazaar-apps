@@ -19,7 +19,8 @@ class ReuseTextField extends StatefulWidget {
     this.onTap,
     this.initialValue,
     this.maxLine,
-    this.focusNode});
+    this.focusNode
+  });
 
   final TextEditingController controller;
   final Key fieldKey;
