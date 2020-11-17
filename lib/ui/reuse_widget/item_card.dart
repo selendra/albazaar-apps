@@ -57,16 +57,16 @@ class ItemCard extends StatelessWidget {
                 // products is out demo list
                 product.title,
                 style: TextStyle(
-                    // color: Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600),
+                  // color: Colors.black,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${product.price} /" +
-                    AppLocalizeService.of(context).translate('kilogram'),
+                "\$${product.price} /" + AppLocalizeService.of(context).translate('kilogram'),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,

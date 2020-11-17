@@ -9,8 +9,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  
   ScrollController _controller;
-
+  ProductsProvider productsProvider;
   // void filterSearchResults(String query) {} //Now u
 
   @override
@@ -18,6 +19,8 @@ class _BodyState extends State<Body> {
     super.initState();
     _controller = ScrollController();
   }
+
+  
 
   @override
   void dispose() {
@@ -27,19 +30,28 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<ProductsProvider>(context);
+    productsProvider = Provider.of<ProductsProvider>(context);
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       controller: _controller,
       child: Container(
         child: Column(
           children: <Widget>[
+
+            RaisedButton(
+              onPressed: (){
+                setState(() {
+                  
+                });
+              },
+              child: Text("Hell"),
+            ),
             //SearchBar(),
             SizedBox(
               height: 10,
             ),
             CategoriesScreen(category),
-            ProductList(productsData.items),
+            ProductList(productsProvider.data),
           ],
         ),
       ),

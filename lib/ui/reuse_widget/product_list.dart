@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/models/products.dart';
 
 class ProductList extends StatefulWidget {
+  
   final List<Product> productsData;
   ProductList(this.productsData);
 

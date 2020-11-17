@@ -5,6 +5,8 @@ class AddProduct {
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 
+  List<Asset> images = List<Asset>();
+
   bool enable1 = false;
   bool enable2 = false;
 
@@ -27,4 +29,16 @@ class AddProduct {
   FocusNode categoriesNode = FocusNode();
   FocusNode districtNode = FocusNode();
   FocusNode cityNode = FocusNode();
+
+  void dispose(){
+    title.dispose();
+    price.dispose();
+    description.dispose();
+    sellerName.dispose();
+    sellerNumber.dispose();
+    address.dispose();
+    categories.dispose();
+    district.dispose();
+    city.dispose();
+  }
 }

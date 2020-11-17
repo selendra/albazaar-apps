@@ -18,7 +18,6 @@ class _BodyState extends State<Body> {
 
   AddProduct _addProduct = AddProduct();
 
-  List<Asset> images = List<Asset>();
   String _error = 'No Error Dectected';
 
   // BuildContext context;
@@ -33,8 +32,8 @@ class _BodyState extends State<Body> {
   }
 
   void onChanged(String value){
-    print("On changed $value");
     if (
+      _addProduct.images.length != 0 &&
       _addProduct.title.text.isNotEmpty &&
       _addProduct.price.text.isNotEmpty
     ) enableButton(true);
@@ -50,7 +49,7 @@ class _BodyState extends State<Body> {
   void toSeller() async {
     var response = await Navigator.push(
       context, 
-      MaterialPageRoute(builder: (context) => FillSeller(addProduct: _addProduct,))
+      MaterialPageRoute(builder: (context) => FillSeller(addProduct: _addProduct))
     );
     if (response) Navigator.pop(context);
     // setState(() {
@@ -83,71 +82,71 @@ class _BodyState extends State<Body> {
   }
 
   Widget buildGridView(Function loadAssets) {
-    return GestureDetector(
-      onTap: loadAssets,
-      child: Container(
-        height: 200,
-        width: double.infinity,
-        margin: EdgeInsets.only(top: 10.0),
-        decoration: BoxDecoration(
-          border: Border.all(color: kDefaultColor),
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-        ),
-        child: SvgPicture.asset('images/icons/add_image.svg')
-      ),
-    );
-    // Container(
-    //   height: 200,
-    //   margin: EdgeInsets.only(top: 10.0),
-    //   decoration: BoxDecoration(
-    //     border: Border.all(color: kDefaultColor),
-    //     borderRadius: BorderRadius.circular(kDefaultRadius),
-    //   ),
-    //   child: GridView.count(
-    //     crossAxisCount: 3,
-    //     children: List.generate(images.length, (index) {
-    //       Asset asset = images[index];
-    //       return Container(
-    //         margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-    //         child: GestureDetector(
-    //           onTap: () {
-    //             Navigator.push(
-    //               context,
-    //               MaterialPageRoute(
-    //                 builder: (context) => ImageList(images),
-    //               ),
-    //             );
-    //           },
-    //           child: Stack(
-    //             children: [
-    //               AssetThumb(
-    //                 quality: 100,
-    //                 asset: asset,
-    //                 width: 300,
-    //                 height: 300,
-    //               ),
-    //               Positioned(
-    //                 top: 0,
-    //                 right: 0,
-    //                 child: InkWell(
-    //                   onTap: () {
-    //                     setState(() {
-    //                       images.remove(asset);
-    //                     });
-    //                   },
-    //                   child: Icon(
-    //                     Icons.remove_circle,
-    //                     color: Colors.red,
-    //                   ),
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       );
-    //     }),
+    // return GestureDetector(
+    //   onTap: loadAssets,
+    //   child: Container(
+    //     height: 200,
+    //     width: double.infinity,
+    //     margin: EdgeInsets.only(top: 10.0),
+    //     decoration: BoxDecoration(
+    //       border: Border.all(color: kDefaultColor),
+    //       borderRadius: BorderRadius.circular(kDefaultRadius),
+    //     ),
+    //     child: images.length > 0 ? ImageList(images) : SvgPicture.asset('images/icons/add_image.svg')
     //   ),
     // );
+    return Container(
+      height: 200,
+      margin: EdgeInsets.only(top: 10.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: kDefaultColor),
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+      ),
+      child: GridView.count(
+        crossAxisCount: 3,
+        children: List.generate(_addProduct.images.length, (index) {
+          Asset asset = _addProduct.images[index];
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ImageList(_addProduct.images),
+                  ),
+                );
+              },
+              child: Stack(
+                children: [
+                  AssetThumb(
+                    quality: 100,
+                    asset: asset,
+                    width: 300,
+                    height: 300,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          _addProduct.images.remove(asset);
+                        });
+                      },
+                      child: Icon(
+                        Icons.remove_circle,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
+      ),
+    );
   }
 
   Future<void> loadAssets() async {
@@ -158,7 +157,7 @@ class _BodyState extends State<Body> {
       resultList = await MultiImagePicker.pickImages(
         maxImages: 8,
         enableCamera: false,
-        selectedAssets: images,
+        selectedAssets: _addProduct.images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
           actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
@@ -178,7 +177,7 @@ class _BodyState extends State<Body> {
     if (!mounted) return;
 
     setState(() {
-      images = resultList;
+      _addProduct.images = resultList;
       _error = error;
       print(_error);
     });
@@ -249,12 +248,17 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            // images.isNotEmpty
-            //     ? 
-            buildGridView(loadAssets),
-                // : Container(
-                //     height: 0,
-                //   ),
+            ReuseButton.getItem(
+              AppLocalizeService.of(context).translate('pick_image'),
+              loadAssets,
+              context
+            ),
+            _addProduct.images.isNotEmpty
+            ? buildGridView(loadAssets)
+            : Container(
+              height: 0,
+            ),
+
             SizedBox(
               height: 10,
             ),

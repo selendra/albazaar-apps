@@ -64,9 +64,8 @@ class _HomeScreenState extends State<HomeScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                      child:
-                          Image.asset('images/logo.png', width: 30, height: 30),
-                      padding: EdgeInsets.only(right: 5)),
+                    child: Image.asset('images/logo.png', width: 30, height: 30),
+                    padding: EdgeInsets.only(right: 5)),
                   Text(
                     'SELENDRA',
                     style: TextStyle(
