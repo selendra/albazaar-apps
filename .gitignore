@@ -26,6 +26,10 @@
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.flutter-plugins-dependencies~origin_dev
+.flutter-plugins~origin_dev
+.packages~origin_dev
+.flutter_01.sksl.json
 .packages
 .pub-cache/
 .pub/
