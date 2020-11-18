@@ -10,7 +10,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   ScrollController _controller;
-
+  ProductsProvider productsProvider;
   // void filterSearchResults(String query) {} //Now u
 
   @override
@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<ProductsProvider>(context);
+    productsProvider = Provider.of<ProductsProvider>(context);
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       controller: _controller,
@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             CategoriesScreen(category),
-            ProductList(productsData.items),
+            ProductList(productsProvider.data),
           ],
         ),
       ),

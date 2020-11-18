@@ -270,6 +270,10 @@ class _PinScreenState extends State<PinScreen> {
     return Container(
       height: 50,
       child: IntlPhoneField(
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(9),
+          FilteringTextInputFormatter.digitsOnly
+        ],
         decoration: InputDecoration(
           labelText: AppLocalizeService.of(context).translate('phone_hint'),
           labelStyle: TextStyle(color: Colors.grey),

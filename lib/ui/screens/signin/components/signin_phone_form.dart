@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-String _phoneNumber, _password;
+TextEditingController _phoneNumber = TextEditingController(), _password = TextEditingController();
 
 class SignInPhoneForm extends StatelessWidget {
+  
   final Function signInPhoneFunc;
   final Function facebookSignIn;
   final Function googleSignIn;
@@ -15,12 +17,12 @@ class SignInPhoneForm extends StatelessWidget {
   final _phoneFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
-    if (_phoneFormKey.currentState.validate()) {
-      _phoneFormKey.currentState.save();
-      print(_phoneNumber);
-      print(_password);
-      signInPhoneFunc(_phoneNumber, _password);
-    }
+    print(_phoneNumber.text);
+    print(_password.text);
+    signInPhoneFunc(_phoneNumber.text, _password.text);
+    // if (_phoneFormKey.currentState.validate()) {
+    //   // _phoneFormKey.currentState.save();
+    // }
   }
 
   @override
@@ -32,23 +34,39 @@ class SignInPhoneForm extends StatelessWidget {
         key: _phoneFormKey,
         child: Column(
           children: [
-            _phoneCodePick(context),
+            IntlPhoneField(
+              controller: _phoneNumber,
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.grey),
+                labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kDefaultColor),
+                  borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.greenAccent),
+                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+              ),
+              initialCountryCode: 'KH',
+              validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+              // onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
+            ),
             SizedBox(
               height: 10,
             ),
             ReusePwField(
+              controller: _password,
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')
                   : null,
-              onSaved: (value) => _password = value,
+              // onSaved: (value) => _password = value,
             ),
             Container(
               alignment: Alignment.centerRight,
               child: FlatButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, RouteAnimation(enterPage: ResetPassPhone()));
+                  Navigator.push(context, RouteAnimation(enterPage: ResetPassPhone()));
                 },
                 child: RichText(
                   text: TextSpan(
@@ -87,25 +105,6 @@ class SignInPhoneForm extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _phoneCodePick(context) {
-    return IntlPhoneField(
-      decoration: InputDecoration(
-        labelStyle: TextStyle(color: Colors.grey),
-        labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kDefaultColor),
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.greenAccent),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-      ),
-      initialCountryCode: 'KH',
-      validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-      onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
     );
   }
 

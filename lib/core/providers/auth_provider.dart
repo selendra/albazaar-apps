@@ -182,7 +182,9 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
-    var response = await http.post(ApiUrl.LOG_IN_PHONE,
+    print(phone);
+    print(password);
+    var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone",//ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
           'phone': phone,

@@ -9,8 +9,11 @@ class ReusePwField extends StatefulWidget {
       this.onSaved,
       this.validator,
       this.onFieldSubmitted,
-      this.onTap});
+      this.onTap,
+      this.controller
+    });
 
+  final TextEditingController controller;
   final Key fieldKey;
   final int maxLength;
   final String labelText;
@@ -30,6 +33,7 @@ class _ReusePwFieldState extends State<ReusePwField> {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        controller: widget.controller,
         key: widget.fieldKey,
         onTap: widget.onTap,
         obscureText: _obscureText,
