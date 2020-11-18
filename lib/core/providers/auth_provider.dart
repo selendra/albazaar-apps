@@ -17,12 +17,6 @@ class AuthProvider with ChangeNotifier {
 
   PrefService _pref = PrefService();
 
-  getToken() async {
-    await _pref.read('token').then((onValue) {
-      _token = onValue;
-    });
-  }
-
   String get token => _token;
 
   Future<String> signInWithGoogle(BuildContext context) async {
@@ -72,12 +66,21 @@ class AuthProvider with ChangeNotifier {
             facebookLoginResult.accessToken;
         final AuthCredential credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
-        print(facebookAccessToken.token);
+//print(facebookAccessToken.token);
+        print('userId :' + facebookAccessToken.userId);
+        print(facebookAccessToken);
+        final graphResponse = await http.get(
+            'https://graph.facebook.com/${facebookAccessToken.userId}?fields=picture.width(720).height(720)&redirect=false&access_token=${facebookAccessToken.token}');
+
+        final profile = json.decode(graphResponse.body);
+        print(profile);
+        print(profile['picture']['data']['url']);
+
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
         print(credential);
-        Provider.of<UserProvider>(context, listen: false)
-            .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+        Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
+            user.email, user.displayName, profile['picture']['data']['url']);
         print(user.photoUrl);
 
         assert(user.email != null);
@@ -146,9 +149,15 @@ class AuthProvider with ChangeNotifier {
         print(_token);
         if (_token != null) {
           _pref.saveString('token', _token);
-          Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-          // Provider.of<ProductsProvider>(context, listen: false).getVegi();
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          Provider.of<UserProvider>(context, listen: false)
+              .fetchPortforlio()
+              .then((onValue) {
+            if (onValue == '200') {
+              Provider.of<UserProvider>(context, listen: false)
+                  .fetchUserPf(_token);
+              Navigator.pushReplacementNamed(context, BottomNavigationView);
+            }
+          });
         } else {
           _alertText = responseJson['message'];
           if (_alertText == null) {
@@ -158,6 +167,7 @@ class AuthProvider with ChangeNotifier {
         }
       } else {
         print(response.body);
+        _alertText = "Please try again later";
       }
       notifyListeners();
     } on SocketException {
@@ -206,6 +216,7 @@ class AuthProvider with ChangeNotifier {
       }
     } else {
       print(response.body);
+      _alertText = "Please try again later";
     }
     return _alertText;
   }
@@ -230,7 +241,7 @@ class AuthProvider with ChangeNotifier {
       ApiUrl.FORGET_BY_PHONE,
       headers: ApiHeader.headers,
       body: jsonEncode(
-        <String, String>{'phone': '+855' + phoneNumber},
+        <String, String>{'phone': phoneNumber},
       ),
     );
     if (response.statusCode == 200) {
@@ -375,6 +386,7 @@ class AuthProvider with ChangeNotifier {
       print(e.toString());
       _alertText = e.toString();
     }
+    print(_alertText);
     return _alertText;
   }
 

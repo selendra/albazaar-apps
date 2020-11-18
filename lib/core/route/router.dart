@@ -42,6 +42,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         enterPage: BottomNavigation(),
       );
       break;
+    case ResetChoiceView:
+      return RouteAnimation(enterPage: ResetChoice());
+      break;
     case SettingView:
       return RouteAnimation(enterPage: SettingScreen());
       break;

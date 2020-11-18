@@ -56,6 +56,11 @@ class UserProvider with ChangeNotifier {
     _mUser.profileImg = photoUrl;
   }
 
+  void setLocation(String location) {
+    _mUser.address = location;
+    notifyListeners();
+  }
+
   //UPDATE USER GENDER
   void setGender(String value) {
     mUser.gender = value;
@@ -117,7 +122,7 @@ class UserProvider with ChangeNotifier {
           print(wallet);
           _seed = responseBody['message']['seed'];
           if (_seed != null) {
-            print(_seed);
+            print('seed:' + _seed);
             _prefService.saveString('seed', _seed);
           }
         }

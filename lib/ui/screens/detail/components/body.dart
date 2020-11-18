@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,19 +27,37 @@ class Body extends StatelessWidget {
               leading: CircleShapeBtn(
                   () => Navigator.pop(context), Icons.arrow_back),
               actions: [
-                Container(
-                  margin: EdgeInsets.all(10.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.pushNamed(context, CartView);
-                      },
-                      child: Icon(
-                        Icons.shopping_cart,
-                        color: kDefaultColor,
-                      ),
+                Consumer<CartProvider>(
+                  builder: (context, value, child) => Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white.withOpacity(0.8),
+                      child: value.items.length == 0
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                color: kDefaultColor,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, CartView);
+                              })
+                          : Badge(
+                              position: BadgePosition.topEnd(top: 0, end: 3),
+                              animationDuration: Duration(milliseconds: 300),
+                              animationType: BadgeAnimationType.scale,
+                              badgeContent: Text(
+                                value.items.length.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.shopping_cart,
+                                    color: kDefaultColor,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, CartView);
+                                  }),
+                            ),
                     ),
                   ),
                 ),

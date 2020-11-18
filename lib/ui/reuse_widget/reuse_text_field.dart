@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/core/constants/constants.dart';
 
 class ReuseTextField extends StatefulWidget {
   const ReuseTextField(
+<<<<<<< HEAD
   {
     this.controller,
     this.fieldKey,
@@ -21,6 +22,24 @@ class ReuseTextField extends StatefulWidget {
     this.maxLine,
     this.focusNode
   });
+=======
+      {this.fieldKey,
+      this.labelText,
+      this.inputType,
+      this.onSaved,
+      this.validator,
+      this.onChanged,
+      this.prefixIcon,
+      this.hintText,
+      this.suffixIcon,
+      this.textInputAction,
+      this.onEditingComplete,
+      this.onTap,
+      this.initialValue,
+      this.maxLine,
+      this.focusNode,
+      this.controller});
+>>>>>>> chay
 
   final TextEditingController controller;
   final Key fieldKey;

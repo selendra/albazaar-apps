@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:badges/badges.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -114,15 +116,36 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
                 },
               ),
               SizedBox.shrink(),
-              IconButton(
-                icon: Icon(
-                  Icons.favorite,
-                  color: _selectedIndex == 2 ? kDefaultColor : _color,
-                  size: 30,
-                ),
-                onPressed: () {
-                  _onItemTapped(2);
-                },
+              Consumer<FavoriteProvider>(
+                builder: (context, value, child) => value.items.length == 0
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          size: 30,
+                          color: _selectedIndex == 2 ? kDefaultColor : _color,
+                        ),
+                        onPressed: () {
+                          _onItemTapped(2);
+                        })
+                    : Badge(
+                        position: BadgePosition.topEnd(top: 0, end: 3),
+                        animationDuration: Duration(milliseconds: 300),
+                        animationType: BadgeAnimationType.slide,
+                        badgeContent: Text(
+                          value.items.length.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 30,
+                              color:
+                                  _selectedIndex == 2 ? kDefaultColor : _color,
+                            ),
+                            onPressed: () {
+                              _onItemTapped(2);
+                            }),
+                      ),
               ),
               IconButton(
                 icon: Icon(

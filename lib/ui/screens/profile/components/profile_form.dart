@@ -12,6 +12,7 @@ class _ProfileFormState extends State<ProfileForm> {
 
   PrefService _prefService = PrefService();
   String _firstName, _midName, _lastName, _mGender;
+  final TextEditingController _shippingController = TextEditingController();
 
   void validataAndSubmit(Function setUserPf) {
     if (_formKey.currentState.validate()) {
@@ -93,7 +94,49 @@ class _ProfileFormState extends State<ProfileForm> {
                         value.mUser.email ?? _lang.translate('no_email')),
                     item(() {}, _lang.translate('phone_hint'),
                         value.mUser.phonenumber ?? 'phonenumber'),
-                    item(() {}, _lang.translate('shipping_address'), ''),
+                    item(() {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) => SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text('Add Shipping Address'),
+                                trailing: IconButton(
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: kDefaultColor,
+                                  ),
+                                  onPressed: () {
+                                    _formKey.currentState.save();
+                                    if (_shippingController.text != null) {
+                                      Navigator.pop(context);
+                                      data.setLocation(
+                                          _shippingController.text);
+                                    }
+                                  },
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(20.0),
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: ReuseTextField(
+                                  labelText: 'Shipping Address',
+                                  controller: _shippingController,
+                                  maxLine: 1,
+                                  // initialValue: _shippingController.text,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }, _lang.translate('shipping_address'),
+                        value.mUser.address ?? 'edit'),
                   ],
                 ),
               ),
@@ -106,7 +149,6 @@ class _ProfileFormState extends State<ProfileForm> {
                   (onValue) {
                     if (onValue != null) {
                       _formKey.currentState.save();
-
                       data
                           .setUserPf(_firstName, _midName ?? '', _lastName,
                               _mGender, context)
@@ -133,16 +175,22 @@ class _ProfileFormState extends State<ProfileForm> {
       onTap: onTap,
       splashColor: Colors.grey,
       child: ListTile(
-        title: Text(title),
-        trailing: Wrap(
-          children: [
-            Text(
+        title: Text(
+          title,
+          maxLines: 1,
+        ),
+        trailing: Container(
+          width: MediaQuery.of(context).size.width / 2.5,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
               trailing,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 12,
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
