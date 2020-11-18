@@ -282,7 +282,6 @@ class _PinScreenState extends State<PinScreen> {
               borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
         ),
         initialCountryCode: _countryCode,
-        maxLength: 10,
         validator: (value) => value = value.isEmpty
             ? AppLocalizeService.of(context).translate('phone_number_is_number')
             : null,
