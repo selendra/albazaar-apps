@@ -36,6 +36,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     return Container(
+      height: MediaQuery.of(context).size.height,
       child: Column(
         children: <Widget>[
           Container(
@@ -100,7 +101,7 @@ class _BodyState extends State<Body> {
             },
             splashColor: Colors.grey,
             child: ListTile(
-              title: Text('Reset Password'),
+              title: Text(_lang.translate('reset_password')),
               leading: Icon(
                 Icons.lock,
                 color: kDefaultColor,
