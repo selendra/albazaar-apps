@@ -53,6 +53,7 @@
     "district": "District",
     "city_province": "Province/City",
     "submit": "Submit",
+    "cereal": "Cereals",
     "meat": "Meat",
     "fruit": "Fruit",
     "drinks": "Drinks",
@@ -90,7 +91,7 @@
     "4digit_sent_to": "4-Digit Code was sent to: ",
     "resend_code": "Resend Code",
     "pick_image": "Pick Images",
-    "cereal": "Cereals",
+
     "enter_your_phone_number": "Enter your phone number",
     "wallet_information": "Wallet Information",
     "private_key": "Private Key",

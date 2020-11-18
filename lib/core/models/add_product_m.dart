@@ -41,4 +41,19 @@ class AddProduct {
     district.dispose();
     city.dispose();
   }
+
+  Product toProduct(AddProduct addProduct, String id, String image, String color){
+    return Product(
+      id: int.parse(id),
+      image: image,
+      title: addProduct.title.text,
+      price: double.parse(addProduct.price.text),
+      description: addProduct.description.text, 
+      color: color, 
+      sellerName: addProduct.sellerName.text, 
+      sellerPhoneNum: addProduct.sellerNumber.text, 
+      category: addProduct.categories.text, 
+      isFavorite: false
+    );
+  }
 }

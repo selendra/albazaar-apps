@@ -13,8 +13,7 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
   String stringFromResult;
 
   routB(context) async {
-    final resultC = await Navigator.push<String>(
-        context, MaterialPageRoute(builder: (context) => FoodCategories()));
+    final resultC = await Navigator.push<String>(context, MaterialPageRoute(builder: (context) => FoodCategories()));
     Navigator.pop(context, resultC );
     print(resultC);
   }

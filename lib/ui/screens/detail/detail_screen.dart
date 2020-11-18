@@ -8,8 +8,8 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context).settings.arguments as int;
-    final loadedProduct =
-        Provider.of<ProductsProvider>(context).findById(productId);
+    final loadedProduct = Provider.of<ProductsProvider>(context).findById(productId);
+    print("Loaded  product ${loadedProduct.category}");
     return Scaffold(
       body: Body(),
       bottomNavigationBar: BottomNavigationDetail(loadedProduct),

@@ -5,7 +5,12 @@ import 'package:selendra_marketplace_app/core/storage/storage.dart';
 
 class ProductsProvider with ChangeNotifier {
 
-  List<Product> data = List<Product>();
+  List<Product> data = [
+    Product(),
+    Product(),
+    Product(),
+    Product()
+  ];
 
   final String myImageUrl = 'https://purepng.com/public/uploads/medium/purepng.com-single-carrotcarrotonesinglevegetablesfreshdeliciousefoodhealthy-481521740676q8i3l.png';
 
@@ -17,8 +22,13 @@ class ProductsProvider with ChangeNotifier {
 
   Product findById(int id) => data.firstWhere((prod) => prod.id == id);
 
+  ProductsProvider(){
+    getData();
+  }
+
   Future<void> getData() async {
     await StorageServices.fetchData('fruit').then((value) async {
+      data.clear();
       if (value == null) {
         _http.Response response = await _http.get(
           'https://data.wa.gov/resource/tgdf-dvhm.json',
@@ -27,18 +37,14 @@ class ProductsProvider with ChangeNotifier {
           }
         );
         
-        List.from(json.decode(response.body)).forEach((element) {
-          data.addAll({
-            Product(
-              id: int.parse(element['id']),
-              image: myImageUrl,
-              title: element['fruit'],
-              price: double.parse(element['price']),
-            )
-          });
-        });
+        await fromDB(response);
+
+        print("From DB $data");
+
         await objectToJson(data).then((value) async => await StorageServices.setData(value, 'fruit'));
       } else {
+
+        print("From storage");
         jsonToObject(value);
       }
     });
@@ -50,60 +56,73 @@ class ProductsProvider with ChangeNotifier {
     List<Map<String, dynamic>> list = List<Map<String, dynamic>>();
     data.forEach((element) {
       list.add({
-        'id': element.id,
-        'image': element.image,
-        'title': element.title,
-        'fruit': element.fruit,
-        'flavor': element.flavor,
-        'price': element.orderQty,
-        'description': element.description,
-        'color': element.color,
-        'seller_name': element.sellerName,
-        'seller_phone': element.sellerPhoneNum,
-        'category': element.category,
-        'isFavority': element.isFavorite,
+        'id': element.id == null ? '' : element.id,
+        'image': element.image == null ? '' : element.image,
+        'title': element.title == null ? '' : element.title,
+        'price': element.orderQty == null ? '' : element.orderQty,
+        'description': element.description == null ? '' : element.description,
+        'color': element.color == null ? '' : element.color,
+        'seller_name': element.sellerName == null ? '' : element.sellerName,
+        'seller_phone': element.sellerPhoneNum == null ? '' : element.sellerPhoneNum,
+        'category': element.category == null ? '' : element.category,
+        'isFavority': element.isFavorite == null ? '' : element.isFavorite,
       });
     });
     return list;
   }
 
+  // Retrieve Data From Database
+  Future<void> fromDB(_http.Response response) async {
+    List.from(json.decode(response.body)).forEach((element) {
+      data.addAll({
+        Product(
+          id: element['id'] == null ? '' : int.parse(element['id']),
+          image: element['image'] == null ? '' : myImageUrl,
+          title: element['title'] == null ? '' : element['fruit'],
+          price: element['price'] == null ? '' : double.parse(element['price']),
+          description: element['description'] == null ? '' : element['description'], 
+          color: element['color'] == null ? '' : element['color'], 
+          sellerName: element['seller_name'] == null ? '' : element['seller_name'], 
+          sellerPhoneNum: element['seller_phone'] == null ? '' : element['seller_phone'], 
+          category: element['category'] == null ? '' : element['category'], 
+          isFavorite: element['isFavority'] == null ? '' : element['isFavority'] == '1' ? true : false
+        )
+      });
+    });
+  }
+
   // Extract Data From Json To Object
   Future<void> jsonToObject(List value) async {
     List.from(value).forEach((element) {
-      print(element['price'].toDouble().runtimeType.toString());
+      print("Category ${element['category']}");
       data.addAll({
         Product(
           id: element['id'].round(),
           image: element['image'],
           title: element['title'],
-          fruit: element['fruit'],
-          flavor: element['flavor'],
           price: element['price'].toDouble(),
           description: element['description'],
           color: element['color'],
           sellerName: element['seller_name'],
           sellerPhoneNum: element['seller_phone'],
           category: element['category'],
-          isFavorite: element['isFavority'] ? true : false,
+          isFavorite: element['isFavority'] == '1' ? true : false,
         )
       });
     });
   }
 
   //ADD NEW PRODUCT
-  void addItem(String _title, double _price, String _description,
-      String sellerName, String sellerPhone) {
-    data.add(Product(
-        id: 20,
-        title: _title,
-        price: _price,
-        description: _description,
-        image: "https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true",
-        sellerName: sellerName,
-        sellerPhoneNum: sellerPhone,
-        orderQty: 1,
-        color: 'FF3D82AE'
-    ));
+  void addItem(AddProduct newProduct) {
+    
+    data.add(
+      newProduct.toProduct(
+        newProduct, 
+        "12", 
+        'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
+        'FF3D82AE'
+      )
+    );
     objectToJson(data).then((value) async => { await StorageServices.setData(value, 'fruit')})
     ;
     notifyListeners();

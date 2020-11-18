@@ -24,15 +24,14 @@ class _SplashScreenState extends State<SplashScreen>
     //READ TOKEN
     _pref.read('token').then(
       (value) async {
+      print("Token $value");
         if (value != null) {
           await UserProvider().fetchPortforlio().then(
             (onValue) {
               //CHECK IF TOKEN IS VALID
-              print(onValue);
               if (onValue == '200') {
                 //FETCH USER PROFILE AND NAVIGATE
-                Provider.of<UserProvider>(context, listen: false)
-                    .fetchUserInfo();
+                Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
                 //Provider.of<ProductsProvider>(context, listen: false).getVegi();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
@@ -48,9 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
             (value) {
               if (value != null) {
                 //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
-                Provider.of<UserProvider>(context, listen: false)
-                    .fetchSocialUserInfo(
-                        value.email, value.displayName, value.photoUrl);
+                Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(value.email, value.displayName, value.photoUrl);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 Navigator.pushReplacementNamed(context, WelcomeView);
@@ -85,8 +82,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     //PRECACH SVG IMAGES
     for (int i = 0; i < svg.length; i++) {
-      precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
 
     //SET LANGUAGE

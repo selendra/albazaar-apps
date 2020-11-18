@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  String _character = 'Payment Method';
+  setVal(String val) {
+    setState(() {
+      _character = val;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
@@ -11,94 +22,25 @@ class Body extends StatelessWidget {
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: [
-            Card(
-              elevation: 0,
-              shape: kDefaultShape,
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(
-                        'Total Price',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  Consumer<CartProvider>(
-                    builder: (context, value, child) => Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          '\$ ${value.totalAmount}',
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            fontWeight: FontWeight.bold,
-                            color: kDefaultColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.0),
+            TotalPriceCard(),
+            ShippingInformation(),
+            PaymentMethod(_character, setVal),
             Card(
               elevation: 0,
               shape: kDefaultShape,
               child: Container(
-                margin: EdgeInsets.all(10.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      ReuseTextField(
-                        labelText: _lang.translate('name'),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('phone'),
-                      ),
-                      SizedBox(height: 10),
-                      ReuseTextField(
-                        labelText: _lang.translate('email'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('postcode'),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ReuseTextField(
-                        labelText: _lang.translate('shipping_address'),
-                      ),
-                    ],
+                child: ListTile(
+                  title: Text(
+                    '6 items selected',
+                    style:
+                        TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ),
-            ),
-            Card(
-              elevation: 0,
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                child: ReuseTextField(
-                  labelText: _lang.translate('order_note'),
-                  maxLine: 2,
+                  leading: Icon(Icons.local_grocery_store),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             Container(
               margin: EdgeInsets.all(10.0),

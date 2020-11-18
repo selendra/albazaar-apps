@@ -37,15 +37,6 @@ class _BodyState extends State<Body> {
       child: Container(
         child: Column(
           children: <Widget>[
-
-            RaisedButton(
-              onPressed: (){
-                setState(() {
-                  
-                });
-              },
-              child: Text("Hell"),
-            ),
             //SearchBar(),
             SizedBox(
               height: 10,

@@ -61,17 +61,20 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 60,
-        //margin: EdgeInsets.symmetric(vertical: 5.0),
-        width: MediaQuery.of(context).size.width,
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: allCategories.length,
-            itemBuilder: (context, index) {
-              return itemCategory(() {
-                itemTap(index, context, allCategories[index].img);
-              }, allCategories[index].img);
-            }));
+      height: 60,
+      //margin: EdgeInsets.symmetric(vertical: 5.0),
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: allCategories.length,
+        itemBuilder: (context, index) {
+          return itemCategory(() {
+            itemTap(index, context, allCategories[index].img);
+          }, allCategories[index].img);
+        }
+      )
+    );
   }
 }

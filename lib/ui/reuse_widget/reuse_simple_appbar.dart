@@ -7,7 +7,7 @@ class ReuseSimpleAppBar {
       //backgroundColor: Colors.white,
       elevation: 0,
       brightness: Brightness.light,
-      centerTitle: true,
+      // centerTitle: true,
       title: Text(
         title,
         style: TextStyle(

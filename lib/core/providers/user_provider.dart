@@ -56,6 +56,11 @@ class UserProvider with ChangeNotifier {
     _mUser.profileImg = photoUrl;
   }
 
+  void setLocation(String location) {
+    _mUser.address = location;
+    notifyListeners();
+  }
+
   //UPDATE USER GENDER
   void setGender(String value) {
     mUser.gender = value;
@@ -65,7 +70,7 @@ class UserProvider with ChangeNotifier {
 
   //USER UPDATE THEIR PROFILE INFORMATION
   Future<String> setUserPf(String firstName, String midName, String lastName,
-      String gender, context) async {
+      String gender, BuildContext context) async {
     await _prefService.read('token').then((value) async {
       print(value);
       var response = await http.post(
@@ -117,7 +122,7 @@ class UserProvider with ChangeNotifier {
           print(wallet);
           _seed = responseBody['message']['seed'];
           if (_seed != null) {
-            print(_seed);
+            print('seed:' + _seed);
             _prefService.saveString('seed', _seed);
           }
         }

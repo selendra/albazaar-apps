@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
-class   Product with ChangeNotifier {
+class Product with ChangeNotifier {
 
-  final String image, fruit, title, flavor, description, sellerName, sellerPhoneNum, category;
+  String image, title, description, sellerName, sellerPhoneNum, category;
   final int id;
-  final double price;
-  final String color;
+  double price;
+  String color;
   int orderQty;
   bool isFavorite;
   Product({
     this.id = 0,
     this.image = '',
     this.title = '',
-    this.fruit = '',
-    this.flavor = '',
     this.price = 0.0,
     this.orderQty = 0,
     this.description = '',

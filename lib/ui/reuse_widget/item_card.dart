@@ -19,6 +19,14 @@ class ItemCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black54.withOpacity(0.2),
+          //     blurRadius: 10.0,
+          //     spreadRadius: 1.0,
+          //     offset: Offset(1.0, 1.0),
+          //   )
+          // ]
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +53,7 @@ class ItemCard extends StatelessWidget {
                       child: Text('Loading...'),
                     ),
                     fit: BoxFit.cover,
-                    image: NetworkImage(product.image),
+                    image: product.image.isNotEmpty ? NetworkImage(product.image) : AssetImage('images/loading.gif'),
                     placeholder: AssetImage('images/loading.gif'),
                   ),
                 ),

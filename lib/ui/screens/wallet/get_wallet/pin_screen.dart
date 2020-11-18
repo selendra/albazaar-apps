@@ -141,6 +141,8 @@ class _PinScreenState extends State<PinScreen> {
         _pref.read('seed').then((onValue) {
           if (onValue != null) {
             _displayWalletInfo(context, onValue);
+          } else {
+            print('seed null');
           }
         });
       }
