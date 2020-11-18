@@ -9,7 +9,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  
   ScrollController _controller;
   ProductsProvider productsProvider;
   // void filterSearchResults(String query) {} //Now u
@@ -19,8 +18,6 @@ class _BodyState extends State<Body> {
     super.initState();
     _controller = ScrollController();
   }
-
-  
 
   @override
   void dispose() {
@@ -37,15 +34,6 @@ class _BodyState extends State<Body> {
       child: Container(
         child: Column(
           children: <Widget>[
-
-            RaisedButton(
-              onPressed: (){
-                setState(() {
-                  
-                });
-              },
-              child: Text("Hell"),
-            ),
             //SearchBar(),
             SizedBox(
               height: 10,
