@@ -10,9 +10,9 @@ class UserProvider with ChangeNotifier {
   String alertText;
   PrefService _prefService = PrefService();
 
-  //Fetch user information from endpoint
+  //Fetch user profile from Api
   Future<void> fetchUserPf(String _token) async {
-    //Wait for endpoint to response
+    //This response variable is user to the repsonse from requesting to api
     var response =
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
@@ -61,14 +61,14 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //UPDATE USER GENDER
+  //Update user gender
   void setGender(String value) {
     mUser.gender = value;
     print(mUser.gender);
     notifyListeners();
   }
 
-  //USER UPDATE THEIR PROFILE INFORMATION
+  //This function is use to update user profile information to the Api
   Future<String> setUserPf(String firstName, String midName, String lastName,
       String gender, context) async {
     await _prefService.read('token').then((value) async {
@@ -102,7 +102,7 @@ class UserProvider with ChangeNotifier {
     return alertText;
   }
 
-  //USER REQUEST TO GET THEIR PEER TO PEER WALLET
+  //This function is use to request wallet from the api
   Future<String> getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
       var response = await http.post(ApiUrl.GET_WALLET,
@@ -134,7 +134,7 @@ class UserProvider with ChangeNotifier {
     return alertText;
   }
 
-  //FETCH PORTFORLIO OF THE USER
+  //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
     await _prefService.read('token').then((onValue) async {
       var response =

@@ -13,6 +13,8 @@ export 'ui/reuse_widget/bottom_navigation.dart';
 
 //add listing screen
 export 'ui/screens/addlisting/add_listing.dart';
+export 'ui/screens/addlisting/fill_seller/fill_seller.dart';
+export 'ui/screens/addlisting/components/image_list.dart';
 
 //listing screen
 export 'ui/screens/listing/listing_screen.dart';
@@ -40,6 +42,8 @@ export 'ui/screens/detail/detail_screen.dart';
 export 'ui/screens/detail/components/btn_qty.dart';
 export 'ui/screens/detail/components/btn_add_to_cart.dart';
 export 'ui/screens/detail/components/circle_shape_btn.dart';
+export 'ui/screens/detail/components/sell_info.dart';
+export 'ui/screens/detail/components/related_product.dart';
 
 //favorite screen
 export 'ui/screens/favorite/favorite_screen.dart';

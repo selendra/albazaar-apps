@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'sell_info.dart';
-import 'related_product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class Body extends StatelessWidget {

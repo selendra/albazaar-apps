@@ -104,8 +104,6 @@
     "reset_password": "Reset Password",
     "reset_password_by_email": "Reset Password by email",
     "reset_password_by_phone": "Reset Password by phone",
-    "reset_wallet_pin": "Reset Wallet Pin"
-
-
-
+    "reset_wallet_pin": "Reset Wallet Pin",
+    "skip": "Skip"
 }

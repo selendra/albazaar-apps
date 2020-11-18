@@ -104,5 +104,6 @@
     "reset_password": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
     "reset_password_by_email": "កំណត់លេខសម្ងាត់ឡើងវិញតាមអ៊ីមែល",
     "reset_password_by_phone": "កំណត់លេខសម្ងាត់ឡើងវិញតាមទូរស័ព្ទ",
-    "reset_wallet_pin": "កំណត់កូដ PIN កាបូបឡើងវិញ"
+    "reset_wallet_pin": "កំណត់កូដ PIN កាបូបឡើងវិញ",
+    "skip": "រំលង"
 }

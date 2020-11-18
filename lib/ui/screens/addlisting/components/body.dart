@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_seller.dart';
-import 'image_list.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -46,8 +44,10 @@ class _BodyState extends State<Body> {
   void toSeller() async {
     var response = await Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => FillSeller(addProduct: _addProduct)));
+        RouteAnimation(
+            enterPage: FillSeller(
+          addProduct: _addProduct,
+        )));
     if (response) Navigator.pop(context);
     // setState(() {
     //   if (_addProduct.formKeyDetail.currentState.validate() &&
