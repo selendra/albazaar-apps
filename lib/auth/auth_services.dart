@@ -3,12 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+// import 'package:selendra_marketplace_app/screens/welcome/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-
-
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -17,8 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
   String name="";
   String email="";
   String imageUrl="";
-
-  
   
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -43,6 +38,7 @@ import 'package:shared_preferences/shared_preferences.dart';
     imageUrl = user.photoUrl;
 
     assert(!user.isAnonymous);
+    
     assert(await user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();

@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+import 'components/intro_slide.dart';
+
+class IntroScreen extends StatefulWidget {
+  @override
+  _IntroScreenState createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  PageController _pageController;
+  //bool isPageCanChanged = true;
+  PrefService _pref = PrefService();
+  int currentIndex = 0;
+
+  List<Widget> slidePage = [
+    IntroSlide(
+      title: 'Trade & Exchange',
+      svgImage: 'images/undraw_Mobile_application.svg',
+      description:
+          'A Decentralized Marketplace that connect community of users together to trade and exchange goods and services freely, securely and fairly.',
+    ),
+    IntroSlide(
+      title: 'Secured Transactions',
+      svgImage: 'images/undraw_Mobile_application.svg',
+      description:
+          'The communication and transactiIons are done securely on Blockchain. Powered by Selendra Public Blockchain built with Substrates.',
+    ),
+    IntroSlide(
+      title: 'Start Trading Now',
+      svgImage: 'images/undraw_Mobile_application.svg',
+      description:
+          'A virtual market for goods and services exchange that empower community to take charge of their own goods and connect directly with buyers.',
+    ),
+  ];
+
+  void onPageChange(int value) async {
+    if (_pageController != null) {
+      // isPageCanChanged = false;
+      setState(() {
+        currentIndex = value;
+      });
+      print(value);
+      if (currentIndex > 2) {
+        print('final');
+      } else {
+        await _pageController.animateToPage(value,
+            duration: Duration(milliseconds: 400), curve: Curves.easeOut);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: [
+              PageView.builder(
+                controller: _pageController,
+                itemCount: slidePage.length,
+                onPageChanged: onPageChange,
+                itemBuilder: (context, index) => slidePage[index],
+              ),
+              ReuseIndicator(currentIndex),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        nextskipButton(() {
+                          _pref.saveString('isshow', 'seen');
+                          Navigator.pushReplacementNamed(context, WelcomeView);
+                        }, 'SKIP'),
+                        currentIndex >= 2
+                            ? nextskipButton(() {
+                                print('Let begin');
+                                _pref.saveString('isshow', 'seen');
+                                Navigator.pushReplacementNamed(
+                                    context, WelcomeView);
+                              }, 'LET\'S BEGIN')
+                            : nextskipButton(() {
+                                onPageChange(currentIndex + 1);
+                              }, 'NEXT'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget nextskipButton(Function func, String title) {
+    return FlatButton(
+      onPressed: func,
+      child: Text(
+        title,
+        style: TextStyle(color: kDefaultColor, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
