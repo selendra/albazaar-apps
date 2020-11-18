@@ -122,7 +122,7 @@ class UserProvider with ChangeNotifier {
           print(wallet);
           _seed = responseBody['message']['seed'];
           if (_seed != null) {
-            print(_seed);
+            print('seed:' + _seed);
             _prefService.saveString('seed', _seed);
           }
         }

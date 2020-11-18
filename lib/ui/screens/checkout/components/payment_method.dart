@@ -77,7 +77,10 @@ class _PaymentMethodState extends State<PaymentMethod> {
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
             ),
             leading: Icon(Icons.payment),
-            trailing: Icon(Icons.arrow_forward_ios),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: kDefaultColor,
+            ),
           ),
         ),
       ),
