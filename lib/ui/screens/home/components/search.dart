@@ -66,7 +66,7 @@ class SearchProducts extends SearchDelegate {
                 Navigator.of(context)
                     .pushNamed('/detail', arguments: searchProducts[index].id);
               },
-              title: Text(searchProducts[index].title),
+              title: Text(searchProducts[index].name),
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(searchProducts[index]._image),
               ),

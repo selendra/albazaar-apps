@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
@@ -47,6 +48,9 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<FavoriteProvider>(
           create: (context) => FavoriteProvider(),
         ),
+        ChangeNotifierProvider<AddProductProvider>(
+          create: (context) => AddProductProvider()
+        )
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

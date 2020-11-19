@@ -43,8 +43,7 @@ class AuthProvider with ChangeNotifier {
     assert(user.photoUrl != null);
 
     //getUserInfo(user);
-    Provider.of<UserProvider>(context, listen: false)
-        .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+    Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
 
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
@@ -187,11 +186,12 @@ class AuthProvider with ChangeNotifier {
     print(phone);
     print(password);
     var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone",//ApiUrl.LOG_IN_PHONE,
-        headers: ApiHeader.headers,
-        body: jsonEncode(<String, String>{
-          'phone': phone,
-          'password': password,
-        }));
+      headers: ApiHeader.headers,
+      body: jsonEncode(<String, String>{
+        'phone': phone,
+        'password': password,
+      })
+    );
     print(response.body);
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
@@ -200,12 +200,12 @@ class AuthProvider with ChangeNotifier {
 
       if (_token != null) {
         _pref.saveString('token', _token);
+        await StorageServices.setData(responseJson, 'user_token');
         Provider.of<UserProvider>(context, listen: false)
             .fetchPortforlio()
             .then((onValue) {
           if (onValue == '200') {
-            Provider.of<UserProvider>(context, listen: false)
-                .fetchUserPf(_token);
+            Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         });

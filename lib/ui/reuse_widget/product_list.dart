@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/core/providers/products_provider.dart';
 import 'item_card.dart';
 //import 'package:selendra_marketplace_app/core/providers/products_provider.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,9 @@ class _ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
+
+    var productsProvider = Provider.of<ProductsProvider>(context);
+    var data = Provider.of<AddProductProvider>(context);
     return Container(
       margin: EdgeInsets.only(top: 10.0),
       child: Padding(

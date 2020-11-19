@@ -1,4 +1,5 @@
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 
 class FillSellerBody extends StatelessWidget{
 
@@ -11,6 +12,8 @@ class FillSellerBody extends StatelessWidget{
   });
   
   Widget build(BuildContext context) {
+    var data = Provider.of<AddProductProvider>(context);
+    print(data.addProduct.shippingServics);
     return Form(
     // key: _formKeySeller,
       child: Container(
@@ -22,14 +25,30 @@ class FillSellerBody extends StatelessWidget{
               height: 10,
             ),
             ReuseTextField(
+              controller: addProduct.sellerName,
+              labelText: AppLocalizeService.of(context).translate('name'),
+              maxLine: 1,
+              textInputAction: TextInputAction.next,
+              inputType: TextInputType.text,
+              validator: (value) => value.isEmpty
+              ? AppLocalizeService.of(context).translate('contact_name_is_empty')
+              : null,
+              onChanged: onChanged,
+              // onSaved: (value) => _phoneNumber = value,
+            ),
+
+            SizedBox(
+              height: 10,
+            ),
+            ReuseTextField(
               controller: addProduct.sellerNumber,
               labelText: AppLocalizeService.of(context).translate('phone_hint'),
               maxLine: 1,
               textInputAction: TextInputAction.done,
               inputType: TextInputType.number,
               validator: (value) => value.isEmpty
-                  ? AppLocalizeService.of(context).translate('phone_number_is_empty')
-                  : null,
+              ? AppLocalizeService.of(context).translate('phone_number_is_empty')
+              : null,
               onChanged: onChanged,
               // onSaved: (value) => _phoneNumber = value,
             ),

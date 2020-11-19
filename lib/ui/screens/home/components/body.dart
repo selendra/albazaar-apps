@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -19,7 +20,6 @@ class _BodyState extends State<Body> {
     super.initState();
     _controller = ScrollController();
   }
-
   
 
   @override

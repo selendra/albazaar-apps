@@ -6,11 +6,14 @@ class AddProduct {
   final formKeySeller = GlobalKey<FormState>();
 
   List<Asset> images = List<Asset>();
+  List<Map<String, dynamic>> shippingServics = List<Map<String, dynamic>>();
 
   bool enable1 = false;
   bool enable2 = false;
 
-  TextEditingController title = TextEditingController();
+  String weight= '', paymentId = '';
+
+  TextEditingController name = TextEditingController();
   TextEditingController price =  TextEditingController();
   TextEditingController description = TextEditingController();
   TextEditingController sellerName = TextEditingController();
@@ -31,7 +34,7 @@ class AddProduct {
   FocusNode cityNode = FocusNode();
 
   void dispose(){
-    title.dispose();
+    name.dispose();
     price.dispose();
     description.dispose();
     sellerName.dispose();
@@ -46,7 +49,7 @@ class AddProduct {
     return Product(
       id: int.parse(id),
       image: image,
-      title: addProduct.title.text,
+      title: addProduct.name.text,
       price: double.parse(addProduct.price.text),
       description: addProduct.description.text, 
       color: color, 

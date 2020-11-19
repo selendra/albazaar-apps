@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class UserProvider with ChangeNotifier {
+
   var _mUser = new User();
   User get mUser => _mUser;
   String alertText;
@@ -13,8 +14,7 @@ class UserProvider with ChangeNotifier {
   //Fetch user information from endpoint
   Future<void> fetchUserPf(String _token) async {
     //Wait for endpoint to response
-    var response =
-        await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
+    var response = await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
       "authorization": "Bearer " + _token,
     });

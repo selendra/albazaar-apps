@@ -22,6 +22,8 @@ class ProductsProvider with ChangeNotifier {
 
   Product findById(int id) => data.firstWhere((prod) => prod.id == id);
 
+  GetRequest _getRequest = GetRequest();
+
   ProductsProvider(){
     getData();
   }
@@ -114,18 +116,35 @@ class ProductsProvider with ChangeNotifier {
 
   //ADD NEW PRODUCT
   void addItem(AddProduct newProduct) {
-    
-    data.add(
+
       newProduct.toProduct(
         newProduct, 
         "12", 
         'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
         'FF3D82AE'
-      )
-    );
-    objectToJson(data).then((value) async => { await StorageServices.setData(value, 'fruit')})
-    ;
-    notifyListeners();
+      );
+
+      print(newProduct.name.text);
+      print(newProduct.address.text);
+      print(newProduct.categories.text);
+      print(newProduct.city.text);
+      print(newProduct.description.text);
+      print(newProduct.district.text);
+      print(newProduct.images);
+      print(newProduct.price.text);
+      print(newProduct.sellerName.text);
+      print(newProduct.sellerNumber.text);
+    
+    // data.add(
+    //   newProduct.toProduct(
+    //     newProduct, 
+    //     "12", 
+    //     'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
+    //     'FF3D82AE'
+    //   )
+    // );
+    // objectToJson(data).then((value) async => { await StorageServices.setData(value, 'fruit')});
+    // notifyListeners();
   }
 
   //FETCH PRODUCTS INTO DIFFERENT CATEGORIES
