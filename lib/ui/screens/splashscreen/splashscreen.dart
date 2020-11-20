@@ -26,21 +26,26 @@ class _SplashScreenState extends State<SplashScreen>
       (value) async {
       print("Token $value");
         if (value != null) {
-          await UserProvider().fetchPortforlio().then(
-            (onValue) {
-              //CHECK IF TOKEN IS VALID
-              if (onValue == '200') {
+
                 //FETCH USER PROFILE AND NAVIGATE
                 Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
                 //Provider.of<ProductsProvider>(context, listen: false).getVegi();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                //IF NOT VALID CLEAR TOKEN AND NAVIGATE TO WELCOME SCREEN
-                _pref.clear('token');
-                Navigator.pushReplacementNamed(context, WelcomeView);
-              }
-            },
-          );
+          // await UserProvider().fetchPortforlio().then(
+          //   (onValue) {
+          //     //CHECK IF TOKEN IS VALID
+          //     if (onValue == '200') {
+          //       //FETCH USER PROFILE AND NAVIGATE
+          //       Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+          //       //Provider.of<ProductsProvider>(context, listen: false).getVegi();
+          //       Navigator.pushReplacementNamed(context, BottomNavigationView);
+          //     } else {
+          //       //IF NOT VALID CLEAR TOKEN AND NAVIGATE TO WELCOME SCREEN
+          //       _pref.clear('token');
+          //       Navigator.pushReplacementNamed(context, WelcomeView);
+          //     }
+          //   },
+          // );
         } else {
           //CHECK SOCIAL ACCOUNT LOGIN USER
           AuthProvider().currentUser.then(

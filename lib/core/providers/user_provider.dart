@@ -136,32 +136,32 @@ class UserProvider with ChangeNotifier {
 
   //FETCH PORTFORLIO OF THE USER
   Future<String> fetchPortforlio() async {
-    await _prefService.read('token').then((onValue) async {
-      var response =
-          await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + onValue,
-      });
+    // await _prefService.read('token').then((onValue) async {
+    //   var response =
+    //       await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+    //     "accept": "application/json",
+    //     "authorization": "Bearer " + onValue,
+    //   });
 
-      if (response.statusCode == 200) {
-        var responseBody = json.decode(response.body);
-        if (responseBody['error'] == null) {
-          mBalance = Balance.fromMap(responseBody);
-          print(mBalance);
-          notifyListeners();
-        } else {
-          alertText = responseBody['error']['message'];
-          print(alertText);
-        }
+    //   if (response.statusCode == 200) {
+    //     var responseBody = json.decode(response.body);
+    //     if (responseBody['error'] == null) {
+    //       mBalance = Balance.fromMap(responseBody);
+    //       print(mBalance);
+    //       notifyListeners();
+    //     } else {
+    //       alertText = responseBody['error']['message'];
+    //       print(alertText);
+    //     }
 
-        alertText = response.statusCode.toString();
-        print(alertText);
-      } else {
-        throw HttpException("${response.statusCode}");
-      }
-    });
+    //     alertText = response.statusCode.toString();
+    //     print(alertText);
+    //   } else {
+    //     throw HttpException("${response.statusCode}");
+    //   }
+    // });
 
-    notifyListeners();
+    // notifyListeners();
     return alertText ?? '';
   }
 }

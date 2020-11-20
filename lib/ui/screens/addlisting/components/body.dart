@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
@@ -15,7 +16,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  AddProduct _addProduct = AddProduct();
+  // AddProduct _addProduct = AddProduct();
+
+  AddProductProvider _addProduct;
 
   String _error = 'No Error Dectected';
 
@@ -25,33 +28,37 @@ class _BodyState extends State<Body> {
       context,
       MaterialPageRoute(builder: (context) => CategoriesListScreen(category))
     );
-    onChanged(resultOfC);
     setState(() {
-      _addProduct.categories.text = resultOfC;
+      // _addProduct.categories = resultOfC;
     });
   }
 
-  void onChanged(String value) {
+  void onChanged(String value, AddProductProvider addProductProvider) {
     if (
-      _addProduct.images.length != 0 &&
-      _addProduct.name.text.isNotEmpty &&
-      _addProduct.categories.text.isNotEmpty &&
-      _addProduct.price.text.isNotEmpty
+      addProductProvider.addProduct.images.length != 0 &&
+      addProductProvider.addProduct.productName.text.isNotEmpty &&
+      addProductProvider.addProduct.category != "Categories" &&
+      addProductProvider.addProduct.price.text.isNotEmpty
     ) enableButton(true);
-    else if (_addProduct.enable1) enableButton(false);
+    else if (_addProduct.addProduct.enable1) enableButton(false);
+  }
+
+  void ddOnChanged(String value){
+
   }
 
   void enableButton(bool enable) {
     setState(() {
-      _addProduct.enable1 = enable;
+      _addProduct.addProduct.enable1 = enable;
     });
   }
 
-  void toSeller() async {
+  void toSeller(AddProductProvider provider) async {
     var response = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FillSeller(addProduct: _addProduct))
+      MaterialPageRoute(builder: (context) => FillSeller(addProduct: provider.addProduct))
     );
+    
     if (response) Navigator.pop(context);
     // setState(() {
     //   if (_addProduct.formKeyDetail.currentState.validate() &&
@@ -96,7 +103,6 @@ class _BodyState extends State<Body> {
     //     child: images.length > 0 ? ImageList(images) : SvgPicture.asset('images/icons/add_image.svg')
     //   ),
     // );
-    Provider.of<AddProductProvider>(context);
     return Container(
       height: 200,
       margin: EdgeInsets.only(top: 10.0),
@@ -106,8 +112,8 @@ class _BodyState extends State<Body> {
       ),
       child: GridView.count(
         crossAxisCount: 3,
-        children: List.generate(_addProduct.images.length, (index) {
-          Asset asset = _addProduct.images[index];
+        children: List.generate(_addProduct.addProduct.images.length, (index) {
+          Asset asset = _addProduct.addProduct.images[index];
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
             child: GestureDetector(
@@ -115,7 +121,7 @@ class _BodyState extends State<Body> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImageList(_addProduct.images),
+                    builder: (context) => ImageList(_addProduct.addProduct.images),
                   ),
                 );
               },
@@ -133,7 +139,7 @@ class _BodyState extends State<Body> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          _addProduct.images.remove(asset);
+                          _addProduct.addProduct.images.remove(asset);
                         });
                       },
                       child: Icon(
@@ -159,7 +165,7 @@ class _BodyState extends State<Body> {
       resultList = await MultiImagePicker.pickImages(
         maxImages: 8,
         enableCamera: false,
-        selectedAssets: _addProduct.images,
+        selectedAssets: _addProduct.addProduct.images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
           actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
@@ -179,7 +185,7 @@ class _BodyState extends State<Body> {
     if (!mounted) return;
 
     setState(() {
-      _addProduct.images = resultList;
+      _addProduct.addProduct.images = resultList;
       _error = error;
       print(_error);
     });
@@ -193,10 +199,11 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
 
-    // final data = Provider.of<UserProvider>(context);
-
-    // _addProduct.sellerName.text = data.
-    Provider.of<AddProductProvider>(context);
+    _addProduct = Provider.of<AddProductProvider>(context);
+    print(_addProduct.addProduct.shippingList);
+    print(_addProduct.addProduct.paymentOptsList);
+    print(_addProduct.addProduct.weightList);
+    // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -231,7 +238,7 @@ class _BodyState extends State<Body> {
                   // ? null
                   // : 
                   () {
-                    toSeller();
+                    toSeller(_addProduct);
                     // if (toSeller()) {
                     //   value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
                     //       _addProduct.contactName.text, _addProduct.phoneNumber.text);
@@ -250,7 +257,7 @@ class _BodyState extends State<Body> {
 
   Widget _postDetail() {
     return Form(
-      key: _addProduct.formKeyDetail,
+      key: _addProduct.addProduct.formKeyDetail,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -265,7 +272,7 @@ class _BodyState extends State<Body> {
               context
             ),
             
-            _addProduct.images.isNotEmpty
+            _addProduct.addProduct.images.isNotEmpty
             ? buildGridView(loadAssets)
             : Container(
               height: 0,
@@ -279,17 +286,60 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            _myCategories(),
+            Row(
+              children: [
+                Expanded(
+                  child: MyDropDown(
+                    hint: _addProduct.addProduct.category,
+                    data: _addProduct.addProduct.categoriesList,
+                    keyPair: 'category_name',
+                    onChanged: (String value){
+                      setState(() {
+                        _addProduct.addProduct.category = value;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: MyDropDown(
+                    hint: _addProduct.addProduct.weight,
+                    data: _addProduct.addProduct.weightList,
+                    keyPair: 'weight_option',
+                    onChanged: (String value){
+                      setState(() {
+                        _addProduct.addProduct.weight = value;
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+            // _myCategories(),
+
+            SizedBox(
+              height: 10,
+            ),
+            _priceField(),
+
+            SizedBox(
+              height: 10,
+            ),
+            MyDropDown(
+              hint: _addProduct.addProduct.paymentOpt,
+              data: _addProduct.addProduct.paymentOptsList,
+              keyPair: 'options_name',
+              onChanged: (String value){
+                setState(() {
+                  _addProduct.addProduct.paymentOpt = value;
+                });
+              },
+            ),
 
             SizedBox(
               height: 10,
             ),
             _descriptionField(),
 
-            SizedBox(
-              height: 10,
-            ),
-            _priceField(),
           ],
         ),
       ),
@@ -298,7 +348,7 @@ class _BodyState extends State<Body> {
 
   Widget _sellerDetail() {
     return Form(
-      key: _addProduct.formKeySeller,
+      key: _addProduct.addProduct.formKeySeller,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -336,7 +386,7 @@ class _BodyState extends State<Body> {
 
   Widget _priceField() {
     return ReuseTextField(
-      controller: _addProduct.price,
+      controller: _addProduct.addProduct.price,
       labelText: AppLocalizeService.of(context).translate('price'),
       maxLine: 1,
       inputType: TextInputType.number,
@@ -344,14 +394,16 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
-      onChanged: onChanged,
+      onChanged: (String value){
+        onChanged(value, _addProduct);
+      },
       // onSaved: (newValue) => _addProduct.price. = newValue,
     );
   }
 
   Widget _descriptionField() {
     return ReuseTextField(
-      controller: _addProduct.description,
+      controller: _addProduct.addProduct.description,
       maxLine: 3,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -371,54 +423,69 @@ class _BodyState extends State<Body> {
         border: Border.all(color: kDefaultColor, width: 1),
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
-      child: ListTile(
-        title: _addProduct.categories.text.isEmpty
-        ? Text(
-          AppLocalizeService.of(context).translate('categories'),
-        )
-        : Text(_addProduct.categories.text),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          color: kDefaultColor,
+      child: DropdownButtonHideUnderline(
+        child: new DropdownButton<String>(
+          items: _addProduct.addProduct.categoriesList.map((Map<String, dynamic> value) {
+            return new DropdownMenuItem<String>(
+              value: value['category_name'],
+              child: new Text(value['category_name']),
+            );
+          }).toList(),
+          onChanged: (_) {},
         ),
-        onTap: () {
-          routeA();
-        },
-      ),
+      )
+      // ListTile(
+      //   title: _addProduct.categories.text.isEmpty
+      //   ? Text(
+      //     AppLocalizeService.of(context).translate('categories'),
+      //   )
+      //   : Text(_addProduct.categories.text),
+      //   trailing: Icon(
+      //     Icons.arrow_forward_ios,
+      //     color: kDefaultColor,
+      //   ),
+      //   onTap: () {
+      //     routeA();
+      //   },
+      // ),
     );
   }
 
   Widget _productNameField() {
     return ReuseTextField(
-      controller: _addProduct.sellerName,
+      controller: _addProduct.addProduct.productName,
       labelText: AppLocalizeService.of(context).translate('product_name'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
       validator: (value) => value.isEmpty
       ? AppLocalizeService.of(context).translate('contact_name_is_empty')
       : null,
-      onChanged: onChanged
+      onChanged: (String value){
+        onChanged(value, _addProduct);
+      }
       // onSaved: (value) => _contactName = value,
     );
   }
 
   Widget _phoneNumberField() {
     return ReuseTextField(
-        controller: _addProduct.sellerNumber,
+        controller: _addProduct.addProduct.sellerNumber,
         labelText: AppLocalizeService.of(context).translate('phone_hint'),
         maxLine: 1,
         textInputAction: TextInputAction.done,
         validator: (value) => value.isEmpty
             ? AppLocalizeService.of(context).translate('phone_number_is_empty')
             : null,
-        onChanged: onChanged
+        onChanged: (String value){
+          onChanged(value, _addProduct);
+        }
         // onSaved: (value) => _phoneNumber = value,
         );
   }
 
   Widget _streetAddress() {
     return ReuseTextField(
-      controller: _addProduct.address,
+      controller: _addProduct.addProduct.address,
       labelText: AppLocalizeService.of(context).translate('street_address'),
       // onSaved: (newValue) => _address = newValue,
     );

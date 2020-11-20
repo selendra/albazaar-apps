@@ -201,14 +201,21 @@ class AuthProvider with ChangeNotifier {
       if (_token != null) {
         _pref.saveString('token', _token);
         await StorageServices.setData(responseJson, 'user_token');
-        Provider.of<UserProvider>(context, listen: false)
-            .fetchPortforlio()
-            .then((onValue) {
-          if (onValue == '200') {
-            Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-            Navigator.pushReplacementNamed(context, BottomNavigationView);
-          }
-        });
+
+            Navigator.pushNamedAndRemoveUntil(
+              context, 
+              BottomNavigationView, ModalRoute.withName('/'));
+        // Provider.of<UserProvider>(context, listen: false)
+        //     .fetchPortforlio()
+        //     .then((onValue) {
+        //   if (onValue == '200') {
+        //     Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+        //     Navigator.pushAndRemoveUntil(
+        //       context, 
+        //       MaterialPageRoute(builder: (context) => HomeScreen()), ModalRoute.withName('/'));
+        //     // Navigator.pushReplacementNamed(context, BottomNavigationView);
+        //   }
+        // });
       } else {
         try {
           _alertText = responseJson['error']['message'];

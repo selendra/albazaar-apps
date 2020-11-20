@@ -30,9 +30,35 @@ class GetRequest{
 
   Future<_http.Response> shippingServices() async { /* Expired Token In Welcome Screen */
     _backend.token = await StorageServices.fetchData('user_token');
-    print("${_backend.token}");
     if (_backend.token != null) { 
       _backend.response = await _http.get("${_sldApi.api}/shipping-services", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response;
+    }
+    return null;
+  }
+
+  Future<_http.Response> categories() async { /* Expired Token In Welcome Screen */
+    _backend.token = await StorageServices.fetchData('user_token');
+    if (_backend.token != null) { 
+      _backend.response = await _http.get("${_sldApi.api}/product-categories", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response;
+    }
+    return null;
+  }
+
+  Future<_http.Response> paymentOpt() async { /* Expired Token In Welcome Screen */
+    _backend.token = await StorageServices.fetchData('user_token');
+    if (_backend.token != null) { 
+      _backend.response = await _http.get("${_sldApi.api}/payment-options", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response;
+    }
+    return null;
+  }
+
+  Future<_http.Response> weightOpt() async { /* Expired Token In Welcome Screen */
+    _backend.token = await StorageServices.fetchData('user_token');
+    if (_backend.token != null) { 
+      _backend.response = await _http.get("${_sldApi.api}/weight-options", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
     return null;

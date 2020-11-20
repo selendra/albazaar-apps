@@ -1,19 +1,20 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/ui/component.dart';
 
 class FillSellerBody extends StatelessWidget{
 
   final AddProduct addProduct;
   final Function onChanged;
+  final Function onChangedDD;
 
   FillSellerBody({
     this.addProduct,
-    this.onChanged
+    this.onChanged,
+    this.onChangedDD
   });
   
   Widget build(BuildContext context) {
-    var data = Provider.of<AddProductProvider>(context);
-    print(data.addProduct.shippingServics);
     return Form(
     // key: _formKeySeller,
       child: Container(
@@ -89,6 +90,16 @@ class FillSellerBody extends StatelessWidget{
                 ),
               ],
             ),
+            
+            SizedBox(
+              height: 10,
+            ),
+            MyDropDown(
+              hint: addProduct.shipping,
+              data: addProduct.shippingList,
+              keyPair: 'shipping_service',
+              onChanged: onChangedDD,
+            ),
 
             //_pickLocation(),
             SizedBox(
@@ -98,9 +109,10 @@ class FillSellerBody extends StatelessWidget{
               builder: (context, value, child) => Container(
                 child: ReuseButton.getItem(
                   AppLocalizeService.of(context).translate('submit'), 
-                  !addProduct.enable2 ? null : () {
+                  // !addProduct.enable2 ? null : 
+                  () {
                     value.addItem(addProduct);
-                    Navigator.pop(context, true);
+                    // Navigator.pop(context, true);
                   // checkValidate();
                   // if (checkValidate()) {
                   //   value.addItem(_title, double.parse(_price), _description,

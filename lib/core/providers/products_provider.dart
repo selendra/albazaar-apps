@@ -67,7 +67,7 @@ class ProductsProvider with ChangeNotifier {
         'seller_name': element.sellerName == null ? '' : element.sellerName,
         'seller_phone': element.sellerPhoneNum == null ? '' : element.sellerPhoneNum,
         'category': element.category == null ? '' : element.category,
-        'isFavority': element.isFavorite == null ? '' : element.isFavorite,
+        'isFavority': false//element.isFavorite == null ? '' : element.isFavorite,
       });
     });
     return list;
@@ -87,7 +87,7 @@ class ProductsProvider with ChangeNotifier {
           sellerName: element['seller_name'] == null ? '' : element['seller_name'], 
           sellerPhoneNum: element['seller_phone'] == null ? '' : element['seller_phone'], 
           category: element['category'] == null ? '' : element['category'], 
-          isFavorite: element['isFavority'] == null ? '' : element['isFavority'] == '1' ? true : false
+          isFavorite: false//element['isFavority'] == null ? '' : element['isFavority'] == '1' ? true : false
         )
       });
     });
@@ -108,7 +108,7 @@ class ProductsProvider with ChangeNotifier {
           sellerName: element['seller_name'],
           sellerPhoneNum: element['seller_phone'],
           category: element['category'],
-          isFavorite: element['isFavority'] == '1' ? true : false,
+          isFavorite: false //element['isFavority'] == '1' ? true : false,
         )
       });
     });
@@ -117,23 +117,27 @@ class ProductsProvider with ChangeNotifier {
   //ADD NEW PRODUCT
   void addItem(AddProduct newProduct) {
 
-      newProduct.toProduct(
-        newProduct, 
-        "12", 
-        'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
-        'FF3D82AE'
-      );
+      // newProduct.toProduct(
+      //   newProduct, 
+      //   "12", 
+      //   'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
+      //   'FF3D82AE'
+      // );
 
-      print(newProduct.name.text);
-      print(newProduct.address.text);
-      print(newProduct.categories.text);
-      print(newProduct.city.text);
-      print(newProduct.description.text);
-      print(newProduct.district.text);
-      print(newProduct.images);
+      print(newProduct.images[0].name);
+      print(newProduct.productName.text);
       print(newProduct.price.text);
-      print(newProduct.sellerName.text);
-      print(newProduct.sellerNumber.text);
+      print(newProduct.description.text);
+      print(newProduct.shipping);
+      print(newProduct.category);
+      print(newProduct.paymentOpt);
+      print(newProduct.weight);
+      // print(newProduct.categories);
+      // print(newProduct.city.text);
+      // print(newProduct.address.text);
+      // print(newProduct.district.text);
+      // print(newProduct.sellerName.text);
+      // print(newProduct.sellerNumber.text);
     
     // data.add(
     //   newProduct.toProduct(

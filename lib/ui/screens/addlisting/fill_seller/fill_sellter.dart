@@ -56,6 +56,13 @@ class _FillSellerState extends State<FillSeller> {
     });
   }
 
+  void onChangedDD(String value){
+    print(value);
+    setState(() {
+      widget.addProduct.shipping = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +73,7 @@ class _FillSellerState extends State<FillSeller> {
           child: SingleChildScrollView(
             child: FillSellerBody(
               addProduct: widget.addProduct,
+              onChangedDD: onChangedDD,
               onChanged: onChanged,
             ),
           ),
