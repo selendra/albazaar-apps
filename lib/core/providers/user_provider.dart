@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:http_parser/http_parser.dart';
 
 class UserProvider with ChangeNotifier {
   var _mUser = new User();
@@ -13,7 +15,7 @@ class UserProvider with ChangeNotifier {
   //Fetch user profile from Api
   Future<void> fetchUserPf(String _token) async {
     //This response variable is user to the repsonse from requesting to api
-    var response =
+    http.Response response =
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
       "authorization": "Bearer " + _token,
@@ -163,5 +165,49 @@ class UserProvider with ChangeNotifier {
 
     notifyListeners();
     return alertText ?? '';
+  }
+
+  Future<String> upLoadImage(File _image) async {
+    /* Upload image to server by use multi part form*/
+    //SharedPreferences isToken = await SharedPreferences.getInstance();
+    String token, imageUrl;
+
+    // token = isToken.getString('token');
+    await _prefService.read('token').then((value) {
+      token = value;
+    });
+    /* Compress image file */
+    List<int> compressImage = await FlutterImageCompress.compressWithFile(
+      _image.path,
+      minHeight: 1300,
+      minWidth: 1000,
+      quality: 100,
+    );
+    /* Make request */
+    var request = new http.MultipartRequest(
+        'POST', Uri.parse('https://s3.selendra.com/upload'));
+    /* Make Form of Multipart */
+    var multipartFile = new http.MultipartFile.fromBytes(
+      'file',
+      compressImage,
+      filename: 'image_picker.jpg',
+      contentType: MediaType.parse('image/jpeg'),
+    );
+    /* Concate Token With Header */
+    request.headers.addAll({
+      "accept": "application/json",
+      "authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    });
+    request.files.add(multipartFile);
+    /* Start send to server */
+    http.StreamedResponse response = await request.send();
+    /* Getting response */
+    response.stream.transform(utf8.decoder).listen((data) {
+      print("Image url $data");
+      imageUrl = data;
+    });
+
+    return imageUrl;
   }
 }

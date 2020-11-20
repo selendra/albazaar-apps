@@ -10,7 +10,7 @@ class FavoriteProvider with ChangeNotifier {
   void addFav(Product product) {
     if (!_fav.contains(product)) {
       _fav.add(product);
-      product.isFavorite = true;
+      // product.isFavorite = true;
       notifyListeners();
     }
   }
@@ -18,7 +18,7 @@ class FavoriteProvider with ChangeNotifier {
   //REMOVE PRODUCT FROM FAVORITE LIST
   void removeFav(Product product) {
     _fav.remove(product);
-    product.isFavorite = false;
+    //product.isFavorite = false;
     notifyListeners();
   }
 }

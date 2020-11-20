@@ -8,7 +8,7 @@ import 'cart_btn_qty.dart';
 class CartItems extends StatelessWidget {
   final String image;
   final String title;
-  final double price;
+  final int price;
   final String productId;
   final int qty;
 
@@ -41,10 +41,11 @@ class CartItems extends StatelessWidget {
             ),
             title: Text(
               title,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
-              '\$ ' + price.toString(),
+              price.toString() + '៛',
               style:
                   TextStyle(color: kDefaultColor, fontWeight: FontWeight.bold),
             ),

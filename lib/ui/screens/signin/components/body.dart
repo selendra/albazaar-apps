@@ -86,6 +86,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
+
     await AuthProvider()
         .signInByPhone("+855" + _phone, _password, context)
         .then((value) {
@@ -123,6 +124,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
+
     onTabChange();
   }
 
@@ -130,7 +132,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void dispose() {
     _pageController.dispose();
     _tabController.dispose();
-    print('dispose');
+    //print('dispose');
     super.dispose();
   }
 

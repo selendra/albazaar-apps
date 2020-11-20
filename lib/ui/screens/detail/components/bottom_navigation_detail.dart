@@ -30,9 +30,9 @@ class BottomNavigationDetail extends StatelessWidget {
                   ],
                 ),
                 child: Icon(
-                  loadedProduct.isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border,
+                  // loadedProduct.isFavorite
+                  //     ? Icons.favorite
+                  Icons.favorite_border,
                   color: Colors.red,
                 ),
               ),

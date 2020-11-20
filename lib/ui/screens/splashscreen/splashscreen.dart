@@ -30,9 +30,12 @@ class _SplashScreenState extends State<SplashScreen>
               //Check if the token is valid or not
               print(onValue);
               if (onValue == '200') {
+                //Provider.of<ProductsProvider>(context, listen: false).fetch();
                 //Fetch user infomation from share preference(local storage)
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchUserInfo();
+                Provider.of<ProductsProvider>(context, listen: false)
+                    .readLocalProduct();
 
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
@@ -52,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchSocialUserInfo(
                         value.email, value.displayName, value.photoUrl);
+
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 Navigator.pushReplacementNamed(context, WelcomeView);

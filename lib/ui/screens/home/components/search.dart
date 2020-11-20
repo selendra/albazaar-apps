@@ -46,7 +46,7 @@ class SearchProducts extends SearchDelegate {
         ? []
         : data.items
             .where(
-              (element) => element.title.toLowerCase().startsWith(
+              (element) => element.name.toLowerCase().startsWith(
                     query.toLowerCase(),
                   ),
             )

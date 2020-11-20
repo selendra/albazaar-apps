@@ -9,7 +9,7 @@ class CartProvider with ChangeNotifier {
   Map<String, Cart> get items => {..._items};
 
   //  ADD PRODUCT TO CART
-  void addCart(String productId, String image, String title, double price,
+  void addCart(String productId, String image, String title, int price,
       int productOrderQty) {
     if (_items.containsKey(productId)) {
       _items.update(
@@ -30,7 +30,7 @@ class CartProvider with ChangeNotifier {
               price: price,
               qty: productOrderQty));
 
-      totalPrice = totalPrice + price;
+      totalPrice = totalPrice + double.parse(price.toString());
     }
 
     notifyListeners();
@@ -75,7 +75,7 @@ class CartProvider with ChangeNotifier {
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, cartItem) {
-      total += cartItem.price * cartItem.qty;
+      total += double.parse(cartItem.price.toString()) * cartItem.qty;
     });
     return total;
   }

@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             CategoriesScreen(category),
-            ProductList(productsProvider.data),
+            ProductList(productsProvider.items),
           ],
         ),
       ),

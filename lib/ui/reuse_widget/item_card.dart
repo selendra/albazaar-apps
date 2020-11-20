@@ -45,7 +45,7 @@ class ItemCard extends StatelessWidget {
                       child: Text('Loading...'),
                     ),
                     fit: BoxFit.cover,
-                    image: NetworkImage(product.image),
+                    image: NetworkImage(product.thumbnail),
                     placeholder: AssetImage('images/loading.gif'),
                   ),
                 ),
@@ -55,18 +55,19 @@ class ItemCard extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: Text(
                 // products is out demo list
-                product.title,
+                product.name,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  // color: Colors.black,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600
-                ),
+                    // color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${product.price} /" + AppLocalizeService.of(context).translate('kilogram'),
+                "${product.price}៛ /" +
+                    AppLocalizeService.of(context).translate('kilogram'),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,

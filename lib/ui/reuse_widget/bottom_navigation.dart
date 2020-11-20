@@ -48,9 +48,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NetworkAlert(
-        _buildBody(),
-      ),
+      body: _buildBody(),
       bottomNavigationBar: _buildBottomAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

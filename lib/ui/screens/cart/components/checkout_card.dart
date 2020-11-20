@@ -13,11 +13,10 @@ class CheckoutCard extends StatelessWidget {
         shape: kDefaultShape,
         child: Consumer<CartProvider>(
           builder: (context, value, child) => Container(
-            margin: EdgeInsets.all(20.0),
+            margin: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _textRow(
-                    _lang.translate('sub_total'), '\$${value.totalAmount}'),
+                _textRow(_lang.translate('sub_total'), '${value.totalAmount}៛'),
                 Spacer(),
                 Container(
                   height: 1,
@@ -26,7 +25,7 @@ class CheckoutCard extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                _textRow(_lang.translate('total'), '\$${value.totalAmount}'),
+                _textRow(_lang.translate('total'), '${value.totalAmount}៛'),
                 SizedBox(
                   height: 60,
                 ),

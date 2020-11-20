@@ -24,20 +24,35 @@ class RelatedProduct extends StatelessWidget {
           height: 10.0,
         ),
         Container(
-          height: 140,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
+          child: GridView.builder(
             itemCount: _products.length,
-            itemBuilder: (context, index) {
-              return ChangeNotifierProvider.value(
-                value: _products[index],
-                child: ReuseItemCard(),
-              );
-            },
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              childAspectRatio: 0.75,
+            ),
+            itemBuilder: (context, index) => ChangeNotifierProvider.value(
+              value: _products[index],
+              child: ReuseItemCard(),
+            ),
           ),
         ),
+        // Container(
+        //   height: 140,
+        //   child: ListView.builder(
+        //     shrinkWrap: true,
+        //     physics: ClampingScrollPhysics(),
+        //     scrollDirection: Axis.horizontal,
+        //     itemCount: _products.length,
+        //     itemBuilder: (context, index) {
+        //       return ChangeNotifierProvider.value(
+        //         value: _products[index],
+        //         child: ReuseItemCard(),
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

@@ -98,7 +98,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                 _pref.saveString('isshow', 'seen');
                                 Navigator.pushReplacementNamed(
                                     context, WelcomeView);
-                              }, 'LET\'S BEGIN')
+                              }, _lang.translate('let_begin'))
                             : nextskipButton(() {
                                 onPageChange(currentIndex + 1);
                               }, _lang.translate('next')),
