@@ -61,12 +61,12 @@ class _BodyState extends State<Body> {
   }
 
   void toSeller(AddProductProvider provider) async {
-    var response = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => FillSeller(addProduct: provider.addProduct))
     );
     
-    if (response) Navigator.pop(context);
+    Navigator.pop(context);
     // setState(() {
     //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
     //       _addProductProvider.formKeySeller.currentState.validate()) {
@@ -102,16 +102,33 @@ class _BodyState extends State<Body> {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImages.add(File(filePath));
     }
+    print("Display image path\n");
+    for (File file in _addProductProvider.addProduct.fileImages){
+      print(file.path);
+    }
   }
 
   Future<void> getImageUri() async {
-    // Upload Image
-    StreamedResponse response = await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImages[0], "upload");
 
-    response.stream.transform(utf8.decoder).listen((data){
-      print(json.decode(data)['uri']);
-      _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
+    // Loop Upload File Images Per Each
+    _addProductProvider.addProduct.fileImages.forEach((element) async {
+
+      await _postRequest.upLoadImage(element, "upload").then((value) {
+        value.stream.transform(utf8.decoder).listen((data){
+          print(json.decode(data)['uri']);
+          _addProductProvider.addProduct.imageUri.add(json.decode(data)['uri']);
+        });
+      });
+      // response[0].stream.transform(utf8.decoder).listen((data){
+      //   print(json.decode(data)['uri']);
+      //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
+      // });
     });
+
+    // response.stream.transform(utf8.decoder).listen((data){
+    //   print(json.decode(data)['uri']);
+    //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
+    // });
   }
 
   Widget buildGridView(Function loadAssets) {
@@ -228,9 +245,6 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
 
     _addProductProvider = Provider.of<AddProductProvider>(context);
-    print(_addProductProvider.addProduct.shippingList);
-    print(_addProductProvider.addProduct.paymentOptsList);
-    print(_addProductProvider.addProduct.weightList);
     // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {

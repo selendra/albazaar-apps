@@ -324,8 +324,8 @@ class PostRequest {
       "price": product.price.text,
       "shipping": product.shipping,
       "weight": product.weight,
-      "description": product.imageUri,
-      "thumbnail": product.description.text,
+      "description": product.description.text,
+      "thumbnail": product.imageUri,
       "category-id": product.category,
       "payment-id": product.paymentOpt
     });

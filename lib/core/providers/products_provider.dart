@@ -136,10 +136,15 @@ class ProductsProvider with ChangeNotifier {
       // print(newProduct.paymentOpt);
       Components.dialogLoading(context: context, contents: "Adding");
       try{
-        await _postRequest.addListing(newProduct).then((value) {
+        await _postRequest.addListing(newProduct).then((value) async {
+          // Close Loading
           Navigator.pop(context);
-          print("Add listing ${value.body}");
-          
+          await Components.dialog(context, Text("${json.decode(value.body)['message']}"), Text("Message"));
+          // Close Seller Screen
+          if (json.decode(value.body)['message'].length > 1){
+            newProduct.productId = json.decode(value.body)['message'];
+            Navigator.pop(context);
+          }
         });
         // Close Loading
       } on SocketException catch (e) {

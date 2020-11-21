@@ -5,10 +5,14 @@ class AddProduct {
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 
-  String imageUri = '';
 
+  String productId;
+
+  List<String> imageUri = List<String>();
   List<Asset> images = List<Asset>();
   List<File> fileImages = List<File>();
+  
+
   List<Map<String, dynamic>> shippingList = List<Map<String, dynamic>>();
   List<Map<String, dynamic>> paymentOptsList = List<Map<String, dynamic>>();
   List<Map<String, dynamic>> categoriesList = List<Map<String, dynamic>>();
