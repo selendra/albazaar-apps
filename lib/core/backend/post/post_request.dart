@@ -307,6 +307,38 @@ class PostRequest {
     }
     return null;
   }
+  // "name": "string",
+  // "price": "string",
+  // "shipping": "string",
+  // "weight": "string",
+  // "description": "string",
+  // "thumbnail": "string",
+  // "category-id": "string",
+  // "payment-id": "string"
+
+
+  Future<_http.Response> addListing(AddProduct product) async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.bodyEncode = json.encode({
+      "name": product.productName.text,
+      "price": product.price.text,
+      "shipping": product.shipping,
+      "weight": product.weight,
+      "description": product.imageUri,
+      "thumbnail": product.description.text,
+      "category-id": product.category,
+      "payment-id": product.paymentOpt
+    });
+    if (_backend.token != null) {
+      _backend.response = await _http.post(
+        '${_sldApi.api}/add-product', 
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
+      return _backend.response;
+    }
+    return null;
+  }
 
   /* OCR Image */
   Future ocrImage(String imageuri) async {

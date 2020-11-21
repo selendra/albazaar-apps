@@ -111,7 +111,7 @@ class FillSellerBody extends StatelessWidget{
                   AppLocalizeService.of(context).translate('submit'), 
                   // !addProduct.enable2 ? null : 
                   () {
-                    value.addItem(addProduct);
+                    value.addItem(context, addProduct);
                     // Navigator.pop(context, true);
                   // checkValidate();
                   // if (checkValidate()) {

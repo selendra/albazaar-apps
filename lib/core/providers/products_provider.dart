@@ -2,6 +2,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/products.dart';
 import 'package:http/http.dart' as _http;
 import 'package:selendra_marketplace_app/core/storage/storage.dart';
+import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
 
@@ -23,6 +24,7 @@ class ProductsProvider with ChangeNotifier {
   Product findById(int id) => data.firstWhere((prod) => prod.id == id);
 
   GetRequest _getRequest = GetRequest();
+  PostRequest _postRequest = PostRequest();
 
   ProductsProvider(){
     getData();
@@ -115,7 +117,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   //ADD NEW PRODUCT
-  void addItem(AddProduct newProduct) {
+  void addItem(BuildContext context, AddProduct newProduct) async {
 
       // newProduct.toProduct(
       //   newProduct, 
@@ -124,14 +126,28 @@ class ProductsProvider with ChangeNotifier {
       //   'FF3D82AE'
       // );
 
-      print(newProduct.images[0].name);
-      print(newProduct.productName.text);
-      print(newProduct.price.text);
-      print(newProduct.description.text);
-      print(newProduct.shipping);
-      print(newProduct.category);
-      print(newProduct.paymentOpt);
-      print(newProduct.weight);
+      // print(newProduct.productName.text);
+      // print(newProduct.price.text);
+      // print(newProduct.shipping);
+      // print(newProduct.weight);T
+      // print(newProduct.imageUri);
+      // print(newProduct.description.text);
+      // print(newProduct.category);
+      // print(newProduct.paymentOpt);
+      Components.dialogLoading(context: context, contents: "Adding");
+      try{
+        await _postRequest.addListing(newProduct).then((value) {
+          Navigator.pop(context);
+          print("Add listing ${value.body}");
+          
+        });
+        // Close Loading
+      } on SocketException catch (e) {
+        print("Error $e");
+      } catch (e){
+        print("Error $e");
+      }
+
       // print(newProduct.categories);
       // print(newProduct.city.text);
       // print(newProduct.address.text);

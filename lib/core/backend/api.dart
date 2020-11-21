@@ -3,7 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class SelendraApi{
 
   /* Zeetomic api image upload */
-  final apiPostImage = "https://s3.zeetomic.com";
+  final apiPostImage = "http://s3.selendra.com";
 
   // final url = "https://testnet-api.selendra.com/pub/v1";
 

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
+import 'package:http/http.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -16,11 +18,13 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  // AddProduct _addProduct = AddProduct();
+  // AddProduct _addProductProvider = AddProduct();
 
-  AddProductProvider _addProduct;
+  AddProductProvider _addProductProvider;
 
   String _error = 'No Error Dectected';
+
+  PostRequest _postRequest = PostRequest();
 
   // BuildContext context;
   void routeA() async {
@@ -29,7 +33,7 @@ class _BodyState extends State<Body> {
       MaterialPageRoute(builder: (context) => CategoriesListScreen(category))
     );
     setState(() {
-      // _addProduct.categories = resultOfC;
+      // _addProductProvider.categories = resultOfC;
     });
   }
 
@@ -37,10 +41,13 @@ class _BodyState extends State<Body> {
     if (
       addProductProvider.addProduct.images.length != 0 &&
       addProductProvider.addProduct.productName.text.isNotEmpty &&
-      addProductProvider.addProduct.category != "Categories" &&
+      addProductProvider.addProduct.category != "Category" &&
+      addProductProvider.addProduct.shipping != "Shipping services" &&
+      addProductProvider.addProduct.paymentOpt != "Payment method" &&
+      addProductProvider.addProduct.weight != "Weight" &&
       addProductProvider.addProduct.price.text.isNotEmpty
     ) enableButton(true);
-    else if (_addProduct.addProduct.enable1) enableButton(false);
+    else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
   void ddOnChanged(String value){
@@ -49,7 +56,7 @@ class _BodyState extends State<Body> {
 
   void enableButton(bool enable) {
     setState(() {
-      _addProduct.addProduct.enable1 = enable;
+      _addProductProvider.addProduct.enable1 = enable;
     });
   }
 
@@ -61,10 +68,10 @@ class _BodyState extends State<Body> {
     
     if (response) Navigator.pop(context);
     // setState(() {
-    //   if (_addProduct.formKeyDetail.currentState.validate() &&
-    //       _addProduct.formKeySeller.currentState.validate()) {
-    //     _addProduct.formKeyDetail.currentState.save();
-    //     _addProduct.formKeySeller.currentState.save();
+    //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
+    //       _addProductProvider.formKeySeller.currentState.validate()) {
+    //     _addProductProvider.formKeyDetail.currentState.save();
+    //     _addProductProvider.formKeySeller.currentState.save();
 
     //     // print(_title);
     //     // print(_price);
@@ -87,6 +94,24 @@ class _BodyState extends State<Body> {
     //   }
     // });
     // return false;
+  }
+
+  Future<void> imageAssetToFile() async {
+    // Fetch Image From Asset
+    for (Asset asset in _addProductProvider.addProduct.images){
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      _addProductProvider.addProduct.fileImages.add(File(filePath));
+    }
+  }
+
+  Future<void> getImageUri() async {
+    // Upload Image
+    StreamedResponse response = await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImages[0], "upload");
+
+    response.stream.transform(utf8.decoder).listen((data){
+      print(json.decode(data)['uri']);
+      _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
+    });
   }
 
   Widget buildGridView(Function loadAssets) {
@@ -112,8 +137,8 @@ class _BodyState extends State<Body> {
       ),
       child: GridView.count(
         crossAxisCount: 3,
-        children: List.generate(_addProduct.addProduct.images.length, (index) {
-          Asset asset = _addProduct.addProduct.images[index];
+        children: List.generate(_addProductProvider.addProduct.images.length, (index) {
+          Asset asset = _addProductProvider.addProduct.images[index];
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
             child: GestureDetector(
@@ -121,7 +146,7 @@ class _BodyState extends State<Body> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImageList(_addProduct.addProduct.images),
+                    builder: (context) => ImageList(_addProductProvider.addProduct.images),
                   ),
                 );
               },
@@ -139,7 +164,7 @@ class _BodyState extends State<Body> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          _addProduct.addProduct.images.remove(asset);
+                          _addProductProvider.addProduct.images.remove(asset);
                         });
                       },
                       child: Icon(
@@ -158,14 +183,14 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
+
     String error = 'No Error Dectected';
 
     try {
-      resultList = await MultiImagePicker.pickImages(
+      _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
         maxImages: 8,
         enableCamera: false,
-        selectedAssets: _addProduct.addProduct.images,
+        selectedAssets: _addProductProvider.addProduct.images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
           actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
@@ -175,7 +200,9 @@ class _BodyState extends State<Body> {
           selectCircleStrokeColor: "#000000",
         ),
       );
+      await imageAssetToFile();
     } on Exception catch (e) {
+      print("Error $e");
       error = e.toString();
     }
 
@@ -185,10 +212,11 @@ class _BodyState extends State<Body> {
     if (!mounted) return;
 
     setState(() {
-      _addProduct.addProduct.images = resultList;
       _error = error;
       print(_error);
     });
+
+    await getImageUri();
   }
 
   @override
@@ -199,10 +227,10 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
 
-    _addProduct = Provider.of<AddProductProvider>(context);
-    print(_addProduct.addProduct.shippingList);
-    print(_addProduct.addProduct.paymentOptsList);
-    print(_addProduct.addProduct.weightList);
+    _addProductProvider = Provider.of<AddProductProvider>(context);
+    print(_addProductProvider.addProduct.shippingList);
+    print(_addProductProvider.addProduct.paymentOptsList);
+    print(_addProductProvider.addProduct.weightList);
     // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
@@ -224,8 +252,8 @@ class _BodyState extends State<Body> {
               //         AppLocalizeService.of(context).translate('Next'), () {
               //       toSeller();
               //       if (toSeller()) {
-              //         value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
-              //             _addProduct.contactName.text, _addProduct.phoneNumber.text);
+              //         value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+              //             _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
               //       }
               //     }, context),
               //   ),
@@ -234,14 +262,14 @@ class _BodyState extends State<Body> {
                 margin: EdgeInsets.only(right: 18, left: 18),
                 child: ReuseButton.getItem(
                   'Next', //AppLocalizeService.of(context).translate('Next'),
-                  // !_addProduct.enable1
+                  // !_addProductProvider.enable1
                   // ? null
                   // : 
                   () {
-                    toSeller(_addProduct);
+                    toSeller(_addProductProvider);
                     // if (toSeller()) {
-                    //   value.addItem(_addProduct.title.text, double.parse(_addProduct.price.text), _addProduct.description.text,
-                    //       _addProduct.contactName.text, _addProduct.phoneNumber.text);
+                    //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                    //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
                     // }
                   },
                   context
@@ -257,7 +285,7 @@ class _BodyState extends State<Body> {
 
   Widget _postDetail() {
     return Form(
-      key: _addProduct.addProduct.formKeyDetail,
+      key: _addProductProvider.addProduct.formKeyDetail,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -272,7 +300,7 @@ class _BodyState extends State<Body> {
               context
             ),
             
-            _addProduct.addProduct.images.isNotEmpty
+            _addProductProvider.addProduct.images.isNotEmpty
             ? buildGridView(loadAssets)
             : Container(
               height: 0,
@@ -290,24 +318,24 @@ class _BodyState extends State<Body> {
               children: [
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProduct.addProduct.category,
-                    data: _addProduct.addProduct.categoriesList,
+                    hint: _addProductProvider.addProduct.category,
+                    data: _addProductProvider.addProduct.categoriesList,
                     keyPair: 'category_name',
                     onChanged: (String value){
                       setState(() {
-                        _addProduct.addProduct.category = value;
+                        _addProductProvider.addProduct.category = value;
                       });
                     },
                   ),
                 ),
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProduct.addProduct.weight,
-                    data: _addProduct.addProduct.weightList,
+                    hint: _addProductProvider.addProduct.weight,
+                    data: _addProductProvider.addProduct.weightList,
                     keyPair: 'weight_option',
                     onChanged: (String value){
                       setState(() {
-                        _addProduct.addProduct.weight = value;
+                        _addProductProvider.addProduct.weight = value;
                       });
                     },
                   ),
@@ -325,12 +353,12 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             MyDropDown(
-              hint: _addProduct.addProduct.paymentOpt,
-              data: _addProduct.addProduct.paymentOptsList,
+              hint: _addProductProvider.addProduct.paymentOpt,
+              data: _addProductProvider.addProduct.paymentOptsList,
               keyPair: 'options_name',
               onChanged: (String value){
                 setState(() {
-                  _addProduct.addProduct.paymentOpt = value;
+                  _addProductProvider.addProduct.paymentOpt = value;
                 });
               },
             ),
@@ -348,7 +376,7 @@ class _BodyState extends State<Body> {
 
   Widget _sellerDetail() {
     return Form(
-      key: _addProduct.addProduct.formKeySeller,
+      key: _addProductProvider.addProduct.formKeySeller,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -386,7 +414,7 @@ class _BodyState extends State<Body> {
 
   Widget _priceField() {
     return ReuseTextField(
-      controller: _addProduct.addProduct.price,
+      controller: _addProductProvider.addProduct.price,
       labelText: AppLocalizeService.of(context).translate('price'),
       maxLine: 1,
       inputType: TextInputType.number,
@@ -395,15 +423,15 @@ class _BodyState extends State<Body> {
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
       onChanged: (String value){
-        onChanged(value, _addProduct);
+        onChanged(value, _addProductProvider);
       },
-      // onSaved: (newValue) => _addProduct.price. = newValue,
+      // onSaved: (newValue) => _addProductProvider.price. = newValue,
     );
   }
 
   Widget _descriptionField() {
     return ReuseTextField(
-      controller: _addProduct.addProduct.description,
+      controller: _addProductProvider.addProduct.description,
       maxLine: 3,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -425,7 +453,7 @@ class _BodyState extends State<Body> {
       ),
       child: DropdownButtonHideUnderline(
         child: new DropdownButton<String>(
-          items: _addProduct.addProduct.categoriesList.map((Map<String, dynamic> value) {
+          items: _addProductProvider.addProduct.categoriesList.map((Map<String, dynamic> value) {
             return new DropdownMenuItem<String>(
               value: value['category_name'],
               child: new Text(value['category_name']),
@@ -435,11 +463,11 @@ class _BodyState extends State<Body> {
         ),
       )
       // ListTile(
-      //   title: _addProduct.categories.text.isEmpty
+      //   title: _addProductProvider.categories.text.isEmpty
       //   ? Text(
       //     AppLocalizeService.of(context).translate('categories'),
       //   )
-      //   : Text(_addProduct.categories.text),
+      //   : Text(_addProductProvider.categories.text),
       //   trailing: Icon(
       //     Icons.arrow_forward_ios,
       //     color: kDefaultColor,
@@ -453,7 +481,7 @@ class _BodyState extends State<Body> {
 
   Widget _productNameField() {
     return ReuseTextField(
-      controller: _addProduct.addProduct.productName,
+      controller: _addProductProvider.addProduct.productName,
       labelText: AppLocalizeService.of(context).translate('product_name'),
       maxLine: 1,
       textInputAction: TextInputAction.done,
@@ -461,7 +489,7 @@ class _BodyState extends State<Body> {
       ? AppLocalizeService.of(context).translate('contact_name_is_empty')
       : null,
       onChanged: (String value){
-        onChanged(value, _addProduct);
+        onChanged(value, _addProductProvider);
       }
       // onSaved: (value) => _contactName = value,
     );
@@ -469,23 +497,23 @@ class _BodyState extends State<Body> {
 
   Widget _phoneNumberField() {
     return ReuseTextField(
-        controller: _addProduct.addProduct.sellerNumber,
-        labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        maxLine: 1,
-        textInputAction: TextInputAction.done,
-        validator: (value) => value.isEmpty
-            ? AppLocalizeService.of(context).translate('phone_number_is_empty')
-            : null,
-        onChanged: (String value){
-          onChanged(value, _addProduct);
-        }
-        // onSaved: (value) => _phoneNumber = value,
-        );
+      controller: _addProductProvider.addProduct.sellerNumber,
+      labelText: AppLocalizeService.of(context).translate('phone_hint'),
+      maxLine: 1,
+      textInputAction: TextInputAction.done,
+      validator: (value) => value.isEmpty
+      ? AppLocalizeService.of(context).translate('phone_number_is_empty')
+      : null,
+      onChanged: (String value){
+        onChanged(value, _addProductProvider);
+      }
+      // onSaved: (value) => _phoneNumber = value,
+    );
   }
 
   Widget _streetAddress() {
     return ReuseTextField(
-      controller: _addProduct.addProduct.address,
+      controller: _addProductProvider.addProduct.address,
       labelText: AppLocalizeService.of(context).translate('street_address'),
       // onSaved: (newValue) => _address = newValue,
     );
