@@ -8,6 +8,8 @@ class FavoriteProvider with ChangeNotifier {
 
   //ADD PRODUCT TO FAVORITE LIST
   void addFav(Product product) {
+    print(product.id);
+
     if (!_fav.contains(product)) {
       _fav.add(product);
       // product.isFavorite = true;

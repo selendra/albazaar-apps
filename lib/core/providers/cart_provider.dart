@@ -9,13 +9,13 @@ class CartProvider with ChangeNotifier {
   Map<String, Cart> get items => {..._items};
 
   //  ADD PRODUCT TO CART
-  void addCart(String productId, String image, String title, int price,
+  void addCart(String productId, String image, String title, String price,
       int productOrderQty) {
     if (_items.containsKey(productId)) {
       _items.update(
           productId,
           (existingItem) => Cart(
-              id: DateTime.now().toString(),
+              id: productId,
               image: existingItem.image,
               title: existingItem.title,
               price: existingItem.price,
@@ -24,7 +24,7 @@ class CartProvider with ChangeNotifier {
       _items.putIfAbsent(
           productId,
           () => Cart(
-              id: DateTime.now().toString(),
+              id: productId,
               image: image,
               title: title,
               price: price,
@@ -41,7 +41,7 @@ class CartProvider with ChangeNotifier {
     _items.update(
         productId,
         (existingItem) => Cart(
-            id: DateTime.now().toString(),
+            id: productId,
             image: existingItem.image,
             title: existingItem.title,
             price: existingItem.price,
@@ -56,13 +56,13 @@ class CartProvider with ChangeNotifier {
         productId,
         (existingItem) => existingItem.qty > 1
             ? Cart(
-                id: DateTime.now().toString(),
+                id: productId,
                 image: existingItem.image,
                 title: existingItem.title,
                 price: existingItem.price,
                 qty: existingItem.qty - 1)
             : Cart(
-                id: DateTime.now().toString(),
+                id: productId,
                 image: existingItem.image,
                 title: existingItem.title,
                 price: existingItem.price,

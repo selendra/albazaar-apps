@@ -29,17 +29,19 @@ class _CheckoutState extends State<Checkout> {
               TotalPriceCard(),
               ShippingInformation(),
               PaymentMethod(_character, setVal),
-              Card(
-                elevation: 0,
-                shape: kDefaultShape,
-                child: Container(
-                  child: ListTile(
-                    title: Text(
-                      '6 items selected',
-                      style: TextStyle(
-                          fontSize: 14.0, fontWeight: FontWeight.bold),
+              Consumer<CartProvider>(
+                builder: (context, value, child) => Card(
+                  elevation: 0,
+                  shape: kDefaultShape,
+                  child: Container(
+                    child: ListTile(
+                      title: Text(
+                        '${value.items.length} items selected',
+                        style: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.bold),
+                      ),
+                      leading: Icon(Icons.local_grocery_store),
                     ),
-                    leading: Icon(Icons.local_grocery_store),
                   ),
                 ),
               ),

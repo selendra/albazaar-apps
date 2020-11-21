@@ -1,41 +1,5 @@
 import 'package:flutter/material.dart';
 
-// class Product with ChangeNotifier {
-//   final String image,
-//       fruit,
-//       title,
-//       flavor,
-//       description,
-//       sellerName,
-//       sellerPhoneNum,
-//       category;
-//   final int id;
-//   final double price;
-//   final String color;
-//   int orderQty;
-//   bool isFavorite;
-//   Product({
-//     this.id = 0,
-//     this.image = '',
-//     this.title = '',
-//     this.fruit = '',
-//     this.flavor = '',
-//     this.price = 0.0,
-//     this.orderQty = 0,
-//     this.description = '',
-//     this.color,
-//     this.sellerName = '',
-//     this.sellerPhoneNum = '',
-//     this.category = '',
-//     this.isFavorite = false,
-//   });
-
-//   void toggleFavStat() {
-//     isFavorite = !isFavorite;
-//     print(isFavorite);
-//     notifyListeners();
-//   }
-// }
 class Product with ChangeNotifier {
   Product({
     this.description,
@@ -63,7 +27,7 @@ class Product with ChangeNotifier {
   String paymentId;
   dynamic updatedBy;
   String shipping;
-  int price;
+  String price;
   String createdBy;
   String categoryId;
   DateTime createdAt;
@@ -79,7 +43,7 @@ class Product with ChangeNotifier {
         paymentId: json["payment_id"],
         updatedBy: json["updated_by"],
         shipping: json["shipping"],
-        price: json["price"],
+        price: json["price"].toString(),
         createdBy: json["created_by"],
         categoryId: json["category_id"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -101,6 +65,65 @@ class Product with ChangeNotifier {
         "category_id": categoryId,
         "created_at": createdAt.toIso8601String(),
         "is_sold": isSold,
+      };
+}
+// To parse this JSON data, do
+//
+//     final orderProduct = orderProductFromMap(jsonString);
+
+class OrderProduct with ChangeNotifier {
+  OrderProduct({
+    this.statusId,
+    this.productId,
+    this.buyerId,
+    this.updatedAt,
+    this.total,
+    this.id,
+    this.updatedBy,
+    this.createdBy,
+    this.qauantity,
+    this.shippingAddress,
+    this.createdAt,
+  });
+
+  String statusId;
+  String productId;
+  String buyerId;
+  dynamic updatedAt;
+  double total;
+  String id;
+  dynamic updatedBy;
+  String createdBy;
+  int qauantity;
+  String shippingAddress;
+  DateTime createdAt;
+
+  factory OrderProduct.fromMap(Map<String, dynamic> json) => OrderProduct(
+        statusId: json["status_id"],
+        productId: json["product_id"],
+        buyerId: json["buyer_id"],
+        updatedAt: json["updated_at"],
+        total: json["total"].toDouble(),
+        id: json["id"],
+        updatedBy: json["updated_by"],
+        createdBy: json["created_by"],
+        qauantity: json["qauantity"],
+        shippingAddress: json["shipping_address"],
+        createdAt: DateTime.parse(json["created_at"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "status_id": statusId,
+        "product_id": productId,
+        "buyer_id": buyerId,
+        "updated_at": updatedAt,
+        "total": total,
+        "id": id,
+        "updated_by": updatedBy,
+        "created_by": createdBy,
+        "qauantity": qauantity,
+        "shipping_address": shippingAddress,
+        "created_at": createdAt.toIso8601String(),
       };
 }
 

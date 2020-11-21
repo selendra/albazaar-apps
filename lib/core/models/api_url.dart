@@ -20,6 +20,8 @@ class ApiUrl {
   //selendra marketplace opertion
   static const LISTING = baseUrl + '/sdm/v1/listing';
   static const OWNER_LISTING = baseUrl + '/sdm/v1/listing-by-owner';
+  static const ORDER_LISTING = baseUrl + '/sdm/v1/list-order';
+  static const GET_PRODUCT_IMAGE = baseUrl + '/sdm/v1/get-products-images';
   //map search
   static const MAP_SEARCH = 'http://photon.komoot.de/api/?q=';
 }

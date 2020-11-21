@@ -138,30 +138,34 @@ class UserProvider with ChangeNotifier {
 
   //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
-    await _prefService.read('token').then((onValue) async {
-      var response =
-          await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + onValue,
-      });
+    try {
+      await _prefService.read('token').then((onValue) async {
+        var response =
+            await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + onValue,
+        });
 
-      if (response.statusCode == 200) {
-        var responseBody = json.decode(response.body);
-        if (responseBody['error'] == null) {
-          mBalance = Balance.fromMap(responseBody);
-          print(mBalance);
-          notifyListeners();
-        } else {
-          alertText = responseBody['error']['message'];
+        if (response.statusCode == 200) {
+          var responseBody = json.decode(response.body);
+          if (responseBody['error'] == null) {
+            mBalance = Balance.fromMap(responseBody);
+            print(mBalance);
+            notifyListeners();
+          } else {
+            alertText = responseBody['error']['message'];
+            print(alertText);
+          }
+
+          alertText = response.statusCode.toString();
           print(alertText);
+        } else {
+          throw HttpException("${response.statusCode}");
         }
-
-        alertText = response.statusCode.toString();
-        print(alertText);
-      } else {
-        throw HttpException("${response.statusCode}");
-      }
-    });
+      });
+    } catch (e) {
+      print(e.toString());
+    }
 
     notifyListeners();
     return alertText ?? '';

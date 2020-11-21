@@ -74,6 +74,9 @@ export 'ui/screens/profile/components/gender_dropdown.dart';
 
 //cart item
 export 'ui/screens/cart/components/cart_items.dart';
+export 'ui/screens/cart/components/cart_btn_qty.dart';
+export 'ui/screens/cart/components/dismissable_background.dart';
+export 'ui/screens/cart/components/checkout_card.dart';
 
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';

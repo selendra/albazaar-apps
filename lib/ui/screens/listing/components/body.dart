@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
                         child: ListTile(
                           title: Text(productsProvider.oItems[index].name),
                           subtitle: Text(
-                            productsProvider.items[index].description,
+                            productsProvider.oItems[index].description,
                             maxLines: 1,
                           ),
                           leading: CircleAvatar(
@@ -71,7 +71,7 @@ class _BodyState extends State<Body> {
           Container(
             child: productsProvider.oItems.isNotEmpty
                 ? ListView.builder(
-                    itemCount: productsProvider.oItems.length,
+                    itemCount: productsProvider.isAvailable.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin:
@@ -81,19 +81,20 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(kDefaultRadius),
                         ),
                         child: ListTile(
-                          title: Text(productsProvider.oItems[index].name),
+                          title: Text(productsProvider.isAvailable[index].name),
                           subtitle: Text(
-                            productsProvider.items[index].description,
+                            productsProvider.isAvailable[index].description,
                             maxLines: 1,
                           ),
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(
-                                productsProvider.oItems[index].thumbnail),
+                                productsProvider.isAvailable[index].thumbnail),
                           ),
                           onTap: () {
                             Navigator.of(context).pushNamed(DetailView,
-                                arguments: productsProvider.oItems[index].id);
+                                arguments:
+                                    productsProvider.isAvailable[index].id);
                           },
                         ),
                       );
@@ -114,7 +115,7 @@ class _BodyState extends State<Body> {
           Container(
             child: productsProvider.oItems.isNotEmpty
                 ? ListView.builder(
-                    itemCount: productsProvider.oItems.length,
+                    itemCount: productsProvider.isSold.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin:
@@ -124,19 +125,19 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(kDefaultRadius),
                         ),
                         child: ListTile(
-                          title: Text(productsProvider.oItems[index].name),
+                          title: Text(productsProvider.isSold[index].name),
                           subtitle: Text(
-                            productsProvider.items[index].description,
+                            productsProvider.isSold[index].description,
                             maxLines: 1,
                           ),
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(
-                                productsProvider.oItems[index].thumbnail),
+                                productsProvider.isSold[index].thumbnail),
                           ),
                           onTap: () {
                             Navigator.of(context).pushNamed(DetailView,
-                                arguments: productsProvider.oItems[index].id);
+                                arguments: productsProvider.isSold[index].id);
                           },
                         ),
                       );

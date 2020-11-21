@@ -106,5 +106,6 @@
     "reset_password_by_phone": "Reset Password by phone",
     "reset_wallet_pin": "Reset Wallet Pin",
     "skip": "Skip",
-    "let_begin": "LET'S BEGIN"
+    "let_begin": "LET'S BEGIN",
+    "order": "Order"
 }

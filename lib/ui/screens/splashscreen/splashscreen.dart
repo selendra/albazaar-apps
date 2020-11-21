@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false)
-                    .readLocalProduct();
+                    .fetchListingProduct();
 
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
