@@ -12,29 +12,29 @@ class BottomNavigationDetail extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Consumer<FavoriteProvider>(
-            builder: (context, value, child) => InkWell(
-              onTap: () => value.addFav(loadedProduct),
-              child: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+          Container(
+            height: 50.0,
+            width: 50.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.white,
-                      offset: Offset(0, 2),
-                      blurRadius: 6.0,
-                    ),
-                  ],
+                  offset: Offset(0, 2),
+                  blurRadius: 6.0,
                 ),
-                child: Icon(
-                  // loadedProduct.isFavorite
-                  //     ? Icons.favorite
-                  Icons.favorite_border,
-                  color: Colors.red,
-                ),
+              ],
+            ),
+            child: Consumer<FavoriteProvider>(
+              builder: (context, value, child) => IconButton(
+                onPressed: () {
+                  value.isFav(loadedProduct);
+                },
+                icon: Icon(loadedProduct.isFav
+                    ? Icons.favorite
+                    : Icons.favorite_border),
+                color: Colors.red,
               ),
             ),
           ),

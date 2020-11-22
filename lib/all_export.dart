@@ -193,6 +193,7 @@ export 'core/models/acc_balance.dart';
 export 'core/models/wallet_response.dart';
 export 'core/models/notification_model.dart';
 export 'core/models/add_product_m.dart';
+export 'core/models/product_image.dart';
 
 //services
 export 'core/services/auth/api_post_services.dart';

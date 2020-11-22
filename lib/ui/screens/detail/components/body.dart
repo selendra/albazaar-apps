@@ -96,9 +96,10 @@ class Body extends StatelessWidget {
             ),
           ];
         },
-        body: Container(
-          color: Colors.white,
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            color: Colors.white,
             child: Container(
               margin: const EdgeInsets.all(10.0),
               child: Column(

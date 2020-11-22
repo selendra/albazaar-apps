@@ -17,7 +17,7 @@ class ProductsProvider with ChangeNotifier {
   //List of all order product item that is sold
   List<Product> _isSold = [];
 
-  List<String> _imageList = [];
+  List<ProductImage> _imageList = [];
 
   PrefService _prefService = PrefService();
 
@@ -26,7 +26,7 @@ class ProductsProvider with ChangeNotifier {
   List<Product> get isAvailable => [..._isAvailable];
   List<Product> get isSold => [..._isSold];
   List<OrderProduct> get orItems => [..._orItems];
-  List<String> get imageList => [..._imageList];
+  List<ProductImage> get imageList => [..._imageList];
 
   int _orderQty = 1;
   int get orderQty => _orderQty;
@@ -40,16 +40,18 @@ class ProductsProvider with ChangeNotifier {
             "accept": "application/json",
             "authorization": "Bearer " + value,
           });
-          print(response.body);
+
           dynamic responseJson = json.decode(response.body);
           _prefService.saveString('products', jsonEncode(responseJson));
           for (var item in responseJson) {
             _items.add(Product.fromMap(item));
           }
+
+          print(responseJson);
           notifyListeners();
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
-          fetchImage(value);
+          getAllProductImg(value);
         }
       });
     } catch (e) {
@@ -63,17 +65,34 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchImage(String token) async {
+  Future<void> fetchImage(String token, String productId) async {
     try {
-      http.Response response =
-          await http.get(ApiUrl.GET_PRODUCT_IMAGE, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + token,
-      });
+      http.Response response = await http.post(ApiUrl.GET_PRODUCT_IMAGE,
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode(<String, String>{
+            "url": "string",
+            "product-id": productId,
+          }));
+      dynamic responseJson = json.decode(response.body);
 
-      print(response.body);
+      for (var item in responseJson) {
+        _imageList.add(ProductImage.fromJson(item));
+      }
+      print(_imageList.length);
+      //_imageList.add(responseJson);
+      print('fetch image' + response.body);
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  void getAllProductImg(String token) {
+    for (int i = 0; i < _items.length; i++) {
+      fetchImage(token, _items[i].id);
     }
   }
 
@@ -105,7 +124,9 @@ class ProductsProvider with ChangeNotifier {
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
       for (var item in responseJson) {
-        _oItems.add(Product.fromMap(item));
+        if (!_oItems.contains(item)) {
+          _oItems.add(Product.fromMap(item));
+        }
       }
 
       findIsSold(oItems);
@@ -117,10 +138,12 @@ class ProductsProvider with ChangeNotifier {
 
   void findIsSold(List<Product> allListing) {
     for (int i = 0; i < allListing.length; i++) {
-      if (allListing[i].isSold) {
+      if (allListing[i].isSold && !_isSold.contains(allListing[i])) {
         _isSold.add(allListing[i]);
       } else {
-        _isAvailable.add(allListing[i]);
+        if (!_isAvailable.contains(allListing[i])) {
+          _isAvailable.add(allListing[i]);
+        }
       }
     }
   }

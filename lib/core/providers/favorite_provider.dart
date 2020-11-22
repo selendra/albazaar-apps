@@ -6,13 +6,25 @@ class FavoriteProvider with ChangeNotifier {
 
   List<Product> get items => [..._fav];
 
+  void isFav(Product product) {
+    if (product.isFav) {
+      product.isFav = false;
+      removeFav(product);
+      notifyListeners();
+    } else {
+      product.isFav = true;
+      addFav(product);
+      notifyListeners();
+    }
+  }
+
   //ADD PRODUCT TO FAVORITE LIST
   void addFav(Product product) {
     print(product.id);
 
     if (!_fav.contains(product)) {
       _fav.add(product);
-      // product.isFavorite = true;
+      product.isFav = true;
       notifyListeners();
     }
   }
@@ -20,7 +32,7 @@ class FavoriteProvider with ChangeNotifier {
   //REMOVE PRODUCT FROM FAVORITE LIST
   void removeFav(Product product) {
     _fav.remove(product);
-    //product.isFavorite = false;
+    product.isFav = false;
     notifyListeners();
   }
 }

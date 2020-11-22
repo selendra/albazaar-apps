@@ -40,10 +40,6 @@ class ItemCard extends StatelessWidget {
                 child: Hero(
                   tag: "${product.id}",
                   child: FadeInImage(
-                    placeholderErrorBuilder: (context, error, stackTrace) =>
-                        Center(
-                      child: Text('Loading...'),
-                    ),
                     fit: BoxFit.cover,
                     image: NetworkImage(product.thumbnail),
                     placeholder: AssetImage('images/loading.gif'),

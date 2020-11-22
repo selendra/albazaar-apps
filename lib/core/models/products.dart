@@ -16,6 +16,7 @@ class Product with ChangeNotifier {
     this.categoryId,
     this.createdAt,
     this.isSold,
+    this.isFav,
   });
 
   String description;
@@ -32,23 +33,24 @@ class Product with ChangeNotifier {
   String categoryId;
   DateTime createdAt;
   bool isSold;
+  bool isFav;
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        description: json["description"],
-        name: json["name"],
-        updatedAt: json["updated_at"],
-        thumbnail: json["thumbnail"],
-        weight: json["weight"],
-        id: json["id"],
-        paymentId: json["payment_id"],
-        updatedBy: json["updated_by"],
-        shipping: json["shipping"],
-        price: json["price"].toString(),
-        createdBy: json["created_by"],
-        categoryId: json["category_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        isSold: json["is_sold"],
-      );
+      description: json["description"],
+      name: json["name"],
+      updatedAt: json["updated_at"],
+      thumbnail: json["thumbnail"],
+      weight: json["weight"],
+      id: json["id"],
+      paymentId: json["payment_id"],
+      updatedBy: json["updated_by"],
+      shipping: json["shipping"],
+      price: json["price"].toString(),
+      createdBy: json["created_by"],
+      categoryId: json["category_id"],
+      createdAt: DateTime.parse(json["created_at"]),
+      isSold: json["is_sold"],
+      isFav: false);
 
   Map<String, dynamic> toMap() => {
         "description": description,
