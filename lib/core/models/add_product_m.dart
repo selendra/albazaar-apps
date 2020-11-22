@@ -6,7 +6,7 @@ class AddProduct {
   final formKeySeller = GlobalKey<FormState>();
 
 
-  String productId;
+  String productId, imageUrl;
 
   List<String> imageUri = List<String>();
   List<Asset> images = List<Asset>();

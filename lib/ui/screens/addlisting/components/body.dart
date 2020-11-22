@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
@@ -97,33 +98,60 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> imageAssetToFile() async {
+
     // Fetch Image From Asset
     for (Asset asset in _addProductProvider.addProduct.images){
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImages.add(File(filePath));
     }
-    print("Display image path\n");
-    for (File file in _addProductProvider.addProduct.fileImages){
-      print(file.path);
-    }
+
+    // print("My product Id");
+    // for (int i = 0; i < _addProductProvider.addProduct.fileImages.length; i++) {
+    //   // print(_addProductProvider.addProduct.fileImages[i].path);
+    //   // _addProductProvider.addProduct.imageUri.add(
+        
+    //   // ); 
+    //   _postRequest.addProductImage(_addProductProvider.addProduct.fileImages[i].path, _addProductProvider.addProduct.productId);
+    // }
   }
 
-  Future<void> getImageUri() async {
+  // User After Display Image
+  Future<void> getImageUrl() async {
+    print("Get image url");
 
-    // Loop Upload File Images Per Each
-    _addProductProvider.addProduct.fileImages.forEach((element) async {
-
-      await _postRequest.upLoadImage(element, "upload").then((value) {
-        value.stream.transform(utf8.decoder).listen((data){
-          print(json.decode(data)['uri']);
-          _addProductProvider.addProduct.imageUri.add(json.decode(data)['uri']);
-        });
-      });
-      // response[0].stream.transform(utf8.decoder).listen((data){
-      //   print(json.decode(data)['uri']);
-      //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
-      // });
+    // Upload Image To Get Url Image
+    await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImages[0], "upload").then((value) {
+      // _addProductProvider.addProduct
+      _addProductProvider.addProduct.imageUrl = AppServices.getDataFromStream(value);
     });
+
+    print("Index 0 ${_addProductProvider.addProduct.imageUrl}");
+    // Loop Upload File Images Per Each
+    for(int i = 1; i < _addProductProvider.addProduct.fileImages.length; i++){
+      await _postRequest.upLoadImage( _addProductProvider.addProduct.fileImages[i], "upload").then((value) {
+        _addProductProvider.addProduct.imageUri.add(AppServices.getDataFromStream(value));
+      });
+    }
+
+    _addProductProvider.addProduct.imageUri.forEach((element) {
+      print("My url $element");
+    });
+    // _addProductProvider.addProduct.fileImages.forEach((element) async {
+    //   await _postRequest.upLoadImage(element, "upload").then((value) {
+    //     _addProductProvider.addProduct.imageUri.add(AppServices.getDataFromStream(value));
+    //     // value.stream.transform(utf8.decoder).listen((data){
+    //     //   print(json.decode(data)['uri']);
+    //     // });
+    //   });
+    //   // print(element.path);
+
+    //   // response[0].stream.transform(utf8.decoder).listen((data){
+    //   //   print(json.decode(data)['uri']);
+    //   //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
+    //   // });
+    // });
+
+    // _addProductProvider.addProduct.imageUri
 
     // response.stream.transform(utf8.decoder).listen((data){
     //   print(json.decode(data)['uri']);
@@ -233,7 +261,7 @@ class _BodyState extends State<Body> {
       print(_error);
     });
 
-    await getImageUri();
+    await getImageUrl();
   }
 
   @override

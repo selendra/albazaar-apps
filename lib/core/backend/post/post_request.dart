@@ -287,6 +287,22 @@ class PostRequest {
     return null;
   }
 
+  Future<_http.Response> addProductImage(String image, String productId) async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.bodyEncode = json.encode({
+      "url": image,
+      "product-id": productId,
+    });
+    if (_backend.token != null) {
+      _backend.response = await _http.post("${_sldApi.api}/change-password",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
+      return _backend.response;
+    }
+    return null;
+  }
+
   /* Post To Get Wallet Form Contact */
   Future<Map<String, dynamic>> getWalletFromContact(String contact) async {
     _backend.token = await StorageServices.fetchData('user_token');
@@ -351,19 +367,18 @@ class PostRequest {
     final response = await _http.post(_sldApi.urlOCR, body: bodys);
   }
 
+  // Upload Fil Image To Get Url Image
   Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
-    /* Upload image to server by use multi part form*/
-    _backend.token = await StorageServices.fetchData('user_token');
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
-      minHeight: 1300,
-      minWidth: 1000,
+      minHeight: 1000,
+      minWidth: 700,
       quality: 100,
     );
     /* Make request */
-    var request =
-        new _http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
+    
+    var request = new _http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
     /* Make Form of Multipart */
     var multipartFile = new _http.MultipartFile.fromBytes(
       'file',
@@ -371,13 +386,12 @@ class PostRequest {
       filename: 'image_picker.jpg',
       contentType: MediaType.parse('image/jpeg'),
     );
-    /* Concate Token With Header */
-    request.headers.addAll(_backend.conceteHeader("Authorization", "Bearer ${_backend.token['TOKEN']}"));
     request.files.add(multipartFile);
     /* Start send to server */
     var response = await request.send();
     /* Getting response */
     // response.stream.transform(utf8.decoder).listen((data){
+    //   print(data);
     // });
     return response;
   }
