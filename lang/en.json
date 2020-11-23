@@ -92,11 +92,21 @@
     "4digit_sent_to": "4-Digit Code was sent to: ",
     "resend_code": "Resend Code",
     "pick_image": "Pick Images",
-
     "enter_your_phone_number": "Enter your phone number",
     "wallet_information": "Wallet Information",
     "private_key": "Private Key",
     "copied": "Copied",
-    "recieve": "Recieve"
-
+    "recieve": "Recieve",
+    "seller_information": "Seller Information",
+    "next": "Next",
+    "total_price": "Total Price",
+    "shipping_information": "Shipping Information",
+    "payment_method": "Payment Method",
+    "reset_password": "Reset Password",
+    "reset_password_by_email": "Reset Password by email",
+    "reset_password_by_phone": "Reset Password by phone",
+    "reset_wallet_pin": "Reset Wallet Pin",
+    "skip": "Skip",
+    "let_begin": "LET'S BEGIN",
+    "order": "Order"
 }

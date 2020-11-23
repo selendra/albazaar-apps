@@ -3,18 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'sell_info.dart';
-import 'related_product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context).settings.arguments as int;
+    final productId = ModalRoute.of(context).settings.arguments as String;
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
-    print(loadedData.category);
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -87,7 +84,7 @@ class Body extends StatelessWidget {
                         8,
                         (index) {
                           return Image.network(
-                            loadedData.image,
+                            loadedData.thumbnail,
                             fit: BoxFit.cover,
                           );
                         },
@@ -99,19 +96,24 @@ class Body extends StatelessWidget {
             ),
           ];
         },
-        body: Container(
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            color: Colors.white,
             child: Container(
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    loadedData.title,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900,
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      loadedData.name,
+                      style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -123,7 +125,7 @@ class Body extends StatelessWidget {
                       //_btnQtyRow(),
                       Consumer<ProductsProvider>(
                         builder: (context, value, child) => BtnQty(
-                          '${loadedData.orderQty}',
+                          '${value.orderQty}',
                           () {
                             value.addOrderQty(loadedData);
                           },
@@ -133,9 +135,12 @@ class Body extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\$' + loadedData.price.toString(),
+                        loadedData.price.toString() +
+                            '៛ /' +
+                            AppLocalizeService.of(context)
+                                .translate('kilogram'),
                         style: TextStyle(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w500,
                           fontSize: 23,
                           color: kDefaultColor,
                         ),
@@ -144,20 +149,34 @@ class Body extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
-                  Card(
-                    elevation: 0,
-                    child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(loadedData.description)
-                    )
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-
                   SizedBox(
                     height: 10.0,
+                  ),
+                  Text(
+                    loadedData.description,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  // Card(
+                  //     elevation: 0,
+                  //     child: Container(
+                  //         height: 200,
+                  //         width: double.infinity,
+                  //         margin: EdgeInsets.all(10.0),
+                  //         child: )),
+                  SizedBox(
+                    height: 30.0,
                   ),
                   ChangeNotifierProvider.value(
                     value: loadedData,
@@ -165,7 +184,7 @@ class Body extends StatelessWidget {
                   ),
 
                   SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
                   RelatedProduct(),
                 ],

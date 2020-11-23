@@ -15,10 +15,10 @@ class BtnAddToCart extends StatelessWidget {
           onPressed: () {
             value.addCart(
               loadedProduct.id.toString(),
-              loadedProduct.image,
-              loadedProduct.title,
+              loadedProduct.thumbnail,
+              loadedProduct.name,
               loadedProduct.price,
-              loadedProduct.orderQty,
+              1,
             );
             Navigator.pop(context);
           },

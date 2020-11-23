@@ -96,5 +96,17 @@
     "wallet_information": "ព័ត៌មានអំពីកាបូប",
     "private_key": "សោរឯកជន",
     "copied": "បានចម្លង",
-    "recieve": "ទទួល"
+    "recieve": "ទទួល",
+    "seller_information": "ព័ត៌មានអ្នកលក់",
+    "next": "បន្ទាប់",
+    "total_price": "តម្លៃ​សរុប",
+    "shipping_information": "ព័ត៌មានដឹកជញ្ជូន",
+    "payment_method": "វិធី​សា​ស្រ្ត​ទូទាត់",
+    "reset_password": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+    "reset_password_by_email": "កំណត់លេខសម្ងាត់ឡើងវិញតាមអ៊ីមែល",
+    "reset_password_by_phone": "កំណត់លេខសម្ងាត់ឡើងវិញតាមទូរស័ព្ទ",
+    "reset_wallet_pin": "កំណត់កូដ PIN កាបូបឡើងវិញ",
+    "skip": "រំលង",
+    "let_begin": "តោះ​ចាប់ផ្ដើម",
+    "order": "បញ្ជា​រ​ទិញ"
 }

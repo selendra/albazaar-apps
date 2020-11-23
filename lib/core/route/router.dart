@@ -45,6 +45,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ResetChoiceView:
       return RouteAnimation(enterPage: ResetChoice());
       break;
+
     case SettingView:
       return RouteAnimation(enterPage: SettingScreen());
       break;
@@ -81,7 +82,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SaleScreenView:
       return RouteAnimation(enterPage: SalesScreen());
       break;
-
     case TransactionView:
       return RouteAnimation(enterPage: TransactionHistory());
       break;

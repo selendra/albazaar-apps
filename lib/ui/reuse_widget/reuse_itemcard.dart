@@ -17,7 +17,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
         Navigator.of(context).pushNamed('/detail', arguments: product.id);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+        margin: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
@@ -28,8 +28,8 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
             ClipRRect(
               borderRadius: BorderRadius.circular(kDefaultRadius),
               child: Container(
-                width: 120,
-                height: 80,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.4,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -39,13 +39,14 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                     )
                   ],
                 ),
-                child: Image.network(product.image, fit: BoxFit.cover),
+                child: Image.network(product.thumbnail, fit: BoxFit.cover),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
               child: Text(
-                product.title,
+                product.name,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     // color: Colors.black,
                     fontSize: 14.0,
@@ -55,7 +56,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                "\$${product.price}",
+                "${product.price}៛",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, color: kDefaultColor),
               ),

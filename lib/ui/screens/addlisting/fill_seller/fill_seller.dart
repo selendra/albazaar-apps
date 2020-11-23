@@ -12,17 +12,17 @@ class FillSeller extends StatefulWidget {
 
 class _FillSellerState extends State<FillSeller> {
   @override
-  initState(){
+  initState() {
     super.initState();
-    print(widget.addProduct.imageUrlList[0]);
+    // print(widget.addProduct.imageUrlList[0]);
   }
 
   @override
-  dispose(){
+  dispose() {
     widget.addProduct.clearSellerField();
     super.dispose();
   }
-  
+
   bool checkValidate() {
     // setState(() {
     // if (_formKeyDetail.currentState.validate() &&
@@ -54,7 +54,6 @@ class _FillSellerState extends State<FillSeller> {
   }
 
   void onChanged(String value) {
-
     print(widget.addProduct.sellerName.text);
     print(widget.addProduct.sellerNumber.text);
     print(widget.addProduct.address.text);
@@ -62,14 +61,12 @@ class _FillSellerState extends State<FillSeller> {
     print(widget.addProduct.city.text);
     print(widget.addProduct.shipping);
 
-    if (
-      widget.addProduct.sellerName.text.isNotEmpty &&
-      widget.addProduct.sellerNumber.text.isNotEmpty &&
-      widget.addProduct.address.text.isNotEmpty &&
-      widget.addProduct.district.text.isNotEmpty &&
-      widget.addProduct.city.text.isNotEmpty &&
-      widget.addProduct.shipping != "Shipping Services"
-    )
+    if (widget.addProduct.sellerName.text.isNotEmpty &&
+        widget.addProduct.sellerNumber.text.isNotEmpty &&
+        widget.addProduct.address.text.isNotEmpty &&
+        widget.addProduct.district.text.isNotEmpty &&
+        widget.addProduct.city.text.isNotEmpty &&
+        widget.addProduct.shipping != "Shipping Services")
       enableButton(true);
     else if (widget.addProduct.enable2) enableButton(false);
   }
@@ -80,7 +77,7 @@ class _FillSellerState extends State<FillSeller> {
     });
   }
 
-  void onChangedDD(String value){
+  void onChangedDD(String value) {
     print(value);
     setState(() {
       widget.addProduct.shipping = value;
@@ -91,7 +88,9 @@ class _FillSellerState extends State<FillSeller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem('Seller Information', context),
+      appBar: ReuseSimpleAppBar.getItem(
+          AppLocalizeService.of(context).translate('seller_information'),
+          context),
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,

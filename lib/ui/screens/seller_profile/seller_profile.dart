@@ -62,7 +62,7 @@ class _SellerProfileState extends State<SellerProfile>
                 SizedBox(
                   height: 10,
                 ),
-                ReuseAuthTab(_tabController, 'Post', ''),
+                ReuseAuthTab(_tabController, 'Post', 'Contact'),
               ],
             ),
           ),

@@ -58,17 +58,14 @@ class _HomeScreenState extends State<HomeScreen>
                   Scaffold.of(context).openDrawer();
                 },
               ),
-              //backgroundColor: Colors.white,
-              // leading: ReuseIconBadge(() {
-              //   Scaffold.of(context).openDrawer();
-              // }, Icons.menu, kDefaultColor, 25.0),
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    child: Image.asset('images/logo.png', width: 30, height: 30),
-                    padding: EdgeInsets.only(right: 5)),
+                      child:
+                          Image.asset('images/logo.png', width: 30, height: 30),
+                      padding: EdgeInsets.only(right: 5)),
                   Text(
                     'SELENDRA',
                     style: TextStyle(

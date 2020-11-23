@@ -14,6 +14,11 @@ class _BodyState extends State<Body> {
   ScrollController _controller;
   ProductsProvider productsProvider;
   // void filterSearchResults(String query) {} //Now u
+  Future<Null> _refresh() async {
+    await Future.delayed(Duration(seconds: 3)).then((value) {
+      productsProvider.fetchListingProduct();
+    });
+  }
 
   @override
   void initState() {
@@ -31,19 +36,22 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      controller: _controller,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            //SearchBar(),
-            SizedBox(
-              height: 10,
-            ),
-            CategoriesScreen(category),
-            ProductList(productsProvider.data),
-          ],
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        controller: _controller,
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              //SearchBar(),
+              SizedBox(
+                height: 10,
+              ),
+              CategoriesScreen(category),
+              ProductList(productsProvider.items),
+            ],
+          ),
         ),
       ),
     );

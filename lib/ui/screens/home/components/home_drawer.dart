@@ -63,11 +63,12 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            _lang.translate('sale'),
-            Icons.monetization_on,
+            _lang.translate('order'),
+            Icons.shopping_basket,
             () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, SaleScreenView);
+              Navigator.pushNamed(context, PurchaseView);
+              // Navigator.push(context,
             },
           ),
           
@@ -76,15 +77,15 @@ class HomeDrawer extends StatelessWidget {
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem(
-            _lang.translate('purchase'),
-            Icons.shopping_basket,
-            () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, PurchaseView);
-              // Navigator.push(context,
-            },
-          ),
+          // ReuseInkwell.getItem(
+          //   _lang.translate('purchase'),
+          //   Icons.shopping_basket,
+          //   () {
+          //     Navigator.pop(context);
+          //     Navigator.pushNamed(context, PurchaseView);
+          //     // Navigator.push(context,
+          //   },
+          // ),
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
             Navigator.pushNamed(context, ChatView);

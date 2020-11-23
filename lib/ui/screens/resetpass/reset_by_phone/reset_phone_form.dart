@@ -6,15 +6,16 @@ class ResetPhoneForm extends StatelessWidget {
   ResetPhoneForm(this._phone);
 
   final _formKey = GlobalKey<FormState>();
-  String _pin, _newPassword;
+  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+
   void validateAndSubmit(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      if (_pin != null && _newPassword != null) {
-        print(_pin);
-        print(_newPassword);
+      if (_pinController.text != null && _newPasswordController.text != null) {
         await AuthProvider()
-            .resetByPhone(_pin, _phone, _newPassword)
+            .resetByPhone(
+                _pinController.text, _phone, _newPasswordController.text)
             .then((value) {
           print(value);
           ReuseAlertDialog().successDialog(context, value);
@@ -32,7 +33,7 @@ class ResetPhoneForm extends StatelessWidget {
         child: Container(
           color: Colors.white,
           child: Container(
-            margin: EdgeInsets.all(20.0),
+            margin: const EdgeInsets.all(20.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -55,7 +56,8 @@ class ResetPhoneForm extends StatelessWidget {
                   ),
                   ReuseTextField(
                     labelText: 'Pin',
-                    onSaved: (newValue) => _pin = newValue,
+                    controller: _pinController,
+                    //  onSaved: (newValue) => _pin = newValue,
                     validator: (value) => value.isEmpty || value.length < 6
                         ? "Pin is empty or less than 6 characters"
                         : null,
@@ -72,10 +74,11 @@ class ResetPhoneForm extends StatelessWidget {
                   ),
                   ReusePwField(
                     labelText: 'New Password',
+                    controller: _newPasswordController,
                     validator: (value) => value.isEmpty || value.length < 6
                         ? "Password is empty or less than 6 characters"
                         : null,
-                    onSaved: (newValue) => _newPassword = newValue,
+                    // onSaved: (newValue) => _newPassword = newValue,
                   ),
                   SizedBox(
                     height: 30.0,

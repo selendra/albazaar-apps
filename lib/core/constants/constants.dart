@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 //Api Base Url
 const baseUrl = 'https://testnet-api.selendra.com';
 
+//App title
+const appTitle = 'Selendra Marketplace';
+
 //Design material
 const kDefaultColor = Color(0xFF303F9F); //Color(0xFF03A9F4);
 const kDefaultRadius = 8.0;
@@ -61,5 +64,6 @@ const String ChatView = '/chat';
 const String MyQrView = '/myqr';
 const String TransactionView = '/transaction';
 const String ResetChoiceView = '/resetchoice';
+
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';

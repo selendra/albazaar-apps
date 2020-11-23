@@ -15,7 +15,6 @@ class LangProvider with ChangeNotifier {
     _lang = languageCode;
 
     if (_lang == null) {
-      _prefService.saveString('lang', languageCode);
       saveLang(languageCode, context);
     } else {
       switch (languageCode) {
@@ -28,6 +27,8 @@ class LangProvider with ChangeNotifier {
           notifyListeners();
           break;
       }
+      _prefService.saveString('lang', languageCode);
+      print(languageCode);
     }
 
     notifyListeners();

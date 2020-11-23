@@ -40,7 +40,8 @@ class AuthProvider with ChangeNotifier {
     assert(user.photoUrl != null);
 
     //getUserInfo(user);
-    Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+    Provider.of<UserProvider>(context, listen: false)
+        .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
 
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
@@ -99,7 +100,7 @@ class AuthProvider with ChangeNotifier {
     mBalance = Balance();
     _pref?.clear('token');
     _pref.clear('seen');
-
+    Provider.of<ProductsProvider>(context, listen: false).clearList();
     try {
       FirebaseUser user = await _auth.currentUser();
       for (UserInfo profile in user.providerData) {
@@ -129,7 +130,7 @@ class AuthProvider with ChangeNotifier {
   //USER SIGN IN USING EMAIL AND PASSWORD
   Future<String> signInByEmail(String email, String password, context) async {
     try {
-      var response = await http.post(ApiUrl.LOG_IN_URL,
+      http.Response response = await http.post(ApiUrl.LOG_IN_URL,
           headers: ApiHeader.headers,
           body: jsonEncode(<String, String>{
             'email': email,
@@ -147,6 +148,9 @@ class AuthProvider with ChangeNotifier {
             if (onValue == '200') {
               Provider.of<UserProvider>(context, listen: false)
                   .fetchUserPf(_token);
+              Provider.of<ProductsProvider>(context, listen: false)
+                  .fetchListingProduct();
+
               Navigator.pushReplacementNamed(context, BottomNavigationView);
             }
           });
@@ -176,35 +180,36 @@ class AuthProvider with ChangeNotifier {
   Future<String> signInByPhone(String phone, String password, context) async {
     print(phone);
     print(password);
-    var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone",//ApiUrl.LOG_IN_PHONE,
-      headers: ApiHeader.headers,
-      body: jsonEncode(<String, String>{
-        'phone': phone,
-        'password': password,
-      })
-    );
+    var response = await http.post(
+        "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
+        headers: ApiHeader.headers,
+        body: jsonEncode(<String, String>{
+          'phone': phone,
+          'password': password,
+        }));
     print(response.body);
     if (response.statusCode == 200) {
-      var responseJson = json.decode(response.body);
+      dynamic responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
 
       if (_token != null) {
         _pref.saveString('token', _token);
-        await StorageServices.setData(responseJson, 'user_token');
+        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchListingProduct();
 
-            Navigator.pushNamedAndRemoveUntil(
-              context, 
-              BottomNavigationView, ModalRoute.withName('/'));
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
         // Provider.of<UserProvider>(context, listen: false)
         //     .fetchPortforlio()
         //     .then((onValue) {
         //   if (onValue == '200') {
-        //     Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        //     Navigator.pushAndRemoveUntil(
-        //       context, 
-        //       MaterialPageRoute(builder: (context) => HomeScreen()), ModalRoute.withName('/'));
-        //     // Navigator.pushReplacementNamed(context, BottomNavigationView);
+        //     Provider.of<UserProvider>(context, listen: false)
+        //         .fetchUserPf(_token);
+        //     Provider.of<ProductsProvider>(context, listen: false)
+        //         .fetchListingProduct();
+
+        //     Navigator.pushReplacementNamed(context, BottomNavigationView);
         //   }
         // });
       } else {

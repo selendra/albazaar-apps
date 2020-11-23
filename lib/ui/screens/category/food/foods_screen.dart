@@ -94,7 +94,8 @@ class _FoodsScreenState extends State<FoodsScreen>
         ],
       ),
       body: Container(
-        child: ProductList(productsData.vegProduct),
+        //child: ProductList(productsData.vegProduct),
+        child: Container(),
       ), //_buildTapBarView(),
     );
   }
