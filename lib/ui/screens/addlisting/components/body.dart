@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:http/http.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 // import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
@@ -25,15 +23,15 @@ class _BodyState extends State<Body> {
   PostRequest _postRequest = PostRequest();
 
   // BuildContext context;
-  void routeA() async {
-    String resultOfC = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CategoriesListScreen(category)));
-    setState(() {
-      // _addProductProvider.categories = resultOfC;
-    });
-  }
+  // void routeA() async {
+  //   String resultOfC = await Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => CategoriesListScreen(category)));
+  //   setState(() {
+  //     // _addProductProvider.categories = resultOfC;
+  //   });
+  // }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
     // print(addProductProvider.addProduct.imageUrl);
@@ -406,42 +404,20 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _sellerDetail() {
-    return Form(
-      key: _addProductProvider.addProduct.formKeySeller,
-      child: Container(
-        margin: EdgeInsets.only(left: 18, right: 18),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            _productNameField(),
-            SizedBox(
-              height: 10,
-            ),
-            _phoneNumberField(),
-            SizedBox(
-              height: 10,
-            ),
-            _streetAddress(),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                _district(),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _cityName(),
-              ],
-            ),
-            //_pickLocation(),
-          ],
-        ),
-      ),
-    );
+  Widget _productNameField() {
+    return ReuseTextField(
+        controller: _addProductProvider.addProduct.productName,
+        labelText: AppLocalizeService.of(context).translate('product_name'),
+        maxLine: 1,
+        textInputAction: TextInputAction.done,
+        validator: (value) => value.isEmpty
+            ? AppLocalizeService.of(context).translate('contact_name_is_empty')
+            : null,
+        onChanged: (String value) {
+          onChanged(value, _addProductProvider);
+        }
+        // onSaved: (value) => _contactName = value,
+        );
   }
 
   Widget _priceField() {
@@ -478,101 +454,86 @@ class _BodyState extends State<Body> {
       // onSaved: (value) => _description = value,
     );
   }
-
-  Widget _myCategories() {
-    return Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          border: Border.all(color: kDefaultColor, width: 1),
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: new DropdownButton<String>(
-            items: _addProductProvider.addProduct.categoriesList
-                .map((Map<String, dynamic> value) {
-              return new DropdownMenuItem<String>(
-                value: value['category_name'],
-                child: new Text(value['category_name']),
-              );
-            }).toList(),
-            onChanged: (_) {},
-          ),
-        )
-        // ListTile(
-        //   title: _addProductProvider.categories.text.isEmpty
-        //   ? Text(
-        //     AppLocalizeService.of(context).translate('categories'),
-        //   )
-        //   : Text(_addProductProvider.categories.text),
-        //   trailing: Icon(
-        //     Icons.arrow_forward_ios,
-        //     color: kDefaultColor,
-        //   ),
-        //   onTap: () {
-        //     routeA();
-        //   },
-        // ),
-        );
-  }
-
-  Widget _productNameField() {
-    return ReuseTextField(
-        controller: _addProductProvider.addProduct.productName,
-        labelText: AppLocalizeService.of(context).translate('product_name'),
-        maxLine: 1,
-        textInputAction: TextInputAction.done,
-        validator: (value) => value.isEmpty
-            ? AppLocalizeService.of(context).translate('contact_name_is_empty')
-            : null,
-        onChanged: (String value) {
-          onChanged(value, _addProductProvider);
-        }
-        // onSaved: (value) => _contactName = value,
-        );
-  }
-
-  Widget _phoneNumberField() {
-    return ReuseTextField(
-        controller: _addProductProvider.addProduct.sellerNumber,
-        labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        maxLine: 1,
-        textInputAction: TextInputAction.done,
-        validator: (value) => value.isEmpty
-            ? AppLocalizeService.of(context).translate('phone_number_is_empty')
-            : null,
-        onChanged: (String value) {
-          onChanged(value, _addProductProvider);
-        }
-        // onSaved: (value) => _phoneNumber = value,
-        );
-  }
-
-  Widget _streetAddress() {
-    return ReuseTextField(
-      controller: _addProductProvider.addProduct.address,
-      labelText: AppLocalizeService.of(context).translate('street_address'),
-      // onSaved: (newValue) => _address = newValue,
-    );
-  }
-
-  Widget _district() {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2.3,
-      child: ReuseTextField(
-        textInputAction: TextInputAction.done,
-        labelText: AppLocalizeService.of(context).translate('district'),
-      ),
-    );
-  }
-
-  Widget _cityName() {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2.3,
-      child: ReuseTextField(
-        labelText: AppLocalizeService.of(context).translate('city_province'),
-        textInputAction: TextInputAction.done,
-      ),
-    );
-  }
 }
+
+//   Widget _myCategories() {
+//     return Container(
+//         height: 60,
+//         width: MediaQuery.of(context).size.width,
+//         decoration: BoxDecoration(
+//           border: Border.all(color: kDefaultColor, width: 1),
+//           borderRadius: BorderRadius.circular(kDefaultRadius),
+//         ),
+//         child: DropdownButtonHideUnderline(
+//           child: new DropdownButton<String>(
+//             items: _addProductProvider.addProduct.categoriesList
+//                 .map((Map<String, dynamic> value) {
+//               return new DropdownMenuItem<String>(
+//                 value: value['category_name'],
+//                 child: new Text(value['category_name']),
+//               );
+//             }).toList(),
+//             onChanged: (_) {},
+//           ),
+//         )
+//         // ListTile(
+//         //   title: _addProductProvider.categories.text.isEmpty
+//         //   ? Text(
+//         //     AppLocalizeService.of(context).translate('categories'),
+//         //   )
+//         //   : Text(_addProductProvider.categories.text),
+//         //   trailing: Icon(
+//         //     Icons.arrow_forward_ios,
+//         //     color: kDefaultColor,
+//         //   ),
+//         //   onTap: () {
+//         //     routeA();
+//         //   },
+//         // ),
+//         );
+//   }
+
+//   Widget _phoneNumberField() {
+//     return ReuseTextField(
+//         controller: _addProductProvider.addProduct.sellerNumber,
+//         labelText: AppLocalizeService.of(context).translate('phone_hint'),
+//         maxLine: 1,
+//         textInputAction: TextInputAction.done,
+//         validator: (value) => value.isEmpty
+//             ? AppLocalizeService.of(context).translate('phone_number_is_empty')
+//             : null,
+//         onChanged: (String value) {
+//           onChanged(value, _addProductProvider);
+//         }
+//         // onSaved: (value) => _phoneNumber = value,
+//         );
+//   }
+
+//   Widget _streetAddress() {
+//     return ReuseTextField(
+//       controller: _addProductProvider.addProduct.address,
+//       labelText: AppLocalizeService.of(context).translate('street_address'),
+//       // onSaved: (newValue) => _address = newValue,
+//     );
+//   }
+
+//   Widget _district() {
+//     return Container(
+//       width: MediaQuery.of(context).size.width / 2.3,
+//       child: ReuseTextField(
+//         textInputAction: TextInputAction.done,
+//         labelText: AppLocalizeService.of(context).translate('district'),
+//       ),
+//     );
+//   }
+
+//   Widget _cityName() {
+//     return Container(
+//       width: MediaQuery.of(context).size.width / 2.3,
+//       child: ReuseTextField(
+//         labelText: AppLocalizeService.of(context).translate('city_province'),
+//         textInputAction: TextInputAction.done,
+//       ),
+//     );
+//   }
+// }

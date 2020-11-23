@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Product with ChangeNotifier {
   Product({

@@ -1,5 +1,4 @@
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class FillSellerBody extends StatelessWidget {

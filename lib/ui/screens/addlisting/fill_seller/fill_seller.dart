@@ -23,35 +23,35 @@ class _FillSellerState extends State<FillSeller> {
     super.dispose();
   }
 
-  bool checkValidate() {
-    // setState(() {
-    // if (_formKeyDetail.currentState.validate() &&
-    //     _formKeySeller.currentState.validate()) {
-    //   _formKeyDetail.currentState.save();
-    //   _formKeySeller.currentState.save();
+  // bool checkValidate() {
+  //   // setState(() {
+  //   // if (_formKeyDetail.currentState.validate() &&
+  //   //     _formKeySeller.currentState.validate()) {
+  //   //   _formKeyDetail.currentState.save();
+  //   //   _formKeySeller.currentState.save();
 
-    // print(_title);
-    // print(_price);
-    // print(_description);
-    // print(_contactName);
-    // print(_phoneNumber);
-    // print(_categories);
-    // print(_address);
+  //   // print(_title);
+  //   // print(_price);
+  //   // print(_description);
+  //   // print(_contactName);
+  //   // print(_phoneNumber);
+  //   // print(_categories);
+  //   // print(_address);
 
-    /*products.add(Product(
-            id: 20,i
-            title: _title,
-            price: int.parse(_price),
-            description: _description,
-            image: "images/new-house.jpg",
-            color: Color(0xFF3D82AE)));*/
+  //   /*products.add(Product(
+  //           id: 20,i
+  //           title: _title,
+  //           price: int.parse(_price),
+  //           description: _description,
+  //           image: "images/new-house.jpg",
+  //           color: Color(0xFF3D82AE)));*/
 
-    //   Navigator.pop(context);
-    //   return true;
-    // }
-    // });
-    // return false;
-  }
+  //   //   Navigator.pop(context);
+  //   //   return true;
+  //   // }
+  //   // });
+  //   // return false;
+  // }
 
   void onChanged(String value) {
     print(widget.addProduct.sellerName.text);

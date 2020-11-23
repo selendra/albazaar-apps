@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class FoodsScreen extends StatefulWidget {
   final String _image;
@@ -30,7 +29,7 @@ class _FoodsScreenState extends State<FoodsScreen>
   @override
   Widget build(BuildContext context) {
     // var _lang = AppLocalizeService.of(context);
-    final productsData = Provider.of<ProductsProvider>(context);
+    // final productsData = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

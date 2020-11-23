@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,7 +9,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  
   ScrollController _controller;
   ProductsProvider productsProvider;
   // void filterSearchResults(String query) {} //Now u
@@ -25,7 +23,6 @@ class _BodyState extends State<Body> {
     super.initState();
     _controller = ScrollController();
   }
-  
 
   @override
   void dispose() {
@@ -38,22 +35,26 @@ class _BodyState extends State<Body> {
     productsProvider = Provider.of<ProductsProvider>(context);
     return RefreshIndicator(
       onRefresh: _refresh,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        controller: _controller,
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              //SearchBar(),
-              SizedBox(
-                height: 10,
+      child: productsProvider.items.isEmpty
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              controller: _controller,
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    //SearchBar(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    CategoriesScreen(category),
+                    ProductList(productsProvider.items),
+                  ],
+                ),
               ),
-              CategoriesScreen(category),
-              ProductList(productsProvider.items),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

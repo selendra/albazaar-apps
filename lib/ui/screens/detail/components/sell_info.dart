@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class SellerInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    //final product = Provider.of<Product>(context);
     //return Container();
     return Card(
       elevation: 0,
