@@ -43,6 +43,7 @@ class ProductsProvider with ChangeNotifier {
 
           dynamic responseJson = json.decode(response.body);
           _prefService.saveString('products', jsonEncode(responseJson));
+          _items = new List<Product>();
           for (var item in responseJson) {
             _items.add(Product.fromMap(item));
           }
@@ -123,10 +124,9 @@ class ProductsProvider with ChangeNotifier {
       //_oItems.add(Product.fromMap(responseJson));
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
+      _oItems = new List<Product>();
       for (var item in responseJson) {
-        if (!_oItems.contains(item)) {
-          _oItems.add(Product.fromMap(item));
-        }
+        _oItems.add(Product.fromMap(item));
       }
 
       findIsSold(oItems);
@@ -137,6 +137,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void findIsSold(List<Product> allListing) {
+    _isSold = List<Product>();
+    _isAvailable = List<Product>();
     for (int i = 0; i < allListing.length; i++) {
       if (allListing[i].isSold && !_isSold.contains(allListing[i])) {
         _isSold.add(allListing[i]);

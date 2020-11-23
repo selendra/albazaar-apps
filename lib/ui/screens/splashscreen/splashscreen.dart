@@ -25,27 +25,32 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('token').then(
       (value) async {
         if (value != null) {
-          await UserProvider().fetchPortforlio().then(
-            (onValue) {
-              //Check if the token is valid or not
-              print(onValue);
-              if (onValue == '200') {
-                //Provider.of<ProductsProvider>(context, listen: false).fetch();
-                //Fetch user infomation from share preference(local storage)
-                Provider.of<UserProvider>(context, listen: false)
-                    .fetchUserInfo();
-                Provider.of<ProductsProvider>(context, listen: false)
-                    .fetchListingProduct();
+          Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchListingProduct();
 
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                /*If the token is not valid clear it 
-                and return to the welcome screen*/
-                _pref.clear('token');
-                Navigator.pushReplacementNamed(context, WelcomeView);
-              }
-            },
-          );
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          // await UserProvider().fetchPortforlio().then(
+          //   (onValue) {
+          //     //Check if the token is valid or not
+          //     print(onValue);
+          //     if (onValue == '200') {
+          //       //Provider.of<ProductsProvider>(context, listen: false).fetch();
+          //       //Fetch user infomation from share preference(local storage)
+          //       Provider.of<UserProvider>(context, listen: false)
+          //           .fetchUserInfo();
+          //       Provider.of<ProductsProvider>(context, listen: false)
+          //           .fetchListingProduct();
+
+          //       Navigator.pushReplacementNamed(context, BottomNavigationView);
+          //     } else {
+          //       /*If the token is not valid clear it
+          //       and return to the welcome screen*/
+          //       _pref.clear('token');
+          //       Navigator.pushReplacementNamed(context, WelcomeView);
+          //     }
+          //   },
+          // );
         } else {
           //Checking is social user login or not by getting the current user
           AuthProvider().currentUser.then(

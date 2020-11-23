@@ -12,6 +12,7 @@ class Body extends StatelessWidget {
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
+
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
