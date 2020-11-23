@@ -85,12 +85,14 @@ class Body extends StatelessWidget {
                         images: List.generate(
                           value.url.isEmpty ? 1 : value.url.length,
                           (index) {
-                            return Image.network(
-                              value.url.isNotEmpty
-                                  ? value.url[index]
-                                  : loadedData.thumbnail,
-                              fit: BoxFit.cover,
-                            );
+                            return FadeInImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  value.url.isNotEmpty
+                                      ? value.url[index]
+                                      : loadedData.thumbnail,
+                                ),
+                                placeholder: AssetImage('images/loading.gif'));
                           },
                         ),
                       ),

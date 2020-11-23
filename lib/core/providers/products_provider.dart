@@ -179,8 +179,10 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void find(String productId) {
+  void findImgById(String productId) {
     _url = List<String>();
+    final product = findById(productId);
+    addThumbnail(product.thumbnail);
     for (int i = 0; i < _imageList.length; i++) {
       if (_imageList[i].productId == productId) {
         _url.add(_imageList[i].url);
@@ -188,6 +190,11 @@ class ProductsProvider with ChangeNotifier {
       }
     }
     print(url.length);
+  }
+
+  void addThumbnail(String thumbnail) {
+    _url.add(thumbnail);
+    notifyListeners();
   }
 
   // Future<void> readLocalProduct() async {
