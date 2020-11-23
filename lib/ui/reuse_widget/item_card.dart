@@ -9,6 +9,8 @@ class ItemCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        Provider.of<ProductsProvider>(context, listen: false).find(product.id);
+
         Navigator.of(context).pushNamed(
           '/detail',
           arguments: product.id,

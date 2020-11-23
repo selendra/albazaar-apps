@@ -20,6 +20,8 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductImage> _imageList = [];
 
+  List<String> _url = [];
+
   PrefService _prefService = PrefService();
 
   PostRequest _postRequest = PostRequest();
@@ -30,6 +32,7 @@ class ProductsProvider with ChangeNotifier {
   List<Product> get isSold => [..._isSold];
   List<OrderProduct> get orItems => [..._orItems];
   List<ProductImage> get imageList => [..._imageList];
+  List<String> get url => [..._url];
 
   int _orderQty = 1;
   int get orderQty => _orderQty;
@@ -70,21 +73,6 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void addItem(BuildContext context, AddProduct newProduct) async {
-    // newProduct.toProduct(
-    //   newProduct,
-    //   "12",
-    //   'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true',
-    //   'FF3D82AE'
-    // );
-
-    // print(newProduct.productName.text);
-    // print(newProduct.price.text);
-    // print(newProduct.shipping);
-    // print(newProduct.weight);T
-    // print(newProduct.imageUri);
-    // print(newProduct.description.text);
-    // print(newProduct.category);
-    // print(newProduct.paymentOpt);
     Components.dialogLoading(context: context, contents: "Adding");
     try {
       await _postRequest.addListing(newProduct).then((value) async {
@@ -125,7 +113,7 @@ class ProductsProvider with ChangeNotifier {
       }
       print(_imageList.length);
       //_imageList.add(responseJson);
-      print('fetch image' + response.body);
+
     } catch (e) {
       print(e.toString());
     }
@@ -188,6 +176,18 @@ class ProductsProvider with ChangeNotifier {
         }
       }
     }
+    notifyListeners();
+  }
+
+  void find(String productId) {
+    _url = List<String>();
+    for (int i = 0; i < _imageList.length; i++) {
+      if (_imageList[i].productId == productId) {
+        _url.add(_imageList[i].url);
+        notifyListeners();
+      }
+    }
+    print(url.length);
   }
 
   // Future<void> readLocalProduct() async {

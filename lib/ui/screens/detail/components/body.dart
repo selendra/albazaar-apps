@@ -12,6 +12,7 @@ class Body extends StatelessWidget {
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
+
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -68,26 +69,30 @@ class Body extends StatelessWidget {
                 background: Hero(
                   tag: "$productId",
                   child: SizedBox(
-                    child: Carousel(
-                      autoplay: false,
-                      dotSpacing: 15.0,
-                      dotColor: Colors.grey,
-                      dotBgColor: Colors.transparent,
-                      dotIncreasedColor: kDefaultColor,
-                      indicatorBgPadding: 10.0,
-                      borderRadius: true,
-                      animationCurve: Curves.decelerate,
-                      moveIndicatorFromBottom: 180.0,
-                      noRadiusForIndicator: true,
-                      boxFit: BoxFit.cover,
-                      images: List.generate(
-                        8,
-                        (index) {
-                          return Image.network(
-                            loadedData.thumbnail,
-                            fit: BoxFit.cover,
-                          );
-                        },
+                    child: Consumer<ProductsProvider>(
+                      builder: (context, value, child) => Carousel(
+                        autoplay: false,
+                        dotSpacing: 15.0,
+                        dotColor: Colors.grey,
+                        dotBgColor: Colors.transparent,
+                        dotIncreasedColor: kDefaultColor,
+                        indicatorBgPadding: 10.0,
+                        borderRadius: true,
+                        animationCurve: Curves.decelerate,
+                        moveIndicatorFromBottom: 180.0,
+                        noRadiusForIndicator: true,
+                        boxFit: BoxFit.cover,
+                        images: List.generate(
+                          value.url.isEmpty ? 1 : value.url.length,
+                          (index) {
+                            return Image.network(
+                              value.url.isNotEmpty
+                                  ? value.url[index]
+                                  : loadedData.thumbnail,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
