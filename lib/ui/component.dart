@@ -104,11 +104,14 @@ class MyDropDown extends StatelessWidget{
       ),
       child: DropdownButtonHideUnderline(
         child: new DropdownButton<String>(
-          hint: Text(hint),
+          hint: Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(hint),
+          ),
           items: data.map((dynamic value) {
             return new DropdownMenuItem<String>(
               value: value['$keyPair'],
-              child: new Text(value['$keyPair']),
+              child: Text(value['$keyPair']),
             );
           }).toList(),
           onChanged: onChanged,

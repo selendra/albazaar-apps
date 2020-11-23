@@ -49,6 +49,7 @@
     "categories": "Categories",
     "price": "Price",
     "name": "Name",
+    "product_name": "Product Name",
     "street_address": "Street Address",
     "district": "District",
     "city_province": "Province/City",

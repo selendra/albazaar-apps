@@ -19,8 +19,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  // AddProduct _addProductProvider = AddProduct();
-
   AddProductProvider _addProductProvider;
 
   String _error = 'No Error Dectected';
@@ -39,15 +37,25 @@ class _BodyState extends State<Body> {
   }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
+
+    // print(addProductProvider.addProduct.imageUrl);
+    // print(addProductProvider.addProduct.productName.text);
+    // print(addProductProvider.addProduct.category);
+    // print(addProductProvider.addProduct.weight);
+    // print(addProductProvider.addProduct.price.text);
+    // print(addProductProvider.addProduct.paymentOpt);
+    // print(addProductProvider.addProduct.description.text);
+
     if (
-      addProductProvider.addProduct.images.length != 0 &&
+      addProductProvider.addProduct.imageUrl.isNotEmpty &&
       addProductProvider.addProduct.productName.text.isNotEmpty &&
       addProductProvider.addProduct.category != "Category" &&
-      addProductProvider.addProduct.shipping != "Shipping services" &&
-      addProductProvider.addProduct.paymentOpt != "Payment method" &&
       addProductProvider.addProduct.weight != "Weight" &&
-      addProductProvider.addProduct.price.text.isNotEmpty
-    ) enableButton(true);
+      addProductProvider.addProduct.price.text.isNotEmpty &&
+      addProductProvider.addProduct.paymentOpt != "Payment Method" &&
+      addProductProvider.addProduct.description.text.isNotEmpty
+    ) 
+    enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
@@ -62,12 +70,19 @@ class _BodyState extends State<Body> {
   }
 
   void toSeller(AddProductProvider provider) async {
-    await Navigator.push(
+    print(provider.addProduct.imageUrl);
+    print(provider.addProduct.productName.text);
+    print(provider.addProduct.category);
+    print(provider.addProduct.weight);
+    print(provider.addProduct.price.text);
+    print(provider.addProduct.paymentOpt);
+    print(provider.addProduct.description.text);
+    var response = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => FillSeller(addProduct: provider.addProduct))
     );
     
-    Navigator.pop(context);
+    if (response != null) Navigator.pop(context);
     // setState(() {
     //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
     //       _addProductProvider.formKeySeller.currentState.validate()) {
@@ -97,66 +112,142 @@ class _BodyState extends State<Body> {
     // return false;
   }
 
+  
+
+  Future<void> loadAssets() async {
+
+    String error = 'No Error Dectected';
+
+    try {
+      _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
+        maxImages: 8,
+        enableCamera: false,
+        selectedAssets: _addProductProvider.addProduct.images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+          actionBarTitle: "Selendra App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      await imageAssetToFile();
+    } on Exception catch (e) {
+      print("Error $e");
+      error = e.toString();
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _error = error;
+      print(_error);
+    });
+
+    await getImageUrl();
+  }
+
   Future<void> imageAssetToFile() async {
 
     // Fetch Image From Asset
     for (Asset asset in _addProductProvider.addProduct.images){
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      _addProductProvider.addProduct.fileImages.add(File(filePath));
+      _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
-
-    // print("My product Id");
-    // for (int i = 0; i < _addProductProvider.addProduct.fileImages.length; i++) {
-    //   // print(_addProductProvider.addProduct.fileImages[i].path);
-    //   // _addProductProvider.addProduct.imageUri.add(
-        
-    //   // ); 
-    //   _postRequest.addProductImage(_addProductProvider.addProduct.fileImages[i].path, _addProductProvider.addProduct.productId);
-    // }
   }
 
   // User After Display Image
   Future<void> getImageUrl() async {
-    print("Get image url");
 
     // Upload Image To Get Url Image
-    await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImages[0], "upload").then((value) {
+    await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload").then((value) {
       // _addProductProvider.addProduct
-      _addProductProvider.addProduct.imageUrl = AppServices.getDataFromStream(value);
+      value.stream.transform(utf8.decoder).listen((data){
+        _addProductProvider.addProduct.imageUrl = json.decode(data)['uri'];
+      });
     });
 
-    print("Index 0 ${_addProductProvider.addProduct.imageUrl}");
     // Loop Upload File Images Per Each
-    for(int i = 1; i < _addProductProvider.addProduct.fileImages.length; i++){
-      await _postRequest.upLoadImage( _addProductProvider.addProduct.fileImages[i], "upload").then((value) {
-        _addProductProvider.addProduct.imageUri.add(AppServices.getDataFromStream(value));
+    for(int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++){
+      await _postRequest.upLoadImage( _addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
+        value.stream.transform(utf8.decoder).listen((data){
+          _addProductProvider.addProduct.imageUrlList.add(json.decode(data)['uri']);
+        });
       });
     }
+  }
 
-    _addProductProvider.addProduct.imageUri.forEach((element) {
-      print("My url $element");
+  @override
+  void initState() {
+    _addProductProvider = AddProductProvider();
+    super.initState();
+  }
+
+  @override
+  dispose(){
+    Timer(Duration(milliseconds: 500), (){
+      _addProductProvider.addProduct.clearProductField();
     });
-    // _addProductProvider.addProduct.fileImages.forEach((element) async {
-    //   await _postRequest.upLoadImage(element, "upload").then((value) {
-    //     _addProductProvider.addProduct.imageUri.add(AppServices.getDataFromStream(value));
-    //     // value.stream.transform(utf8.decoder).listen((data){
-    //     //   print(json.decode(data)['uri']);
-    //     // });
-    //   });
-    //   // print(element.path);
+    super.dispose();
+  }
 
-    //   // response[0].stream.transform(utf8.decoder).listen((data){
-    //   //   print(json.decode(data)['uri']);
-    //   //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
-    //   // });
-    // });
+  @override
+  Widget build(BuildContext context) {
 
-    // _addProductProvider.addProduct.imageUri
-
-    // response.stream.transform(utf8.decoder).listen((data){
-    //   print(json.decode(data)['uri']);
-    //   _addProductProvider.addProduct.imageUri = json.decode(data)['uri'];
-    // });
+    _addProductProvider = Provider.of<AddProductProvider>(context);
+    // Provider.of<AddProductProvider>(context);
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: <Widget>[
+              _postDetail(),
+              SizedBox(
+                height: 40,
+              ),
+              // Consumer<ProductsProvider>(
+              //   builder: (context, value, child) => Container(
+              //     // margin: EdgeInsets.only(right: 16, left: 16),
+              //     child: ReuseButton.getItem(
+              //         AppLocalizeService.of(context).translate('Next'), () {
+              //       toSeller();
+              //       if (toSeller()) {
+              //         value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+              //             _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+              //       }
+              //     }, context),
+              //   ),
+              // ),
+              Container(
+                margin: EdgeInsets.only(right: 18, left: 18),
+                child: ReuseButton.getItem(
+                  'Next', //AppLocalizeService.of(context).translate('Next'),
+                  !_addProductProvider.addProduct.enable1
+                  ? null
+                  : () {
+                    toSeller(_addProductProvider);
+                    // if (toSeller()) {
+                    //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                    //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+                    // }
+                  },
+                  context
+                ),
+              ),
+              // _sellerDetail(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget buildGridView(Function loadAssets) {
@@ -227,104 +318,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Future<void> loadAssets() async {
-
-    String error = 'No Error Dectected';
-
-    try {
-      _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
-        maxImages: 8,
-        enableCamera: false,
-        selectedAssets: _addProductProvider.addProduct.images,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-          actionBarTitle: "Selendra App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      await imageAssetToFile();
-    } on Exception catch (e) {
-      print("Error $e");
-      error = e.toString();
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _error = error;
-      print(_error);
-    });
-
-    await getImageUrl();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    _addProductProvider = Provider.of<AddProductProvider>(context);
-    // Provider.of<AddProductProvider>(context);
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: <Widget>[
-              _postDetail(),
-              SizedBox(
-                height: 40,
-              ),
-              // Consumer<ProductsProvider>(
-              //   builder: (context, value, child) => Container(
-              //     // margin: EdgeInsets.only(right: 16, left: 16),
-              //     child: ReuseButton.getItem(
-              //         AppLocalizeService.of(context).translate('Next'), () {
-              //       toSeller();
-              //       if (toSeller()) {
-              //         value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-              //             _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-              //       }
-              //     }, context),
-              //   ),
-              // ),
-              Container(
-                margin: EdgeInsets.only(right: 18, left: 18),
-                child: ReuseButton.getItem(
-                  'Next', //AppLocalizeService.of(context).translate('Next'),
-                  // !_addProductProvider.enable1
-                  // ? null
-                  // : 
-                  () {
-                    toSeller(_addProductProvider);
-                    // if (toSeller()) {
-                    //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                    //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                    // }
-                  },
-                  context
-                ),
-              ),
-              // _sellerDetail(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _postDetail() {
     return Form(
       key: _addProductProvider.addProduct.formKeyDetail,
@@ -369,6 +362,9 @@ class _BodyState extends State<Body> {
                       });
                     },
                   ),
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 Expanded(
                   child: MyDropDown(
@@ -478,9 +474,13 @@ class _BodyState extends State<Body> {
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       labelText: AppLocalizeService.of(context).translate('description'),
+      
       validator: (value) => value.isEmpty
-          ? AppLocalizeService.of(context).translate('description_is_empty')
-          : null,
+      ? AppLocalizeService.of(context).translate('description_is_empty')
+      : null,
+      onChanged: (String value){
+        onChanged(value, _addProductProvider);
+      },
       // onSaved: (value) => _description = value,
     );
   }

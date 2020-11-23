@@ -74,7 +74,6 @@ class _SplashScreenState extends State<SplashScreen>
       () {
         _pref.read('isshow').then(
           (onValue) {
-            print(onValue);
             if (onValue == null) {
               Navigator.pushReplacementNamed(context, IntroScreenView);
             } else {

@@ -158,7 +158,7 @@ class PostRequest {
       "receipt_no": _modelScanInvoice.controlBillNO.text,
       "amount": _modelScanInvoice.controlAmount.text,
       "location": _modelScanInvoice.controlLocation.text,
-      "image_uri": _modelScanInvoice.imageUri['uri'],
+      "image_uri": _modelScanInvoice.imageUrlList['uri'],
       "approval_code": _modelScanInvoice.controlApproveCode.text
     });
     _backend.token = await StorageServices.fetchData('user_token');
@@ -341,7 +341,7 @@ class PostRequest {
       "shipping": product.shipping,
       "weight": product.weight,
       "description": product.description.text,
-      "thumbnail": product.imageUri,
+      "thumbnail": product.imageUrl,
       "category-id": product.category,
       "payment-id": product.paymentOpt
     });

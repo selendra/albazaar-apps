@@ -16,7 +16,7 @@ class AppServices {
     return colorint;
   }
 
-  static String getDataFromStream(StreamedResponse stream){
+  static String getDataFromStream(StreamedResponse stream, AddProduct addProduct){
     String value;
     stream.stream.transform(utf8.decoder).listen((data){
       print(json.decode(data)['uri']);

@@ -34,6 +34,7 @@ class AddProductProvider extends ChangeNotifier{
   void fetchPaymentOpt() async {
     await _getRequest.paymentOpt().then((value) {
       addProduct.paymentOptsList = List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.paymentOpt = addProduct.paymentOptsList[1]['options_name'];
       notifyListeners();
     });
   }

@@ -5,12 +5,14 @@ class AddProduct {
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 
+  String productId;
 
-  String productId, imageUrl;
+  // Image Url For Upload First Time
+  String imageUrl;
 
-  List<String> imageUri = List<String>();
+  List<String> imageUrlList = List<String>();
   List<Asset> images = List<Asset>();
-  List<File> fileImages = List<File>();
+  List<File> fileImagesList = List<File>();
   
 
   List<Map<String, dynamic>> shippingList = List<Map<String, dynamic>>();
@@ -21,7 +23,7 @@ class AddProduct {
   bool enable1 = false;
   bool enable2 = false;
 
-  String weight= 'Weight', paymentOpt = 'Payment method', category = 'Category', shipping = 'Shipping services';
+  String weight= 'Weight', paymentOpt = 'Payment Method', category = 'Category', shipping = 'Shipping Services';
 
   TextEditingController productName = TextEditingController();
   TextEditingController price =  TextEditingController();
@@ -44,15 +46,29 @@ class AddProduct {
   FocusNode districtNode = FocusNode();
   FocusNode cityNode = FocusNode();
 
-  void dispose(){
-    productName.dispose();
-    price.dispose();
-    description.dispose();
-    sellerName.dispose();
-    sellerNumber.dispose();
-    address.dispose();
-    district.dispose();
-    city.dispose();
+  void clearProductField(){
+    productId = '';
+    imageUrl = '';
+    imageUrlList.clear();
+    images.clear();
+    fileImagesList.clear();
+    productName.clear();
+    price.clear();
+    description.clear();
+    sellerName.clear();
+    sellerNumber.clear();
+    address.clear();
+    district.clear();
+    city.clear();
+  }
+
+  void clearSellerField(){
+    sellerName.clear();
+    sellerNumber.clear();
+    address.clear();
+    district.clear();
+    city.clear();
+    shipping = '';
   }
 
   Product toProduct(AddProduct addProduct, String id, String image, String color, {String categories}){

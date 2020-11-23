@@ -109,7 +109,7 @@ class FillSellerBody extends StatelessWidget{
               builder: (context, value, child) => Container(
                 child: ReuseButton.getItem(
                   AppLocalizeService.of(context).translate('submit'), 
-                  // !addProduct.enable2 ? null : 
+                  !addProduct.enable2 ? null : 
                   () {
                     value.addItem(context, addProduct);
                     // Navigator.pop(context, true);

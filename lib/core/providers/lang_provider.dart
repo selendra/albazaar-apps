@@ -13,7 +13,6 @@ class LangProvider with ChangeNotifier {
   //SET LOCALIZE LANGUAGE
   void setLocal(String languageCode, context) {
     _lang = languageCode;
-    print(_lang);
 
     if (_lang == null) {
       _prefService.saveString('lang', languageCode);
@@ -41,7 +40,6 @@ class LangProvider with ChangeNotifier {
       _lang = languageCode;
     } else {
       _lang = myLocale.countryCode;
-      print(_lang);
     }
     //print(myLocale.countryCode);
 

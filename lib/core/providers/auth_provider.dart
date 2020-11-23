@@ -29,12 +29,9 @@ class AuthProvider with ChangeNotifier {
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-    print(googleSignInAuthentication.accessToken);
-    print(googleSignInAuthentication.idToken);
 
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
-    print(user);
     // Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
     // Checking if email and name is null
@@ -67,21 +64,15 @@ class AuthProvider with ChangeNotifier {
         final AuthCredential credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
 //print(facebookAccessToken.token);
-        print('userId :' + facebookAccessToken.userId);
-        print(facebookAccessToken);
         final graphResponse = await http.get(
             'https://graph.facebook.com/${facebookAccessToken.userId}?fields=picture.width(720).height(720)&redirect=false&access_token=${facebookAccessToken.token}');
 
         final profile = json.decode(graphResponse.body);
-        print(profile);
-        print(profile['picture']['data']['url']);
 
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
-        print(credential);
         Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
             user.email, user.displayName, profile['picture']['data']['url']);
-        print(user.photoUrl);
 
         assert(user.email != null);
         assert(user.displayName != null);

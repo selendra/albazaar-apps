@@ -7,9 +7,7 @@ class ReuseButton {
       width: MediaQuery.of(context).size.width,
       height: 50,
       child: RaisedButton(
-        onPressed: () async {
-          await onTap();
-        },
+        onPressed: onTap,
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

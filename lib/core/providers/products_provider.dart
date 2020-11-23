@@ -43,12 +43,8 @@ class ProductsProvider with ChangeNotifier {
         
         await fromDB(response);
 
-        print("From DB $data");
-
         await objectToJson(data).then((value) async => await StorageServices.setData(value, 'fruit'));
       } else {
-
-        print("From storage");
         jsonToObject(value);
       }
     });
@@ -98,7 +94,6 @@ class ProductsProvider with ChangeNotifier {
   // Extract Data From Json To Object
   Future<void> jsonToObject(List value) async {
     List.from(value).forEach((element) {
-      print("Category ${element['category']}");
       data.addAll({
         Product(
           id: element['id'].round(),
@@ -143,7 +138,7 @@ class ProductsProvider with ChangeNotifier {
           // Close Seller Screen
           if (json.decode(value.body)['message'].length > 1){
             newProduct.productId = json.decode(value.body)['message'];
-            Navigator.pop(context);
+            Navigator.pop(context, {"add": true});
           }
         });
         // Close Loading
