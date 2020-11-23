@@ -1,6 +1,6 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class AddProduct {
+class AddProduct with ChangeNotifier {
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 
