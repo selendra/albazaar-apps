@@ -25,12 +25,11 @@ class _SplashScreenState extends State<SplashScreen>
       (value) {
         print("Token $value");
         if (value != null) {
-          Provider.of<UserProvider>(context, listen: false)
-                    .fetchUserInfo();
-                Provider.of<ProductsProvider>(context, listen: false)
-                    .fetchListingProduct();
+          Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchListingProduct();
 
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
           // UserProvider().fetchPortforlio().then(
           //   (onValue) {
           //     //Check if the token is valid or not
