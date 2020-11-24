@@ -186,7 +186,6 @@ class AuthProvider with ChangeNotifier {
           'phone': phone,
           'password': password,
         }));
-    print(response.body);
     if (response.statusCode == 200) {
       dynamic responseJson = json.decode(response.body);
 
