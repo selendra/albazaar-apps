@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -45,6 +46,13 @@ class _BodyState extends State<Body> {
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    RaisedButton(
+                      child: Text("remove"),
+                      onPressed: () async {
+                        SharedPreferences _pref = await SharedPreferences.getInstance();
+                        _pref.clear();
+                      },
+                    ),
                     //SearchBar(),
                     SizedBox(
                       height: 10,

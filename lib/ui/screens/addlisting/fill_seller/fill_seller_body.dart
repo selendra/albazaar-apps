@@ -108,6 +108,7 @@ class FillSellerBody extends StatelessWidget {
                     !addProduct.enable2
                         ? null
                         : () {
+                          // Navigator.pop(context, {'add': true});
                             value.addItem(context, addProduct);
                             // Navigator.pop(context, true);
                             // checkValidate();

@@ -74,7 +74,7 @@ class _BodyState extends State<Body> {
         MaterialPageRoute(
             builder: (context) => FillSeller(addProduct: provider.addProduct)));
 
-    if (response != null) Navigator.pop(context);
+    if (response != null) Navigator.pop(context, response);
     // setState(() {
     //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
     //       _addProductProvider.formKeySeller.currentState.validate()) {
@@ -137,44 +137,57 @@ class _BodyState extends State<Body> {
       print(_error);
     });
 
+    print("Get Url");
     await getImageUrl();
   }
 
   Future<void> imageAssetToFile() async {
     // Fetch Image From Asset
+    _addProductProvider.addProduct.fileImagesList.clear();
     for (Asset asset in _addProductProvider.addProduct.images) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
   }
 
-  // User After Display Image
+  // Use After Display Image
   Future<void> getImageUrl() async {
     // Upload Image To Get Url Image
+    print(_addProductProvider.addProduct.fileImagesList.length);
     await _postRequest
         .upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload")
-        .then((value) {
+        .then((value) async {
       // _addProductProvider.addProduct
       value.stream.transform(utf8.decoder).listen((data) {
+        print("This is my url image $data");
         _addProductProvider.addProduct.imageUrl = json.decode(data)['uri'];
       });
+      await Future.delayed(Duration(seconds: 1), (){
+      });
     });
-
+    
+    
+    print("Length ${_addProductProvider.addProduct.fileImagesList.length}");
     // Loop Upload File Images Per Each
-    for (int i = 1;
-        i < _addProductProvider.addProduct.fileImagesList.length;
-        i++) {
-      await _postRequest
-          .upLoadImage(
-              _addProductProvider.addProduct.fileImagesList[i], "upload")
-          .then((value) {
+    for (int i = 1; i <_addProductProvider.addProduct.fileImagesList.length; i++) {
+      await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
         value.stream.transform(utf8.decoder).listen((data) {
-          _addProductProvider.addProduct.imageUrlList
-              .add(json.decode(data)['uri']);
+          _addProductProvider.addProduct.imageUrlList.add(json.decode(data)['uri']);
         });
       });
     }
+
+    // print("Image list length ${_addProductProvider.addProduct.fileImagesList.length}");
+
+    // for (int i = 0;
+    //     i < _addProductProvider.addProduct.imageUrlList.length;
+    //     i++) {
+    //       if (i == 0) {
+
+    // print(_addProductProvider.addProduct.imageUrl);
+    //       } else 
+    //   print("$i ${_addProductProvider.addProduct.imageUrlList[i]}");
+    // }
   }
 
   @override

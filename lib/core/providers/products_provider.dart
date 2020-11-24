@@ -91,10 +91,10 @@ class ProductsProvider with ChangeNotifier {
         // Close Loading
         Navigator.pop(context);
         await Components.dialog(context,
-            Text("${json.decode(value.body)['message']}"), Text("Message"));
+            Text("${json.decode(value.body)['message']}", textAlign: TextAlign.center), Text("Message"));
         // Close Seller Screen
         if (json.decode(value.body)['message'].length > 1) {
-          newProduct.productId = json.decode(value.body)['message'];
+          newProduct.productId = json.decode(value.body)['id'];
           Navigator.pop(context, {"add": true});
         }
       });

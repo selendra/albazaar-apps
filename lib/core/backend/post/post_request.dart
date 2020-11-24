@@ -282,10 +282,11 @@ class PostRequest {
       "product-id": productId,
     });
     if (_backend.token != null) {
-      _backend.response = await _http.post("${_sldApi.api}/change-password",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"),
-          body: _backend.bodyEncode);
+      _backend.response = await _http.post("${_sldApi.api}/products-images",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
+      print(_backend.response.body);
       return _backend.response;
     }
     return null;
@@ -349,33 +350,36 @@ class PostRequest {
   }
 
   // Upload Fil Image To Get Url Image
-  Future<_http.StreamedResponse> upLoadImage(
-      File _image, String endpoint) async {
+  Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
+
+    print(_image.path);
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
-      minHeight: 1000,
-      minWidth: 700,
+      minHeight: 900,
+      minWidth: 600,
       quality: 100,
     );
     /* Make request */
 
-    var request = new _http.MultipartRequest(
-        'POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
+    var request = new _http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
     /* Make Form of Multipart */
+    print("Json");
     var multipartFile = new _http.MultipartFile.fromBytes(
       'file',
       compressImage,
       filename: 'image_picker.jpg',
       contentType: MediaType.parse('image/jpeg'),
     );
+    print("Add");
     request.files.add(multipartFile);
     /* Start send to server */
-    var response = await request.send();
+    print("Send");
+    _http.StreamedResponse response = await request.send();
     /* Getting response */
-    // response.stream.transform(utf8.decoder).listen((data){
-    //   print(data);
-    // });
-    return response;
+    response.stream.transform(utf8.decoder).listen((data){
+      print(data);
+    });
+    return null;
   }
 }

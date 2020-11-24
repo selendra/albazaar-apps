@@ -48,9 +48,7 @@ class AddProduct {
   FocusNode cityNode = FocusNode();
 
   void clearProductField() {
-    productId = '';
     imageUrl = '';
-    imageUrlList.clear();
     images.clear();
     fileImagesList.clear();
     productName.clear();

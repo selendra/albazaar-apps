@@ -14,6 +14,10 @@ class _FillSellerState extends State<FillSeller> {
   @override
   initState() {
     super.initState();
+    // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/c455f0b4-e1f3-4c3d-a623-ba49c5df00ad");
+    // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/34459a86-e3c7-4c2e-9d96-6d3938aeb81b");
+    // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/34459a86-e3c7-4c2e-9d96-6d3938aeb81b");
+    // widget.addProduct.productId = "e21d01cb-456e-4cea-a926-c1b7de107ada";
     // print(widget.addProduct.imageUrlList[0]);
   }
 
