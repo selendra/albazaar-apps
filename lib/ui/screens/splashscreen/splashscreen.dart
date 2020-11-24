@@ -25,27 +25,33 @@ class _SplashScreenState extends State<SplashScreen>
       (value) {
         print("Token $value");
         if (value != null) {
-          UserProvider().fetchPortforlio().then(
-            (onValue) {
-              //Check if the token is valid or not
-              print(onValue);
-              if (onValue == '200') {
-                //Provider.of<ProductsProvider>(context, listen: false).fetch();
-                //Fetch user infomation from share preference(local storage)
-                Provider.of<UserProvider>(context, listen: false)
+          Provider.of<UserProvider>(context, listen: false)
                     .fetchUserInfo();
                 Provider.of<ProductsProvider>(context, listen: false)
                     .fetchListingProduct();
 
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                /*If the token is not valid clear it
-                and return to the welcome screen*/
-                _pref.clear('token');
-                Navigator.pushReplacementNamed(context, WelcomeView);
-              }
-            },
-          );
+          // UserProvider().fetchPortforlio().then(
+          //   (onValue) {
+          //     //Check if the token is valid or not
+          //     print(onValue);
+          //     if (onValue == '200') {
+          //       //Provider.of<ProductsProvider>(context, listen: false).fetch();
+          //       //Fetch user infomation from share preference(local storage)
+          //       Provider.of<UserProvider>(context, listen: false)
+          //           .fetchUserInfo();
+          //       Provider.of<ProductsProvider>(context, listen: false)
+          //           .fetchListingProduct();
+
+          //       Navigator.pushReplacementNamed(context, BottomNavigationView);
+          //     } else {
+          //       /*If the token is not valid clear it
+          //       and return to the welcome screen*/
+          //       _pref.clear('token');
+          //       Navigator.pushReplacementNamed(context, WelcomeView);
+          //     }
+          //   },
+          // );
         } else {
           //Checking is social user login or not by getting the current user
           AuthProvider().currentUser.then((value) {
@@ -54,6 +60,9 @@ class _SplashScreenState extends State<SplashScreen>
               Provider.of<UserProvider>(context, listen: false)
                   .fetchSocialUserInfo(
                       value.email, value.displayName, value.photoUrl);
+            } else {
+              print('token is null true');
+              Navigator.pushReplacementNamed(context, WelcomeView);
             }
           });
         }
