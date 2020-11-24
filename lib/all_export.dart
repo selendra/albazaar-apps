@@ -5,6 +5,8 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'dart:convert';
 export 'package:multi_image_picker/multi_image_picker.dart';
 
+export 'package:provider/provider.dart';
+
 // core
 export 'package:selendra_marketplace_app/core/backend/api.dart';
 export 'package:selendra_marketplace_app/core/backend/post/post_request.dart';

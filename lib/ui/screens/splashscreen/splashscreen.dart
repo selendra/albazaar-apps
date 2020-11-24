@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,42 +22,37 @@ class _SplashScreenState extends State<SplashScreen>
   void checkUser() {
     //READ TOKEN
     _pref.read('token').then(
-      (value) async {
+      (value) {
         print("Token $value");
         if (value != null) {
-          Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
-          Provider.of<ProductsProvider>(context, listen: false)
-              .fetchListingProduct();
+          UserProvider().fetchPortforlio().then(
+            (onValue) {
+              //Check if the token is valid or not
+              print(onValue);
+              if (onValue == '200') {
+                //Provider.of<ProductsProvider>(context, listen: false).fetch();
+                //Fetch user infomation from share preference(local storage)
+                Provider.of<UserProvider>(context, listen: false)
+                    .fetchUserInfo();
+                Provider.of<ProductsProvider>(context, listen: false)
+                    .fetchListingProduct();
 
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
-          // await UserProvider().fetchPortforlio().then(
-          //   (onValue) {
-          //     //Check if the token is valid or not
-          //     print(onValue);
-          //     if (onValue == '200') {
-          //       //Provider.of<ProductsProvider>(context, listen: false).fetch();
-          //       //Fetch user infomation from share preference(local storage)
-          //       Provider.of<UserProvider>(context, listen: false)
-          //           .fetchUserInfo();
-          //       Provider.of<ProductsProvider>(context, listen: false)
-          //           .fetchListingProduct();
-
-          //       Navigator.pushReplacementNamed(context, BottomNavigationView);
-          //     } else {
-          //       /*If the token is not valid clear it
-          //       and return to the welcome screen*/
-          //       _pref.clear('token');
-          //       Navigator.pushReplacementNamed(context, WelcomeView);
-          //     }
-          //   },
-          // );
+                Navigator.pushReplacementNamed(context, BottomNavigationView);
+              } else {
+                /*If the token is not valid clear it
+                and return to the welcome screen*/
+                _pref.clear('token');
+                Navigator.pushReplacementNamed(context, WelcomeView);
+              }
+            },
+          );
         } else {
           //Checking is social user login or not by getting the current user
           AuthProvider().currentUser.then((value) {
             if (value != null) {
-              // Provider.of<UserProvider>(context, listen: false)
-              //     .fetchSocialUserInfo();
-              //);
+              Provider.of<UserProvider>(context, listen: false)
+                  .fetchSocialUserInfo(
+                      value.email, value.displayName, value.photoUrl);
             }
           });
         }
