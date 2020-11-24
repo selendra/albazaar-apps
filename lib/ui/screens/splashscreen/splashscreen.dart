@@ -55,10 +55,13 @@ class _SplashScreenState extends State<SplashScreen>
         } else {
           //Checking is social user login or not by getting the current user
           AuthProvider().currentUser.then((value) {
+              print(value);
             if (value != null) {
               // Provider.of<UserProvider>(context, listen: false)
               //     .fetchSocialUserInfo();
               //);
+            } else {
+              Navigator.pushReplacementNamed(context, WelcomeView);
             }
           });
         }
@@ -76,6 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
       () {
         _pref.read('isshow').then(
           (onValue) {
+            print("Is show $onValue");
             if (onValue == null) {
               Navigator.pushReplacementNamed(context, IntroScreenView);
             } else {

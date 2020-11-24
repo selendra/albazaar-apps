@@ -76,10 +76,10 @@ class ProductsProvider with ChangeNotifier {
     Components.dialogLoading(context: context, contents: "Adding");
     try {
       await _postRequest.addListing(newProduct).then((value) async {
+        print(value);
         // Close Loading
         Navigator.pop(context);
-        await Components.dialog(context,
-            Text("${json.decode(value.body)['message']}", textAlign: TextAlign.center), Text("Message"));
+        await Components.dialog(context, Text("${json.decode(value.body)['message']}", textAlign: TextAlign.center), Text("Message"));
         // Close Seller Screen
         if (json.decode(value.body)['message'].length > 1) {
           newProduct.productId = json.decode(value.body)['id'];

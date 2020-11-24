@@ -154,40 +154,17 @@ class _BodyState extends State<Body> {
   Future<void> getImageUrl() async {
     // Upload Image To Get Url Image
     print(_addProductProvider.addProduct.fileImagesList.length);
-    await _postRequest
-        .upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload")
-        .then((value) async {
-      // _addProductProvider.addProduct
-      value.stream.transform(utf8.decoder).listen((data) {
-        print("This is my url image $data");
-        _addProductProvider.addProduct.imageUrl = json.decode(data)['uri'];
-      });
-      await Future.delayed(Duration(seconds: 1), (){
-      });
+    await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload").then((value) {
+      _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
     });
     
-    
-    print("Length ${_addProductProvider.addProduct.fileImagesList.length}");
-    // Loop Upload File Images Per Each
+    // // Loop Upload File Images Per Each
     for (int i = 1; i <_addProductProvider.addProduct.fileImagesList.length; i++) {
+
       await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
-        value.stream.transform(utf8.decoder).listen((data) {
-          _addProductProvider.addProduct.imageUrlList.add(json.decode(data)['uri']);
-        });
+        _addProductProvider.addProduct.imageUrlList.add(json.decode(value)['uri']);
       });
     }
-
-    // print("Image list length ${_addProductProvider.addProduct.fileImagesList.length}");
-
-    // for (int i = 0;
-    //     i < _addProductProvider.addProduct.imageUrlList.length;
-    //     i++) {
-    //       if (i == 0) {
-
-    // print(_addProductProvider.addProduct.imageUrl);
-    //       } else 
-    //   print("$i ${_addProductProvider.addProduct.imageUrlList[i]}");
-    // }
   }
 
   @override
@@ -239,14 +216,14 @@ class _BodyState extends State<Body> {
                 child: ReuseButton.getItem(
                     'Next', //AppLocalizeService.of(context).translate('Next'),
                     !_addProductProvider.addProduct.enable1
-                        ? null
-                        : () {
-                            toSeller(_addProductProvider);
-                            // if (toSeller()) {
-                            //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                            //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                            // }
-                          },
+                    ? null
+                    : () {
+                        toSeller(_addProductProvider);
+                        // if (toSeller()) {
+                        //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                        //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+                        // }
+                      },
                     context),
               ),
               // _sellerDetail(),

@@ -121,11 +121,9 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('logout_string'),
             Icons.input,
             () async {
-              SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-              await sharedPreferences.clear();
+              await StorageServices.removeKey('user_token');
               HomeDialog().alertDialog(context);
-              //Auth().signOut(context);
+              // Auth().signOut(context);
             },
           ),
         ],

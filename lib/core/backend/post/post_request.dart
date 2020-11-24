@@ -318,6 +318,7 @@ class PostRequest {
 
   Future<_http.Response> addListing(AddProduct product) async {
     _backend.token = await StorageServices.fetchData('user_token');
+    print(_backend.token);
     _backend.bodyEncode = json.encode({
       "name": product.productName.text,
       "price": product.price.text,
@@ -350,7 +351,7 @@ class PostRequest {
   }
 
   // Upload Fil Image To Get Url Image
-  Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
+  Future<String> upLoadImage(File _image, String endpoint) async {
 
     print(_image.path);
     /* Compress image file */
@@ -375,11 +376,17 @@ class PostRequest {
     request.files.add(multipartFile);
     /* Start send to server */
     print("Send");
-    _http.StreamedResponse response = await request.send();
+    String imageUrl;
+    try{
+      var r = await request.send();
+      imageUrl = await r.stream.bytesToString();
+    } catch (e) {
+      print(e);
+    }
     /* Getting response */
-    response.stream.transform(utf8.decoder).listen((data){
-      print(data);
-    });
-    return null;
+    // response.stream.transform(utf8.decoder).listen((data){
+    //   print(data);
+    // });
+    return imageUrl;
   }
 }

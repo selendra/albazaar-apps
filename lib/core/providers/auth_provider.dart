@@ -190,6 +190,7 @@ class AuthProvider with ChangeNotifier {
       dynamic responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
+      await StorageServices.setData(responseJson, 'user_token');
 
       if (_token != null) {
         _pref.saveString('token', _token);

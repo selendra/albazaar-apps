@@ -46,13 +46,6 @@ class _BodyState extends State<Body> {
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text("remove"),
-                      onPressed: () async {
-                        SharedPreferences _pref = await SharedPreferences.getInstance();
-                        _pref.clear();
-                      },
-                    ),
                     //SearchBar(),
                     SizedBox(
                       height: 10,
