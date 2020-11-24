@@ -1,14 +1,17 @@
 import 'package:http/http.dart' as http;
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/products.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
+  PrefService _prefService = PrefService();
+  PostRequest _postRequest = PostRequest();
+
   //List of all product items
   List<Product> _items = [];
 
   //List of all owner product items
   List<Product> _oItems = [];
+
   //List of all order product items
   List<OrderProduct> _orItems = [];
 
@@ -18,13 +21,14 @@ class ProductsProvider with ChangeNotifier {
   //List of all order product item that is sold
   List<Product> _isSold = [];
 
+  //All product image
   List<ProductImage> _imageList = [];
 
+  //Each product image url
   List<String> _url = [];
 
-  PrefService _prefService = PrefService();
-
-  PostRequest _postRequest = PostRequest();
+  //initial product orderqty
+  int _orderQty = 1;
 
   List<Product> get items => [..._items];
   List<Product> get oItems => [..._oItems];
@@ -33,13 +37,11 @@ class ProductsProvider with ChangeNotifier {
   List<OrderProduct> get orItems => [..._orItems];
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
-
-  int _orderQty = 1;
   int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
     try {
-      _prefService.read('token').then((value) async {
+      await _prefService.read('token').then((value) async {
         if (value != null) {
           http.Response response =
               await http.get(ApiUrl.LISTING, headers: <String, String>{
@@ -94,8 +96,11 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  /*Fetch all product image by looping all product id in list 
+  and add it into all image list*/
   Future<void> fetchImage(String token, String productId) async {
     try {
+      _imageList = List<ProductImage>();
       http.Response response = await http.post(ApiUrl.GET_PRODUCT_IMAGE,
           headers: <String, String>{
             "accept": "application/json",
@@ -148,8 +153,8 @@ class ProductsProvider with ChangeNotifier {
         "authorization": "Bearer " + token,
       });
       print(response.body);
+
       dynamic responseJson = json.decode(response.body);
-      //_oItems.add(Product.fromMap(responseJson));
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
       _oItems = new List<Product>();
@@ -158,6 +163,7 @@ class ProductsProvider with ChangeNotifier {
       }
 
       findIsSold(oItems);
+
       notifyListeners();
     } catch (e) {
       print(e.toString());
@@ -167,6 +173,7 @@ class ProductsProvider with ChangeNotifier {
   void findIsSold(List<Product> allListing) {
     _isSold = List<Product>();
     _isAvailable = List<Product>();
+
     for (int i = 0; i < allListing.length; i++) {
       if (allListing[i].isSold && !_isSold.contains(allListing[i])) {
         _isSold.add(allListing[i]);
@@ -176,13 +183,17 @@ class ProductsProvider with ChangeNotifier {
         }
       }
     }
+
     notifyListeners();
   }
 
-  void findImgById(String productId) {
+  //find image of each product in image list using product Id
+  void findImgById(String productId) async {
     _url = List<String>();
+
     final product = findById(productId);
     addThumbnail(product.thumbnail);
+
     for (int i = 0; i < _imageList.length; i++) {
       if (_imageList[i].productId == productId) {
         _url.add(_imageList[i].url);
@@ -192,6 +203,7 @@ class ProductsProvider with ChangeNotifier {
     print(url.length);
   }
 
+  //Add Image thumbnail to show first index of all images
   void addThumbnail(String thumbnail) {
     _url.add(thumbnail);
     notifyListeners();
@@ -214,25 +226,22 @@ class ProductsProvider with ChangeNotifier {
   //   });
   // }
 
+  //Find product by product ID
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  //INCREASE ORDER QUANTITY OF PRODUCT
+  //Increase order quantity of product
   void addOrderQty(Product product) {
     _orderQty++;
     notifyListeners();
-    // product.orderQty++;
-    // notifyListeners();
   }
 
-  //DECREASE ORDER QUANTIY OF PRODUCT
+  //Decrease order quantity of product
   void minusOrderQty(Product product) {
-    _orderQty--;
-    notifyListeners();
-    // if (product.orderQty > 1) {
-    //   product.orderQty--;
-    //   notifyListeners();
-    // }
+    if (_orderQty > 1) {
+      _orderQty--;
+      notifyListeners();
+    }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
@@ -119,7 +118,7 @@ class Body extends StatelessWidget {
                       loadedData.name,
                       style: TextStyle(
                         fontSize: 23,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -147,14 +146,13 @@ class Body extends StatelessWidget {
                             AppLocalizeService.of(context)
                                 .translate('kilogram'),
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                           fontSize: 23,
                           color: kDefaultColor,
                         ),
                       ),
                     ],
                   ),
-
                   SizedBox(
                     height: 30.0,
                   ),
@@ -175,13 +173,6 @@ class Body extends StatelessWidget {
                     loadedData.description,
                     style: TextStyle(fontSize: 16.0),
                   ),
-                  // Card(
-                  //     elevation: 0,
-                  //     child: Container(
-                  //         height: 200,
-                  //         width: double.infinity,
-                  //         margin: EdgeInsets.all(10.0),
-                  //         child: )),
                   SizedBox(
                     height: 30.0,
                   ),
@@ -189,7 +180,6 @@ class Body extends StatelessWidget {
                     value: loadedData,
                     child: SellerInfo(),
                   ),
-
                   SizedBox(
                     height: 30.0,
                   ),

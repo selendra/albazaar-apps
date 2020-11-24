@@ -5,6 +5,7 @@ class AddProductProvider extends ChangeNotifier {
   GetRequest _getRequest;
 
   AddProductProvider() {
+    print('fetch');
     addProduct = AddProduct();
     _getRequest = GetRequest();
     fetchShippingServices();

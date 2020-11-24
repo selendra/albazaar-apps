@@ -9,13 +9,12 @@ class ItemCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Provider.of<ProductsProvider>(context, listen: false)
-            .findImgById(product.id);
-
         Navigator.of(context).pushNamed(
           '/detail',
           arguments: product.id,
         );
+        Provider.of<ProductsProvider>(context, listen: false)
+            .findImgById(product.id);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),

@@ -198,23 +198,11 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 40,
               ),
-              // Consumer<ProductsProvider>(
-              //   builder: (context, value, child) => Container(
-              //     // margin: EdgeInsets.only(right: 16, left: 16),
-              //     child: ReuseButton.getItem(
-              //         AppLocalizeService.of(context).translate('Next'), () {
-              //       toSeller();
-              //       if (toSeller()) {
-              //         value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-              //             _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-              //       }
-              //     }, context),
-              //   ),
-              // ),
+
               Container(
                 margin: EdgeInsets.only(right: 18, left: 18),
                 child: ReuseButton.getItem(
-                    'Next', //AppLocalizeService.of(context).translate('Next'),
+                    AppLocalizeService.of(context).translate('next'),
                     !_addProductProvider.addProduct.enable1
                     ? null
                     : () {
@@ -341,6 +329,7 @@ class _BodyState extends State<Body> {
                     keyPair: 'category_name',
                     onChanged: (String value) {
                       setState(() {
+                        print(value);
                         _addProductProvider.addProduct.category = value;
                       });
                     },
