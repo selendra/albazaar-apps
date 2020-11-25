@@ -10,6 +10,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
   PrefService _pref = PrefService();
 
   List<String> svg = [
@@ -72,6 +74,11 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+
+    controller.forward();
 
     //Timer is used to display logo base on duration 2second
     Timer(
@@ -110,10 +117,13 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: NetworkAlert(
         Center(
-          child: Image.asset(
-            'images/logo.png',
-            height: 200,
-            width: 200,
+          child: FadeTransition(
+            opacity: animation,
+            child: Image.asset(
+              'images/logo.png',
+              height: 200,
+              width: 200,
+            ),
           ),
         ),
       ),

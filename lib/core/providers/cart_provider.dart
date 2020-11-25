@@ -8,7 +8,7 @@ class CartProvider with ChangeNotifier {
 
   Map<String, Cart> get items => {..._items};
 
-  //  ADD PRODUCT TO CART
+  //Add product to cart
   void addCart(String productId, String image, String title, String price,
       int productOrderQty) {
     if (_items.containsKey(productId)) {
@@ -36,7 +36,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //INCRASE QUANTITY OF PRODUCT IN CART
+  //Increase quantity of order product
   void addQty(String productId) {
     _items.update(
         productId,
@@ -69,6 +69,12 @@ class CartProvider with ChangeNotifier {
                 qty: existingItem.qty));
 
     notifyListeners();
+  }
+
+  void getProductID() {
+    for (int i = 0; i < _items.length; i++) {
+      print(_items[i].id);
+    }
   }
 
   //CALCULATE TOTAL PRICE OF TOTAL ITEM

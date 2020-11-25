@@ -37,14 +37,14 @@ class _BodyState extends State<Body> {
                           borderRadius: BorderRadius.circular(kDefaultRadius),
                         ),
                         child: ListTile(
-                          title:
-                              Text('${productsProvider.orItems[index].total}៛'),
+                          title: Text(
+                              'Total price: ${productsProvider.orItems[index].total}៛'),
                           subtitle: Text(
                             productsProvider.orItems[index].shippingAddress,
                             maxLines: 1,
                           ),
                           trailing: Text(
-                              '${productsProvider.orItems[index].qauantity}'),
+                              'Qty: ${productsProvider.orItems[index].qauantity}'),
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(

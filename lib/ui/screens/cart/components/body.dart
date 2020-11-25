@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 1.7,
+                    height: MediaQuery.of(context).size.height / 1.4,
                     child: ListView.builder(
                         itemCount: _items.length,
                         itemBuilder: (context, index) {
@@ -34,9 +34,18 @@ class _BodyState extends State<Body> {
                           );
                         }),
                   ),
-                  Expanded(
-                    child: CheckoutCard(),
-                  ),
+                  // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                  Container(
+                    margin: EdgeInsets.all(20.0),
+                    child: ReuseButton.getItem(
+                        AppLocalizeService.of(context).translate('check_out'),
+                        () {
+                      Navigator.pushReplacementNamed(context, CheckoutView);
+                    }, context),
+                  )
+                  // Expanded(
+                  //   child: CheckoutCard(),
+                  // ),
                 ],
               ),
             )

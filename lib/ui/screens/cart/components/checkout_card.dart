@@ -16,19 +16,19 @@ class CheckoutCard extends StatelessWidget {
             margin: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                _textRow(_lang.translate('sub_total'), '${value.totalAmount}៛'),
-                Spacer(),
-                Container(
-                  height: 1,
-                  color: Colors.grey[300],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                _textRow(_lang.translate('total'), '${value.totalAmount}៛'),
-                SizedBox(
-                  height: 60,
-                ),
+                // _textRow(_lang.translate('sub_total'), '${value.totalAmount}៛'),
+                // Spacer(),
+                // Container(
+                //   height: 1,
+                //   color: Colors.grey[300],
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // _textRow(_lang.translate('total'), '${value.totalAmount}៛'),
+                // SizedBox(
+                //   height: 60,
+                // ),
                 ReuseButton.getItem(_lang.translate('check_out'), () {
                   Navigator.pushReplacementNamed(context, CheckoutView);
                 }, context),
