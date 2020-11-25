@@ -286,7 +286,36 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
-      print(_backend.response.body);
+      return _backend.response;
+    }
+    return null;
+  }
+
+  Future<_http.Response> markPamyment(String orderId) async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.bodyEncode = json.encode({
+      "order-id": orderId
+    });
+    if (_backend.token != null) {
+      _backend.response = await _http.post("${_sldApi.api}/mark-order-payment",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
+      return _backend.response;
+    }
+    return null;
+  }
+
+  Future<_http.Response> markShipment(String orderId) async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.bodyEncode = json.encode({
+      "order-id": orderId
+    });
+    if (_backend.token != null) {
+      _backend.response = await _http.post("${_sldApi.api}/mark-order-shipment",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
       return _backend.response;
     }
     return null;
@@ -307,14 +336,6 @@ class PostRequest {
     }
     return null;
   }
-  // "name": "string",
-  // "price": "string",
-  // "shipping": "string",
-  // "weight": "string",
-  // "description": "string",
-  // "thumbnail": "string",
-  // "category-id": "string",
-  // "payment-id": "string"
 
   Future<_http.Response> addListing(AddProduct product) async {
     _backend.token = await StorageServices.fetchData('user_token');

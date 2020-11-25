@@ -36,39 +36,39 @@ class Product with ChangeNotifier {
   bool isFav;
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        description: json["description"],
-        name: json["name"],
-        updatedAt: json["updated_at"],
-        thumbnail: json["thumbnail"],
-        weight: json["weight"],
-        id: json["id"],
-        paymentId: json["payment_id"],
-        updatedBy: json["updated_by"],
-        shipping: json["shipping"],
-        price: json["price"].toString(),
-        createdBy: json["created_by"],
-        categoryId: json["category_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        isSold: json["is_sold"],
-        isFav: false,
-      );
+    description: json["description"],
+    name: json["name"],
+    updatedAt: json["updated_at"],
+    thumbnail: json["thumbnail"],
+    weight: json["weight"],
+    id: json["id"],
+    paymentId: json["payment_id"],
+    updatedBy: json["updated_by"],
+    shipping: json["shipping"],
+    price: json["price"].toString(),
+    createdBy: json["created_by"],
+    categoryId: json["category_id"],
+    createdAt: DateTime.parse(json["created_at"]),
+    isSold: json["is_sold"],
+    isFav: false,
+  );
 
   Map<String, dynamic> toMap() => {
-        "description": description,
-        "name": name,
-        "updated_at": updatedAt,
-        "thumbnail": thumbnail,
-        "weight": weight,
-        "id": id,
-        "payment_id": paymentId,
-        "updated_by": updatedBy,
-        "shipping": shipping,
-        "price": price,
-        "created_by": createdBy,
-        "category_id": categoryId,
-        "created_at": createdAt.toIso8601String(),
-        "is_sold": isSold,
-      };
+    "description": description,
+    "name": name,
+    "updated_at": updatedAt,
+    "thumbnail": thumbnail,
+    "weight": weight,
+    "id": id,
+    "payment_id": paymentId,
+    "updated_by": updatedBy,
+    "shipping": shipping,
+    "price": price,
+    "created_by": createdBy,
+    "category_id": categoryId,
+    "created_at": createdAt.toIso8601String(),
+    "is_sold": isSold,
+  };
 }
 // To parse this JSON data, do
 //
@@ -102,32 +102,32 @@ class OrderProduct with ChangeNotifier {
   DateTime createdAt;
 
   factory OrderProduct.fromMap(Map<String, dynamic> json) => OrderProduct(
-        statusId: json["status_id"],
-        productId: json["product_id"],
-        buyerId: json["buyer_id"],
-        updatedAt: json["updated_at"],
-        total: json["total"].toDouble(),
-        id: json["id"],
-        updatedBy: json["updated_by"],
-        createdBy: json["created_by"],
-        qauantity: json["qauantity"],
-        shippingAddress: json["shipping_address"],
-        createdAt: DateTime.parse(json["created_at"]),
-      );
+    statusId: json["status_id"],
+    productId: json["product_id"],
+    buyerId: json["buyer_id"],
+    updatedAt: json["updated_at"],
+    total: json["total"].toDouble(),
+    id: json["id"],
+    updatedBy: json["updated_by"],
+    createdBy: json["created_by"],
+    qauantity: json["qauantity"],
+    shippingAddress: json["shipping_address"],
+    createdAt: DateTime.parse(json["created_at"]),
+  );
 
   Map<String, dynamic> toMap() => {
-        "status_id": statusId,
-        "product_id": productId,
-        "buyer_id": buyerId,
-        "updated_at": updatedAt,
-        "total": total,
-        "id": id,
-        "updated_by": updatedBy,
-        "created_by": createdBy,
-        "qauantity": qauantity,
-        "shipping_address": shippingAddress,
-        "created_at": createdAt.toIso8601String(),
-      };
+    "status_id": statusId,
+    "product_id": productId,
+    "buyer_id": buyerId,
+    "updated_at": updatedAt,
+    "total": total,
+    "id": id,
+    "updated_by": updatedBy,
+    "created_by": createdBy,
+    "qauantity": qauantity,
+    "shipping_address": shippingAddress,
+    "created_at": createdAt.toIso8601String(),
+  };
 }
 
 List<String> foodCategories = [
@@ -140,5 +140,4 @@ List<String> foodCategories = [
   'Other'
 ];
 
-String dummyText =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+String dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";

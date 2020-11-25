@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
@@ -20,6 +21,9 @@ class SelendraApp extends StatefulWidget {
 }
 
 class _SelendraAppState extends State<SelendraApp> {
+
+  OrderProduct product = OrderProduct();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -95,7 +99,7 @@ class _SelendraAppState extends State<SelendraApp> {
             brightness: Brightness.light,
           ),
           routes: {DetailView: (context) => DetailScreen()},
-          home: SplashScreen(),
+          home: SellerConfirm(productOrder: product),
           navigatorKey: navigationKey,
         ),
       ),

@@ -132,8 +132,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchOrListingProduct(token) async {
     try {
-      http.Response response =
-          await http.get(ApiUrl.ORDER_LISTING, headers: <String, String>{
+      http.Response response = await http.get(ApiUrl.ORDER_LISTING, headers: <String, String>{
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
@@ -152,7 +151,7 @@ class ProductsProvider with ChangeNotifier {
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
-      print(response.body);
+      print("Fetch O listing ${response.body}");
 
       dynamic responseJson = json.decode(response.body);
       _prefService.saveString('oproducts', jsonEncode(responseJson));
