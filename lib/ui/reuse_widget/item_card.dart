@@ -11,6 +11,13 @@ class ItemCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           '/detail',
+          //   BoxShadow(
+          //     color: Colors.black54.withOpacity(0.2),
+          //     blurRadius: 10.0,
+          //     spreadRadius: 1.0,
+          //     offset: Offset(1.0, 1.0),
+          //   )
+          // ]
           arguments: product.id,
         );
         Provider.of<ProductsProvider>(context, listen: false)
