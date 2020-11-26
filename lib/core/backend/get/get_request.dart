@@ -88,6 +88,18 @@ class GetRequest {
     return null;
   }
 
+  Future<_http.Response> getAllBuyerOrder() async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${_sldApi.api}/list-order-from-buyer",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+      );
+      return _backend.response;
+    }
+    return null;
+  }
+
+
   /* User History */
   Future<_http.Response> trxHistory() async {
     _backend.token = await StorageServices.fetchData('user_token');

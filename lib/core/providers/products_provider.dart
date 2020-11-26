@@ -168,7 +168,7 @@ class ProductsProvider with ChangeNotifier {
       print(e.toString());
     }
   }
-
+  
   void findIsSold(List<Product> allListing) {
     _isSold = List<Product>();
     _isAvailable = List<Product>();

@@ -293,6 +293,8 @@ class PostRequest {
 
   Future<_http.Response> markPamyment(String orderId) async {
     _backend.token = await StorageServices.fetchData('user_token');
+    print(_backend.token);
+    print(orderId);
     _backend.bodyEncode = json.encode({
       "order-id": orderId
     });
@@ -301,12 +303,14 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
+      print("Payment ${_backend.response.body}");
       return _backend.response;
     }
     return null;
   }
 
   Future<_http.Response> markShipment(String orderId) async {
+    print("Mark");
     _backend.token = await StorageServices.fetchData('user_token');
     _backend.bodyEncode = json.encode({
       "order-id": orderId
@@ -316,6 +320,7 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
+      print("Shipping ${_backend.response.body}");
       return _backend.response;
     }
     return null;

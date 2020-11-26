@@ -1,11 +1,14 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class SellerConfirmBody extends StatelessWidget {
 
-  final OrderProduct productOrder;
+  final SellerModel productOrder;
+
+  PostRequest _postRequest = PostRequest();
 
   String address = """Smiles Devis\n123 Somewhere St\nSomewhere, USA 65060
   """;
@@ -43,10 +46,10 @@ class SellerConfirmBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order #:"),
+                            child: reuseText("Customer Name: "),
                           ),
                           Expanded(
-                            child: reuseText("650065500"),
+                            child: reuseText("${productOrder.value}"),
                           )
                         ],
                       ),
@@ -54,10 +57,10 @@ class SellerConfirmBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order Date: "),
+                            child: reuseText("Phone: "),
                           ),
                           Expanded(
-                            child: reuseText("Apr 3, 2017"),
+                            child: reuseText("${productOrder.sellerPhonenumber}"),
                           )
                         ],
                       ),
@@ -68,7 +71,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText("\$data"),
+                            child: reuseText("SEL ${productOrder.total}"),
                           )
                         ],
                       )
@@ -84,7 +87,7 @@ class SellerConfirmBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n", fontSize: 17, fontWeight: FontWeight.bold),
-                      reuseText(address)
+                      reuseText("${productOrder.shippingAddress}")
                     ],
                   ),
                 ),
@@ -128,11 +131,11 @@ class SellerConfirmBody extends StatelessWidget {
                           // ),
 
                           Flexible(
-                            child: Image.network("https://selendra.s3-ap-southeast-1.amazonaws.com/699455dd-01a4-4280-bcd6-51b89c3bc753", width: 80, height: 80,),
+                            child: Image.network("${productOrder.thumbnail}", width: 80, height: 80,),
                           ),
 
                           Expanded(
-                            child: reuseText("""{productOrder.total}៛""", fontSize: 15, fontWeight: FontWeight.bold),
+                            child: reuseText("""${productOrder.name}៛""", fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -140,11 +143,11 @@ class SellerConfirmBody extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 50,
-                    child: reuseText("{productOrder.qauantity}", fontSize: 15, fontWeight: FontWeight.bold),
+                    child: reuseText("${productOrder.qauantity}", fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     width: 70,
-                    child: reuseText("{productOrder.total}៛", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
+                    child: reuseText("${productOrder.price}៛", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
                   ),
                 ],
               ),
@@ -177,35 +180,66 @@ class SellerConfirmBody extends StatelessWidget {
           Container(
             margin: const EdgeInsets.all(20),
             child: ReuseButton.getItem(_lang.translate('confirm_payment'), () async {
-              await Components.dialog(
+              var result = await Components.dialog(
                 context, 
                 Text("Complete check payment?", textAlign: TextAlign.center), 
                 Text("Massage"), 
                 action: FlatButton(
-                  onPressed: (){
-                    print("Yes");
+                  onPressed: () async {
+                    Navigator.pop(context, true);
                   }, 
                   child: Text("Yes")
                 )
               );
-              // validateAndSubmit();
+              
+              if (result == true) {
+                Components.dialogLoading(context: context);
+                try {
+                  await _postRequest.markPamyment(productOrder.id).then((value) async {
+                    var data = json.decode(value.body);
+                    await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center,), Text("Message"));
+                  });
+                  
+                  //Close Dialog
+                  Navigator.pop(context);
+                } catch (e) {
+                  
+                }
+              }
             }, context),
           ),
 
           Container(
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: ReuseButton.getItem(_lang.translate('confirm_shipping'), () async {
-              await Components.dialog(
+              var result = await Components.dialog(
                 context, 
                 Text("Complete prepare for shipping?", textAlign: TextAlign.center), 
                 Text("Massage"), 
                 action: FlatButton(
-                  onPressed: (){
-                    print("Yes");
+                  onPressed: () async {
+                    Navigator.pop(context, true);
                   }, 
                   child: Text("Yes")
                 )
               );
+
+              if (result == true){
+
+                Components.dialogLoading(context: context);
+                try{
+
+                  await _postRequest.markShipment(productOrder.id).then((value) async {
+                    var data = json.decode(value.body);
+                    await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center), Text("Message"));
+                  });
+
+                  //Close Dialog
+                  Navigator.pop(context);
+                } catch (e) {
+                  print(e);
+                }
+              }
             }, context),
           ),
 

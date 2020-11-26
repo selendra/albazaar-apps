@@ -106,9 +106,9 @@ class _BodyState extends State<Body> {
                     backgroundImage: NetworkImage(productsProvider.oItems[index].thumbnail),
                   ),
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productsProvider.orItems[index]))
-                    );
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productsProvider.orItems[index]))
+                    // );
                   },
                 ),
               );

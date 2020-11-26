@@ -1,6 +1,6 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class AddProductProvider extends ChangeNotifier {
+class AddProductProvider with ChangeNotifier {
   AddProduct addProduct;
   GetRequest _getRequest;
 
