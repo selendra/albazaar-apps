@@ -42,16 +42,16 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
     try {
       await AuthProvider().signInFacebook(context).then((value) {
-        if (value == null) {
-          setState(() {
-            _isLoading = false;
-          });
-        } else {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
-        }
+        // if (value == null) {
+        //   setState(() {
+        //     _isLoading = false;
+        //   });
+        // } else {
+        //   setState(() {
+        //     _isLoading = false;
+        //   });
+        //   //Navigator.pushReplacementNamed(context, BottomNavigationView);
+        // }
       });
     } on PlatformException catch (e) {
       print(e.toString());

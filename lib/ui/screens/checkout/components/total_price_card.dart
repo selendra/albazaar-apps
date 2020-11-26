@@ -15,7 +15,7 @@ class TotalPriceCard extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.all(10.0),
               child: Text(
-                AppLocalizeService.of(context).translate('total_price'),
+                'Price: ',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
+import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 
 class OrderDetailBody extends StatelessWidget {
   final OrderProduct productOrder;
@@ -70,13 +71,34 @@ class OrderDetailBody extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                  padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n", fontSize: 15),
-                      reuseText(address)
+                      reuseText(address),
                     ],
+                  ),
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context, RouteAnimation(enterPage: Tracking()));
+                  },
+                  child: Text(
+                    'Track Order',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  color: kDefaultColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        kDefaultRadius,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -101,13 +123,13 @@ class OrderDetailBody extends StatelessWidget {
                     "https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        OrderDetailBody(productOrder: productOrder)));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) =>
+                //         OrderDetailBody(productOrder: productOrder)));
               },
             ),
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 20),
           Container(
             margin: const EdgeInsets.all(20),
             child: ReuseButton.getItem('Recieved', () async {

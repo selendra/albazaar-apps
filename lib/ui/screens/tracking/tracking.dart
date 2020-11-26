@@ -33,9 +33,6 @@ class _TrackingState extends State<Tracking> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
                     Text(
                       'Shark',
                       style:
@@ -78,8 +75,8 @@ class _TrackingState extends State<Tracking> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                        top: 30.0,
-                        bottom: 30.0,
+                        top: 60.0,
+                        bottom: 60.0,
                         left: 40.0,
                         right: 40.0,
                       ),
@@ -120,7 +117,7 @@ class _TrackingState extends State<Tracking> {
                                 TextAlign.end,
                               ),
                               reuseText(
-                                'Recieved',
+                                'Delivered',
                                 TextAlign.start,
                               ),
                             ],
@@ -175,6 +172,7 @@ class _TrackingState extends State<Tracking> {
         data: SliderTheme.of(context).copyWith(
           trackShape: RoundedRectSliderTrackShape(),
           thumbColor: kDefaultColor,
+          trackHeight: 4,
           activeTrackColor: kDefaultColor,
           inactiveTrackColor: kDefaultColor.withAlpha(50),
         ),

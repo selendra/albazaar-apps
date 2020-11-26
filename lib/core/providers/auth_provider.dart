@@ -71,6 +71,10 @@ class AuthProvider with ChangeNotifier {
 
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
+        currentUser = await _auth.currentUser();
+        if (currentUser != null) {
+          getTokenForFb(facebookAccessToken.token, context);
+        }
         Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
             user.email, user.displayName, profile['picture']['data']['url']);
 
@@ -89,6 +93,32 @@ class AuthProvider with ChangeNotifier {
       print(e);
     }
     return currentUser;
+  }
+
+  Future<void> getTokenForFb(String accesstoken, context) async {
+    http.Response response = await http.post(ApiUrl.LOGIN_FROM_FACEBOOK,
+        headers: ApiHeader.headers,
+        body: jsonEncode(<String, String>{
+          'token': accesstoken,
+        }));
+    print(accesstoken);
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      print(response.body);
+      // String token = responseJson['token'];
+      // if (token == null) {
+      //   await ReuseAlertDialog().successDialog(
+      //     context,
+      //     responseJson['error']['message'],
+      //   );
+      // } else {
+      //   _pref.saveString('token', _token);
+      //   await StorageServices.setData(responseJson, 'user_token');
+      //   Provider.of<ProductsProvider>(context, listen: false)
+      //       .fetchListingProduct();
+      //   Navigator.pushReplacementNamed(context, BottomNavigationView);
+      // }
+    }
   }
 
   Future<FirebaseUser> get currentUser async {

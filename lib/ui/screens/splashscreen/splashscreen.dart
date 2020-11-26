@@ -58,15 +58,16 @@ class _SplashScreenState extends State<SplashScreen>
         } else {
           //Checking is social user login or not by getting the current user
           AuthProvider().currentUser.then((value) {
-            print(value);
-            if (value != null) {
-              Provider.of<UserProvider>(context, listen: false)
-                  .fetchSocialUserInfo(
-                      value.email, value.displayName, value.photoUrl);
-            } else {
-              print('token is null true');
-              Navigator.pushReplacementNamed(context, WelcomeView);
-            }
+            Navigator.pushReplacementNamed(context, BottomNavigationView);
+            //   print(value);
+            //   if (value != null ) {
+            //     Provider.of<UserProvider>(context, listen: false)
+            //         .fetchSocialUserInfo(
+            //             value.email, value.displayName, value.photoUrl);
+            //   } else {
+            //     print('token is null true');
+            //     Navigator.pushReplacementNamed(context, WelcomeView);
+            //   }
           });
         }
       },
