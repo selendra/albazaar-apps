@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,7 +19,8 @@ class _SplashScreenState extends State<SplashScreen>
     'images/undraw_wallet.svg',
     'images/undraw_loving_it.svg',
     'images/undraw_empty_cart.svg',
-    'images/undraw_Mobile_application.svg'
+    'images/undraw_Mobile_application.svg',
+    'images/packaging.svg'
   ];
 
   void checkUser() {
@@ -91,6 +93,7 @@ class _SplashScreenState extends State<SplashScreen>
               Navigator.pushReplacementNamed(context, IntroScreenView);
             } else {
               checkUser();
+              //INavigator.push(context, RouteAnimation(enterPage: Tracking()));
             }
           },
         );

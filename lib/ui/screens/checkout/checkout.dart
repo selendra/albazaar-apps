@@ -9,25 +9,34 @@ class Checkout extends StatefulWidget {
 class _CheckoutState extends State<Checkout> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  String _character = 'Shipping Information';
+  String _address = 'Shipping Information';
   setVal(String val) {
     setState(() {
-      _character = val;
+      _address = val;
     });
   }
 
   void validate() {
-    if (_character == 'Shipping Information') {
+    if (_address == 'Shipping Information') {
       print('not validate');
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Not Validate'),
         duration: Duration(milliseconds: 3000),
       ));
-    } else {}
-  }
-
-  void submit(String productId, String qty, String address) async {
-    await ProductsProvider().addOrder(productId, qty, address);
+    } else {
+      final cartProduct =
+          Provider.of<CartProvider>(context, listen: false).items;
+      for (int i = 0; i < cartProduct.length; i++) {
+        print(cartProduct.values.toList()[i].id);
+        print(cartProduct.values.toList()[i].qty.toString());
+        print(_address);
+        Provider.of<ProductsProvider>(context, listen: false).addOrder(
+          cartProduct.values.toList()[i].id,
+          cartProduct.values.toList()[i].qty.toString(),
+          _address,
+        );
+      }
+    }
   }
 
   @override
@@ -48,26 +57,8 @@ class _CheckoutState extends State<Checkout> {
                 height: 20,
               ),
               ProductDisplay(),
-              ShippingInformation(_character, setVal),
-              // Consumer<CartProvider>(
-              //   builder: (context, value, child) => Card(
-              //     elevation: 0,
-              //     shape: kDefaultShape,
-              //     child: Container(
-              //       child: ListTile(
-              //         title: Text(
-              //           '${value.items.length} items selected',
-              //           style: TextStyle(
-              //               fontSize: 14.0, fontWeight: FontWeight.bold),
-              //         ),
-              //         leading: Icon(Icons.local_grocery_store),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(
-                height: 40,
-              ),
+              ShippingInformation(_address, setVal),
+              SizedBox(height: 40),
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: ReuseButton.getItem(_lang.translate('confirm'), () {

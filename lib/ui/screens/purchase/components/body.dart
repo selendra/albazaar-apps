@@ -43,14 +43,19 @@ class _BodyState extends State<Body> {
                             productsProvider.orItems[index].shippingAddress,
                             maxLines: 1,
                           ),
-                          trailing: Text(
-                              'Qty: ${productsProvider.orItems[index].qauantity}'),
+                          trailing: Text('status: recieved'),
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(
                                 productsProvider.oItems[index].thumbnail),
                           ),
                           onTap: () {
+                            Navigator.push(
+                                context,
+                                RouteAnimation(
+                                    enterPage: OrderDetail(
+                                  productOrder: productsProvider.orItems[index],
+                                )));
                             // Navigator.of(context).pushNamed(DetailView,
                             //     arguments: productsProvider.orItems[index].id);
                           },

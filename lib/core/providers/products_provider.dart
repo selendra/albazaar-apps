@@ -79,7 +79,7 @@ class ProductsProvider with ChangeNotifier {
       await _prefService.read('token').then(
         (value) async {
           http.Response response = await http.post(
-            ApiUrl.GET_PRODUCT_IMAGE,
+            ApiUrl.MAKE_ORDER,
             headers: <String, String>{
               "accept": "application/json",
               "authorization": "Bearer " + value,
@@ -89,11 +89,12 @@ class ProductsProvider with ChangeNotifier {
               <String, String>{
                 "product-id": productId,
                 "qty": qty,
-                "shipping_address": address
+                "shipping-address": address
               },
             ),
           );
           print(response.body);
+          print(response.statusCode);
         },
       );
     } catch (e) {
@@ -196,6 +197,40 @@ class ProductsProvider with ChangeNotifier {
       findIsSold(oItems);
 
       notifyListeners();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> markOrderComplete(String orderId, BuildContext context) async {
+    String message;
+    try {
+      await _prefService.read('token').then(
+        (value) async {
+          http.Response response = await http.post(
+            ApiUrl.MARK_COMPLETE,
+            headers: <String, String>{
+              "accept": "application/json",
+              "authorization": "Bearer " + value,
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode(
+              <String, String>{
+                "order-id": orderId,
+              },
+            ),
+          );
+
+          var responseJson = json.decode(response.body);
+          message = responseJson['message'];
+          if (message == null) {
+            message = responseJson['message']['error'];
+            await ReuseAlertDialog().successDialog(context, message);
+          } else {
+            await ReuseAlertDialog().successDialog(context, message);
+          }
+        },
+      );
     } catch (e) {
       print(e.toString());
     }

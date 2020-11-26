@@ -23,6 +23,7 @@ class ApiUrl {
   static const ORDER_LISTING = baseUrl + '/sdm/v1/list-order';
   static const GET_PRODUCT_IMAGE = baseUrl + '/sdm/v1/get-products-images';
   static const MAKE_ORDER = baseUrl + '/sdm/v1/make-order';
+  static const MARK_COMPLETE = baseUrl + '/sdm/v1/mark-order-completed';
   //map search
   static const MAP_SEARCH = 'http://photon.komoot.de/api/?q=';
 }

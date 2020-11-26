@@ -36,6 +36,11 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clear() {
+    _items.clear();
+    notifyListeners();
+  }
+
   //Increase quantity of order product
   void addQty(String productId) {
     _items.update(
