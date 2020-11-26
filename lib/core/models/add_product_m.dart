@@ -22,7 +22,7 @@ class AddProduct with ChangeNotifier {
   bool enable2 = false;
 
   String  hintWeight = 'Weight',
-          hintPaymentOpt = 'Payment Method',
+          hintPaymentOpt = 'Direct Payment',
           hintCategory = 'Category',
           hintShipping = 'Shipping Services';
 
