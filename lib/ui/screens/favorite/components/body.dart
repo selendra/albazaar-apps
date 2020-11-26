@@ -34,14 +34,14 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(kDefaultRadius),
                     ),
                     child: ListTile(
-                      title: Text(_fav[index].title),
+                      title: Text(_fav[index].name),
                       subtitle: Text(
                         _fav[index].description,
                         maxLines: 1,
                       ),
                       leading: CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(_fav[index].image),
+                        backgroundImage: NetworkImage(_fav[index].thumbnail),
                       ),
                       onTap: () {
                         Navigator.of(context)

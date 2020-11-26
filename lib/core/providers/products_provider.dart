@@ -1,193 +1,245 @@
+import 'package:http/http.dart' as http;
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/products.dart';
-import 'package:http/http.dart' as _http;
-import 'package:selendra_marketplace_app/core/storage/storage.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
-
-  List<Product> data = [
-    Product(),
-    Product(),
-    Product(),
-    Product()
-  ];
-
-  final String myImageUrl = 'https://purepng.com/public/uploads/medium/purepng.com-single-carrotcarrotonesinglevegetablesfreshdeliciousefoodhealthy-481521740676q8i3l.png';
-
-  List<Product> _vegProduct = [];
-
-  List<Product> get items => [...data];
-
-  List<Product> get vegProduct => [..._vegProduct];
-
-  Product findById(int id) => data.firstWhere((prod) => prod.id == id);
-
-  GetRequest _getRequest = GetRequest();
+  PrefService _prefService = PrefService();
   PostRequest _postRequest = PostRequest();
 
-  ProductsProvider(){
-    getData();
-  }
+  //List of all product items
+  List<Product> _items = [];
 
-  Future<void> getData() async {
-    await StorageServices.fetchData('fruit').then((value) async {
-      data.clear();
-      if (value == null) {
-        _http.Response response = await _http.get(
-          'https://data.wa.gov/resource/tgdf-dvhm.json',
-          headers: {
-            "Content-Type": "application/json; charset=utf-8", 
+  //List of all owner product items
+  List<Product> _oItems = [];
+
+  //List of all order product items
+  List<OrderProduct> _orItems = [];
+
+  //List of all order product item that is available
+  List<Product> _isAvailable = [];
+
+  //List of all order product item that is sold
+  List<Product> _isSold = [];
+
+  //All product image
+  List<ProductImage> _imageList = [];
+
+  //Each product image url
+  List<String> _url = [];
+
+  //initial product orderqty
+  int _orderQty = 1;
+
+  List<Product> get items => [..._items];
+  List<Product> get oItems => [..._oItems];
+  List<Product> get isAvailable => [..._isAvailable];
+  List<Product> get isSold => [..._isSold];
+  List<OrderProduct> get orItems => [..._orItems];
+  List<ProductImage> get imageList => [..._imageList];
+  List<String> get url => [..._url];
+  int get orderQty => _orderQty;
+
+  Future<void> fetchListingProduct() async {
+    try {
+      await _prefService.read('token').then((value) async {
+        if (value != null) {
+          http.Response response =
+              await http.get(ApiUrl.LISTING, headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + value,
+          });
+
+          dynamic responseJson = json.decode(response.body);
+          _prefService.saveString('products', jsonEncode(responseJson));
+          _items = new List<Product>();
+          for (var item in responseJson) {
+            _items.add(Product.fromMap(item));
           }
-        );
-        
-        await fromDB(response);
 
-        await objectToJson(data).then((value) async => await StorageServices.setData(value, 'fruit'));
-      } else {
-        jsonToObject(value);
-      }
-    });
-    notifyListeners();
-  }
-
-  // Extract Data From Object To Json
-  Future<List<Map<String, dynamic>>> objectToJson(List<Product> data) async{
-    List<Map<String, dynamic>> list = List<Map<String, dynamic>>();
-    data.forEach((element) {
-      list.add({
-        'id': element.id == null ? '' : element.id,
-        'image': element.image == null ? '' : element.image,
-        'title': element.title == null ? '' : element.title,
-        'price': element.orderQty == null ? '' : element.orderQty,
-        'description': element.description == null ? '' : element.description,
-        'color': element.color == null ? '' : element.color,
-        'seller_name': element.sellerName == null ? '' : element.sellerName,
-        'seller_phone': element.sellerPhoneNum == null ? '' : element.sellerPhoneNum,
-        'category': element.category == null ? '' : element.category,
-        'isFavority': false//element.isFavorite == null ? '' : element.isFavorite,
+          print(responseJson);
+          notifyListeners();
+          fetchOListingProduct(value);
+          fetchOrListingProduct(value);
+          getAllProductImg(value);
+        }
       });
-    });
-    return list;
-  }
-
-  // Retrieve Data From Database
-  Future<void> fromDB(_http.Response response) async {
-    List.from(json.decode(response.body)).forEach((element) {
-      data.addAll({
-        Product(
-          id: element['id'] == null ? '' : int.parse(element['id']),
-          image: element['image'] == null ? '' : myImageUrl,
-          title: element['title'] == null ? '' : element['fruit'],
-          price: element['price'] == null ? '' : double.parse(element['price']),
-          description: element['description'] == null ? '' : element['description'], 
-          color: element['color'] == null ? '' : element['color'], 
-          sellerName: element['seller_name'] == null ? '' : element['seller_name'], 
-          sellerPhoneNum: element['seller_phone'] == null ? '' : element['seller_phone'], 
-          category: element['category'] == null ? '' : element['category'], 
-          isFavorite: false//element['isFavority'] == null ? '' : element['isFavority'] == '1' ? true : false
-        )
-      });
-    });
-  }
-
-  // Extract Data From Json To Object
-  Future<void> jsonToObject(List value) async {
-    List.from(value).forEach((element) {
-      data.addAll({
-        Product(
-          id: element['id'].round(),
-          image: element['image'],
-          title: element['title'],
-          price: element['price'].toDouble(),
-          description: element['description'],
-          color: element['color'],
-          sellerName: element['seller_name'],
-          sellerPhoneNum: element['seller_phone'],
-          category: element['category'],
-          isFavorite: false //element['isFavority'] == '1' ? true : false,
-        )
-      });
-    });
-  }
-
-  //ADD NEW PRODUCT
-  void addItem(BuildContext context, AddProduct newProduct) async {
-
-      // newProduct.toProduct(
-      //   newProduct, 
-      //   "12", 
-      //   'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
-      //   'FF3D82AE'
-      // );
-
-      // print(newProduct.productName.text);
-      // print(newProduct.price.text);
-      // print(newProduct.shipping);
-      // print(newProduct.weight);T
-      // print(newProduct.imageUri);
-      // print(newProduct.description.text);
-      // print(newProduct.category);
-      // print(newProduct.paymentOpt);
-      Components.dialogLoading(context: context, contents: "Adding");
-      try{
-        await _postRequest.addListing(newProduct).then((value) async {
-          // Close Loading
-          Navigator.pop(context);
-          await Components.dialog(context, Text("${json.decode(value.body)['message']}"), Text("Message"));
-          // Close Seller Screen
-          if (json.decode(value.body)['message'].length > 1){
-            newProduct.productId = json.decode(value.body)['message'];
-            Navigator.pop(context, {"add": true});
-          }
-        });
-        // Close Loading
-      } on SocketException catch (e) {
-        print("Error $e");
-      } catch (e){
-        print("Error $e");
-      }
-
-      // print(newProduct.categories);
-      // print(newProduct.city.text);
-      // print(newProduct.address.text);
-      // print(newProduct.district.text);
-      // print(newProduct.sellerName.text);
-      // print(newProduct.sellerNumber.text);
-    
-    // data.add(
-    //   newProduct.toProduct(
-    //     newProduct, 
-    //     "12", 
-    //     'https://github.com/rajayogan/flutterui-fruitcookbook/blob/master/assets/blueberries.png?raw=true', 
-    //     'FF3D82AE'
-    //   )
-    // );
-    // objectToJson(data).then((value) async => { await StorageServices.setData(value, 'fruit')});
-    // notifyListeners();
-  }
-
-  //FETCH PRODUCTS INTO DIFFERENT CATEGORIES
-  void getVegi() {
-    for (int i = 0; i < data.length; i++) {
-      if (data[i].category == 'veg') {
-        _vegProduct.add(data[i]);
-      }
-
-      notifyListeners();
+    } catch (e) {
+      print(e.toString());
     }
   }
 
-  //INCREASE ORDER QUANTITY OF PRODUCT
-  void addOrderQty(Product product) {
-    product.orderQty++;
+  void clearList() {
+    _items.clear();
+    _oItems.clear();
     notifyListeners();
   }
 
-  //DECREASE ORDER QUANTIY OF PRODUCT
+  void addItem(BuildContext context, AddProduct newProduct) async {
+    Components.dialogLoading(context: context, contents: "Adding");
+    try {
+      await _postRequest.addListing(newProduct).then((value) async {
+        print(value);
+        // Close Loading
+        Navigator.pop(context);
+        await Components.dialog(context, Text("${json.decode(value.body)['message']}", textAlign: TextAlign.center), Text("Message"));
+        // Close Seller Screen
+        if (json.decode(value.body)['message'].length > 1) {
+          newProduct.productId = json.decode(value.body)['id'];
+          Navigator.pop(context, {"add": true});
+        }
+      });
+      // Close Loading
+    } on SocketException catch (e) {
+      print("Error $e");
+    } catch (e) {
+      print("Error $e");
+    }
+  }
+
+  /*Fetch all product image by looping all product id in list 
+  and add it into all image list*/
+  Future<void> fetchImage(String token, String productId) async {
+    try {
+      _imageList = List<ProductImage>();
+      http.Response response = await http.post(ApiUrl.GET_PRODUCT_IMAGE,
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+          body: jsonEncode(<String, String>{
+            "url": "string",
+            "product-id": productId,
+          }));
+      dynamic responseJson = json.decode(response.body);
+
+      for (var item in responseJson) {
+        _imageList.add(ProductImage.fromJson(item));
+      }
+      print(_imageList.length);
+      //_imageList.add(responseJson);
+
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void getAllProductImg(String token) {
+    for (int i = 0; i < _items.length; i++) {
+      fetchImage(token, _items[i].id);
+    }
+  }
+
+  Future<void> fetchOrListingProduct(token) async {
+    try {
+      http.Response response = await http.get(ApiUrl.ORDER_LISTING, headers: <String, String>{
+        "accept": "application/json",
+        "authorization": "Bearer " + token,
+      });
+      print('order list' + response.body);
+      dynamic responseJson = json.decode(response.body);
+      _orItems.add(OrderProduct.fromMap(responseJson));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> fetchOListingProduct(String token) async {
+    try {
+      http.Response response =
+          await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
+        "accept": "application/json",
+        "authorization": "Bearer " + token,
+      });
+      print("Fetch O listing ${response.body}");
+
+      dynamic responseJson = json.decode(response.body);
+      _prefService.saveString('oproducts', jsonEncode(responseJson));
+
+      _oItems = new List<Product>();
+      for (var item in responseJson) {
+        _oItems.add(Product.fromMap(item));
+      }
+
+      findIsSold(oItems);
+
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void findIsSold(List<Product> allListing) {
+    _isSold = List<Product>();
+    _isAvailable = List<Product>();
+
+    for (int i = 0; i < allListing.length; i++) {
+      if (allListing[i].isSold && !_isSold.contains(allListing[i])) {
+        _isSold.add(allListing[i]);
+      } else {
+        if (!_isAvailable.contains(allListing[i])) {
+          _isAvailable.add(allListing[i]);
+        }
+      }
+    }
+
+    notifyListeners();
+  }
+
+  //find image of each product in image list using product Id
+  void findImgById(String productId) async {
+    _url = List<String>();
+
+    final product = findById(productId);
+    addThumbnail(product.thumbnail);
+
+    for (int i = 0; i < _imageList.length; i++) {
+      if (_imageList[i].productId == productId) {
+        _url.add(_imageList[i].url);
+        notifyListeners();
+      }
+    }
+    print(url.length);
+  }
+
+  //Add Image thumbnail to show first index of all images
+  void addThumbnail(String thumbnail) {
+    _url.add(thumbnail);
+    notifyListeners();
+  }
+
+  // Future<void> readLocalProduct() async {
+  //   await _prefService.read('products').then((value) {
+  //     if (value != null) {
+  //       dynamic repsonseJson = json.decode(value);
+  //       for (var item in repsonseJson) {
+  //         _items.add(Product.fromMap(item));
+  //       }
+  //     }
+  //   });
+  //   await _prefService.read('oproducts').then((value) {
+  //     if (value != null) {
+  //       dynamic responseJson = json.decode(value);
+  //       _oItems.add(Product.fromMap(responseJson));
+  //     }
+  //   });
+  // }
+
+  //Find product by product ID
+  Product findById(String id) {
+    return _items.firstWhere((prod) => prod.id == id);
+  }
+
+  //Increase order quantity of product
+  void addOrderQty(Product product) {
+    _orderQty++;
+    notifyListeners();
+  }
+
+  //Decrease order quantity of product
   void minusOrderQty(Product product) {
-    if (product.orderQty > 1) {
-      product.orderQty--;
+    if (_orderQty > 1) {
+      _orderQty--;
       notifyListeners();
     }
   }

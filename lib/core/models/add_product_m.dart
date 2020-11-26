@@ -1,7 +1,6 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class AddProduct {
-  
+class AddProduct with ChangeNotifier {
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 
@@ -13,7 +12,6 @@ class AddProduct {
   List<String> imageUrlList = List<String>();
   List<Asset> images = List<Asset>();
   List<File> fileImagesList = List<File>();
-  
 
   List<Map<String, dynamic>> shippingList = List<Map<String, dynamic>>();
   List<Map<String, dynamic>> paymentOptsList = List<Map<String, dynamic>>();
@@ -23,10 +21,13 @@ class AddProduct {
   bool enable1 = false;
   bool enable2 = false;
 
-  String weight= 'Weight', paymentOpt = 'Payment Method', category = 'Category', shipping = 'Shipping Services';
+  String weight = 'Weight',
+      paymentOpt = 'Payment Method',
+      category = 'Category',
+      shipping = 'Shipping Services';
 
   TextEditingController productName = TextEditingController();
-  TextEditingController price =  TextEditingController();
+  TextEditingController price = TextEditingController();
   TextEditingController description = TextEditingController();
   TextEditingController sellerName = TextEditingController();
   TextEditingController sellerNumber = TextEditingController();
@@ -46,10 +47,8 @@ class AddProduct {
   FocusNode districtNode = FocusNode();
   FocusNode cityNode = FocusNode();
 
-  void clearProductField(){
-    productId = '';
+  void clearProductField() {
     imageUrl = '';
-    imageUrlList.clear();
     images.clear();
     fileImagesList.clear();
     productName.clear();
@@ -62,7 +61,7 @@ class AddProduct {
     city.clear();
   }
 
-  void clearSellerField(){
+  void clearSellerField() {
     sellerName.clear();
     sellerNumber.clear();
     address.clear();
@@ -71,18 +70,18 @@ class AddProduct {
     shipping = '';
   }
 
-  Product toProduct(AddProduct addProduct, String id, String image, String color, {String categories}){
-    return Product(
-      id: int.parse(id),
-      image: image,
-      title: addProduct.productName.text,
-      price: double.parse(addProduct.price.text),
-      description: addProduct.description.text, 
-      color: color, 
-      sellerName: addProduct.sellerName.text, 
-      sellerPhoneNum: addProduct.sellerNumber.text, 
-      category: categories, 
-      isFavorite: false
-    );
-  }
+  // Product toProduct(AddProduct addProduct, String id, String image, String color, {String categories}){
+  //   return Product(
+  //     id: int.parse(id),
+  //     image: image,
+  //     title: addProduct.productName.text,
+  //     price: double.parse(addProduct.price.text),
+  //     description: addProduct.description.text,
+  //     color: color,
+  //     sellerName: addProduct.sellerName.text,
+  //     sellerPhoneNum: addProduct.sellerNumber.text,
+  //     category: categories,
+  //     isFavorite: false
+  //   );
+  // }
 }

@@ -46,7 +46,7 @@ class SearchProducts extends SearchDelegate {
         ? []
         : data.items
             .where(
-              (element) => element.title.toLowerCase().startsWith(
+              (element) => element.name.toLowerCase().startsWith(
                     query.toLowerCase(),
                   ),
             )
@@ -66,7 +66,7 @@ class SearchProducts extends SearchDelegate {
                 Navigator.of(context)
                     .pushNamed('/detail', arguments: searchProducts[index].id);
               },
-              title: Text(searchProducts[index].name),
+              title: Text(searchProducts[index].productName),
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(searchProducts[index]._image),
               ),

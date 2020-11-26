@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,42 +22,48 @@ class _SplashScreenState extends State<SplashScreen>
   void checkUser() {
     //READ TOKEN
     _pref.read('token').then(
-      (value) async {
-      print("Token $value");
+      (value) {
+        print("Token $value");
         if (value != null) {
+          Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchListingProduct();
 
-                //FETCH USER PROFILE AND NAVIGATE
-                Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
-                //Provider.of<ProductsProvider>(context, listen: false).getVegi();
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
-          // await UserProvider().fetchPortforlio().then(
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          // UserProvider().fetchPortforlio().then(
           //   (onValue) {
-          //     //CHECK IF TOKEN IS VALID
+          //     //Check if the token is valid or not
+          //     print(onValue);
           //     if (onValue == '200') {
-          //       //FETCH USER PROFILE AND NAVIGATE
-          //       Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
-          //       //Provider.of<ProductsProvider>(context, listen: false).getVegi();
+          //       //Provider.of<ProductsProvider>(context, listen: false).fetch();
+          //       //Fetch user infomation from share preference(local storage)
+          //       Provider.of<UserProvider>(context, listen: false)
+          //           .fetchUserInfo();
+          //       Provider.of<ProductsProvider>(context, listen: false)
+          //           .fetchListingProduct();
+
           //       Navigator.pushReplacementNamed(context, BottomNavigationView);
           //     } else {
-          //       //IF NOT VALID CLEAR TOKEN AND NAVIGATE TO WELCOME SCREEN
+          //       /*If the token is not valid clear it
+          //       and return to the welcome screen*/
           //       _pref.clear('token');
           //       Navigator.pushReplacementNamed(context, WelcomeView);
           //     }
           //   },
           // );
         } else {
-          //CHECK SOCIAL ACCOUNT LOGIN USER
-          AuthProvider().currentUser.then(
-            (value) {
-              if (value != null) {
-                //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
-                Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(value.email, value.displayName, value.photoUrl);
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                Navigator.pushReplacementNamed(context, WelcomeView);
-              }
-            },
-          );
+          //Checking is social user login or not by getting the current user
+          AuthProvider().currentUser.then((value) {
+            print(value);
+            if (value != null) {
+              Provider.of<UserProvider>(context, listen: false)
+                  .fetchSocialUserInfo(
+                      value.email, value.displayName, value.photoUrl);
+            } else {
+              print('token is null true');
+              Navigator.pushReplacementNamed(context, WelcomeView);
+            }
+          });
         }
       },
     );
@@ -68,12 +73,13 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    //CHECK AUTH
+    //Timer is used to display logo base on duration 2second
     Timer(
       Duration(milliseconds: 2000),
       () {
         _pref.read('isshow').then(
           (onValue) {
+            print("Is show $onValue");
             if (onValue == null) {
               Navigator.pushReplacementNamed(context, IntroScreenView);
             } else {
@@ -84,17 +90,17 @@ class _SplashScreenState extends State<SplashScreen>
       },
     );
 
-    //PRECACH SVG IMAGES
+    //Precache all svg image to improve of svg loading
     for (int i = 0; i < svg.length; i++) {
-      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+      precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
 
-    //SET LANGUAGE
+    //Set language using provider
     var _lang = Provider.of<LangProvider>(context, listen: false);
     _pref.read('lang').then(
       (value) {
         _lang.setLocal(value, context);
-        // print(value);
       },
     );
   }

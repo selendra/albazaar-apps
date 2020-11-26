@@ -79,16 +79,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  onForgetPwEmail(String email) async {
-    await AuthProvider().forgetPasswordByEmail(email).then((value) {
-      if (value == 'Your Email doesn\'t exist') {
-        // _alertDialog(context);
-      } else {
-        ReuseAlertDialog().resetAlertDialog(context, value);
-      }
-    });
-  }
-
   onApiSignInByPhone(String _phone, String _password) async {
     print("Sign in with phone");
     print(_phone);
@@ -96,8 +86,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
+
     await AuthProvider()
-        .signInByPhone("+855"+_phone, _password, context)
+        .signInByPhone("+855" + _phone, _password, context)
         .then((value) {
       if (value != null) {
         setState(() {
@@ -107,27 +98,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       }
     });
   }
-
-  // _resetDialog(BuildContext context) async {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return ReuseAlertDialog.getItem(
-  //             alertText,
-  //             '',
-  //             'Cancel',
-  //             () {
-  //               Navigator.pop(context);
-  //             },
-  //             'Reset',
-  //             () {
-  //               /*Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                       builder: (context) => ResetByEmail(_email)));*/
-  //             });
-  //       });
-  // }
 
   onTabChange() {
     _tabController.addListener(() {
@@ -154,15 +124,15 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
+
     onTabChange();
-    //_pageController = PageController();
   }
 
   @override
   void dispose() {
     _pageController.dispose();
     _tabController.dispose();
-    print('dispose');
+    //print('dispose');
     super.dispose();
   }
 

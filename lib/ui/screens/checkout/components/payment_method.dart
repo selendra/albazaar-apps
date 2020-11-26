@@ -14,6 +14,7 @@ class PaymentMethod extends StatefulWidget {
 class _PaymentMethodState extends State<PaymentMethod> {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return InkWell(
       onTap: () {
         showBottomSheet(
@@ -36,7 +37,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                           color: kDefaultColor,
                         ),
                       ),
-                      title: Text('Payment Method'),
+                      title: Text(_lang.translate('payment_method')),
                     ),
                     RadioListTile(
                       activeColor: kDefaultColor,

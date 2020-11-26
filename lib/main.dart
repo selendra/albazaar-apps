@@ -59,7 +59,7 @@ class _SelendraAppState extends State<SelendraApp> {
               ..buildViewportChrome(context, child, AxisDirection.down),
             child: child,
           ),
-          title: 'Selendra Marketplace',
+          title: appTitle,
           locale: value.manualLocale,
           supportedLocales: [
             const Locale('en', 'US'),

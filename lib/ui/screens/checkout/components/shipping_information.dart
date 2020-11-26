@@ -19,7 +19,8 @@ class ShippingInformation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Shipping Information',
+                      AppLocalizeService.of(context)
+                          .translate('shipping_information'),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     IconButton(

@@ -1,20 +1,17 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'sell_info.dart';
-import 'related_product.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context).settings.arguments as int;
+    final productId = ModalRoute.of(context).settings.arguments as String;
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
-    print(loadedData.category);
+
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -71,26 +68,32 @@ class Body extends StatelessWidget {
                 background: Hero(
                   tag: "$productId",
                   child: SizedBox(
-                    child: Carousel(
-                      autoplay: false,
-                      dotSpacing: 15.0,
-                      dotColor: Colors.grey,
-                      dotBgColor: Colors.transparent,
-                      dotIncreasedColor: kDefaultColor,
-                      indicatorBgPadding: 10.0,
-                      borderRadius: true,
-                      animationCurve: Curves.decelerate,
-                      moveIndicatorFromBottom: 180.0,
-                      noRadiusForIndicator: true,
-                      boxFit: BoxFit.cover,
-                      images: List.generate(
-                        8,
-                        (index) {
-                          return Image.network(
-                            loadedData.image,
-                            fit: BoxFit.cover,
-                          );
-                        },
+                    child: Consumer<ProductsProvider>(
+                      builder: (context, value, child) => Carousel(
+                        autoplay: false,
+                        dotSpacing: 15.0,
+                        dotColor: Colors.grey,
+                        dotBgColor: Colors.transparent,
+                        dotIncreasedColor: kDefaultColor,
+                        indicatorBgPadding: 10.0,
+                        borderRadius: true,
+                        animationCurve: Curves.decelerate,
+                        moveIndicatorFromBottom: 180.0,
+                        noRadiusForIndicator: true,
+                        boxFit: BoxFit.cover,
+                        images: List.generate(
+                          value.url.isEmpty ? 1 : value.url.length,
+                          (index) {
+                            return FadeInImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  value.url.isNotEmpty
+                                      ? value.url[index]
+                                      : loadedData.thumbnail,
+                                ),
+                                placeholder: AssetImage('images/loading.gif'));
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -99,19 +102,24 @@ class Body extends StatelessWidget {
             ),
           ];
         },
-        body: Container(
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            color: Colors.white,
             child: Container(
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    loadedData.title,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w900,
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      loadedData.name,
+                      style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -123,7 +131,7 @@ class Body extends StatelessWidget {
                       //_btnQtyRow(),
                       Consumer<ProductsProvider>(
                         builder: (context, value, child) => BtnQty(
-                          '${loadedData.orderQty}',
+                          '${value.orderQty}',
                           () {
                             value.addOrderQty(loadedData);
                           },
@@ -133,39 +141,47 @@ class Body extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '\$' + loadedData.price.toString(),
+                        loadedData.price.toString() +
+                            '៛ /' +
+                            AppLocalizeService.of(context)
+                                .translate('kilogram'),
                         style: TextStyle(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w700,
                           fontSize: 23,
                           color: kDefaultColor,
                         ),
                       ),
                     ],
                   ),
-
                   SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
-                  Card(
-                    elevation: 0,
-                    child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      margin: EdgeInsets.all(10.0),
-                      child: Text(loadedData.description)
-                    )
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
                   ),
-
                   SizedBox(
                     height: 10.0,
+                  ),
+                  Text(
+                    loadedData.description,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  SizedBox(
+                    height: 30.0,
                   ),
                   ChangeNotifierProvider.value(
                     value: loadedData,
                     child: SellerInfo(),
                   ),
-
                   SizedBox(
-                    height: 10.0,
+                    height: 30.0,
                   ),
                   RelatedProduct(),
                 ],

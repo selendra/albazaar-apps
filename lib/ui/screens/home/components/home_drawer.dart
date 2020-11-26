@@ -7,7 +7,7 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
     final _mUser = data.mUser;
-    // String userName = _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
+    String userName = _mUser.firstName == null ? "User name" : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);
     return Drawer(
       child: ListView(
@@ -20,13 +20,13 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             accountName: Text(
-              'no username',// userName ?? 'no username',
+              userName ?? 'no username', // userName ?? 'no username',
               style: TextStyle(color: Colors.white),
             ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: _mUser.profileImg == null
-              ? AssetImage('images/avatar.png')
-              : NetworkImage(_mUser.profileImg),
+                  ? AssetImage('images/avatar.png')
+                  : NetworkImage(_mUser.profileImg),
             ),
           ),
           ReuseInkwell.getItem(
@@ -63,21 +63,7 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ReuseInkwell.getItem(
-            _lang.translate('sale'),
-            Icons.monetization_on,
-            () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, SaleScreenView);
-            },
-          ),
-          
-          Container(
-            height: 2,
-            margin: EdgeInsets.only(left: 20.0, right: 20.0),
-            color: Colors.grey[300],
-          ),
-          ReuseInkwell.getItem(
-            _lang.translate('purchase'),
+            _lang.translate('order'),
             Icons.shopping_basket,
             () {
               Navigator.pop(context);
@@ -85,6 +71,21 @@ class HomeDrawer extends StatelessWidget {
               // Navigator.push(context,
             },
           ),
+
+          Container(
+            height: 2,
+            margin: EdgeInsets.only(left: 20.0, right: 20.0),
+            color: Colors.grey[300],
+          ),
+          // ReuseInkwell.getItem(
+          //   _lang.translate('purchase'),
+          //   Icons.shopping_basket,
+          //   () {
+          //     Navigator.pop(context);
+          //     Navigator.pushNamed(context, PurchaseView);
+          //     // Navigator.push(context,
+          //   },
+          // ),
           ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
             Navigator.pop(context);
             Navigator.pushNamed(context, ChatView);
@@ -120,10 +121,9 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('logout_string'),
             Icons.input,
             () async {
-              SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-              await sharedPreferences.clear();
+              await StorageServices.removeKey('user_token');
               HomeDialog().alertDialog(context);
-              //Auth().signOut(context);
+              // Auth().signOut(context);
             },
           ),
         ],

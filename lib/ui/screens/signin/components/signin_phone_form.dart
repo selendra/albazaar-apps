@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-TextEditingController _phoneNumber = TextEditingController(), _password = TextEditingController();
+TextEditingController _phoneNumber = TextEditingController(),
+    _password = TextEditingController();
 
 class SignInPhoneForm extends StatelessWidget {
-  
   final Function signInPhoneFunc;
   final Function facebookSignIn;
   final Function googleSignIn;
@@ -38,14 +37,17 @@ class SignInPhoneForm extends StatelessWidget {
               controller: _phoneNumber,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: Colors.grey),
-                labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                labelText:
+                    AppLocalizeService.of(context).translate('phone_hint'),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: kDefaultColor),
-                  borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(kDefaultRadius)),
                 ),
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.greenAccent),
-                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(kDefaultRadius))),
               ),
               initialCountryCode: 'KH',
               validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
@@ -66,7 +68,8 @@ class SignInPhoneForm extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: FlatButton(
                 onPressed: () {
-                  Navigator.push(context, RouteAnimation(enterPage: ResetPassPhone()));
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetPassPhone()));
                 },
                 child: RichText(
                   text: TextSpan(

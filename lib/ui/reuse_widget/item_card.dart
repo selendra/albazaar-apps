@@ -11,8 +11,17 @@ class ItemCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           '/detail',
+          //   BoxShadow(
+          //     color: Colors.black54.withOpacity(0.2),
+          //     blurRadius: 10.0,
+          //     spreadRadius: 1.0,
+          //     offset: Offset(1.0, 1.0),
+          //   )
+          // ]
           arguments: product.id,
         );
+        Provider.of<ProductsProvider>(context, listen: false)
+            .findImgById(product.id);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5),
@@ -31,8 +40,13 @@ class ItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             ClipRRect(
-              borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+              // borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(5)
+              ),
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.width * 0.4,
@@ -48,22 +62,20 @@ class ItemCard extends StatelessWidget {
                 child: Hero(
                   tag: "${product.id}",
                   child: FadeInImage(
-                    placeholderErrorBuilder: (context, error, stackTrace) =>
-                        Center(
-                      child: Text('Loading...'),
-                    ),
                     fit: BoxFit.cover,
-                    image: product.image.isNotEmpty ? NetworkImage(product.image) : AssetImage('images/loading.gif'),
+                    image: NetworkImage(product.thumbnail),
                     placeholder: AssetImage('images/loading.gif'),
                   ),
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               child: Text(
                 // products is out demo list
-                product.title,
+                product.name,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   // color: Colors.black,
                   fontSize: 16.0,
@@ -71,14 +83,17 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+
+            Expanded(
+              child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
-              child: Text(
-                "\$${product.price} /" + AppLocalizeService.of(context).translate('kilogram'),
-                style: TextStyle(
+                child: Text("${product.price}៛ /" + AppLocalizeService.of(context).translate('kilogram'),
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,
-                    fontSize: 14.0),
+                    fontSize: 14.0
+                  ),
+                ),
               ),
             )
           ],

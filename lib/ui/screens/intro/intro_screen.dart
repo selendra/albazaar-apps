@@ -53,7 +53,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -64,6 +64,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
@@ -90,17 +91,17 @@ class _IntroScreenState extends State<IntroScreen> {
                         nextskipButton(() {
                           _pref.saveString('isshow', 'seen');
                           Navigator.pushReplacementNamed(context, WelcomeView);
-                        }, 'SKIP'),
+                        }, _lang.translate('skip')),
                         currentIndex >= 2
                             ? nextskipButton(() {
                                 print('Let begin');
                                 _pref.saveString('isshow', 'seen');
                                 Navigator.pushReplacementNamed(
                                     context, WelcomeView);
-                              }, 'LET\'S BEGIN')
+                              }, _lang.translate('let_begin'))
                             : nextskipButton(() {
                                 onPageChange(currentIndex + 1);
-                              }, 'NEXT'),
+                              }, _lang.translate('next')),
                       ],
                     ),
                   ),

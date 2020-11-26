@@ -5,6 +5,8 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'dart:convert';
 export 'package:multi_image_picker/multi_image_picker.dart';
 
+export 'package:provider/provider.dart';
+
 // core
 export 'package:selendra_marketplace_app/core/backend/api.dart';
 export 'package:selendra_marketplace_app/core/backend/post/post_request.dart';
@@ -24,6 +26,8 @@ export 'ui/reuse_widget/bottom_navigation.dart';
 
 //add listing screen
 export 'ui/screens/addlisting/add_listing.dart';
+export 'ui/screens/addlisting/fill_seller/fill_seller.dart';
+export 'ui/screens/addlisting/components/image_list.dart';
 
 //listing screen
 export 'ui/screens/listing/listing_screen.dart';
@@ -51,6 +55,8 @@ export 'ui/screens/detail/detail_screen.dart';
 export 'ui/screens/detail/components/btn_qty.dart';
 export 'ui/screens/detail/components/btn_add_to_cart.dart';
 export 'ui/screens/detail/components/circle_shape_btn.dart';
+export 'ui/screens/detail/components/sell_info.dart';
+export 'ui/screens/detail/components/related_product.dart';
 
 //favorite screen
 export 'ui/screens/favorite/favorite_screen.dart';
@@ -81,6 +87,9 @@ export 'ui/screens/profile/components/gender_dropdown.dart';
 
 //cart item
 export 'ui/screens/cart/components/cart_items.dart';
+export 'ui/screens/cart/components/cart_btn_qty.dart';
+export 'ui/screens/cart/components/dismissable_background.dart';
+export 'ui/screens/cart/components/checkout_card.dart';
 
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';
@@ -197,6 +206,7 @@ export 'core/models/acc_balance.dart';
 export 'core/models/wallet_response.dart';
 export 'core/models/notification_model.dart';
 export 'core/models/add_product_m.dart';
+export 'core/models/product_image.dart';
 
 //services
 export 'core/services/auth/api_post_services.dart';

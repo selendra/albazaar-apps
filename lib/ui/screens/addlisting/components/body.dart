@@ -2,14 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:http/http.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
-import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
+// import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
 class Body extends StatefulWidget {
@@ -18,7 +16,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   AddProductProvider _addProductProvider;
 
   String _error = 'No Error Dectected';
@@ -26,18 +23,17 @@ class _BodyState extends State<Body> {
   PostRequest _postRequest = PostRequest();
 
   // BuildContext context;
-  void routeA() async {
-    String resultOfC = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CategoriesListScreen(category))
-    );
-    setState(() {
-      // _addProductProvider.categories = resultOfC;
-    });
-  }
+  // void routeA() async {
+  //   String resultOfC = await Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => CategoriesListScreen(category)));
+  //   setState(() {
+  //     // _addProductProvider.categories = resultOfC;
+  //   });
+  // }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
-
     // print(addProductProvider.addProduct.imageUrl);
     // print(addProductProvider.addProduct.productName.text);
     // print(addProductProvider.addProduct.category);
@@ -46,22 +42,18 @@ class _BodyState extends State<Body> {
     // print(addProductProvider.addProduct.paymentOpt);
     // print(addProductProvider.addProduct.description.text);
 
-    if (
-      addProductProvider.addProduct.imageUrl.isNotEmpty &&
-      addProductProvider.addProduct.productName.text.isNotEmpty &&
-      addProductProvider.addProduct.category != "Category" &&
-      addProductProvider.addProduct.weight != "Weight" &&
-      addProductProvider.addProduct.price.text.isNotEmpty &&
-      addProductProvider.addProduct.paymentOpt != "Payment Method" &&
-      addProductProvider.addProduct.description.text.isNotEmpty
-    ) 
-    enableButton(true);
+    if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
+        addProductProvider.addProduct.productName.text.isNotEmpty &&
+        addProductProvider.addProduct.category != "Category" &&
+        addProductProvider.addProduct.weight != "Weight" &&
+        addProductProvider.addProduct.price.text.isNotEmpty &&
+        addProductProvider.addProduct.paymentOpt != "Payment Method" &&
+        addProductProvider.addProduct.description.text.isNotEmpty)
+      enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
-  void ddOnChanged(String value){
-
-  }
+  void ddOnChanged(String value) {}
 
   void enableButton(bool enable) {
     setState(() {
@@ -69,7 +61,7 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void toSeller(AddProductProvider provider) async {
+  void toSeller(AddProductProvider provider, UserProvider user) async {
     print(provider.addProduct.imageUrl);
     print(provider.addProduct.productName.text);
     print(provider.addProduct.category);
@@ -78,11 +70,11 @@ class _BodyState extends State<Body> {
     print(provider.addProduct.paymentOpt);
     print(provider.addProduct.description.text);
     var response = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => FillSeller(addProduct: provider.addProduct))
-    );
-    
-    if (response != null) Navigator.pop(context);
+        context,
+        MaterialPageRoute(
+            builder: (context) => FillSeller(addProduct: provider.addProduct, userProvider: user,)));
+
+    if (response != null) Navigator.pop(context, response);
     // setState(() {
     //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
     //       _addProductProvider.formKeySeller.currentState.validate()) {
@@ -112,10 +104,7 @@ class _BodyState extends State<Body> {
     // return false;
   }
 
-  
-
   Future<void> loadAssets() async {
-
     String error = 'No Error Dectected';
 
     try {
@@ -148,35 +137,35 @@ class _BodyState extends State<Body> {
       print(_error);
     });
 
+    print("Get Url");
     await getImageUrl();
   }
 
   Future<void> imageAssetToFile() async {
-
     // Fetch Image From Asset
-    for (Asset asset in _addProductProvider.addProduct.images){
+    _addProductProvider.addProduct.fileImagesList.clear();
+    for (Asset asset in _addProductProvider.addProduct.images) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
   }
 
-  // User After Display Image
+  // Use After Display Image
   Future<void> getImageUrl() async {
-
     // Upload Image To Get Url Image
+    print(_addProductProvider.addProduct.fileImagesList.length);
     await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload").then((value) {
-      // _addProductProvider.addProduct
-      value.stream.transform(utf8.decoder).listen((data){
-        _addProductProvider.addProduct.imageUrl = json.decode(data)['uri'];
-      });
+      _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
     });
 
-    // Loop Upload File Images Per Each
-    for(int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++){
-      await _postRequest.upLoadImage( _addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
-        value.stream.transform(utf8.decoder).listen((data){
-          _addProductProvider.addProduct.imageUrlList.add(json.decode(data)['uri']);
-        });
+    // Validate After Get Url Thumnail
+    onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
+    
+    // // Loop Upload File Images Per Each
+    for (int i = 1; i <_addProductProvider.addProduct.fileImagesList.length; i++) {
+
+      await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
+        _addProductProvider.addProduct.imageUrlList.add(json.decode(value)['uri']);
       });
     }
   }
@@ -188,8 +177,8 @@ class _BodyState extends State<Body> {
   }
 
   @override
-  dispose(){
-    Timer(Duration(milliseconds: 500), (){
+  dispose() {
+    Timer(Duration(milliseconds: 500), () {
       _addProductProvider.addProduct.clearProductField();
     });
     super.dispose();
@@ -197,8 +186,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-
     _addProductProvider = Provider.of<AddProductProvider>(context);
+    UserProvider user = Provider.of<UserProvider>(context);
     // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
@@ -213,32 +202,21 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 40,
               ),
-              // Consumer<ProductsProvider>(
-              //   builder: (context, value, child) => Container(
-              //     // margin: EdgeInsets.only(right: 16, left: 16),
-              //     child: ReuseButton.getItem(
-              //         AppLocalizeService.of(context).translate('Next'), () {
-              //       toSeller();
-              //       if (toSeller()) {
-              //         value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-              //             _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-              //       }
-              //     }, context),
-              //   ),
-              // ),
+
               Container(
                 margin: EdgeInsets.only(right: 18, left: 18),
+                padding: EdgeInsets.only(bottom: 20),
                 child: ReuseButton.getItem(
-                  'Next', //AppLocalizeService.of(context).translate('Next'),
+                  AppLocalizeService.of(context).translate('next'),
                   !_addProductProvider.addProduct.enable1
                   ? null
                   : () {
-                    toSeller(_addProductProvider);
-                    // if (toSeller()) {
-                    //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                    //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                    // }
-                  },
+                      toSeller(_addProductProvider, user);
+                      // if (toSeller()) {
+                      //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                      //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+                      // }
+                    },
                   context
                 ),
               ),
@@ -273,7 +251,8 @@ class _BodyState extends State<Body> {
       ),
       child: GridView.count(
         crossAxisCount: 3,
-        children: List.generate(_addProductProvider.addProduct.images.length, (index) {
+        children: List.generate(_addProductProvider.addProduct.images.length,
+            (index) {
           Asset asset = _addProductProvider.addProduct.images[index];
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
@@ -282,7 +261,8 @@ class _BodyState extends State<Body> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ImageList(_addProductProvider.addProduct.images),
+                    builder: (context) =>
+                        ImageList(_addProductProvider.addProduct.images),
                   ),
                 );
               },
@@ -325,27 +305,24 @@ class _BodyState extends State<Body> {
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
           children: <Widget>[
-            
             SizedBox(
               height: 10,
             ),
             ReuseButton.getItem(
-              AppLocalizeService.of(context).translate('pick_image'),
-              loadAssets,
-              context
-            ),
-            
+                AppLocalizeService.of(context).translate('pick_image'),
+                loadAssets,
+                context),
+
             _addProductProvider.addProduct.images.isNotEmpty
-            ? buildGridView(loadAssets)
-            : Container(
-              height: 0,
-            ),
+                ? buildGridView(loadAssets)
+                : Container(
+                    height: 0,
+                  ),
 
             SizedBox(
               height: 10,
             ),
             _productNameField(),
-
             SizedBox(
               height: 10,
             ),
@@ -356,8 +333,9 @@ class _BodyState extends State<Body> {
                     hint: _addProductProvider.addProduct.category,
                     data: _addProductProvider.addProduct.categoriesList,
                     keyPair: 'category_name',
-                    onChanged: (String value){
+                    onChanged: (String value) {
                       setState(() {
+                        print(value);
                         _addProductProvider.addProduct.category = value;
                       });
                     },
@@ -371,7 +349,7 @@ class _BodyState extends State<Body> {
                     hint: _addProductProvider.addProduct.weight,
                     data: _addProductProvider.addProduct.weightList,
                     keyPair: 'weight_option',
-                    onChanged: (String value){
+                    onChanged: (String value) {
                       setState(() {
                         _addProductProvider.addProduct.weight = value;
                       });
@@ -394,7 +372,7 @@ class _BodyState extends State<Body> {
               hint: _addProductProvider.addProduct.paymentOpt,
               data: _addProductProvider.addProduct.paymentOptsList,
               keyPair: 'options_name',
-              onChanged: (String value){
+              onChanged: (String value) {
                 setState(() {
                   _addProductProvider.addProduct.paymentOpt = value;
                 });
@@ -405,49 +383,26 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             _descriptionField(),
-
           ],
         ),
       ),
     );
   }
 
-  Widget _sellerDetail() {
-    return Form(
-      key: _addProductProvider.addProduct.formKeySeller,
-      child: Container(
-        margin: EdgeInsets.only(left: 18, right: 18),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            _productNameField(),
-            SizedBox(
-              height: 10,
-            ),
-            _phoneNumberField(),
-            SizedBox(
-              height: 10,
-            ),
-            _streetAddress(),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                _district(),
-                SizedBox(
-                  width: 10.0,
-                ),
-                _cityName(),
-              ],
-            ),
-            //_pickLocation(),
-          ],
-        ),
-      ),
-    );
+  Widget _productNameField() {
+    return ReuseTextField(
+        controller: _addProductProvider.addProduct.productName,
+        labelText: AppLocalizeService.of(context).translate('product_name'),
+        maxLine: 1,
+        textInputAction: TextInputAction.done,
+        validator: (value) => value.isEmpty
+            ? AppLocalizeService.of(context).translate('contact_name_is_empty')
+            : null,
+        onChanged: (String value) {
+          onChanged(value, _addProductProvider);
+        }
+        // onSaved: (value) => _contactName = value,
+        );
   }
 
   Widget _priceField() {
@@ -460,7 +415,7 @@ class _BodyState extends State<Body> {
       validator: (value) => value.isEmpty
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
-      onChanged: (String value){
+      onChanged: (String value) {
         onChanged(value, _addProductProvider);
       },
       // onSaved: (newValue) => _addProductProvider.price. = newValue,
@@ -474,110 +429,96 @@ class _BodyState extends State<Body> {
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       labelText: AppLocalizeService.of(context).translate('description'),
-      
+
       validator: (value) => value.isEmpty
-      ? AppLocalizeService.of(context).translate('description_is_empty')
-      : null,
-      onChanged: (String value){
+          ? AppLocalizeService.of(context).translate('description_is_empty')
+          : null,
+      onChanged: (String value) {
         onChanged(value, _addProductProvider);
       },
       // onSaved: (value) => _description = value,
     );
   }
-
-  Widget _myCategories() {
-    return Container(
-      height: 60,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        border: Border.all(color: kDefaultColor, width: 1),
-        borderRadius: BorderRadius.circular(kDefaultRadius),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: new DropdownButton<String>(
-          items: _addProductProvider.addProduct.categoriesList.map((Map<String, dynamic> value) {
-            return new DropdownMenuItem<String>(
-              value: value['category_name'],
-              child: new Text(value['category_name']),
-            );
-          }).toList(),
-          onChanged: (_) {},
-        ),
-      )
-      // ListTile(
-      //   title: _addProductProvider.categories.text.isEmpty
-      //   ? Text(
-      //     AppLocalizeService.of(context).translate('categories'),
-      //   )
-      //   : Text(_addProductProvider.categories.text),
-      //   trailing: Icon(
-      //     Icons.arrow_forward_ios,
-      //     color: kDefaultColor,
-      //   ),
-      //   onTap: () {
-      //     routeA();
-      //   },
-      // ),
-    );
-  }
-
-  Widget _productNameField() {
-    return ReuseTextField(
-      controller: _addProductProvider.addProduct.productName,
-      labelText: AppLocalizeService.of(context).translate('product_name'),
-      maxLine: 1,
-      textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty
-      ? AppLocalizeService.of(context).translate('contact_name_is_empty')
-      : null,
-      onChanged: (String value){
-        onChanged(value, _addProductProvider);
-      }
-      // onSaved: (value) => _contactName = value,
-    );
-  }
-
-  Widget _phoneNumberField() {
-    return ReuseTextField(
-      controller: _addProductProvider.addProduct.sellerNumber,
-      labelText: AppLocalizeService.of(context).translate('phone_hint'),
-      maxLine: 1,
-      textInputAction: TextInputAction.done,
-      validator: (value) => value.isEmpty
-      ? AppLocalizeService.of(context).translate('phone_number_is_empty')
-      : null,
-      onChanged: (String value){
-        onChanged(value, _addProductProvider);
-      }
-      // onSaved: (value) => _phoneNumber = value,
-    );
-  }
-
-  Widget _streetAddress() {
-    return ReuseTextField(
-      controller: _addProductProvider.addProduct.address,
-      labelText: AppLocalizeService.of(context).translate('street_address'),
-      // onSaved: (newValue) => _address = newValue,
-    );
-  }
-
-  Widget _district() {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2.3,
-      child: ReuseTextField(
-        textInputAction: TextInputAction.done,
-        labelText: AppLocalizeService.of(context).translate('district'),
-      ),
-    );
-  }
-
-  Widget _cityName() {
-    return Container(
-      width: MediaQuery.of(context).size.width / 2.3,
-      child: ReuseTextField(
-        labelText: AppLocalizeService.of(context).translate('city_province'),
-        textInputAction: TextInputAction.done,
-      ),
-    );
-  }
 }
+
+//   Widget _myCategories() {
+//     return Container(
+//         height: 60,
+//         width: MediaQuery.of(context).size.width,
+//         decoration: BoxDecoration(
+//           border: Border.all(color: kDefaultColor, width: 1),
+//           borderRadius: BorderRadius.circular(kDefaultRadius),
+//         ),
+//         child: DropdownButtonHideUnderline(
+//           child: new DropdownButton<String>(
+//             items: _addProductProvider.addProduct.categoriesList
+//                 .map((Map<String, dynamic> value) {
+//               return new DropdownMenuItem<String>(
+//                 value: value['category_name'],
+//                 child: new Text(value['category_name']),
+//               );
+//             }).toList(),
+//             onChanged: (_) {},
+//           ),
+//         )
+//         // ListTile(
+//         //   title: _addProductProvider.categories.text.isEmpty
+//         //   ? Text(
+//         //     AppLocalizeService.of(context).translate('categories'),
+//         //   )
+//         //   : Text(_addProductProvider.categories.text),
+//         //   trailing: Icon(
+//         //     Icons.arrow_forward_ios,
+//         //     color: kDefaultColor,
+//         //   ),
+//         //   onTap: () {
+//         //     routeA();
+//         //   },
+//         // ),
+//         );
+//   }
+
+//   Widget _phoneNumberField() {
+//     return ReuseTextField(
+//         controller: _addProductProvider.addProduct.sellerNumber,
+//         labelText: AppLocalizeService.of(context).translate('phone_hint'),
+//         maxLine: 1,
+//         textInputAction: TextInputAction.done,
+//         validator: (value) => value.isEmpty
+//             ? AppLocalizeService.of(context).translate('phone_number_is_empty')
+//             : null,
+//         onChanged: (String value) {
+//           onChanged(value, _addProductProvider);
+//         }
+//         // onSaved: (value) => _phoneNumber = value,
+//         );
+//   }
+
+//   Widget _streetAddress() {
+//     return ReuseTextField(
+//       controller: _addProductProvider.addProduct.address,
+//       labelText: AppLocalizeService.of(context).translate('street_address'),
+//       // onSaved: (newValue) => _address = newValue,
+//     );
+//   }
+
+//   Widget _district() {
+//     return Container(
+//       width: MediaQuery.of(context).size.width / 2.3,
+//       child: ReuseTextField(
+//         textInputAction: TextInputAction.done,
+//         labelText: AppLocalizeService.of(context).translate('district'),
+//       ),
+//     );
+//   }
+
+//   Widget _cityName() {
+//     return Container(
+//       width: MediaQuery.of(context).size.width / 2.3,
+//       child: ReuseTextField(
+//         labelText: AppLocalizeService.of(context).translate('city_province'),
+//         textInputAction: TextInputAction.done,
+//       ),
+//     );
+//   }
+// }

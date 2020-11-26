@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/ui/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:badges/badges.dart';
@@ -58,17 +57,14 @@ class _HomeScreenState extends State<HomeScreen>
                   Scaffold.of(context).openDrawer();
                 },
               ),
-              //backgroundColor: Colors.white,
-              // leading: ReuseIconBadge(() {
-              //   Scaffold.of(context).openDrawer();
-              // }, Icons.menu, kDefaultColor, 25.0),
               centerTitle: true,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    child: Image.asset('images/logo.png', width: 30, height: 30),
-                    padding: EdgeInsets.only(right: 5)),
+                      child:
+                          Image.asset('images/logo.png', width: 30, height: 30),
+                      padding: EdgeInsets.only(right: 5)),
                   Text(
                     'SELENDRA',
                     style: TextStyle(
@@ -82,31 +78,31 @@ class _HomeScreenState extends State<HomeScreen>
               actions: <Widget>[
                 Consumer<CartProvider>(
                   builder: (context, value, child) => value.items.length == 0
-                    ? IconButton(
-                        icon: Icon(
-                          Icons.shopping_cart,
-                          color: kDefaultColor,
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: kDefaultColor,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, CartView);
+                          })
+                      : Badge(
+                          position: BadgePosition.topEnd(top: 0, end: 3),
+                          animationDuration: Duration(milliseconds: 300),
+                          animationType: BadgeAnimationType.scale,
+                          badgeContent: Text(
+                            value.items.length.toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                color: kDefaultColor,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, CartView);
+                              }),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, CartView);
-                        })
-                    : Badge(
-                        position: BadgePosition.topEnd(top: 0, end: 3),
-                        animationDuration: Duration(milliseconds: 300),
-                        animationType: BadgeAnimationType.scale,
-                        badgeContent: Text(
-                          value.items.length.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                              color: kDefaultColor,
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, CartView);
-                            }),
-                      ),
                 ),
                 IconButton(
                   icon: Icon(
@@ -124,9 +120,8 @@ class _HomeScreenState extends State<HomeScreen>
           ];
         },
         body: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus.unfocus(),
-          child: Body()
-        ),
+            onTap: () => FocusManager.instance.primaryFocus.unfocus(),
+            child: Body()),
       ),
     );
   }

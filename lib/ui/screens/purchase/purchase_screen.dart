@@ -29,7 +29,7 @@ class _PurchaseScreenState extends State<PurchaseScreen>
     var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
-          _lang.translate('purchase'),
+          _lang.translate('order'),
           context,
           _lang.translate('all'),
           _lang.translate('complete'),

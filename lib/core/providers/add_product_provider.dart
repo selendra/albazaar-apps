@@ -1,13 +1,11 @@
-import 'dart:async';
-
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class AddProductProvider extends ChangeNotifier{
-
+class AddProductProvider extends ChangeNotifier {
   AddProduct addProduct;
   GetRequest _getRequest;
 
   AddProductProvider() {
+    print('fetch');
     addProduct = AddProduct();
     _getRequest = GetRequest();
     fetchShippingServices();
@@ -19,21 +17,25 @@ class AddProductProvider extends ChangeNotifier{
   // Fetch Shipping To Shipping Listing
   void fetchShippingServices() async {
     await _getRequest.shippingServices().then((value) {
-      addProduct.shippingList = List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.shippingList =
+          List<Map<String, dynamic>>.from(json.decode(value.body));
       notifyListeners();
     });
   }
 
   void fetchCategories() async {
+    print("Start fetch cagegories");
     await _getRequest.categories().then((value) {
-      addProduct.categoriesList = List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.categoriesList =
+          List<Map<String, dynamic>>.from(json.decode(value.body));
     });
     notifyListeners();
   }
 
   void fetchPaymentOpt() async {
     await _getRequest.paymentOpt().then((value) {
-      addProduct.paymentOptsList = List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.paymentOptsList =
+          List<Map<String, dynamic>>.from(json.decode(value.body));
       addProduct.paymentOpt = addProduct.paymentOptsList[1]['options_name'];
       notifyListeners();
     });
@@ -41,7 +43,8 @@ class AddProductProvider extends ChangeNotifier{
 
   void fetchWeightOpt() async {
     await _getRequest.weightOpt().then((value) {
-      addProduct.weightList = List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.weightList =
+          List<Map<String, dynamic>>.from(json.decode(value.body));
       notifyListeners();
     });
   }
