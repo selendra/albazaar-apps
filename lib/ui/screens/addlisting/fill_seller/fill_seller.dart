@@ -4,7 +4,9 @@ import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_
 class FillSeller extends StatefulWidget {
   final AddProduct addProduct;
 
-  FillSeller({this.addProduct});
+  final UserProvider userProvider;
+
+  FillSeller({this.addProduct, this.userProvider});
 
   @override
   _FillSellerState createState() => _FillSellerState();
@@ -14,11 +16,19 @@ class _FillSellerState extends State<FillSeller> {
   @override
   initState() {
     super.initState();
+    fillUser();
     // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/c455f0b4-e1f3-4c3d-a623-ba49c5df00ad");
     // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/34459a86-e3c7-4c2e-9d96-6d3938aeb81b");
     // widget.addProduct.imageUrlList.add("https://selendra.s3-ap-southeast-1.amazonaws.com/34459a86-e3c7-4c2e-9d96-6d3938aeb81b");
     // widget.addProduct.productId = "e21d01cb-456e-4cea-a926-c1b7de107ada";
     // print(widget.addProduct.imageUrlList[0]);
+  }
+
+  void fillUser(){
+    widget.addProduct.sellerName.text = widget.userProvider.mUser.firstName ?? '';
+    widget.addProduct.sellerName.text += " ${widget.userProvider.mUser.midName}" ?? '';
+    widget.addProduct.sellerName.text += " ${widget.userProvider.mUser.lastName}" ?? '';
+    widget.addProduct.sellerNumber.text = "${widget.userProvider.mUser.phonenumber}" ?? '';
   }
 
   @override
@@ -92,9 +102,7 @@ class _FillSellerState extends State<FillSeller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(
-          AppLocalizeService.of(context).translate('seller_information'),
-          context),
+      appBar: ReuseSimpleAppBar.getItem(AppLocalizeService.of(context).translate('seller_information'), context),
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,

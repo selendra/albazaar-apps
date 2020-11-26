@@ -61,7 +61,7 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void toSeller(AddProductProvider provider) async {
+  void toSeller(AddProductProvider provider, UserProvider user) async {
     print(provider.addProduct.imageUrl);
     print(provider.addProduct.productName.text);
     print(provider.addProduct.category);
@@ -72,7 +72,7 @@ class _BodyState extends State<Body> {
     var response = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => FillSeller(addProduct: provider.addProduct)));
+            builder: (context) => FillSeller(addProduct: provider.addProduct, userProvider: user,)));
 
     if (response != null) Navigator.pop(context, response);
     // setState(() {
@@ -157,6 +157,9 @@ class _BodyState extends State<Body> {
     await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload").then((value) {
       _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
     });
+
+    // Validate After Get Url Thumnail
+    onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
     
     // // Loop Upload File Images Per Each
     for (int i = 1; i <_addProductProvider.addProduct.fileImagesList.length; i++) {
@@ -184,6 +187,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     _addProductProvider = Provider.of<AddProductProvider>(context);
+    UserProvider user = Provider.of<UserProvider>(context);
     // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
@@ -201,18 +205,20 @@ class _BodyState extends State<Body> {
 
               Container(
                 margin: EdgeInsets.only(right: 18, left: 18),
+                padding: EdgeInsets.only(bottom: 20),
                 child: ReuseButton.getItem(
-                    AppLocalizeService.of(context).translate('next'),
-                    !_addProductProvider.addProduct.enable1
-                    ? null
-                    : () {
-                        toSeller(_addProductProvider);
-                        // if (toSeller()) {
-                        //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                        //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                        // }
-                      },
-                    context),
+                  AppLocalizeService.of(context).translate('next'),
+                  !_addProductProvider.addProduct.enable1
+                  ? null
+                  : () {
+                      toSeller(_addProductProvider, user);
+                      // if (toSeller()) {
+                      //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                      //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+                      // }
+                    },
+                  context
+                ),
               ),
               // _sellerDetail(),
             ],

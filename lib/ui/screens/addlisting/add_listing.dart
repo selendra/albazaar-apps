@@ -7,9 +7,8 @@ class AddListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(
-          AppLocalizeService.of(context).translate('add_listing'), context),
+      appBar: ReuseSimpleAppBar.getItem(AppLocalizeService.of(context).translate('add_listing'), context),
       body: Body(),
     );
-  }
+  } 
 }

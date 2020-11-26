@@ -39,7 +39,7 @@ class SellerConfirmBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      reuseText("SUMMARY:\n", fontSize: 15),
+                      reuseText("SUMMARY:\n", fontSize: 17, fontWeight: FontWeight.bold),
                       Row(
                         children: [
                           Expanded(
@@ -83,7 +83,7 @@ class SellerConfirmBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      reuseText("SHIPPING ADDRESS:\n", fontSize: 15),
+                      reuseText("SHIPPING ADDRESS:\n", fontSize: 17, fontWeight: FontWeight.bold),
                       reuseText(address)
                     ],
                   ),
@@ -93,28 +93,85 @@ class SellerConfirmBody extends StatelessWidget {
           ),
 
           Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(kDefaultRadius),
+            margin: EdgeInsets.only(left: 20, right: 20, top: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: reuseText("PRODUCT", fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 50,
+                  child: reuseText("QTY", fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 70,
+                  child: reuseText("PRICE", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
+                ),
+              ],
             ),
-            child: ListTile(
-              title: Text('{productOrder.total}៛'),
-              subtitle: Text(
-                "productOrder.shippingAddress",
-                maxLines: 1,
+          ),
+
+          Card(
+            margin: EdgeInsets.all(10),
+            child:Container(
+              margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 5),
+                      child: Row(
+                        children: [
+                          // CircleAvatar(
+                          //   backgroundColor: Colors.white,
+                          //   backgroundImage: NetworkImage("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
+                          // ),
+
+                          Flexible(
+                            child: Image.network("https://selendra.s3-ap-southeast-1.amazonaws.com/699455dd-01a4-4280-bcd6-51b89c3bc753", width: 80, height: 80,),
+                          ),
+
+                          Expanded(
+                            child: reuseText("""{productOrder.total}៛""", fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    )
+                  ),
+                  SizedBox(
+                    width: 50,
+                    child: reuseText("{productOrder.qauantity}", fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: reuseText("{productOrder.total}៛", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
+                  ),
+                ],
               ),
-              trailing: Text('{productOrder.qauantity}'),
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: NetworkImage("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productOrder))
-                );
-              },
-            ),
+            )
+            // Container(
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(kDefaultRadius),
+            //   ),
+            //   child: ListTile(
+            //     title: Text('{productOrder.total}៛'),
+            //     subtitle: Text(
+            //       "productOrder.shippingAddress",
+            //       maxLines: 1,
+            //     ),
+            //     trailing: Text('{productOrder.qauantity}'),
+            //     leading: CircleAvatar(
+            //       backgroundColor: Colors.white,
+            //       backgroundImage: NetworkImage("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
+            //     ),
+            //     onTap: () {
+            //       Navigator.of(context).push(
+            //         MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productOrder))
+            //       );
+            //     },
+            //   ),
+            // ),
           ),
 
           Container(
@@ -122,7 +179,7 @@ class SellerConfirmBody extends StatelessWidget {
             child: ReuseButton.getItem(_lang.translate('confirm_payment'), () async {
               await Components.dialog(
                 context, 
-                Text("Did you already check customer's payment?"), 
+                Text("Complete check payment?", textAlign: TextAlign.center), 
                 Text("Massage"), 
                 action: FlatButton(
                   onPressed: (){
@@ -140,7 +197,7 @@ class SellerConfirmBody extends StatelessWidget {
             child: ReuseButton.getItem(_lang.translate('confirm_shipping'), () async {
               await Components.dialog(
                 context, 
-                Text("Did you already check customer's shipping?"), 
+                Text("Complete prepare for shipping?", textAlign: TextAlign.center), 
                 Text("Massage"), 
                 action: FlatButton(
                   onPressed: (){
@@ -157,7 +214,7 @@ class SellerConfirmBody extends StatelessWidget {
     );
   }
 
-  Widget reuseText(String text, {double fontSize: 13}){
-    return Text(text, style: TextStyle(fontSize: fontSize));
+  Widget reuseText(String text, {double fontSize: 13, FontWeight  fontWeight, TextAlign textAlign}){
+    return Text(text, textAlign: textAlign, style: TextStyle(fontSize: fontSize, fontWeight: fontWeight));
   }
 }

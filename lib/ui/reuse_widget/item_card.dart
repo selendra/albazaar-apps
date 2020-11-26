@@ -33,8 +33,13 @@ class ItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             ClipRRect(
-              borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+              // borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(5)
+              ),
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.width * 0.4,
@@ -57,27 +62,31 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
             ),
+
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
               child: Text(
                 // products is out demo list
                 product.name,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    // color: Colors.black,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600),
+                  // color: Colors.black,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600
+                ),
               ),
             ),
-            Padding(
+
+            Expanded(
+              child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
-              child: Text(
-                "${product.price}៛ /" +
-                    AppLocalizeService.of(context).translate('kilogram'),
-                style: TextStyle(
+                child: Text("${product.price}៛ /" + AppLocalizeService.of(context).translate('kilogram'),
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: kDefaultColor,
-                    fontSize: 14.0),
+                    fontSize: 14.0
+                  ),
+                ),
               ),
             )
           ],
