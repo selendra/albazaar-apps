@@ -21,6 +21,19 @@ class _SellerConfirmState extends State<SellerConfirm> {
     super.initState();
   }
 
+  void onClickChange(String btnTitle){
+    print(btnTitle);
+    setState((){
+      if (btnTitle == 'payment'){
+        widget.productOrder.isPayment = true;
+      } else {
+        widget.productOrder.isShipping = true;
+      }
+      print(widget.productOrder.isPayment);
+      print(widget.productOrder.isPayment);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +42,8 @@ class _SellerConfirmState extends State<SellerConfirm> {
         context
       ),
       body: SellerConfirmBody(
-        productOrder: widget.productOrder
+        productOrder: widget.productOrder,
+        onClickChange: onClickChange
       ),
     );
   }

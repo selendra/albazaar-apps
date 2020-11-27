@@ -1,12 +1,14 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class SellerConfirmBody extends StatelessWidget {
 
   final SellerModel productOrder;
+  final Function onClickChange;
 
   PostRequest _postRequest = PostRequest();
 
@@ -14,7 +16,8 @@ class SellerConfirmBody extends StatelessWidget {
   """;
 
   SellerConfirmBody({
-    this.productOrder
+    this.productOrder,
+    this.onClickChange
   });
 
   @override
@@ -24,6 +27,9 @@ class SellerConfirmBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          RaisedButton(onPressed: ()async {
+            await StorageServices.removeKey('confirm_products');
+          }),
 
           Container(
             margin: EdgeInsets.only(top: 20),
@@ -49,7 +55,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Customer Name: "),
                           ),
                           Expanded(
-                            child: reuseText("${productOrder.value}"),
+                            child: reuseText("{productOrder.value}"),
                           )
                         ],
                       ),
@@ -60,7 +66,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Phone: "),
                           ),
                           Expanded(
-                            child: reuseText("${productOrder.sellerPhonenumber}"),
+                            child: reuseText("{productOrder.sellerPhonenumber}"),
                           )
                         ],
                       ),
@@ -71,7 +77,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText("SEL ${productOrder.total}"),
+                            child: reuseText("៛{productOrder.total}"),
                           )
                         ],
                       )
@@ -87,7 +93,7 @@ class SellerConfirmBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n", fontSize: 17, fontWeight: FontWeight.bold),
-                      reuseText("${productOrder.shippingAddress}")
+                      reuseText("{productOrder.shippingAddress}")
                     ],
                   ),
                 ),
@@ -133,12 +139,12 @@ class SellerConfirmBody extends StatelessWidget {
                           Flexible(
                             child: Align(
                               alignment: Alignment.centerLeft,
-                              child: Image.network("${productOrder.thumbnail}", width: 80, height: 80,),
+                              child: Image.network("{productOrder.thumbnail}", width: 80, height: 80,),
                             ),
                           ),
 
                           Expanded(
-                            child: reuseText("""${productOrder.name}៛""", fontSize: 15, fontWeight: FontWeight.bold),
+                            child: reuseText("""{productOrder.name}""", fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -146,11 +152,11 @@ class SellerConfirmBody extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 50,
-                    child: reuseText("${productOrder.qauantity}", fontSize: 15, fontWeight: FontWeight.bold),
+                    child: reuseText("{productOrder.qauantity}", fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     width: 70,
-                    child: reuseText("${productOrder.price}៛", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
+                    child: reuseText("{productOrder.price}៛", fontSize: 15, fontWeight: FontWeight.bold, textAlign: TextAlign.right)
                   ),
                 ],
               ),
@@ -182,7 +188,7 @@ class SellerConfirmBody extends StatelessWidget {
 
           Container(
             margin: const EdgeInsets.all(20),
-            child: ReuseButton.getItem(_lang.translate('confirm_payment'), () async {
+            child: ReuseButton.getItem(_lang.translate('confirm_payment'), productOrder.isPayment ? null : () async {
               var result = await Components.dialog(
                 context, 
                 Text("Complete check payment?", textAlign: TextAlign.center), 
@@ -190,31 +196,38 @@ class SellerConfirmBody extends StatelessWidget {
                 action: FlatButton(
                   onPressed: () async {
                     Navigator.pop(context, true);
+                    onClickChange('payment');
+                    await StorageServices.setData(
+                      {
+                        'isPayment': true
+                      }, 
+                      'confirm_products'
+                    );
                   }, 
                   child: Text("Yes")
                 )
               );
               
-              if (result == true) {
-                Components.dialogLoading(context: context);
-                try {
-                  await _postRequest.markPamyment(productOrder.id).then((value) async {
-                    var data = json.decode(value.body);
-                    await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center,), Text("Message"));
-                  });
+              // if (result == true) {
+              //   Components.dialogLoading(context: context);
+              //   try {
+              //     await _postRequest.markPamyment(productOrder.id).then((value) async {
+              //       var data = json.decode(value.body);
+              //       await Components.dialog(context, Text("data['message']", textAlign: TextAlign.center,), Text("Message"));
+              //     });
                   
-                  //Close Dialog
-                  Navigator.pop(context);
-                } catch (e) {
+              //     //Close Dialog
+              //     Navigator.pop(context);
+              //   } catch (e) {
                   
-                }
-              }
+              //   }
+              // }
             }, context),
           ),
 
           Container(
             margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-            child: ReuseButton.getItem(_lang.translate('confirm_shipping'), () async {
+            child: ReuseButton.getItem(_lang.translate('confirm_shipping'), !productOrder.isPayment || productOrder.isShipping ? null : () async {
               var result = await Components.dialog(
                 context, 
                 Text("Complete prepare for shipping?", textAlign: TextAlign.center), 
@@ -222,27 +235,40 @@ class SellerConfirmBody extends StatelessWidget {
                 action: FlatButton(
                   onPressed: () async {
                     Navigator.pop(context, true);
+                    onClickChange('shipping');
+                    await StorageServices.fetchData('confirm_products').then((value) {
+                      if (value != null){
+                        StorageServices.setData(
+                        {
+                          'isPayment': value['isPayment'],
+                          'isShipping': true,
+                        }, 
+                        'confirm_products'
+                      );
+                      }
+                    });
+                    
                   }, 
                   child: Text("Yes")
                 )
               );
 
-              if (result == true){
+              // if (result == true){
 
-                Components.dialogLoading(context: context);
-                try{
+              //   Components.dialogLoading(context: context);
+              //   try{
 
-                  await _postRequest.markShipment(productOrder.id).then((value) async {
-                    var data = json.decode(value.body);
-                    await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center), Text("Message"));
-                  });
+              //     await _postRequest.markShipment(productOrder.id).then((value) async {
+              //       var data = json.decode(value.body);
+              //       await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center), Text("Message"));
+              //     });
 
-                  //Close Dialog
-                  Navigator.pop(context);
-                } catch (e) {
-                  print(e);
-                }
-              }
+              //     //Close Dialog
+              //     Navigator.pop(context);
+              //   } catch (e) {
+              //     print(e);
+              //   }
+              // }
             }, context),
           ),
 
