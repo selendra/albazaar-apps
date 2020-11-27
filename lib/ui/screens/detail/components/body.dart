@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'interact_view.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -84,14 +85,24 @@ class Body extends StatelessWidget {
                         images: List.generate(
                           value.url.isEmpty ? 1 : value.url.length,
                           (index) {
-                            return FadeInImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  value.url.isNotEmpty
-                                      ? value.url[index]
-                                      : loadedData.thumbnail,
-                                ),
-                                placeholder: AssetImage('images/loading.gif'));
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    RouteAnimation(
+                                        enterPage:
+                                            InteractView(value.url[index])));
+                              },
+                              child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    value.url.isNotEmpty
+                                        ? value.url[index]
+                                        : loadedData.thumbnail,
+                                  ),
+                                  placeholder:
+                                      AssetImage('images/loading.gif')),
+                            );
                           },
                         ),
                       ),

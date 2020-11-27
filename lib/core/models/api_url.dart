@@ -16,12 +16,16 @@ class ApiUrl {
   static const DISPLAY_PORTFORLIO = baseUrl + '/pub/v1/portforlio';
   static const GOOGLE_SIGN_IN = baseUrl + '/oauth/v1/login-from-google';
   static const ADD_PHONE_NUMBER = baseUrl + '/pub/v1/add-phonenumber';
+  static const LOGIN_FROM_FACEBOOK = baseUrl + '/oauth/v1/login-from-facebook';
 
   //selendra marketplace opertion
   static const LISTING = baseUrl + '/sdm/v1/listing';
   static const OWNER_LISTING = baseUrl + '/sdm/v1/listing-by-owner';
   static const ORDER_LISTING = baseUrl + '/sdm/v1/list-order';
   static const GET_PRODUCT_IMAGE = baseUrl + '/sdm/v1/get-products-images';
+  static const MAKE_ORDER = baseUrl + '/sdm/v1/make-order';
+  static const MARK_COMPLETE = baseUrl + '/sdm/v1/mark-order-completed';
+  static const LIST_FOR_BUYER = baseUrl + '/sdm/v1/list-order-from-buyer';
   //map search
   static const MAP_SEARCH = 'http://photon.komoot.de/api/?q=';
 }

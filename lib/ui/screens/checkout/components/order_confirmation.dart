@@ -35,14 +35,14 @@ class OrderConfirmation extends StatelessWidget {
                 ReuseTextField(
                   controller: _phoneController,
                   labelText: _lang.translate('phone'),
-                  initialValue: data.mUser.phonenumber,
+                  // initialValue: data.mUser.phonenumber,
                   //onSaved: (newValue) => phone = newValue,
                 ),
                 SizedBox(height: 10),
                 ReuseTextField(
                   controller: _emailController,
                   labelText: _lang.translate('email'),
-                  initialValue: data.mUser.email,
+                  //initialValue: data.mUser.email,
                   inputType: TextInputType.emailAddress,
                   //onSaved: (newValue) => email = newValue,
                 ),
@@ -52,7 +52,7 @@ class OrderConfirmation extends StatelessWidget {
                 ReuseTextField(
                   controller: _locationController,
                   labelText: _lang.translate('shipping_address'),
-                  initialValue: data.mUser.address,
+                  //initialValue: data.mUser.address,
                   validator: (value) =>
                       value.isEmpty ? "Address is empty" : null,
                   // onSaved: (newValue) => location = newValue,

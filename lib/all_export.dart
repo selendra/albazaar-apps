@@ -42,8 +42,9 @@ export 'ui/screens/cart/components/dismissable_background.dart';
 export 'ui/screens/checkout/checkout.dart';
 export 'ui/screens/checkout/components/order_confirmation.dart';
 export 'ui/screens/checkout/components/payment_method.dart';
-export 'ui/screens/checkout/components/shipping_information.dart';
 export 'ui/screens/checkout/components/total_price_card.dart';
+export 'ui/screens/checkout/components/product_display.dart';
+
 //categories screen
 export 'ui/screens/category/categories.dart';
 export 'ui/screens/category/categories_list.dart';
@@ -93,6 +94,7 @@ export 'ui/screens/cart/components/checkout_card.dart';
 
 //purchase screen
 export 'ui/screens/purchase/purchase_screen.dart';
+export 'ui/screens/purchase/components/order_detail.dart';
 
 //transaction view
 export 'ui/screens/transaction/transaction_history.dart';

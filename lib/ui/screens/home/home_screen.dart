@@ -28,6 +28,11 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context);
+    print(user.mUser.firstName);
+    print(user.mUser.lastName);
+    print(user.mUser.midName);
+    print(user.mUser.profileImg);
     return Scaffold(
       key: _scaffoldState,
       body: _buildAppBar(),

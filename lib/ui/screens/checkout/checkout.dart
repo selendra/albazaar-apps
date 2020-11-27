@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Checkout extends StatefulWidget {
@@ -8,17 +7,55 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  String _character = 'Payment Method';
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String _address = 'Shipping Information';
   setVal(String val) {
     setState(() {
-      _character = val;
+      _address = val;
     });
+  }
+
+  void validate(context) async {
+    if (_address == 'Shipping Information') {
+      print('not validate');
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Not Validate'),
+        duration: Duration(milliseconds: 3000),
+      ));
+    } else {
+      final cartProduct =
+          Provider.of<CartProvider>(context, listen: false).items;
+      for (int i = 0; i < cartProduct.length; i++) {
+        print(cartProduct.values.toList()[i].id);
+        print(cartProduct.values.toList()[i].qty.toString());
+        print(_address);
+        Provider.of<ProductsProvider>(context, listen: false).addOrder(
+          cartProduct.values.toList()[i].id,
+          cartProduct.values.toList()[i].qty.toString(),
+          _address,
+        );
+      }
+      Navigator.pop(context);
+
+      ReuseAlertDialog().customDialog(
+        context,
+        'Make order succesfully',
+        () {
+          Provider.of<CartProvider>(navigationKey.currentState.overlay.context,
+                  listen: false)
+              .clear();
+          Navigator.pop(navigationKey.currentState.overlay.context);
+        },
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final _lang = AppLocalizeService.of(context);
     return Scaffold(
+      key: _scaffoldKey,
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('check_out'), context),
       body: SingleChildScrollView(
@@ -27,31 +64,18 @@ class _CheckoutState extends State<Checkout> {
           child: Column(
             children: [
               TotalPriceCard(),
-              ShippingInformation(),
-              PaymentMethod(_character, setVal),
-              Consumer<CartProvider>(
-                builder: (context, value, child) => Card(
-                  elevation: 0,
-                  shape: kDefaultShape,
-                  child: Container(
-                    child: ListTile(
-                      title: Text(
-                        '${value.items.length} items selected',
-                        style: TextStyle(
-                            fontSize: 14.0, fontWeight: FontWeight.bold),
-                      ),
-                      leading: Icon(Icons.local_grocery_store),
-                    ),
-                  ),
-                ),
-              ),
+              //ShippingInformation(),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
+              ProductDisplay(),
+              ShippingInformation(_address, setVal),
+              SizedBox(height: 40),
               Container(
                 margin: EdgeInsets.all(10.0),
-                child: ReuseButton.getItem(
-                    _lang.translate('confirm'), () {}, context),
+                child: ReuseButton.getItem(_lang.translate('confirm'), () {
+                  validate(context);
+                }, context),
               ),
             ],
           ),

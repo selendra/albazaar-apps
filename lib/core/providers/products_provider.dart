@@ -27,6 +27,8 @@ class ProductsProvider with ChangeNotifier {
   //Each product image url
   List<String> _url = [];
 
+  List<OrderProduct> _completeProduct = [];
+
   //initial product orderqty
   int _orderQty = 1;
 
@@ -37,6 +39,7 @@ class ProductsProvider with ChangeNotifier {
   List<OrderProduct> get orItems => [..._orItems];
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
+  List<OrderProduct> get completeProduct => [..._completeProduct];
   int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
@@ -49,11 +52,16 @@ class ProductsProvider with ChangeNotifier {
             "authorization": "Bearer " + value,
           });
 
-          dynamic responseJson = json.decode(response.body);
+          var responseJson = json.decode(response.body);
+
           _prefService.saveString('products', jsonEncode(responseJson));
           _items = new List<Product>();
-          for (var item in responseJson) {
-            _items.add(Product.fromMap(item));
+          for (var mItem in responseJson) {
+            var item = Product.fromMap(mItem);
+
+            if (item.isSold == false) {
+              _items.add(item);
+            }
           }
 
           print(responseJson);
@@ -74,6 +82,34 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addOrder(String productId, String qty, String address) async {
+    try {
+      await _prefService.read('token').then(
+        (value) async {
+          http.Response response = await http.post(
+            ApiUrl.MAKE_ORDER,
+            headers: <String, String>{
+              "accept": "application/json",
+              "authorization": "Bearer " + value,
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode(
+              <String, String>{
+                "product-id": productId,
+                "qty": qty,
+                "shipping-address": address
+              },
+            ),
+          );
+          print(response.body);
+          print(response.statusCode);
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   void addItem(BuildContext context, AddProduct newProduct) async {
     Components.dialogLoading(context: context, contents: "Adding");
     try {
@@ -81,7 +117,11 @@ class ProductsProvider with ChangeNotifier {
         print(value);
         // Close Loading
         Navigator.pop(context);
-        await Components.dialog(context, Text("${json.decode(value.body)['message']}", textAlign: TextAlign.center), Text("Message"));
+        await Components.dialog(
+            context,
+            Text("${json.decode(value.body)['message']}",
+                textAlign: TextAlign.center),
+            Text("Message"));
         // Close Seller Screen
         if (json.decode(value.body)['message'].length > 1) {
           newProduct.productId = json.decode(value.body)['id'];
@@ -132,13 +172,17 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchOrListingProduct(token) async {
     try {
-      http.Response response = await http.get(ApiUrl.ORDER_LISTING, headers: <String, String>{
+      http.Response response =
+          await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
       print('order list' + response.body);
       dynamic responseJson = json.decode(response.body);
-      _orItems.add(OrderProduct.fromMap(responseJson));
+      _orItems = new List<OrderProduct>();
+      for (var item in responseJson) {
+        _orItems.add(OrderProduct.fromJson(item));
+      }
     } catch (e) {
       print(e.toString());
     }
@@ -168,7 +212,46 @@ class ProductsProvider with ChangeNotifier {
       print(e.toString());
     }
   }
-  
+
+  Future<void> markOrderComplete(
+      String orderId, BuildContext context, OrderProduct product) async {
+    String message;
+    try {
+      await _prefService.read('token').then(
+        (value) async {
+          http.Response response = await http.post(
+            ApiUrl.MARK_COMPLETE,
+            headers: <String, String>{
+              "accept": "application/json",
+              "authorization": "Bearer " + value,
+              "Content-Type": "application/json",
+            },
+            body: jsonEncode(
+              <String, String>{
+                "order-id": orderId,
+              },
+            ),
+          );
+
+          var responseJson = json.decode(response.body);
+          message = responseJson['message'];
+          if (message == null) {
+            message = responseJson['message']['error'];
+            await ReuseAlertDialog().successDialog(context, message);
+          } else {
+            await ReuseAlertDialog().customDialog(context, message, () {
+              _completeProduct.add(product);
+              Navigator.pop(context);
+              notifyListeners();
+            });
+          }
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   void findIsSold(List<Product> allListing) {
     _isSold = List<Product>();
     _isAvailable = List<Product>();
