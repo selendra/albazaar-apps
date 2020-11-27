@@ -21,10 +21,15 @@ class AddProduct with ChangeNotifier {
   bool enable1 = false;
   bool enable2 = false;
 
-  String weight = 'Weight',
-      paymentOpt = 'Payment Method',
-      category = 'Category',
-      shipping = 'Shipping Services';
+  String  hintWeight = 'Weight',
+          hintPaymentOpt = 'Direct Payment',
+          hintCategory = 'Category',
+          hintShipping = 'Shipping Services';
+
+  String weight = '';
+  String paymentOpt = '';
+  String category = '';
+  String shipping = '';
 
   TextEditingController productName = TextEditingController();
   TextEditingController price = TextEditingController();
@@ -67,7 +72,10 @@ class AddProduct with ChangeNotifier {
     address.clear();
     district.clear();
     city.clear();
-    shipping = '';
+    hintWeight = 'Weight';
+    hintPaymentOpt = 'Payment Method';
+    hintCategory = 'Category';
+    hintShipping = 'Shipping Services';
   }
 
   // Product toProduct(AddProduct addProduct, String id, String image, String color, {String categories}){

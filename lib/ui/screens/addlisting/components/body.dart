@@ -44,16 +44,18 @@ class _BodyState extends State<Body> {
 
     if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
         addProductProvider.addProduct.productName.text.isNotEmpty &&
-        addProductProvider.addProduct.category != "Category" &&
-        addProductProvider.addProduct.weight != "Weight" &&
+        addProductProvider.addProduct.hintCategory != "Category" &&
+        addProductProvider.addProduct.hintWeight != "Weight" &&
         addProductProvider.addProduct.price.text.isNotEmpty &&
-        addProductProvider.addProduct.paymentOpt != "Payment Method" &&
+        addProductProvider.addProduct.hintPaymentOpt != "Payment Method" &&
         addProductProvider.addProduct.description.text.isNotEmpty)
       enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
-  void ddOnChanged(String value) {}
+  void ddOnChanged(String value) {
+    print(value);
+  }
 
   void enableButton(bool enable) {
     setState(() {
@@ -64,10 +66,10 @@ class _BodyState extends State<Body> {
   void toSeller(AddProductProvider provider, UserProvider user) async {
     print(provider.addProduct.imageUrl);
     print(provider.addProduct.productName.text);
-    print(provider.addProduct.category);
-    print(provider.addProduct.weight);
+    print(provider.addProduct.hintCategory);
+    print(provider.addProduct.hintWeight);
     print(provider.addProduct.price.text);
-    print(provider.addProduct.paymentOpt);
+    print(provider.addProduct.hintPaymentOpt);
     print(provider.addProduct.description.text);
     var response = await Navigator.push(
         context,
@@ -330,14 +332,20 @@ class _BodyState extends State<Body> {
               children: [
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProductProvider.addProduct.category,
+                    hint: _addProductProvider.addProduct.hintCategory,
                     data: _addProductProvider.addProduct.categoriesList,
                     keyPair: 'category_name',
                     onChanged: (String value) {
                       setState(() {
-                        print(value);
-                        _addProductProvider.addProduct.category = value;
+                        for(int i = 0; i < _addProductProvider.addProduct.categoriesList.length; i++){
+                          if (value == _addProductProvider.addProduct.categoriesList[i]['category_name']){
+                            _addProductProvider.addProduct.category = _addProductProvider.addProduct.categoriesList[i]['id'];
+                            break;
+                          }
+                        }
+                        _addProductProvider.addProduct.hintCategory = value;
                       });
+                      print(_addProductProvider.addProduct.category);
                     },
                   ),
                 ),
@@ -346,12 +354,18 @@ class _BodyState extends State<Body> {
                 ),
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProductProvider.addProduct.weight,
+                    hint: _addProductProvider.addProduct.hintWeight,
                     data: _addProductProvider.addProduct.weightList,
                     keyPair: 'weight_option',
                     onChanged: (String value) {
                       setState(() {
-                        _addProductProvider.addProduct.weight = value;
+                        for(int i = 0; i < _addProductProvider.addProduct.weightList.length; i++){
+                          if (value == _addProductProvider.addProduct.weightList[i]['weight_option']){
+                            _addProductProvider.addProduct.weight = _addProductProvider.addProduct.weightList[i]['id'];
+                            break;
+                          }
+                        }
+                        _addProductProvider.addProduct.hintWeight = value;
                       });
                     },
                   ),
@@ -369,12 +383,18 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             MyDropDown(
-              hint: _addProductProvider.addProduct.paymentOpt,
+              hint: _addProductProvider.addProduct.hintPaymentOpt,
               data: _addProductProvider.addProduct.paymentOptsList,
               keyPair: 'options_name',
               onChanged: (String value) {
                 setState(() {
-                  _addProductProvider.addProduct.paymentOpt = value;
+                  for(int i = 0; i < _addProductProvider.addProduct.paymentOptsList.length; i++){
+                    if (value == _addProductProvider.addProduct.paymentOptsList[i]['options_name']){
+                      _addProductProvider.addProduct.paymentOpt = _addProductProvider.addProduct.paymentOptsList[i]['id'];
+                      break;
+                    }
+                  }
+                  _addProductProvider.addProduct.hintPaymentOpt = value;
                 });
               },
             ),

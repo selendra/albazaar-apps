@@ -204,6 +204,7 @@ class ProductsProvider with ChangeNotifier {
       print(e.toString());
     }
   }
+<<<<<<< HEAD
 
   Future<void> markOrderComplete(String orderId, BuildContext context) async {
     String message;
@@ -239,6 +240,9 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+=======
+  
+>>>>>>> dev
   void findIsSold(List<Product> allListing) {
     _isSold = List<Product>();
     _isAvailable = List<Product>();

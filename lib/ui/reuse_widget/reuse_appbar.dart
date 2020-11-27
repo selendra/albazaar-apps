@@ -15,8 +15,7 @@ class ReuseAppBar {
           fontSize: 22,
         ),
       ),
-      bottom: ReuseTabBar.getItem(
-          appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
+      bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
       //  backgroundColor: Colors.white,
       leading: IconButton(
         icon: Icon(

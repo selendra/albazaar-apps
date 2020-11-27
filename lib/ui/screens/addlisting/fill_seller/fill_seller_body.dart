@@ -92,7 +92,7 @@ class FillSellerBody extends StatelessWidget {
               height: 10,
             ),
             MyDropDown(
-              hint: addProduct.shipping,
+              hint: addProduct.hintShipping,
               data: addProduct.shippingList,
               keyPair: 'shipping_service',
               onChanged: onChangedDD,

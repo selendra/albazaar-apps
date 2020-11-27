@@ -73,14 +73,14 @@ class _FillSellerState extends State<FillSeller> {
     print(widget.addProduct.address.text);
     print(widget.addProduct.district.text);
     print(widget.addProduct.city.text);
-    print(widget.addProduct.shipping);
+    print(widget.addProduct.hintShipping);
 
     if (widget.addProduct.sellerName.text.isNotEmpty &&
         widget.addProduct.sellerNumber.text.isNotEmpty &&
         widget.addProduct.address.text.isNotEmpty &&
         widget.addProduct.district.text.isNotEmpty &&
         widget.addProduct.city.text.isNotEmpty &&
-        widget.addProduct.shipping != "Shipping Services")
+        widget.addProduct.hintShipping != "Shipping Services")
       enableButton(true);
     else if (widget.addProduct.enable2) enableButton(false);
   }
@@ -92,9 +92,18 @@ class _FillSellerState extends State<FillSeller> {
   }
 
   void onChangedDD(String value) {
-    print(value);
     setState(() {
-      widget.addProduct.shipping = value;
+      for(int i = 0; i < widget.addProduct.shippingList.length; i++){
+        if (value == widget.addProduct.shippingList[i]['shipping_service']){
+          print(i);
+          print(widget.addProduct.shippingList[i]);
+          print(widget.addProduct.shippingList[i]['shipping_service']);
+          widget.addProduct.shipping = widget.addProduct.shippingList[i]['id'];
+          break;
+        }
+      }
+      widget.addProduct.hintShipping = value;
+      print("My id ${widget.addProduct.shipping}");
       onChanged(value);
     });
   }

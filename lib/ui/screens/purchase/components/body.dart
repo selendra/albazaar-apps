@@ -151,6 +151,14 @@ class _BodyState extends State<Body> {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
+<<<<<<< HEAD
+=======
+                  onTap: () {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productsProvider.orItems[index]))
+                    // );
+                  },
+>>>>>>> dev
                 ),
               ],
             ),
