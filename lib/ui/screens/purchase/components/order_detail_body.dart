@@ -198,7 +198,7 @@ class OrderDetailBody extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                         Provider.of<ProductsProvider>(context, listen: false)
-                            .markOrderComplete(productOrder.id, context);
+                            .markOrderComplete(productOrder.id, context,productOrder);
                         print("Yes");
                       },
                       child: Text("Yes")));

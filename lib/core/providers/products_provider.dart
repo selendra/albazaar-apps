@@ -27,6 +27,8 @@ class ProductsProvider with ChangeNotifier {
   //Each product image url
   List<String> _url = [];
 
+  List<OrderProduct> _completeProduct = [];
+
   //initial product orderqty
   int _orderQty = 1;
 
@@ -37,6 +39,7 @@ class ProductsProvider with ChangeNotifier {
   List<OrderProduct> get orItems => [..._orItems];
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
+  List<OrderProduct> get completeProduct => [..._completeProduct];
   int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
@@ -210,7 +213,8 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> markOrderComplete(String orderId, BuildContext context) async {
+  Future<void> markOrderComplete(
+      String orderId, BuildContext context, OrderProduct product) async {
     String message;
     try {
       await _prefService.read('token').then(
@@ -235,7 +239,11 @@ class ProductsProvider with ChangeNotifier {
             message = responseJson['message']['error'];
             await ReuseAlertDialog().successDialog(context, message);
           } else {
-            await ReuseAlertDialog().successDialog(context, message);
+            await ReuseAlertDialog().customDialog(context, message, () {
+              _completeProduct.add(product);
+              Navigator.pop(context);
+              notifyListeners();
+            });
           }
         },
       );
