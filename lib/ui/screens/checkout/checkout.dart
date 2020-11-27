@@ -16,7 +16,7 @@ class _CheckoutState extends State<Checkout> {
     });
   }
 
-  void validate() {
+  void validate(context) async {
     if (_address == 'Shipping Information') {
       print('not validate');
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -36,6 +36,18 @@ class _CheckoutState extends State<Checkout> {
           _address,
         );
       }
+      Navigator.pop(context);
+
+      ReuseAlertDialog().customDialog(
+        context,
+        'Make order succesfully',
+        () {
+          Provider.of<CartProvider>(navigationKey.currentState.overlay.context,
+                  listen: false)
+              .clear();
+          Navigator.pop(navigationKey.currentState.overlay.context);
+        },
+      );
     }
   }
 
@@ -62,7 +74,7 @@ class _CheckoutState extends State<Checkout> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: ReuseButton.getItem(_lang.translate('confirm'), () {
-                  validate();
+                  validate(context);
                 }, context),
               ),
             ],

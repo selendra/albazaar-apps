@@ -165,13 +165,16 @@ class ProductsProvider with ChangeNotifier {
   Future<void> fetchOrListingProduct(token) async {
     try {
       http.Response response =
-          await http.get(ApiUrl.ORDER_LISTING, headers: <String, String>{
+          await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
       print('order list' + response.body);
       dynamic responseJson = json.decode(response.body);
-      _orItems.add(OrderProduct.fromMap(responseJson));
+      _orItems = new List<OrderProduct>();
+      for (var item in responseJson) {
+        _orItems.add(OrderProduct.fromJson(item));
+      }
     } catch (e) {
       print(e.toString());
     }
@@ -184,7 +187,7 @@ class ProductsProvider with ChangeNotifier {
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
-      print(response.body);
+      print("Fetch O listing ${response.body}");
 
       dynamic responseJson = json.decode(response.body);
       _prefService.saveString('oproducts', jsonEncode(responseJson));

@@ -9,7 +9,7 @@ class OrderDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem('Order', context),
+      appBar: ReuseSimpleAppBar.getItem('Order Detail', context),
       body: OrderDetailBody(
         productOrder: productOrder,
       ),

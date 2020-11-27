@@ -29,11 +29,9 @@ class ItemOrder extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Image.network(order.image,
-                    fit: BoxFit.cover),
+                child: Image.network(order.image, fit: BoxFit.cover),
               ),
             ),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,8 +44,7 @@ class ItemOrder extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     isThreeLine: true,
-                    subtitle:
-                        Text('Qty: ${order.qty}'),
+                    subtitle: Text('Qty: ${order.qty}'),
                   ),
                 ),
                 SizedBox(
@@ -68,13 +65,6 @@ class ItemOrder extends StatelessWidget {
                 ),
               ],
             ),
-
-            // Container(
-            //   child: ListTile(
-            //     title: Text(value.items.values.toList()[0].title),
-            //     subtitle: Text(value.items.values.toList()[0].price),
-            //   ),
-            // )
           ],
         ),
       ),

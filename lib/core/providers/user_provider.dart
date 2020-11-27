@@ -44,7 +44,7 @@ class UserProvider with ChangeNotifier {
   //READ USER INFO FROM SHARE PREFERENCE
   void fetchUserInfo() {
     _prefService.read('user').then((value) {
-      print(value);
+      print("My info $value");
       if (value != null) {
         var responseBody = json.decode(value);
         _mUser = User.fromJson(responseBody);

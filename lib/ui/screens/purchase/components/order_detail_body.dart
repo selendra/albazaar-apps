@@ -20,8 +20,11 @@ class OrderDetailBody extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(top: 20),
-            child: SvgPicture.asset("images/packaging.svg",
-                width: 150, height: 150),
+            child: SvgPicture.asset(
+              "images/packaging.svg",
+              width: 100,
+              height: 100,
+            ),
           ),
           Card(
             margin: EdgeInsets.all(10),
@@ -37,7 +40,7 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order #:"),
+                            child: reuseText("Order Id:"),
                           ),
                           Expanded(
                             child: reuseText(productOrder.id),
@@ -60,10 +63,34 @@ class OrderDetailBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText("\$data"),
-                          )
+                            child: reuseText('${productOrder.price}៛'),
+                          ),
                         ],
-                      )
+                      ),
+                      // SizedBox(
+                      //   height: 5.0,
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: reuseText("Seller name: "),
+                      //     ),
+                      //     Expanded(
+                      //       child: reuseText('${productOrder.seller.value}'),
+                      //     ),
+                      //   ],
+                      // ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: reuseText("Seller phonenumber: "),
+                      //     ),
+                      //     Expanded(
+                      //       child:
+                      //           reuseText('${productOrder.sellerPhonenumber}'),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -76,7 +103,7 @@ class OrderDetailBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n", fontSize: 15),
-                      reuseText(address),
+                      reuseText(productOrder.shippingAddress),
                     ],
                   ),
                 ),
@@ -110,23 +137,55 @@ class OrderDetailBody extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(kDefaultRadius),
             ),
-            child: ListTile(
-              title: Text('{productOrder.total}៛'),
-              subtitle: Text(
-                "productOrder.shippingAddress",
-                maxLines: 1,
-              ),
-              trailing: Text('{productOrder.qauantity}'),
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: NetworkImage(
-                    "https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
-              ),
-              onTap: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) =>
-                //         OrderDetailBody(productOrder: productOrder)));
-              },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 5, left: 5, right: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      reuseText(
+                        'Seller: ${productOrder.seller.value}',
+                        fontSize: 15,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          ReuseAlertDialog().successDialog(
+                            context,
+                            "Seller phone number: ${productOrder.sellerPhonenumber}",
+                          );
+                        },
+                        child: Text(
+                          'Contact Seller',
+                          style: TextStyle(
+                              color: kDefaultColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text('${productOrder.price}៛'),
+                  subtitle: Text(
+                    productOrder.shippingAddress,
+                    maxLines: 1,
+                  ),
+                  trailing: Text(productOrder.qauantity.toString()),
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(productOrder.thumbnail),
+                  ),
+                  onTap: () {
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         OrderDetailBody(productOrder: productOrder)));
+                  },
+                ),
+              ],
             ),
           ),
           SizedBox(height: 20),
@@ -134,7 +193,7 @@ class OrderDetailBody extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             child: ReuseButton.getItem('Recieved', () async {
               await Components.dialog(context,
-                  Text("Do you want to complete order?"), Text("Massage"),
+                  Text("Do you want to complete order?"), Text("Message"),
                   action: FlatButton(
                       onPressed: () {
                         Navigator.pop(context);

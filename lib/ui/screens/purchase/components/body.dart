@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class Body extends StatefulWidget {
   final TabController _controller;
@@ -29,36 +30,87 @@ class _BodyState extends State<Body> {
                 ? ListView.builder(
                     itemCount: productsProvider.orItems.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: ListTile(
-                          title: Text(
-                              'Total price: ${productsProvider.orItems[index].total}៛'),
-                          subtitle: Text(
-                            productsProvider.orItems[index].shippingAddress,
-                            maxLines: 1,
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            RouteAnimation(
+                              enterPage: OrderDetail(
+                                productOrder: productsProvider.orItems[index],
+                              ),
+                            ), //productsProvider.orItems[index]))
+                          );
+                        },
+                        child: Card(
+                          elevation: 0,
+                          shape: kDefaultShape,
+                          child: Container(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(kDefaultRadius),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[300],
+                                          spreadRadius: 5.0,
+                                          blurRadius: 5.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Image.network(
+                                      productsProvider.orItems[index].thumbnail,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 20,
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: ListTile(
+                                        title: Text(
+                                          productsProvider.orItems[index].name,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        isThreeLine: true,
+                                        subtitle: Text(
+                                          'Qty: ${productsProvider.orItems[index].qauantity}',
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      height: 20,
+                                      width:
+                                          MediaQuery.of(context).size.width / 2,
+                                      child: ListTile(
+                                        subtitle: Text(
+                                          'Price: ${productsProvider.orItems[index].price}៛ ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: kDefaultColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          trailing: Text('status: recieved'),
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(
-                                productsProvider.oItems[index].thumbnail),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                RouteAnimation(
-                                    enterPage: OrderDetail(
-                                  productOrder: productsProvider.orItems[index],
-                                )));
-                            // Navigator.of(context).pushNamed(DetailView,
-                            //     arguments: productsProvider.orItems[index].id);
-                          },
                         ),
                       );
                     })
@@ -94,7 +146,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  _lang.translate('pending'),
+                  _lang.translate('complete'),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -103,6 +155,37 @@ class _BodyState extends State<Body> {
               ],
             ),
           ),
+
+          // ListView.builder(
+          //   itemCount: productsProvider.orItems.length,
+          //   itemBuilder: (context, index) {
+          //     return Container(
+          //       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          //       decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         borderRadius: BorderRadius.circular(kDefaultRadius),
+          //       ),
+          //       child: ListTile(
+          //         title:
+          //             Text('${productsProvider.orItems[index].total}៛'),
+          //         subtitle: Text(
+          //           productsProvider.orItems[index].shippingAddress,
+          //           maxLines: 1,
+          //         ),
+          //         trailing: Text('${productsProvider.orItems[index].qauantity}'),
+          //         leading: CircleAvatar(
+          //           backgroundColor: Colors.white,
+          //           backgroundImage: NetworkImage(productsProvider.oItems[index].thumbnail),
+          //         ),
+          //         onTap: () {
+          //           Navigator.of(context).push(
+          //             MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: OrderProduct()))//productsProvider.orItems[index]))
+          //           );
+          //         },
+          //       ),
+          //     );
+          //   }
+          // ),
         ],
       ),
     );

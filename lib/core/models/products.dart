@@ -70,65 +70,150 @@ class Product with ChangeNotifier {
         "is_sold": isSold,
       };
 }
+
+// To parse this JSON data, do
+//
+//     final orderProduct = orderProductFromJson(jsonString);
+
+class OrderProduct with ChangeNotifier {
+  OrderProduct({
+    this.shippingService,
+    this.productId,
+    this.name,
+    this.buyerId,
+    this.sellerPhonenumber,
+    this.total,
+    this.thumbnail,
+    this.id,
+    this.price,
+    this.qauantity,
+    this.shippingAddress,
+    this.seller,
+  });
+
+  String shippingService;
+  String productId;
+  String name;
+  String buyerId;
+  String sellerPhonenumber;
+  double total;
+  String thumbnail;
+  String id;
+  int price;
+  int qauantity;
+  String shippingAddress;
+  Seller seller;
+
+  factory OrderProduct.fromJson(Map<String, dynamic> json) => OrderProduct(
+        shippingService: json["shipping_service"],
+        productId: json["product_id"],
+        name: json["name"],
+        buyerId: json["buyer_id"],
+        sellerPhonenumber: json["seller_phonenumber"],
+        total: json["total"].toDouble(),
+        thumbnail: json["thumbnail"],
+        id: json["id"],
+        price: json["price"],
+        qauantity: json["qauantity"],
+        shippingAddress: json["shipping_address"],
+        seller: Seller.fromJson(json["seller"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "shipping_service": shippingService,
+        "product_id": productId,
+        "name": name,
+        "buyer_id": buyerId,
+        "seller_phonenumber": sellerPhonenumber,
+        "total": total,
+        "thumbnail": thumbnail,
+        "id": id,
+        "price": price,
+        "qauantity": qauantity,
+        "shipping_address": shippingAddress,
+        "seller": seller.toJson(),
+      };
+}
+
+class Seller {
+  Seller({
+    this.type,
+    this.value,
+  });
+
+  String type;
+  String value;
+
+  factory Seller.fromJson(Map<String, dynamic> json) => Seller(
+        type: json["type"],
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "type": type,
+        "value": value,
+      };
+}
+
 // To parse this JSON data, do
 //
 //     final orderProduct = orderProductFromMap(jsonString);
 
-class OrderProduct with ChangeNotifier {
-  OrderProduct({
-    this.statusId,
-    this.productId,
-    this.buyerId,
-    this.updatedAt,
-    this.total,
-    this.id,
-    this.updatedBy,
-    this.createdBy,
-    this.qauantity,
-    this.shippingAddress,
-    this.createdAt,
-  });
+// class OrderProduct with ChangeNotifier {
+//   OrderProduct({
+//     this.statusId,
+//     this.productId,
+//     this.buyerId,
+//     this.updatedAt,
+//     this.total,
+//     this.id,
+//     this.updatedBy,
+//     this.createdBy,
+//     this.qauantity,
+//     this.shippingAddress,
+//     this.createdAt,
+//   });
 
-  String statusId;
-  String productId;
-  String buyerId;
-  dynamic updatedAt;
-  double total;
-  String id;
-  dynamic updatedBy;
-  String createdBy;
-  int qauantity;
-  String shippingAddress;
-  DateTime createdAt;
+//   String statusId;
+//   String productId;
+//   String buyerId;
+//   dynamic updatedAt;
+//   double total;
+//   String id;
+//   dynamic updatedBy;
+//   String createdBy;
+//   int qauantity;
+//   String shippingAddress;
+//   DateTime createdAt;
 
-  factory OrderProduct.fromMap(Map<String, dynamic> json) => OrderProduct(
-        statusId: json["status_id"],
-        productId: json["product_id"],
-        buyerId: json["buyer_id"],
-        updatedAt: json["updated_at"],
-        total: json["total"].toDouble(),
-        id: json["id"],
-        updatedBy: json["updated_by"],
-        createdBy: json["created_by"],
-        qauantity: json["qauantity"],
-        shippingAddress: json["shipping_address"],
-        createdAt: DateTime.parse(json["created_at"]),
-      );
+//   factory OrderProduct.fromMap(Map<String, dynamic> json) => OrderProduct(
+//         statusId: json["status_id"],
+//         productId: json["product_id"],
+//         buyerId: json["buyer_id"],
+//         updatedAt: json["updated_at"],
+//         total: json["total"].toDouble(),
+//         id: json["id"],
+//         updatedBy: json["updated_by"],
+//         createdBy: json["created_by"],
+//         qauantity: json["qauantity"],
+//         shippingAddress: json["shipping_address"],
+//         createdAt: DateTime.parse(json["created_at"]),
+//       );
 
-  Map<String, dynamic> toMap() => {
-        "status_id": statusId,
-        "product_id": productId,
-        "buyer_id": buyerId,
-        "updated_at": updatedAt,
-        "total": total,
-        "id": id,
-        "updated_by": updatedBy,
-        "created_by": createdBy,
-        "qauantity": qauantity,
-        "shipping_address": shippingAddress,
-        "created_at": createdAt.toIso8601String(),
-      };
-}
+//   Map<String, dynamic> toMap() => {
+//         "status_id": statusId,
+//         "product_id": productId,
+//         "buyer_id": buyerId,
+//         "updated_at": updatedAt,
+//         "total": total,
+//         "id": id,
+//         "updated_by": updatedBy,
+//         "created_by": createdBy,
+//         "qauantity": qauantity,
+//         "shipping_address": shippingAddress,
+//         "created_at": createdAt.toIso8601String(),
+//       };
+// }
 
 List<String> foodCategories = [
   'Cereals',

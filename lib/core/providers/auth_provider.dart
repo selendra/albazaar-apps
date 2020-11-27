@@ -96,28 +96,30 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> getTokenForFb(String accesstoken, context) async {
+    print("My facebook $accesstoken");
     http.Response response = await http.post(ApiUrl.LOGIN_FROM_FACEBOOK,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
           'token': accesstoken,
         }));
-    print(accesstoken);
     var responseJson = json.decode(response.body);
     if (response.statusCode == 200) {
       print(response.body);
-      // String token = responseJson['token'];
-      // if (token == null) {
-      //   await ReuseAlertDialog().successDialog(
-      //     context,
-      //     responseJson['error']['message'],
-      //   );
-      // } else {
-      //   _pref.saveString('token', _token);
-      //   await StorageServices.setData(responseJson, 'user_token');
-      //   Provider.of<ProductsProvider>(context, listen: false)
-      //       .fetchListingProduct();
-      //   Navigator.pushReplacementNamed(context, BottomNavigationView);
-      // }
+      _token = responseJson['token'];
+      print(_token);
+      _pref.saveString('token', _token);
+      await StorageServices.setData(responseJson, 'user_token');
+
+      if (token == null) {
+        await ReuseAlertDialog().successDialog(
+          context,
+          responseJson['error']['message'],
+        );
+      } else {
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchListingProduct();
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
+      }
     }
   }
 
@@ -228,6 +230,7 @@ class AuthProvider with ChangeNotifier {
         Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
+        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
 
         Navigator.pushReplacementNamed(context, BottomNavigationView);
         // Provider.of<UserProvider>(context, listen: false)

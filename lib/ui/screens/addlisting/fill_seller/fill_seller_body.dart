@@ -16,6 +16,7 @@ class FillSellerBody extends StatelessWidget {
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
           children: <Widget>[
+            
             SizedBox(
               height: 10,
             ),
@@ -104,20 +105,21 @@ class FillSellerBody extends StatelessWidget {
             Consumer<ProductsProvider>(
               builder: (context, value, child) => Container(
                 child: ReuseButton.getItem(
-                    AppLocalizeService.of(context).translate('submit'),
-                    !addProduct.enable2
-                        ? null
-                        : () {
-                          // Navigator.pop(context, {'add': true});
-                            value.addItem(context, addProduct);
-                            // Navigator.pop(context, true);
-                            // checkValidate();
-                            // if (checkValidate()) {
-                            //   value.addItem(_title, double.parse(_price), _description,
-                            //       _contactName, _phoneNumber);
-                            // }
-                          },
-                    context),
+                  AppLocalizeService.of(context).translate('submit'),
+                  !addProduct.enable2
+                  ? null
+                  : () {
+                    // Navigator.pop(context, {'add': true});
+                      value.addItem(context, addProduct);
+                      // Navigator.pop(context, true);
+                      // checkValidate();
+                      // if (checkValidate()) {
+                      //   value.addItem(_title, double.parse(_price), _description,
+                      //       _contactName, _phoneNumber);
+                      // }
+                    },
+                  context
+                ),
               ),
             ),
 
