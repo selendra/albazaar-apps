@@ -117,7 +117,7 @@ class SellerConfirmBody extends StatelessWidget {
           Card(
             margin: EdgeInsets.all(10),
             child:Container(
-              margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+              margin: EdgeInsets.all(10),
               child: Row(
                 children: [
                   Expanded(
@@ -131,7 +131,10 @@ class SellerConfirmBody extends StatelessWidget {
                           // ),
 
                           Flexible(
-                            child: Image.network("${productOrder.thumbnail}", width: 80, height: 80,),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Image.network("${productOrder.thumbnail}", width: 80, height: 80,),
+                            ),
                           ),
 
                           Expanded(
@@ -248,7 +251,7 @@ class SellerConfirmBody extends StatelessWidget {
     );
   }
 
-  Widget reuseText(String text, {double fontSize: 13, FontWeight  fontWeight, TextAlign textAlign}){
+  Widget reuseText(String text, {double fontSize: 13, FontWeight fontWeight, TextAlign textAlign}){
     return Text(text, textAlign: textAlign, style: TextStyle(fontSize: fontSize, fontWeight: fontWeight));
   }
 }

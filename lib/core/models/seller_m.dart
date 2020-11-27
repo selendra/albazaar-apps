@@ -17,6 +17,8 @@ class SellerModel with ChangeNotifier{
   String value;
 
   SellerModel.fromJson(Map<String, dynamic> data){
+    print("MY parse $data");
+    print(data['shipping_address']);
     shippingService = data['shipping_service'];
     productId = data['product_id'];
     name = data['name'];
@@ -27,9 +29,9 @@ class SellerModel with ChangeNotifier{
     id = data['id'];
     price = data['price'];
     qauantity = data['qauantity'];
-    shippingAddress = data['shipping_ddress'];
-    type = data['seller']['type'];
-    value = data['seller']['value'];
+    shippingAddress = data['shipping_address'];
+    type = data['buyer']['type'];
+    value = data['buyer']['value'];
     notifyListeners();
   }
 }
