@@ -2,7 +2,6 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 
 class SellerProvider with ChangeNotifier {
-
   Backend _backend = Backend();
 
   GetRequest _getRequest = GetRequest();
@@ -11,7 +10,7 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> allBuyerOrder = [];
 
-  SellerProvider(){
+  SellerProvider() {
     fetchBuyerOrder();
   }
 
@@ -20,8 +19,8 @@ class SellerProvider with ChangeNotifier {
 
     _backend.data = json.decode(_backend.response.body);
 
-    for(var data in _backend.data){
-      print(data);
+    for (var data in _backend.data) {
+      //print(data);
       allBuyerOrder.add(SellerModel.fromJson(data));
     }
     print(allBuyerOrder);

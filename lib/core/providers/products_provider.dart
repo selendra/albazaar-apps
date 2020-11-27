@@ -49,11 +49,16 @@ class ProductsProvider with ChangeNotifier {
             "authorization": "Bearer " + value,
           });
 
-          dynamic responseJson = json.decode(response.body);
+          var responseJson = json.decode(response.body);
+
           _prefService.saveString('products', jsonEncode(responseJson));
           _items = new List<Product>();
-          for (var item in responseJson) {
-            _items.add(Product.fromMap(item));
+          for (var mItem in responseJson) {
+            var item = Product.fromMap(mItem);
+
+            if (item.isSold == false) {
+              _items.add(item);
+            }
           }
 
           print(responseJson);
@@ -204,7 +209,6 @@ class ProductsProvider with ChangeNotifier {
       print(e.toString());
     }
   }
-<<<<<<< HEAD
 
   Future<void> markOrderComplete(String orderId, BuildContext context) async {
     String message;
@@ -240,9 +244,6 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-=======
-  
->>>>>>> dev
   void findIsSold(List<Product> allListing) {
     _isSold = List<Product>();
     _isAvailable = List<Product>();
