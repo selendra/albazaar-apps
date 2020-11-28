@@ -48,15 +48,17 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+    // Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); Closed
   }
 
   @override
   Widget build(BuildContext context) {
-    return mBalance.data == null
-        ? Center(
-            child: WalletChoice(onGetWallet, showAlertDialog),
-          )
-        : MyWallet();
+    return 
+    // mBalance.data == null
+    //     ? Center(
+    //         child: WalletChoice(onGetWallet, showAlertDialog),
+    //       )
+    //     : 
+      MyWallet();
   }
 }

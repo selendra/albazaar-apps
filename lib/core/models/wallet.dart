@@ -12,7 +12,7 @@ class Wallet {
 final List<Wallet> wallets = [
   Wallet(
     'Selendra (SEL)',
-    mBalance.data.balance,
+    'mBalance.data.balance',
     'images/icon_launcher.png',
   ),
   Wallet('Maker Dai', '0.00', 'images/maker_dai.png'),
