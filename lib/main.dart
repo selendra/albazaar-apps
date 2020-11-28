@@ -99,7 +99,7 @@ class _SelendraAppState extends State<SelendraApp> {
             brightness: Brightness.light,
           ),
           routes: {DetailView: (context) => DetailScreen()},
-          home: WalletScreen(),
+          home: SubmitTrx('', false, []),
           navigatorKey: navigationKey,
         ),
       ),

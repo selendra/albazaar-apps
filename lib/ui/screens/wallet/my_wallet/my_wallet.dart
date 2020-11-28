@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/bottom_sheet.dart';
+import 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
 import 'wallet_list.dart';
 import 'package:provider/provider.dart';
 

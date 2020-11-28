@@ -1,4 +1,3 @@
-import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class MyBottomSheet{
@@ -41,7 +40,7 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        // await TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
+                        await TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
                       } catch (e){
                         print(e.message);
                       }
@@ -54,7 +53,7 @@ class MyBottomSheet{
                     icon: "form.svg",
                     subTitle: "Fill wallet", 
                     action: () {
-                      // TrxOptionMethod.navigateFillAddress(context, portfolioList, resetHomeData);
+                      TrxOptionMethod.navigateFillAddress(context, portfolioList, resetHomeData);
                     }
                   )
                 ),
@@ -62,9 +61,9 @@ class MyBottomSheet{
                 Expanded(
                   child: MyBottomSheetItem(
                     icon: "contact.svg",
-                    subTitle: "Invite friend", 
+                    subTitle: "From Contact", 
                     action: () {
-                      // TrxOptionMethod.selectContact(context, portfolioList, resetHomeData);
+                      TrxOptionMethod.selectContact(context, portfolioList, resetHomeData);
                     }
                   )
                 )
@@ -116,74 +115,6 @@ class MyBottomSheet{
         ),
       );
     },
-    );
-  }
-}
-
-class MyBottomSheetItem extends StatelessWidget {
-
-  final String subTitle;
-  final String icon;
-  final Function action;
-
-  MyBottomSheetItem({
-    @required this.subTitle,
-    @required this.icon,
-    @required this.action
-  });
-
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: action,
-      child: Column(
-        children: [
-          
-          SvgPicture.asset('images/icons/$icon', width: 30, height: 30, color: Colors.black),
-
-          Text(
-            subTitle
-          )
-        ],
-      )
-    );
-  }
-}
-
-
-class MyText extends StatelessWidget{
-
-  final String text; final String color; final double fontSize; final FontWeight fontWeight;
-  final double top; final double right; final double bottom; final double left;
-  final double pTop; final double pRight; final double pBottom; final double pLeft;
-  final double width; final double height; final TextAlign textAlign;
-  final TextOverflow overflow;
-
-  MyText({
-    this.text, this.color = "#FFFFFF", this.fontSize = 18, this.fontWeight = FontWeight.normal,
-    this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
-    this.pLeft = 0, this.pRight = 0, this.pTop = 0, this.pBottom = 0,
-    this.width, this.height, this.textAlign = TextAlign.center,
-    this.overflow,
-  });
-  
-  Widget build(BuildContext context){
-    return Container(
-      margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
-      padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
-      child: SizedBox(
-        width: this.width,
-        height: this.height,
-        child: Text(
-          this.text,
-          style: TextStyle(
-            fontWeight: this.fontWeight,
-            color: Colors.black,//Color(AppUtils.convertHexaColor(this.color)),
-            fontSize: this.fontSize
-          ),
-          textAlign: this.textAlign,
-          overflow: overflow,
-        )
-      ),
     );
   }
 }
