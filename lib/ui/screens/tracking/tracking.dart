@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class Tracking extends StatefulWidget {
   @override
@@ -12,7 +13,18 @@ class _TrackingState extends State<Tracking> {
   @override
   void initState() {
     super.initState();
-    _currentValue = 50;
+    tracking();
+  }
+
+  void tracking() {
+    bool shipment =
+        Provider.of<SellerProvider>(context, listen: false).isShipment;
+
+    if (shipment) {
+      setState(() {
+        _currentValue = 50;
+      });
+    }
   }
 
   @override

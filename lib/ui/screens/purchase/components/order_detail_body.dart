@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 
@@ -13,7 +14,8 @@ class OrderDetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _lang = AppLocalizeService.of(context);
+    // var _lang = AppLocalizeService.of(context);
+    var sellerProvider = Provider.of<SellerProvider>(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +45,7 @@ class OrderDetailBody extends StatelessWidget {
                             child: reuseText("Order Id:"),
                           ),
                           Expanded(
-                            child: reuseText(productOrder.id),
+                            child: reuseText('productOrder.id'),
                           )
                         ],
                       ),
@@ -63,7 +65,7 @@ class OrderDetailBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText('${productOrder.price}៛'),
+                            child: reuseText('{productOrder.price}៛'),
                           ),
                         ],
                       ),
@@ -76,7 +78,7 @@ class OrderDetailBody extends StatelessWidget {
                       //       child: reuseText("Seller name: "),
                       //     ),
                       //     Expanded(
-                      //       child: reuseText('${productOrder.seller.value}'),
+                      //       child: reuseText('{productOrder.seller.value}'),
                       //     ),
                       //   ],
                       // ),
@@ -87,7 +89,7 @@ class OrderDetailBody extends StatelessWidget {
                       //     ),
                       //     Expanded(
                       //       child:
-                      //           reuseText('${productOrder.sellerPhonenumber}'),
+                      //           reuseText('{productOrder.sellerPhonenumber}'),
                       //     ),
                       //   ],
                       // ),
@@ -103,7 +105,7 @@ class OrderDetailBody extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n", fontSize: 15),
-                      reuseText(productOrder.shippingAddress),
+                      reuseText('productOrder.shippingAddress'),
                     ],
                   ),
                 ),
@@ -146,14 +148,14 @@ class OrderDetailBody extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       reuseText(
-                        'Seller: ${productOrder.seller.value}',
+                        'Seller: {productOrder.seller.value}',
                         fontSize: 15,
                       ),
                       GestureDetector(
                         onTap: () {
                           ReuseAlertDialog().successDialog(
                             context,
-                            "Seller phone number: ${productOrder.sellerPhonenumber}",
+                            "Seller phone number: {productOrder.sellerPhonenumber}",
                           );
                         },
                         child: Text(
@@ -169,15 +171,15 @@ class OrderDetailBody extends StatelessWidget {
                 ),
                 Divider(),
                 ListTile(
-                  title: Text('${productOrder.price}៛'),
+                  title: Text('{productOrder.price}៛'),
                   subtitle: Text(
-                    productOrder.shippingAddress,
+                    'productOrder.shippingAddress',
                     maxLines: 1,
                   ),
-                  trailing: Text(productOrder.qauantity.toString()),
+                  trailing: Text('productOrder.qauantity.toString()'),
                   leading: CircleAvatar(
                     backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(productOrder.thumbnail),
+                    backgroundImage: NetworkImage('productOrder.thumbnail'),
                   ),
                   onTap: () {
                     // Navigator.of(context).push(MaterialPageRoute(
@@ -191,19 +193,30 @@ class OrderDetailBody extends StatelessWidget {
           SizedBox(height: 20),
           Container(
             margin: const EdgeInsets.all(20),
-            child: ReuseButton.getItem('Recieved', () async {
-              await Components.dialog(context,
-                  Text("Do you want to complete order?"), Text("Message"),
-                  action: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Provider.of<ProductsProvider>(context, listen: false)
-                            .markOrderComplete(productOrder.id, context,productOrder);
-                        print("Yes");
-                      },
-                      child: Text("Yes")));
-              // validateAndSubmit();
-            }, context),
+            child: ReuseButton.getItem(
+                'Recieved',
+                sellerProvider.isPayment && sellerProvider.isShipment
+                    ? () async {
+                        await Components.dialog(
+                            context,
+                            Text("Do you want to complete order?"),
+                            Text("Message"),
+                            action: FlatButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  // Provider.of<ProductsProvider>(context, listen: false)
+                                  //     .markOrderComplete(productOrder.id, context,productOrder);
+                                  print("Yes");
+
+                                  await StorageServices.setData(
+                                      {"goods_complete": true},
+                                      'goods_confirm');
+                                },
+                                child: Text("Yes")));
+                        // validateAndSubmit();
+                      }
+                    : null,
+                context),
           ),
           // Container(
           //   margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),

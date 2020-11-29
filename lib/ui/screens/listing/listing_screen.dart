@@ -13,9 +13,12 @@ class ListingScreen extends StatefulWidget {
 class _ListingScreenState extends State<ListingScreen>with SingleTickerProviderStateMixin {
 
   TabController _controller;
+
+  bool isSold = false;
   
   @override
   void initState() {
+    getMarkFromBuyer();
     super.initState();
     _controller = TabController(vsync: this, length: 3);
   }
@@ -26,6 +29,17 @@ class _ListingScreenState extends State<ListingScreen>with SingleTickerProviderS
     super.dispose();
   }
 
+  void getMarkFromBuyer() async {
+    await StorageServices.fetchData('goods_confirm').then((value) {
+      if (value != null){
+        isSold = value['goods_complete'];
+      }
+    });
+    setState(() {
+      print("Is sold $isSold");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var lang = AppLocalizeService.of(context);
@@ -34,7 +48,7 @@ class _ListingScreenState extends State<ListingScreen>with SingleTickerProviderS
     return Scaffold(
       appBar: ReuseAppBar.getTitle(lang.translate('listing'), context,
           'Products', 'Pending', 'Sold', _controller), //lang.translate('Products')
-      body: Body(_controller, sellerProvider: sellerProvider,),
+      body: Body(_controller, sellerProvider: sellerProvider, isSold: isSold),
     );
   }
 }

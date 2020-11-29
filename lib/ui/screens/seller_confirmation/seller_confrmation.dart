@@ -34,6 +34,7 @@ class _SellerConfirmState extends State<SellerConfirm> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

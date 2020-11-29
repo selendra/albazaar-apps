@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'all_export.dart';
@@ -54,7 +55,11 @@ class _SelendraAppState extends State<SelendraApp> {
         ),
         ChangeNotifierProvider<SellerProvider>(
           create: (context) => SellerProvider()
-        )
+        ),
+        ChangeNotifierProvider<SellerModel>(
+          create: (context) => SellerModel()
+        ),
+        
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

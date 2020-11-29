@@ -21,7 +21,7 @@ class ReuseAlertDialog {
     );
   }
 
-  Future<void> customDialog(
+  Future<dynamic> customDialog(
       BuildContext context, String alertText, Function func) async {
     return showDialog(
       context: context,
@@ -32,9 +32,10 @@ class ReuseAlertDialog {
           content: Text(alertText),
           actions: [
             FlatButton(
-              onPressed: () {
-                func();
-              },
+              onPressed: func,
+              // () {
+              //   ();
+              // },
               child: Text('OK'),
             ),
           ],

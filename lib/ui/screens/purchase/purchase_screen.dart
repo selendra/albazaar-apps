@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/screens/purchase/components/body.dart';
 import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_appbar.dart';
 import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
@@ -11,6 +12,8 @@ class PurchaseScreen extends StatefulWidget {
 class _PurchaseScreenState extends State<PurchaseScreen>
     with SingleTickerProviderStateMixin {
   TabController _controller;
+
+  var result;
 
   @override
   void initState() {
@@ -32,8 +35,8 @@ class _PurchaseScreenState extends State<PurchaseScreen>
           _lang.translate('order'),
           context,
           _lang.translate('all'),
-          _lang.translate('complete'),
           _lang.translate('pending'),
+          _lang.translate('complete'),
           _controller),
       body: Body(_controller),
     );
