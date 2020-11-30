@@ -40,9 +40,15 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        await TrxOptionMethod.scanQR(context, portfolioList, resetState).then((value) {
+                        var value = await TrxOptionMethod.scanQR(context, portfolioList, resetState);
+                        await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value, false, []/* widget.portList */))).then((value) async {
+                          
+                          // Update Data On Wallet Screen
+                          if (value != null){
+                            await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+                            resetState();
+                          }
                         });
-                        // await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(_scanResponse, false, []/* widget.portList */)))
                       } catch (e){
                         // print(e.message);
                       }

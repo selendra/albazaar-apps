@@ -29,7 +29,6 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   @override
   void initState() {
-    dialogBox();
     _scanPayM.asset = "SEL";
     // AppServices.noInternetConnection(_scanPayM.globalKey); temp
     _scanPayM.controlReceiverAddress.text = widget._walletKey;
@@ -109,13 +108,13 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void onSubmit(BuildContext context) async {
-    // if (_scanPayM.nodeReceiverAddress.hasFocus){
-    //   FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
-    // } else if (_scanPayM.nodeAmount.hasFocus) {
-    //   FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
-    // } else {
-    //   if (_scanPayM.enable == true) await clickSend();
-    // }
+    if (_scanPayM.nodeReceiverAddress.hasFocus){
+      FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
+    } else if (_scanPayM.nodeAmount.hasFocus) {
+      FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
+    } else {
+      if (_scanPayM.enable == true) await clickSend();
+    }
   }
 
   void enableButton() {
@@ -166,14 +165,15 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   Future<void> clickSend() async { /* Send payment */
-    // Navigator.push(context, MaterialPageRoute(builder: (contxt) => FillPin()));
-    // await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
-    //   unFocusAllField();
-    // });
+
+    await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
+      unFocusAllField();
+    });
     
     _scanPayM.pin = await dialogBox();
 
     if (_scanPayM.pin != null){
+      
       Components.dialogLoading(context: context);
 
       try {
