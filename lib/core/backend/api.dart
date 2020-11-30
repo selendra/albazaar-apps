@@ -9,4 +9,5 @@ class SelendraApi {
 
   // "https://testnet-api.selendra.com/pub/v1 = Selendra wallet
   final String api = "https://testnet-api.selendra.com/sdm/v1";
+  final String walletAPI = "https://testnet-api.selendra.com/pub/v1";
 }

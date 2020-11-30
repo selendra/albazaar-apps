@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
+=======
+import 'package:responsive_framework/responsive_wrapper.dart';
+>>>>>>> daveat
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'all_export.dart';
@@ -53,14 +57,30 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<AddProductProvider>(
             create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
+<<<<<<< HEAD
             create: (context) => SellerProvider()),
+=======
+          create: (context) => SellerProvider()
+        ),
+>>>>>>> daveat
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(
-          builder: (context, child) => ScrollConfiguration(
+          builder: (context, child) => ResponsiveWrapper.builder(
+            ScrollConfiguration(
             behavior: ScrollBehavior()
               ..buildViewportChrome(context, child, AxisDirection.down),
             child: child,
+          ),
+            maxWidth: 1200,
+            minWidth: 480,
+            defaultScale: true,
+            breakpoints: [
+              ResponsiveBreakpoint.resize(480, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(800, name: TABLET),
+              ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            ],
+            background: Container(color: Color(0xFFF5F5F5))
           ),
           title: appTitle,
           locale: value.manualLocale,
