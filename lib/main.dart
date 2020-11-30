@@ -51,15 +51,9 @@ class _SelendraAppState extends State<SelendraApp> {
           create: (context) => FavoriteProvider(),
         ),
         ChangeNotifierProvider<AddProductProvider>(
-          create: (context) => AddProductProvider()
-        ),
+            create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
-          create: (context) => SellerProvider()
-        ),
-        ChangeNotifierProvider<SellerModel>(
-          create: (context) => SellerModel()
-        ),
-        
+            create: (context) => SellerProvider()),
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

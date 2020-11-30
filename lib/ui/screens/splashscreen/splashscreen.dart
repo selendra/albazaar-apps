@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -29,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
           Provider.of<ProductsProvider>(context, listen: false)
               .fetchListingProduct();
           Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+          Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
           AuthProvider().currentUser.then(
             (value) {
               if (value != null) {

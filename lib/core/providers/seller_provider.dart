@@ -6,23 +6,18 @@ class SellerProvider with ChangeNotifier {
 
   GetRequest _getRequest = GetRequest();
 
-  PostRequest _postRequest = PostRequest();
+  List<SellerModel> _allBuyerOrder = [];
 
-  List<SellerModel> allBuyerOrder = [];
+  List<SellerModel> get allBuyerOrder => [..._allBuyerOrder];
 
   bool _isPayment = false;
   bool _isShipment = false;
 
   bool get isPayment => _isPayment;
   bool get isShipment => _isShipment;
-  SellerProvider() {
-    fetchBuyerOrder();
-  }
 
   void setPayment() {
     _isPayment = true;
-    print(_isPayment);
-    print(isPayment);
     notifyListeners();
   }
 
@@ -31,16 +26,22 @@ class SellerProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  SellerProvider() {
+    fetchBuyerOrder();
+  }
+
   void fetchBuyerOrder() async {
-    allBuyerOrder.clear();
+    // allBuyerOrder.clear();
     _backend.response = await _getRequest.getAllBuyerOrder();
 
     _backend.data = json.decode(_backend.response.body);
 
     for (var data in _backend.data) {
-      allBuyerOrder.add(SellerModel.fromJson(data));
+      _allBuyerOrder.add(SellerModel.fromJson(data));
+      notifyListeners();
     }
+    print(_backend.data);
     print(allBuyerOrder);
-    notifyListeners();
+    print(allBuyerOrder.length);
   }
 }

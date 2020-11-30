@@ -32,11 +32,10 @@ class ReuseAlertDialog {
           content: Text(alertText),
           actions: [
             FlatButton(
-              onPressed: func,
-              // () {
-              //   ();
-              // },
-              child: Text('OK'),
+              onPressed: () {
+                func();
+              },
+              child: Text('Yes'),
             ),
           ],
         );

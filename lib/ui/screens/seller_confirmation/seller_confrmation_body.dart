@@ -3,30 +3,29 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
+import '../../component.dart';
+
 class SellerConfirmBody extends StatelessWidget {
   final SellerModel productOrder;
-  final Function onClickChange;
+ 
 
   PostRequest _postRequest = PostRequest();
 
   String address = """Smiles Devis\n123 Somewhere St\nSomewhere, USA 65060
   """;
 
-  SellerConfirmBody({this.productOrder, this.onClickChange});
+  SellerConfirmBody({this.productOrder});
 
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    var seller = Provider.of<SellerProvider>(context);
+   
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RaisedButton(onPressed: () async {
-            await StorageServices.removeKey('confirm_products');
-          }),
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 20),
             child: SvgPicture.asset("images/packaging.svg",
                 width: 150, height: 150),
           ),
@@ -36,7 +35,7 @@ class SellerConfirmBody extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,9 +47,12 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Customer Name: "),
                           ),
                           Expanded(
-                            child: reuseText("{productOrder.value}"),
+                            child: reuseText("${productOrder.value}"),
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: 5,
                       ),
                       Row(
                         children: [
@@ -59,9 +61,12 @@ class SellerConfirmBody extends StatelessWidget {
                           ),
                           Expanded(
                             child:
-                                reuseText("{productOrder.sellerPhonenumber}"),
+                                reuseText("${productOrder.sellerPhonenumber}"),
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: 5,
                       ),
                       Row(
                         children: [
@@ -69,7 +74,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText("៛{productOrder.total}"),
+                            child: reuseText("៛${productOrder.total}"),
                           )
                         ],
                       )
@@ -79,274 +84,140 @@ class SellerConfirmBody extends StatelessWidget {
                 Divider(),
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       reuseText("SHIPPING ADDRESS:\n",
                           fontSize: 17, fontWeight: FontWeight.bold),
-                      reuseText("{productOrder.shippingAddress}")
+                      reuseText("${productOrder.shippingAddress}")
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: reuseText("PRODUCT",
-                      fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 50,
-                  child: reuseText("QTY",
-                      fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                    width: 70,
-                    child: reuseText("PRICE",
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        textAlign: TextAlign.right)),
-              ],
-            ),
-          ),
           Card(
-              margin: EdgeInsets.all(10),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Padding(
-                      padding: EdgeInsets.only(right: 5),
-                      child: Row(
-                        children: [
-                          // CircleAvatar(
-                          //   backgroundColor: Colors.white,
-                          //   backgroundImage: NetworkImage("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
-                          // ),
-
-                          Flexible(
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Image.network(
-                                "{productOrder.thumbnail}",
-                                width: 80,
-                                height: 80,
-                              ),
-                            ),
-                          ),
-
-                          Expanded(
-                            child: reuseText("""{productOrder.name}""",
-                                fontSize: 15, fontWeight: FontWeight.bold),
+            margin: const EdgeInsets.all(10.0),
+            shape: kDefaultShape,
+            child: Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(kDefaultRadius),
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            spreadRadius: 5.0,
+                            blurRadius: 5.0,
                           ),
                         ],
                       ),
-                    )),
-                    SizedBox(
-                      width: 50,
-                      child: reuseText("{productOrder.qauantity}",
-                          fontSize: 15, fontWeight: FontWeight.bold),
+                      child: Image.network(
+                        productOrder.thumbnail,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    SizedBox(
-                        width: 70,
-                        child: reuseText("{productOrder.price}៛",
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            textAlign: TextAlign.right)),
-                  ],
-                ),
-              )
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.white,
-              //     borderRadius: BorderRadius.circular(kDefaultRadius),
-              //   ),
-              //   child: ListTile(
-              //     title: Text('{productOrder.total}៛'),
-              //     subtitle: Text(
-              //       "productOrder.shippingAddress",
-              //       maxLines: 1,
-              //     ),
-              //     trailing: Text('{productOrder.qauantity}'),
-              //     leading: CircleAvatar(
-              //       backgroundColor: Colors.white,
-              //       backgroundImage: NetworkImage("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg"),
-              //     ),
-              //     onTap: () {
-              //       Navigator.of(context).push(
-              //         MaterialPageRoute(builder: (context) => SellerConfirm(productOrder: productOrder))
-              //       );
-              //     },
-              //   ),
-              // ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 20,
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ListTile(
+                          title: Text(
+                            productOrder.name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          isThreeLine: true,
+                          subtitle: Text(
+                            'Qty: ${productOrder.qauantity}',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 20,
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ListTile(
+                          subtitle: Text(
+                            'Price: ${productOrder.price}៛ ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kDefaultColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-          Consumer<SellerProvider>(
-            builder: (context, value, child) {
-              return Container(
-                margin: const EdgeInsets.all(20),
-                child: ReuseButton.getItem(
-                    _lang.translate('confirm_payment'),
-                    value.isPayment
-                        ? null
-                        : () async {
-                            await ReuseAlertDialog()
-                                .customDialog(context, 'payment', () {
-                              Navigator.pop(context, true);
-                              seller.setPayment();
-                              //seller.setShipment();
-                            });
-                          },
-                    // productOrder.isPayment
-                    //     ? null
-                    //     : () async {
-                    //         var result = await Components.dialog(
-                    //             context,
-                    //             Text("Complete check payment?",
-                    //                 textAlign: TextAlign.center),
-                    //             Text("Massage"),
-                    //             action: FlatButton(
-                    //                 onPressed: () async {
-                    //                   // Navigator.pop(context,true);
-
-                    //                   // onClickChange('payment');
-                    //                   // await StorageServices.setData(
-                    //                   //     {'isPayment': true}, 'confirm_products');
-                    //                 },
-                    //                 child: Text("Yes")));
-
-                    //         // if (result == true) {
-                    //         //   Components.dialogLoading(context: context);
-                    //         //   try {
-                    //         //     await _postRequest.markPamyment(productOrder.id).then((value) async {
-                    //         //       var data = json.decode(value.body);
-                    //         //       await Components.dialog(context, Text("data['message']", textAlign: TextAlign.center,), Text("Message"));
-                    //         //     });
-
-                    //         //     //Close Dialog
-                    //         //     Navigator.pop(context);
-                    //         //   } catch (e) {
-
-                    //         //   }
-                    //         // }
-                    //       },
-                    context),
-              );
-            },
+            ),
           ),
           Consumer<SellerProvider>(
-            builder: (context, value, child) {
-              return Container(
-                margin: const EdgeInsets.all(20),
-                child: ReuseButton.getItem(
-                    _lang.translate('confirm_shipping'),
-                    value.isPayment == false || value.isShipment
-                        ? null
-                        : () async {
-                            await ReuseAlertDialog()
-                                .customDialog(context, 'shipment', () {
-                              Navigator.pop(context, true);
-                              seller.setShipment();
-                              //seller.setShipment();
-                            });
-                          },
-                    // productOrder.isPayment
-                    //     ? null
-                    //     : () async {
-                    //         var result = await Components.dialog(
-                    //             context,
-                    //             Text("Complete check payment?",
-                    //                 textAlign: TextAlign.center),
-                    //             Text("Massage"),
-                    //             action: FlatButton(
-                    //                 onPressed: () async {
-                    //                   // Navigator.pop(context,true);
+            builder: (context, value, child) => Container(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+              child: value.isPayment == false
+                  ? ReuseButton.getItem(_lang.translate('confirm_payment'),
+                      () async {
+                      await ReuseAlertDialog().customDialog(
+                        context,
+                        'Do you want to confirm payment?',
+                        () async {
+                          Navigator.pop(context);
+                          value.setPayment();
+                          await _postRequest
+                              .markPamyment(productOrder.id)
+                              .then((value) async {
+                            var data = json.decode(value.body);
+                            await Components.dialog(
+                                context,
+                                Text(
+                                  "data['message']",
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text("Message"));
+                          });
+                        },
+                      );
+                    }, context)
+                  : ReuseButton.getItem(_lang.translate('confirm_shipping'),
+                      () async {
+                      await ReuseAlertDialog().customDialog(
+                        context,
+                        'Do you want to confirm shipment?',
+                        () async {
+                          Navigator.pop(context);
+                          value.setShipment();
 
-                    //                   // onClickChange('payment');
-                    //                   // await StorageServices.setData(
-                    //                   //     {'isPayment': true}, 'confirm_products');
-                    //                 },
-                    //                 child: Text("Yes")));
-
-                    //         // if (result == true) {
-                    //         //   Components.dialogLoading(context: context);
-                    //         //   try {
-                    //         //     await _postRequest.markPamyment(productOrder.id).then((value) async {
-                    //         //       var data = json.decode(value.body);
-                    //         //       await Components.dialog(context, Text("data['message']", textAlign: TextAlign.center,), Text("Message"));
-                    //         //     });
-
-                    //         //     //Close Dialog
-                    //         //     Navigator.pop(context);
-                    //         //   } catch (e) {
-
-                    //         //   }
-                    //         // }
-                    //       },
-                    context),
-              );
-            },
+                          await _postRequest.markShipment(productOrder.id).then(
+                            (value) async {
+                              var data = json.decode(value.body);
+                              await Components.dialog(
+                                  context,
+                                  Text(data['message'],
+                                      textAlign: TextAlign.center),
+                                  Text("Message"));
+                            },
+                          );
+                        },
+                      );
+                    }, context),
+            ),
           ),
-          // Container(
-          //   margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          //   child: ReuseButton.getItem(
-          //       _lang.translate('confirm_shipping'),
-          //       !productOrder.isPayment || productOrder.isShipping
-          //           ? null
-          //           : () async {
-          //               var result = await Components.dialog(
-          //                   context,
-          //                   Text("Complete prepare for shipping?",
-          //                       textAlign: TextAlign.center),
-          //                   Text("Massage"),
-          //                   action: FlatButton(
-          //                       onPressed: () async {
-          //                         Navigator.pop(context, true);
-          //                         onClickChange('shipping');
-          //                         await StorageServices.fetchData(
-          //                                 'confirm_products')
-          //                             .then((value) async {
-          //                           if (value != null) {
-          //                             await StorageServices.setData({
-          //                               'isPayment': value['isPayment'],
-          //                               'isShipping': true,
-          //                             }, 'confirm_products');
-          //                           }
-          //                         });
-
-          //                         await StorageServices.fetchData(
-          //                                 'confirm_products')
-          //                             .then((value) async {
-          //                           print("My confirm product $value");
-          //                         });
-          //                       },
-          //                       child: Text("Yes")));
-
-          //               // if (result == true){
-
-          //               //   Components.dialogLoading(context: context);
-          //               //   try{
-
-          //               //     await _postRequest.markShipment(productOrder.id).then((value) async {
-          //               //       var data = json.decode(value.body);
-          //               //       await Components.dialog(context, Text(data['message'], textAlign: TextAlign.center), Text("Message"));
-          //               //     });
-
-          //               //     //Close Dialog
-          //               //     Navigator.pop(context);
-          //               //   } catch (e) {
-          //               //     print(e);
-          //               //   }
-          //               // }
-          //             },
-          //       context),
-          // ),
         ],
       ),
     );
@@ -354,8 +225,10 @@ class SellerConfirmBody extends StatelessWidget {
 
   Widget reuseText(String text,
       {double fontSize: 13, FontWeight fontWeight, TextAlign textAlign}) {
-    return Text(text,
-        textAlign: textAlign,
-        style: TextStyle(fontSize: fontSize, fontWeight: fontWeight));
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+    );
   }
 }

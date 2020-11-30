@@ -105,18 +105,18 @@ class OrderProduct with ChangeNotifier {
   Seller seller;
 
   factory OrderProduct.fromJson(Map<String, dynamic> json) => OrderProduct(
-        shippingService: '',// json["shipping_service"],
-        productId: '',// json["product_id"],
-        name: '',// json["name"],
-        buyerId: '',// json["buyer_id"],
-        sellerPhonenumber: '',// json["seller_phonenumber"],
-        total: 0,// json["total"].toDouble(),
-        thumbnail: '',// json["thumbnail"],
-        id: '',// json["id"],
-        price: 0,// json["price"],
-        qauantity: 0,// json["qauantity"],
-        shippingAddress: '',// json["shipping_address"],
-        seller: Seller(),// Seller.fromJson(json["seller"]),
+        shippingService: json["shipping_service"],
+        productId: json["product_id"],
+        name: json["name"],
+        buyerId: json["buyer_id"],
+        sellerPhonenumber: json["seller_phonenumber"],
+        total: json["total"].toDouble(),
+        thumbnail: json["thumbnail"],
+        id: json["id"],
+        price: json["price"],
+        qauantity: json["qauantity"],
+        shippingAddress: json["shipping_address"],
+        seller: Seller.fromJson(json["seller"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -145,8 +145,8 @@ class Seller {
   String value;
 
   factory Seller.fromJson(Map<String, dynamic> json) => Seller(
-        type: '',// json["type"],
-        value: '',// json["value"],
+        type: json["type"],
+        value: json["value"],
       );
 
   Map<String, dynamic> toJson() => {

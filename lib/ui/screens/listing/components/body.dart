@@ -6,9 +6,8 @@ import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_c
 
 class Body extends StatefulWidget {
   final TabController _controller;
-  final SellerProvider sellerProvider;
-  final bool isSold;
-  Body(this._controller, {this.sellerProvider, this.isSold});
+
+  Body(this._controller);
 
   @override
   _BodyState createState() => _BodyState();
@@ -17,7 +16,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   // PostRequest _postRequest = PostRequest();
 
-  // Backend _backend = Backend();
+  //Backend _backend = Backend();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +27,7 @@ class _BodyState extends State<Body> {
     // var _lang = AppLocalizeService.of(context);
     final ProductsProvider productsProvider =
         Provider.of<ProductsProvider>(context);
+    final sellerProvider = Provider.of<SellerProvider>(context);
     return Container(
       width: double.infinity,
       child: TabBarView(
@@ -39,8 +39,8 @@ class _BodyState extends State<Body> {
                     itemCount: productsProvider.oItems.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(kDefaultRadius),
@@ -56,11 +56,7 @@ class _BodyState extends State<Body> {
                             backgroundImage: NetworkImage(
                                 productsProvider.oItems[index].thumbnail),
                           ),
-                          onTap: () {
-                            // print(productsProvider.oItems[index].id);
-                            // Navigator.of(context).pushNamed(DetailView,
-                            //     arguments: productsProvider.oItems[index].id);
-                          },
+                          onTap: () {},
                         ),
                       );
                     })
@@ -70,31 +66,12 @@ class _BodyState extends State<Body> {
                       height: MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),
-                    // child: Image.network(
-                    //   'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
-                    //   width: 300,
-                    //   height: 300,
-                    // ),
                   ),
           ),
           Container(
-            // child: RaisedButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => SellerConfirm(
-            //           productOrder: SellerModel.fromJson({}),
-            //         ),
-            //       ),
-            //       // productOrder: widget.sellerProvider
-            //       //     .allBuyerOrder[index]))
-            //     );
-            //   },
-            // ),
-            child: widget.sellerProvider.allBuyerOrder.isNotEmpty
+            child: sellerProvider.allBuyerOrder.isNotEmpty
                 ? ListView.builder(
-                    itemCount: widget.sellerProvider.allBuyerOrder.length,
+                    itemCount: sellerProvider.allBuyerOrder.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -102,9 +79,9 @@ class _BodyState extends State<Body> {
                             RouteAnimation(
                               enterPage: SellerConfirm(
                                 productOrder:
-                                    widget.sellerProvider.allBuyerOrder[index],
+                                    sellerProvider.allBuyerOrder[index],
                               ),
-                            ), //productsProvider.orItems[index]))
+                            ),
                           );
                         },
                         child: Card(
@@ -132,8 +109,7 @@ class _BodyState extends State<Body> {
                                       ],
                                     ),
                                     child: Image.network(
-                                      widget.sellerProvider.allBuyerOrder[index]
-                                          .thumbnail,
+                                      '${sellerProvider.allBuyerOrder[index].thumbnail}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -147,14 +123,14 @@ class _BodyState extends State<Body> {
                                           MediaQuery.of(context).size.width / 2,
                                       child: ListTile(
                                         title: Text(
-                                          widget.sellerProvider
+                                          sellerProvider
                                               .allBuyerOrder[index].name,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         isThreeLine: true,
                                         subtitle: Text(
-                                          'Qty: ${widget.sellerProvider.allBuyerOrder[index].qauantity}',
+                                          'Qty: ${sellerProvider.allBuyerOrder[index].qauantity}',
                                         ),
                                       ),
                                     ),
@@ -167,7 +143,7 @@ class _BodyState extends State<Body> {
                                           MediaQuery.of(context).size.width / 2,
                                       child: ListTile(
                                         subtitle: Text(
-                                          'Price: ${widget.sellerProvider.allBuyerOrder[index].price}៛ ',
+                                          'Price: ${sellerProvider.allBuyerOrder[index].price}៛ ',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: kDefaultColor,
@@ -192,59 +168,44 @@ class _BodyState extends State<Body> {
                     ),
                   ),
           ),
-          widget.isSold
-              ? Container(
-                  child: Text(widget.isSold.toString())
-                  // productsProvider.oItems.isNotEmpty
-                  //     ? ListView.builder(
-                  //         itemCount: productsProvider.isSold.length,
-                  //         itemBuilder: (context, index) {
-                  //           return Container(
-                  //             margin:
-                  //                 EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  //             decoration: BoxDecoration(
-                  //               color: Colors.white,
-                  //               borderRadius: BorderRadius.circular(kDefaultRadius),
-                  //             ),
-                  //             child: ListTile(
-                  //               title: Text(productsProvider.isSold[index].name),
-                  //               subtitle: Text(
-                  //                 productsProvider.isSold[index].description,
-                  //                 maxLines: 1,
-                  //               ),
-                  //               leading: CircleAvatar(
-                  //                 backgroundColor: Colors.white,
-                  //                 backgroundImage: NetworkImage(
-                  //                     productsProvider.isSold[index].thumbnail),
-                  //               ),
-                  //               onTap: () {
-                  //                 Navigator.of(context).pushNamed(DetailView,
-                  //                     arguments: productsProvider.isSold[index].id);
-                  //               },
-                  //             ),
-                  //           );
-                  //         })
-                  //     : Center(
-                  //         child: SvgPicture.asset(
-                  //           'images/undraw_loving_it.svg',
-                  //           height: MediaQuery.of(context).size.height * 0.3,
-                  //           width: MediaQuery.of(context).size.width * 0.3,
-                  //         ),
-                  //         // child: Image.network(
-                  //         //   'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
-                  //         //   width: 300,
-                  //         //   height: 300,
-                  //         // ),
-                  //       )
-                  ,
-                )
-              : Center(
-                  child: SvgPicture.asset(
-                    'images/undraw_loving_it.svg',
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    width: MediaQuery.of(context).size.width * 0.3,
+          Container(
+            child: productsProvider.oItems.isNotEmpty
+                ? ListView.builder(
+                    itemCount: productsProvider.isSold.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(kDefaultRadius),
+                        ),
+                        child: ListTile(
+                          title: Text(productsProvider.isSold[index].name),
+                          subtitle: Text(
+                            productsProvider.isSold[index].description,
+                            maxLines: 1,
+                          ),
+                          leading: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage: NetworkImage(
+                                productsProvider.isSold[index].thumbnail),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(DetailView,
+                                arguments: productsProvider.isSold[index].id);
+                          },
+                        ),
+                      );
+                    })
+                : Center(
+                    child: SvgPicture.asset(
+                      'images/undraw_loving_it.svg',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                    ),
                   ),
-                )
+          ),
         ],
       ),
     );
