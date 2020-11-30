@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen>
     'images/undraw_wallet.svg',
     'images/undraw_loving_it.svg',
     'images/undraw_empty_cart.svg',
-    'images/undraw_Mobile_application.svg'
+    'images/undraw_Mobile_application.svg',
     'images/packaging.svg'
   ];
 
@@ -27,19 +27,23 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('token').then(
       (value) async {
         if (value != null) {
-          Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchListingProduct();
           Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
           Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
           AuthProvider().currentUser.then(
             (value) {
               if (value != null) {
                 //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
-                Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(value.email, value.displayName, value.photoUrl);
+                Provider.of<UserProvider>(context, listen: false)
+                    .fetchSocialUserInfo(
+                        value.email, value.displayName, value.photoUrl);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 //CHECK SOCIAL ACCOUNT LOGIN USER
                 //FETCH USER PROFILE AND NAVIGATE
-                Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
+                Provider.of<UserProvider>(context, listen: false)
+                    .fetchUserInfo();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               }
             },
@@ -94,7 +98,8 @@ class _SplashScreenState extends State<SplashScreen>
 
     //PRECACH SVG IMAGES
     for (int i = 0; i < svg.length; i++) {
-      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+      precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
 
     //SET LANGUAGE
