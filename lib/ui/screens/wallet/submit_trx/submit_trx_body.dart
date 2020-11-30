@@ -122,7 +122,11 @@ class SubmitTrxBody extends StatelessWidget{
                   
                 Container(
                   margin: const EdgeInsets.all(16.0),
-                  child: ReuseButton.getItem("Request code", (){}, context),
+                  child: ReuseButton.getItem(
+                    "Request code", 
+                    scanPayM.enable ? clickSend : null, 
+                    context
+                  ),
                 )
               ],
             ),

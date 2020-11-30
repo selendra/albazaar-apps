@@ -44,18 +44,21 @@ class TrxOptionMethod {
   static void selectContact(
     BuildContext context,
     List<dynamic> listPortfolio,
-    Function resetDbdState
+    Function resetState
   ) async {
 
     if (await Permission.contacts.request().isGranted){
       String number = '';
       var response;
       // final PhoneContact _contact = await ContactsService .pickPhoneContact();
-      final Contact _contact = await ContactsService.openDeviceContactPicker();
+      // final Contact _contact = await ContactsService.openDeviceContactPicker();
+      // var existingContact = await ContactsService.getContacts();
+      // ContactsService.getContactsForPhone("0967056880").then((value) => print(value));
+      // print("My contact ${existingContact[0]}");
       //Get Contact And Asign To Number Variable 
       
-      if (_contact != null) {
-        print(_contact.phones);
+      // if (_contact != null) {
+      //   print(_contact.identifier);
         // _contact.phones.forEach((e) {
         // });
         // await _postRequest.getWalletFromContact(
@@ -67,7 +70,7 @@ class TrxOptionMethod {
         //     //   MaterialPageRoute(builder: (context) => SubmitTrx(value['wallet'], false, listPortfolio))  
         //     // );
         //     // if (response["status_code"] == 200) {
-        //     //   resetDbdState(null, "portfolio");
+        //     //   resetState(null, "portfolio");
         //     //   Navigator.pop(context);
         //     // }
         //   } else {
@@ -100,26 +103,27 @@ class TrxOptionMethod {
         //     );
         //   }
         // });
-      }
+      // }
     }
   }
 
-  static void navigateFillAddress(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
+  static void navigateFillAddress(BuildContext context, List<dynamic> portfolioList, Function resetState) async {
     var response = await Navigator.push(
       context, 
       MaterialPageRoute(builder: (context) => SubmitTrx("", true, []/* portfolioList */))
     );
     if (response['status_code'] == 200) {
-      resetDbdState(null, "portfolio");
+      resetState(null, "portfolio");
     }
   }
 
   /* Scan QR Code */
-  static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
+  static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetState) async {
     
     var _response = await Navigator.push(context, MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
     if (_response != null){
-      resetDbdState(null, "portfolio");
+      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+      resetState();
     }
   }
   

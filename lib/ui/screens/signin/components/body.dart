@@ -80,9 +80,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
-    print("Sign in with phone");
-    print(_phone);
-    print(_password);
     setState(() {
       _isLoading = true;
     });
@@ -112,8 +109,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   onPageChange(int index, {PageController p, TabController t}) async {
     if (p != null) {
       isPageCanChanged = false;
-      await _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
+      await _pageController.animateToPage(index, duration: Duration(milliseconds: 400), curve: Curves.easeOut);
       isPageCanChanged = true;
     } else {
       _tabController.animateTo(index);
@@ -146,60 +142,60 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                children: <Widget>[
-                  Container(
-                      child: Image.asset(
-                    'images/logo.png',
-                    height: 80,
-                    width: 80,
-                  )),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  ReuseAuthTab(
-                    _tabController,
-                    _lang.translate('phone'),
-                    _lang.translate('email'),
-                  ),
-                  // tabs(context),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: PageView(
-                      controller: _pageController,
-                      onPageChanged: (index) {
-                        if (isPageCanChanged) {
-                          onPageChange(index);
-                        }
-                      },
-                      children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignInPhoneForm(
-                            onApiSignInByPhone,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ),
-                        ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignInEmailForm(
-                            onApiSignInByEmail,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ), //emailForm(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+          ? Center(
+            child: CircularProgressIndicator(),
+          )
+          : Column(
+            children: <Widget>[
+              Container(
+                  child: Image.asset(
+                'images/logo.png',
+                height: 80,
+                width: 80,
+              )),
+              SizedBox(
+                height: 40,
               ),
+              ReuseAuthTab(
+                _tabController,
+                _lang.translate('phone'),
+                _lang.translate('email'),
+              ),
+              // tabs(context),
+              SizedBox(
+                height: 40,
+              ),
+              Expanded(
+                flex: 2,
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    if (isPageCanChanged) {
+                      onPageChange(index);
+                    }
+                  },
+                  children: [
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.expand(),
+                      child: SignInPhoneForm(
+                        onApiSignInByPhone,
+                        onFacebookSignIn,
+                        onGoogleSignIn,
+                      ),
+                    ),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.expand(),
+                      child: SignInEmailForm(
+                        onApiSignInByEmail,
+                        onFacebookSignIn,
+                        onGoogleSignIn,
+                      ), //emailForm(),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
       ),
     );
   }

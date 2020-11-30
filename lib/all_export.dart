@@ -29,6 +29,9 @@ export 'dart:io';
 //Pubspac
 export 'package:flutter_svg/svg.dart';
 
+//Validate Mixin
+export 'package:selendra_marketplace_app/core/services/validator_mixin.dart';
+
 //Components
 export 'package:selendra_marketplace_app/core/components/flare_animation_c.dart';
 export 'package:selendra_marketplace_app/ui/component.dart';

@@ -4,13 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class AuthProvider with ChangeNotifier {
-  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FacebookLogin facebookLogin = FacebookLogin();
   String _token, _alertText;
@@ -24,13 +24,13 @@ class AuthProvider with ChangeNotifier {
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
-    final auth.AuthCredential credential = auth.GoogleAuthProvider.credential(
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
-    final auth.UserCredential credentialUser = await _auth.signInWithCredential(credential);
-    final auth.User user = credentialUser.user;
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
     // Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
     // Checking if email and name is null
@@ -45,14 +45,14 @@ class AuthProvider with ChangeNotifier {
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final auth.User currentUser = _auth.currentUser;
+    final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
     return 'signInWithGoogle succeeded: $user';
   }
 
-  Future<auth.User> signInFacebook(BuildContext context) async {
-    auth.User currentUser;
+  Future<FirebaseUser> signInFacebook(BuildContext context) async {
+    FirebaseUser currentUser;
     // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     // if you remove above comment then facebook login will take username and pasword for login in Webview
     try {
@@ -61,16 +61,17 @@ class AuthProvider with ChangeNotifier {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        final auth.AuthCredential credential = auth.FacebookAuthProvider.credential(facebookAccessToken.token);
+        final AuthCredential credential = FacebookAuthProvider.getCredential(
+            accessToken: facebookAccessToken.token);
 //print(facebookAccessToken.token);
         final graphResponse = await http.get(
             'https://graph.facebook.com/${facebookAccessToken.userId}?fields=picture.width(720).height(720)&redirect=false&access_token=${facebookAccessToken.token}');
 
         final profile = json.decode(graphResponse.body);
 
-        final auth.User user =
+        final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
-        currentUser =  _auth.currentUser;
+        currentUser = await _auth.currentUser();
         if (currentUser != null) {
           getTokenForFb(facebookAccessToken.token, context);
         }
@@ -84,7 +85,7 @@ class AuthProvider with ChangeNotifier {
 
         // getUserInfo(user);
 
-        currentUser = _auth.currentUser;
+        currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
         return currentUser;
       }
@@ -122,8 +123,8 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<auth.User> get currentUser async {
-    return _auth.currentUser;
+  Future<FirebaseUser> get currentUser async {
+    return await _auth.currentUser();
   }
 
   Future<void> signOut(BuildContext context) async {
@@ -132,8 +133,8 @@ class AuthProvider with ChangeNotifier {
     _pref.clear('seen');
     Provider.of<ProductsProvider>(context, listen: false).clearList();
     try {
-      auth.User user = _auth.currentUser;
-      for (auth.UserInfo profile in user.providerData) {
+      FirebaseUser user = await _auth.currentUser();
+      for (UserInfo profile in user.providerData) {
         switch (profile.providerId) {
           case 'facebook.com':
             facebookLogin.logOut();
@@ -217,7 +218,6 @@ class AuthProvider with ChangeNotifier {
           'phone': phone,
           'password': password,
         }));
-    print(response.body);
     if (response.statusCode == 200) {
       dynamic responseJson = json.decode(response.body);
 

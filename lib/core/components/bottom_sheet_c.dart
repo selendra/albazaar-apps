@@ -7,7 +7,7 @@ class MyBottomSheet{
   Future<dynamic> trxOptions({
     BuildContext context,
     List portfolioList,
-    Function resetHomeData
+    Function resetState
   }) {
     return showModalBottomSheet(
       context: context, 
@@ -40,7 +40,7 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        await TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
+                        await TrxOptionMethod.scanQR(context, portfolioList, resetState);
                       } catch (e){
                         print(e.message);
                       }
@@ -53,7 +53,7 @@ class MyBottomSheet{
                     icon: "form.svg",
                     subTitle: "Fill wallet", 
                     action: () {
-                      TrxOptionMethod.navigateFillAddress(context, portfolioList, resetHomeData);
+                      TrxOptionMethod.navigateFillAddress(context, portfolioList, resetState);
                     }
                   )
                 ),
@@ -63,7 +63,7 @@ class MyBottomSheet{
                     icon: "contact.svg",
                     subTitle: "From Contact", 
                     action: () {
-                      TrxOptionMethod.selectContact(context, portfolioList, resetHomeData);
+                      TrxOptionMethod.selectContact(context, portfolioList, resetState);
                     }
                   )
                 )

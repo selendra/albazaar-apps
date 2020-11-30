@@ -29,7 +29,7 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   @override
   void initState() {
-
+    dialogBox();
     _scanPayM.asset = "SEL";
     // AppServices.noInternetConnection(_scanPayM.globalKey); temp
     _scanPayM.controlReceiverAddress.text = widget._walletKey;
@@ -76,30 +76,30 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   String validateWallet(String value){
     if (_scanPayM.nodeAmount.hasFocus) {
-      // _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
-      // enableButton();
-      // if (_scanPayM.responseAmount != null)
-      //   return _scanPayM.responseAmount += "wallet";
+      _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
+      enableButton();
+      if (_scanPayM.responseAmount != null)
+        return _scanPayM.responseAmount += "wallet";
     }
     return _scanPayM.responseWallet;
   }
 
   String validateAmount(String value) {
     if (_scanPayM.nodeAmount.hasFocus) {
-      // _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
-      // enableButton();
-      // if (_scanPayM.responseAmount != null)
-      //   return _scanPayM.responseAmount += "amount";
+      _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
+      enableButton();
+      if (_scanPayM.responseAmount != null)
+        return _scanPayM.responseAmount += "amount";
     }
     return _scanPayM.responseAmount;
   }
 
   String validateMemo(String value) {
     if (_scanPayM.nodeMemo.hasFocus) {
-      // _scanPayM.responseMemo = instanceValidate.validateSendToken(value);
-      // enableButton();
-      // if (_scanPayM.responseMemo != null)
-      //   return _scanPayM.responseMemo += "memo";
+      _scanPayM.responseMemo = instanceValidate.validateSendToken(value);
+      enableButton();
+      if (_scanPayM.responseMemo != null)
+        return _scanPayM.responseMemo += "memo";
     }
     return _scanPayM.responseMemo;
   }
@@ -108,13 +108,13 @@ class SubmitTrxState extends State<SubmitTrx> {
     _scanPayM.formStateKey.currentState.validate();
   }
 
-  void onSubmit(BuildContext context) {
+  void onSubmit(BuildContext context) async {
     if (_scanPayM.nodeReceiverAddress.hasFocus){
       FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
     } else if (_scanPayM.nodeAmount.hasFocus) {
       FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
-    } else {
-      if (_scanPayM.enable == true) clickSend();
+    } else if (_scanPayM.nodeMemo.hasFocus) {
+      if (_scanPayM.enable == true) await clickSend();
     }
   }
 
@@ -165,47 +165,53 @@ class SubmitTrxState extends State<SubmitTrx> {
     enableButton();
   }
 
-  void clickSend() async { /* Send payment */
+  Future<void> clickSend() async { /* Send payment */
     // Navigator.push(context, MaterialPageRoute(builder: (contxt) => FillPin()));
-    await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
-      unFocusAllField();
-    });
+    // await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
+    //   unFocusAllField();
+    // });
     
     _scanPayM.pin = await dialogBox();
 
-    Components.dialogLoading(context: context);
+    if (_scanPayM.pin != null){
+      Components.dialogLoading(context: context);
 
-    try {
+      try {
 
-      _backend.response = await _postRequest.sendPayment(_scanPayM);
-      
-      // Close Loading
-      Navigator.pop(context);
-      
-      if (_backend.response.statusCode == 200) {
+        _backend.response = await _postRequest.sendPayment(_scanPayM);
+        
+        // Close Loading
+        Navigator.pop(context);
 
-        _backend.mapData = json.decode(_backend.response.body);
+        print("MY port response ${_backend.response.body}");
+        
+        if (_backend.response.statusCode == 200) {
 
-        print(_backend.mapData);
+          _backend.mapData = json.decode(_backend.response.body);
 
-        if (!_backend.mapData.containsKey('error')) {
-          await enableAnimation();
-          // await Components.dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
+          print(_backend.mapData);
+
+          if (!_backend.mapData.containsKey('error')) {
+            await enableAnimation();
+            // await Components.dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
+          } else {
+            await Components.dialog(context, textAlignCenter(text: _backend.mapData["error"]['message']), warningTitleDialog());
+          }
         } else {
-          await Components.dialog(context, textAlignCenter(text: _backend.mapData["error"]['message']), warningTitleDialog());
+          await Components.dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
         }
-      } else {
-        await Components.dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
+      } on SocketException catch (e) {
+        print("Socket catch");
+        await Components.dialog(context, Text("${e.message}"), Text("Message")); 
+        snackBar(_scanPayM.globalKey, e.message.toString());
+      } catch (e) {
+        print("Normal catch");
+        await Components.dialog(context, Text(e.message.toString()), Text("Message")); 
       }
-    } on SocketException catch (e) {
-      await Components.dialog(context, Text("${e.message}"), Text("Message")); 
-      snackBar(_scanPayM.globalKey, e.message.toString());
-    } catch (e) {
-      await Components.dialog(context, Text(e.message.toString()), Text("Message")); 
+      await Future.delayed(Duration(milliseconds: 50), () {
+        removeAllFocus();
+      });
     }
-    await Future.delayed(Duration(milliseconds: 50), () {
-      removeAllFocus();
-    });
   }
 
   void unFocusAllField(){
@@ -262,7 +268,7 @@ class SubmitTrxState extends State<SubmitTrx> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: CustomAnimation.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
+                    child: CustomAnimation.flareAnimation(flareController, "images/animation/check.flr", "Checkmark")
                   )
                 ],
               )

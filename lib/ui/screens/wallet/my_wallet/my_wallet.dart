@@ -5,6 +5,11 @@ import 'wallet_list.dart';
 import 'package:provider/provider.dart';
 
 class MyWallet extends StatelessWidget {
+
+  final Function resetState;
+
+  MyWallet({this.resetState});
+
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
@@ -35,23 +40,24 @@ class MyWallet extends StatelessWidget {
                         Text(
                           'TOTAL BALANCE',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                         SizedBox(height: 40),
                         Flexible(
                           child: Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              'mBalance.data.balance',
+                              '${mBalance.data.balance}',
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 45.0,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 45.0,
+                                fontWeight: FontWeight.bold
+                              ),
                             ),
                           ),
                         ),
@@ -74,7 +80,10 @@ class MyWallet extends StatelessWidget {
                 child: Container(
                   child: Column(
                     children: <Widget>[
+
+                      // List All Asset
                       WalletList(),
+                      
                       SizedBox(
                         height: 10,
                       ),
@@ -85,8 +94,8 @@ class MyWallet extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            ReuseButton.getItem(_lang.translate('send'), () {
-                              MyBottomSheet().trxOptions(context: context, portfolioList: [], resetHomeData: null);
+                            ReuseButton.getItem(_lang.translate('send'), () async {
+                              await MyBottomSheet().trxOptions(context: context, portfolioList: [], resetState: resetState);
                             }, context),
                             SizedBox(
                               height: 10,

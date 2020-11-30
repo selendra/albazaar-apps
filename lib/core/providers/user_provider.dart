@@ -143,17 +143,22 @@ class UserProvider with ChangeNotifier {
   Future<String> fetchPortforlio() async {
     try {
       await _prefService.read('token').then((onValue) async {
-        http.Response response =
-            await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+        http.Response response = await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
 
+        print("Portfolio ${response.body}");
+
+        print("MY status code ${response.statusCode}");
+
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody['error'] == null) {
+            print("Not error");
             mBalance = Balance.fromMap(responseBody);
-            print(mBalance);
+            wallets[0].amount = mBalance.data.balance;
+            print(mBalance.data.balance);
             notifyListeners();
           } else {
             alertText = responseBody['error']['message'];

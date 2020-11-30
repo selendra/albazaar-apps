@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
+  
   @override
   _BodyState createState() => _BodyState();
 }
@@ -45,6 +46,12 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void resetState(){
+    setState(() {
+      print(mBalance.data.balance);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -53,12 +60,10 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    // mBalance.data == null
-    //     ? Center(
-    //         child: WalletChoice(onGetWallet, showAlertDialog),
-    //       )
-    //     : 
-      MyWallet();
+    return mBalance.data == null
+      ? Center(
+          child: WalletChoice(onGetWallet, showAlertDialog),
+        )
+      : MyWallet(resetState: resetState);
   }
 }

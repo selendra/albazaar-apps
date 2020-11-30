@@ -24,24 +24,19 @@ class _SplashScreenState extends State<SplashScreen>
     //READ TOKEN
     _pref.read('token').then(
       (value) async {
-        print("Token $value");
         if (value != null) {
-          Provider.of<ProductsProvider>(context, listen: false)
-              .fetchListingProduct();
+          Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
           Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
           AuthProvider().currentUser.then(
             (value) {
               if (value != null) {
                 //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
-                Provider.of<UserProvider>(context, listen: false)
-                    .fetchSocialUserInfo(
-                        value.email, value.displayName, value.photoUrl);
+                Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(value.email, value.displayName, value.photoUrl);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 //CHECK SOCIAL ACCOUNT LOGIN USER
                 //FETCH USER PROFILE AND NAVIGATE
-                Provider.of<UserProvider>(context, listen: false)
-                    .fetchUserInfo();
+                Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               }
             },
@@ -69,8 +64,6 @@ class _SplashScreenState extends State<SplashScreen>
           // // );
         } else {
           Navigator.pushReplacementNamed(context, WelcomeView);
-          // print("")
-
         }
       },
     );
@@ -98,8 +91,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     //PRECACH SVG IMAGES
     for (int i = 0; i < svg.length; i++) {
-      precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
 
     //SET LANGUAGE
@@ -107,7 +99,6 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('lang').then(
       (value) {
         _lang.setLocal(value, context);
-        // print(value);
       },
     );
   }
