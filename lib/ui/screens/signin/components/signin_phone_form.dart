@@ -16,8 +16,6 @@ class SignInPhoneForm extends StatelessWidget {
   final _phoneFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
-    print(_phoneNumber.text);
-    print(_password.text);
     signInPhoneFunc(_phoneNumber.text, _password.text);
     // if (_phoneFormKey.currentState.validate()) {
     //   // _phoneFormKey.currentState.save();
@@ -45,9 +43,9 @@ class SignInPhoneForm extends StatelessWidget {
                       BorderRadius.all(Radius.circular(kDefaultRadius)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.greenAccent),
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(kDefaultRadius))),
+                  borderSide: BorderSide(color: Colors.greenAccent),
+                  borderRadius:BorderRadius.all(Radius.circular(kDefaultRadius))
+                ),
               ),
               initialCountryCode: 'KH',
               validator: (value) => value.isEmpty ? 'Phone is Empty' : null,

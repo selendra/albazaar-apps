@@ -116,8 +116,13 @@ class PostRequest {
     return null;
   }
 
-  Future<_http.Response> sendPayment(var _model) async {
-    /* QR Code Send Request */
+  /* QR Code Send Request */
+  Future<_http.Response> sendPayment(ModelScanPay _model) async {
+    print(_model.pin);
+    print(_model.asset);
+    print(_model.controlReceiverAddress.text);
+    print(_model.controlAmount.text);
+    print(_model.controlMemo.text);
     _backend.token = await StorageServices.fetchData('user_token');
     _backend.bodyEncode = json.encode({
       "pin": _model.pin,
@@ -127,9 +132,8 @@ class PostRequest {
       "memo": _model.controlMemo.text
     });
     if (_backend.token != null) {
-      _backend.response = await _http.post("${_sldApi.api}/sendpayment",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token["token"]}"),
+      _backend.response = await _http.post("${_sldApi.walletAPI}/sendpayment",
+          headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
           body: _backend.bodyEncode);
       return _backend.response;
     }

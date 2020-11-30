@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
 import 'wallet_list.dart';
 import 'package:provider/provider.dart';
 
 class MyWallet extends StatelessWidget {
+
+  final Function resetState;
+
+  MyWallet({this.resetState});
+
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    var _fetchBalance = Provider.of<UserProvider>(context);
+    // var _fetchBalance = Provider.of<UserProvider>(context);
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: RefreshIndicator(
         onRefresh: () async {
-          await Future.delayed(Duration(seconds: 0));
-          return _fetchBalance.fetchPortforlio();
+          // await Future.delayed(Duration(seconds: 0));
+          // return _fetchBalance.fetchPortforlio();
         },
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -34,23 +40,24 @@ class MyWallet extends StatelessWidget {
                         Text(
                           'TOTAL BALANCE',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                         SizedBox(height: 40),
                         Flexible(
                           child: Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              mBalance.data.balance,
+                              '${mBalance.data.balance}',
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 45.0,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 45.0,
+                                fontWeight: FontWeight.bold
+                              ),
                             ),
                           ),
                         ),
@@ -66,13 +73,17 @@ class MyWallet extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height / 4,
-                    right: 10.0,
-                    left: 10.0),
+                  top: MediaQuery.of(context).size.height / 4,
+                  right: 10.0,
+                  left: 10.0
+                ),
                 child: Container(
                   child: Column(
                     children: <Widget>[
+
+                      // List All Asset
                       WalletList(),
+                      
                       SizedBox(
                         height: 10,
                       ),
@@ -83,14 +94,14 @@ class MyWallet extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            ReuseButton.getItem(_lang.translate('add'), () {
-                              print('add');
+                            ReuseButton.getItem(_lang.translate('send'), () async {
+                              await MyBottomSheet().trxOptions(context: context, portfolioList: [], resetState: resetState);
                             }, context),
                             SizedBox(
                               height: 10,
                             ),
                             ReuseButton.getItem(_lang.translate('recieve'), () {
-                              Navigator.pushNamed(context, MyQrView);
+                              Navigator.pushNamed(context, MyQrView); 
                             }, context)
                           ],
                         ),

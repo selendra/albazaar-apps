@@ -7,7 +7,7 @@ class SellerModel with ChangeNotifier {
   String productId = '';
   String name = '';
   String buyerId = '';
-  String sellerPhonenumber = '';
+  String buyerPhonenumber = '';
   double total = 0;
   String thumbnail = '';
   String id = '';
@@ -24,7 +24,7 @@ class SellerModel with ChangeNotifier {
     productId = data['product_id'];
     name = data['name'];
     buyerId = data['buyer_id'];
-    sellerPhonenumber = data['seller_phonenumber'];
+    buyerPhonenumber = data['buyer_phonenumber'];
     total = data['total'];
     thumbnail = data['thumbnail'];
     id = data['id'];

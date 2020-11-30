@@ -9,6 +9,7 @@ class WalletList extends StatefulWidget {
 class _WalletListState extends State<WalletList> {
   @override
   Widget build(BuildContext context) {
+    print("Wallet ${wallets[0].amount}");
     return Container(
       child: ListView.builder(
         itemCount: wallets.length,

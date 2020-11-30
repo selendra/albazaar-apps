@@ -16,15 +16,14 @@ class _SplashScreenState extends State<SplashScreen>
     'images/undraw_wallet.svg',
     'images/undraw_loving_it.svg',
     'images/undraw_empty_cart.svg',
-    'images/undraw_Mobile_application.svg'
-        'images/packaging.svg'
+    'images/undraw_Mobile_application.svg',
+    'images/packaging.svg'
   ];
 
   void checkUser() {
     //READ TOKEN
     _pref.read('token').then(
       (value) async {
-        print("Token $value");
         if (value != null) {
           Provider.of<ProductsProvider>(context, listen: false)
               .fetchListingProduct();
@@ -70,8 +69,6 @@ class _SplashScreenState extends State<SplashScreen>
           // // );
         } else {
           Navigator.pushReplacementNamed(context, WelcomeView);
-          // print("")
-
         }
       },
     );
@@ -108,7 +105,6 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('lang').then(
       (value) {
         _lang.setLocal(value, context);
-        // print(value);
       },
     );
   }
