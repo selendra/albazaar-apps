@@ -7,7 +7,6 @@ import '../../component.dart';
 
 class SellerConfirmBody extends StatelessWidget {
   final SellerModel productOrder;
- 
 
   PostRequest _postRequest = PostRequest();
 
@@ -19,7 +18,7 @@ class SellerConfirmBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-   
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +74,9 @@ class SellerConfirmBody extends StatelessWidget {
                           ),
                           Expanded(
                             child: reuseText("៛${productOrder.total}"),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
