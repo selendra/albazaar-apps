@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
-import 'package:selendra_marketplace_app/core/models/seller_m.dart';
-=======
 import 'package:responsive_framework/responsive_wrapper.dart';
->>>>>>> daveat
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'all_export.dart';
@@ -57,12 +53,7 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<AddProductProvider>(
             create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
-<<<<<<< HEAD
             create: (context) => SellerProvider()),
-=======
-          create: (context) => SellerProvider()
-        ),
->>>>>>> daveat
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

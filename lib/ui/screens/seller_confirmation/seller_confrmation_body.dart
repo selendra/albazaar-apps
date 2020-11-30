@@ -61,7 +61,7 @@ class SellerConfirmBody extends StatelessWidget {
                           ),
                           Expanded(
                             child:
-                                reuseText("${productOrder.sellerPhonenumber}"),
+                                reuseText("${productOrder.buyerPhonenumber}"),
                           )
                         ],
                       ),
