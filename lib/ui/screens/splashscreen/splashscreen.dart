@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
     'images/undraw_loving_it.svg',
     'images/undraw_empty_cart.svg',
     'images/undraw_Mobile_application.svg'
+    'images/packaging.svg'
   ];
 
   void checkUser() {
