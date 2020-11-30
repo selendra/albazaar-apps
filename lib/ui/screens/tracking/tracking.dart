@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class Tracking extends StatefulWidget {
+  final OrderProduct productOrder;
+  Tracking({this.productOrder});
   @override
   _TrackingState createState() => _TrackingState();
 }
 
 class _TrackingState extends State<Tracking> {
   double _currentValue = 0;
+  String statusReminder = '';
 
   @override
   void initState() {
     super.initState();
-    _currentValue = 50;
+    checkProgress();
+  }
+
+  void checkProgress() {
+    var track = Provider.of<SellerProvider>(context, listen: false);
+    if (track.isShipment) {
+      setState(() {
+        _currentValue = 50;
+      });
+    }
   }
 
   @override
@@ -31,14 +44,13 @@ class _TrackingState extends State<Tracking> {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Shark',
+                      '${widget.productOrder.name}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
-                    Text('Order: #########'),
+                    Text('Order: ${widget.productOrder.id}'),
                     Text('Reminder: Buyer has confirmes order recieved'),
                     SizedBox(
                       height: 40,

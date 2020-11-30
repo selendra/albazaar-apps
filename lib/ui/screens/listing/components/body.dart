@@ -38,8 +38,8 @@ class _BodyState extends State<Body> {
                     itemCount: productsProvider.oItems.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(kDefaultRadius),
@@ -55,11 +55,7 @@ class _BodyState extends State<Body> {
                             backgroundImage: NetworkImage(
                                 productsProvider.oItems[index].thumbnail),
                           ),
-                          onTap: () {
-                            // print(productsProvider.oItems[index].id);
-                            // Navigator.of(context).pushNamed(DetailView,
-                            //     arguments: productsProvider.oItems[index].id);
-                          },
+                          onTap: () {},
                         ),
                       );
                     })
@@ -112,8 +108,7 @@ class _BodyState extends State<Body> {
                                       ],
                                     ),
                                     child: Image.network(
-                                      widget.sellerProvider.allBuyerOrder[index]
-                                          .thumbnail,
+                                      '${widget.sellerProvider.allBuyerOrder[index].thumbnail}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),

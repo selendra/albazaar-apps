@@ -1,5 +1,6 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 
@@ -15,15 +16,15 @@ class OrderDetailBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.only(top: 20.0),
             child: SvgPicture.asset(
               "images/packaging.svg",
-              width: 100,
-              height: 100,
+              width: 150,
+              height: 150,
             ),
           ),
           Card(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Container(
@@ -43,6 +44,9 @@ class OrderDetailBody extends StatelessWidget {
                           )
                         ],
                       ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -53,6 +57,9 @@ class OrderDetailBody extends StatelessWidget {
                                 reuseText("${productOrder.sellerPhonenumber}"),
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: 5.0,
                       ),
                       Row(
                         children: [
@@ -70,7 +77,7 @@ class OrderDetailBody extends StatelessWidget {
                 Divider(),
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,8 +89,15 @@ class OrderDetailBody extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.push(
-                        context, RouteAnimation(enterPage: Tracking()));
+                      context,
+                      RouteAnimation(
+                        enterPage: Tracking(
+                          productOrder: productOrder,
+                        ),
+                      ),
+                    );
                   },
                   child: Text(
                     'Track Order',
@@ -104,36 +118,100 @@ class OrderDetailBody extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            title: Text('${productOrder.price}៛'),
-            subtitle: Text(
-              productOrder.shippingAddress,
-              maxLines: 1,
+          Card(
+            margin: const EdgeInsets.all(10.0),
+            shape: kDefaultShape,
+            child: Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(kDefaultRadius),
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            spreadRadius: 5.0,
+                            blurRadius: 5.0,
+                          ),
+                        ],
+                      ),
+                      child: Image.network(
+                        productOrder.thumbnail,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 20,
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ListTile(
+                          title: Text(
+                            productOrder.name,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          isThreeLine: true,
+                          subtitle: Text(
+                            'Qty: ${productOrder.qauantity}',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 20,
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: ListTile(
+                          subtitle: Text(
+                            'Price: ${productOrder.price}៛ ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: kDefaultColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            trailing: Text(productOrder.qauantity.toString()),
-            leading: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(productOrder.thumbnail),
-            ),
-            onTap: () {},
           ),
-          SizedBox(height: 20),
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: ReuseButton.getItem('Recieved', () async {
-              await Components.dialog(context,
-                  Text("Do you want to complete order?"), Text("Message"),
-                  action: FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Provider.of<ProductsProvider>(context, listen: false)
-                            .markOrderComplete(
-                                productOrder.id, context, productOrder);
-                        print("Yes");
-                      },
-                      child: Text("Yes")));
-              // validateAndSubmit();
-            }, context),
+          SizedBox(height: 10),
+          Consumer<SellerProvider>(
+            builder: (context, value, child) => Container(
+              margin: const EdgeInsets.all(20),
+              child: ReuseButton.getItem(
+                  'Recieved',
+                  !value.isPayment && !value.isShipment
+                      ? null
+                      : () async {
+                          await Components.dialog(
+                              context,
+                              Text("Do you want to complete order?"),
+                              Text("Message"),
+                              action: FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Provider.of<ProductsProvider>(context,
+                                            listen: false)
+                                        .markOrderComplete(productOrder.id,
+                                            context, productOrder);
+                                    print("Yes");
+                                  },
+                                  child: Text("Yes")));
+                        },
+                  context),
+            ),
           ),
         ],
       ),

@@ -30,7 +30,6 @@ class _ListingScreenState extends State<ListingScreen>with SingleTickerProviderS
   Widget build(BuildContext context) {
     var lang = AppLocalizeService.of(context);
     final sellerProvider = Provider.of<SellerProvider>(context);
-    print(sellerProvider.allBuyerOrder);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(lang.translate('listing'), context,
           'Products', 'Pending', 'Sold', _controller), //lang.translate('Products')

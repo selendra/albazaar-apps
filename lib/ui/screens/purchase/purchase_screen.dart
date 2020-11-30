@@ -32,8 +32,8 @@ class _PurchaseScreenState extends State<PurchaseScreen>
           _lang.translate('order'),
           context,
           _lang.translate('all'),
-          _lang.translate('complete'),
           _lang.translate('pending'),
+          _lang.translate('complete'),
           _controller),
       body: Body(_controller),
     );

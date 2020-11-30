@@ -35,7 +35,7 @@ class ReuseAlertDialog {
               onPressed: () {
                 func();
               },
-              child: Text('OK'),
+              child: Text('Yes'),
             ),
           ],
         );

@@ -8,6 +8,21 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> allBuyerOrder = [];
 
+  bool _isPayment = false;
+  bool _isShipment = false;
+
+  bool get isPayment => _isPayment;
+  bool get isShipment => _isShipment;
+
+  void setPayment() {
+    _isPayment = true;
+    notifyListeners();
+  }
+
+  void setShipment() {
+    _isShipment = true;
+  }
+
   SellerProvider() {
     fetchBuyerOrder();
   }
