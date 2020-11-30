@@ -22,7 +22,7 @@ class FillPinState extends State<FillPin> {
   }
 
   BoxConstraints get boxConstraint {
-    return  BoxConstraints(minWidth: 60, minHeight: 80);
+    return  BoxConstraints(minWidth: 40, minHeight: 50);
   }
 
   @override
@@ -51,13 +51,13 @@ class FillPinState extends State<FillPin> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.only(right: 16, bottom: 20),
+            padding: EdgeInsets.only(right: 13,bottom: 20),
             child: PinPut(
               obscureText: '⚪',
               focusNode: _pinNode,
               controller: _pinPutController,
               fieldsCount: 4,
-              eachFieldMargin: EdgeInsets.only(left: 16),
+              eachFieldMargin: EdgeInsets.only(left: 13),
 
               selectedFieldDecoration: _pinPutDecoration.copyWith(
                 color: Colors.grey.withOpacity(0.5),
