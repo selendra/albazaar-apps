@@ -10,7 +10,6 @@ class ZoomButtons extends StatelessWidget {
   Future<void> zoomIn() async {
     final z = _mapController.zoom + 1;
     if (z < 20.0) {
-      print(z);
       _mapController.move(_mapController.center, z);
     } else {
       return null;

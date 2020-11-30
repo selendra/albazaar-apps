@@ -120,11 +120,20 @@ class TrxOptionMethod {
   /* Scan QR Code */
   static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetState) async {
     
-    var _response = await Navigator.push(context, MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
-    if (_response != null){
-      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
-      resetState();
-    }
+    // Scan And Get QR Code
+    String _scanResponse = await Navigator.push(context, MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
+    Navigator.pop(context, _scanResponse);
+    // if (_scanResponse != null){
+    //   // Fill Transaction Information
+    //   // await Future.delayed(Duration(seconds: 2), () async {
+    //   //   await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(_scanResponse, false, []/* widget.portList */))).then((value) async {
+    //   //     if (value != null){
+    //   //       // await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+    //   //       // resetState();
+    //   //     }
+    //   //   });
+    //   // });
+    // }
   }
   
 }

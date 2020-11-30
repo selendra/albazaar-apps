@@ -16,7 +16,6 @@ class _ResetByEmailState extends State<ResetByEmail> {
   void validateAndSubmit(context) {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_email);
       _forgetByEmail(_email, context);
     }
   }
@@ -26,7 +25,6 @@ class _ResetByEmailState extends State<ResetByEmail> {
       _isLoading = true;
     });
     await AuthProvider().forgetPasswordByEmail(_email).then((value) {
-      print(value);
       setState(() {
         _isLoading = false;
       });

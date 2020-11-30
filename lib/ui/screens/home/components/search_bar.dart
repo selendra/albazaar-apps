@@ -23,7 +23,6 @@ class SearchBar extends StatelessWidget {
               onFieldSubmitted: (value) {
                 _query = value;
                 //productData.searchProducts(_query);
-                print(_query);
               },
             ),
           ),

@@ -19,7 +19,6 @@ class AppServices {
   static String getDataFromStream(StreamedResponse stream, AddProduct addProduct){
     String value;
     stream.stream.transform(utf8.decoder).listen((data){
-      print(json.decode(data)['uri']);
       value = json.decode(data)['uri'];
     });
     // Wait 500 milliseconds For Add Data To Value Before Return

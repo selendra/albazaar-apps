@@ -90,13 +90,12 @@ class AuthProvider with ChangeNotifier {
         return currentUser;
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
     return currentUser;
   }
 
   Future<void> getTokenForFb(String accesstoken, context) async {
-    print("My facebook $accesstoken");
     http.Response response = await http.post(ApiUrl.LOGIN_FROM_FACEBOOK,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
@@ -104,9 +103,7 @@ class AuthProvider with ChangeNotifier {
         }));
     var responseJson = json.decode(response.body);
     if (response.statusCode == 200) {
-      print(response.body);
       _token = responseJson['token'];
-      print(_token);
       _pref.saveString('token', _token);
       await StorageServices.setData(responseJson, 'user_token');
 
@@ -150,7 +147,6 @@ class AuthProvider with ChangeNotifier {
             await _auth.signOut();
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => WelcomeScreen()));
-            print("User Sign Out");
         }
       }
     } catch (e) {
@@ -170,7 +166,6 @@ class AuthProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         var responseJson = json.decode(response.body);
         _token = responseJson['token'];
-        print(_token);
         if (_token != null) {
           _pref.saveString('token', _token);
           Provider.of<UserProvider>(context, listen: false)
@@ -189,28 +184,24 @@ class AuthProvider with ChangeNotifier {
           _alertText = responseJson['message'];
           if (_alertText == null) {
             _alertText = responseJson['error']['message'];
-            print(_alertText);
           }
         }
       } else {
-        print(response.body);
         _alertText = "Please try again later";
       }
       notifyListeners();
     } on SocketException {
-      print('No Internet connection 😑');
+      // print('No Internet connection 😑');
     } on HttpException {
-      print("Couldn't find the post 😱");
+      // print("Couldn't find the post 😱");
     } on FormatException {
-      print("Bad response format 👎");
+      // print("Bad response format 👎");
     }
     return _alertText;
   }
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
-    print(phone);
-    print(password);
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
@@ -252,7 +243,6 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } else {
-      print(response.body);
       _alertText = "Please try again later";
     }
     return _alertText;
@@ -267,7 +257,6 @@ class AuthProvider with ChangeNotifier {
       var responseBody = json.decode(response.body);
       _alertText = responseBody['message'];
     } else {
-      print(response.body);
     }
     return _alertText;
   }
@@ -300,7 +289,6 @@ class AuthProvider with ChangeNotifier {
       var responseBody = jsonDecode(response.body);
       _alertText = responseBody['message'];
     } else {
-      print(response.body);
     }
 
     return _alertText;
@@ -328,7 +316,6 @@ class AuthProvider with ChangeNotifier {
         return _alertText;
       }
     } else {
-      print(response.body);
     }
     return _alertText;
   }
@@ -337,7 +324,6 @@ class AuthProvider with ChangeNotifier {
   Future<String> addPhoneNumber(String _phoneNumber) async {
     try {
       await _pref.read('token').then((onValue) async {
-        print(onValue);
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
             headers: <String, String>{
               "accept": "application/json",
@@ -350,7 +336,6 @@ class AuthProvider with ChangeNotifier {
         var responseBody = json.decode(response.body);
 
         if (response.statusCode == 200) {
-          print(responseBody);
           if (responseBody != null) {
             try {
               _alertText = responseBody['message'];
@@ -358,18 +343,14 @@ class AuthProvider with ChangeNotifier {
                 _alertText = responseBody['error']['message'];
               }
             } catch (e) {
-              print(e);
+              // print(e);
             }
           }
-          print(_alertText);
         } else {
-          print(responseBody);
           _alertText = responseBody['error']['message'];
         }
-        print(response.body);
       });
     } catch (e) {
-      print(e.toString());
       _alertText = e.toString();
     }
 
@@ -395,7 +376,6 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print(e.toString());
       _alertText = e.toString();
     }
     return _alertText;
@@ -420,10 +400,8 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print(e.toString());
       _alertText = e.toString();
     }
-    print(_alertText);
     return _alertText;
   }
 
@@ -448,15 +426,13 @@ class AuthProvider with ChangeNotifier {
           _alertText = repsonseBody['error']['message'];
         }
       } else {
-        print(response.statusCode);
-        print(response.body);
       }
     } on SocketException {
-      print('No Internet connection 😑');
+      // print('No Internet connection 😑');
     } on HttpException {
-      print("Couldn't find the post 😱");
+      // print("Couldn't find the post 😱");
     } on FormatException {
-      print("Bad response format 👎");
+      // print("Bad response format 👎");
     }
 
     return _alertText;

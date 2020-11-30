@@ -66,7 +66,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         }
       });
     } catch (e) {
-      print(e);
       setState(() {
         _isLoading = false;
       });

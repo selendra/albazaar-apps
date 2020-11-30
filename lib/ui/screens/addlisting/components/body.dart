@@ -54,7 +54,6 @@ class _BodyState extends State<Body> {
   }
 
   void ddOnChanged(String value) {
-    print(value);
   }
 
   void enableButton(bool enable) {

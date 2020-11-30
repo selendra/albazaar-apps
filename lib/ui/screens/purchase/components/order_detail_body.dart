@@ -206,7 +206,6 @@ class OrderDetailBody extends StatelessWidget {
                                             listen: false)
                                         .markOrderComplete(productOrder.id,
                                             context, productOrder);
-                                    print("Yes");
                                   },
                                   child: Text("Yes")));
                         },

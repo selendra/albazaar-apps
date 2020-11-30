@@ -134,7 +134,6 @@ class FillSellerBody extends StatelessWidget {
                   FlatButton(
                     child: Text(_lang.translate('policy')),
                     onPressed: () {
-                      print('Rule & Policy');
                     },
                   ),
                   Expanded(

@@ -17,7 +17,6 @@ class ResetPhoneForm extends StatelessWidget {
             .resetByPhone(
                 _pinController.text, _phone, _newPasswordController.text)
             .then((value) {
-          print(value);
           ReuseAlertDialog().successDialog(context, value);
         });
       }

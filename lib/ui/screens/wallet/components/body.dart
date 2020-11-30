@@ -48,7 +48,6 @@ class _BodyState extends State<Body> {
 
   void resetState(){
     setState(() {
-      print(mBalance.data.balance);
     });
   }
 

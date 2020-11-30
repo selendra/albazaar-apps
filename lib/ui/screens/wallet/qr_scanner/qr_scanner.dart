@@ -21,11 +21,11 @@ class QrScannerState extends State<QrScanner>{
   void _onQrViewCreated(QRViewController controller){
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
-      await Future.delayed(Duration(seconds: 2), () async {
-        _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, []/* widget.portList */)));
+      Navigator.pop(context, scanData);
+      // await Future.delayed(Duration(seconds: 2), () async {
+      //   _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, []/* widget.portList */)));
 
-        Navigator.pop(context, _backend.mapData);
-      });
+      // });
     });
   }
 

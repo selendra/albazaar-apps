@@ -87,7 +87,6 @@ class _FoodsScreenState extends State<FoodsScreen>
               color: kDefaultColor,
             ),
             onPressed: () {
-              print('search');
             },
           )
         ],

@@ -32,7 +32,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         _isLoading = false;
       });
       ReuseAlertDialog().successDialog(context, onError);
-      print(onError);
     });
   }
 
@@ -54,7 +53,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         // }
       });
     } on PlatformException catch (e) {
-      print(e.toString());
       setState(() {
         _isLoading = false;
       });
@@ -75,7 +73,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ReuseAlertDialog().successDialog(context, onValue);
       }
     }).catchError((onError) {
-      print(onError);
     });
   }
 

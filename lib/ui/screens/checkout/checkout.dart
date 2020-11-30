@@ -18,7 +18,6 @@ class _CheckoutState extends State<Checkout> {
 
   void validate(context) async {
     if (_address == 'Shipping Information') {
-      print('not validate');
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text('Not Validate'),
         duration: Duration(milliseconds: 3000),
@@ -27,9 +26,6 @@ class _CheckoutState extends State<Checkout> {
       final cartProduct =
           Provider.of<CartProvider>(context, listen: false).items;
       for (int i = 0; i < cartProduct.length; i++) {
-        print(cartProduct.values.toList()[i].id);
-        print(cartProduct.values.toList()[i].qty.toString());
-        print(_address);
         Provider.of<ProductsProvider>(context, listen: false).addOrder(
           cartProduct.values.toList()[i].id,
           cartProduct.values.toList()[i].qty.toString(),

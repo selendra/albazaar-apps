@@ -28,7 +28,6 @@ class LangProvider with ChangeNotifier {
           break;
       }
       _prefService.saveString('lang', languageCode);
-      print(languageCode);
     }
 
     notifyListeners();

@@ -58,11 +58,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await Navigator.pushNamed(context, AddListingView).then((value) async {
-            print("Result $value");
             if (value != null){
-              print("Upload new image");
-              print(addListData.addProduct.imageUrlList);
-              print("My Product id ${addListData.addProduct.productId}");
               for (int i = 0; i < addListData.addProduct.imageUrlList.length; i++){
                 await PostRequest().addProductImage(addListData.addProduct.imageUrlList[i], addListData.addProduct.productId);
               }

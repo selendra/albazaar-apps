@@ -15,11 +15,9 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
   routB(context) async {
     final resultC = await Navigator.push<String>(context, MaterialPageRoute(builder: (context) => FoodCategories()));
     Navigator.pop(context, resultC );
-    print(resultC);
   }
 
   void itemTap(int index, context) {
-    print('$index');
     switch (index) {
       case 0:
         routB(context);

@@ -52,7 +52,7 @@ class IndividualChat extends StatelessWidget {
                   ),
                 );
               }).toList(),
-              onChanged: (value) => print(value),
+              onChanged: (value) => {},
             ),
           ),
         ],
@@ -131,7 +131,7 @@ class IndividualChat extends StatelessWidget {
                         Icons.attach_file,
                         color: kDefaultColor,
                       ),
-                      onPressed: () => print('attach file'),
+                      onPressed: () => {},
                     ),
                     Expanded(
                       child: TextField(
@@ -145,7 +145,7 @@ class IndividualChat extends StatelessWidget {
                         Icons.send,
                         color: kDefaultColor,
                       ),
-                      onPressed: () => print('Send'),
+                      onPressed: () => {},
                     ),
                   ],
                 ),

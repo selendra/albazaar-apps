@@ -84,7 +84,7 @@ class MyInputField extends StatelessWidget{
           /* Limit Length Of Text Input */
           onChanged: onChanged,
           onFieldSubmitted: (value) {
-            onSubmit();
+            onSubmit(context);
           },
         )
       )

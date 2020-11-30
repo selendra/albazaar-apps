@@ -21,7 +21,6 @@ class ProductDisplay extends StatelessWidget {
                 value.items.length > 1
                     ? InkWell(
                         onTap: () {
-                          print('see all');
                           showBottomSheet(
                             context: context,
                             shape: kDefaultShape,

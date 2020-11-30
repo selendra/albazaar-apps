@@ -30,7 +30,6 @@ class Chat extends StatelessWidget {
               color: kDefaultColor,
             ),
             onPressed: () {
-              print('search');
             },
           ),
         ],

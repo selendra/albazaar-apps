@@ -67,7 +67,6 @@ class _BodyState extends State<Body> {
       Scaffold.of(context).showSnackBar(snackBar);
     } else {
       if (validateAndSave()) {
-        print(_selectedIndex);
         switch (_selectedIndex) {
           case 1:
             gender = 'M';
@@ -77,8 +76,6 @@ class _BodyState extends State<Body> {
             break;
         }
         onSetUserPf();
-        print(_token);
-        print(firstName);
       }
     }
   }
@@ -164,7 +161,6 @@ class _BodyState extends State<Body> {
                 groupValue: _selectedIndex,
                 activeColor: kDefaultColor,
                 onChanged: (val) {
-                  print('$val');
                   setSelectedIndex(val);
                 },
               ),
@@ -174,7 +170,6 @@ class _BodyState extends State<Body> {
                 groupValue: _selectedIndex,
                 activeColor: kDefaultColor,
                 onChanged: (val) {
-                  print('$val');
                   setSelectedIndex(val);
                 },
               ),

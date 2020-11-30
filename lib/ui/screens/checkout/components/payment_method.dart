@@ -17,9 +17,7 @@ class _ShippingInformationState extends State<ShippingInformation> {
 
   void validateAndSubmit() {
     if (_formKey.currentState.validate()) {
-      print('validate');
       _formKey.currentState.save();
-      print(_address);
       widget.setVal(_address);
       Navigator.pop(context);
     }

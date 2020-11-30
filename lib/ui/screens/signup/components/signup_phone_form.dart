@@ -16,8 +16,6 @@ class SignUpPhoneForm extends StatelessWidget {
   void validateAndSubmit() {
     if (_phoneFormKey.currentState.validate()) {
       _phoneFormKey.currentState.save();
-      print(_phone);
-      print(_password);
       signInPhoneFunc(_phone, _password);
     }
   }
@@ -54,7 +52,6 @@ class SignUpPhoneForm extends StatelessWidget {
                 validator: (value) =>
                     value.isEmpty ? _lang.translate('phone_is_empty') : null,
                 onChanged: (phone) {
-                  print(phone.completeNumber);
                   _phone = phone.completeNumber.toString();
                 },
               ),

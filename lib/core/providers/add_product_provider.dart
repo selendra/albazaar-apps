@@ -5,7 +5,6 @@ class AddProductProvider with ChangeNotifier {
   GetRequest _getRequest;
 
   AddProductProvider() {
-    print('fetch');
     addProduct = AddProduct();
     _getRequest = GetRequest();
     fetchShippingServices();
@@ -24,7 +23,6 @@ class AddProductProvider with ChangeNotifier {
   }
 
   void fetchCategories() async {
-    print("Start fetch cagegories");
     await _getRequest.categories().then((value) {
       addProduct.categoriesList =
           List<Map<String, dynamic>>.from(json.decode(value.body));

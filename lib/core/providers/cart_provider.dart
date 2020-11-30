@@ -78,7 +78,7 @@ class CartProvider with ChangeNotifier {
 
   void getProductID() {
     for (int i = 0; i < _items.length; i++) {
-      print(_items[i].id);
+      // print(_items[i].id);
     }
   }
 

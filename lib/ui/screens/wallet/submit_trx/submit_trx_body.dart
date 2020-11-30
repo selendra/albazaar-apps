@@ -85,10 +85,6 @@ class SubmitTrxBody extends StatelessWidget{
 
         MyAppBar(
           title: "Send wallet",
-          onPressed: (){
-            print("Press");
-            Navigator.pop(context);
-          },
         ),
 
         Expanded(

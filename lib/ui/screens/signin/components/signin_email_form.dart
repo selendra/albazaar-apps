@@ -15,8 +15,6 @@ class SignInEmailForm extends StatelessWidget {
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {
       _emailFormKey.currentState.save();
-      print(_email);
-      print(_password);
       signInEmailFunc(_email, _password);
     }
   }

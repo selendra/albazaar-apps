@@ -14,9 +14,7 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {
       _isTouchIdOn = !_isTouchIdOn;
       if (_isTouchIdOn == true) {
-        print('Fingerprint Active');
       } else {
-        print('Fingerprint is not Active');
       }
     });
   }
@@ -25,9 +23,7 @@ class _SettingScreenState extends State<SettingScreen> {
     setState(() {
       _isPinOn = !_isPinOn;
       if (_isPinOn == true) {
-        print('PIN is on');
       } else {
-        print('Pin is Off');
       }
     });
   }

@@ -18,9 +18,7 @@ class _MyQrState extends State<MyQr> {
       setState(() {
         currentIndex = value;
       });
-      print(value);
       if (currentIndex > 2) {
-        print('final');
       } else {
         await _pageController.animateToPage(value,
             duration: Duration(milliseconds: 400), curve: Curves.easeOut);

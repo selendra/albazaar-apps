@@ -80,7 +80,6 @@ class AllDialog {
         FlatButton(
           child: Text(_lang.translate('no')),
           onPressed: () {
-            print('Cancel');
             Navigator.pop(context);
           },
         ),
@@ -114,7 +113,6 @@ class AllDialog {
             FlatButton(
               child: Text('Cancel'),
               onPressed: () {
-                print('Cancel');
                 Navigator.pop(context);
               },
             ),

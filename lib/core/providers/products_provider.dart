@@ -63,8 +63,6 @@ class ProductsProvider with ChangeNotifier {
               _items.add(item);
             }
           }
-
-          print(responseJson);
           notifyListeners();
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
@@ -72,7 +70,7 @@ class ProductsProvider with ChangeNotifier {
         }
       });
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -101,12 +99,10 @@ class ProductsProvider with ChangeNotifier {
               },
             ),
           );
-          print(response.body);
-          print(response.statusCode);
         },
       );
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -114,7 +110,6 @@ class ProductsProvider with ChangeNotifier {
     Components.dialogLoading(context: context, contents: "Adding");
     try {
       await _postRequest.addListing(newProduct).then((value) async {
-        print(value);
         // Close Loading
         Navigator.pop(context);
         await Components.dialog(
@@ -130,9 +125,9 @@ class ProductsProvider with ChangeNotifier {
       });
       // Close Loading
     } on SocketException catch (e) {
-      print("Error $e");
+      // print("Error $e");
     } catch (e) {
-      print("Error $e");
+      // print("Error $e");
     }
   }
 
@@ -156,11 +151,10 @@ class ProductsProvider with ChangeNotifier {
       for (var item in responseJson) {
         _imageList.add(ProductImage.fromJson(item));
       }
-      print(_imageList.length);
       //_imageList.add(responseJson);
 
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -177,14 +171,13 @@ class ProductsProvider with ChangeNotifier {
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
-      print('order list' + response.body);
       dynamic responseJson = json.decode(response.body);
       _orItems = new List<OrderProduct>();
       for (var item in responseJson) {
         _orItems.add(OrderProduct.fromJson(item));
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -195,7 +188,6 @@ class ProductsProvider with ChangeNotifier {
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
-      print("Fetch O listing ${response.body}");
 
       dynamic responseJson = json.decode(response.body);
       _prefService.saveString('oproducts', jsonEncode(responseJson));
@@ -209,7 +201,7 @@ class ProductsProvider with ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -248,7 +240,7 @@ class ProductsProvider with ChangeNotifier {
         },
       );
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -282,7 +274,6 @@ class ProductsProvider with ChangeNotifier {
         notifyListeners();
       }
     }
-    print(url.length);
   }
 
   //Add Image thumbnail to show first index of all images

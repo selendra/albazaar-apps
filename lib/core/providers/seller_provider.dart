@@ -40,8 +40,5 @@ class SellerProvider with ChangeNotifier {
       _allBuyerOrder.add(SellerModel.fromJson(data));
       notifyListeners();
     }
-    print(_backend.data);
-    print(allBuyerOrder);
-    print(allBuyerOrder.length);
   }
 }

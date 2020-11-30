@@ -40,9 +40,7 @@ class _IntroScreenState extends State<IntroScreen> {
       setState(() {
         currentIndex = value;
       });
-      print(value);
       if (currentIndex > 2) {
-        print('final');
       } else {
         await _pageController.animateToPage(value,
             duration: Duration(milliseconds: 400), curve: Curves.easeOut);
@@ -94,7 +92,6 @@ class _IntroScreenState extends State<IntroScreen> {
                         }, _lang.translate('skip')),
                         currentIndex >= 2
                             ? nextskipButton(() {
-                                print('Let begin');
                                 _pref.saveString('isshow', 'seen');
                                 Navigator.pushReplacementNamed(
                                     context, WelcomeView);

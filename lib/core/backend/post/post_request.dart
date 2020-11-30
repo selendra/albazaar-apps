@@ -118,11 +118,6 @@ class PostRequest {
 
   /* QR Code Send Request */
   Future<_http.Response> sendPayment(ModelScanPay _model) async {
-    print(_model.pin);
-    print(_model.asset);
-    print(_model.controlReceiverAddress.text);
-    print(_model.controlAmount.text);
-    print(_model.controlMemo.text);
     _backend.token = await StorageServices.fetchData('user_token');
     _backend.bodyEncode = json.encode({
       "pin": _model.pin,
@@ -297,8 +292,6 @@ class PostRequest {
 
   Future<_http.Response> markPamyment(String orderId) async {
     _backend.token = await StorageServices.fetchData('user_token');
-    print(_backend.token);
-    print(orderId);
     _backend.bodyEncode = json.encode({
       "order-id": orderId
     });
@@ -307,14 +300,12 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
-      print("Payment ${_backend.response.body}");
       return _backend.response;
     }
     return null;
   }
 
   Future<_http.Response> markShipment(String orderId) async {
-    print("Mark");
     _backend.token = await StorageServices.fetchData('user_token');
     _backend.bodyEncode = json.encode({
       "order-id": orderId
@@ -324,7 +315,6 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
-      print("Shipping ${_backend.response.body}");
       return _backend.response;
     }
     return null;
@@ -348,7 +338,6 @@ class PostRequest {
 
   Future<_http.Response> addListing(AddProduct product) async {
     _backend.token = await StorageServices.fetchData('user_token');
-    print(_backend.token);
     _backend.bodyEncode = json.encode({
       "name": product.productName.text,
       "price": product.price.text,
@@ -383,7 +372,6 @@ class PostRequest {
   // Upload Fil Image To Get Url Image
   Future<String> upLoadImage(File _image, String endpoint) async {
 
-    print(_image.path);
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
@@ -395,23 +383,20 @@ class PostRequest {
 
     var request = new _http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
     /* Make Form of Multipart */
-    print("Json");
     var multipartFile = new _http.MultipartFile.fromBytes(
       'file',
       compressImage,
       filename: 'image_picker.jpg',
       contentType: MediaType.parse('image/jpeg'),
     );
-    print("Add");
     request.files.add(multipartFile);
     /* Start send to server */
-    print("Send");
     String imageUrl;
     try{
       var r = await request.send();
       imageUrl = await r.stream.bytesToString();
     } catch (e) {
-      print(e);
+      // print(e);
     }
     /* Getting response */
     // response.stream.transform(utf8.decoder).listen((data){

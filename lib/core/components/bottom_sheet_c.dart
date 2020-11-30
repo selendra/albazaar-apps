@@ -40,9 +40,11 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        await TrxOptionMethod.scanQR(context, portfolioList, resetState);
+                        await TrxOptionMethod.scanQR(context, portfolioList, resetState).then((value) {
+                        });
+                        // await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(_scanResponse, false, []/* widget.portList */)))
                       } catch (e){
-                        print(e.message);
+                        // print(e.message);
                       }
                     },
                   ),

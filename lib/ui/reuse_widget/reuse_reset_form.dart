@@ -12,12 +12,9 @@ class ReuseResetForm extends StatelessWidget {
   void validateAndSubmit(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_pin);
-      print(_newPassword);
       await AuthProvider()
           .resetByEmail(_pin, _email, _newPassword)
           .then((value) {
-        print(value);
         ReuseAlertDialog().successDialog(context, value);
       });
     }

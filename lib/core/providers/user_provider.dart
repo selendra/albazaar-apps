@@ -44,7 +44,6 @@ class UserProvider with ChangeNotifier {
   //READ USER INFO FROM SHARE PREFERENCE
   void fetchUserInfo() {
     _prefService.read('user').then((value) {
-      print("My info $value");
       if (value != null) {
         var responseBody = json.decode(value);
         _mUser = User.fromJson(responseBody);
@@ -69,7 +68,6 @@ class UserProvider with ChangeNotifier {
   //Update user gender
   void setGender(String value) {
     mUser.gender = value;
-    print(mUser.gender);
     notifyListeners();
   }
 
@@ -77,7 +75,6 @@ class UserProvider with ChangeNotifier {
   Future<String> setUserPf(String firstName, String midName, String lastName,
       String gender, BuildContext context) async {
     await _prefService.read('token').then((value) async {
-      print(value);
       var response = await http.post(
         ApiUrl.SET_USER_PROFILE,
         headers: <String, String>{
@@ -103,7 +100,6 @@ class UserProvider with ChangeNotifier {
         alertText = responseBody['error']['message'];
       }
     });
-    print(alertText);
     return alertText;
   }
 
@@ -124,15 +120,12 @@ class UserProvider with ChangeNotifier {
           alertText = responseBody['message'];
         } catch (e) {
           var wallet = WalletResponse.fromJson(responseBody);
-          print(wallet);
           _seed = responseBody['message']['seed'];
           if (_seed != null) {
-            print('seed:' + _seed);
             _prefService.saveString('seed', _seed);
           }
         }
       } else {
-        print(responseBody);
         alertText = responseBody['error']['message'];
       }
     });
@@ -148,31 +141,23 @@ class UserProvider with ChangeNotifier {
           "authorization": "Bearer " + onValue,
         });
 
-        print("Portfolio ${response.body}");
-
-        print("MY status code ${response.statusCode}");
-
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody['error'] == null) {
-            print("Not error");
             mBalance = Balance.fromMap(responseBody);
             wallets[0].amount = mBalance.data.balance;
-            print(mBalance.data.balance);
             notifyListeners();
           } else {
             alertText = responseBody['error']['message'];
-            print(alertText);
           }
 
           alertText = response.statusCode.toString();
-          print(alertText);
         } else {
           throw HttpException("${response.statusCode}");
         }
       });
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
 
     notifyListeners();
@@ -216,7 +201,6 @@ class UserProvider with ChangeNotifier {
     http.StreamedResponse response = await request.send();
     /* Getting response */
     response.stream.transform(utf8.decoder).listen((data) {
-      print("Image url $data");
       imageUrl = data;
     });
 

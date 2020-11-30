@@ -20,10 +20,8 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_phone != null) {
-        print(_phone);
 
         await AuthProvider().forgetPasswordByPhone(_phone).then((value) {
-          print(value);
           setState(() {
             _isLoading = false;
           });

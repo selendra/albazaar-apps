@@ -119,8 +119,6 @@ class _PinScreenState extends State<PinScreen> {
         _isLoading = false;
       });
       var responseBody = json.decode(response.body);
-      print(responseBody);
-      print(response.body);
       try {
         alertText = responseBody['error']['message'];
         showAlertDialog(context);
@@ -136,7 +134,6 @@ class _PinScreenState extends State<PinScreen> {
             context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
       }
     } else {
-      print(response.body);
       setState(() {
         _isLoading = false;
       });
@@ -165,7 +162,6 @@ class _PinScreenState extends State<PinScreen> {
       strPin += element;
     });
     if (pinIndex == 6) {
-      print(strPin);
       checkVerify(strPin);
     }
   }

@@ -109,13 +109,13 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void onSubmit(BuildContext context) async {
-    if (_scanPayM.nodeReceiverAddress.hasFocus){
-      FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
-    } else if (_scanPayM.nodeAmount.hasFocus) {
-      FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
-    } else if (_scanPayM.nodeMemo.hasFocus) {
-      if (_scanPayM.enable == true) await clickSend();
-    }
+    // if (_scanPayM.nodeReceiverAddress.hasFocus){
+    //   FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
+    // } else if (_scanPayM.nodeAmount.hasFocus) {
+    //   FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
+    // } else {
+    //   if (_scanPayM.enable == true) await clickSend();
+    // }
   }
 
   void enableButton() {
@@ -183,13 +183,9 @@ class SubmitTrxState extends State<SubmitTrx> {
         // Close Loading
         Navigator.pop(context);
 
-        print("MY port response ${_backend.response.body}");
-        
         if (_backend.response.statusCode == 200) {
 
           _backend.mapData = json.decode(_backend.response.body);
-
-          print(_backend.mapData);
 
           if (!_backend.mapData.containsKey('error')) {
             await enableAnimation();
@@ -201,11 +197,9 @@ class SubmitTrxState extends State<SubmitTrx> {
           await Components.dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
         }
       } on SocketException catch (e) {
-        print("Socket catch");
         await Components.dialog(context, Text("${e.message}"), Text("Message")); 
         snackBar(_scanPayM.globalKey, e.message.toString());
       } catch (e) {
-        print("Normal catch");
         await Components.dialog(context, Text(e.message.toString()), Text("Message")); 
       }
       await Future.delayed(Duration(milliseconds: 50), () {

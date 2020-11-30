@@ -79,9 +79,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ));
           });
         }
-        print(_currentPosition);
       }).catchError((e) {
-        print(e);
       });
     } else {
       markers.removeLast();

@@ -67,7 +67,6 @@ class _PinScreenState extends State<PinScreen> {
       setState(() {
         _isLoading = true;
       });
-      print(_phoneNumber);
       await AuthProvider().addPhoneNumber(_phoneNumber).then((onValue) {
         alertText = onValue;
         if (alertText == 'Something went wrong on our end') {
@@ -142,7 +141,6 @@ class _PinScreenState extends State<PinScreen> {
           if (onValue != null) {
             _displayWalletInfo(context, onValue);
           } else {
-            print('seed null');
           }
         });
       }
@@ -290,7 +288,6 @@ class _PinScreenState extends State<PinScreen> {
             ? AppLocalizeService.of(context).translate('phone_number_is_number')
             : null,
         onChanged: (phone) {
-          print(phone.completeNumber);
           _phoneNumber = phone.completeNumber.toString();
         },
       ),
