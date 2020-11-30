@@ -6,8 +6,6 @@ class SellerProvider with ChangeNotifier {
 
   GetRequest _getRequest = GetRequest();
 
-  PostRequest _postRequest = PostRequest();
-
   List<SellerModel> allBuyerOrder = [];
 
   SellerProvider() {

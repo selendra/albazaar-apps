@@ -6,14 +6,10 @@ import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 class OrderDetailBody extends StatelessWidget {
   final OrderProduct productOrder;
 
-  String address = """Smiles Devis\n123 Somewhere St\nSomewhere, USA 65060
-  """;
-
   OrderDetailBody({this.productOrder});
 
   @override
   Widget build(BuildContext context) {
-    var _lang = AppLocalizeService.of(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +28,7 @@ class OrderDetailBody extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -40,20 +36,21 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order Id:"),
+                            child: reuseText("Seller Name:"),
                           ),
                           Expanded(
-                            child: reuseText(productOrder.id),
+                            child: reuseText('${productOrder.seller.value}'),
                           )
                         ],
                       ),
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order Date: "),
+                            child: reuseText("Phone: "),
                           ),
                           Expanded(
-                            child: reuseText("Apr 3, 2017"),
+                            child:
+                                reuseText("${productOrder.sellerPhonenumber}"),
                           )
                         ],
                       ),
@@ -63,34 +60,10 @@ class OrderDetailBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText('${productOrder.price}៛'),
+                            child: reuseText('${productOrder.total}៛'),
                           ),
                         ],
                       ),
-                      // SizedBox(
-                      //   height: 5.0,
-                      // ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: reuseText("Seller name: "),
-                      //     ),
-                      //     Expanded(
-                      //       child: reuseText('${productOrder.seller.value}'),
-                      //     ),
-                      //   ],
-                      // ),
-                      // Row(
-                      //   children: [
-                      //     Expanded(
-                      //       child: reuseText("Seller phonenumber: "),
-                      //     ),
-                      //     Expanded(
-                      //       child:
-                      //           reuseText('${productOrder.sellerPhonenumber}'),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -131,62 +104,18 @@ class OrderDetailBody extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(kDefaultRadius),
+          ListTile(
+            title: Text('${productOrder.price}៛'),
+            subtitle: Text(
+              productOrder.shippingAddress,
+              maxLines: 1,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 5, left: 5, right: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      reuseText(
-                        'Seller: ${productOrder.seller.value}',
-                        fontSize: 15,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          ReuseAlertDialog().successDialog(
-                            context,
-                            "Seller phone number: ${productOrder.sellerPhonenumber}",
-                          );
-                        },
-                        child: Text(
-                          'Contact Seller',
-                          style: TextStyle(
-                              color: kDefaultColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Divider(),
-                ListTile(
-                  title: Text('${productOrder.price}៛'),
-                  subtitle: Text(
-                    productOrder.shippingAddress,
-                    maxLines: 1,
-                  ),
-                  trailing: Text(productOrder.qauantity.toString()),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(productOrder.thumbnail),
-                  ),
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         OrderDetailBody(productOrder: productOrder)));
-                  },
-                ),
-              ],
+            trailing: Text(productOrder.qauantity.toString()),
+            leading: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage(productOrder.thumbnail),
             ),
+            onTap: () {},
           ),
           SizedBox(height: 20),
           Container(
@@ -198,27 +127,14 @@ class OrderDetailBody extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                         Provider.of<ProductsProvider>(context, listen: false)
-                            .markOrderComplete(productOrder.id, context,productOrder);
+                            .markOrderComplete(
+                                productOrder.id, context, productOrder);
                         print("Yes");
                       },
                       child: Text("Yes")));
               // validateAndSubmit();
             }, context),
           ),
-          // Container(
-          //   margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          //   child: ReuseButton.getItem('Confirm Shipping', () async {
-          //     await Components.dialog(
-          //         context,
-          //         Text("Did you already check customer's shipping?"),
-          //         Text("Massage"),
-          //         action: FlatButton(
-          //             onPressed: () {
-          //               print("Yes");
-          //             },
-          //             child: Text("Yes")));
-          //   }, context),
-          // ),
         ],
       ),
     );
