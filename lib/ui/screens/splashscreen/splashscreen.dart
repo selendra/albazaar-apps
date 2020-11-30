@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
     'images/undraw_loving_it.svg',
     'images/undraw_empty_cart.svg',
     'images/undraw_Mobile_application.svg'
-    'images/packaging.svg'
+        'images/packaging.svg'
   ];
 
   void checkUser() {
@@ -35,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
           AuthProvider().currentUser.then(
             (value) {
               if (value != null) {
-                //FETCH USER PROFILE AND NAVIGATE TO HOME SCREEN
+                //Fetch user profile and navigate to home screen
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchSocialUserInfo(
                         value.email, value.displayName, value.photoUrl);
@@ -83,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    //CHECK AUTH
+    //Check auth
     Timer(
       Duration(milliseconds: 2000),
       () {
@@ -99,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
       },
     );
 
-    //PRECACH SVG IMAGES
+    //Pre svg image
     for (int i = 0; i < svg.length; i++) {
       precachePicture(
           ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);

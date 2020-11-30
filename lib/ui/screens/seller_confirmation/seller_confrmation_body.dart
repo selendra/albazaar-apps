@@ -178,18 +178,18 @@ class SellerConfirmBody extends StatelessWidget {
                         () async {
                           Navigator.pop(context);
                           value.setPayment();
-                          await _postRequest
-                              .markPamyment(productOrder.id)
-                              .then((value) async {
-                            var data = json.decode(value.body);
-                            await Components.dialog(
-                                context,
-                                Text(
-                                  "data['message']",
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text("Message"));
-                          });
+                          await _postRequest.markPamyment(productOrder.id).then(
+                            (value) async {
+                              var data = json.decode(value.body);
+                              await Components.dialog(
+                                  context,
+                                  Text(
+                                    "${data['message']}",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text("Message"));
+                            },
+                          );
                         },
                       );
                     }, context)
@@ -207,7 +207,7 @@ class SellerConfirmBody extends StatelessWidget {
                               var data = json.decode(value.body);
                               await Components.dialog(
                                   context,
-                                  Text(data['message'],
+                                  Text('${data['message']}',
                                       textAlign: TextAlign.center),
                                   Text("Message"));
                             },

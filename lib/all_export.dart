@@ -197,6 +197,7 @@ export 'core/providers/products_provider.dart';
 export 'core/providers/lang_provider.dart';
 export 'core/providers/user_provider.dart';
 export 'core/providers/auth_provider.dart';
+export 'core/providers/seller_provider.dart';
 
 //models
 export 'core/models/api_url.dart';
