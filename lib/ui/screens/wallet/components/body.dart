@@ -10,6 +10,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  Backend _backend = Backend();
+
+  GetRequest _getRequest = GetRequest();
+
   showAlertDialog(BuildContext context, String alertText) {
     Widget okButton = FlatButton(
       child: Text("OK"),
@@ -51,8 +56,13 @@ class _BodyState extends State<Body> {
     });
   }
 
+  void fetchHistory() async {
+    await _getRequest.getTrxHistory();
+  }
+
   @override
   void initState() {
+    fetchHistory();
     super.initState();
     // Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); Closed
   }

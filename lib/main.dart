@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
+import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
@@ -53,7 +54,11 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<AddProductProvider>(
             create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
-            create: (context) => SellerProvider()),
+          create: (context) => SellerProvider()
+        ),
+        ChangeNotifierProvider<TrxHistoryProvider>(
+          create: (context) => TrxHistoryProvider()
+        ),
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

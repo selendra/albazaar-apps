@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
+  
   PrefService _prefService = PrefService();
   PostRequest _postRequest = PostRequest();
 
@@ -54,6 +55,8 @@ class ProductsProvider with ChangeNotifier {
 
           var responseJson = json.decode(response.body);
 
+          print(responseJson);
+
           _prefService.saveString('products', jsonEncode(responseJson));
           _items = new List<Product>();
           for (var mItem in responseJson) {
@@ -65,6 +68,8 @@ class ProductsProvider with ChangeNotifier {
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
+          
+          notifyListeners();
         }
       });
     } catch (e) {
