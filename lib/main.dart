@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
+
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'all_export.dart';
@@ -24,10 +24,10 @@ class SelendraApp extends StatefulWidget {
 class _SelendraAppState extends State<SelendraApp> {
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.portraitUp,
-    //   DeviceOrientation.portraitDown,
-    // ]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         StreamProvider<ConnectivityStatus>(
@@ -53,14 +53,13 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<AddProductProvider>(
             create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
-          create: (context) => SellerProvider()
-        ),
+            create: (context) => SellerProvider()),
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(
-          builder: (context, child) => 
-          ScrollConfiguration(
-            behavior: ScrollBehavior()..buildViewportChrome(context, child, AxisDirection.down),
+          builder: (context, child) => ScrollConfiguration(
+            behavior: ScrollBehavior()
+              ..buildViewportChrome(context, child, AxisDirection.down),
             child: child,
           ),
           // ResponsiveWrapper.builder(

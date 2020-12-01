@@ -119,7 +119,7 @@ class UserProvider with ChangeNotifier {
         try {
           alertText = responseBody['message'];
         } catch (e) {
-          var wallet = WalletResponse.fromJson(responseBody);
+          //var wallet = WalletResponse.fromJson(responseBody);
           _seed = responseBody['message']['seed'];
           if (_seed != null) {
             _prefService.saveString('seed', _seed);

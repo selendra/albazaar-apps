@@ -40,18 +40,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await AuthProvider().signInFacebook(context).then((value) {
-        // if (value == null) {
-        //   setState(() {
-        //     _isLoading = false;
-        //   });
-        // } else {
-        //   setState(() {
-        //     _isLoading = false;
-        //   });
-        //   //Navigator.pushReplacementNamed(context, BottomNavigationView);
-        // }
-      });
+      await AuthProvider().signInFacebook(context);
     } on PlatformException catch (e) {
       setState(() {
         _isLoading = false;
@@ -72,8 +61,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         });
         ReuseAlertDialog().successDialog(context, onValue);
       }
-    }).catchError((onError) {
-    });
+    }).catchError((onError) {});
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
@@ -106,7 +94,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   onPageChange(int index, {PageController p, TabController t}) async {
     if (p != null) {
       isPageCanChanged = false;
-      await _pageController.animateToPage(index, duration: Duration(milliseconds: 400), curve: Curves.easeOut);
+      await _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
       isPageCanChanged = true;
     } else {
       _tabController.animateTo(index);
@@ -139,60 +128,60 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
-          ? Center(
-            child: CircularProgressIndicator(),
-          )
-          : Column(
-            children: <Widget>[
-              Container(
-                  child: Image.asset(
-                'images/logo.png',
-                height: 80,
-                width: 80,
-              )),
-              SizedBox(
-                height: 40,
-              ),
-              ReuseAuthTab(
-                _tabController,
-                _lang.translate('phone'),
-                _lang.translate('email'),
-              ),
-              // tabs(context),
-              SizedBox(
-                height: 40,
-              ),
-              Expanded(
-                flex: 2,
-                child: PageView(
-                  controller: _pageController,
-                  onPageChanged: (index) {
-                    if (isPageCanChanged) {
-                      onPageChange(index);
-                    }
-                  },
-                  children: [
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.expand(),
-                      child: SignInPhoneForm(
-                        onApiSignInByPhone,
-                        onFacebookSignIn,
-                        onGoogleSignIn,
-                      ),
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Column(
+                children: <Widget>[
+                  Container(
+                      child: Image.asset(
+                    'images/logo.png',
+                    height: 80,
+                    width: 80,
+                  )),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ReuseAuthTab(
+                    _tabController,
+                    _lang.translate('phone'),
+                    _lang.translate('email'),
+                  ),
+                  // tabs(context),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        if (isPageCanChanged) {
+                          onPageChange(index);
+                        }
+                      },
+                      children: [
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignInPhoneForm(
+                            onApiSignInByPhone,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: SignInEmailForm(
+                            onApiSignInByEmail,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ), //emailForm(),
+                        ),
+                      ],
                     ),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.expand(),
-                      child: SignInEmailForm(
-                        onApiSignInByEmail,
-                        onFacebookSignIn,
-                        onGoogleSignIn,
-                      ), //emailForm(),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
       ),
     );
   }

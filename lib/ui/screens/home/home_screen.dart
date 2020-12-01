@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context);
     return Scaffold(
       key: _scaffoldState,
       body: _buildAppBar(),

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
 import 'wallet_list.dart';
-import 'package:provider/provider.dart';
 
 class MyWallet extends StatelessWidget {
-
   final Function resetState;
 
   MyWallet({this.resetState});
@@ -40,24 +38,23 @@ class MyWallet extends StatelessWidget {
                         Text(
                           'TOTAL BALANCE',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 40),
                         Flexible(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
                               '${mBalance.data.balance}',
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 45.0,
-                                fontWeight: FontWeight.bold
-                              ),
+                                  color: Colors.white,
+                                  fontSize: 45.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -73,17 +70,15 @@ class MyWallet extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 4,
-                  right: 10.0,
-                  left: 10.0
-                ),
+                    top: MediaQuery.of(context).size.height / 4,
+                    right: 10.0,
+                    left: 10.0),
                 child: Container(
                   child: Column(
                     children: <Widget>[
-
                       // List All Asset
                       WalletList(),
-                      
+
                       SizedBox(
                         height: 10,
                       ),
@@ -94,14 +89,18 @@ class MyWallet extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            ReuseButton.getItem(_lang.translate('send'), () async {
-                              await MyBottomSheet().trxOptions(context: context, portfolioList: [], resetState: resetState);
+                            ReuseButton.getItem(_lang.translate('send'),
+                                () async {
+                              await MyBottomSheet().trxOptions(
+                                  context: context,
+                                  portfolioList: [],
+                                  resetState: resetState);
                             }, context),
                             SizedBox(
                               height: 10,
                             ),
                             ReuseButton.getItem(_lang.translate('recieve'), () {
-                              Navigator.pushNamed(context, MyQrView); 
+                              Navigator.pushNamed(context, MyQrView);
                             }, context)
                           ],
                         ),

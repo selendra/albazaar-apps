@@ -11,7 +11,7 @@ class _BodyState extends State<Body> {
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
-  String firstName, midName, lastName, gender, _token, alertText;
+  String firstName, midName, lastName, gender, alertText;
   int _selectedIndex;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
 
