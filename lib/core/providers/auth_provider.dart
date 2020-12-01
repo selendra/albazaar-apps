@@ -125,10 +125,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> signOut(BuildContext context) async {
-    mBalance = Balance();
     _pref?.clear('token');
     _pref.clear('seen');
-    Provider.of<ProductsProvider>(context, listen: false).clearList();
     try {
       FirebaseUser user = await _auth.currentUser();
       for (UserInfo profile in user.providerData) {
@@ -157,12 +155,16 @@ class AuthProvider with ChangeNotifier {
   //USER SIGN IN USING EMAIL AND PASSWORD
   Future<String> signInByEmail(String email, String password, context) async {
     try {
-      http.Response response = await http.post(ApiUrl.LOG_IN_URL,
-          headers: ApiHeader.headers,
-          body: jsonEncode(<String, String>{
+      http.Response response = await http.post(
+        ApiUrl.LOG_IN_URL,
+        headers: ApiHeader.headers,
+        body: jsonEncode(
+          <String, String>{
             'email': email,
             'password': password,
-          }));
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         var responseJson = json.decode(response.body);
         _token = responseJson['token'];
@@ -176,7 +178,6 @@ class AuthProvider with ChangeNotifier {
                   .fetchUserPf(_token);
               Provider.of<ProductsProvider>(context, listen: false)
                   .fetchListingProduct();
-
               Navigator.pushReplacementNamed(context, BottomNavigationView);
             }
           });
@@ -217,24 +218,18 @@ class AuthProvider with ChangeNotifier {
 
       if (_token != null) {
         _pref.saveString('token', _token);
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        Provider.of<ProductsProvider>(context, listen: false)
-            .fetchListingProduct();
-        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<UserProvider>(context, listen: false)
+            .fetchPortforlio()
+            .then((onValue) {
+          if (onValue == '200') {
+            Provider.of<UserProvider>(context, listen: false)
+                .fetchUserPf(_token);
+            Provider.of<ProductsProvider>(context, listen: false)
+                .fetchListingProduct();
 
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
-        // Provider.of<UserProvider>(context, listen: false)
-        //     .fetchPortforlio()
-        //     .then((onValue) {
-        //   if (onValue == '200') {
-        //     Provider.of<UserProvider>(context, listen: false)
-        //         .fetchUserPf(_token);
-        //     Provider.of<ProductsProvider>(context, listen: false)
-        //         .fetchListingProduct();
-
-        //     Navigator.pushReplacementNamed(context, BottomNavigationView);
-        //   }
-        // });
+            Navigator.pushReplacementNamed(context, BottomNavigationView);
+          }
+        });
       } else {
         try {
           _alertText = responseJson['error']['message'];
@@ -256,8 +251,7 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       _alertText = responseBody['message'];
-    } else {
-    }
+    } else {}
     return _alertText;
   }
 
@@ -288,8 +282,7 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       _alertText = responseBody['message'];
-    } else {
-    }
+    } else {}
 
     return _alertText;
   }
@@ -315,8 +308,7 @@ class AuthProvider with ChangeNotifier {
       } else {
         return _alertText;
       }
-    } else {
-    }
+    } else {}
     return _alertText;
   }
 
@@ -425,8 +417,7 @@ class AuthProvider with ChangeNotifier {
         if (_alertText == null) {
           _alertText = repsonseBody['error']['message'];
         }
-      } else {
-      }
+      } else {}
     } on SocketException {
       // print('No Internet connection 😑');
     } on HttpException {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/ui/screens/listing/components/body.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_appbar.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
 
 class ListingScreen extends StatefulWidget {
   @override
@@ -31,7 +28,6 @@ class _ListingScreenState extends State<ListingScreen>
   @override
   Widget build(BuildContext context) {
     var lang = AppLocalizeService.of(context);
-
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
           lang.translate('listing'),

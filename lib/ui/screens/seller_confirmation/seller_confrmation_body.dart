@@ -7,7 +7,6 @@ import '../../component.dart';
 
 class SellerConfirmBody extends StatelessWidget {
   final SellerModel productOrder;
- 
 
   PostRequest _postRequest = PostRequest();
 
@@ -19,7 +18,7 @@ class SellerConfirmBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-   
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +74,9 @@ class SellerConfirmBody extends StatelessWidget {
                           ),
                           Expanded(
                             child: reuseText("៛${productOrder.total}"),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -179,18 +178,18 @@ class SellerConfirmBody extends StatelessWidget {
                         () async {
                           Navigator.pop(context);
                           value.setPayment();
-                          await _postRequest
-                              .markPamyment(productOrder.id)
-                              .then((value) async {
-                            var data = json.decode(value.body);
-                            await Components.dialog(
-                                context,
-                                Text(
-                                  "data['message']",
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text("Message"));
-                          });
+                          await _postRequest.markPamyment(productOrder.id).then(
+                            (value) async {
+                              var data = json.decode(value.body);
+                              await Components.dialog(
+                                  context,
+                                  Text(
+                                    "${data['message']}",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text("Message"));
+                            },
+                          );
                         },
                       );
                     }, context)
@@ -208,7 +207,7 @@ class SellerConfirmBody extends StatelessWidget {
                               var data = json.decode(value.body);
                               await Components.dialog(
                                   context,
-                                  Text(data['message'],
+                                  Text('${data['message']}',
                                       textAlign: TextAlign.center),
                                   Text("Message"));
                             },

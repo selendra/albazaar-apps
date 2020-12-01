@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class Body extends StatefulWidget {
   final TabController _controller;
@@ -143,7 +142,7 @@ class _BodyState extends State<Body> {
                           child: Container(
                             height: 100,
                             width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: Row(
                               children: [
                                 ClipRRect(

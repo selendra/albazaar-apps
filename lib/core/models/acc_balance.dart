@@ -1,4 +1,4 @@
-class Balance{
+class Balance {
   Balance({this.data});
 
   Data data;

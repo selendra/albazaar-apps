@@ -11,6 +11,7 @@ class OrderDetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _lang = AppLocalizeService.of(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,16 +29,18 @@ class OrderDetailBody extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                   margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      reuseText("SUMMARY:\n", fontSize: 15),
+                      reuseText(_lang.translate('summary') + ":\n",
+                          fontSize: 15),
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Seller Name:"),
+                            child:
+                                reuseText(_lang.translate('seller_name') + ":"),
                           ),
                           Expanded(
                             child: reuseText('${productOrder.seller.value}'),
@@ -50,7 +53,8 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Phone: "),
+                            child:
+                                reuseText(_lang.translate('phone_hint') + ":"),
                           ),
                           Expanded(
                             child:
@@ -64,7 +68,8 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText("Order Total: "),
+                            child: reuseText(
+                                _lang.translate('order_total') + ": "),
                           ),
                           Expanded(
                             child: reuseText('${productOrder.total}៛'),
@@ -78,11 +83,12 @@ class OrderDetailBody extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                  padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      reuseText("SHIPPING ADDRESS:\n", fontSize: 15),
+                      reuseText(_lang.translate('shipping_address') + ":\n",
+                          fontSize: 15),
                       reuseText('${productOrder.shippingAddress}'),
                     ],
                   ),

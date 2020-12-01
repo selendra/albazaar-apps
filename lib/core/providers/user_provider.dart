@@ -134,13 +134,14 @@ class UserProvider with ChangeNotifier {
 
   //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
+    mBalance = Balance();
     try {
       await _prefService.read('token').then((onValue) async {
-        http.Response response = await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
+        http.Response response =
+            await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
-
         print(response.body);
 
         if (response.statusCode == 200) {

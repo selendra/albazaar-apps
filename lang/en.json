@@ -111,5 +111,9 @@
     "reset_wallet_pin": "Reset Wallet Pin",
     "skip": "Skip",
     "let_begin": "LET'S BEGIN",
-    "order": "Order"
+    "order": "Order",
+    "summary": "Summary",
+    "seller_name": "Seller Name",
+    "order_total": "Order Total",
+    "quantity": "Qty"
 }
