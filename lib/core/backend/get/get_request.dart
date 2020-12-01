@@ -101,12 +101,11 @@ class GetRequest {
 
 
   /* User History */
-  Future<_http.Response> trxHistory() async {
+  Future<_http.Response> getTrxHistory() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/trx-history",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.walletAPI}/trx-history", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      print(_backend.response.body);
       return _backend.response;
     }
     return null;

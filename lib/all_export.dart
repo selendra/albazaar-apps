@@ -44,12 +44,16 @@ export 'package:selendra_marketplace_app/core/components/dropdown_c.dart';
 export 'package:selendra_marketplace_app/core/components/text_c.dart';
 export 'package:selendra_marketplace_app/core/components/snackBar_c.dart';
 export 'package:selendra_marketplace_app/core/components/body_scaffold_c.dart';
+export 'package:selendra_marketplace_app/core/components/item_list.dart';
 
 // Transaction
 export 'package:permission_handler/permission_handler.dart';
 export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx.dart';
 export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/fill_pin_dialog.dart';
 export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx_body.dart';
+
+// Utility Apps
+export 'package:selendra_marketplace_app/core/utils/app_utils.dart';
 
 export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx.dart';
 
@@ -233,6 +237,8 @@ export 'core/providers/products_provider.dart';
 export 'core/providers/lang_provider.dart';
 export 'core/providers/user_provider.dart';
 export 'core/providers/auth_provider.dart';
+export 'core/providers/trx_history_provider.dart';
+
 
 //models
 export 'core/models/api_url.dart';
@@ -246,6 +252,7 @@ export 'core/models/notification_model.dart';
 export 'core/models/add_product_m.dart';
 export 'core/models/product_image.dart';
 export 'package:selendra_marketplace_app/core/models/scan_pay_m.dart';
+export 'package:selendra_marketplace_app/core/models/trx_history_m.dart';
 
 //services
 export 'core/services/auth/api_post_services.dart';

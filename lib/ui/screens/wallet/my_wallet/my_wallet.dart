@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
+import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
 import 'wallet_list.dart';
-import 'package:provider/provider.dart';
 
 class MyWallet extends StatelessWidget {
 
@@ -13,6 +13,8 @@ class MyWallet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
+    var history = Provider.of<TrxHistoryProvider>(context);
+    print(history.trxHistoryList);
     // var _fetchBalance = Provider.of<UserProvider>(context);
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),

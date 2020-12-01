@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
 
 class WalletList extends StatefulWidget {
   @override
