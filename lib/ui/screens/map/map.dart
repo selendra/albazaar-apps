@@ -16,14 +16,13 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   LatLng kDefualtLatLng = LatLng(12.509, 105.634);
   String locate;
   bool _isLive = false;
-  //GlobalKey<ExpandableBottomSheetState> _key = GlobalKey();
 
-  animateMove(LatLng desPlace, double desZoom) {
-    final _latTween = Tween<double>(
+  void animateMove(LatLng desPlace, double desZoom) {
+    var _latTween = Tween<double>(
         begin: _mapController.center.latitude, end: desPlace.latitude);
-    final _longTween = Tween<double>(
+    var _longTween = Tween<double>(
         begin: _mapController.center.longitude, end: desPlace.longitude);
-    final _zoomTween = Tween<double>(begin: _mapController.zoom, end: desZoom);
+    var _zoomTween = Tween<double>(begin: _mapController.zoom, end: desZoom);
 
     var controller = AnimationController(
         duration: const Duration(milliseconds: 300), vsync: this);
@@ -79,8 +78,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ));
           });
         }
-      }).catchError((e) {
-      });
+      }).catchError((e) {});
     } else {
       markers.removeLast();
       // _key.currentState.contract();
@@ -123,49 +121,132 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       height: 80,
       anchorPos: AnchorPos.align(AnchorAlign.top),
       point: LatLng(11.56959, 104.92104),
-      builder: (ctx) => Container(
-        child: InkWell(
-          onTap: () {},
-          child: Icon(
-            Icons.location_on,
-            color: Colors.red,
-            size: 40,
-          ),
-        ),
+      builder: (ctx) => IconButton(
+        icon: Icon(Icons.location_on),
+        onPressed: () {
+          showBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(kDefaultRadius * 3),
+              ),
+            ),
+            context: ctx,
+            builder: (context) => Container(
+              height: MediaQuery.of(ctx).size.height / 3,
+              color: Colors.transparent,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(
+                      kDefaultRadius * 3,
+                    ),
+                    topRight: const Radius.circular(kDefaultRadius * 3),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Icon(
+                        Icons.drag_handle,
+                        color: kDefaultColor,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Consumer<ProductsProvider>(
+                      builder: (context, value, child) => Container(
+                        height: 100,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: value.imageList.length,
+                          itemBuilder: (context, index) => Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: 50.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                height: MediaQuery.of(context).size.width * 0.4,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 5.0,
+                                      blurRadius: 5.0,
+                                    )
+                                  ],
+                                ),
+                                child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(value.imageList[0].url),
+                                  placeholder: AssetImage('images/loading.gif'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      hoverColor: Colors.grey,
+                      title: Text(
+                        'Bonchay Ouk',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text('st5 toul sangke phnom penh'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        color: Colors.red,
+        iconSize: 40,
       ),
     ),
-    Marker(
-      width: 80,
-      height: 80,
-      anchorPos: AnchorPos.align(AnchorAlign.top),
-      point: LatLng(11.98750, 105.46491),
-      builder: (ctx) => Container(
-        child: InkWell(
-          onTap: () {},
-          child: Icon(
-            Icons.location_on,
-            color: Colors.red,
-            size: 40,
-          ),
-        ),
-      ),
-    ),
-    Marker(
-      width: 80,
-      height: 80,
-      anchorPos: AnchorPos.align(AnchorAlign.top),
-      point: LatLng(11.60895, 102.98397),
-      builder: (ctx) => Container(
-        child: InkWell(
-          onTap: () {},
-          child: Icon(
-            Icons.location_on,
-            color: Colors.red,
-            size: 40,
-          ),
-        ),
-      ),
-    ),
+    // Marker(
+    //   width: 80,
+    //   height: 80,
+    //   anchorPos: AnchorPos.align(AnchorAlign.top),
+    //   point: LatLng(11.98750, 105.46491),
+    //   builder: (ctx) => Container(
+    //     child: InkWell(
+    //       onTap: () {},
+    //       child: Icon(
+    //         Icons.location_on,
+    //         color: Colors.red,
+    //         size: 40,
+    //       ),
+    //     ),
+    //   ),
+    // ),
+    // Marker(
+    //   width: 80,
+    //   height: 80,
+    //   anchorPos: AnchorPos.align(AnchorAlign.top),
+    //   point: LatLng(11.60895, 102.98397),
+    //   builder: (ctx) => Container(
+    //     child: InkWell(
+    //       onTap: () {},
+    //       child: Icon(
+    //         Icons.location_on,
+    //         color: Colors.red,
+    //         size: 40,
+    //       ),
+    //     ),
+    //   ),
+    // ),
   ];
 
   @override
@@ -202,11 +283,12 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             ),
             layers: [
               TileLayerOptions(
-                  tileFadeInStart: 0.1,
-                  maxZoom: kDefaultMaxZoom,
-                  keepBuffer: 100,
-                  urlTemplate: osmMapTemplate,
-                  subdomains: ['a', 'b', 'c']),
+                tileFadeInStart: 0.1,
+                maxZoom: kDefaultMaxZoom,
+                keepBuffer: 100,
+                urlTemplate: osmMapTemplate,
+                subdomains: ['a', 'b', 'c'],
+              ),
               MarkerLayerOptions(
                 markers: markers,
               ),
