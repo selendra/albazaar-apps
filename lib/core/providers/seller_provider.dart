@@ -12,9 +12,11 @@ class SellerProvider with ChangeNotifier {
 
   bool _isPayment = false;
   bool _isShipment = false;
+  bool _isComplete = false;
 
   bool get isPayment => _isPayment;
   bool get isShipment => _isShipment;
+  bool get isComplete => _isComplete;
 
   void setPayment() {
     _isPayment = true;
@@ -23,6 +25,11 @@ class SellerProvider with ChangeNotifier {
 
   void setShipment() {
     _isShipment = true;
+    notifyListeners();
+  }
+
+  void setComplete() {
+    _isComplete = true;
     notifyListeners();
   }
 

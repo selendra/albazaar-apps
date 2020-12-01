@@ -10,7 +10,7 @@ class BtnAddToCart extends StatelessWidget {
     final productProvider = Provider.of<ProductsProvider>(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
-        width: 250,
+        width: 150,
         height: 50,
         child: RaisedButton(
           onPressed: () {
@@ -25,7 +25,10 @@ class BtnAddToCart extends StatelessWidget {
           },
           child: Text(
             AppLocalizeService.of(context).translate('add_to_cart'),
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           color: kDefaultColor,
           shape: RoundedRectangleBorder(

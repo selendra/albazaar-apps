@@ -178,6 +178,8 @@ class AuthProvider with ChangeNotifier {
                   .fetchUserPf(_token);
               Provider.of<ProductsProvider>(context, listen: false)
                   .fetchListingProduct();
+              Provider.of<SellerProvider>(context, listen: false)
+                  .fetchBuyerOrder();
               Navigator.pushReplacementNamed(context, BottomNavigationView);
             }
           });
@@ -226,7 +228,8 @@ class AuthProvider with ChangeNotifier {
                 .fetchUserPf(_token);
             Provider.of<ProductsProvider>(context, listen: false)
                 .fetchListingProduct();
-
+            Provider.of<SellerProvider>(context, listen: false)
+                .fetchBuyerOrder();
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         });

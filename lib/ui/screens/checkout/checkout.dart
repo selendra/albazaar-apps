@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Checkout extends StatefulWidget {
+ 
   @override
   _CheckoutState createState() => _CheckoutState();
 }
 
 class _CheckoutState extends State<Checkout> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  
 
   String _address = 'Shipping Information';
   setVal(String val) {

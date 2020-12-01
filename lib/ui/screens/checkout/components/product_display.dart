@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/checkout/components/item_order.dart';
 
 class ProductDisplay extends StatelessWidget {
   @override

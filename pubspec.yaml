@@ -66,6 +66,7 @@ dependencies:
   
   cached_network_image: ^2.3.2+1
 
+
   # Qr 
   qr_flutter: ^3.2.0
   qr_code_scanner: ^0.0.13

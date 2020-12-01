@@ -7,6 +7,8 @@ class BottomNavigationDetail extends StatelessWidget {
   BottomNavigationDetail(this.loadedProduct);
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductsProvider>(context);
     return Container(
       height: 60,
       child: Row(
@@ -17,7 +19,7 @@ class BottomNavigationDetail extends StatelessWidget {
             width: 50.0,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white,
+              color: Colors.grey[100],
               boxShadow: [
                 BoxShadow(
                   color: Colors.white,
@@ -38,7 +40,28 @@ class BottomNavigationDetail extends StatelessWidget {
               ),
             ),
           ),
-          BtnAddToCart(loadedProduct),
+          Row(
+            children: [
+              BtnAddToCart(loadedProduct),
+              SizedBox(
+                width: 5.0,
+              ),
+              Container(
+                width: 100,
+                child: ReuseButton.getItem('Buy Now', () {
+                  cartProvider.addCart(
+                      loadedProduct.id,
+                      loadedProduct.thumbnail,
+                      loadedProduct.name,
+                      loadedProduct.price,
+                      productProvider.orderQty);
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: Checkout()));
+                }, context),
+              ),
+            ],
+          ),
         ],
       ),
     );

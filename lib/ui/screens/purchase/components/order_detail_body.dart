@@ -198,7 +198,7 @@ class OrderDetailBody extends StatelessWidget {
               margin: const EdgeInsets.all(20),
               child: ReuseButton.getItem(
                   'Recieved',
-                  !value.isPayment && !value.isShipment
+                  !value.isPayment && !value.isShipment || value.isComplete
                       ? null
                       : () async {
                           await Components.dialog(
@@ -208,6 +208,7 @@ class OrderDetailBody extends StatelessWidget {
                               action: FlatButton(
                                   onPressed: () {
                                     Navigator.pop(context);
+                                    value.setComplete();
                                     Provider.of<ProductsProvider>(context,
                                             listen: false)
                                         .markOrderComplete(productOrder.id,

@@ -13,8 +13,6 @@ class MyWallet extends StatelessWidget {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     var history = Provider.of<TrxHistoryProvider>(context);
-    print(history.trxHistoryList);
-    // var _fetchBalance = Provider.of<UserProvider>(context);
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: RefreshIndicator(

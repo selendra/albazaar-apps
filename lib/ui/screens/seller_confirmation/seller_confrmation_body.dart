@@ -193,28 +193,34 @@ class SellerConfirmBody extends StatelessWidget {
                         },
                       );
                     }, context)
-                  : ReuseButton.getItem(_lang.translate('confirm_shipping'),
-                      () async {
-                      await ReuseAlertDialog().customDialog(
-                        context,
-                        'Do you want to confirm shipment?',
-                        () async {
-                          Navigator.pop(context);
-                          value.setShipment();
+                  : ReuseButton.getItem(
+                      _lang.translate('confirm_shipping'),
+                      value.isShipment
+                          ? null
+                          : () async {
+                              await ReuseAlertDialog().customDialog(
+                                context,
+                                'Do you want to confirm shipment?',
+                                () async {
+                                  Navigator.pop(context);
+                                  value.setShipment();
 
-                          await _postRequest.markShipment(productOrder.id).then(
-                            (value) async {
-                              var data = json.decode(value.body);
-                              await Components.dialog(
-                                  context,
-                                  Text('${data['message']}',
-                                      textAlign: TextAlign.center),
-                                  Text("Message"));
+                                  await _postRequest
+                                      .markShipment(productOrder.id)
+                                      .then(
+                                    (value) async {
+                                      var data = json.decode(value.body);
+                                      await Components.dialog(
+                                          context,
+                                          Text('${data['message']}',
+                                              textAlign: TextAlign.center),
+                                          Text("Message"));
+                                    },
+                                  );
+                                },
+                              );
                             },
-                          );
-                        },
-                      );
-                    }, context),
+                      context),
             ),
           ),
         ],

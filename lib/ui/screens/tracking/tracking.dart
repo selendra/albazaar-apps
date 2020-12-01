@@ -63,17 +63,19 @@ class _TrackingState extends State<Tracking> {
                       ],
                     ),
                     _sliderTheme(
-                      Slider(
-                        value: _currentValue,
-                        min: 0,
-                        max: 100,
-                        divisions: 2,
-                        //label: 'Battambong',
-                        onChanged: (double value) {
-                          setState(() {
-                            _currentValue = value;
-                          });
-                        },
+                      AbsorbPointer(
+                        child: Slider(
+                          value: _currentValue,
+                          min: 0,
+                          max: 100,
+                          divisions: 2,
+                          //label: 'Battambong',
+                          onChanged: (double value) {
+                            setState(() {
+                              _currentValue = value;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -144,12 +146,14 @@ class _TrackingState extends State<Tracking> {
                           transform: Matrix4.identity()
                             ..rotateZ(90 * 3.1415927 / 180),
                           child: _sliderTheme(
-                            Slider(
-                              value: _currentValue,
-                              min: 0,
-                              max: 100,
-                              divisions: 2,
-                              onChanged: (double value) {},
+                            AbsorbPointer(
+                              child: Slider(
+                                value: _currentValue,
+                                min: 0,
+                                max: 100,
+                                divisions: 2,
+                                onChanged: (double value) {},
+                              ),
                             ),
                           ),
                         ),
