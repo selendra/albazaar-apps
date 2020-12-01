@@ -7,6 +7,7 @@ class BtnAddToCart extends StatelessWidget {
   BtnAddToCart(this.loadedProduct);
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductsProvider>(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
         width: 250,
@@ -18,7 +19,7 @@ class BtnAddToCart extends StatelessWidget {
               loadedProduct.thumbnail,
               loadedProduct.name,
               loadedProduct.price,
-              1,
+              productProvider.orderQty,
             );
             Navigator.pop(context);
           },

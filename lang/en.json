@@ -115,5 +115,8 @@
     "summary": "Summary",
     "seller_name": "Seller Name",
     "order_total": "Order Total",
-    "quantity": "Qty"
+    "quantity": "Qty",
+    "your_order": "Your Order",
+    "see_all": "See all"
+
 }

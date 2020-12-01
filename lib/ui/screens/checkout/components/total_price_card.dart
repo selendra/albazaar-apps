@@ -13,9 +13,9 @@ class TotalPriceCard extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
               child: Text(
-                'Price: ',
+                AppLocalizeService.of(context).translate('price') + ': ',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

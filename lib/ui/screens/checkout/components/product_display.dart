@@ -5,6 +5,7 @@ import 'package:selendra_marketplace_app/ui/screens/checkout/components/item_ord
 class ProductDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
           child: Column(
@@ -15,7 +16,7 @@ class ProductDisplay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Your Order',
+                  _lang.translate('your_order'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 value.items.length > 1
@@ -40,7 +41,7 @@ class ProductDisplay extends StatelessWidget {
                                       ),
                                     ),
                                     title: Text(
-                                      'Your Order',
+                                      _lang.translate('your_order'),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -64,7 +65,7 @@ class ProductDisplay extends StatelessWidget {
                           );
                         },
                         splashColor: Colors.grey,
-                        child: Text('See all'),
+                        child: Text(_lang.translate('see_all')),
                       )
                     : Container(),
               ],
