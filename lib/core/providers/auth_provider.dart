@@ -161,12 +161,16 @@ class AuthProvider with ChangeNotifier {
   //USER SIGN IN USING EMAIL AND PASSWORD
   Future<String> signInByEmail(String email, String password, context) async {
     try {
-      http.Response response = await http.post(ApiUrl.LOG_IN_URL,
-          headers: ApiHeader.headers,
-          body: jsonEncode(<String, String>{
+      http.Response response = await http.post(
+        ApiUrl.LOG_IN_URL,
+        headers: ApiHeader.headers,
+        body: jsonEncode(
+          <String, String>{
             'email': email,
             'password': password,
-          }));
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         var responseJson = json.decode(response.body);
         _token = responseJson['token'];
@@ -226,24 +230,18 @@ class AuthProvider with ChangeNotifier {
 
       if (_token != null) {
         _pref.saveString('token', _token);
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        Provider.of<ProductsProvider>(context, listen: false)
-            .fetchListingProduct();
-        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<UserProvider>(context, listen: false)
+            .fetchPortforlio()
+            .then((onValue) {
+          if (onValue == '200') {
+            Provider.of<UserProvider>(context, listen: false)
+                .fetchUserPf(_token);
+            Provider.of<ProductsProvider>(context, listen: false)
+                .fetchListingProduct();
 
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
-        // Provider.of<UserProvider>(context, listen: false)
-        //     .fetchPortforlio()
-        //     .then((onValue) {
-        //   if (onValue == '200') {
-        //     Provider.of<UserProvider>(context, listen: false)
-        //         .fetchUserPf(_token);
-        //     Provider.of<ProductsProvider>(context, listen: false)
-        //         .fetchListingProduct();
-
-        //     Navigator.pushReplacementNamed(context, BottomNavigationView);
-        //   }
-        // });
+            Navigator.pushReplacementNamed(context, BottomNavigationView);
+          }
+        });
       } else {
         try {
           _alertText = responseJson['error']['message'];

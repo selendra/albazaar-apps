@@ -1,8 +1,6 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
-// import 'package:fluttercontactpicker/fluttercontactpicker.dart';
-import 'package:contacts_service/contacts_service.dart';
 
 class MyBottomSheetItem extends StatelessWidget {
 
@@ -39,7 +37,7 @@ class MyBottomSheetItem extends StatelessWidget {
 
 class TrxOptionMethod {
 
-  static PostRequest _postRequest = PostRequest();
+  //static PostRequest _postRequest = PostRequest();
   
   static void selectContact(
     BuildContext context,
@@ -48,8 +46,8 @@ class TrxOptionMethod {
   ) async {
 
     if (await Permission.contacts.request().isGranted){
-      String number = '';
-      var response;
+      // String number = '';
+      // var response;
       // final PhoneContact _contact = await ContactsService .pickPhoneContact();
       // final Contact _contact = await ContactsService.openDeviceContactPicker();
       // var existingContact = await ContactsService.getContacts();

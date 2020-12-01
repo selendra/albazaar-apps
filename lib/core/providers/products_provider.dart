@@ -57,14 +57,9 @@ class ProductsProvider with ChangeNotifier {
           _prefService.saveString('products', jsonEncode(responseJson));
           _items = new List<Product>();
           for (var mItem in responseJson) {
-            var item = Product.fromMap(mItem);
-
-            if (item.isSold == false) {
-              _items.add(item);
-            }
+            _items.add(mItem);
           }
 
-          print(responseJson);
           notifyListeners();
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
@@ -86,7 +81,7 @@ class ProductsProvider with ChangeNotifier {
     try {
       await _prefService.read('token').then(
         (value) async {
-          http.Response response = await http.post(
+           await http.post(
             ApiUrl.MAKE_ORDER,
             headers: <String, String>{
               "accept": "application/json",
@@ -101,8 +96,6 @@ class ProductsProvider with ChangeNotifier {
               },
             ),
           );
-          print(response.body);
-          print(response.statusCode);
         },
       );
     } catch (e) {
@@ -156,9 +149,6 @@ class ProductsProvider with ChangeNotifier {
       for (var item in responseJson) {
         _imageList.add(ProductImage.fromJson(item));
       }
-      print(_imageList.length);
-      //_imageList.add(responseJson);
-
     } catch (e) {
       print(e.toString());
     }

@@ -14,17 +14,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  // PostRequest _postRequest = PostRequest();
-
-  //Backend _backend = Backend();
-
   @override
   Widget build(BuildContext context) {
     return _buildTapBarView();
   }
 
   Widget _buildTapBarView() {
-    // var _lang = AppLocalizeService.of(context);
+    var _lang = AppLocalizeService.of(context);
     final ProductsProvider productsProvider =
         Provider.of<ProductsProvider>(context);
     final sellerProvider = Provider.of<SellerProvider>(context);
@@ -43,10 +39,14 @@ class _BodyState extends State<Body> {
                             vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
+                          borderRadius: BorderRadius.circular(
+                            kDefaultRadius,
+                          ),
                         ),
                         child: ListTile(
-                          title: Text(productsProvider.oItems[index].name),
+                          title: Text(
+                            productsProvider.oItems[index].name,
+                          ),
                           subtitle: Text(
                             productsProvider.oItems[index].description,
                             maxLines: 1,
@@ -54,7 +54,8 @@ class _BodyState extends State<Body> {
                           leading: CircleAvatar(
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(
-                                productsProvider.oItems[index].thumbnail),
+                              productsProvider.oItems[index].thumbnail,
+                            ),
                           ),
                           onTap: () {},
                         ),
@@ -130,7 +131,8 @@ class _BodyState extends State<Body> {
                                         ),
                                         isThreeLine: true,
                                         subtitle: Text(
-                                          'Qty: ${sellerProvider.allBuyerOrder[index].qauantity}',
+                                          _lang.translate('quantity') +
+                                              ': ${sellerProvider.allBuyerOrder[index].qauantity}',
                                         ),
                                       ),
                                     ),
@@ -143,7 +145,8 @@ class _BodyState extends State<Body> {
                                           MediaQuery.of(context).size.width / 2,
                                       child: ListTile(
                                         subtitle: Text(
-                                          'Price: ${sellerProvider.allBuyerOrder[index].price}៛ ',
+                                          _lang.translate('price') +
+                                              ': ${sellerProvider.allBuyerOrder[index].price}៛ ',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: kDefaultColor,

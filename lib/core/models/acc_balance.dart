@@ -1,6 +1,4 @@
-import 'package:selendra_marketplace_app/all_export.dart';
-
-class Balance{
+class Balance {
   Balance({this.data});
 
   Data data;
