@@ -43,6 +43,7 @@ class ProductsProvider with ChangeNotifier {
   int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
+    clearProperty();
     try {
       await _prefService.read('token').then((value) async {
         if (value != null) {
@@ -54,10 +55,8 @@ class ProductsProvider with ChangeNotifier {
 
           var responseJson = json.decode(response.body);
 
-          print(responseJson);
-
           _prefService.saveString('products', jsonEncode(responseJson));
-          _items = new List<Product>();
+
           for (var mItem in responseJson) {
             _items.add(
               Product.fromMap(mItem),
@@ -67,7 +66,6 @@ class ProductsProvider with ChangeNotifier {
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
-
           notifyListeners();
         }
       });
@@ -137,7 +135,6 @@ class ProductsProvider with ChangeNotifier {
   and add it into all image list*/
   Future<void> fetchImage(String token, String productId) async {
     try {
-      _imageList = List<ProductImage>();
       http.Response response = await http.post(ApiUrl.GET_PRODUCT_IMAGE,
           headers: <String, String>{
             "accept": "application/json",
@@ -166,7 +163,6 @@ class ProductsProvider with ChangeNotifier {
         "authorization": "Bearer " + token,
       });
       dynamic responseJson = json.decode(response.body);
-      _orItems = new List<OrderProduct>();
       for (var item in responseJson) {
         _orItems.add(OrderProduct.fromJson(item));
       }
@@ -186,7 +182,6 @@ class ProductsProvider with ChangeNotifier {
       dynamic responseJson = json.decode(response.body);
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
-      _oItems = new List<Product>();
       for (var item in responseJson) {
         _oItems.add(Product.fromMap(item));
       }
@@ -315,5 +310,12 @@ class ProductsProvider with ChangeNotifier {
       _orderQty--;
       notifyListeners();
     }
+  }
+
+  void clearProperty(){
+    _imageList.clear();
+    _orItems.clear();
+    _oItems.clear();
+    _items.clear();
   }
 }

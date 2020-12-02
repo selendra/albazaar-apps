@@ -8,7 +8,7 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> _allBuyerOrder = [];
 
-  List<SellerModel> get allBuyerOrder => [..._allBuyerOrder];
+  List<SellerModel> get allBuyerOrder => _allBuyerOrder;
 
   bool _isPayment = false;
   bool _isShipment = false;
@@ -42,14 +42,15 @@ class SellerProvider with ChangeNotifier {
   }
 
   void fetchBuyerOrder() async {
-    allBuyerOrder.clear();
+    print("Fetching");
     _backend.response = await _getRequest.getAllBuyerOrder();
-
     _backend.data = json.decode(_backend.response.body);
-
+    _allBuyerOrder.clear();
+    allBuyerOrder.clear();
     for (var data in _backend.data) {
       _allBuyerOrder.add(SellerModel.fromJson(data));
-      notifyListeners();
     }
+
+    notifyListeners();
   }
 }

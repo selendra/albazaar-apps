@@ -39,6 +39,6 @@ class SellerModel with ChangeNotifier {
         isShipping = value['isShipping'];
       }
     });
-    notifyListeners();
+    // notifyListeners();
   }
 }
