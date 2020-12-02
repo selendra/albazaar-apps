@@ -67,7 +67,6 @@ class ProductsProvider with ChangeNotifier {
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
-
           notifyListeners();
         }
       });
