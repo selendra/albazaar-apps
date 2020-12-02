@@ -3,7 +3,6 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
-  
   PrefService _prefService = PrefService();
   PostRequest _postRequest = PostRequest();
 
@@ -68,7 +67,7 @@ class ProductsProvider with ChangeNotifier {
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
-          
+
           notifyListeners();
         }
       });
@@ -297,6 +296,11 @@ class ProductsProvider with ChangeNotifier {
   //Find product by product ID
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
+  }
+
+  void removeOrderProduct(String id) {
+    _orItems.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
 
   //Increase order quantity of product

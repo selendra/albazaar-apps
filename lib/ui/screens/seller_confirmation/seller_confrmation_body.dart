@@ -204,7 +204,7 @@ class SellerConfirmBody extends StatelessWidget {
                                 () async {
                                   Navigator.pop(context);
                                   value.setShipment();
-
+                                  value.removeBuyerOrder(productOrder.id);
                                   await _postRequest
                                       .markShipment(productOrder.id)
                                       .then(

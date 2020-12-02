@@ -36,6 +36,10 @@ class SellerProvider with ChangeNotifier {
   SellerProvider() {
     fetchBuyerOrder();
   }
+  void removeBuyerOrder(String id) {
+    _allBuyerOrder.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
 
   void fetchBuyerOrder() async {
     // allBuyerOrder.clear();
