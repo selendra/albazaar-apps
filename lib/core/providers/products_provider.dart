@@ -127,6 +127,12 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  void getAllProductImg(String token) {
+    for (int i = 0; i < _items.length; i++) {
+      fetchImage(token, _items[i].id);
+    }
+  }
+
   /*Fetch all product image by looping all product id in list 
   and add it into all image list*/
   Future<void> fetchImage(String token, String productId) async {
@@ -149,12 +155,6 @@ class ProductsProvider with ChangeNotifier {
       }
     } catch (e) {
       // print(e.toString());
-    }
-  }
-
-  void getAllProductImg(String token) {
-    for (int i = 0; i < _items.length; i++) {
-      fetchImage(token, _items[i].id);
     }
   }
 

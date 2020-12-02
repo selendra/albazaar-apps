@@ -170,19 +170,12 @@ class AuthProvider with ChangeNotifier {
         _token = responseJson['token'];
         if (_token != null) {
           _pref.saveString('token', _token);
-          Provider.of<UserProvider>(context, listen: false)
-              .fetchPortforlio()
-              .then((onValue) {
-            if (onValue == '200') {
-              Provider.of<UserProvider>(context, listen: false)
-                  .fetchUserPf(_token);
-              Provider.of<ProductsProvider>(context, listen: false)
-                  .fetchListingProduct();
-              Provider.of<SellerProvider>(context, listen: false)
-                  .fetchBuyerOrder();
-              Navigator.pushReplacementNamed(context, BottomNavigationView);
-            }
-          });
+          Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+          Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchListingProduct();
+          Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
         } else {
           _alertText = responseJson['message'];
           if (_alertText == null) {
@@ -220,19 +213,12 @@ class AuthProvider with ChangeNotifier {
 
       if (_token != null) {
         _pref.saveString('token', _token);
-        Provider.of<UserProvider>(context, listen: false)
-            .fetchPortforlio()
-            .then((onValue) {
-          if (onValue == '200') {
-            Provider.of<UserProvider>(context, listen: false)
-                .fetchUserPf(_token);
-            Provider.of<ProductsProvider>(context, listen: false)
-                .fetchListingProduct();
-            Provider.of<SellerProvider>(context, listen: false)
-                .fetchBuyerOrder();
-            Navigator.pushReplacementNamed(context, BottomNavigationView);
-          }
-        });
+        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchListingProduct();
+        Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
       } else {
         try {
           _alertText = responseJson['error']['message'];

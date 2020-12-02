@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -76,17 +75,17 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeIn,
       parent: controller,
     );
-    controller.forward();
-
-    _pref.read('isshow').then(
-      (onValue) {
-        if (onValue == null) {
-          Navigator.pushReplacementNamed(context, IntroScreenView);
-        } else {
-          checkUser();
-        }
-      },
-    );
+    controller.forward().then((value) {
+      _pref.read('isshow').then(
+        (onValue) {
+          if (onValue == null) {
+            Navigator.pushReplacementNamed(context, IntroScreenView);
+          } else {
+            checkUser();
+          }
+        },
+      );
+    });
 
     //Pre svg image
     for (int i = 0; i < svg.length; i++) {
@@ -101,6 +100,12 @@ class _SplashScreenState extends State<SplashScreen>
         _lang.setLocal(value, context);
       },
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
