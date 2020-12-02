@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  contacts_service:
-    dependency: "direct main"
-    description:
-      name: contacts_service
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.6"
   convert:
     dependency: transitive
     description:
@@ -350,6 +343,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttercontactpicker:
+    dependency: "direct main"
+    description:
+      name: fluttercontactpicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   geolocator:
     dependency: "direct main"
     description:
