@@ -16,6 +16,7 @@ class TransactionHistory extends StatelessWidget {
     for (int i = 0; i < history.length; i++) {
       listItems.add(
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () async {
@@ -49,61 +50,53 @@ class TransactionHistory extends StatelessWidget {
               },
               child: Container(
                 //margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
-                height: 50,
-                child: Card(
-                  elevation: 0,
-                  // shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(kDefaultRadius),
-                  //   side: BorderSide(
-                  //     color: kDefaultColor,
-                  //   ),
-                  // ),
-                  child: ListTile(
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          AppUtils.timeStampToDateTime(history[i].createdAt),
-                          style: TextStyle(fontSize: 10.0),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        userWallet == history[i].destination
-                            ? Text(
-                                '+ ${history[i].amount}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.green,
-                                  fontSize: 18.0,
-                                ),
-                              )
-                            : Text(
-                                '- ${history[i].amount}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.red,
-                                  fontSize: 18.0,
-                                ),
-                              ),
-                      ],
-                    ),
-                    leading: Image.asset(logo, width: 30, height: 30),
-                    title: Text(
-                      userWallet == history[i].destination
-                          ? 'Recieved'
-                          : 'Sent',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18.0,
+                height: 60.0,
+                color: Colors.white,
+                child: ListTile(
+                  trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        AppUtils.timeStampToDateTime(history[i].createdAt),
+                        style: TextStyle(fontSize: 10.0),
                       ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      userWallet == history[i].destination
+                          ? Text(
+                              '+ ${history[i].amount} SEL',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: Colors.green,
+                                fontSize: 18.0,
+                              ),
+                            )
+                          : Text(
+                              '- ${history[i].amount} SEL',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: Colors.red,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                    ],
+                  ),
+                  leading: Image.asset(logo, width: 30, height: 30),
+                  title: Text(
+                    userWallet == history[i].destination ? 'Recieved' : 'Sent',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 18.0,
                     ),
                   ),
                 ),
               ),
             ),
-            Divider(),
+            Divider(
+              height: 4.0,
+            ),
           ],
         ),
       );

@@ -115,6 +115,8 @@ class AuthProvider with ChangeNotifier {
       } else {
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
+        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
       }
     }
