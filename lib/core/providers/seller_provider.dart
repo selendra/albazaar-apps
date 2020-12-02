@@ -42,10 +42,8 @@ class SellerProvider with ChangeNotifier {
   }
 
   void fetchBuyerOrder() async {
-    _allBuyerOrder = List<SellerModel>();
     _backend.response = await _getRequest.getAllBuyerOrder();
     _backend.data = json.decode(_backend.response.body);
-
     for (var data in _backend.data) {
       _allBuyerOrder.add(SellerModel.fromJson(data));
       notifyListeners();

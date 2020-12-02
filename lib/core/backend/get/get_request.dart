@@ -91,20 +91,23 @@ class GetRequest {
   Future<_http.Response> getAllBuyerOrder() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/list-order-from-seller",
-        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+      _backend.response = await _http.get(
+        "${_sldApi.api}/list-order-from-seller",
+        headers: _backend.conceteHeader(
+            "authorization", "Bearer ${_backend.token['token']}"),
       );
       return _backend.response;
     }
     return null;
   }
 
-
   /* User History */
   Future<_http.Response> getTrxHistory() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.walletAPI}/trx-history", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.walletAPI}/trx-history",
+          headers: _backend.conceteHeader(
+              "authorization", "Bearer ${_backend.token['token']}"));
       print(_backend.response.body);
       return _backend.response;
     }
