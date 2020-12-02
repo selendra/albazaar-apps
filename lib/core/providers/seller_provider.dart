@@ -42,7 +42,7 @@ class SellerProvider with ChangeNotifier {
   }
 
   void fetchBuyerOrder() async {
-    // allBuyerOrder.clear();
+    allBuyerOrder.clear();
     _backend.response = await _getRequest.getAllBuyerOrder();
 
     _backend.data = json.decode(_backend.response.body);
