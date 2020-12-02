@@ -11,6 +11,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   PrefService _pref = PrefService();
+  AnimationController controller;
+  Animation<double> animation;
 
   List<String> svg = [
     'images/undraw_wallet.svg',
@@ -65,19 +67,24 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    //Check auth
-    Timer(
-      Duration(milliseconds: 2000),
-      () {
-        _pref.read('isshow').then(
-          (onValue) {
-            if (onValue == null) {
-              Navigator.pushReplacementNamed(context, IntroScreenView);
-            } else {
-              checkUser();
-            }
-          },
-        );
+    controller = AnimationController(
+      duration: Duration(seconds: 3),
+      vsync: this,
+    );
+
+    animation = CurvedAnimation(
+      curve: Curves.easeIn,
+      parent: controller,
+    );
+    controller.forward();
+
+    _pref.read('isshow').then(
+      (onValue) {
+        if (onValue == null) {
+          Navigator.pushReplacementNamed(context, IntroScreenView);
+        } else {
+          checkUser();
+        }
       },
     );
 
@@ -101,10 +108,13 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: NetworkAlert(
         Center(
-          child: Image.asset(
-            'images/logo.png',
-            height: 200,
-            width: 200,
+          child: FadeTransition(
+            opacity: animation,
+            child: Image.asset(
+              'images/logo.png',
+              height: 200,
+              width: 200,
+            ),
           ),
         ),
       ),
