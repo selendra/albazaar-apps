@@ -30,7 +30,7 @@ class ReuseFlexSpace extends StatelessWidget {
                   softWrap: true,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 45.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold),
                 ),
               ),

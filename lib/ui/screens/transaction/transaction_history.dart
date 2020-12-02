@@ -17,7 +17,7 @@ class TransactionHistory extends StatelessWidget {
     for (int i = 0; i < history.length; i++) {
       listItems.add(
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
           child: Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
