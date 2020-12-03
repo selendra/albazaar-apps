@@ -46,31 +46,7 @@ class _BodyState extends State<Body> {
       child: TabBarView(
         controller: widget._controller,
         children: <Widget>[
-<<<<<<< HEAD
-
-          // All
-          Container(
-            child: productsProvider.oItems.isNotEmpty
-                ? ListView.builder(
-                    itemCount: productsProvider.oItems.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            kDefaultRadius,
-                          ),
-                        ),
-                        child: ListTile(
-                          title: Text(
-                            productsProvider.oItems[index].name,
-                          ),
-                          subtitle: Text(
-                            productsProvider.oItems[index].description,
-                            maxLines: 1,
-=======
+          //all
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
@@ -86,7 +62,6 @@ class _BodyState extends State<Body> {
                             borderRadius: BorderRadius.circular(
                               kDefaultRadius,
                             ),
->>>>>>> 182dbde900ee296e424bf287b51313fedf1be89c
                           ),
                           child: ListTile(
                             title: Text(
@@ -102,7 +77,10 @@ class _BodyState extends State<Body> {
                                 productsProvider.oItems[index].thumbnail,
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, DetailView,
+                                  arguments: productsProvider.oItems[index].id);
+                            },
                           ),
                         );
                       })
@@ -115,22 +93,8 @@ class _BodyState extends State<Body> {
                     ),
             ),
           ),
-<<<<<<< HEAD
 
-          //Pending
-          Container(
-            child: sellerProvider.allBuyerOrder.isNotEmpty
-                ? ListView.builder(
-                    itemCount: sellerProvider.allBuyerOrder.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            RouteAnimation(
-                              enterPage: SellerConfirm(
-                                productOrder:
-                                    sellerProvider.allBuyerOrder[index],
-=======
+          //pending
           RefreshIndicator(
             onRefresh: _refreshSellerList,
             child: Container(
@@ -146,9 +110,10 @@ class _BodyState extends State<Body> {
                                   productOrder:
                                       sellerProvider.allBuyerOrder[index],
                                 ),
->>>>>>> 182dbde900ee296e424bf287b51313fedf1be89c
                               ),
                             );
+                            print(sellerProvider
+                                .allBuyerOrder[index].orderStatus);
                           },
                           child: Card(
                             elevation: 0,
@@ -240,27 +205,7 @@ class _BodyState extends State<Body> {
                     ),
             ),
           ),
-<<<<<<< HEAD
-
-          //Sold
-          Container(
-            child: productsProvider.oItems.isNotEmpty
-                ? ListView.builder(
-                    itemCount: productsProvider.isSold.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(kDefaultRadius),
-                        ),
-                        child: ListTile(
-                          title: Text(productsProvider.isSold[index].name),
-                          subtitle: Text(
-                            productsProvider.isSold[index].description,
-                            maxLines: 1,
-=======
+          //sold
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
@@ -274,7 +219,6 @@ class _BodyState extends State<Body> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(kDefaultRadius),
->>>>>>> 182dbde900ee296e424bf287b51313fedf1be89c
                           ),
                           child: ListTile(
                             title: Text(productsProvider.isSold[index].name),

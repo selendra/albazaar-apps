@@ -4,6 +4,7 @@ class SellerModel with ChangeNotifier {
   bool isPayment = false;
   bool isShipping = false;
   String shippingService = '';
+  String orderStatus = '';
   String productId = '';
   String name = '';
   String buyerId = '';
@@ -21,6 +22,7 @@ class SellerModel with ChangeNotifier {
 
   SellerModel.fromJson(Map<String, dynamic> data) {
     shippingService = data['shipping_service'];
+    orderStatus = data["order_status_dec"];
     productId = data['product_id'];
     name = data['name'];
     buyerId = data['buyer_id'];

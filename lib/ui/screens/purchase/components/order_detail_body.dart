@@ -195,33 +195,33 @@ class OrderDetailBody extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          Consumer<SellerProvider>(
-            builder: (context, value, child) => Container(
-              margin: const EdgeInsets.all(20),
-              child: ReuseButton.getItem(
-                  'Recieved',
-                  !value.isPayment && !value.isShipment || value.isComplete
-                      ? null
-                      : () async {
-                          await Components.dialog(
-                              context,
-                              Text("Do you want to complete order?"),
-                              Text("Message"),
-                              action: FlatButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    value.setComplete();
-                                    Provider.of<ProductsProvider>(context,
-                                            listen: false)
-                                        .markOrderComplete(productOrder.id,
-                                            context, productOrder);
-                                    productProvider
-                                        .removeOrderProduct(productOrder.id);
-                                  },
-                                  child: Text("Yes")));
-                        },
-                  context),
-            ),
+          Container(
+            margin: const EdgeInsets.all(20),
+            child: ReuseButton.getItem(
+                'Recieved',
+                productOrder.orderStatus != 'Shipment' ||
+                        productOrder.orderStatus == 'Order Complete'
+                    ? null
+                    : () async {
+                        await Components.dialog(
+                          context,
+                          Text("Do you want to complete order?"),
+                          Text("Message"),
+                          action: FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Provider.of<ProductsProvider>(context,
+                                      listen: false)
+                                  .markOrderComplete(
+                                      productOrder.id, context, productOrder);
+                              productProvider
+                                  .removeOrderProduct(productOrder.id);
+                            },
+                            child: Text("Yes"),
+                          ),
+                        );
+                      },
+                context),
           ),
         ],
       ),
