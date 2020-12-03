@@ -78,6 +78,7 @@ class Product with ChangeNotifier {
 class OrderProduct with ChangeNotifier {
   OrderProduct({
     this.shippingService,
+    this.orderStatus,
     this.productId,
     this.name,
     this.buyerId,
@@ -92,6 +93,7 @@ class OrderProduct with ChangeNotifier {
   });
 
   String shippingService;
+  String orderStatus;
   String productId;
   String name;
   String buyerId;
@@ -106,6 +108,7 @@ class OrderProduct with ChangeNotifier {
 
   factory OrderProduct.fromJson(Map<String, dynamic> json) => OrderProduct(
         shippingService: json["shipping_service"],
+        orderStatus: json["order_status_dec"],
         productId: json["product_id"],
         name: json["name"],
         buyerId: json["buyer_id"],

@@ -52,6 +52,7 @@ class SignUpPhoneForm extends StatelessWidget {
                 validator: (value) =>
                     value.isEmpty ? _lang.translate('phone_is_empty') : null,
                 onChanged: (phone) {
+                  print("My phone $phone ");
                   _phone = phone.completeNumber.toString();
                 },
               ),

@@ -15,6 +15,8 @@ class ProductsProvider with ChangeNotifier {
   //List of all order product items
   List<OrderProduct> _orItems = [];
 
+  List<OrderProduct> _allOrderItems = [];
+
   //List of all order product item that is available
   List<Product> _isAvailable = [];
 
@@ -37,13 +39,13 @@ class ProductsProvider with ChangeNotifier {
   List<Product> get isAvailable => [..._isAvailable];
   List<Product> get isSold => [..._isSold];
   List<OrderProduct> get orItems => [..._orItems];
+  List<OrderProduct> get allOrderItems => [..._allOrderItems];
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
   List<OrderProduct> get completeProduct => [..._completeProduct];
   int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
-    clearProperty();
     try {
       await _prefService.read('token').then((value) async {
         if (value != null) {
@@ -55,8 +57,8 @@ class ProductsProvider with ChangeNotifier {
 
           var responseJson = json.decode(response.body);
 
-          _prefService.saveString('products', jsonEncode(responseJson));
-
+          //_prefService.saveString('products', jsonEncode(responseJson));
+          clearProperty();
           for (var mItem in responseJson) {
             _items.add(
               Product.fromMap(mItem),
@@ -163,8 +165,17 @@ class ProductsProvider with ChangeNotifier {
         "authorization": "Bearer " + token,
       });
       dynamic responseJson = json.decode(response.body);
+
       for (var item in responseJson) {
-        _orItems.add(OrderProduct.fromJson(item));
+        _allOrderItems.add(OrderProduct.fromJson(item));
+        var itemData = OrderProduct.fromJson(item);
+        if (itemData.orderStatus == 'Order Complete') {
+          _completeProduct.add(itemData);
+          notifyListeners();
+        } else {
+          _orItems.add(itemData);
+          notifyListeners();
+        }
       }
     } catch (e) {
       // print(e.toString());
@@ -187,7 +198,6 @@ class ProductsProvider with ChangeNotifier {
       }
 
       findIsSold(oItems);
-
       notifyListeners();
     } catch (e) {
       // print(e.toString());
@@ -221,7 +231,6 @@ class ProductsProvider with ChangeNotifier {
             await ReuseAlertDialog().successDialog(context, message);
           } else {
             await ReuseAlertDialog().customDialog(context, message, () {
-              _completeProduct.add(product);
               Navigator.pop(context);
               notifyListeners();
             });
@@ -312,10 +321,11 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void clearProperty(){
+  void clearProperty() {
     _imageList.clear();
     _orItems.clear();
     _oItems.clear();
     _items.clear();
+    notifyListeners();
   }
 }

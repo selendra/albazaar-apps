@@ -34,19 +34,21 @@ class _BodyState extends State<Body> {
       child: TabBarView(
         controller: widget._controller,
         children: <Widget>[
+          //all
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
-              child: productsProvider.orItems.isNotEmpty
+              child: productsProvider.allOrderItems.isNotEmpty
                   ? ListView.builder(
-                      itemCount: productsProvider.orItems.length,
+                      itemCount: productsProvider.allOrderItems.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
                             Navigator.of(context).push(
                               RouteAnimation(
                                 enterPage: OrderDetail(
-                                  productOrder: productsProvider.orItems[index],
+                                  productOrder:
+                                      productsProvider.allOrderItems[index],
                                 ),
                               ), //productsProvider.orItems[index]))
                             );
@@ -77,7 +79,7 @@ class _BodyState extends State<Body> {
                                       ),
                                       child: Image.network(
                                         productsProvider
-                                            .orItems[index].thumbnail,
+                                            .allOrderItems[index].thumbnail,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -94,13 +96,13 @@ class _BodyState extends State<Body> {
                                         child: ListTile(
                                           title: Text(
                                             productsProvider
-                                                .orItems[index].name,
+                                                .allOrderItems[index].name,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           isThreeLine: true,
                                           subtitle: Text(
-                                            'Qty: ${productsProvider.orItems[index].qauantity}',
+                                            'Qty: ${productsProvider.allOrderItems[index].qauantity}',
                                           ),
                                         ),
                                       ),
@@ -114,7 +116,7 @@ class _BodyState extends State<Body> {
                                                 2,
                                         child: ListTile(
                                           subtitle: Text(
-                                            'Price: ${productsProvider.orItems[index].price}៛ ',
+                                            'Price: ${productsProvider.allOrderItems[index].price}៛ ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: kDefaultColor,
@@ -139,6 +141,8 @@ class _BodyState extends State<Body> {
                     ),
             ),
           ),
+
+          //pending
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
@@ -155,6 +159,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ), //productsProvider.orItems[index]))
                             );
+                            print(productsProvider.orItems[index].orderStatus);
                           },
                           child: Card(
                             elevation: 0,
@@ -244,6 +249,7 @@ class _BodyState extends State<Body> {
                     ),
             ),
           ),
+          //complete
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
@@ -311,7 +317,7 @@ class _BodyState extends State<Body> {
                                           ),
                                           isThreeLine: true,
                                           subtitle: Text(
-                                            'Qty: ${productsProvider.orItems[index].qauantity}',
+                                            'Qty: ${productsProvider.completeProduct[index].qauantity}',
                                           ),
                                         ),
                                       ),
@@ -325,7 +331,7 @@ class _BodyState extends State<Body> {
                                                 2,
                                         child: ListTile(
                                           subtitle: Text(
-                                            'Price: ${productsProvider.orItems[index].price}៛ ',
+                                            'Price: ${productsProvider.completeProduct[index].price}៛ ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: kDefaultColor,

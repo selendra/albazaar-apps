@@ -7,12 +7,13 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
 
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
           '/detail',
           arguments: product.id,
         );
+
         Provider.of<ProductsProvider>(context, listen: false)
             .findImgById(product.id);
       },

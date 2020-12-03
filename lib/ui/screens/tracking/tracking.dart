@@ -20,11 +20,12 @@ class _TrackingState extends State<Tracking> {
   }
 
   void checkProgress() {
-    var track = Provider.of<SellerProvider>(context, listen: false);
-    if (track.isShipment) {
+    if (widget.productOrder.orderStatus == "Order Complete") {
       setState(() {
-        _currentValue = 50;
+        _currentValue = 100;
       });
+    } else if (widget.productOrder.orderStatus == "Shipment") {
+      _currentValue = 50;
     }
   }
 
@@ -45,21 +46,32 @@ class _TrackingState extends State<Tracking> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       '${widget.productOrder.name}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Text('Order: ${widget.productOrder.id}'),
-                    Text('Reminder: Buyer has confirmes order recieved'),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                        'Reminder: Product ${widget.productOrder.orderStatus}'),
                     SizedBox(
                       height: 40,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText('Battambong', TextAlign.start),
-                        reuseText('Phnom Penh', TextAlign.start),
+                        reuseText('Dubai', TextAlign.start),
+                        reuseText(widget.productOrder.shippingAddress,
+                            TextAlign.start),
                       ],
                     ),
                     _sliderTheme(

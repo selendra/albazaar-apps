@@ -78,7 +78,10 @@ class _BodyState extends State<Body> {
                                 productsProvider.oItems[index].thumbnail,
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, DetailView,
+                                  arguments: productsProvider.oItems[index].id);
+                            },
                           ),
                         );
                       })
@@ -109,6 +112,8 @@ class _BodyState extends State<Body> {
                                 ),
                               ),
                             );
+                            print(sellerProvider
+                                .allBuyerOrder[index].orderStatus);
                           },
                           child: Card(
                             elevation: 0,

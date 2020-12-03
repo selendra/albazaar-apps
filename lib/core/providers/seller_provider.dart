@@ -10,28 +10,9 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> get allBuyerOrder => _allBuyerOrder;
 
-  bool _isPayment = false;
-  bool _isShipment = false;
-  bool _isComplete = false;
+  
 
-  bool get isPayment => _isPayment;
-  bool get isShipment => _isShipment;
-  bool get isComplete => _isComplete;
 
-  void setPayment() {
-    _isPayment = true;
-    notifyListeners();
-  }
-
-  void setShipment() {
-    _isShipment = true;
-    notifyListeners();
-  }
-
-  void setComplete() {
-    _isComplete = true;
-    notifyListeners();
-  }
 
   SellerProvider() {
     fetchBuyerOrder();
@@ -41,13 +22,17 @@ class SellerProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchBuyerOrder() async {
+  Future<void> fetchBuyerOrder() async {
     _backend.response = await _getRequest.getAllBuyerOrder();
-    _backend.data = json.decode(_backend.response.body);
+    var responseJson = json.decode(_backend.response.body);
     _allBuyerOrder.clear();
     allBuyerOrder.clear();
-    for (var data in _backend.data) {
-      _allBuyerOrder.add(SellerModel.fromJson(data));
+    for (var data in responseJson) {
+      var itemData = SellerModel.fromJson(data);
+      if (itemData.orderStatus == 'Pay Success' ||
+          itemData.orderStatus == 'Place Order') {
+        _allBuyerOrder.add(SellerModel.fromJson(data));
+      }
     }
 
     notifyListeners();

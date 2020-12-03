@@ -18,7 +18,7 @@ class SellerConfirmBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-
+    var sellerProvider = Provider.of<SellerProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +73,7 @@ class SellerConfirmBody extends StatelessWidget {
                             child: reuseText("Order Total: "),
                           ),
                           Expanded(
-                            child: reuseText("៛${productOrder.total}"),
+                            child: reuseText("${productOrder.total}៛"),
                           ),
                         ],
                       ),
@@ -166,10 +166,10 @@ class SellerConfirmBody extends StatelessWidget {
             ),
           ),
           Consumer<SellerProvider>(
-            builder: (context, value, child) => Container(
+            builder: (context, valueProvider, child) => Container(
               margin:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-              child: value.isPayment == false
+              child: productOrder.orderStatus == 'Place Order'
                   ? ReuseButton.getItem(_lang.translate('confirm_payment'),
                       () async {
                       await ReuseAlertDialog().customDialog(
@@ -177,14 +177,18 @@ class SellerConfirmBody extends StatelessWidget {
                         'Do you want to confirm payment?',
                         () async {
                           Navigator.pop(context);
-                          value.setPayment();
                           await _postRequest.markPamyment(productOrder.id).then(
                             (value) async {
                               var data = json.decode(value.body);
+                              if (data['message'] != null) {
+                                valueProvider.fetchBuyerOrder();
+                              }
                               await Components.dialog(
                                   context,
                                   Text(
-                                    "${data['message']}",
+                                    data['message'] == null
+                                        ? "${data['error']['message']}"
+                                        : "${data['message']}",
                                     textAlign: TextAlign.center,
                                   ),
                                   Text("Message"));
@@ -195,7 +199,8 @@ class SellerConfirmBody extends StatelessWidget {
                     }, context)
                   : ReuseButton.getItem(
                       _lang.translate('confirm_shipping'),
-                      value.isShipment
+                      productOrder.orderStatus != 'Pay Success' ||
+                              productOrder.orderStatus == 'Order Complete'
                           ? null
                           : () async {
                               await ReuseAlertDialog().customDialog(
@@ -203,16 +208,23 @@ class SellerConfirmBody extends StatelessWidget {
                                 'Do you want to confirm shipment?',
                                 () async {
                                   Navigator.pop(context);
-                                  value.setShipment();
-                                  value.removeBuyerOrder(productOrder.id);
+                                  // value.setShipment(productOrder.orderStatus);
+                                  sellerProvider
+                                      .removeBuyerOrder(productOrder.id);
                                   await _postRequest
                                       .markShipment(productOrder.id)
                                       .then(
                                     (value) async {
                                       var data = json.decode(value.body);
+                                      if (data['message'] != null) {
+                                        valueProvider.fetchBuyerOrder();
+                                      }
                                       await Components.dialog(
                                           context,
-                                          Text('${data['message']}',
+                                          Text(
+                                              data['message'] == null
+                                                  ? "${data['error']['message']}"
+                                                  : "${data['message']}",
                                               textAlign: TextAlign.center),
                                           Text("Message"));
                                     },
