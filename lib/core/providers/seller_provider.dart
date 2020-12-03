@@ -10,6 +10,10 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> get allBuyerOrder => _allBuyerOrder;
 
+  
+
+
+
   SellerProvider() {
     fetchBuyerOrder();
   }

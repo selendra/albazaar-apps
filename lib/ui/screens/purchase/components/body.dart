@@ -159,6 +159,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ), //productsProvider.orItems[index]))
                             );
+                            print(productsProvider.orItems[index].orderStatus);
                           },
                           child: Card(
                             elevation: 0,

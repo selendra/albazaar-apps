@@ -165,65 +165,75 @@ class SellerConfirmBody extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-            child: productOrder.orderStatus == 'Place Order'
-                ? ReuseButton.getItem(_lang.translate('confirm_payment'),
-                    () async {
-                    await ReuseAlertDialog().customDialog(
-                      context,
-                      'Do you want to confirm payment?',
+          Consumer<SellerProvider>(
+            builder: (context, valueProvider, child) => Container(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+              child: productOrder.orderStatus == 'Place Order'
+                  ? ReuseButton.getItem(_lang.translate('confirm_payment'),
                       () async {
-                        Navigator.pop(context);
-                        sellerProvider.fetchBuyerOrder();
-                        await _postRequest.markPamyment(productOrder.id).then(
-                          (value) async {
-                            var data = json.decode(value.body);
-                            await Components.dialog(
+                      await ReuseAlertDialog().customDialog(
+                        context,
+                        'Do you want to confirm payment?',
+                        () async {
+                          Navigator.pop(context);
+                          await _postRequest.markPamyment(productOrder.id).then(
+                            (value) async {
+                              var data = json.decode(value.body);
+                              if (data['message'] != null) {
+                                valueProvider.fetchBuyerOrder();
+                              }
+                              await Components.dialog(
+                                  context,
+                                  Text(
+                                    data['message'] == null
+                                        ? "${data['error']['message']}"
+                                        : "${data['message']}",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text("Message"));
+                            },
+                          );
+                        },
+                      );
+                    }, context)
+                  : ReuseButton.getItem(
+                      _lang.translate('confirm_shipping'),
+                      productOrder.orderStatus != 'Pay Success' ||
+                              productOrder.orderStatus == 'Order Complete'
+                          ? null
+                          : () async {
+                              await ReuseAlertDialog().customDialog(
                                 context,
-                                Text(
-                                  data['message'] == null
-                                      ? "${data['error']['message']}"
-                                      : "${data['message']}",
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text("Message"));
-                          },
-                        );
-                      },
-                    );
-                  }, context)
-                : ReuseButton.getItem(
-                    _lang.translate('confirm_shipping'),
-                    productOrder.orderStatus != 'Pay Success' ||
-                            productOrder.orderStatus == 'Order Complete'
-                        ? null
-                        : () async {
-                            await ReuseAlertDialog().customDialog(
-                              context,
-                              'Do you want to confirm shipment?',
-                              () async {
-                                Navigator.pop(context);
-                                // value.setShipment(productOrder.orderStatus);
-                                sellerProvider
-                                    .removeBuyerOrder(productOrder.id);
-                                await _postRequest
-                                    .markShipment(productOrder.id)
-                                    .then(
-                                  (value) async {
-                                    var data = json.decode(value.body);
-                                    await Components.dialog(
-                                        context,
-                                        Text('${data['message']}',
-                                            textAlign: TextAlign.center),
-                                        Text("Message"));
-                                  },
-                                );
-                              },
-                            );
-                          },
-                    context),
+                                'Do you want to confirm shipment?',
+                                () async {
+                                  Navigator.pop(context);
+                                  // value.setShipment(productOrder.orderStatus);
+                                  sellerProvider
+                                      .removeBuyerOrder(productOrder.id);
+                                  await _postRequest
+                                      .markShipment(productOrder.id)
+                                      .then(
+                                    (value) async {
+                                      var data = json.decode(value.body);
+                                      if (data['message'] != null) {
+                                        valueProvider.fetchBuyerOrder();
+                                      }
+                                      await Components.dialog(
+                                          context,
+                                          Text(
+                                              data['message'] == null
+                                                  ? "${data['error']['message']}"
+                                                  : "${data['message']}",
+                                              textAlign: TextAlign.center),
+                                          Text("Message"));
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                      context),
+            ),
           ),
         ],
       ),

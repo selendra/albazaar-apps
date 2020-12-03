@@ -199,7 +199,7 @@ class OrderDetailBody extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             child: ReuseButton.getItem(
                 'Recieved',
-                productOrder.orderStatus != 'Shipment' ||
+                productOrder.orderStatus == 'Place Order' ||
                         productOrder.orderStatus == 'Order Complete'
                     ? null
                     : () async {
