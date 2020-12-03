@@ -165,11 +165,12 @@ class SellerConfirmBody extends StatelessWidget {
               ),
             ),
           ),
-          Consumer<SellerProvider>(
-            builder: (context, valueProvider, child) => Container(
+          Consumer<SellerProvider>(builder: (context, valueProvider, child) {
+            var loadedOrder = valueProvider.findProductById(productOrder.id);
+            return Container(
               margin:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
-              child: productOrder.orderStatus == 'Place Order'
+              child: loadedOrder.orderStatus == 'Place Order'
                   ? ReuseButton.getItem(_lang.translate('confirm_payment'),
                       () async {
                       await ReuseAlertDialog().customDialog(
@@ -199,26 +200,22 @@ class SellerConfirmBody extends StatelessWidget {
                     }, context)
                   : ReuseButton.getItem(
                       _lang.translate('confirm_shipping'),
-                      productOrder.orderStatus != 'Pay Success' ||
-                              productOrder.orderStatus == 'Order Complete'
+                      loadedOrder.orderStatus == 'Shipment' ||
+                              loadedOrder.orderStatus == 'Order Complete'
                           ? null
                           : () async {
                               await ReuseAlertDialog().customDialog(
                                 context,
                                 'Do you want to confirm shipment?',
                                 () async {
-                                  Navigator.pop(context);
-                                  // value.setShipment(productOrder.orderStatus);
-                                  sellerProvider
-                                      .removeBuyerOrder(productOrder.id);
+                                  Navigator.pop(
+                                      context); // value.setShipment(productOrder.orderStatus);
+
                                   await _postRequest
                                       .markShipment(productOrder.id)
                                       .then(
                                     (value) async {
                                       var data = json.decode(value.body);
-                                      if (data['message'] != null) {
-                                        valueProvider.fetchBuyerOrder();
-                                      }
                                       await Components.dialog(
                                           context,
                                           Text(
@@ -233,8 +230,8 @@ class SellerConfirmBody extends StatelessWidget {
                               );
                             },
                       context),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

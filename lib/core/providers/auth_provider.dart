@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -29,6 +27,8 @@ class AuthProvider with ChangeNotifier {
       idToken: googleSignInAuthentication.idToken,
     );
 
+    print(googleSignInAuthentication.accessToken);
+    print(googleSignInAuthentication.idToken);
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
     // Provider.of<ProductsProvider>(context, listen: false).getVegi();
@@ -63,7 +63,7 @@ class AuthProvider with ChangeNotifier {
             facebookLoginResult.accessToken;
         final AuthCredential credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
-//print(facebookAccessToken.token);
+
         final graphResponse = await http.get(
             'https://graph.facebook.com/${facebookAccessToken.userId}?fields=picture.width(720).height(720)&redirect=false&access_token=${facebookAccessToken.token}');
 

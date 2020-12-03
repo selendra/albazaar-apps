@@ -34,18 +34,14 @@ class _BodyState extends State<Body> {
                           );
                         }),
                   ),
-                  // SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   Container(
-                    margin: EdgeInsets.all(20.0),
+                    margin: const EdgeInsets.all(20.0),
                     child: ReuseButton.getItem(
                         AppLocalizeService.of(context).translate('check_out'),
                         () {
                       Navigator.pushReplacementNamed(context, CheckoutView);
                     }, context),
-                  )
-                  // Expanded(
-                  //   child: CheckoutCard(),
-                  // ),
+                  ),
                 ],
               ),
             )

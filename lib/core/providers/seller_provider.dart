@@ -10,15 +10,19 @@ class SellerProvider with ChangeNotifier {
 
   List<SellerModel> get allBuyerOrder => _allBuyerOrder;
 
-  
-
-
   SellerProvider() {
     fetchBuyerOrder();
   }
   void removeBuyerOrder(String id) {
-    _allBuyerOrder.removeWhere((element) => element.id == id);
+    _allBuyerOrder.removeWhere(
+      (element) => element.id == id,
+    );
     notifyListeners();
+  }
+
+  SellerModel findProductById(String id) {
+    return _allBuyerOrder.firstWhere((element) => element.id == id,
+        orElse: null);
   }
 
   Future<void> fetchBuyerOrder() async {
