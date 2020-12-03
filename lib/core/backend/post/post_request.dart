@@ -10,15 +10,17 @@ class PostRequest {
   Backend _backend = Backend();
 
   Future<dynamic> inviteFriend(String phoneNumber) async {
+    print(phoneNumber);
     _backend.token = await StorageServices.fetchData('user_token');
-    _backend.bodyEncode = json.encode({"phone": phoneNumber});
-    if (_backend.token != null) {
-      _backend.response = await _http.post("${_sldApi.api}/invite-phonenumber",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token["token"]}"),
-          body: _backend.bodyEncode);
-    }
-    return json.decode(_backend.response.body);
+    // _backend.bodyEncode = json.encode({"phone": phoneNumber});
+    // if (_backend.token != null) {
+    //   _backend.response = await _http.post("${_sldApi.walletAPI}/invite-phonenumber",
+    //       headers: _backend.conceteHeader(
+    //           "authorization", "Bearer ${_backend.token["token"]}"),
+    //       body: _backend.bodyEncode);
+    // }
+    // return json.decode(_backend.response.body);
+    return null;
   }
 
   /* ------------------User Login-------------- */
@@ -321,17 +323,15 @@ class PostRequest {
   }
 
   /* Post To Get Wallet Form Contact */
-  Future<Map<String, dynamic>> getWalletFromContact(String contact) async {
+  Future<_http.Response>getWalletFromContact(String contact) async {
     _backend.token = await StorageServices.fetchData('user_token');
     _backend.bodyEncode = json.encode({"phone": contact});
     if (_backend.token != null) {
-      _backend.response = await _http.post('${_sldApi.api}/wallet-lookup',
+      _backend.response = await _http.post('${_sldApi.walletAPI}/wallet-lookup',
           headers: _backend.conceteHeader(
               "authorization", "Bearer ${_backend.token['token']}"),
           body: _backend.bodyEncode);
-      _backend.data = json.decode(_backend.response.body);
-      _backend.data.addAll({"status_code": _backend.response.statusCode});
-      return _backend.data;
+      return _backend.response;
     }
     return null;
   }

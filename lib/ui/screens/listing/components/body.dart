@@ -46,7 +46,8 @@ class _BodyState extends State<Body> {
       child: TabBarView(
         controller: widget._controller,
         children: <Widget>[
-          //all
+
+          // All
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
@@ -94,7 +95,7 @@ class _BodyState extends State<Body> {
             ),
           ),
 
-          //pending
+          // Pending
           RefreshIndicator(
             onRefresh: _refreshSellerList,
             child: Container(
@@ -107,8 +108,7 @@ class _BodyState extends State<Body> {
                             Navigator.of(context).push(
                               RouteAnimation(
                                 enterPage: SellerConfirm(
-                                  productOrder:
-                                      sellerProvider.allBuyerOrder[index],
+                                  productOrder: sellerProvider.allBuyerOrder[index],
                                 ),
                               ),
                             );
@@ -178,8 +178,7 @@ class _BodyState extends State<Body> {
                                                 2,
                                         child: ListTile(
                                           subtitle: Text(
-                                            _lang.translate('price') +
-                                                ': ${sellerProvider.allBuyerOrder[index].price}៛ ',
+                                            _lang.translate('price') + ': ${sellerProvider.allBuyerOrder[index].price}៛ ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: kDefaultColor,
@@ -205,46 +204,47 @@ class _BodyState extends State<Body> {
                     ),
             ),
           ),
-          //sold
+
+          // Sold
           RefreshIndicator(
             onRefresh: _refresh,
             child: Container(
               child: productsProvider.oItems.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: productsProvider.isSold.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(kDefaultRadius),
-                          ),
-                          child: ListTile(
-                            title: Text(productsProvider.isSold[index].name),
-                            subtitle: Text(
-                              productsProvider.isSold[index].description,
-                              maxLines: 1,
-                            ),
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              backgroundImage: NetworkImage(
-                                  productsProvider.isSold[index].thumbnail),
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pushNamed(DetailView,
-                                  arguments: productsProvider.isSold[index].id);
-                            },
-                          ),
-                        );
-                      })
-                  : Center(
-                      child: SvgPicture.asset(
-                        'images/undraw_loving_it.svg',
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        width: MediaQuery.of(context).size.width * 0.3,
+              ? ListView.builder(
+                  itemCount: productsProvider.isSold.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(kDefaultRadius),
                       ),
-                    ),
+                      child: ListTile(
+                        title: Text(productsProvider.isSold[index].name),
+                        subtitle: Text(
+                          productsProvider.isSold[index].description,
+                          maxLines: 1,
+                        ),
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(
+                              productsProvider.isSold[index].thumbnail),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(DetailView,
+                              arguments: productsProvider.isSold[index].id);
+                        },
+                      ),
+                    );
+                  })
+              : Center(
+                child: SvgPicture.asset(
+                  'images/undraw_loving_it.svg',
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
+              ),
             ),
           ),
         ],
