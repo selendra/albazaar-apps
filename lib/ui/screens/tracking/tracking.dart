@@ -55,7 +55,7 @@ class _TrackingState extends State<Tracking> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 10.0,
                     ),
                     Text('Order: ${widget.productOrder.id}'),
                     SizedBox(
@@ -69,8 +69,9 @@ class _TrackingState extends State<Tracking> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText('Battambong', TextAlign.start),
-                        reuseText('Phnom Penh', TextAlign.start),
+                        reuseText('Dubai', TextAlign.start),
+                        reuseText(widget.productOrder.shippingAddress,
+                            TextAlign.start),
                       ],
                     ),
                     _sliderTheme(
