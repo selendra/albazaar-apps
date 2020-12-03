@@ -136,17 +136,17 @@ class _PinScreenState extends State<PinScreen> {
         _isLoading = false;
       });
       print(value);
-      // if (value == 'Opp! You need to verify your phone number first') {
-      //   AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
-      // } else if (mBalance.data != null) {
-      //   _pref.read('seed').then((onValue) {
-      //     if (onValue != null) {
-      //       _displayWalletInfo(context, onValue);
-      //     } else {
-      //       ReuseAlertDialog().successDialog(context, value);
-      //     }
-      //   });
-      // }
+      if (value == 'Opp! You need to verify your phone number first') {
+        AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+      } else if (mBalance.data != null) {
+        _pref.read('seed').then((onValue) {
+          if (onValue != null) {
+            _displayWalletInfo(context, onValue);
+          } else {
+            ReuseAlertDialog().successDialog(context, value);
+          }
+        });
+      }
     });
   }
 

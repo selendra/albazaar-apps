@@ -32,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
           AuthProvider().currentUser.then(
             (value) {
               if (value != null) {
+                print("Current User $value");
                 Provider.of<UserProvider>(context, listen: false)
                     .fetchSocialUserInfo(
                         value.email, value.displayName, value.photoUrl);
@@ -77,7 +78,8 @@ class _SplashScreenState extends State<SplashScreen>
     );
     controller.forward().then((value) {
       _pref.read('isshow').then(
-        (onValue) async {
+        (onValue) {
+          print("Is show $onValue");
           if (onValue == null) {
             Navigator.pushReplacementNamed(context, IntroScreenView);
           } else {

@@ -1,3 +1,4 @@
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
@@ -39,62 +40,70 @@ class TrxOptionMethod {
     Backend _backend = Backend();
 
     if (await Permission.contacts.request().isGranted) {
-      // String number = '';
-      // var response;
-      // final PhoneContact _contact = await ContactsService .pickPhoneContact();
-      // final Contact _contact = await ContactsService.openDeviceContactPicker();
-      // var existingContact = await ContactsService.getContacts();
-      // ContactsService.getContactsForPhone("0967056880").then((value) => print(value));
-      // print("My contact ${existingContact[0]}");
+      String number = '';
+      var response;
       //Get Contact And Asign To Number Variable
 
-      //   final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
+      final PhoneContact _contact =
+          await FlutterContactPicker.pickPhoneContact();
 
-      //   if (_contact != null) {
-      //     await _postRequest.getWalletFromContact(
-      //       "+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)  }" // Replace 0 At The First Index To Empty
-      //     ).then((value) async {
-      //       _backend.data = json.decode(value.body);
-      //       if(_backend.data['status_code'] == 200 && _backend.data.containsKey('wallet')){
-      //         _backend.data = await Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => SubmitTrx(_backend.data['wallet'], false, listPortfolio))
-      //         );
-      //         if (_backend.data["status_code"] == 200) {
-      //           resetState(null, "portfolio");
-      //           Navigator.pop(context);
-      //         }
-      //       } else {
-      //         await Components.dialog(
-      //           context,
-      //           Column(
-      //             mainAxisAlignment: MainAxisAlignment.center,
-      //             mainAxisSize: MainAxisSize.min,
-      //             children: <Widget>[
-      //               textAlignCenter(text: _backend.data['message']),
-      //               Container(
-      //                 margin: EdgeInsets.only(top: 5.0),
-      //                 child: textAlignCenter(text: "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?")
-      //               )
-      //             ],
-      //           ),
-      //           textMessage(),
-      //           action: FlatButton(
-      //             child: Text("Invite"),
-      //             onPressed: () async {
-      //               Navigator.pop(context); // Close Dialog Invite
-      //               Components.dialogLoading(context: context); // Process Loading
-      //               var _response = await _postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
-      //               Navigator.pop(context); // Close Dialog Loading
-      //               if (_response != null) {
-      //                 await Components.dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: Colors.black));
-      //               }
-      //             },
-      //           )
-      //         );
-      //       }
-      //     });
-      //   }
+      if (_contact != null) {
+        await _postRequest
+            .getWalletFromContact(
+                "+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}" // Replace 0 At The First Index To Empty
+                )
+            .then((value) async {
+          _backend.data = json.decode(value.body);
+          if (_backend.data['status_code'] == 200 &&
+              _backend.data.containsKey('wallet')) {
+            _backend.data = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SubmitTrx(
+                        _backend.data['wallet'], false, listPortfolio)));
+            if (_backend.data["status_code"] == 200) {
+              resetState(null, "portfolio");
+              Navigator.pop(context);
+            }
+          } else {
+            await Components.dialog(
+                context,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    textAlignCenter(text: _backend.data['message']),
+                    Container(
+                        margin: EdgeInsets.only(top: 5.0),
+                        child: textAlignCenter(
+                            text:
+                                "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?"))
+                  ],
+                ),
+                textMessage(),
+                action: FlatButton(
+                  child: Text("Invite"),
+                  onPressed: () async {
+                    Navigator.pop(context); // Close Dialog Invite
+                    Components.dialogLoading(
+                        context: context); // Process Loading
+                    var _response = await _postRequest.inviteFriend(
+                        "+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
+                    Navigator.pop(context); // Close Dialog Loading
+                    if (_response != null) {
+                      await Components.dialog(
+                          context,
+                          Text(
+                            _response['message'],
+                            textAlign: TextAlign.center,
+                          ),
+                          Icon(Icons.done_outline, color: Colors.black));
+                    }
+                  },
+                ));
+          }
+        });
+      }
     }
   }
 

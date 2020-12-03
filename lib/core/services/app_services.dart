@@ -25,4 +25,8 @@ class AppServices {
     Timer(Duration(milliseconds: 500), (){});
     return value;
   }
+
+  static String removeZero(String number){
+    return number.replaceFirst("0", "", 0);
+  }
 }
