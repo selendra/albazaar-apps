@@ -326,6 +326,7 @@ class ProductsProvider with ChangeNotifier {
     _orItems.clear();
     _oItems.clear();
     _items.clear();
+    _completeProduct.clear();
     notifyListeners();
   }
 }

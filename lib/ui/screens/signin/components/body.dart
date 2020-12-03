@@ -106,7 +106,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
-
+    _tabController.index = 0;
     onTabChange();
   }
 

@@ -13,7 +13,6 @@ class SellerProvider with ChangeNotifier {
   
 
 
-
   SellerProvider() {
     fetchBuyerOrder();
   }

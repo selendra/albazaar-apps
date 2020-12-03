@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
     controller.forward().then((value) {
       _pref.read('isshow').then(
-        (onValue) {
+        (onValue) async {
           if (onValue == null) {
             Navigator.pushReplacementNamed(context, IntroScreenView);
           } else {

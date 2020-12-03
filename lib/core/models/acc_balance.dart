@@ -16,7 +16,7 @@ class Data {
   });
 
   String timestamp;
-  String balance;
+  String balance = '';
   String otherassets;
 
   factory Data.fromMap(Map<String, dynamic> json) => Data(
@@ -32,4 +32,4 @@ class Data {
       };
 }
 
-var mBalance = Balance();
+Balance mBalance = Balance();

@@ -167,8 +167,12 @@ class AuthProvider with ChangeNotifier {
           },
         ),
       );
+
+      mBalance = Balance();
+
       if (response.statusCode == 200) {
         var responseJson = json.decode(response.body);
+
         _token = responseJson['token'];
         if (_token != null) {
           _pref.saveString('token', _token);
@@ -212,6 +216,8 @@ class AuthProvider with ChangeNotifier {
 
       _token = responseJson['token'];
       await StorageServices.setData(responseJson, 'user_token');
+
+      mBalance = Balance();
 
       if (_token != null) {
         _pref.saveString('token', _token);

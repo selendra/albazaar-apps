@@ -116,6 +116,7 @@ class _PinScreenState extends State<PinScreen> {
 
   void isPinMatch(String pin) {
     _pref.read('pin').then((onValue) {
+      print(onValue);
       if (pin == onValue) {
         onGetWallet(pin);
       } else {
@@ -134,16 +135,18 @@ class _PinScreenState extends State<PinScreen> {
       setState(() {
         _isLoading = false;
       });
-      if (value == 'Opp! You need to verify your phone number first') {
-        AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
-      } else if (mBalance.data != null) {
-        _pref.read('seed').then((onValue) {
-          if (onValue != null) {
-            _displayWalletInfo(context, onValue);
-          } else {
-          }
-        });
-      }
+      print(value);
+      // if (value == 'Opp! You need to verify your phone number first') {
+      //   AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+      // } else if (mBalance.data != null) {
+      //   _pref.read('seed').then((onValue) {
+      //     if (onValue != null) {
+      //       _displayWalletInfo(context, onValue);
+      //     } else {
+      //       ReuseAlertDialog().successDialog(context, value);
+      //     }
+      //   });
+      // }
     });
   }
 

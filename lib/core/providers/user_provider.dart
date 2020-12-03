@@ -134,7 +134,7 @@ class UserProvider with ChangeNotifier {
 
   //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
-    mBalance = Balance();
+    // mBalance = Balance();
     try {
       await _prefService.read('token').then((onValue) async {
         http.Response response =
@@ -142,16 +142,18 @@ class UserProvider with ChangeNotifier {
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
-        print(response.body);
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
-          if (responseBody['error'] == null) {
-            mBalance = Balance.fromMap(responseBody);
-            wallets[0].amount = mBalance.data.balance;
-            notifyListeners();
-          } else {
+          if (responseBody.containsKey('error')) {
             alertText = responseBody['error']['message'];
+          } else {
+            if (mBalance.data != null) mBalance.data.balance = '';
+            mBalance = Balance.fromMap(responseBody);
+
+            // Check Balance Retrieve NULL
+            if (mBalance.data != null) wallets[0].amount = mBalance.data.balance;
+            notifyListeners();
           }
 
           alertText = response.statusCode.toString();
@@ -160,7 +162,7 @@ class UserProvider with ChangeNotifier {
         }
       });
     } catch (e) {
-      // print(e.toString());
+      print(e.toString());
     }
 
     notifyListeners();

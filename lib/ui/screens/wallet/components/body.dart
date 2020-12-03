@@ -60,11 +60,12 @@ class _BodyState extends State<Body> {
   void initState() {
     fetchHistory();
     super.initState();
-    // Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); Closed
+    Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(mBalance.data);
     return mBalance.data == null
         ? Center(
             child: WalletChoice(onGetWallet, showAlertDialog),

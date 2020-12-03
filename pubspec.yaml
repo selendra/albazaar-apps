@@ -82,7 +82,7 @@ dependencies:
 
   #Contact
   # contacts_service: ^0.4.6 
-  fluttercontactpicker: ^3.1.0
+  # fluttercontactpicker: ^3.1.0
   
   #animation
   flare_flutter:

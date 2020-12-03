@@ -5,18 +5,18 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 String _phone, _password;
 
 class SignUpPhoneForm extends StatelessWidget {
-  final Function signInPhoneFunc;
+  final Function signUpPhoneFunc;
   final Function facebookSignIn;
   final Function googleSignIn;
 
-  SignUpPhoneForm(this.signInPhoneFunc, this.facebookSignIn, this.googleSignIn);
+  SignUpPhoneForm(this.signUpPhoneFunc, this.facebookSignIn, this.googleSignIn);
 
   final _phoneFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
     if (_phoneFormKey.currentState.validate()) {
       _phoneFormKey.currentState.save();
-      signInPhoneFunc(_phone, _password);
+      signUpPhoneFunc(_phone, _password);
     }
   }
 
@@ -48,9 +48,9 @@ class SignUpPhoneForm extends StatelessWidget {
                       borderRadius:
                           BorderRadius.all(Radius.circular(kDefaultRadius))),
                 ),
+                autoValidate: false,
                 initialCountryCode: 'KH',
-                validator: (value) =>
-                    value.isEmpty ? _lang.translate('phone_is_empty') : null,
+                validator: (value) => value.isEmpty ? "Phone is empty" : null,
                 onChanged: (phone) {
                   _phone = phone.completeNumber.toString();
                 },
