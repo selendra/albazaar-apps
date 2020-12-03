@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -70,7 +71,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
 
     await AuthProvider()
-        .signInByPhone("+855" + _phone, _password, context)
+        .signInByPhone("+855" + AppServices.removeZero(_phone), _password, context)
         .then((value) {
       if (value != null) {
         setState(() {
