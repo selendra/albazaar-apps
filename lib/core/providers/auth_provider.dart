@@ -51,19 +51,22 @@ class AuthProvider with ChangeNotifier {
     return 'signInWithGoogle succeeded: $user';
   }
 
-  Future<FirebaseUser> signInFacebook(BuildContext context) async {
+  Future<String> signInFacebook(BuildContext context) async {
     FirebaseUser currentUser;
+    String fbToken;
     // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
     // if you remove above comment then facebook login will take username and pasword for login in Webview
     try {
       final FacebookLoginResult facebookLoginResult =
           await facebookLogin.logIn(['email', 'public_profile']);
+      print(facebookLoginResult.status);
+      print(facebookLoginResult.errorMessage);
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
         final AuthCredential credential = FacebookAuthProvider.getCredential(
             accessToken: facebookAccessToken.token);
-
+        fbToken = facebookAccessToken.token;
         final graphResponse = await http.get(
             'https://graph.facebook.com/${facebookAccessToken.userId}?fields=picture.width(720).height(720)&redirect=false&access_token=${facebookAccessToken.token}');
 
@@ -72,12 +75,10 @@ class AuthProvider with ChangeNotifier {
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
         currentUser = await _auth.currentUser();
-        if (currentUser != null) {
-          getTokenForFb(facebookAccessToken.token, context);
-        }
+
         Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
             user.email, user.displayName, profile['picture']['data']['url']);
-
+        mBalance = Balance();
         assert(user.email != null);
         assert(user.displayName != null);
         assert(!user.isAnonymous);
@@ -87,12 +88,11 @@ class AuthProvider with ChangeNotifier {
 
         currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
-        return currentUser;
-      }
+      } else {}
     } catch (e) {
       // print(e);
     }
-    return currentUser;
+    return fbToken;
   }
 
   Future<void> getTokenForFb(String accesstoken, context) async {

@@ -41,7 +41,16 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     try {
-      await AuthProvider().signInFacebook(context);
+      await AuthProvider().signInFacebook(context).then((value) {
+        if (value == null) {
+          setState(() {
+            _isLoading = false;
+          });
+        } else {
+          Provider.of<AuthProvider>(context, listen: false)
+              .getTokenForFb(value, context);
+        }
+      });
     } on PlatformException catch (e) {
       setState(() {
         _isLoading = false;
@@ -71,7 +80,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
 
     await AuthProvider()
-        .signInByPhone("+855" + AppServices.removeZero(_phone), _password, context)
+        .signInByPhone(
+            "+855" + AppServices.removeZero(_phone), _password, context)
         .then((value) {
       if (value != null) {
         setState(() {

@@ -200,8 +200,7 @@ class SellerConfirmBody extends StatelessWidget {
                     }, context)
                   : ReuseButton.getItem(
                       _lang.translate('confirm_shipping'),
-                      loadedOrder.orderStatus == 'Shipment' ||
-                              loadedOrder.orderStatus == 'Order Complete'
+                      loadedOrder.orderStatus == 'Shipment'
                           ? null
                           : () async {
                               await ReuseAlertDialog().customDialog(
@@ -210,12 +209,14 @@ class SellerConfirmBody extends StatelessWidget {
                                 () async {
                                   Navigator.pop(
                                       context); // value.setShipment(productOrder.orderStatus);
-
                                   await _postRequest
                                       .markShipment(productOrder.id)
                                       .then(
                                     (value) async {
                                       var data = json.decode(value.body);
+                                      if (data['message'] != null) {
+                                        valueProvider.fetchBuyerOrder();
+                                      }
                                       await Components.dialog(
                                           context,
                                           Text(

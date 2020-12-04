@@ -33,7 +33,8 @@ class SellerProvider with ChangeNotifier {
     for (var data in responseJson) {
       var itemData = SellerModel.fromJson(data);
       if (itemData.orderStatus == 'Pay Success' ||
-          itemData.orderStatus == 'Place Order') {
+          itemData.orderStatus == 'Place Order' ||
+          itemData.orderStatus == 'Shipment') {
         _allBuyerOrder.add(SellerModel.fromJson(data));
       }
     }
