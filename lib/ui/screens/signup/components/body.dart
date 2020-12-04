@@ -54,22 +54,21 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    try {
-      await AuthProvider().signInWithGoogle(context).then((value) {
-        if (value == null) {
-          Navigator.pop(context);
-        } else {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
-        }
-      });
-    } catch (e) {
+    await AuthProvider().signInWithGoogle(context).then((value) {
+      if (value == null) {
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        Provider.of<AuthProvider>(context, listen: false)
+            .getTokenForGoogle(value, context);
+      }
+    }).catchError((onError) {
       setState(() {
         _isLoading = false;
       });
-    }
+      ReuseAlertDialog().successDialog(context, onError);
+    });
   }
 
   onFacebookSignIn() async {

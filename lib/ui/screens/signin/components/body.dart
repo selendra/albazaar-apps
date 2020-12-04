@@ -21,12 +21,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
     await AuthProvider().signInWithGoogle(context).then((value) {
       if (value == null) {
-        Navigator.pop(context);
-      } else {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
+      } else {
+        Provider.of<AuthProvider>(context, listen: false)
+            .getTokenForGoogle(value, context);
       }
     }).catchError((onError) {
       setState(() {

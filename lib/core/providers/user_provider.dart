@@ -142,7 +142,7 @@ class UserProvider with ChangeNotifier {
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
-
+        print(response.body);
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody.containsKey('error')) {
@@ -152,7 +152,8 @@ class UserProvider with ChangeNotifier {
             mBalance = Balance.fromMap(responseBody);
 
             // Check Balance Retrieve NULL
-            if (mBalance.data != null) wallets[0].amount = mBalance.data.balance;
+            if (mBalance.data != null)
+              wallets[0].amount = mBalance.data.balance;
             notifyListeners();
           }
 

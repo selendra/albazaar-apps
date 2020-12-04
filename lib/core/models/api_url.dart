@@ -17,6 +17,7 @@ class ApiUrl {
   static const GOOGLE_SIGN_IN = baseUrl + '/oauth/v1/login-from-google';
   static const ADD_PHONE_NUMBER = baseUrl + '/pub/v1/add-phonenumber';
   static const LOGIN_FROM_FACEBOOK = baseUrl + '/oauth/v1/login-from-facebook';
+  static const LOGIN_FROM_GOOGLE = baseUrl + '/oauth/v1/login-from-google';
 
   //selendra marketplace opertion
   static const LISTING = baseUrl + '/sdm/v1/listing';

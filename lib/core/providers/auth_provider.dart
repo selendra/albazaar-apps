@@ -18,6 +18,7 @@ class AuthProvider with ChangeNotifier {
   String get token => _token;
 
   Future<String> signInWithGoogle(BuildContext context) async {
+    String googleToken;
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -28,7 +29,10 @@ class AuthProvider with ChangeNotifier {
     );
 
     print(googleSignInAuthentication.accessToken);
-    print(googleSignInAuthentication.idToken);
+    //debugPrint(googleSignInAuthentication.idToken,wrap);
+    googleToken = googleSignInAuthentication.idToken;
+    //getTokenForGoogle(googleSignInAuthentication.idToken,context);
+
     final AuthResult authResult = await _auth.signInWithCredential(credential);
     final FirebaseUser user = authResult.user;
     // Provider.of<ProductsProvider>(context, listen: false).getVegi();
@@ -41,14 +45,14 @@ class AuthProvider with ChangeNotifier {
     //getUserInfo(user);
     Provider.of<UserProvider>(context, listen: false)
         .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
-
+    mBalance = Balance();
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    return 'signInWithGoogle succeeded: $user';
+    return googleToken;
   }
 
   Future<String> signInFacebook(BuildContext context) async {
@@ -93,6 +97,33 @@ class AuthProvider with ChangeNotifier {
       // print(e);
     }
     return fbToken;
+  }
+
+  Future<void> getTokenForGoogle(String idToken, BuildContext context) async {
+    http.Response response = await http.post(ApiUrl.LOGIN_FROM_GOOGLE,
+        headers: ApiHeader.headers,
+        body: jsonEncode(<String, String>{
+          'token': idToken,
+        }));
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      _token = responseJson['token'];
+      _pref.saveString('token', _token);
+      await StorageServices.setData(responseJson, 'user_token');
+
+      if (token == null) {
+        await ReuseAlertDialog().successDialog(
+          context,
+          responseJson['error']['message'],
+        );
+      } else {
+        Provider.of<ProductsProvider>(context, listen: false)
+            .fetchListingProduct();
+        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+        Navigator.pushReplacementNamed(context, BottomNavigationView);
+      }
+    }
   }
 
   Future<void> getTokenForFb(String accesstoken, context) async {
