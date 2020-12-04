@@ -93,10 +93,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onTabChange() {
+    print(_tabController.index);
     _tabController.addListener(() {
+      print(_tabController.index);
       if (_tabController.indexIsChanging) {
         setState(() {
-          onPageChange(_tabController.index, p: _pageController);
+          onPageChange(_tabController.index ?? 0, p: _pageController);
         });
       }
     });
@@ -117,7 +119,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
-    _tabController.index = 0;
     onTabChange();
   }
 

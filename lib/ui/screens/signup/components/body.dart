@@ -17,7 +17,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider().signUpByEmail(_email, _password).then((value) {
+    await AuthProvider().signUpByEmail(_email, _password).then((value) async {
       setState(() {
         _isLoading = false;
       });
@@ -25,7 +25,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       if (alertText != "Your email account already exists!") {
         Navigator.pushReplacementNamed(context, SignInView);
       } else {
-        ReuseAlertDialog().successDialog(context, alertText);
+        await ReuseAlertDialog().successDialog(context, alertText);
       }
     });
   }
@@ -35,19 +35,18 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     await AuthProvider()
-        .signUpByPhone("+855"+AppServices.removeZero(_phone), _password, context)
+        .signUpByPhone(
+            "+855" + AppServices.removeZero(_phone), _password, context)
         .then((value) {
       setState(() {
         _isLoading = false;
       });
       alertText = value ?? "";
 
-      if (alertText != 'Your phone number already exists!') {
-        Navigator.pushReplacement(
-            context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-      } else {
-        ReuseAlertDialog().successDialog(context, alertText);
-      }
+      // if (alertText != 'Your phone number already exists!') {
+      //   Navigator.pushReplacement(
+      //       context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+      // }
     });
   }
 
@@ -127,7 +126,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _pageController.dispose();
-
+    _tabController.dispose();
     super.dispose();
   }
 

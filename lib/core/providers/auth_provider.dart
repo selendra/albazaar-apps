@@ -298,12 +298,17 @@ class AuthProvider with ChangeNotifier {
       _alertText = responseBody['message'];
 
       if (_alertText == 'Successfully registered!') {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OTPScreen(phone, password)));
+        await ReuseAlertDialog().customDialog(context, _alertText, () {
+          Navigator.pop(context);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OTPScreen(phone, password)));
+        });
       } else {
-        return _alertText;
+        await ReuseAlertDialog().customDialog(context, _alertText, () {
+          Navigator.pop(context);
+        });
       }
     } else {}
     return _alertText;
