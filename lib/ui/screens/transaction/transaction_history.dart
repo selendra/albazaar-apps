@@ -108,57 +108,89 @@ class TransactionHistory extends StatelessWidget {
     List<TrxHistoryModel> history =
         Provider.of<TrxHistoryProvider>(context).trxHistoryList;
     final userProvider = Provider.of<UserProvider>(context);
+    print("My history $history");
 
     return Scaffold(
+      // Have No History
+      body: history == null 
+      ? SafeArea(
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: SvgPicture.asset(
+                  'images/undraw_wallet.svg',
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: MediaQuery.of(context).size.height * 0.2,
+                  placeholderBuilder: (context) => Center(),
+                )
+              )
+            )
+          ],
+        )
+      )
+
       // Display Loading
-      body: history.length == 0
-          ? Center(child: CircularProgressIndicator())
-          // Display History List
-          : SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: MediaQuery.of(context).size.height * 0.3,
-                    floating: false,
-                    pinned: true,
-                    snap: false,
-                    title: Text(
-                      title,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.0),
-                    ),
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    backgroundColor: kDefaultColor,
-                    flexibleSpace: ReuseFlexSpace(amount),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(
-                          Icons.add_circle,
-                          color: Colors.white,
-                        ),
-                        tooltip: 'Add new entry',
-                        onPressed: () {/* ... */},
-                      ),
-                    ],
+      : history.length == 0
+      ? Center(child: CircularProgressIndicator())
+
+      // Display History List
+      : SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * 0.3,
+                floating: false,
+                pinned: true,
+                snap: false,
+                title: Text(
+                  title,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.0),
+                ),
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
                   ),
-                  SliverList(
-                    delegate: SliverChildListDelegate(
-                      _buildList(history, context, userProvider.mUser.wallet),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                backgroundColor: kDefaultColor,
+                flexibleSpace: ReuseFlexSpace(amount),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(
+                      Icons.add_circle,
+                      color: Colors.white,
                     ),
+                    tooltip: 'Add new entry',
+                    onPressed: () {/* ... */},
                   ),
                 ],
               ),
-            ),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  _buildList(history, context, userProvider.mUser.wallet),
+                ),
+              ),
+            ],
+          ),
+        ),
     );
   }
 }

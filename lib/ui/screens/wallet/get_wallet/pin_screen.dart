@@ -105,18 +105,16 @@ class _PinScreenState extends State<PinScreen> {
       _isLoading = true;
     });
     print(_pin);
+
     await UserProvider().getWallet(_pin).then((value) async{
       print("Get wallet $value");
-      setState(() {
-        _isLoading = false;
-      });
 
       // Getting Wallet
       if (value == 'Opp! You need to verify your phone number first') {
         await AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
 
       } else if (mBalance.data != null) {
-        _pref.read('seed').then((onValue) async {
+        await _pref.read('seed').then((onValue) async {
           if (onValue != null) {
             await _displayWalletInfo(context, onValue);
           } else {
@@ -127,6 +125,11 @@ class _PinScreenState extends State<PinScreen> {
       
       // After Get Wallet
       await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+
+      // Close Loading After Succssfully Get Wallet And Refetch Portfolio
+      setState(() {
+        _isLoading = false;
+      });
 
       // Close Pin Dialog
       Navigator.pop(context);
