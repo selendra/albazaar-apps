@@ -22,16 +22,21 @@ class SellerProvider with ChangeNotifier {
   }
 
   Future<void> fetchBuyerOrder() async {
+    try {
+
     _backend.response = await _getRequest.getAllBuyerOrder();
-    var responseJson = json.decode(_backend.response.body);
-    _allBuyerOrder.clear();
-    allBuyerOrder.clear();
-    for (var data in responseJson) {
-      var itemData = SellerModel.fromJson(data);
-      if (itemData.orderStatus == 'Pay Success' ||
-          itemData.orderStatus == 'Place Order') {
-        _allBuyerOrder.add(SellerModel.fromJson(data));
+    print("My body ${_backend.response.body}");
+      var responseJson = json.decode(_backend.response.body);
+      _allBuyerOrder.clear();
+      allBuyerOrder.clear();
+      for (var data in responseJson) {
+        var itemData = SellerModel.fromJson(data);
+        if (itemData.orderStatus == 'Pay Success' ||
+            itemData.orderStatus == 'Place Order') {
+          _allBuyerOrder.add(SellerModel.fromJson(data));
+        }
       }
+    } catch(e){
     }
 
     notifyListeners();

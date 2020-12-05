@@ -53,16 +53,27 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider()
-        .signInByEmail(_email, _password, context)
-        .then((onValue) {
-      if (onValue != null) {
-        setState(() {
-          _isLoading = false;
-        });
-        ReuseAlertDialog().successDialog(context, onValue);
-      }
-    }).catchError((onError) {});
+
+    try {
+      
+      await AuthProvider()
+          .signInByEmail(_email, _password, context)
+          .then((onValue) {
+        if (onValue != null) {
+          ReuseAlertDialog().successDialog(context, onValue);
+        }
+      }).catchError((onError) {});
+      
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
@@ -70,16 +81,26 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
 
-    await AuthProvider()
-        .signInByPhone("+855" + AppServices.removeZero(_phone), _password, context)
-        .then((value) {
-      if (value != null) {
-        setState(() {
-          _isLoading = false;
-        });
-        ReuseAlertDialog().successDialog(context, value);
-      }
+    try {
+      await AuthProvider()
+          .signInByPhone("+855" + AppServices.removeZero(_phone), _password, context)
+          .then((value) {
+        if (value != null) {
+          ReuseAlertDialog().successDialog(context, value);
+        }
+      });
+
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
     });
+    
   }
 
   onTabChange() {

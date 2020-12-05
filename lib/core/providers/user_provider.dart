@@ -141,7 +141,9 @@ class UserProvider with ChangeNotifier {
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
-        });
+        }); 
+
+        print(response.body);
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);

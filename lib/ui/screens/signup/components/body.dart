@@ -17,39 +17,63 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider().signUpByEmail(_email, _password).then((value) {
-      setState(() {
-        _isLoading = false;
+
+    try {
+      await AuthProvider().signUpByEmail(_email, _password).then((value) {
+        alertText = value;
+        if (alertText != "Your email account already exists!") {
+          Navigator.pushReplacementNamed(context, SignInView);
+        } else {
+          ReuseAlertDialog().successDialog(context, alertText);
+        }
       });
-      alertText = value;
-      if (alertText != "Your email account already exists!") {
-        Navigator.pushReplacementNamed(context, SignInView);
-      } else {
-        ReuseAlertDialog().successDialog(context, alertText);
-      }
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
     });
+    
   }
 
   onSignUpWithPhone(String _phone, String _password) async {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider()
-        .signUpByPhone("+855"+AppServices.removeZero(_phone), _password, context)
-        .then((value) {
-      setState(() {
-        _isLoading = false;
-      });
-      alertText = value ?? "";
 
-      if (alertText != 'Your phone number already exists!') {
-        Navigator.pushReplacement(
-            context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-      } else {
-        ReuseAlertDialog().successDialog(context, alertText);
-      }
+    try {
+
+      await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+      // await AuthProvider().signUpByPhone(_phone, _password, context).then((value) async {
+
+      //   print("Sign up $value");
+
+      //   alertText = value ?? "";
+
+      //   if (alertText != 'Your phone number already exists!') {
+      //     await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+      //     print("Sign up");
+      //   } else {
+      //     print("Already");
+      //     ReuseAlertDialog().successDialog(context, alertText);
+      //   }
+      // });
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
     });
   }
+  
 
   onGoogleSignIn() async {
     setState(() {
@@ -60,35 +84,43 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         if (value == null) {
           Navigator.pop(context);
         } else {
-          setState(() {
-            _isLoading = false;
-          });
           Navigator.pushReplacementNamed(context, BottomNavigationView);
         }
       });
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
     }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   onFacebookSignIn() async {
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider().signInFacebook(context).then((value) {
-      if (value == null) {
-        setState(() {
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
-      }
+    try {
+
+      await AuthProvider().signInFacebook(context).then((value) {
+        if (value != null) {
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+        }
+      });
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
     });
+    
   }
 
   onTabChange() {
