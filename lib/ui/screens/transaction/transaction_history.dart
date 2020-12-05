@@ -151,9 +151,7 @@ class TransactionHistory extends StatelessWidget {
             ),
             SliverList(
               delegate: SliverChildListDelegate(
-                history.length == 0
-                    ? Container()
-                    : _buildList(history, context, userProvider.mUser.wallet),
+                _buildList(history, context, userProvider.mUser.wallet),
               ),
             ),
           ],

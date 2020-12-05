@@ -6,15 +6,19 @@ class SellerProvider with ChangeNotifier {
 
   GetRequest _getRequest = GetRequest();
 
+  List<SellerModel> _buyerPendingList = [];
+  List<SellerModel> _buyerCompleteList = [];
   List<SellerModel> _allBuyerOrder = [];
 
+  List<SellerModel> get buyerPendingList => _buyerPendingList;
+  List<SellerModel> get buyerCompleteList => _buyerCompleteList;
   List<SellerModel> get allBuyerOrder => _allBuyerOrder;
 
   SellerProvider() {
     fetchBuyerOrder();
   }
   void removeBuyerOrder(String id) {
-    _allBuyerOrder.removeWhere(
+    _buyerPendingList.removeWhere(
       (element) => element.id == id,
     );
     notifyListeners();
@@ -28,14 +32,16 @@ class SellerProvider with ChangeNotifier {
   Future<void> fetchBuyerOrder() async {
     _backend.response = await _getRequest.getAllBuyerOrder();
     var responseJson = json.decode(_backend.response.body);
-    _allBuyerOrder.clear();
-    allBuyerOrder.clear();
+    _buyerPendingList.clear();
+    buyerPendingList.clear();
+    _buyerCompleteList.clear();
     for (var data in responseJson) {
       var itemData = SellerModel.fromJson(data);
-      if (itemData.orderStatus == 'Pay Success' ||
-          itemData.orderStatus == 'Place Order' ||
-          itemData.orderStatus == 'Shipment') {
-        _allBuyerOrder.add(SellerModel.fromJson(data));
+      _allBuyerOrder.add(itemData);
+      if (itemData.orderStatus != 'Order Complete') {
+        _buyerPendingList.add(itemData);
+      } else {
+        _buyerCompleteList.add(itemData);
       }
     }
 

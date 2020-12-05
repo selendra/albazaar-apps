@@ -18,7 +18,6 @@ class Body extends StatelessWidget {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              // backgroundColor: Colors.white,
               elevation: 0,
               iconTheme: IconThemeData(
                 color: kDefaultColor,
@@ -28,7 +27,7 @@ class Body extends StatelessWidget {
               actions: [
                 Consumer<CartProvider>(
                   builder: (context, value, child) => Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: CircleAvatar(
                       backgroundColor: Colors.white.withOpacity(0.8),
                       child: value.items.length == 0
@@ -142,7 +141,7 @@ class Body extends StatelessWidget {
                       //_btnQtyRow(),
                       Consumer<ProductsProvider>(
                         builder: (context, value, child) => BtnQty(
-                          '${value.orderQty}',
+                          '${loadedData.orderQty}',
                           () {
                             value.addOrderQty(loadedData);
                           },

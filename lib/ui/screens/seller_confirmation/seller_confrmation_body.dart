@@ -200,7 +200,8 @@ class SellerConfirmBody extends StatelessWidget {
                     }, context)
                   : ReuseButton.getItem(
                       _lang.translate('confirm_shipping'),
-                      loadedOrder.orderStatus == 'Shipment'
+                      loadedOrder.orderStatus == 'Shipment' ||
+                              loadedOrder.orderStatus == 'Order Complete'
                           ? null
                           : () async {
                               await ReuseAlertDialog().customDialog(

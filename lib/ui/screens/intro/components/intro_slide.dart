@@ -32,14 +32,15 @@ class IntroSlide extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.1,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
               description,
               style: TextStyle(
-                  height: 1.5,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  letterSpacing: 0.7),
+                height: 1.5,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+                letterSpacing: 0.7,
+              ),
               textAlign: TextAlign.center,
             ),
           ),

@@ -32,7 +32,6 @@ class ProductsProvider with ChangeNotifier {
   List<OrderProduct> _completeProduct = [];
 
   //initial product orderqty
-  int _orderQty = 1;
 
   List<Product> get items => [..._items];
   List<Product> get oItems => [..._oItems];
@@ -43,7 +42,6 @@ class ProductsProvider with ChangeNotifier {
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
   List<OrderProduct> get completeProduct => [..._completeProduct];
-  int get orderQty => _orderQty;
 
   Future<void> fetchListingProduct() async {
     try {
@@ -309,14 +307,14 @@ class ProductsProvider with ChangeNotifier {
 
   //Increase order quantity of product
   void addOrderQty(Product product) {
-    _orderQty++;
+    product.orderQty++;
     notifyListeners();
   }
 
   //Decrease order quantity of product
   void minusOrderQty(Product product) {
-    if (_orderQty > 1) {
-      _orderQty--;
+    if (product.orderQty > 1) {
+      product.orderQty--;
       notifyListeners();
     }
   }

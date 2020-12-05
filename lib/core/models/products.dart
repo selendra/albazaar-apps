@@ -17,6 +17,7 @@ class Product with ChangeNotifier {
     this.createdAt,
     this.isSold,
     this.isFav,
+    this.orderQty,
   });
 
   String description;
@@ -34,6 +35,7 @@ class Product with ChangeNotifier {
   DateTime createdAt;
   bool isSold;
   bool isFav;
+  int orderQty;
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
         description: json["description"],
@@ -51,6 +53,7 @@ class Product with ChangeNotifier {
         createdAt: DateTime.parse(json["created_at"]),
         isSold: json["is_sold"],
         isFav: false,
+        orderQty: 1,
       );
 
   Map<String, dynamic> toMap() => {

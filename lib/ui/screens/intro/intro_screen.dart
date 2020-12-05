@@ -36,7 +36,6 @@ class _IntroScreenState extends State<IntroScreen> {
 
   void onPageChange(int value) async {
     if (_pageController != null) {
-      // isPageCanChanged = false;
       setState(() {
         currentIndex = value;
       });

@@ -109,7 +109,6 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       _token = responseJson['token'];
       _pref.saveString('token', _token);
-      await StorageServices.setData(responseJson, 'user_token');
 
       if (token == null) {
         await ReuseAlertDialog().successDialog(
@@ -117,9 +116,10 @@ class AuthProvider with ChangeNotifier {
           responseJson['error']['message'],
         );
       } else {
+        await StorageServices.setData(responseJson, 'user_token');
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
-        // Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
       }
@@ -136,7 +136,6 @@ class AuthProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       _token = responseJson['token'];
       _pref.saveString('token', _token);
-      await StorageServices.setData(responseJson, 'user_token');
 
       if (token == null) {
         await ReuseAlertDialog().successDialog(
@@ -144,6 +143,8 @@ class AuthProvider with ChangeNotifier {
           responseJson['error']['message'],
         );
       } else {
+        await StorageServices.setData(responseJson, 'user_token');
+
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
@@ -220,6 +221,8 @@ class AuthProvider with ChangeNotifier {
         _token = responseJson['token'];
         if (_token != null) {
           _pref.saveString('token', _token);
+          await StorageServices.setData(responseJson, 'user_token');
+
           Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
           Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
           Provider.of<ProductsProvider>(context, listen: false)

@@ -27,14 +27,14 @@ class _ListingScreenState extends State<ListingScreen>
 
   @override
   Widget build(BuildContext context) {
-    var lang = AppLocalizeService.of(context);
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
-          lang.translate('listing'),
+          _lang.translate('listing'),
           context,
-          'Products',
-          'Pending',
-          'Sold',
+          _lang.translate('all'),
+          _lang.translate('pending'),
+          _lang.translate('complete'),
           _controller), //lang.translate('Products')
       body: Body(_controller),
     );

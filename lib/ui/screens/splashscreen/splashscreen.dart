@@ -62,6 +62,22 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+  void preCacheSvg() {
+    for (int i = 0; i < svg.length; i++) {
+      precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+    }
+  }
+
+  void setDefaultLang() {
+    var _lang = Provider.of<LangProvider>(context, listen: false);
+    _pref.read('lang').then(
+      (value) {
+        _lang.setLocal(value, context);
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -90,18 +106,10 @@ class _SplashScreenState extends State<SplashScreen>
     });
 
     //Pre svg image
-    for (int i = 0; i < svg.length; i++) {
-      precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
-    }
+    preCacheSvg();
 
-    //SET LANGUAGE
-    var _lang = Provider.of<LangProvider>(context, listen: false);
-    _pref.read('lang').then(
-      (value) {
-        _lang.setLocal(value, context);
-      },
-    );
+    //Set Language
+    setDefaultLang();
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 
 class Tracking extends StatefulWidget {
   final OrderProduct productOrder;

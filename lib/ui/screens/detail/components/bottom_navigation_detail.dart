@@ -50,11 +50,12 @@ class BottomNavigationDetail extends StatelessWidget {
                 width: 100,
                 child: ReuseButton.getItem('Buy Now', () {
                   cartProvider.addCart(
-                      loadedProduct.id,
-                      loadedProduct.thumbnail,
-                      loadedProduct.name,
-                      loadedProduct.price,
-                      productProvider.orderQty);
+                    loadedProduct.id,
+                    loadedProduct.thumbnail,
+                    loadedProduct.name,
+                    loadedProduct.price,
+                    loadedProduct.orderQty,
+                  );
                   Navigator.pop(context);
                   Navigator.push(
                       context, RouteAnimation(enterPage: Checkout()));

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class BtnAddToCart extends StatelessWidget {
   final Product loadedProduct;
   BtnAddToCart(this.loadedProduct);
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductsProvider>(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
         width: 150,
@@ -19,7 +17,7 @@ class BtnAddToCart extends StatelessWidget {
               loadedProduct.thumbnail,
               loadedProduct.name,
               loadedProduct.price,
-              productProvider.orderQty,
+              loadedProduct.orderQty,
             );
             Navigator.pop(context);
           },
