@@ -10,11 +10,16 @@ class SignUpEmailForm extends StatelessWidget {
 
   SignUpEmailForm(this.signUpEmailFunc, this.facebookLogin, this.googleLogin);
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   final _emailFormKey = GlobalKey<FormState>();
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {
       _emailFormKey.currentState.save();
       signUpEmailFunc(_email, _password);
+      _emailController.text = '';
+      _passwordController.text = '';
     }
   }
 
@@ -31,6 +36,7 @@ class SignUpEmailForm extends StatelessWidget {
               height: 20,
             ),
             ReuseTextField(
+              controller: _emailController,
               labelText: _lang.translate('email'),
               inputType: TextInputType.emailAddress,
               onSaved: (value) => _email = value,
@@ -41,6 +47,7 @@ class SignUpEmailForm extends StatelessWidget {
               height: 20,
             ),
             ReusePwField(
+              controller: _passwordController,
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')

@@ -30,12 +30,11 @@ class _SplashScreenState extends State<SplashScreen>
               .fetchListingProduct();
           Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
           AuthProvider().currentUser.then(
-            (value) {
-              if (value != null) {
-                print("Current User $value");
+            (valueUser) {
+              if (valueUser != null) {
                 Provider.of<UserProvider>(context, listen: false)
-                    .fetchSocialUserInfo(
-                        value.email, value.displayName, value.photoUrl);
+                    .fetchSocialUserInfo(valueUser.email, valueUser.displayName,
+                        valueUser.photoUrl);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 validateNormalUser();
@@ -84,6 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
             Navigator.pushReplacementNamed(context, IntroScreenView);
           } else {
             checkUser();
+            // Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         },
       );

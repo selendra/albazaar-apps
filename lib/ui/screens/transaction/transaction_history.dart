@@ -112,54 +112,53 @@ class TransactionHistory extends StatelessWidget {
 
     return Scaffold(
       // Display Loading
-      body: history.length == 0
-          ? Center(child: CircularProgressIndicator())
-          // Display History List
-          : SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: MediaQuery.of(context).size.height * 0.3,
-                    floating: false,
-                    pinned: true,
-                    snap: false,
-                    title: Text(
-                      title,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22.0),
-                    ),
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    backgroundColor: kDefaultColor,
-                    flexibleSpace: ReuseFlexSpace(amount),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(
-                          Icons.add_circle,
-                          color: Colors.white,
-                        ),
-                        tooltip: 'Add new entry',
-                        onPressed: () {/* ... */},
-                      ),
-                    ],
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: MediaQuery.of(context).size.height * 0.3,
+              floating: false,
+              pinned: true,
+              snap: false,
+              title: Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.0),
+              ),
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              backgroundColor: kDefaultColor,
+              flexibleSpace: ReuseFlexSpace(amount),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(
+                    Icons.add_circle,
+                    color: Colors.white,
                   ),
-                  SliverList(
-                    delegate: SliverChildListDelegate(
-                      _buildList(history, context, userProvider.mUser.wallet),
-                    ),
-                  ),
-                ],
+                  tooltip: 'Add new entry',
+                  onPressed: () {/* ... */},
+                ),
+              ],
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                history.length == 0
+                    ? Container()
+                    : _buildList(history, context, userProvider.mUser.wallet),
               ),
             ),
+          ],
+        ),
+      ),
     );
   }
 }

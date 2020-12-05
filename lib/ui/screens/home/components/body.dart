@@ -17,7 +17,7 @@ class _BodyState extends State<Body> {
     await Future.delayed(Duration(seconds: 3)).then((value) {
       productsProvider = Provider.of<ProductsProvider>(context, listen: false);
       productsProvider.fetchListingProduct();
-      // sellerProvider.fetchBuyerOrder();
+      sellerProvider.fetchBuyerOrder();
     });
   }
 

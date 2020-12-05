@@ -10,12 +10,16 @@ class SignInEmailForm extends StatelessWidget {
 
   SignInEmailForm(this.signInEmailFunc, this.faceBookSignIn, this.googleSignIn);
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _emailFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {
       _emailFormKey.currentState.save();
       signInEmailFunc(_email, _password);
+      _emailController.text = '';
+      _passwordController.text = '';
     }
   }
 
@@ -29,6 +33,7 @@ class SignInEmailForm extends StatelessWidget {
         child: Column(
           children: [
             ReuseTextField(
+              controller: _emailController,
               labelText: _lang.translate('email'),
               inputType: TextInputType.emailAddress,
               onSaved: (value) => _email = value,
@@ -39,6 +44,7 @@ class SignInEmailForm extends StatelessWidget {
               height: 20,
             ),
             ReusePwField(
+              controller: _passwordController,
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')

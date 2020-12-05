@@ -11,12 +11,17 @@ class SignUpPhoneForm extends StatelessWidget {
 
   SignUpPhoneForm(this.signUpPhoneFunc, this.facebookSignIn, this.googleSignIn);
 
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _phoneFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() {
     if (_phoneFormKey.currentState.validate()) {
       _phoneFormKey.currentState.save();
       signUpPhoneFunc(_phone, _password);
+
+      _phoneController.text = '';
+      _passwordController.text = '';
     }
   }
 
@@ -34,6 +39,7 @@ class SignUpPhoneForm extends StatelessWidget {
             ),
             Container(
               child: IntlPhoneField(
+                controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: _lang.translate('phone_hint'),
                   labelStyle: TextStyle(color: Colors.grey),
@@ -61,6 +67,7 @@ class SignUpPhoneForm extends StatelessWidget {
               height: 10,
             ),
             ReusePwField(
+              controller: _passwordController,
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')

@@ -44,7 +44,6 @@ class ReuseQrCard extends StatelessWidget {
                   height: 20,
                 ),
                 QrImage(
-                  embeddedImage: AssetImage(image),
                   data: value.mUser.wallet,
                   version: QrVersions.auto,
                   size: 200.0,
