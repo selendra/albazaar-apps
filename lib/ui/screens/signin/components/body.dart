@@ -59,43 +59,37 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onApiSignInByEmail(String _email, String _password) async {
-    await ReuseAlertDialog().customDialog(context, 'Hello world', () {
-      Navigator.pop(context);
+    setState(() {
+      _isLoading = true;
     });
-    // setState(() {
-    //   _isLoading = true;
-    // });
-    // await AuthProvider()
-    //     .signInByEmail(_email, _password, context)
-    //     .then((onValue) {
-    //   if (onValue != null) {
-    //     setState(() {
-    //       _isLoading = false;
-    //     });
-    //     ReuseAlertDialog().successDialog(context, onValue);
-    //   }
-    // }).catchError((onError) {});
+    await AuthProvider()
+        .signInByEmail(_email, _password, context)
+        .then((onValue) {
+      if (onValue != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        ReuseAlertDialog().successDialog(context, onValue);
+      }
+    }).catchError((onError) {});
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
-    await ReuseAlertDialog().customDialog(context, 'Hello world', () {
-      Navigator.pop(context);
+    setState(() {
+      _isLoading = true;
     });
-    // setState(() {
-    //   _isLoading = true;
-    // });
 
-    // await AuthProvider()
-    //     .signInByPhone(
-    //         "+855" + AppServices.removeZero(_phone), _password, context)
-    //     .then((value) {
-    //   if (value != null) {
-    //     setState(() {
-    //       _isLoading = false;
-    //     });
-    //     ReuseAlertDialog().successDialog(context, value);
-    //   }
-    // });
+    await AuthProvider()
+        .signInByPhone(
+            "+855" + AppServices.removeZero(_phone), _password, context)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _isLoading = false;
+        });
+        ReuseAlertDialog().successDialog(context, value);
+      }
+    });
   }
 
   onTabChange() {
