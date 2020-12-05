@@ -65,7 +65,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    print(mBalance.data);
     return mBalance.data == null
         ? Center(
             child: WalletChoice(onGetWallet, showAlertDialog),

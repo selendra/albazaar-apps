@@ -291,21 +291,13 @@ class AuthProvider with ChangeNotifier {
         body: jsonEncode(<String, String>{
           'phone': phone,
           'password': password,
-        }));
+        }
+      )
+    );
 
-    if (response.statusCode == 200) {
-      var responseBody = json.decode(response.body);
-      _alertText = responseBody['message'];
+    var responseBody = json.decode(response.body);
+    _alertText = responseBody['message'];
 
-      if (_alertText == 'Successfully registered!') {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => OTPScreen(phone, password)));
-      } else {
-        return _alertText;
-      }
-    } else {}
     return _alertText;
   }
 
@@ -320,7 +312,7 @@ class AuthProvider with ChangeNotifier {
               "Content-Type": "application/json"
             },
             body: jsonEncode(<String, String>{
-              "phone": _phoneNumber,
+              "phone": "+855"+_phoneNumber,
             }));
         var responseBody = json.decode(response.body);
 
@@ -401,7 +393,7 @@ class AuthProvider with ChangeNotifier {
         headers: ApiHeader.headers,
         body: jsonEncode(
           <String, String>{
-            'phone': phone,
+            'phone': "+855"+phone,
             'verification_code': verifyCode,
           },
         ),

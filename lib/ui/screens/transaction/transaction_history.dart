@@ -7,8 +7,7 @@ class TransactionHistory extends StatelessWidget {
 
   TransactionHistory({this.title, this.amount, this.logo});
 
-  List _buildList(
-      List<TrxHistoryModel> history, BuildContext context, String userWallet) {
+  List _buildList(List<TrxHistoryModel> history, BuildContext context, String userWallet) {
     print("length ${history.length}");
 
     List<Widget> listItems = List();

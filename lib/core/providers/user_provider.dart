@@ -106,6 +106,8 @@ class UserProvider with ChangeNotifier {
   //This function is use to request wallet from the api
   Future<String> getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
+      print("My Token $value");
+      print("My PIN $pin");
       var response = await http.post(ApiUrl.GET_WALLET,
           headers: <String, String>{
             "accept": "application/json",
@@ -141,7 +143,9 @@ class UserProvider with ChangeNotifier {
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
-        });
+        }); 
+
+        print(response.body);
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);

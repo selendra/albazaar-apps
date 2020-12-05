@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PinScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _PinScreenState extends State<PinScreen> {
 
   List<String> currentPin = ["", "", "", ""];
   String _countryCode = 'KH';
-  String _phoneNumber, value;
+  String value;
   bool _seen = false;
   PrefService _pref = PrefService();
   bool isCorrect = true, _isLoading = false, _isBtnOneTap = false;
@@ -25,18 +26,26 @@ class _PinScreenState extends State<PinScreen> {
   TextEditingController pinFourController = TextEditingController();
   final TextEditingController _pinPutController = TextEditingController();
 
+  TextEditingController _phoneController;
+  
+  int pinIndex = 0;
+  
+  @override
+  void initState() {
+    _phoneController = TextEditingController(text: '');
+    clearPinStorage();
+    super.initState();
+  }
+
+  void clearPinStorage() async {
+    await StorageServices.removeKey('first');
+    await StorageServices.removeKey('pin');
+  }
+
   var outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(16),
     borderSide: BorderSide(color: Colors.transparent),
   );
-
-  void clearPref() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.remove('first');
-    pref.remove('pin');
-  }
-
-  int pinIndex = 0;
 
   pinIndexSetup(String text) {
     if (pinIndex == 0)
@@ -44,6 +53,7 @@ class _PinScreenState extends State<PinScreen> {
     else if (pinIndex < 4) {
       pinIndex++;
     }
+    
     setPin(pinIndex, text);
     currentPin[pinIndex - 1] = text;
     String strPin = "";
@@ -61,47 +71,10 @@ class _PinScreenState extends State<PinScreen> {
     }
   }
 
-  sendCode() async {
-    if (_phoneNumber != null) {
-      FocusManager.instance.primaryFocus.unfocus();
-      setState(() {
-        _isLoading = true;
-      });
-      await AuthProvider().addPhoneNumber(_phoneNumber).then((onValue) {
-        alertText = onValue;
-        if (alertText == 'Something went wrong on our end') {
-          setState(() {
-            _isLoading = false;
-          });
-          AllDialog()
-              .verifyDialog(context, onValue, _phoneCodePick(), sendCode);
-        } else {
-          AllDialog().verifyPinDialog(context, checkVerify);
-        }
-      });
-    }
-  }
-
-  void checkVerify(String verifyCode) async {
-    _pinPutController.text = '';
-    setState(() {
-      _isLoading = true;
-    });
-    await AuthProvider().verifyByPhone(_phoneNumber, verifyCode).then(
-      (onValue) {
-        setState(() {
-          _isLoading = false;
-        });
-        if (onValue != null) {
-          AllDialog().simpleAlertDialog(context, onValue);
-        }
-      },
-    );
-  }
-
   void firstPin(String pin) async {
     SharedPreferences isSeen = await SharedPreferences.getInstance();
     SharedPreferences isPin = await SharedPreferences.getInstance();
+
     _seen = (isSeen.getBool('first') ?? false);
     if (_seen != true) {
       setState(() {
@@ -127,30 +100,87 @@ class _PinScreenState extends State<PinScreen> {
     });
   }
 
-  onGetWallet(String _pin) async {
+  Future<void> onGetWallet(String _pin) async {
     setState(() {
       _isLoading = true;
     });
-    await UserProvider().getWallet(_pin).then((value) {
+    print(_pin);
+    await UserProvider().getWallet(_pin).then((value) async{
+      print("Get wallet $value");
       setState(() {
         _isLoading = false;
       });
-      print(value);
+
+      // Getting Wallet
       if (value == 'Opp! You need to verify your phone number first') {
-        AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+        await AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+
       } else if (mBalance.data != null) {
-        _pref.read('seed').then((onValue) {
+        _pref.read('seed').then((onValue) async {
           if (onValue != null) {
-            _displayWalletInfo(context, onValue);
+            await _displayWalletInfo(context, onValue);
           } else {
-            ReuseAlertDialog().successDialog(context, value);
+            await ReuseAlertDialog().successDialog(context, value);
           }
         });
       }
+      
+      // After Get Wallet
+      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+
+      // Close Pin Dialog
+      Navigator.pop(context);
     });
   }
 
+  Future<void> sendCode() async {
+    print(_phoneController.text);
+    if (_phoneController.text.isNotEmpty) {
+      FocusManager.instance.primaryFocus.unfocus();
+      setState(() {
+        _isLoading = true;
+      });
+      await AuthProvider().addPhoneNumber(AppServices.removeZero(_phoneController.text)).then((onValue) async {
+        alertText = onValue;
+        if (alertText == 'Something went wrong on our end') {
+          // Refill Phone Number
+          await AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
+        } else {
+          // SMS Verification
+          await AllDialog().verifyPinDialog(context, checkVerify);
+        }
+
+        // Disable Loading
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+  }
+
+  void checkVerify(String verifyCode) async {
+    _pinPutController.text = '';
+    setState(() {
+      _isLoading = true;
+    });
+    await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then(
+      (onValue) async {
+        setState(() {
+          _isLoading = false;
+        });
+        if (onValue != null) {
+          await AllDialog().simpleAlertDialog(context, "Success");
+          await _pref.read('pin').then((value) async {
+            print("My pin");
+            await onGetWallet(value);
+          });
+        }
+      },
+    );
+  }
+
   setPin(int n, String text) {
+    print("Setting pin $text");
     switch (n) {
       case 1:
         pinOneController.text = text;
@@ -187,7 +217,7 @@ class _PinScreenState extends State<PinScreen> {
     return false;
   }
 
-  _displayWalletInfo(BuildContext context, String _seed) async {
+  Future _displayWalletInfo(BuildContext context, String _seed) async {
     var _lang = AppLocalizeService.of(context);
     return showDialog(
       barrierDismissible: false,
@@ -204,8 +234,7 @@ class _PinScreenState extends State<PinScreen> {
                 height: 300,
                 child: Column(
                   children: [
-                    Text(
-                        'Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
+                    Text('Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -256,8 +285,9 @@ class _PinScreenState extends State<PinScreen> {
                 FlatButton(
                     child: Text('Done'),
                     onPressed: () => checkUserCopy()
-                        ? Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/root', (Route<dynamic> route) => false)
+                        ? Navigator.pop(context)
+                        // Navigator.of(context).pushNamedAndRemoveUntil(
+                        //     '/root', (Route<dynamic> route) => false)
                         : null),
               ],
             );
@@ -271,6 +301,7 @@ class _PinScreenState extends State<PinScreen> {
     return Container(
       height: 50,
       child: IntlPhoneField(
+        controller: _phoneController,
         inputFormatters: [
           LengthLimitingTextInputFormatter(9),
           FilteringTextInputFormatter.digitsOnly
@@ -291,7 +322,8 @@ class _PinScreenState extends State<PinScreen> {
             ? AppLocalizeService.of(context).translate('phone_number_is_number')
             : null,
         onChanged: (phone) {
-          _phoneNumber = phone.completeNumber.toString();
+          // _phoneNumber = phone.completeNumber.toString();
+          print(_phoneController.text);
         },
       ),
     );
