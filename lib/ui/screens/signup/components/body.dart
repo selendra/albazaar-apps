@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -54,17 +53,18 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
-        print("Sign up $value");
-
-        alertText = value ?? "";
-
-        if (alertText != 'Your phone number already exists!') {
-          await Navigator.push(
-              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-          print("Sign up");
+        if (value != 'Your phone number already exists!' ||
+            alertText != 'Your phone number doesn\'t seem right!') {
+          setState(() {
+            _isLoading = false;
+          });
+          await ReuseAlertDialog().successDialog(context, value);
         } else {
-          print("Already");
-          ReuseAlertDialog().successDialog(context, alertText);
+          setState(() {
+            _isLoading = false;
+          });
+          Navigator.push(
+              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
         }
       });
     } on SocketException catch (e) {

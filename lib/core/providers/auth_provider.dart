@@ -19,39 +19,45 @@ class AuthProvider with ChangeNotifier {
 
   Future<String> signInWithGoogle(BuildContext context) async {
     String googleToken;
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    try {
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
 
-    print(googleSignInAuthentication.accessToken);
-    //debugPrint(googleSignInAuthentication.idToken,wrap);
-    googleToken = googleSignInAuthentication.idToken;
-    //getTokenForGoogle(googleSignInAuthentication.idToken,context);
+      print(googleSignInAuthentication.accessToken);
+      //debugPrint(googleSignInAuthentication.idToken,wrap);
+      googleToken = googleSignInAuthentication.idToken;
+      //getTokenForGoogle(googleSignInAuthentication.idToken,context);
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
-    // Provider.of<ProductsProvider>(context, listen: false).getVegi();
+      final AuthResult authResult =
+          await _auth.signInWithCredential(credential);
+      final FirebaseUser user = authResult.user;
+      // Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
-    // Checking if email and name is null
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(user.photoUrl != null);
+      // Checking if email and name is null
+      assert(user.email != null);
+      assert(user.displayName != null);
+      assert(user.photoUrl != null);
 
-    //getUserInfo(user);
-    Provider.of<UserProvider>(context, listen: false)
-        .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
-    mBalance = Balance();
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+      //getUserInfo(user);
+      Provider.of<UserProvider>(context, listen: false)
+          .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+      mBalance = Balance();
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
-
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+    } catch (e) {
+      await ReuseAlertDialog()
+          .successDialog(context, 'Please try again later!');
+    }
     return googleToken;
   }
 
@@ -338,9 +344,7 @@ class AuthProvider with ChangeNotifier {
         body: jsonEncode(<String, String>{
           'phone': phone,
           'password': password,
-        }
-      )
-    );
+        }));
 
     var responseBody = json.decode(response.body);
     _alertText = responseBody['message'];
@@ -359,7 +363,7 @@ class AuthProvider with ChangeNotifier {
               "Content-Type": "application/json"
             },
             body: jsonEncode(<String, String>{
-              "phone": "+855"+_phoneNumber,
+              "phone": "+855" + _phoneNumber,
             }));
         var responseBody = json.decode(response.body);
 
@@ -440,7 +444,7 @@ class AuthProvider with ChangeNotifier {
         headers: ApiHeader.headers,
         body: jsonEncode(
           <String, String>{
-            'phone': "+855"+phone,
+            'phone': "+855" + phone,
             'verification_code': verifyCode,
           },
         ),
