@@ -69,8 +69,8 @@ class _TrackingState extends State<Tracking> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         reuseText('Dubai', TextAlign.start),
-                        reuseText(widget.productOrder.shippingAddress,
-                            TextAlign.start),
+                        reuseText(
+                            widget.productOrder.shippingAddress, TextAlign.end),
                       ],
                     ),
                     _sliderTheme(
