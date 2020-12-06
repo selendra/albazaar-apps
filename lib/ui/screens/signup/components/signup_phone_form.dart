@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 String _phone, _password;
 
@@ -34,6 +35,7 @@ class SignUpPhoneForm extends StatelessWidget {
         key: _phoneFormKey,
         child: Column(
           children: [
+
             SizedBox(
               height: 20,
             ),
@@ -58,11 +60,11 @@ class SignUpPhoneForm extends StatelessWidget {
                 initialCountryCode: 'KH',
                 validator: (value) => value.isEmpty ? "Phone is empty" : null,
                 onChanged: (phone) {
-                  print("My phone $phone ");
-                  _phone = phone.completeNumber.toString();
+                  _phone = "+855"+AppServices.removeZero(phone.completeNumber.toString());
                 },
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -74,17 +76,20 @@ class SignUpPhoneForm extends StatelessWidget {
                   : null,
               onSaved: (value) => _password = value,
             ),
+
             SizedBox(
               height: 40,
             ),
             ReuseButton.getItem(_lang.translate('signup_string'), () {
               validateAndSubmit();
             }, context),
+
             SizedBox(height: 10),
             ReuseFlatButton.getItem(_lang.translate('had_an_account'),
                 _lang.translate('signin_string'), () {
               Navigator.pushReplacementNamed(context, SignInView);
             }),
+
             SizedBox(
               height: 10,
             ),
@@ -92,6 +97,7 @@ class SignUpPhoneForm extends StatelessWidget {
               _lang.translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
+            
             SizedBox(
               height: 10,
             ),

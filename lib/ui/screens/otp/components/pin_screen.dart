@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PinScreen extends StatefulWidget {
+  
   final String phoneNumber, password;
   PinScreen(this.phoneNumber, this.password);
   @override
@@ -12,6 +13,7 @@ class PinScreen extends StatefulWidget {
 }
 
 class _PinScreenState extends State<PinScreen> {
+
   bool _isLoading = false, _isCounting = true;
   String alertText;
   int _second = 30;
@@ -26,8 +28,10 @@ class _PinScreenState extends State<PinScreen> {
   TextEditingController pinSixController = TextEditingController();
 
   var outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide(color: Colors.transparent));
+    borderRadius: BorderRadius.circular(16),
+    borderSide: BorderSide(color: Colors.transparent)
+  );
+  
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
@@ -100,12 +104,14 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   void checkVerify(String verifyOTP) async {
-    String apiUrl =
-        'https://testnet-api.selendra.com/pub/v1/account-confirmation';
     setState(() {
       _isLoading = true;
     });
-    var response = await http.post(apiUrl,
+
+    try {
+
+      String apiUrl = 'https://testnet-api.selendra.com/pub/v1/account-confirmation';
+      var response = await http.post(apiUrl,
         headers: <String, String>{
           "accept": "application/json",
           "Content-Type": "application/json"
@@ -113,34 +119,45 @@ class _PinScreenState extends State<PinScreen> {
         body: jsonEncode(<String, String>{
           'phone': widget.phoneNumber,
           'verification_code': verifyOTP,
-        }));
-    if (response.statusCode == 200) {
-      setState(() {
-        _isLoading = false;
-      });
-      var responseBody = json.decode(response.body);
-      try {
-        alertText = responseBody['error']['message'];
-        showAlertDialog(context);
-        for (int i = 0; i < 6; i++) {
-          clearPin();
+        })
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _isLoading = false;
+        });
+        var responseBody = json.decode(response.body);
+
+        if (responseBody.containsKey('error')){
+          // Clear Field
+          for (int i = 0; i < 6; i++) {
+            alertText = responseBody['error']['message'];
+            clearPin();
+            showAlertDialog(context);
+          }
+        } else {
+          alertText = responseBody['message'];
+          successDialog(context);
+          // Sign In To Get Token For Set Profile User
+          await AuthProvider().signInByPhone(widget.phoneNumber, widget.password, context);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserInfoScreen())
+          );
         }
-      } catch (e) {
-        await AuthProvider()
-            .signInByPhone(widget.phoneNumber, widget.password, context);
-        alertText = responseBody['message'];
-        successDialog(context);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
+        
       }
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
+    } on SocketException catch (e){
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(context, Text(e.message.toString(), textAlign: TextAlign.center), Text("Message"));
     }
+
+    // Disable Loading
+    setState(() {
+      _isLoading = false;
+    });
   }
 
-  onResendCode(String phoneNumber) async {
+  Future<void> onResendCode(String phoneNumber) async {
     await AuthProvider().resendCode(phoneNumber).then((value) {
       alertText = value;
       showAlertDialog(context);
@@ -231,7 +248,7 @@ class _PinScreenState extends State<PinScreen> {
                       height: MediaQuery.of(context).size.height * 0.1,
                     ),
                     Text(
-                      _lang.translate('enter_4digit_code'),
+                      _lang.translate('enter_6digit_code'),
                       style: TextStyle(
                         fontSize: 26.0,
                         fontWeight: FontWeight.bold,
@@ -242,7 +259,7 @@ class _PinScreenState extends State<PinScreen> {
                       height: 5,
                     ),
                     Text(
-                      _lang.translate('4digit_sent_to') + widget.phoneNumber,
+                      _lang.translate('6digit_sent_to') + widget.phoneNumber,
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
@@ -261,8 +278,8 @@ class _PinScreenState extends State<PinScreen> {
                                 _lang.translate('resend_code'),
                                 style: TextStyle(color: Colors.red),
                               ),
-                              onPressed: () {
-                                onResendCode(widget.phoneNumber);
+                              onPressed: () async {
+                                await onResendCode(widget.phoneNumber);
                               },
                             )),
                     SizedBox(

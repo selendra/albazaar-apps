@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'components/pin_screen.dart';
 
 class OTPScreen extends StatefulWidget {
+
   final String phoneNumber, password;
   OTPScreen(this.phoneNumber, this.password);
   @override
@@ -10,6 +11,12 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+
+  @override
+  initState(){
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(

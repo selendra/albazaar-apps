@@ -43,8 +43,8 @@ class SellerProvider with ChangeNotifier {
       } else {
         _buyerCompleteList.add(itemData);
       }
-    }
 
-    notifyListeners();
+      notifyListeners();
+    }
   }
 }

@@ -16,7 +16,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   ProductsProvider productsProvider;
   SellerProvider sellerProvider;
-  Future fetch;
 
   Future<Null> _refresh() async {
     await Future.delayed(Duration(seconds: 3)).then((value) {

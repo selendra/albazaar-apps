@@ -1,6 +1,5 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 

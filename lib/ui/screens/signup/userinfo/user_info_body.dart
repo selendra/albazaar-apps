@@ -24,13 +24,12 @@ class _BodyState extends State<Body> {
     }
   }
 
-  showAlertDialog(BuildContext context) {
+  Future<void> showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignIn()), ModalRoute.withName('/'));
       },
     );
 
@@ -42,7 +41,7 @@ class _BodyState extends State<Body> {
     );
 
     // show the dialog
-    showDialog(
+    return showDialog(
       context: context,
       builder: (BuildContext context) {
         return alert;
@@ -62,7 +61,7 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void validateAndSubmit() {
+  void validateAndSubmit() async {
     if (_selectedIndex == 0) {
       Scaffold.of(context).showSnackBar(snackBar);
     } else {
@@ -75,17 +74,17 @@ class _BodyState extends State<Body> {
             gender = 'F';
             break;
         }
-        onSetUserPf();
+        await onSetUserPf();
       }
     }
   }
 
-  onSetUserPf() async {
-    await UserProvider()
-        .setUserPf(firstName, midName, lastName, gender, context)
-        .then((value) {
+  Future<void>onSetUserPf() async {
+    await UserProvider().setUserPf(firstName, midName, lastName, gender, context).then((value) async {
       alertText = value;
-      showAlertDialog(context);
+
+      await StorageServices.removeKey('token');
+      await showAlertDialog(context);
     });
   }
 

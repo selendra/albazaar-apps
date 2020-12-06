@@ -3,8 +3,8 @@ import 'package:selendra_marketplace_app/all_export.dart';
 
 class AllDialog {
   String _pin;
-  Future<void> verifyDialog(BuildContext context, String _alertText,
-      Widget _phoneCodePick, Function sendCode) async {
+
+  Future<void> verifyDialog(BuildContext context, String _alertText, Widget _phoneCodePick, Function sendCode) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -29,13 +29,18 @@ class AllDialog {
                 'Verify',
                 style: TextStyle(color: kDefaultColor),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-                showDialog(
-                    barrierDismissible: false,
-                    builder: (context) =>
-                        addPhoneNumberDialog(context, _phoneCodePick, sendCode),
-                    context: context);
+              onPressed: () async {
+
+                // Wallet Add Phone Number
+                await showDialog(
+                  barrierDismissible: false,
+                  builder: (context) => addPhoneNumberDialog(context, _phoneCodePick, sendCode),
+                  context: context
+                );
+                //Close Previous Dialog "Verify PIN"
+                Navigator.pop(context, '');
+                // Close Current Dialog "Add Phone"
+                // Navigator.pop(context);
                 // showVerifyPhoneDialog();
                 // Navigator.of(context).pushNamedAndRemoveUntil(
                 // '/root', (Route<dynamic> route) => false);
@@ -47,28 +52,8 @@ class AllDialog {
     );
   }
 
-  simpleAlertDialog(BuildContext context, String alertText) async {
-    return showDialog(
-      context: (context),
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Message'),
-          content: Text(alertText),
-          actions: [
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      },
-    );
-  }
-
-  addPhoneNumberDialog(
-      BuildContext context, Widget _phoneCodePick, Function sendCode) {
+  addPhoneNumberDialog(BuildContext context, Widget _phoneCodePick, Function sendCode) {
+    print(3);
     var _lang = AppLocalizeService.of(context);
     return AlertDialog(
       shape: RoundedRectangleBorder(
@@ -85,17 +70,17 @@ class AllDialog {
         ),
         FlatButton(
           child: Text(_lang.translate('yes')),
-          onPressed: () {
-            Navigator.pop(context);
-            sendCode();
+          onPressed: () async {
+            await sendCode();
+            Navigator.pop(context,'');
           },
         ),
       ],
     );
   }
 
-  Future<void> verifyPinDialog(
-      BuildContext context, Function checkVerifyPin) async {
+  // SMS Verification Code
+  Future<void> verifyPinDialog(BuildContext context, Function checkVerifyPin) async {
     return showDialog(
       barrierDismissible: false,
       context: context,
@@ -118,9 +103,9 @@ class AllDialog {
             ),
             FlatButton(
               child: Text('Ok'),
-              onPressed: () {
+              onPressed: () async {
+                await checkVerifyPin(_pin);
                 Navigator.pop(context);
-                checkVerifyPin(_pin);
               },
             ),
           ],
@@ -128,4 +113,26 @@ class AllDialog {
       },
     );
   }
+
+  simpleAlertDialog(BuildContext context, String alertText) async {
+    return showDialog(
+      context: (context),
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Message'),
+          content: Text(alertText),
+          actions: [
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context, '');
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
 }
+
+

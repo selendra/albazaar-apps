@@ -20,9 +20,13 @@ class TrxHistoryProvider with ChangeNotifier {
     // Fetch History
     await _getRequest.getTrxHistory().then((value) {
       _backend.listData = json.decode(value.body);
-      print(_backend.listData);
-      for (var l in _backend.listData) {
-        trxHistoryList.add(TrxHistoryModel(l));
+      if (_backend.listData.isEmpty) trxHistoryList = null;
+      else {
+        for(var l in _backend.listData){
+          trxHistoryList.add(
+            TrxHistoryModel(l)
+          );
+        }
       }
     });
 
