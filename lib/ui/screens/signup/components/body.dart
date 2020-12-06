@@ -44,40 +44,56 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  onSignUpWithPhone(String _phone, String _password) async {
+  Future<void>onSignUpWithPhone(String _phone, String _password) async {
     setState(() {
       _isLoading = true;
     });
 
-    try {
-      await AuthProvider()
-          .signUpByPhone(_phone, _password, context)
-          .then((value) async {
-        if (value != 'Your phone number already exists!' ||
-            alertText != 'Your phone number doesn\'t seem right!') {
-          setState(() {
-            _isLoading = false;
-          });
-          await ReuseAlertDialog().successDialog(context, value);
-        } else {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.push(
-              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-        }
+    print(_phone);
+
+    var value = "hello";
+
+    if (value != 'Your phone number already exists!' ||
+        alertText != 'Your phone number doesn\'t seem right!') {
+      setState(() {
+        _isLoading = false;
       });
-    } on SocketException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } on FormatException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
+      await ReuseAlertDialog().successDialog(context, value);
+      await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
     }
+
+    // try {
+    //   await AuthProvider()
+    //       .signUpByPhone(_phone, _password, context)
+    //       .then((value) async {
+    //     if (value != 'Your phone number already exists!' ||
+    //         alertText != 'Your phone number doesn\'t seem right!') {
+    //       setState(() {
+    //         _isLoading = false;
+    //       });
+    //       await ReuseAlertDialog().successDialog(context, value);
+    //       await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+    //     } else {
+    //       setState(() {
+    //         _isLoading = false;
+    //       });
+    //     }
+    //   });
+    // } on SocketException catch (e) {
+    //   await Components.dialog(
+    //       context,
+    //       Text(e.message.toString(), textAlign: TextAlign.center),
+    //       Text("Message"));
+    // } on FormatException catch (e) {
+    //   await Components.dialog(
+    //       context,
+    //       Text(e.message.toString(), textAlign: TextAlign.center),
+    //       Text("Message"));
+    // }
 
     // if (alertText != 'Your phone number already exists!') {
     //   Navigator.pushReplacement(
@@ -180,8 +196,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
-                child: CircularProgressIndicator(),
-              )
+              child: CircularProgressIndicator(),
+            )
             : Column(
                 children: <Widget>[
                   Container(
