@@ -30,21 +30,25 @@ class SellerProvider with ChangeNotifier {
   }
 
   Future<void> fetchBuyerOrder() async {
-    _backend.response = await _getRequest.getAllBuyerOrder();
-    var responseJson = json.decode(_backend.response.body);
-    _buyerPendingList.clear();
-    buyerPendingList.clear();
-    _buyerCompleteList.clear();
-    for (var data in responseJson) {
-      var itemData = SellerModel.fromJson(data);
-      _allBuyerOrder.add(itemData);
-      if (itemData.orderStatus != 'Order Complete') {
-        _buyerPendingList.add(itemData);
-      } else {
-        _buyerCompleteList.add(itemData);
-      }
+    try {
+      _backend.response = await _getRequest.getAllBuyerOrder();
+      var responseJson = json.decode(_backend.response.body);
+      _buyerPendingList.clear();
+      buyerPendingList.clear();
+      _buyerCompleteList.clear();
+      for (var data in responseJson) {
+        var itemData = SellerModel.fromJson(data);
+        _allBuyerOrder.add(itemData);
+        if (itemData.orderStatus != 'Order Complete') {
+          _buyerPendingList.add(itemData);
+        } else {
+          _buyerCompleteList.add(itemData);
+        }
 
-      notifyListeners();
+        notifyListeners();
+      }
+    } catch (e) {
+
     }
   }
 }
