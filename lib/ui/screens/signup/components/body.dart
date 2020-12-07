@@ -53,7 +53,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  Future<void>onSignUpWithPhone(String _phone, String _password) async {
+  Future<void> onSignUpWithPhone(String _phone, String _password) async {
     setState(() {
       _isLoading = true;
     });
@@ -62,18 +62,14 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
-<<<<<<< HEAD
-            print(value);
+        print(value);
         if (value == 'Successfully registered!') {
-=======
-        if (value != 'Your phone number already exists!' ||
-            value != 'Your phone number doesn\'t seem right!') {
->>>>>>> 12a3bb7260d91ca747c5272d4b2abf15462e38da
           setState(() {
             _isLoading = false;
           });
           await ReuseAlertDialog().successDialog(context, value);
-          await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+          await Navigator.push(
+              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
         } else {
           setState(() {
             _isLoading = false;
@@ -195,8 +191,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
-              child: CircularProgressIndicator(),
-            )
+                child: CircularProgressIndicator(),
+              )
             : Column(
                 children: <Widget>[
                   Container(
