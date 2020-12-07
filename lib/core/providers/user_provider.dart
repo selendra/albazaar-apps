@@ -73,7 +73,7 @@ class UserProvider with ChangeNotifier {
 
   //This function is use to update user profile information to the Api
   Future<String> setUserPf(String firstName, String midName, String lastName,
-      String gender, BuildContext context) async {
+      String gender, String imageUri, String address) async {
     await _prefService.read('token').then((value) async {
       var response = await http.post(
         ApiUrl.SET_USER_PROFILE,
@@ -88,11 +88,14 @@ class UserProvider with ChangeNotifier {
             "mid_name": midName,
             "last_name": lastName,
             "gender": gender,
+            "image_uri": imageUri,
+            "address": address
           },
         ),
       );
 
       var responseBody = json.decode(response.body);
+
       if (response.statusCode == 200) {
         alertText = responseBody['message'];
         fetchUserPf(value);
@@ -143,7 +146,7 @@ class UserProvider with ChangeNotifier {
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
-        }); 
+        });
 
         print(response.body);
 
@@ -177,7 +180,7 @@ class UserProvider with ChangeNotifier {
   Future<String> upLoadImage(File _image) async {
     /* Upload image to server by use multi part form*/
     //SharedPreferences isToken = await SharedPreferences.getInstance();
-    String token, imageUrl;
+    String token;
 
     // token = isToken.getString('token');
     await _prefService.read('token').then((value) {
@@ -207,12 +210,14 @@ class UserProvider with ChangeNotifier {
       "Content-Type": "application/json"
     });
     request.files.add(multipartFile);
-    /* Start send to server */
-    http.StreamedResponse response = await request.send();
-    /* Getting response */
-    response.stream.transform(utf8.decoder).listen((data) {
-      imageUrl = data;
-    });
+    String imageUrl;
+    try {
+      /* Start send to server */
+      http.StreamedResponse response = await request.send();
+      imageUrl = await response.stream.bytesToString();
+    } catch (e) {}
+
+    print('imagr url $imageUrl');
 
     return imageUrl;
   }

@@ -3,6 +3,8 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 class ProfileForm extends StatefulWidget {
+  final String _imageUrl;
+  ProfileForm(this._imageUrl);
   @override
   _ProfileFormState createState() => _ProfileFormState();
 }
@@ -119,7 +121,7 @@ class _ProfileFormState extends State<ProfileForm> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.all(20.0),
+                                margin: const EdgeInsets.all(20.0),
                                 padding: EdgeInsets.only(
                                     bottom: MediaQuery.of(context)
                                         .viewInsets
@@ -150,15 +152,20 @@ class _ProfileFormState extends State<ProfileForm> {
                     if (onValue != null) {
                       _formKey.currentState.save();
                       data
-                          .setUserPf(_firstName, _midName ?? '', _lastName,
-                              _mGender, context)
+                          .setUserPf(
+                        _firstName,
+                        _midName ?? '',
+                        _lastName,
+                        _mGender,
+                        widget._imageUrl ?? value.mUser.profileImg,
+                        value.mUser.address,
+                      )
                           .then(
-                        (value) {
-                          ProfileDialog().successDialog(context, value);
+                        (value) async {
+                          await ProfileDialog().successDialog(context, value);
                         },
                       );
-                    } else {
-                    }
+                    } else {}
                   },
                 );
               }, context),

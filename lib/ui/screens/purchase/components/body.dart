@@ -157,9 +157,8 @@ class _BodyState extends State<Body> {
                                 enterPage: OrderDetail(
                                   productOrder: productsProvider.orItems[index],
                                 ),
-                              ), //productsProvider.orItems[index]))
+                              ),
                             );
-                            print(productsProvider.orItems[index].orderStatus);
                           },
                           child: Card(
                             elevation: 0,
