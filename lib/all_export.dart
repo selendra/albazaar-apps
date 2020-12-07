@@ -240,7 +240,7 @@ export 'core/providers/user_provider.dart';
 export 'core/providers/auth_provider.dart';
 export 'core/providers/trx_history_provider.dart';
 export 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
-
+export 'core/providers/add_product_provider.dart';
 
 //models
 export 'core/models/api_url.dart';

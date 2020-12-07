@@ -5,8 +5,7 @@ import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
-import 'package:selendra_marketplace_app/ui/component.dart';
+
 // import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
@@ -34,14 +33,6 @@ class _BodyState extends State<Body> {
   // }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
-    // print(addProductProvider.addProduct.imageUrl);
-    // print(addProductProvider.addProduct.productName.text);
-    // print(addProductProvider.addProduct.category);
-    // print(addProductProvider.addProduct.weight);
-    // print(addProductProvider.addProduct.price.text);
-    // print(addProductProvider.addProduct.paymentOpt);
-    // print(addProductProvider.addProduct.description.text);
-
     if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
         addProductProvider.addProduct.productName.text.isNotEmpty &&
         addProductProvider.addProduct.hintCategory != "Category" &&
@@ -53,8 +44,7 @@ class _BodyState extends State<Body> {
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
-  void ddOnChanged(String value) {
-  }
+  void ddOnChanged(String value) {}
 
   void enableButton(bool enable) {
     setState(() {
@@ -73,7 +63,10 @@ class _BodyState extends State<Body> {
     var response = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => FillSeller(addProduct: provider.addProduct, userProvider: user,)));
+            builder: (context) => FillSeller(
+                  addProduct: provider.addProduct,
+                  userProvider: user,
+                )));
 
     if (response != null) Navigator.pop(context, response);
     // setState(() {
@@ -146,7 +139,8 @@ class _BodyState extends State<Body> {
     // Fetch Image From Asset
     _addProductProvider.addProduct.fileImagesList.clear();
     for (Asset asset in _addProductProvider.addProduct.images) {
-      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      final filePath =
+          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
   }
@@ -155,18 +149,25 @@ class _BodyState extends State<Body> {
   Future<void> getImageUrl() async {
     // Upload Image To Get Url Image
     print(_addProductProvider.addProduct.fileImagesList.length);
-    await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload").then((value) {
+    await _postRequest
+        .upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload")
+        .then((value) {
       _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
     });
 
     // Validate After Get Url Thumnail
     onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
-    
-    // // Loop Upload File Images Per Each
-    for (int i = 1; i <_addProductProvider.addProduct.fileImagesList.length; i++) {
 
-      await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload").then((value) {
-        _addProductProvider.addProduct.imageUrlList.add(json.decode(value)['uri']);
+    // // Loop Upload File Images Per Each
+    for (int i = 1;
+        i < _addProductProvider.addProduct.fileImagesList.length;
+        i++) {
+      await _postRequest
+          .upLoadImage(
+              _addProductProvider.addProduct.fileImagesList[i], "upload")
+          .then((value) {
+        _addProductProvider.addProduct.imageUrlList
+            .add(json.decode(value)['uri']);
       });
     }
   }
@@ -208,18 +209,17 @@ class _BodyState extends State<Body> {
                 margin: EdgeInsets.only(right: 18, left: 18),
                 padding: EdgeInsets.only(bottom: 20),
                 child: ReuseButton.getItem(
-                  AppLocalizeService.of(context).translate('next'),
-                  !_addProductProvider.addProduct.enable1
-                  ? null
-                  : () {
-                      toSeller(_addProductProvider, user);
-                      // if (toSeller()) {
-                      //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                      //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                      // }
-                    },
-                  context
-                ),
+                    AppLocalizeService.of(context).translate('next'),
+                    !_addProductProvider.addProduct.enable1
+                        ? null
+                        : () {
+                            toSeller(_addProductProvider, user);
+                            // if (toSeller()) {
+                            //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
+                            //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
+                            // }
+                          },
+                    context),
               ),
               // _sellerDetail(),
             ],
@@ -336,9 +336,17 @@ class _BodyState extends State<Body> {
                     keyPair: 'category_name',
                     onChanged: (String value) {
                       setState(() {
-                        for(int i = 0; i < _addProductProvider.addProduct.categoriesList.length; i++){
-                          if (value == _addProductProvider.addProduct.categoriesList[i]['category_name']){
-                            _addProductProvider.addProduct.category = _addProductProvider.addProduct.categoriesList[i]['id'];
+                        for (int i = 0;
+                            i <
+                                _addProductProvider
+                                    .addProduct.categoriesList.length;
+                            i++) {
+                          if (value ==
+                              _addProductProvider.addProduct.categoriesList[i]
+                                  ['category_name']) {
+                            _addProductProvider.addProduct.category =
+                                _addProductProvider.addProduct.categoriesList[i]
+                                    ['id'];
                             break;
                           }
                         }
@@ -358,9 +366,17 @@ class _BodyState extends State<Body> {
                     keyPair: 'weight_option',
                     onChanged: (String value) {
                       setState(() {
-                        for(int i = 0; i < _addProductProvider.addProduct.weightList.length; i++){
-                          if (value == _addProductProvider.addProduct.weightList[i]['weight_option']){
-                            _addProductProvider.addProduct.weight = _addProductProvider.addProduct.weightList[i]['id'];
+                        for (int i = 0;
+                            i <
+                                _addProductProvider
+                                    .addProduct.weightList.length;
+                            i++) {
+                          if (value ==
+                              _addProductProvider.addProduct.weightList[i]
+                                  ['weight_option']) {
+                            _addProductProvider.addProduct.weight =
+                                _addProductProvider.addProduct.weightList[i]
+                                    ['id'];
                             break;
                           }
                         }
@@ -387,9 +403,15 @@ class _BodyState extends State<Body> {
               keyPair: 'options_name',
               onChanged: (String value) {
                 setState(() {
-                  for(int i = 0; i < _addProductProvider.addProduct.paymentOptsList.length; i++){
-                    if (value == _addProductProvider.addProduct.paymentOptsList[i]['options_name']){
-                      _addProductProvider.addProduct.paymentOpt = _addProductProvider.addProduct.paymentOptsList[i]['id'];
+                  for (int i = 0;
+                      i < _addProductProvider.addProduct.paymentOptsList.length;
+                      i++) {
+                    if (value ==
+                        _addProductProvider.addProduct.paymentOptsList[i]
+                            ['options_name']) {
+                      _addProductProvider.addProduct.paymentOpt =
+                          _addProductProvider.addProduct.paymentOptsList[i]
+                              ['id'];
                       break;
                     }
                   }

@@ -98,11 +98,9 @@ class GetRequest {
         headers: _backend.conceteHeader(
             "authorization", "Bearer ${_backend.token['token']}"),
       );
-      print(_backend.response.body);
+      
       return _backend.response;
-    } else {
-      print('my  token null');
-    }
+    } 
     return null;
   }
 

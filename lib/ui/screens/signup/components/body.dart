@@ -18,12 +18,21 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
 
     try {
-      await AuthProvider().signUpByEmail(_email, _password).then((value) {
-        alertText = value;
-        if (alertText != "Your email account already exists!") {
-          Navigator.pushReplacementNamed(context, SignInView);
+      await AuthProvider().signUpByEmail(_email, _password).then((value) async {
+        print(value);
+        if (value != "Your email account already exists!" ||
+            value != 'Your email doesn\'t seem right!') {
+          if (value != null) {
+            await ReuseAlertDialog().successDialog(context, value);
+          }
+          setState(() {
+            _tabController.index = 0;
+          });
         } else {
-          ReuseAlertDialog().successDialog(context, alertText);
+          await ReuseAlertDialog().customDialog(context, value, () {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, SignInView);
+          });
         }
       });
     } on SocketException catch (e) {
@@ -38,7 +47,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           Text("Message"));
     }
 
-    // Disable Loading
+    // // Disable Loading
     setState(() {
       _isLoading = false;
     });
@@ -53,8 +62,13 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
+<<<<<<< HEAD
             print(value);
         if (value == 'Successfully registered!') {
+=======
+        if (value != 'Your phone number already exists!' ||
+            value != 'Your phone number doesn\'t seem right!') {
+>>>>>>> 12a3bb7260d91ca747c5272d4b2abf15462e38da
           setState(() {
             _isLoading = false;
           });
@@ -158,8 +172,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-    _tabController.index = 0;
+    _tabController = TabController(vsync: this, length: 2, initialIndex: 0);
+
     onTabChange();
   }
 

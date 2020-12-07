@@ -72,6 +72,7 @@ class UserProvider with ChangeNotifier {
   }
 
   //This function is use to update user profile information to the Api
+<<<<<<< HEAD
   Future<String> setUserPf(
     String firstName, String midName, String lastName,
     String gender, 
@@ -79,6 +80,10 @@ class UserProvider with ChangeNotifier {
     String address,
     BuildContext context
   ) async {
+=======
+  Future<String> setUserPf(String firstName, String midName, String lastName,
+      String gender, String imageUri, String address) async {
+>>>>>>> 12a3bb7260d91ca747c5272d4b2abf15462e38da
     await _prefService.read('token').then((value) async {
       var response = await http.post(
         ApiUrl.SET_USER_PROFILE,
@@ -100,6 +105,7 @@ class UserProvider with ChangeNotifier {
       );
 
       var responseBody = json.decode(response.body);
+
       if (response.statusCode == 200) {
         alertText = responseBody['message'];
         fetchUserPf(value);
@@ -150,7 +156,7 @@ class UserProvider with ChangeNotifier {
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
-        }); 
+        });
 
         print(response.body);
 
@@ -184,7 +190,7 @@ class UserProvider with ChangeNotifier {
   Future<String> upLoadImage(File _image) async {
     /* Upload image to server by use multi part form*/
     //SharedPreferences isToken = await SharedPreferences.getInstance();
-    String token, imageUrl;
+    String token;
 
     // token = isToken.getString('token');
     await _prefService.read('token').then((value) {
@@ -214,12 +220,14 @@ class UserProvider with ChangeNotifier {
       "Content-Type": "application/json"
     });
     request.files.add(multipartFile);
-    /* Start send to server */
-    http.StreamedResponse response = await request.send();
-    /* Getting response */
-    response.stream.transform(utf8.decoder).listen((data) {
-      imageUrl = data;
-    });
+    String imageUrl;
+    try {
+      /* Start send to server */
+      http.StreamedResponse response = await request.send();
+      imageUrl = await response.stream.bytesToString();
+    } catch (e) {}
+
+    print('imagr url $imageUrl');
 
     return imageUrl;
   }
