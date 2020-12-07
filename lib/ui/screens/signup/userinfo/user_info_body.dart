@@ -124,7 +124,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 20,
               ),
-              _lastName(),
+              _address(),
 
               SizedBox(
                 height: 20,
@@ -215,7 +215,6 @@ class _BodyState extends State<Body> {
 
   Widget _address() {
     return ReuseTextField(
-      fieldKey: _lastNameKey,
       labelText: 'Adderss',
       onSaved: (value) => address = value,
     );
