@@ -37,15 +37,17 @@ class _BodyState extends State<Body> {
   }
 
   onGetWallet() async {
-    String _token;
-    SharedPreferences isToken = await SharedPreferences.getInstance();
-    _token = isToken.get('token');
-    if (_token == null) {
-      String alertText = 'Please Sign up with Email or Phone to get wallet';
-      showAlertDialog(context, alertText);
-    } else {
-      Navigator.pushNamed(context, WalletPinView);
-    }
+    // String _token;
+    // SharedPreferences isToken = await SharedPreferences.getInstance();
+    // _token = isToken.get('token');
+    // if (_token == null) {
+    //   String alertText = 'Please Sign up with Email or Phone to get wallet';
+    //   showAlertDialog(context, alertText);
+    // } else {
+    //   Navigator.pushNamed(context, WalletPinView);
+    // }
+
+    Navigator.pushNamed(context, WalletPinView);
   }
 
   void resetState() {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'user_info_body.dart';
 
-
-
 class UserInfoScreen extends StatelessWidget {
 
   @override

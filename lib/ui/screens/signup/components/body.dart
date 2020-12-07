@@ -49,51 +49,36 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
 
-    print(_phone);
-
-    var value = "hello";
-
-    if (value != 'Your phone number already exists!' ||
-        alertText != 'Your phone number doesn\'t seem right!') {
-      setState(() {
-        _isLoading = false;
+    try {
+      await AuthProvider()
+          .signUpByPhone(_phone, _password, context)
+          .then((value) async {
+            print(value);
+        if (value == 'Successfully registered!') {
+          setState(() {
+            _isLoading = false;
+          });
+          await ReuseAlertDialog().successDialog(context, value);
+          await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+        } else {
+          setState(() {
+            _isLoading = false;
+          });
+          // Already Register
+          await ReuseAlertDialog().successDialog(context, value);
+        }
       });
-      await ReuseAlertDialog().successDialog(context, value);
-      await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
+    } on SocketException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
     }
-
-    // try {
-    //   await AuthProvider()
-    //       .signUpByPhone(_phone, _password, context)
-    //       .then((value) async {
-    //     if (value != 'Your phone number already exists!' ||
-    //         alertText != 'Your phone number doesn\'t seem right!') {
-    //       setState(() {
-    //         _isLoading = false;
-    //       });
-    //       await ReuseAlertDialog().successDialog(context, value);
-    //       await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-    //     } else {
-    //       setState(() {
-    //         _isLoading = false;
-    //       });
-    //     }
-    //   });
-    // } on SocketException catch (e) {
-    //   await Components.dialog(
-    //       context,
-    //       Text(e.message.toString(), textAlign: TextAlign.center),
-    //       Text("Message"));
-    // } on FormatException catch (e) {
-    //   await Components.dialog(
-    //       context,
-    //       Text(e.message.toString(), textAlign: TextAlign.center),
-    //       Text("Message"));
-    // }
 
     // if (alertText != 'Your phone number already exists!') {
     //   Navigator.pushReplacement(

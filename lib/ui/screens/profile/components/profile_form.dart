@@ -147,18 +147,18 @@ class _ProfileFormState extends State<ProfileForm> {
               child: ReuseButton.getItem(_lang.translate('save'), () {
                 _prefService.read('token').then(
                   (onValue) {
-                    if (onValue != null) {
-                      _formKey.currentState.save();
-                      data
-                          .setUserPf(_firstName, _midName ?? '', _lastName,
-                              _mGender, context)
-                          .then(
-                        (value) {
-                          ProfileDialog().successDialog(context, value);
-                        },
-                      );
-                    } else {
-                    }
+                    // if (onValue != null) {
+                    //   _formKey.currentState.save();
+                    //   data
+                    //       .setUserPf(_firstName, _midName ?? '', _lastName,
+                    //           _mGender, context)
+                    //       .then(
+                    //     (value) {
+                    //       ProfileDialog().successDialog(context, value);
+                    //     },
+                    //   );
+                    // } else {
+                    // }
                   },
                 );
               }, context),

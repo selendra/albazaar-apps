@@ -11,7 +11,7 @@ class _BodyState extends State<Body> {
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
-  String firstName, midName, lastName, gender, alertText;
+  String firstName, midName, lastName, gender, imageUri, address, alertText;
   int _selectedIndex;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
 
@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
   }
 
   Future<void>onSetUserPf() async {
-    await UserProvider().setUserPf(firstName, midName, lastName, gender, context).then((value) async {
+    await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address, context).then((value) async {
       alertText = value;
 
       await StorageServices.removeKey('token');
@@ -101,27 +101,36 @@ class _BodyState extends State<Body> {
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
               Container(
-                  child: Image.asset(
-                'images/logo.png',
+                child: Image.asset('images/logo.png',
                 height: 100,
                 width: 100,
               )),
+
               SizedBox(
                 height: 40,
               ),
               _firstName(),
+
               SizedBox(
                 height: 20,
               ),
               _midName(),
+
               SizedBox(
                 height: 20,
               ),
               _lastName(),
+
+              SizedBox(
+                height: 20,
+              ),
+              _lastName(),
+
               SizedBox(
                 height: 20,
               ),
               _radioBtn(),
+
               SizedBox(
                 height: 40,
               ),
@@ -201,6 +210,14 @@ class _BodyState extends State<Body> {
       fieldKey: _lastNameKey,
       labelText: 'Lastname',
       onSaved: (value) => lastName = value,
+    );
+  }
+
+  Widget _address() {
+    return ReuseTextField(
+      fieldKey: _lastNameKey,
+      labelText: 'Adderss',
+      onSaved: (value) => address = value,
     );
   }
 }
