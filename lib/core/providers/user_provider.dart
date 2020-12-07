@@ -71,8 +71,43 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  //This function is use to update user profile information to the Api
+  //This function is use to set user profile information to the Api
   Future<String> setUserPf(String firstName, String midName, String lastName,
+      String gender, String imageUri, String address) async {
+    await _prefService.read('token').then((value) async {
+      var response = await http.post(
+        ApiUrl.SET_USER_PROFILE,
+        headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + value,
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode(
+          <String, String>{
+            "first_name": firstName,
+            "mid_name": midName,
+            "last_name": lastName,
+            "gender": gender,
+            "image_uri": imageUri,
+            "address": address
+          },
+        ),
+      );
+
+      var responseBody = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        alertText = responseBody['message'];
+        fetchUserPf(value);
+      } else {
+        alertText = responseBody['error']['message'];
+      }
+    });
+    return alertText;
+  }
+
+//This function is use to update user profile information to the Api
+  Future<String> updateUserPf(String firstName, String midName, String lastName,
       String gender, String imageUri, String address) async {
     await _prefService.read('token').then((value) async {
       var response = await http.post(
@@ -118,17 +153,17 @@ class UserProvider with ChangeNotifier {
             "Content-Type": "application/json"
           },
           body: jsonEncode(<String, String>{"pin": pin}));
+      print("Getting wallet ${response.body}");
       var responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
         String _seed;
-        try {
-          alertText = responseBody['message'];
-        } catch (e) {
-          //var wallet = WalletResponse.fromJson(responseBody);
-          _seed = responseBody['message']['seed'];
-          if (_seed != null) {
-            _prefService.saveString('seed', _seed);
-          }
+
+        alertText = responseBody['message'];
+        //var wallet = WalletResponse.fromJson(responseBody);
+        _seed = responseBody['message']['seed'];
+
+        if (_seed != null) {
+          _prefService.saveString('seed', _seed);
         }
       } else {
         alertText = responseBody['error']['message'];

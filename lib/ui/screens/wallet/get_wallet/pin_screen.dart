@@ -15,7 +15,7 @@ class _PinScreenState extends State<PinScreen> {
 
   List<String> currentPin = ["", "", "", ""];
   String _countryCode = 'KH';
-  String value;
+  String value = "Opp! You need to verify your phone number first";
   bool _seen = false;
   PrefService _pref = PrefService();
   bool isCorrect = true, _isLoading = false, _isBtnOneTap = false;
@@ -106,37 +106,71 @@ class _PinScreenState extends State<PinScreen> {
     });
     print(_pin);
 
-    await UserProvider().getWallet(_pin).then((value) async{
+    // 1 Get Wallet
+    await UserProvider().getWallet(_pin).then((value) async{// tmp
       print("Get wallet $value");
 
-      // Getting Wallet
+      // 2. Show Verify Option Button
       if (value == 'Opp! You need to verify your phone number first') {
-        await AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+        bool actionVerify = await AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
 
-      } else if (mBalance.data != null) {
-        await _pref.read('seed').then((onValue) async {
+        // 3. Show Add Phone Number Dialog
+        if (actionVerify == true){
+          var addPhoneRes = await showDialog(
+            barrierDismissible: false,
+            builder: (context) => AllDialog().addPhoneNumberDialog(context, _phoneCodePick(), sendCode),
+            context: context
+          );
+
+          // Post Request Add Phone
+          if (addPhoneRes == true) {
+            bool sendCodeRes = await sendCode(); //tmp
+            
+            // 4. SMS Verification
+            if (sendCodeRes == true){
+              var verifyPinRes = await AllDialog().verifyPinDialog(context, checkVerify);
+
+              if (verifyPinRes == true){
+
+                // Check Verify Again Request Wallet Again
+                await checkVerify(_pin); 
+
+                // Close Loading For The First TIme
+                setState(() {
+                  _isLoading = false;
+                });
+              }
+            }
+          }
+        }
+
+      } else {//if (mBalance.data != null) { tmp
+        await _pref.read('seed').then((onValue) async {// tmp
+          var onValue = value;
           if (onValue != null) {
             await _displayWalletInfo(context, onValue);
+
+            // After Copy Key
+            await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+
+            // Close Pin Dialog
+            Navigator.pop(context);
+
           } else {
             await ReuseAlertDialog().successDialog(context, value);
           }
-        });
+        });// tmp
       }
       
-      // After Get Wallet
-      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+    }); //tmp
 
-      // Close Loading After Succssfully Get Wallet And Refetch Portfolio
-      setState(() {
-        _isLoading = false;
-      });
-
-      // Close Pin Dialog
-      Navigator.pop(context);
+    // Close Loading After Succssfully Get Wallet And Refetch Portfolio
+    setState(() {
+      _isLoading = false;
     });
   }
 
-  Future<void> sendCode() async {
+  Future sendCode() async {
     print(_phoneController.text);
     if (_phoneController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus.unfocus();
@@ -146,11 +180,10 @@ class _PinScreenState extends State<PinScreen> {
       await AuthProvider().addPhoneNumber(AppServices.removeZero(_phoneController.text)).then((onValue) async {
         alertText = onValue;
         if (alertText == 'Something went wrong on our end') {
-          // Refill Phone Number
+          // Refill Phone Number, Step 2 again
           await AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
         } else {
-          // SMS Verification
-          await AllDialog().verifyPinDialog(context, checkVerify);
+          Navigator.pop(context, true);
         }
 
         // Disable Loading
@@ -161,25 +194,25 @@ class _PinScreenState extends State<PinScreen> {
     }
   }
 
-  void checkVerify(String verifyCode) async {
+  Future checkVerify(String verifyCode) async {
     _pinPutController.text = '';
     setState(() {
       _isLoading = true;
     });
-    await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then(
-      (onValue) async {
-        setState(() {
-          _isLoading = false;
-        });
+
+    var onValue = true;
+    // await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then( tmp
+    //   (onValue) async { tmp
         if (onValue != null) {
           await AllDialog().simpleAlertDialog(context, "Success");
-          await _pref.read('pin').then((value) async {
+          await _pref.read('pin').then((myValue) async {
             print("My pin");
-            await onGetWallet(value);
+            value = "Hello mother fucker";
+            await onGetWallet(myValue);
           });
         }
-      },
-    );
+    //   }, tmp
+    // ); tmp
   }
 
   setPin(int n, String text) {

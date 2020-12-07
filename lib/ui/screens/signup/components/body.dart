@@ -53,7 +53,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  onSignUpWithPhone(String _phone, String _password) async {
+  Future<void> onSignUpWithPhone(String _phone, String _password) async {
     setState(() {
       _isLoading = true;
     });
@@ -62,18 +62,20 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
-        if (value != 'Your phone number already exists!' ||
-            value != 'Your phone number doesn\'t seem right!') {
+        print(value);
+        if (value == 'Successfully registered!') {
           setState(() {
             _isLoading = false;
           });
           await ReuseAlertDialog().successDialog(context, value);
+          await Navigator.push(
+              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
         } else {
           setState(() {
             _isLoading = false;
           });
-          Navigator.push(
-              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+          // Already Register
+          await ReuseAlertDialog().successDialog(context, value);
         }
       });
     } on SocketException catch (e) {

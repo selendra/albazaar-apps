@@ -347,6 +347,7 @@ class AuthProvider with ChangeNotifier {
         }));
 
     var responseBody = json.decode(response.body);
+    print(responseBody);
     _alertText = responseBody['message'];
 
     return _alertText;
@@ -471,11 +472,15 @@ class AuthProvider with ChangeNotifier {
 
   //RESEND THE OTP CODE BY USING PHONE NUMBER
   Future<String> resendCode(String phoneNumber) async {
+    print(phoneNumber);
     var response = await http.post(ApiUrl.RESEND_CODE,
-        headers: ApiHeader.headers,
-        body: <String, String>{
-          'phone': phoneNumber,
-        });
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: json.encode({
+          "phone": phoneNumber,
+        })
+      );
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       try {

@@ -32,7 +32,7 @@ class _PinScreenState extends State<PinScreen> {
     borderSide: BorderSide(color: Colors.transparent)
   );
   
-  showAlertDialog(BuildContext context) {
+  Future showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
       child: Text("OK"),
@@ -63,7 +63,7 @@ class _PinScreenState extends State<PinScreen> {
     );
   }
 
-  successDialog(BuildContext context) {
+  Future successDialog(BuildContext context) {
     // set up the button
     Widget okButton = FlatButton(
       child: Text("OK"),
@@ -73,15 +73,15 @@ class _PinScreenState extends State<PinScreen> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text(alertText),
-      content: Text("Please check again. "),
+      title: Text("Message"),
+      content: Text(alertText),
       actions: [
         okButton,
       ],
     );
 
     // show the dialog
-    showDialog(
+    return showDialog(
       context: context,
       builder: (BuildContext context) {
         return alert;
@@ -122,6 +122,8 @@ class _PinScreenState extends State<PinScreen> {
         })
       );
 
+      print(response.body);
+
       if (response.statusCode == 200) {
         setState(() {
           _isLoading = false;
@@ -130,14 +132,15 @@ class _PinScreenState extends State<PinScreen> {
 
         if (responseBody.containsKey('error')){
           // Clear Field
-          for (int i = 0; i < 6; i++) {
-            alertText = responseBody['error']['message'];
-            clearPin();
-            showAlertDialog(context);
-          }
+          for (int i = 0; i < 6; i++) clearPin();
+
+          alertText = responseBody['error']['message'];
+
+          await showAlertDialog(context);
         } else {
           alertText = responseBody['message'];
-          successDialog(context);
+          await successDialog(context);
+
           // Sign In To Get Token For Set Profile User
           await AuthProvider().signInByPhone(widget.phoneNumber, widget.password, context);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserInfoScreen())

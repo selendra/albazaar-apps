@@ -152,7 +152,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     if (onValue != null) {
                       _formKey.currentState.save();
                       data
-                          .setUserPf(
+                          .updateUserPf(
                         _firstName,
                         _midName ?? '',
                         _lastName,

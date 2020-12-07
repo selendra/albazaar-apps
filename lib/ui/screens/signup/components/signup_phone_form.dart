@@ -16,10 +16,10 @@ class SignUpPhoneForm extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final _phoneFormKey = GlobalKey<FormState>();
 
-  void validateAndSubmit() {
+  void validateAndSubmit() async {
     if (_phoneFormKey.currentState.validate()) {
       _phoneFormKey.currentState.save();
-      signUpPhoneFunc(_phone, _password);
+      await signUpPhoneFunc(_phone, _password);
 
       _phoneController.text = '';
       _passwordController.text = '';
@@ -59,8 +59,7 @@ class SignUpPhoneForm extends StatelessWidget {
                 initialCountryCode: 'KH',
                 validator: (value) => value.isEmpty ? "Phone is empty" : null,
                 onChanged: (phone) {
-                  _phone = "+855" +
-                      AppServices.removeZero(_phoneController.text.toString());
+                  _phone = "+855" + AppServices.removeZero(_phoneController.text.toString());
                 },
               ),
             ),
