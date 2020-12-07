@@ -125,9 +125,6 @@ class _PinScreenState extends State<PinScreen> {
       print(response.body);
 
       if (response.statusCode == 200) {
-        setState(() {
-          _isLoading = false;
-        });
         var responseBody = json.decode(response.body);
 
         if (responseBody.containsKey('error')){
@@ -143,6 +140,9 @@ class _PinScreenState extends State<PinScreen> {
 
           // Sign In To Get Token For Set Profile User
           await AuthProvider().signInByPhone(widget.phoneNumber, widget.password, context);
+          setState(() {
+            _isLoading = false;
+          });
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserInfoScreen())
           );
         }

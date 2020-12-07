@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
@@ -64,7 +65,7 @@ class _BodyState extends State<Body> {
     });
   }
 
-  void validateAndSubmit() async {
+  Future<void> validateAndSubmit() async {
     if (_selectedIndex == 0) {
       Scaffold.of(context).showSnackBar(snackBar);
     } else {
@@ -91,6 +92,57 @@ class _BodyState extends State<Body> {
     });
   }
 
+  Future<void> loadAsset() async {
+    List<Asset> resultList = List<Asset>();
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        enableCamera: false,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        maxImages: 1,
+        materialOptions: MaterialOptions(
+          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+          actionBarTitle: "Selendra App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+      getAssettoFile(resultList);
+    } catch (e) {
+      e.toString();
+      //print(e);
+    }
+    if (!mounted) return;
+
+    // setState(() {
+    //   imageUri = resultList;
+    // });
+  }
+
+  Future<void> getAssettoFile(List<Asset> resultList) async {
+    for (Asset asset in resultList) {
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      print(filePath);
+      try {
+        if (filePath != null) {
+          await Provider.of<UserProvider>(context, listen: false)
+              .upLoadImage(File(filePath))
+              .then((value) {
+            setState(() {
+              print(imageUri);
+              imageUri = json.decode(value)['uri'];
+              Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+                  imageUri;
+            });
+          });
+        }
+      } catch (e){
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,17 +152,50 @@ class _BodyState extends State<Body> {
           key: _formKey,
           child: Column(
             children: <Widget>[
+
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              Container(
-                child: Image.asset('images/logo.png',
-                height: 100,
-                width: 100,
-              )),
+              Consumer<UserProvider>(
+                builder: (context, value, child) => Container(
+                  margin: EdgeInsets.all(5),
+                  width: 100, height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(width: 1, color: Colors.greenAccent)
+                  ),
+                  child: ClipOval(
+                    child: FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('images/loading.gif'), 
+                      image: value.mUser.profileImg != null
+                        ? NetworkImage(value.mUser.profileImg)
+                        : AssetImage('images/avatar.png')
+                    ),
+                  ),
+                )
+                // CircleAvatar(
+                //   backgroundImage: ,
+                // ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 5),
+                child: InkWell(
+                  onTap: () => loadAsset(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.add),
+                      Text(AppLocalizeService.of(context).translate('profile_photo'))
+                    ],
+                  ),
+                )
+              ),
 
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               _firstName(),
 
@@ -137,9 +222,8 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 40,
               ),
-              ReuseButton.getItem('Submit', () {
-                //validateAndSubmit();
-                validateAndSubmit();
+              ReuseButton.getItem('Submit', () async {
+                await validateAndSubmit();
               }, context),
             ],
           ),

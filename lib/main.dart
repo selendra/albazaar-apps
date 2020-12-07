@@ -115,7 +115,7 @@ class _SelendraAppState extends State<SelendraApp> {
             brightness: Brightness.light,
           ),
           routes: {DetailView: (context) => DetailScreen()},
-          home: UserInfoScreen(),
+          home: SplashScreen(),
           navigatorKey: navigationKey,
         ),
       ),

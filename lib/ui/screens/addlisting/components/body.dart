@@ -139,8 +139,7 @@ class _BodyState extends State<Body> {
     // Fetch Image From Asset
     _addProductProvider.addProduct.fileImagesList.clear();
     for (Asset asset in _addProductProvider.addProduct.images) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
   }
