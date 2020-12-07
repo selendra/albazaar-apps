@@ -53,7 +53,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  Future<void>onSignUpWithPhone(String _phone, String _password) async {
+  Future<void> onSignUpWithPhone(String _phone, String _password) async {
     setState(() {
       _isLoading = true;
     });
@@ -68,7 +68,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             _isLoading = false;
           });
           await ReuseAlertDialog().successDialog(context, value);
-          await Navigator.push(context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+          await Navigator.push(
+              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
         } else {
           setState(() {
             _isLoading = false;
@@ -190,8 +191,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
             ? Center(
-              child: CircularProgressIndicator(),
-            )
+                child: CircularProgressIndicator(),
+              )
             : Column(
                 children: <Widget>[
                   Container(

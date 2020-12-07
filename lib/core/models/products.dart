@@ -40,7 +40,7 @@ class Product with ChangeNotifier {
   dynamic updatedBy;
   String shipping;
   String price;
-  double shippingFee;
+  String shippingFee;
   String createdBy;
   String categoryId;
   DateTime createdAt;
@@ -51,18 +51,23 @@ class Product with ChangeNotifier {
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
         description: json["description"],
+        shippingService: json["shipping_service"],
         name: json["name"],
+        categoryName: json["category_name"],
         updatedAt: json["updated_at"],
         thumbnail: json["thumbnail"],
+        phonenumber: json["phonenumber"],
         weight: json["weight"],
         id: json["id"],
         paymentId: json["payment_id"],
         updatedBy: json["updated_by"],
-        shipping: json["shipping"],
+        address: json["address"],
         price: json["price"].toString(),
+        shippingFee: json["shipping_fee"].toString(),
         createdBy: json["created_by"],
         categoryId: json["category_id"],
         createdAt: DateTime.parse(json["created_at"]),
+        seller: Seller.fromJson(json["seller"]),
         isSold: json["is_sold"],
         isFav: false,
         orderQty: 1,

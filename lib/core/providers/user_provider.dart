@@ -154,9 +154,8 @@ class UserProvider with ChangeNotifier {
   //This function is use to request wallet from the api
   Future getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
-      print("My Token $value");
-      print("My PIN $pin");
-      var response = await http.post(ApiUrl.GET_WALLET,
+      var response = await http.post(
+        ApiUrl.SET_USER_PROFILE,
         headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + value,
