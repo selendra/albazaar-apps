@@ -180,6 +180,20 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  List<Product> filterProductByCategories(String categoryName) {
+    List<Product> filterList = [];
+
+    for (int i = 0; i < _items.length; i++) {
+      if (_items[i].categoryName == categoryName) {
+        filterList.add(_items[i]);
+      }
+    }
+
+    print(filterList.length);
+
+    return filterList;
+  }
+
   Future<void> fetchOListingProduct(String token) async {
     try {
       http.Response response =

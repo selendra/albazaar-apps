@@ -4,7 +4,8 @@ import 'package:selendra_marketplace_app/all_export.dart';
 
 class FoodsScreen extends StatefulWidget {
   final String _image;
-  FoodsScreen(this._image);
+  final String _categoryName;
+  FoodsScreen(this._image, this._categoryName);
   @override
   _FoodsScreenState createState() => _FoodsScreenState();
 }
@@ -12,11 +13,15 @@ class FoodsScreen extends StatefulWidget {
 class _FoodsScreenState extends State<FoodsScreen>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  var productsData;
 
   @override
   void initState() {
+    productsData = Provider.of<ProductsProvider>(context, listen: false)
+        .filterProductByCategories(widget._categoryName);
     super.initState();
     controller = TabController(vsync: this, length: 7);
+
     // Provider.of<ProductsProvider>(context, listen: false).getVegi();
   }
 
@@ -29,7 +34,6 @@ class _FoodsScreenState extends State<FoodsScreen>
   @override
   Widget build(BuildContext context) {
     // var _lang = AppLocalizeService.of(context);
-    // final productsData = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -86,14 +90,13 @@ class _FoodsScreenState extends State<FoodsScreen>
               Icons.search,
               color: kDefaultColor,
             ),
-            onPressed: () {
-            },
+            onPressed: () {},
           )
         ],
       ),
       body: Container(
-        //child: ProductList(productsData.vegProduct),
-        child: Container(),
+        child: ProductList(productsData),
+        // child: Container(),
       ), //_buildTapBarView(),
     );
   }

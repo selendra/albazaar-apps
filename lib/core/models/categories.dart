@@ -10,6 +10,6 @@ List<Categories> category = [
   Categories(title: 'Fruit', img: 'images/bottle.png'),
   Categories(title: 'Vegetable', img: 'images/furniture-and-household.png'),
   Categories(title: 'Meat', img: 'images/study.png'),
-  Categories(title: 'Fertilizer', img: 'images/tshirt.png'),
-  Categories(title: 'Other', img: 'images/eco-car.png'),
+  // Categories(title: 'Fertilizer', img: 'images/tshirt.png'),
+  Categories(title: 'Others', img: 'images/eco-car.png'),
 ];
