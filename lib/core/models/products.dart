@@ -3,36 +3,48 @@ import 'package:flutter/material.dart';
 class Product with ChangeNotifier {
   Product({
     this.description,
+    this.shippingService,
+    this.address,
     this.name,
+    this.categoryName,
     this.updatedAt,
     this.thumbnail,
+    this.phonenumber,
     this.weight,
     this.id,
     this.paymentId,
     this.updatedBy,
     this.shipping,
     this.price,
+    this.shippingFee,
     this.createdBy,
     this.categoryId,
     this.createdAt,
+    this.seller,
     this.isSold,
     this.isFav,
     this.orderQty,
   });
 
   String description;
+  String shippingService;
+  dynamic address;
   String name;
+  String categoryName;
   dynamic updatedAt;
   String thumbnail;
+  String phonenumber;
   String weight;
   String id;
   String paymentId;
   dynamic updatedBy;
   String shipping;
   String price;
+  double shippingFee;
   String createdBy;
   String categoryId;
   DateTime createdAt;
+  Seller seller;
   bool isSold;
   bool isFav;
   int orderQty;

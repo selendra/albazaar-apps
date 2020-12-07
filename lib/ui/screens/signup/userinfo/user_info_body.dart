@@ -29,7 +29,10 @@ class _BodyState extends State<Body> {
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignIn()), ModalRoute.withName('/'));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => SignIn()),
+            ModalRoute.withName('/'));
       },
     );
 
@@ -79,8 +82,10 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<void>onSetUserPf() async {
-    await UserProvider().setUserPf(firstName, midName, lastName, gender, context).then((value) async {
+  Future<void> onSetUserPf() async {
+    await UserProvider()
+        .setUserPf(firstName, midName, lastName, gender, '', '')
+        .then((value) async {
       alertText = value;
 
       await StorageServices.removeKey('token');

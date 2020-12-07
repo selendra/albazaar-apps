@@ -15,6 +15,7 @@ class ReuseAuthTab extends StatefulWidget {
 class _ReuseAuthTabState extends State<ReuseAuthTab> {
   @override
   Widget build(BuildContext context) {
+    print(widget._tabController.index);
     return Container(
       width: 300.0,
       height: 50,

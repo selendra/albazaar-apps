@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isLoading = false;
   List<Asset> _images = List<Asset>();
-
+  String imageUrl;
   Future<void> loadAsset() async {
     List<Asset> resultList = List<Asset>();
 
@@ -28,14 +28,34 @@ class _BodyState extends State<Body> {
           selectCircleStrokeColor: "#000000",
         ),
       );
+      getAssettoFile(resultList);
     } catch (e) {
       e.toString();
       //print(e);
     }
     if (!mounted) return;
+
     setState(() {
       _images = resultList;
     });
+  }
+
+  Future<void> getAssettoFile(List<Asset> resultList) async {
+    for (Asset asset in resultList) {
+      final filePath =
+          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      if (filePath != null) {
+        await Provider.of<UserProvider>(context, listen: false)
+            .upLoadImage(File(filePath))
+            .then((value) {
+          setState(() {
+            imageUrl = json.decode(value)['uri'];
+            Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+                imageUrl;
+          });
+        });
+      }
+    }
   }
 
   Widget build(BuildContext context) {
@@ -53,12 +73,16 @@ class _BodyState extends State<Body> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+                    margin: const EdgeInsets.only(
+                      left: 10.0,
+                      right: 10.0,
+                      top: 10.0,
+                    ),
                     child: Card(
                       shape: kDefaultShape,
                       elevation: 0,
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         child: ListTile(
                           onTap: () => loadAsset(),
                           title: Text(AppLocalizeService.of(context)
@@ -74,7 +98,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  ProfileForm(),
+                  ProfileForm(imageUrl),
                 ],
               ),
             ),

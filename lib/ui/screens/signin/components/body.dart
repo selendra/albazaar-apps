@@ -127,7 +127,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         setState(() {
           onPageChange(_tabController.index, p: _pageController);
         });
-      } else {}
+      }
     });
   }
 
