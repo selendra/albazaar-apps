@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class SellerInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final product = Provider.of<Product>(context);
+    final product = Provider.of<Product>(context);
     //return Container();
     return Card(
       elevation: 0,
@@ -15,11 +15,13 @@ class SellerInfo extends StatelessWidget {
         builder: (context, value, child) => Container(
           child: Column(
             children: [
-              _infoRow(Icons.person, 'Seller Name'),
+              _infoRow(Icons.person, product.seller.value),
               SizedBox(height: 20.0),
-              _infoRow(Icons.phone, 'phone number'),
+              _infoRow(Icons.phone, product.phonenumber),
               SizedBox(height: 20.0),
-              _infoRow(Icons.location_on, 'Phnom Penh')
+              _infoRow(Icons.location_on, product.address ?? 'no address'),
+              SizedBox(height: 20.0),
+              _infoRow(Icons.commute, product.shippingService)
               // ListTile(
               //   // onTap: () {}=> Navigator.push(
               //   //     context,
