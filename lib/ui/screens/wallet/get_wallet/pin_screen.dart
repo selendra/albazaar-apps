@@ -157,6 +157,9 @@ class _PinScreenState extends State<PinScreen> {
               else {
                 // Refetch User Data
                 await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+                await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+                // Close Fill PIn
+                Navigator.pop(context);
               }
             });
 

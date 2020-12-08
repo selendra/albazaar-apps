@@ -141,8 +141,7 @@ class _PinScreenState extends State<PinScreen> {
           setState(() {
             _isLoading = false;
           });
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserInfoScreen())
-          );
+          await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
         }
         
       }

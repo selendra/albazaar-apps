@@ -14,10 +14,17 @@ class UserProvider with ChangeNotifier {
   var responseBody;
 
   Future<void> localFetchProfile() async {
+    var response;
     await StorageServices.fetchData('user_token').then((value) async {
-
+      print("My Token ${value['wallet']}");
       if (value != null){
-        await fetchUserPf(value['token']);
+        //Check Wallt Have Been Successfuly Get
+        while(true){
+          response = await StorageServices.fetchData('user');
+          if (response['wallet'] == null){
+            await fetchUserPf(value['token']);
+          } else break;
+        }
       }
     });
   }
@@ -33,6 +40,7 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
+    print("Fetch profile ${response.body}");
     _mUser = User.fromJson(responseBody);
 
     //This will save all user information to sharepreferenece
@@ -192,12 +200,15 @@ class UserProvider with ChangeNotifier {
     // mBalance = Balance();
     try {
       await _prefService.read('token').then((onValue) async {
+
+        print("Toke $onValue");
         http.Response response =
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
 
+        print(response.body);
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody.containsKey('error')) {
