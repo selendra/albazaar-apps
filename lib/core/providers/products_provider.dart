@@ -189,8 +189,6 @@ class ProductsProvider with ChangeNotifier {
       }
     }
 
-    print(filterList.length);
-
     return filterList;
   }
 

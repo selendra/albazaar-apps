@@ -183,8 +183,6 @@ class UserProvider with ChangeNotifier {
           "authorization": "Bearer " + onValue,
         });
 
-        print(response.body);
-
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody.containsKey('error')) {
@@ -221,11 +219,12 @@ class UserProvider with ChangeNotifier {
     await _prefService.read('token').then((value) {
       token = value;
     });
+
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
-      minHeight: 1300,
-      minWidth: 1000,
+      minHeight: 900,
+      minWidth: 600,
       quality: 100,
     );
     /* Make request */

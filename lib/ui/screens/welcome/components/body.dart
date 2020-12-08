@@ -63,8 +63,7 @@ class Body extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.15,
                   ),
                   ReuseButton.getItem(_lang.translate('signin_string'), () {
-                    Navigator.pushReplacementNamed(context, BottomNavigationView);
-                    // Navigator.pushReplacementNamed(context, SignInView);
+                    Navigator.pushReplacementNamed(context, SignInView);
                   }, context),
                   SizedBox(
                     height: 20,
