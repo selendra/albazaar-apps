@@ -158,7 +158,7 @@ class _ProfileFormState extends State<ProfileForm> {
                         _lastName,
                         _mGender,
                         widget._imageUrl ?? value.mUser.profileImg,
-                        value.mUser.address,
+                        value.mUser.address ?? '',
                       )
                           .then(
                         (value) async {
