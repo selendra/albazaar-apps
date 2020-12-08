@@ -4,6 +4,7 @@ class PrefService {
   Future<String> read(String key) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String value = pref.getString(key);
+    print("Pref $value");
     return value;
   }
 

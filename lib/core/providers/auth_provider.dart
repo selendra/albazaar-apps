@@ -226,6 +226,7 @@ class AuthProvider with ChangeNotifier {
 
         _token = responseJson['token'];
         if (_token != null) {
+        print("Login token $_token");
           _pref.saveString('token', _token);
           await StorageServices.setData(responseJson, 'user_token');
 
@@ -442,7 +443,9 @@ class AuthProvider with ChangeNotifier {
     return _alertText;
   }
 
-  Future<dynamic> verifyByPhone(String phone, String verifyCode) async {
+  Future<dynamic> accountConfirmationPhone(String phone, String verifyCode) async {
+    print("Confirm phone $phone");
+    print("Confirm code $verifyCode");
     var repsonseBody;
     try {
       var response = await http.post(
@@ -456,10 +459,9 @@ class AuthProvider with ChangeNotifier {
         ),
       );
 
-      print(response.body);
-      if (response.statusCode == 200) {
-        repsonseBody = json.decode(response.body);
-      }
+      print("Response confirm ${response.body}");
+      print(response.statusCode);
+      repsonseBody = json.decode(response.body);
     } on SocketException {
       // print('No Internet connection 😑');
     } on HttpException {

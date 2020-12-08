@@ -17,6 +17,8 @@ class _BodyState extends State<Body> {
   int _selectedIndex;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
 
+  bool _isLoading = false;
+
   bool validateAndSave() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -31,10 +33,7 @@ class _BodyState extends State<Body> {
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => SignIn()),
-            ModalRoute.withName('/'));
+        Navigator.pop(context);
       },
     );
 
@@ -54,18 +53,12 @@ class _BodyState extends State<Body> {
     );
   }
 
-  void initailize() async{
-    // Clear Old Profile Info
-    await StorageServices.removeKey('user');
-  }
-
   @override
   void initState() {
-    initailize();
     super.initState();
     _selectedIndex = 0;
   }
-
+  
   void setSelectedIndex(int val) {
     setState(() {
       _selectedIndex = val;
@@ -85,6 +78,9 @@ class _BodyState extends State<Body> {
             gender = 'F';
             break;
         }
+        setState(() {
+          _isLoading = true;
+        });
         await onSetUserPf();
       }
     }
@@ -93,9 +89,23 @@ class _BodyState extends State<Body> {
   Future<void>onSetUserPf() async {
     await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
       alertText = value;
+      
+      print("Setted profile $alertText");
+      // Refetch User Data
+      await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
 
-      await StorageServices.removeKey('token');
+      // After Copy Key
+      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); 
+      
+      // Disable Loading
+      setState(() {
+        _isLoading = false;
+      });
+
       await showAlertDialog(context);
+
+      // Close Add User Screen
+      Navigator.pop(context);
     });
   }
 
@@ -154,7 +164,11 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30.0),
-      child: SingleChildScrollView(
+      child: _isLoading
+      ? Center(
+        child: CircularProgressIndicator(),
+      )
+      : SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(

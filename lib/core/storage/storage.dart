@@ -21,10 +21,11 @@ class StorageServices{
 
   static Future<dynamic>fetchData(String _path) async {
     _preferences = await SharedPreferences.getInstance();
-    var _data = _preferences.getString(_path);
+    dynamic _data = _preferences.getString(_path);
+    print("First $_data");
     if ( _data == null ) return null;
     else {
-      return jsonDecode(_data);
+      return await jsonDecode(_data);
     }
   }
 

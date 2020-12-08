@@ -50,6 +50,12 @@ class _BodyState extends State<Body> {
     Navigator.pushNamed(context, WalletPinView);
   }
 
+  void getMyWallet() async {
+    PrefService _pref = PrefService();
+    await _pref.read('token').then((value) => print("Hello"+value.toString()));
+    await StorageServices.fetchData('user_token').then((value) => print("Hello"+value['token'].toString()));
+  }
+
   void resetState() {
     setState(() {});
   }
@@ -63,6 +69,7 @@ class _BodyState extends State<Body> {
     fetchHistory();
     super.initState();
     Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+    getMyWallet();
   }
 
   @override

@@ -87,7 +87,10 @@ class AllDialog {
           ),
           title: Text('Enter Verify Code'),
           content: ReusePinAnimate(
-            onSubmit: (value) => _pin = value,
+            onSubmit: (value) {
+              _pin = value;
+              print(value);
+            },
           ),
           actions: [
             FlatButton(
@@ -99,7 +102,7 @@ class AllDialog {
             FlatButton(
               child: Text('Ok'),
               onPressed: () async {
-                Navigator.pop(context, true);
+                Navigator.pop(context, _pin);
               },
             ),
           ],

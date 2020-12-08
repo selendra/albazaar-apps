@@ -122,6 +122,8 @@ class HomeDrawer extends StatelessWidget {
             Icons.input,
             () async {
               await StorageServices.removeKey('user_token');
+              await StorageServices.removeKey('token');
+              await StorageServices.removeKey('user');
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },

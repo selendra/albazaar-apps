@@ -13,6 +13,16 @@ class UserProvider with ChangeNotifier {
   PrefService _prefService = PrefService();
   var responseBody;
 
+  Future<void> localFetchProfile() async {
+    await StorageServices.fetchData('user_token').then((value) async {
+
+      print("Hello token $value['token']");
+      if (value != null){
+        await fetchUserPf(value['token']);
+      }
+    });
+  }
+
   //Fetch user profile from Api
   Future<void> fetchUserPf(String _token) async {
     //This response variable is user to the repsonse from requesting to api
@@ -24,6 +34,7 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
+    print("My body $responseBody");
     _mUser = User.fromJson(responseBody);
 
     //This will save all user information to sharepreferenece
@@ -44,10 +55,12 @@ class UserProvider with ChangeNotifier {
 
   //READ USER INFO FROM SHARE PREFERENCE
   void fetchUserInfo() {
-    _prefService.read('user').then((value) {
+    _prefService.read('user').then((value) async {
       if (value != null) {
         var responseBody = json.decode(value);
         _mUser = User.fromJson(responseBody);
+      } else {
+        await localFetchProfile();
       }
     });
   }
@@ -78,6 +91,9 @@ class UserProvider with ChangeNotifier {
     try {
       await _prefService.read('token').then((value) async {
 
+        
+        print("Set pf token $value");
+
         print(firstName);
         print(midName);
         print(lastName);
@@ -104,10 +120,10 @@ class UserProvider with ChangeNotifier {
         );
 
         var responseBody = json.decode(response.body);
+        print("Set PF $responseBody");
 
         if (response.statusCode == 200) {
           alertText = responseBody['message'];
-          fetchUserPf(value);
         }
       });
     } catch (e){
@@ -154,8 +170,9 @@ class UserProvider with ChangeNotifier {
   //This function is use to request wallet from the api
   Future getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
+      print("Token $value");
       var response = await http.post(
-        ApiUrl.SET_USER_PROFILE,
+        ApiUrl.GET_WALLET,
         headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + value,
@@ -195,7 +212,7 @@ class UserProvider with ChangeNotifier {
           "authorization": "Bearer " + onValue,
         });
 
-        print(response.body);
+        print("Fetch port ${response.body}");
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);

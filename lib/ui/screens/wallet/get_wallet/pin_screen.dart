@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PinScreen extends StatefulWidget {
@@ -104,11 +105,10 @@ class _PinScreenState extends State<PinScreen> {
     setState(() {
       _isLoading = true;
     });
-    print(_pin);
+
 
     // 1 Get Wallet
     await UserProvider().getWallet(_pin).then((value) async{// tmp
-      print("Get wallet $value");
 
       // 2. Show Verify Option Button
       if (value['code'] == '001') {
@@ -134,10 +134,10 @@ class _PinScreenState extends State<PinScreen> {
             if (sendCodeRes == true){
               var verifyPinRes = await AllDialog().verifyPinDialog(context, checkVerify);
 
-              if (verifyPinRes == true){
+              if (verifyPinRes != null){
 
                 // Check Verify Again Request Wallet Again
-                await checkVerify(_pin); 
+                await checkVerify(verifyPinRes); 
 
                 // // Close Loading For The First TIme
                 // setState(() {
@@ -148,17 +148,28 @@ class _PinScreenState extends State<PinScreen> {
           }
         }
 
-      } else if (value.containsKey('wallet')) {//if (mBalance.data != null) { tmp
+      } else if (value['message'].containsKey('wallet')) {//if (mBalance.data != null) { tmp
         await _pref.read('seed').then((onValue) async {// tmp
           if (onValue != null) {
             await _displayWalletInfo(context, onValue);
 
-            // After Copy Key
-            await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+            // If Sign Up By Email
+            await StorageServices.fetchData('user').then((value) async {
 
-            // Close Pin Dialog
-            Navigator.pop(context);
+              print("Refetch user $value");
+              if (value['email'] != null) {
+                print("processing");
+                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  AddUserInfoScreen()));
+              }
+              else {
+                print("Fetch local");
+                // Refetch User Data
+                await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+              }
+            });
 
+            // // Close PIN Dialog
+            // Navigator.pop(context);
           } else {
             await ReuseAlertDialog().successDialog(context, value);
           }
@@ -169,12 +180,12 @@ class _PinScreenState extends State<PinScreen> {
       
     }); //tmp
 
-    print("Hello world");
-
     // Close Loading After Succssfully Get Wallet And Refetch Portfolio
-    setState(() {
-      _isLoading = false;
-    });
+    if (mounted){
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<bool> sendCode() async {
@@ -198,16 +209,17 @@ class _PinScreenState extends State<PinScreen> {
     return res;
   }
 
+  // Verify SMS Code With Phone Number To Activate Account
   Future checkVerify(String verifyCode) async {
     _pinPutController.text = '';
 
-    await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then(// tmp
+    await AuthProvider().accountConfirmationPhone(AppServices.removeZero(_phoneController.text), verifyCode).then(// tmp
       (onValue) async { //tmp
         if (onValue.containsKey("error")){
           await AllDialog().simpleAlertDialog(context, "${onValue['error']['message']}");
           print(onValue);
 
-          // Remove PIN To Refill First PIN
+          // Remove PIN To Show First PIN 
           await StorageServices.removeKey('pin');
           await StorageServices.removeKey('first');
 
@@ -216,7 +228,10 @@ class _PinScreenState extends State<PinScreen> {
           // Refill Phone Number, Step 2 again
           // await AllDialog().verifyDialog(context, onValue['error']['message'], _phoneCodePick(), sendCode);
         } else{
-          await AllDialog().simpleAlertDialog(context, "$onValue");
+          await AllDialog().simpleAlertDialog(context, "${onValue['message']}");
+
+          // Remove PIN To Show First PIN 
+          _seen = false;
 
           await _pref.read('pin').then((myValue) async {
             print("My PIN Fill $myValue");
@@ -279,8 +294,9 @@ class _PinScreenState extends State<PinScreen> {
               ),
               title: Text(_lang.translate('wallet_information')),
               content: Container(
-                height: 300,
+                // height: 300,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text('Please keep your secure key. Copy it to continue. This secret key will only be showed to you once.\n\nSelendra will not be able to help you recover it if lost'),
                     Column(
@@ -302,27 +318,31 @@ class _PinScreenState extends State<PinScreen> {
                             color: Colors.grey[50],
                             child: Container(
                               margin: EdgeInsets.all(10.0),
-                              child: InfoRow(
-                                '\n$_seed',
-                                () {
-                                  Clipboard.setData(ClipboardData(text: _seed))
-                                      .then((value) {
-                                    setState(() {
-                                      _isBtnOneTap = true;
-                                    });
-                                  });
-                                },
+                              child: Column(
+                                children: [
+                                  InfoRow(
+                                    '$_seed',
+                                    () {
+                                      Clipboard.setData(ClipboardData(text: _seed))
+                                          .then((value) {
+                                        setState(() {
+                                          _isBtnOneTap = true;
+                                        });
+                                      });
+                                    },
+                                  )
+                                ],
                               ),
                             )),
                         _isBtnOneTap
                             ? Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  _lang.translate('copied'),
-                                  style: TextStyle(
-                                      fontSize: 12, color: kDefaultColor),
-                                ),
-                              )
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                _lang.translate('copied'),
+                                style: TextStyle(
+                                    fontSize: 12, color: kDefaultColor),
+                              ),
+                            )
                             : Container(),
                       ],
                     ),
