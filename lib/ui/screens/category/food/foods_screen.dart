@@ -4,32 +4,26 @@ import 'package:selendra_marketplace_app/all_export.dart';
 
 class FoodsScreen extends StatefulWidget {
   final String _image;
-  FoodsScreen(this._image);
+  final String _categoryName;
+  FoodsScreen(this._image, this._categoryName);
   @override
   _FoodsScreenState createState() => _FoodsScreenState();
 }
 
 class _FoodsScreenState extends State<FoodsScreen>
     with SingleTickerProviderStateMixin {
-  TabController controller;
+  List<Product> productsData;
 
   @override
   void initState() {
+    productsData = Provider.of<ProductsProvider>(context, listen: false)
+        .filterProductByCategories(widget._categoryName);
     super.initState();
-    controller = TabController(vsync: this, length: 7);
-    // Provider.of<ProductsProvider>(context, listen: false).getVegi();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // var _lang = AppLocalizeService.of(context);
-    // final productsData = Provider.of<ProductsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -38,37 +32,6 @@ class _FoodsScreenState extends State<FoodsScreen>
           height: 30,
           width: 30,
         ),
-        // bottom: TabBar(
-        //   controller: controller,
-        //   isScrollable: true,
-        //   indicatorColor: kDefaultColor,
-        //   unselectedLabelColor: Colors.grey,
-        //   labelColor: kDefaultColor,
-        //   labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-        //   tabs: <Widget>[
-        //     Tab(
-        //       text: _lang.translate('all'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('meat'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('fruit'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('drinks'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('vegetable'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('seasoning'),
-        //     ),
-        //     Tab(
-        //       text: _lang.translate('desserts'),
-        //     )
-        //   ],
-        // ),
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -86,124 +49,22 @@ class _FoodsScreenState extends State<FoodsScreen>
               Icons.search,
               color: kDefaultColor,
             ),
-            onPressed: () {
-            },
+            onPressed: () {},
           )
         ],
       ),
-      body: Container(
-        //child: ProductList(productsData.vegProduct),
-        child: Container(),
-      ), //_buildTapBarView(),
+      body: productsData.isEmpty
+          ? Center(
+              child: SvgPicture.asset(
+                'images/undraw_loving_it.svg',
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.width * 0.3,
+              ),
+            )
+          : Container(
+              child: ProductList(productsData),
+              // child: Container(),
+            ), //_buildTapBarView(),
     );
   }
-
-  // Widget _buildTapBarView() {
-  //   return Container(
-  //     width: double.infinity,
-  //     child: TabBarView(
-  //       controller: controller,
-  //       children: <Widget>[
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'All',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Meat',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Fruit',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Drinks',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Vegatble',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Seasoning',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         Container(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: <Widget>[
-  //               Text(
-  //                 'Desserts',
-  //                 style: TextStyle(
-  //                   fontSize: 22,
-  //                   fontWeight: FontWeight.bold,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

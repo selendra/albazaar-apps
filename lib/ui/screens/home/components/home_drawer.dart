@@ -7,7 +7,9 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
     final _mUser = data.mUser;
-    String userName = _mUser.firstName == null ? "User name" : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
+    String userName = _mUser.firstName == null
+        ? "User name"
+        : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);
     return Drawer(
       child: ListView(
@@ -24,10 +26,9 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: _mUser.profileImg == null
-                  ? AssetImage('images/avatar.png')
-                  : NetworkImage(_mUser.profileImg),
-            ),
+                backgroundImage: _mUser.profileImg == null
+                    ? AssetImage('images/avatar.png')
+                    : NetworkImage(_mUser.profileImg)),
           ),
           ReuseInkwell.getItem(
             _lang.translate('home'),

@@ -54,11 +54,9 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<AddProductProvider>(
             create: (context) => AddProductProvider()),
         ChangeNotifierProvider<SellerProvider>(
-          create: (context) => SellerProvider()
-        ),
+            create: (context) => SellerProvider()),
         ChangeNotifierProvider<TrxHistoryProvider>(
-          create: (context) => TrxHistoryProvider()
-        ),
+            create: (context) => TrxHistoryProvider()),
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(

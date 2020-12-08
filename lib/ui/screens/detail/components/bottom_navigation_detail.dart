@@ -8,7 +8,6 @@ class BottomNavigationDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    final productProvider = Provider.of<ProductsProvider>(context);
     return Container(
       height: 60,
       child: Row(

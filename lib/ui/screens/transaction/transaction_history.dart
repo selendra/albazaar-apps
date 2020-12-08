@@ -9,8 +9,6 @@ class TransactionHistory extends StatelessWidget {
 
   List _buildList(
       List<TrxHistoryModel> history, BuildContext context, String userWallet) {
-    print("length ${history.length}");
-
     List<Widget> listItems = List();
 
     for (int i = 0; i < history.length; i++) {
@@ -109,8 +107,6 @@ class TransactionHistory extends StatelessWidget {
     List<TrxHistoryModel> history =
         Provider.of<TrxHistoryProvider>(context).trxHistoryList;
     final userProvider = Provider.of<UserProvider>(context);
-    print("My history $history");
-
     return Scaffold(
       // Have No History
       body: history == null

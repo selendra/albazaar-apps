@@ -98,9 +98,9 @@ class GetRequest {
         headers: _backend.conceteHeader(
             "authorization", "Bearer ${_backend.token['token']}"),
       );
-      
+
       return _backend.response;
-    } 
+    }
     return null;
   }
 
@@ -111,7 +111,7 @@ class GetRequest {
       _backend.response = await _http.get("${_sldApi.walletAPI}/trx-history",
           headers: _backend.conceteHeader(
               "authorization", "Bearer ${_backend.token['token']}"));
-      print(_backend.response.body);
+
       return _backend.response;
     }
     return null;

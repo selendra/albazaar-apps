@@ -10,7 +10,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool _isLoading = false;
-  List<Asset> _images = List<Asset>();
+
   String imageUrl;
   Future<void> loadAsset() async {
     List<Asset> resultList = List<Asset>();
@@ -34,10 +34,6 @@ class _BodyState extends State<Body> {
       //print(e);
     }
     if (!mounted) return;
-
-    setState(() {
-      _images = resultList;
-    });
   }
 
   Future<void> getAssettoFile(List<Asset> resultList) async {
