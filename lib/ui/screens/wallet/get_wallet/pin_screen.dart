@@ -111,8 +111,8 @@ class _PinScreenState extends State<PinScreen> {
       print("Get wallet $value");
 
       // 2. Show Verify Option Button
-      if (value == 'Opp! You need to verify your phone number first') {
-        bool actionVerify = await AllDialog().verifyDialog(context, value, _phoneCodePick(), sendCode);
+      if (value['code'] == '001') {
+        bool actionVerify = await AllDialog().verifyDialog(context, value['message'], _phoneCodePick(), sendCode);
 
         // 3. Show Add Phone Number Dialog
         if (actionVerify == true){
@@ -122,10 +122,14 @@ class _PinScreenState extends State<PinScreen> {
             context: context
           );
 
+          print("My add $addPhoneRes");
+
           // Post Request Add Phone
           if (addPhoneRes == true) {
             bool sendCodeRes = await sendCode(); //tmp
             
+            print("Send code response $sendCodeRes");
+
             // 4. SMS Verification
             if (sendCodeRes == true){
               var verifyPinRes = await AllDialog().verifyPinDialog(context, checkVerify);
@@ -135,18 +139,17 @@ class _PinScreenState extends State<PinScreen> {
                 // Check Verify Again Request Wallet Again
                 await checkVerify(_pin); 
 
-                // Close Loading For The First TIme
-                setState(() {
-                  _isLoading = false;
-                });
+                // // Close Loading For The First TIme
+                // setState(() {
+                //   _isLoading = false;
+                // });
               }
             }
           }
         }
 
-      } else {//if (mBalance.data != null) { tmp
+      } else if (value.containsKey('wallet')) {//if (mBalance.data != null) { tmp
         await _pref.read('seed').then((onValue) async {// tmp
-          var onValue = value;
           if (onValue != null) {
             await _displayWalletInfo(context, onValue);
 
@@ -160,9 +163,13 @@ class _PinScreenState extends State<PinScreen> {
             await ReuseAlertDialog().successDialog(context, value);
           }
         });// tmp
+      } else {
+        
       }
       
     }); //tmp
+
+    print("Hello world");
 
     // Close Loading After Succssfully Get Wallet And Refetch Portfolio
     setState(() {
@@ -170,49 +177,54 @@ class _PinScreenState extends State<PinScreen> {
     });
   }
 
-  Future sendCode() async {
+  Future<bool> sendCode() async {
+    var res;
     print(_phoneController.text);
     if (_phoneController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus.unfocus();
-      setState(() {
-        _isLoading = true;
-      });
       await AuthProvider().addPhoneNumber(AppServices.removeZero(_phoneController.text)).then((onValue) async {
-        alertText = onValue;
-        if (alertText == 'Something went wrong on our end') {
+        if (onValue == 'Something went wrong on our end') {
+
+          // Remove PIN To Refill First PIN
+          await StorageServices.removeKey('pin');
+
           // Refill Phone Number, Step 2 again
           await AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
         } else {
-          Navigator.pop(context, true);
+          res = true;
         }
-
-        // Disable Loading
-        setState(() {
-          _isLoading = false;
-        });
       });
     }
+    return res;
   }
 
   Future checkVerify(String verifyCode) async {
     _pinPutController.text = '';
-    setState(() {
-      _isLoading = true;
-    });
 
-    var onValue = true;
-    // await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then( tmp
-    //   (onValue) async { tmp
-        if (onValue != null) {
-          await AllDialog().simpleAlertDialog(context, "Success");
+    await AuthProvider().verifyByPhone(_phoneController.text, verifyCode).then(// tmp
+      (onValue) async { //tmp
+        if (onValue.containsKey("error")){
+          await AllDialog().simpleAlertDialog(context, "${onValue['error']['message']}");
+          print(onValue);
+
+          // Remove PIN To Refill First PIN
+          await StorageServices.removeKey('pin');
+          await StorageServices.removeKey('first');
+
+          _seen = false;
+
+          // Refill Phone Number, Step 2 again
+          // await AllDialog().verifyDialog(context, onValue['error']['message'], _phoneCodePick(), sendCode);
+        } else{
+          await AllDialog().simpleAlertDialog(context, "$onValue");
+
           await _pref.read('pin').then((myValue) async {
-            print("My pin");
-            value = "Hello mother fucker";
+            print("My PIN Fill $myValue");
             await onGetWallet(myValue);
           });
         }
-    //   }, tmp
-    // ); tmp
+      },// tmp
+    );// tmp
   }
 
   setPin(int n, String text) {
@@ -335,7 +347,7 @@ class _PinScreenState extends State<PinScreen> {
 
   Widget _phoneCodePick() {
     return Container(
-      height: 50,
+      height: 70,
       child: IntlPhoneField(
         controller: _phoneController,
         inputFormatters: [

@@ -13,7 +13,7 @@ class User {
   String statusName;
   String lastName;
   String gender;
-  dynamic profileImg;
+  String profileImg = '';
   DateTime createdAt;
 
   User({

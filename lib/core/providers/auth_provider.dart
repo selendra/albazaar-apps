@@ -358,27 +358,31 @@ class AuthProvider with ChangeNotifier {
     try {
       await _pref.read('token').then((onValue) async {
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
-            headers: <String, String>{
-              "accept": "application/json",
-              "authorization": "Bearer " + onValue,
-              "Content-Type": "application/json"
-            },
-            body: jsonEncode(<String, String>{
-              "phone": "+855" + _phoneNumber,
-            }));
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + onValue,
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(<String, String>{
+            "phone": "+855" + _phoneNumber,
+          })
+        );
         var responseBody = json.decode(response.body);
+        print(responseBody);
 
         if (response.statusCode == 200) {
-          if (responseBody != null) {
-            try {
-              _alertText = responseBody['message'];
-              if (_alertText == null) {
-                _alertText = responseBody['error']['message'];
-              }
-            } catch (e) {
-              // print(e);
-            }
-          }
+
+          _alertText = responseBody['message'];
+          // if (responseBody != null) {
+          //   try {
+          //     _alertText = responseBody['message'];
+          //     if (_alertText == null) {
+          //       _alertText = responseBody['error']['message'];
+          //     }
+          //   } catch (e) {
+          //     // print(e);
+          //   }
+          // }
         } else {
           _alertText = responseBody['error']['message'];
         }
@@ -438,7 +442,8 @@ class AuthProvider with ChangeNotifier {
     return _alertText;
   }
 
-  Future<String> verifyByPhone(String phone, String verifyCode) async {
+  Future<dynamic> verifyByPhone(String phone, String verifyCode) async {
+    var repsonseBody;
     try {
       var response = await http.post(
         ApiUrl.VERIFY_BY_PHONE,
@@ -451,14 +456,10 @@ class AuthProvider with ChangeNotifier {
         ),
       );
 
+      print(response.body);
       if (response.statusCode == 200) {
-        var repsonseBody = json.decode(response.body);
-
-        _alertText = repsonseBody['message'];
-        if (_alertText == null) {
-          _alertText = repsonseBody['error']['message'];
-        }
-      } else {}
+        repsonseBody = json.decode(response.body);
+      }
     } on SocketException {
       // print('No Internet connection 😑');
     } on HttpException {
@@ -467,7 +468,7 @@ class AuthProvider with ChangeNotifier {
       // print("Bad response format 👎");
     }
 
-    return _alertText;
+    return repsonseBody;
   }
 
   //RESEND THE OTP CODE BY USING PHONE NUMBER

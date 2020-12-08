@@ -62,7 +62,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
-        print(value);
+            print(value);
         if (value == 'Successfully registered!') {
           setState(() {
             _isLoading = false;
