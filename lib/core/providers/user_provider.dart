@@ -16,7 +16,6 @@ class UserProvider with ChangeNotifier {
   Future<void> localFetchProfile() async {
     await StorageServices.fetchData('user_token').then((value) async {
 
-      print("Hello token $value['token']");
       if (value != null){
         await fetchUserPf(value['token']);
       }
@@ -34,7 +33,6 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
-    print("My body $responseBody");
     _mUser = User.fromJson(responseBody);
 
     //This will save all user information to sharepreferenece
@@ -91,15 +89,6 @@ class UserProvider with ChangeNotifier {
     try {
       await _prefService.read('token').then((value) async {
 
-        
-        print("Set pf token $value");
-
-        print(firstName);
-        print(midName);
-        print(lastName);
-        print(gender);
-        print(imageUri);
-        print(address);
         var response = await http.post(
           ApiUrl.SET_USER_PROFILE,
           headers: <String, String>{
@@ -120,7 +109,6 @@ class UserProvider with ChangeNotifier {
         );
 
         var responseBody = json.decode(response.body);
-        print("Set PF $responseBody");
 
         if (response.statusCode == 200) {
           alertText = responseBody['message'];
@@ -170,7 +158,6 @@ class UserProvider with ChangeNotifier {
   //This function is use to request wallet from the api
   Future getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
-      print("Token $value");
       var response = await http.post(
         ApiUrl.GET_WALLET,
         headers: <String, String>{
@@ -179,7 +166,6 @@ class UserProvider with ChangeNotifier {
           "Content-Type": "application/json"
         },
         body: jsonEncode(<String, String>{"pin": pin}));
-        print("Getting wallet ${response.body}");
       responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
 
@@ -275,8 +261,6 @@ class UserProvider with ChangeNotifier {
     } catch (e) {
       // print(e);
     }
-
-    print('imagr url $imageUrl');
 
     return imageUrl;
   }

@@ -124,8 +124,6 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               );
-                              print(sellerProvider
-                                  .buyerPendingList[index].orderStatus);
                             },
                             child: Card(
                               elevation: 0,
@@ -239,8 +237,6 @@ class _BodyState extends State<Body> {
                                   ),
                                 ),
                               );
-                              print(sellerProvider
-                                  .buyerCompleteList[index].orderStatus);
                             },
                             child: Card(
                               elevation: 0,

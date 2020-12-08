@@ -68,12 +68,6 @@ class _FillSellerState extends State<FillSeller> {
   // }
 
   void onChanged(String value) {
-    print(widget.addProduct.sellerName.text);
-    print(widget.addProduct.sellerNumber.text);
-    print(widget.addProduct.address.text);
-    print(widget.addProduct.district.text);
-    print(widget.addProduct.city.text);
-    print(widget.addProduct.hintShipping);
 
     if (widget.addProduct.sellerName.text.isNotEmpty &&
         widget.addProduct.sellerNumber.text.isNotEmpty &&
@@ -95,15 +89,11 @@ class _FillSellerState extends State<FillSeller> {
     setState(() {
       for(int i = 0; i < widget.addProduct.shippingList.length; i++){
         if (value == widget.addProduct.shippingList[i]['shipping_service']){
-          print(i);
-          print(widget.addProduct.shippingList[i]);
-          print(widget.addProduct.shippingList[i]['shipping_service']);
           widget.addProduct.shipping = widget.addProduct.shippingList[i]['id'];
           break;
         }
       }
       widget.addProduct.hintShipping = value;
-      print("My id ${widget.addProduct.shipping}");
       onChanged(value);
     });
   }

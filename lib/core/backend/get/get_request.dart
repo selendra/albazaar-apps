@@ -120,7 +120,6 @@ class GetRequest {
   Future<_http.Response> getPortfolio() async {
     /* User Porfolio */
     _backend.token = await StorageServices.fetchData('user_token');
-    // print("My token ${_backend.token}");
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/portforlio",
           headers: _backend.conceteHeader(

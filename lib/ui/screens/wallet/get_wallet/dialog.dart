@@ -49,7 +49,6 @@ class AllDialog {
   }
 
   addPhoneNumberDialog(BuildContext context, Widget _phoneCodePick, Function sendCode) {
-    print(3);
     var _lang = AppLocalizeService.of(context);
     return AlertDialog(
       shape: RoundedRectangleBorder(
@@ -89,7 +88,6 @@ class AllDialog {
           content: ReusePinAnimate(
             onSubmit: (value) {
               _pin = value;
-              print(value);
             },
           ),
           actions: [

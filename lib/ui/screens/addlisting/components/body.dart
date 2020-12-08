@@ -53,13 +53,6 @@ class _BodyState extends State<Body> {
   }
 
   void toSeller(AddProductProvider provider, UserProvider user) async {
-    print(provider.addProduct.imageUrl);
-    print(provider.addProduct.productName.text);
-    print(provider.addProduct.hintCategory);
-    print(provider.addProduct.hintWeight);
-    print(provider.addProduct.price.text);
-    print(provider.addProduct.hintPaymentOpt);
-    print(provider.addProduct.description.text);
     var response = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -117,7 +110,6 @@ class _BodyState extends State<Body> {
       );
       await imageAssetToFile();
     } on Exception catch (e) {
-      print("Error $e");
       error = e.toString();
     }
 
@@ -128,10 +120,8 @@ class _BodyState extends State<Body> {
 
     setState(() {
       _error = error;
-      print(_error);
     });
 
-    print("Get Url");
     await getImageUrl();
   }
 
@@ -147,7 +137,6 @@ class _BodyState extends State<Body> {
   // Use After Display Image
   Future<void> getImageUrl() async {
     // Upload Image To Get Url Image
-    print(_addProductProvider.addProduct.fileImagesList.length);
     await _postRequest
         .upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload")
         .then((value) {
@@ -351,7 +340,6 @@ class _BodyState extends State<Body> {
                         }
                         _addProductProvider.addProduct.hintCategory = value;
                       });
-                      print(_addProductProvider.addProduct.category);
                     },
                   ),
                 ),

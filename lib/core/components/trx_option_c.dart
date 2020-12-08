@@ -125,7 +125,6 @@ class TrxOptionMethod {
     return await Navigator.push(context,
         MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
 
-    // print("Scan $_scanResponse");
     // if (_scanResponse != null){
     //   // await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(_scanResponse, false, []/* widget.portList */)));
     //   // Fill Transaction Information

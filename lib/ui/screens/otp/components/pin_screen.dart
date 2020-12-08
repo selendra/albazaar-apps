@@ -122,8 +122,6 @@ class _PinScreenState extends State<PinScreen> {
         })
       );
 
-      print(response.body);
-
       if (response.statusCode == 200) {
         var responseBody = json.decode(response.body);
 

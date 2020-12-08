@@ -10,7 +10,6 @@ class PostRequest {
   Backend _backend = Backend();
 
   Future<dynamic> inviteFriend(String phoneNumber) async {
-    print(phoneNumber);
     _backend.token = await StorageServices.fetchData('user_token');
     // _backend.bodyEncode = json.encode({"phone": phoneNumber});
     // if (_backend.token != null) {
@@ -398,10 +397,6 @@ class PostRequest {
     } catch (e) {
       // print(e);
     }
-    /* Getting response */
-    // response.stream.transform(utf8.decoder).listen((data){
-    //   print(data);
-    // });
     return imageUrl;
   }
 }

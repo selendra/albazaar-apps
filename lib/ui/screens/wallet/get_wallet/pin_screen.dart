@@ -90,7 +90,6 @@ class _PinScreenState extends State<PinScreen> {
 
   void isPinMatch(String pin) {
     _pref.read('pin').then((onValue) {
-      print(onValue);
       if (pin == onValue) {
         onGetWallet(pin);
       } else {
@@ -122,13 +121,9 @@ class _PinScreenState extends State<PinScreen> {
             context: context
           );
 
-          print("My add $addPhoneRes");
-
           // Post Request Add Phone
           if (addPhoneRes == true) {
             bool sendCodeRes = await sendCode(); //tmp
-            
-            print("Send code response $sendCodeRes");
 
             // 4. SMS Verification
             if (sendCodeRes == true){
@@ -156,13 +151,10 @@ class _PinScreenState extends State<PinScreen> {
             // If Sign Up By Email
             await StorageServices.fetchData('user').then((value) async {
 
-              print("Refetch user $value");
               if (value['email'] != null) {
-                print("processing");
                 await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  AddUserInfoScreen()));
               }
               else {
-                print("Fetch local");
                 // Refetch User Data
                 await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
               }
@@ -190,7 +182,6 @@ class _PinScreenState extends State<PinScreen> {
 
   Future<bool> sendCode() async {
     var res;
-    print(_phoneController.text);
     if (_phoneController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus.unfocus();
       await AuthProvider().addPhoneNumber(AppServices.removeZero(_phoneController.text)).then((onValue) async {
@@ -217,7 +208,6 @@ class _PinScreenState extends State<PinScreen> {
       (onValue) async { //tmp
         if (onValue.containsKey("error")){
           await AllDialog().simpleAlertDialog(context, "${onValue['error']['message']}");
-          print(onValue);
 
           // Remove PIN To Show First PIN 
           await StorageServices.removeKey('pin');
@@ -234,7 +224,6 @@ class _PinScreenState extends State<PinScreen> {
           _seen = false;
 
           await _pref.read('pin').then((myValue) async {
-            print("My PIN Fill $myValue");
             await onGetWallet(myValue);
           });
         }
@@ -243,7 +232,6 @@ class _PinScreenState extends State<PinScreen> {
   }
 
   setPin(int n, String text) {
-    print("Setting pin $text");
     switch (n) {
       case 1:
         pinOneController.text = text;
@@ -391,7 +379,6 @@ class _PinScreenState extends State<PinScreen> {
             : null,
         onChanged: (phone) {
           // _phoneNumber = phone.completeNumber.toString();
-          print(_phoneController.text);
         },
       ),
     );

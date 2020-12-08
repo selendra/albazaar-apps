@@ -19,7 +19,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
     try {
       await AuthProvider().signUpByEmail(_email, _password).then((value) async {
-        print(value);
         if (value != "Your email account already exists!" ||
             value != 'Your email doesn\'t seem right!') {
           if (value != null) {
@@ -63,7 +62,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       await AuthProvider()
           .signUpByPhone(_phone, _password, context)
           .then((value) async {
-            print(value);
         if (value == 'Successfully registered!') {
           setState(() {
             _isLoading = false;

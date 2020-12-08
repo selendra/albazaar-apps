@@ -90,7 +90,6 @@ class _BodyState extends State<Body> {
     await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
       alertText = value;
       
-      print("Setted profile $alertText");
       // Refetch User Data
       await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
 
@@ -140,14 +139,12 @@ class _BodyState extends State<Body> {
   Future<void> getAssettoFile(List<Asset> resultList) async {
     for (Asset asset in resultList) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      print(filePath);
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)
               .upLoadImage(File(filePath))
               .then((value) {
             setState(() {
-              print(imageUri);
               imageUri = json.decode(value)['uri'];
               Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
                   imageUri;
@@ -155,7 +152,6 @@ class _BodyState extends State<Body> {
           });
         }
       } catch (e){
-        print(e);
       }
     }
   }

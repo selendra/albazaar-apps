@@ -30,7 +30,6 @@ class AuthProvider with ChangeNotifier {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      print(googleSignInAuthentication.accessToken);
       //debugPrint(googleSignInAuthentication.idToken,wrap);
       googleToken = googleSignInAuthentication.idToken;
       //getTokenForGoogle(googleSignInAuthentication.idToken,context);
@@ -226,7 +225,6 @@ class AuthProvider with ChangeNotifier {
 
         _token = responseJson['token'];
         if (_token != null) {
-        print("Login token $_token");
           _pref.saveString('token', _token);
           await StorageServices.setData(responseJson, 'user_token');
 
@@ -348,7 +346,6 @@ class AuthProvider with ChangeNotifier {
         }));
 
     var responseBody = json.decode(response.body);
-    print(responseBody);
     _alertText = responseBody['message'];
 
     return _alertText;
@@ -369,7 +366,6 @@ class AuthProvider with ChangeNotifier {
           })
         );
         var responseBody = json.decode(response.body);
-        print(responseBody);
 
         if (response.statusCode == 200) {
 
@@ -444,8 +440,6 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> accountConfirmationPhone(String phone, String verifyCode) async {
-    print("Confirm phone $phone");
-    print("Confirm code $verifyCode");
     var repsonseBody;
     try {
       var response = await http.post(
@@ -458,9 +452,6 @@ class AuthProvider with ChangeNotifier {
           },
         ),
       );
-
-      print("Response confirm ${response.body}");
-      print(response.statusCode);
       repsonseBody = json.decode(response.body);
     } on SocketException {
       // print('No Internet connection 😑');
@@ -475,7 +466,6 @@ class AuthProvider with ChangeNotifier {
 
   //RESEND THE OTP CODE BY USING PHONE NUMBER
   Future<String> resendCode(String phoneNumber) async {
-    print(phoneNumber);
     var response = await http.post(ApiUrl.RESEND_CODE,
         headers: {
           "Content-Type": "application/json; charset=utf-8"

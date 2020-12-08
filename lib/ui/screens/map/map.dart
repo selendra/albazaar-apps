@@ -108,7 +108,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
               placemark[0].position.latitude, placemark[0].position.longitude),
           kDefaultMapZoom);
       // UserProvider).fetchPlaceList(placeName).then((value) {
-      //   print(value);
       // });
     } on PlatformException {
       return;
