@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   @override

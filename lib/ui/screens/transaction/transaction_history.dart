@@ -107,32 +107,36 @@ class TransactionHistory extends StatelessWidget {
     List<TrxHistoryModel> history =
         Provider.of<TrxHistoryProvider>(context).trxHistoryList;
     final userProvider = Provider.of<UserProvider>(context);
+    var reversed = history.reversed.toList();
     return Scaffold(
       // Have No History
       body: history == null
           ? SafeArea(
               child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Expanded(
+                  Expanded(
                     child: Align(
-                        alignment: Alignment.center,
-                        child: SvgPicture.asset(
-                          'images/undraw_wallet.svg',
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          width: MediaQuery.of(context).size.height * 0.2,
-                          placeholderBuilder: (context) => Center(),
-                        )))
-              ],
-            ))
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset(
+                        'images/undraw_wallet.svg',
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.height * 0.2,
+                        placeholderBuilder: (context) => Center(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
 
           // Display Loading
           : history.length == 0
@@ -180,7 +184,7 @@ class TransactionHistory extends StatelessWidget {
                       SliverList(
                         delegate: SliverChildListDelegate(
                           _buildList(
-                              history, context, userProvider.mUser.wallet),
+                              reversed, context, userProvider.mUser.wallet),
                         ),
                       ),
                     ],
