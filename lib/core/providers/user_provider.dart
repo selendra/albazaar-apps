@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
@@ -17,13 +16,14 @@ class UserProvider with ChangeNotifier {
     var response;
     await StorageServices.fetchData('user_token').then((value) async {
       print("My Token ${value['wallet']}");
-      if (value != null){
+      if (value != null) {
         //Check Wallt Have Been Successfuly Get
-        while(true){
+        while (true) {
           response = await StorageServices.fetchData('user');
-          if (response['wallet'] == null){
+          if (response['wallet'] == null) {
             await fetchUserPf(value['token']);
-          } else break;
+          } else
+            break;
         }
       }
     });
@@ -55,11 +55,13 @@ class UserProvider with ChangeNotifier {
       _mUser.lastName = '';
     }
 
-    //NOTIFY IF ANYTHING CHANGE
+    //Notify that value is updated and update the ui
     notifyListeners();
   }
 
-  //READ USER INFO FROM SHARE PREFERENCE
+  /*It read user information from share preference
+   *(local storage on device)
+   */
   void fetchUserInfo() {
     _prefService.read('user').then((value) async {
       if (value != null) {
@@ -71,11 +73,12 @@ class UserProvider with ChangeNotifier {
     });
   }
 
-  //FETCH USER INFOMATION OF SOCIAL ACCOUNT USER
-  void fetchSocialUserInfo(String email, String displayName, String photoUrl) {
+  //Fetch user info from social
+  void fetchSocialUserInfo(
+      String email, String firstName, String lastName, String photoUrl) {
     _mUser.email = email;
-    _mUser.firstName = displayName;
-    _mUser.lastName = '';
+    _mUser.firstName = firstName;
+    _mUser.lastName = lastName;
     _mUser.midName = '';
     _mUser.profileImg = photoUrl;
   }
@@ -96,7 +99,6 @@ class UserProvider with ChangeNotifier {
       String gender, String imageUri, String address) async {
     try {
       await _prefService.read('token').then((value) async {
-
         var response = await http.post(
           ApiUrl.SET_USER_PROFILE,
           headers: <String, String>{
@@ -111,7 +113,7 @@ class UserProvider with ChangeNotifier {
               "last_name": lastName,
               "gender": gender,
               "image_uri": imageUri,
-              "address": address
+              "address": address,
             },
           ),
         );
@@ -122,7 +124,7 @@ class UserProvider with ChangeNotifier {
           alertText = responseBody['message'];
         }
       });
-    } catch (e){
+    } catch (e) {
       alertText = responseBody['error']['message'];
     }
     return alertText;
@@ -166,20 +168,17 @@ class UserProvider with ChangeNotifier {
   //This function is use to request wallet from the api
   Future getWallet(String pin) async {
     await _prefService.read('token').then((value) async {
-      var response = await http.post(
-        ApiUrl.GET_WALLET,
-        headers: <String, String>{
-          "accept": "application/json",
-          "authorization": "Bearer " + value,
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode(<String, String>{"pin": pin}));
+      var response = await http.post(ApiUrl.GET_WALLET,
+          headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + value,
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(<String, String>{"pin": pin}));
       responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
-
         // Sign Up With Phone Number
-        if (!responseBody.containsKey('code')){
-
+        if (!responseBody.containsKey('code')) {
           String _seed;
           alertText = responseBody['message']['seed'];
           //var wallet = WalletResponse.fromJson(responseBody);
@@ -189,7 +188,6 @@ class UserProvider with ChangeNotifier {
             _prefService.saveString('seed', _seed);
           }
         }
-
       }
     });
     return responseBody;
@@ -200,7 +198,6 @@ class UserProvider with ChangeNotifier {
     // mBalance = Balance();
     try {
       await _prefService.read('token').then((onValue) async {
-
         print("Toke $onValue");
         http.Response response =
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
@@ -255,7 +252,8 @@ class UserProvider with ChangeNotifier {
     );
     /* Make request */
 
-    var request = new http.MultipartRequest('POST', Uri.parse('https://s3.selendra.com/upload'));
+    var request = new http.MultipartRequest(
+        'POST', Uri.parse('https://s3.selendra.com/upload'));
     /* Make Form of Multipart */
     var multipartFile = new http.MultipartFile.fromBytes(
       'file',
@@ -266,7 +264,7 @@ class UserProvider with ChangeNotifier {
     request.files.add(multipartFile);
     /* Start send to server */
     String imageUrl;
-    try{
+    try {
       var r = await request.send();
       imageUrl = await r.stream.bytesToString();
     } catch (e) {
