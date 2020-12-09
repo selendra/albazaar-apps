@@ -69,6 +69,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           .then((onValue) {
         if (onValue != null) {
           ReuseAlertDialog().successDialog(context, onValue);
+          setState(() {
+            _tabController.index = 0;
+          });
         }
       }).catchError((onError) {});
     } on SocketException catch (e) {
@@ -76,11 +79,17 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+      setState(() {
+        _tabController.index = 0;
+      });
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+      setState(() {
+        _tabController.index = 0;
+      });
     }
 
     // Disable Loading

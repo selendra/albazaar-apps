@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'search_by_categories.dart';
 
 class FoodsScreen extends StatefulWidget {
   final String _image;
@@ -23,7 +23,6 @@ class _FoodsScreenState extends State<FoodsScreen>
 
   @override
   Widget build(BuildContext context) {
-    // var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,7 +48,14 @@ class _FoodsScreenState extends State<FoodsScreen>
               Icons.search,
               color: kDefaultColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: SearchByCategories(
+                  searchProduct: productsData,
+                ),
+              );
+            },
           )
         ],
       ),

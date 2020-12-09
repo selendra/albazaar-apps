@@ -10,7 +10,7 @@ class ProductsProvider with ChangeNotifier {
   List<Product> _items = [];
 
   //List of all owner product items
-  List<Product> _oItems = [];
+  List<OwnerProduct> _oItems = [];
 
   //List of all order product items
   List<OrderProduct> _orItems = [];
@@ -34,7 +34,7 @@ class ProductsProvider with ChangeNotifier {
   //initial product orderqty
 
   List<Product> get items => [..._items];
-  List<Product> get oItems => [..._oItems];
+  List<OwnerProduct> get oItems => [..._oItems];
   List<Product> get isAvailable => [..._isAvailable];
   List<Product> get isSold => [..._isSold];
   List<OrderProduct> get orItems => [..._orItems];
@@ -180,18 +180,6 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  List<Product> filterProductByCategories(String categoryName) {
-    List<Product> filterList = [];
-
-    for (int i = 0; i < _items.length; i++) {
-      if (_items[i].categoryName == categoryName) {
-        filterList.add(_items[i]);
-      }
-    }
-
-    return filterList;
-  }
-
   Future<void> fetchOListingProduct(String token) async {
     try {
       http.Response response =
@@ -200,15 +188,17 @@ class ProductsProvider with ChangeNotifier {
         "authorization": "Bearer " + token,
       });
 
-      dynamic responseJson = json.decode(response.body);
+      var responseJson = json.decode(response.body);
+      print(responseJson);
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
       for (var item in responseJson) {
-        _oItems.add(Product.fromMap(item));
+        _oItems.add(OwnerProduct.fromJson(item));
+        notifyListeners();
       }
 
-      findIsSold(oItems);
-      notifyListeners();
+      // findIsSold(oItems);
+
     } catch (e) {
       // print(e.toString());
     }
@@ -288,6 +278,18 @@ class ProductsProvider with ChangeNotifier {
   void addThumbnail(String thumbnail) {
     _url.add(thumbnail);
     notifyListeners();
+  }
+
+  List<Product> filterProductByCategories(String categoryName) {
+    List<Product> filterList = [];
+
+    for (int i = 0; i < _items.length; i++) {
+      if (_items[i].categoryName == categoryName) {
+        filterList.add(_items[i]);
+      }
+    }
+
+    return filterList;
   }
 
   // Future<void> readLocalProduct() async {

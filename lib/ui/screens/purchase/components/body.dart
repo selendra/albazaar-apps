@@ -21,6 +21,12 @@ class _BodyState extends State<Body> {
   }
 
   @override
+  void initState() {
+    Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _buildTapBarView();
   }

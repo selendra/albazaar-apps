@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-class SearchProducts extends SearchDelegate {
+class SearchByCategories extends SearchDelegate {
+  final List<Product> searchProduct;
+  SearchByCategories({@required this.searchProduct});
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -15,11 +17,6 @@ class SearchProducts extends SearchDelegate {
       )
     ];
   }
-
-  // var _searchFieldStyle = TextStyle(color: kDefaultColor);
-
-  // @override
-  // TextStyle get searchFieldStyle => _searchFieldStyle;
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -40,10 +37,9 @@ class SearchProducts extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var data = Provider.of<ProductsProvider>(context);
     List<Product> searchProducts = query.isEmpty
         ? []
-        : data.items
+        : searchProduct
             .where(
               (element) => element.name.toLowerCase().startsWith(
                     query.toLowerCase(),
@@ -52,7 +48,7 @@ class SearchProducts extends SearchDelegate {
             .toList();
 
     return Container(
-      margin: EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(10.0),
       child: ListView.builder(
         itemCount: searchProducts.length,
         itemBuilder: (context, index) {
@@ -62,12 +58,14 @@ class SearchProducts extends SearchDelegate {
             child: ListTile(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.of(context)
-                    .pushNamed('/detail', arguments: searchProducts[index].id);
+                Navigator.of(context).pushNamed(
+                  '/detail',
+                  arguments: searchProducts[index].id,
+                );
                 Provider.of<ProductsProvider>(context, listen: false)
                     .findImgById(searchProducts[index].id);
               },
-              title: Text(searchProducts[index].name),
+              title: Text(searchProduct[index].name),
               leading: CircleAvatar(
                 backgroundImage: NetworkImage(searchProducts[index].thumbnail),
               ),

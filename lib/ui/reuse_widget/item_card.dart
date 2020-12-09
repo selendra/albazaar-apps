@@ -18,18 +18,10 @@ class ItemCard extends StatelessWidget {
             .findImgById(product.id);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black54.withOpacity(0.2),
-          //     blurRadius: 10.0,
-          //     spreadRadius: 1.0,
-          //     offset: Offset(1.0, 1.0),
-          //   )
-          // ]
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

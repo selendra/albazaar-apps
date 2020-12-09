@@ -33,9 +33,9 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+    Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
     super.initState();
-    // fetch = Provider.of<SellerProvider>(context, listen: false)
-    //     .fetchBuyerComplete();
   }
 
   @override
