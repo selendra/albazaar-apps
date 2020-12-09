@@ -23,7 +23,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             value != 'Your email doesn\'t seem right!') {
           if (value != null) {
             await ReuseAlertDialog().successDialog(context, value);
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SignIn()), ModalRoute.withName('/'));
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => SignIn()),
+                ModalRoute.withName('/'));
           }
           setState(() {
             _tabController.index = 0;
@@ -31,7 +34,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         } else {
           await ReuseAlertDialog().customDialog(context, value, () {
             Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, SignInView);
           });
         }
       });
