@@ -37,6 +37,12 @@ class CategoriesScreen extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => FoodsScreen(image, categoriesName)));
         break;
+      case 5:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FoodsScreen(image, categoriesName)));
+        break;
     }
   }
 

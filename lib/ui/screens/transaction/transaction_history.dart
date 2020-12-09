@@ -19,32 +19,33 @@ class TransactionHistory extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 await Components.dialog(
-                    context,
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ItemList(title: "Id", trailing: history[i].id),
-                        ItemList(
-                          title: "Created At",
-                          trailing: AppUtils.timeStampToDateTime(
-                              history[i].createdAt),
-                        ),
-                        ItemList(title: "Sender", trailing: history[i].sender),
-                        ItemList(
-                            title: "Destination",
-                            trailing: history[i].destination),
-                        ItemList(
-                            title: "Amount",
-                            trailing: history[i].amount.toString()),
-                        ItemList(
-                            title: "Fee", trailing: history[i].fee.toString()),
-                        ItemList(title: "Memo", trailing: history[i].memo),
-                      ],
-                    ),
-                    Text(
-                      "Transaction history",
-                      textAlign: TextAlign.left,
-                    ));
+                  context,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ItemList(title: "Id", trailing: history[i].id),
+                      ItemList(
+                        title: "Created At",
+                        trailing:
+                            AppUtils.timeStampToDateTime(history[i].createdAt),
+                      ),
+                      ItemList(title: "Sender", trailing: history[i].sender),
+                      ItemList(
+                          title: "Destination",
+                          trailing: history[i].destination),
+                      ItemList(
+                          title: "Amount",
+                          trailing: history[i].amount.toString()),
+                      ItemList(
+                          title: "Fee", trailing: history[i].fee.toString()),
+                      ItemList(title: "Memo", trailing: history[i].memo),
+                    ],
+                  ),
+                  Text(
+                    "Transaction history",
+                    textAlign: TextAlign.left,
+                  ),
+                );
               },
               child: Container(
                 //margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
@@ -107,37 +108,40 @@ class TransactionHistory extends StatelessWidget {
     List<TrxHistoryModel> history =
         Provider.of<TrxHistoryProvider>(context).trxHistoryList;
     final userProvider = Provider.of<UserProvider>(context);
+    var reversedList = history.reversed.toList();
     return Scaffold(
       // Have No History
       body: history == null
           ? SafeArea(
               child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Expanded(
+                  Expanded(
                     child: Align(
-                        alignment: Alignment.center,
-                        child: SvgPicture.asset(
-                          'images/undraw_wallet.svg',
-                          height: MediaQuery.of(context).size.height * 0.2,
-                          width: MediaQuery.of(context).size.height * 0.2,
-                          placeholderBuilder: (context) => Center(),
-                        )))
-              ],
-            ))
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset(
+                        'images/undraw_wallet.svg',
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.height * 0.2,
+                        placeholderBuilder: (context) => Center(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
 
           // Display Loading
           : history.length == 0
               ? Center(child: CircularProgressIndicator())
-
               // Display History List
               : SafeArea(
                   child: CustomScrollView(
@@ -180,7 +184,7 @@ class TransactionHistory extends StatelessWidget {
                       SliverList(
                         delegate: SliverChildListDelegate(
                           _buildList(
-                              history, context, userProvider.mUser.wallet),
+                              reversedList, context, userProvider.mUser.wallet),
                         ),
                       ),
                     ],

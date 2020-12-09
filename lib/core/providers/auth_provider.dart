@@ -30,23 +30,23 @@ class AuthProvider with ChangeNotifier {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      //debugPrint(googleSignInAuthentication.idToken,wrap);
       googleToken = googleSignInAuthentication.idToken;
-      //getTokenForGoogle(googleSignInAuthentication.idToken,context);
 
       final AuthResult authResult =
           await _auth.signInWithCredential(credential);
       final FirebaseUser user = authResult.user;
-      // Provider.of<ProductsProvider>(context, listen: false).getVegi();
 
       // Checking if email and name is null
       assert(user.email != null);
       assert(user.displayName != null);
       assert(user.photoUrl != null);
 
-      //getUserInfo(user);
-      Provider.of<UserProvider>(context, listen: false)
-          .fetchSocialUserInfo(user.email, user.displayName, user.photoUrl);
+      var name = user.displayName.split(' ');
+      print(name.last);
+      print(name.first);
+
+      Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
+          user.email, name.first, name.last, user.photoUrl);
       mBalance = Balance();
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
@@ -78,18 +78,20 @@ class AuthProvider with ChangeNotifier {
 
         final FirebaseUser user =
             (await _auth.signInWithCredential(credential)).user;
+
         mBalance = Balance();
+        var name = user.displayName.split(' ');
 
         getFbProfileImg(facebookAccessToken.userId, facebookAccessToken.token)
             .then((value) {
           if (value != null) {
             _pref.saveString('fbImg', value);
             Provider.of<UserProvider>(context, listen: false)
-                .fetchSocialUserInfo(user.email, user.displayName, value);
+                .fetchSocialUserInfo(user.email, name.first, name.last, value);
           } else {
             Provider.of<UserProvider>(context, listen: false)
                 .fetchSocialUserInfo(
-                    user.email, user.displayName, user.photoUrl);
+                    user.email, name.first, name.last, user.photoUrl);
           }
         });
 
@@ -361,19 +363,17 @@ class AuthProvider with ChangeNotifier {
     try {
       await _pref.read('token').then((onValue) async {
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
-          headers: <String, String>{
-            "accept": "application/json",
-            "authorization": "Bearer " + onValue,
-            "Content-Type": "application/json"
-          },
-          body: jsonEncode(<String, String>{
-            "phone": "+855" + _phoneNumber,
-          })
-        );
+            headers: <String, String>{
+              "accept": "application/json",
+              "authorization": "Bearer " + onValue,
+              "Content-Type": "application/json"
+            },
+            body: jsonEncode(<String, String>{
+              "phone": "+855" + _phoneNumber,
+            }));
         var responseBody = json.decode(response.body);
 
         if (response.statusCode == 200) {
-
           _alertText = responseBody['message'];
           // if (responseBody != null) {
           //   try {
@@ -444,7 +444,8 @@ class AuthProvider with ChangeNotifier {
     return _alertText;
   }
 
-  Future<dynamic> accountConfirmationPhone(String phone, String verifyCode) async {
+  Future<dynamic> accountConfirmationPhone(
+      String phone, String verifyCode) async {
     var repsonseBody;
     try {
       var response = await http.post(
@@ -472,13 +473,10 @@ class AuthProvider with ChangeNotifier {
   //RESEND THE OTP CODE BY USING PHONE NUMBER
   Future<String> resendCode(String phoneNumber) async {
     var response = await http.post(ApiUrl.RESEND_CODE,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-        },
+        headers: {"Content-Type": "application/json; charset=utf-8"},
         body: json.encode({
           "phone": phoneNumber,
-        })
-      );
+        }));
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       try {
