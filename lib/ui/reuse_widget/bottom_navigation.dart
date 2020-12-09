@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:badges/badges.dart';
-import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -48,7 +47,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
 
   @override
   Widget build(BuildContext context) {
-
     final addListData = Provider.of<AddProductProvider>(context);
     // print(addListData.addProduct.imageUrlList);
     // print("My Product id ${addListData.addProduct.productId}");
@@ -57,10 +55,15 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
       bottomNavigationBar: _buildBottomAppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Navigator.pushNamed(context, AddListingView).then((value) async {
-            if (value != null){
-              for (int i = 0; i < addListData.addProduct.imageUrlList.length; i++){
-                await PostRequest().addProductImage(addListData.addProduct.imageUrlList[i], addListData.addProduct.productId);
+          await Navigator.pushNamed(context, AddListingView)
+              .then((value) async {
+            if (value != null) {
+              for (int i = 0;
+                  i < addListData.addProduct.imageUrlList.length;
+                  i++) {
+                await PostRequest().addProductImage(
+                    addListData.addProduct.imageUrlList[i],
+                    addListData.addProduct.productId);
               }
             }
           });

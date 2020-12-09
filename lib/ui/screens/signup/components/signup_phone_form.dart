@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 String _phone, _password;
 

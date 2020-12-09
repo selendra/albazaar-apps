@@ -11,7 +11,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isLoading = false;
 
-  String imageUrl;
+  String imageUrl = '';
   Future<void> loadAsset() async {
     List<Asset> resultList = List<Asset>();
 

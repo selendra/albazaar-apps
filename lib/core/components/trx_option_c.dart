@@ -40,8 +40,8 @@ class TrxOptionMethod {
     Backend _backend = Backend();
 
     if (await Permission.contacts.request().isGranted) {
-      String number = '';
-      var response;
+      // String number = '';
+      // var response;
       //Get Contact And Asign To Number Variable
 
       final PhoneContact _contact =

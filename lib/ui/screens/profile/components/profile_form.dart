@@ -143,7 +143,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.all(30.0),
               child: ReuseButton.getItem(_lang.translate('save'), () {

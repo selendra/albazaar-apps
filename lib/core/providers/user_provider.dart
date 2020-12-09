@@ -236,12 +236,12 @@ class UserProvider with ChangeNotifier {
   Future<String> upLoadImage(File _image) async {
     /* Upload image to server by use multi part form*/
     //SharedPreferences isToken = await SharedPreferences.getInstance();
-    String token;
+    // String token;
 
-    // token = isToken.getString('token');
-    await _prefService.read('token').then((value) {
-      token = value;
-    });
+    // // token = isToken.getString('token');
+    // await _prefService.read('token').then((value) {
+    //   token = value;
+    // });
 
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(

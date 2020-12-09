@@ -17,7 +17,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-
     try {
       await AuthProvider().signUpByEmail(_email, _password).then((value) async {
         if (value != "Your email account already exists!" ||
@@ -29,9 +28,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 MaterialPageRoute(builder: (context) => SignIn()),
                 ModalRoute.withName('/'));
           }
-          setState(() {
-            _tabController.index = 0;
-          });
         } else {
           await ReuseAlertDialog().customDialog(context, value, () {
             Navigator.pop(context);
@@ -43,27 +39,19 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
-      setState(() {
-        _tabController.index = 0;
-      });
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
-      setState(() {
-        _tabController.index = 0;
-      });
+    } finally {
+      setInitialTab();
+      stopLoading();
     }
-
-    // // Disable Loading
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   Future<void> onSignUpWithPhone(String _phone, String _password) async {
-    _phone = "+855"+AppServices.removeZero(_phone);
+    _phone = "+855" + AppServices.removeZero(_phone);
     setState(() {
       _isLoading = true;
     });
@@ -93,24 +81,19 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
 
-          setState(() {
-            _isLoading = false;
-          });
+      setState(() {
+        _isLoading = false;
+      });
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
 
-          setState(() {
-            _isLoading = false;
-          });
+      setState(() {
+        _isLoading = false;
+      });
     }
-
-    // if (alertText != 'Your phone number already exists!') {
-    //   Navigator.pushReplacement(
-    //       context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-    // }
   }
 
   onGoogleSignIn() async {
@@ -153,12 +136,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       setState(() {
         _isLoading = false;
       });
+    } finally {
+      stopLoading();
     }
-
-    // Disable Loading
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   onTabChange() {
@@ -180,6 +160,20 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     } else {
       _tabController.animateTo(index);
     }
+  }
+
+  //This function is use to set initial tab when setstate
+  void setInitialTab() {
+    setState(() {
+      _tabController.index = 0;
+    });
+  }
+
+  //This function is use to stop loading circle indicator
+  void stopLoading() {
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override

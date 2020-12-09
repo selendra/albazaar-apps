@@ -43,18 +43,14 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     try {
       await AuthProvider().signInFacebook(context).then((value) {
         if (value == null) {
-          setState(() {
-            _isLoading = false;
-          });
+          stopLoading();
         } else {
           Provider.of<AuthProvider>(context, listen: false)
               .getTokenForFb(value, context);
         }
       });
     } on PlatformException catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
+      stopLoading();
     }
   }
 
@@ -62,16 +58,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     setState(() {
       _isLoading = true;
     });
-
     try {
       await AuthProvider()
           .signInByEmail(_email, _password, context)
           .then((onValue) {
         if (onValue != null) {
           ReuseAlertDialog().successDialog(context, onValue);
-          setState(() {
-            _tabController.index = 0;
-          });
         }
       }).catchError((onError) {});
     } on SocketException catch (e) {
@@ -79,27 +71,18 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
-      setState(() {
-        _tabController.index = 0;
-      });
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
-      setState(() {
-        _tabController.index = 0;
-      });
+    } finally {
+      setInitialTab();
+      stopLoading();
     }
-
-    // Disable Loading
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
-
     setState(() {
       _isLoading = true;
     });
@@ -123,12 +106,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+    } finally {
+      stopLoading();
     }
-
-    // Disable Loading
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   onTabChange() {
@@ -152,6 +132,20 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     }
   }
 
+  //This function is use to set initial tab when setstate
+  void setInitialTab() {
+    setState(() {
+      _tabController.index = 0;
+    });
+  }
+
+  //This function is use to stop loading circle indicator
+  void stopLoading() {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -163,7 +157,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   void dispose() {
     _pageController.dispose();
     _tabController.dispose();
-    //print('dispose');
     super.dispose();
   }
 
