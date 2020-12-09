@@ -24,7 +24,9 @@ class _OTPScreenState extends State<OTPScreen> {
         scaffoldBackgroundColor: Colors.white,
       ),
       child: Scaffold(
-        body: PinScreen(widget.phoneNumber, widget.password),
+        body: SingleChildScrollView(
+          child: PinScreen(widget.phoneNumber, widget.password),
+        )
       ),
     );
   }

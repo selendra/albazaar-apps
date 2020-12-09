@@ -59,7 +59,7 @@ class SignUpPhoneForm extends StatelessWidget {
                 initialCountryCode: 'KH',
                 validator: (value) => value.isEmpty ? "Phone is empty" : null,
                 onChanged: (phone) {
-                  _phone = "+855" + AppServices.removeZero(_phoneController.text.toString());
+                  _phone = phone.number;
                 },
               ),
             ),

@@ -13,8 +13,10 @@ class _BodyState extends State<Body> {
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
-  String firstName, midName, lastName, gender, imageUri, address, alertText;
+  String firstName = '', midName = '', lastName= '', gender = '', imageUri = '', address = '', alertText;
   int _selectedIndex;
+
+  bool isCheck = false;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
 
   bool validateAndSave() {
@@ -69,7 +71,10 @@ class _BodyState extends State<Body> {
   void setSelectedIndex(int val) {
     setState(() {
       _selectedIndex = val;
+      if (val == 1) gender = 'M'; 
+      else gender = 'F';
     });
+    onChanged(val.toString());
   }
 
   Future<void> validateAndSubmit() async {
@@ -87,6 +92,18 @@ class _BodyState extends State<Body> {
         }
         await onSetUserPf();
       }
+    }
+  }
+
+  void onChanged(String value){
+    if (firstName.isNotEmpty && lastName.isNotEmpty && gender.isNotEmpty && address.isNotEmpty){
+      setState((){
+        isCheck = true;
+      });
+    } else if (isCheck == true) {
+      setState((){
+        isCheck = false;
+      });
     }
   }
 
@@ -133,12 +150,11 @@ class _BodyState extends State<Body> {
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)
-              .upLoadImage(File(filePath))
-              .then((value) {
+            .upLoadImage(File(filePath))
+            .then((value) {
             setState(() {
               imageUri = json.decode(value)['uri'];
-              Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-                  imageUri;
+              Provider.of<UserProvider>(context, listen: false).mUser.profileImg = imageUri;
             });
           });
         }
@@ -216,7 +232,22 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 20,
               ),
-              _address(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(child: _address()),
+                  Container(
+                    width: 80,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      icon: SvgPicture.asset('images/pin_location.svg'), 
+                      onPressed: ()async {
+                        await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
+                      }
+                    ),
+                  )
+                ],
+              ),
 
               SizedBox(
                 height: 20,
@@ -226,7 +257,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 40,
               ),
-              ReuseButton.getItem('Submit', () async {
+              ReuseButton.getItem('Submit', !isCheck ? null : () async {
                 await validateAndSubmit();
               }, context),
             ],
@@ -285,6 +316,10 @@ class _BodyState extends State<Body> {
       fieldKey: _firstNameKey,
       labelText: 'Firstname',
       onSaved: (value) => firstName = value,
+      onChanged: (String value){
+        firstName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -293,6 +328,10 @@ class _BodyState extends State<Body> {
       fieldKey: _midNameKey,
       labelText: 'Midname',
       onSaved: (value) => midName = value,
+      onChanged: (String value){
+        midName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -301,6 +340,10 @@ class _BodyState extends State<Body> {
       fieldKey: _lastNameKey,
       labelText: 'Lastname',
       onSaved: (value) => lastName = value,
+      onChanged: (String value){
+        lastName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -308,6 +351,10 @@ class _BodyState extends State<Body> {
     return ReuseTextField(
       labelText: 'Adderss',
       onSaved: (value) => address = value,
+      onChanged: (String value){
+        address = value;
+        onChanged(value);
+      },
     );
   }
 }

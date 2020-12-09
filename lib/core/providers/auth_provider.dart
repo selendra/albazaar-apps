@@ -256,6 +256,8 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
+    
+    print("Sign in $phone");
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
@@ -338,12 +340,15 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN UP THEIR ACCOUNT USING PHONE AND PASSWORD
   Future<String> signUpByPhone(String phone, String password, context) async {
+    print("Sign Up phone $phone");
     var response = await http.post(ApiUrl.SIGN_UP_PHONE,
         headers: ApiHeader.headers,
         body: jsonEncode(<String, String>{
           'phone': phone,
           'password': password,
         }));
+
+        print("Sing up with phone ${response.body}");
 
     var responseBody = json.decode(response.body);
     _alertText = responseBody['message'];
