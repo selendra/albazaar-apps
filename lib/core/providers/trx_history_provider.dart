@@ -19,6 +19,7 @@ class TrxHistoryProvider with ChangeNotifier {
 
     // Fetch History
     await _getRequest.getTrxHistory().then((value) {
+      print("My history ${value.body}");
       _backend.listData = json.decode(value.body);
       if (_backend.listData.isEmpty) trxHistoryList = null;
       else {

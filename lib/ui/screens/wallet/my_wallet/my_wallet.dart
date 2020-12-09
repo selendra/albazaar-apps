@@ -18,7 +18,9 @@ class MyWallet extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: () async {
           // await Future.delayed(Duration(seconds: 0));
-          // return _fetchBalance.fetchPortforlio();
+          print("Hello");
+          await history.fetchTrxHistory();
+          await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         },
         child: Container(
           width: MediaQuery.of(context).size.width,

@@ -14,10 +14,11 @@ class _BodyState extends State<Body> {
   SellerProvider sellerProvider;
   // void filterSearchResults(String query) {} //Now u
   Future<Null> _refresh() async {
-    await Future.delayed(Duration(seconds: 3)).then((value) {
+    await Future.delayed(Duration(seconds: 3)).then((value) async {
       productsProvider = Provider.of<ProductsProvider>(context, listen: false);
       productsProvider.fetchListingProduct();
       sellerProvider.fetchBuyerOrder();
+      await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
     });
   }
 
