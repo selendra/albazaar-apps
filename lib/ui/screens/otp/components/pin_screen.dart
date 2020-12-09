@@ -108,6 +108,9 @@ class _PinScreenState extends State<PinScreen> {
       _isLoading = true;
     });
 
+    print(widget.phoneNumber);
+    print(verifyOTP);
+
     try {
 
       String apiUrl = 'https://testnet-api.selendra.com/pub/v1/account-confirmation';

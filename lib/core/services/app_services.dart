@@ -27,7 +27,12 @@ class AppServices {
   }
 
   static String removeZero(String number){
-    return number.replaceFirst("0", "", 0);
+    print(number);
+    if (number.startsWith("0")){
+      number = number.replaceRange(0, 1, '');
+    }
+    print(number);
+    return number;
   }
   
 }

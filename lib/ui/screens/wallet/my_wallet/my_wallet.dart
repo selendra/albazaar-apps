@@ -18,7 +18,6 @@ class MyWallet extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: () async {
           // await Future.delayed(Duration(seconds: 0));
-          print("Hello");
           await history.fetchTrxHistory();
           await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         },

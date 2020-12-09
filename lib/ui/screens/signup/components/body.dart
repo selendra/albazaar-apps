@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -62,6 +63,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   Future<void> onSignUpWithPhone(String _phone, String _password) async {
+    _phone = "+855"+AppServices.removeZero(_phone);
     setState(() {
       _isLoading = true;
     });
@@ -90,11 +92,19 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+
+          setState(() {
+            _isLoading = false;
+          });
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+
+          setState(() {
+            _isLoading = false;
+          });
     }
 
     // if (alertText != 'Your phone number already exists!') {
