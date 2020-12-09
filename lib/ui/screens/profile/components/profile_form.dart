@@ -165,7 +165,7 @@ class _ProfileFormState extends State<ProfileForm> {
                           await ProfileDialog().successDialog(context, value);
                         },
                       );
-                    } else {}
+                    }
                   },
                 );
               }, context),

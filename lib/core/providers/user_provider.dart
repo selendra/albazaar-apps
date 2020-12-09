@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
@@ -37,11 +36,13 @@ class UserProvider with ChangeNotifier {
       _mUser.lastName = '';
     }
 
-    //NOTIFY IF ANYTHING CHANGE
+    //Notify that value is updated and update the ui
     notifyListeners();
   }
 
-  //READ USER INFO FROM SHARE PREFERENCE
+  /*It read user information from share preference
+   *(local storage on device)
+   */
   void fetchUserInfo() {
     _prefService.read('user').then((value) {
       if (value != null) {
@@ -51,11 +52,12 @@ class UserProvider with ChangeNotifier {
     });
   }
 
-  //FETCH USER INFOMATION OF SOCIAL ACCOUNT USER
-  void fetchSocialUserInfo(String email, String displayName, String photoUrl) {
+  //Fetch user info from social
+  void fetchSocialUserInfo(
+      String email, String firstName, String lastName, String photoUrl) {
     _mUser.email = email;
-    _mUser.firstName = displayName;
-    _mUser.lastName = '';
+    _mUser.firstName = firstName;
+    _mUser.lastName = lastName;
     _mUser.midName = '';
     _mUser.profileImg = photoUrl;
   }
@@ -89,7 +91,7 @@ class UserProvider with ChangeNotifier {
             "last_name": lastName,
             "gender": gender,
             "image_uri": imageUri,
-            "address": address
+            "address": address,
           },
         ),
       );
