@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
@@ -112,7 +113,10 @@ class _SelendraAppState extends State<SelendraApp> {
             primaryColor: Colors.white,
             brightness: Brightness.light,
           ),
-          routes: {DetailView: (context) => DetailScreen()},
+          routes: {
+            DetailView: (context) => DetailScreen(),
+            SellerInfoView: (context) => SellerConfirm(),
+          },
           home: SplashScreen(),
           navigatorKey: navigationKey,
         ),

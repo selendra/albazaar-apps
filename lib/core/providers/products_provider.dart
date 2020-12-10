@@ -230,8 +230,11 @@ class ProductsProvider with ChangeNotifier {
             message = responseJson['message']['error'];
             await ReuseAlertDialog().successDialog(context, message);
           } else {
+            Provider.of<ProductsProvider>(context, listen: false)
+                .fetchListingProduct();
             await ReuseAlertDialog().customDialog(context, message, () {
               Navigator.pop(context);
+              removeOrderProduct(orderId);
               notifyListeners();
             });
           }

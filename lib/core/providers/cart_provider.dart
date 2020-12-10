@@ -4,9 +4,12 @@ import 'package:selendra_marketplace_app/core/models/cart.dart';
 class CartProvider with ChangeNotifier {
   int quantity = 0;
   double totalPrice = 0;
+
   Map<String, Cart> _items = {};
+  Map<String, Cart> _buyNow = {};
 
   Map<String, Cart> get items => {..._items};
+  Map<String, Cart> get buyNow => {..._buyNow};
 
   //Add product to cart
   void addCart(String productId, String image, String title, String price,
@@ -33,6 +36,23 @@ class CartProvider with ChangeNotifier {
       totalPrice = totalPrice + double.parse(price.toString());
     }
 
+    notifyListeners();
+  }
+
+  //Add buynow
+  void addBuyNow(String productId, String image, String title, String price,
+      int productOrderQty) {
+    _buyNow.clear();
+    _buyNow.putIfAbsent(
+        productId,
+        () => Cart(
+            id: productId,
+            image: image,
+            title: title,
+            price: price,
+            qty: productOrderQty));
+
+    totalPrice = totalPrice + double.parse(price.toString());
     notifyListeners();
   }
 
@@ -84,7 +104,7 @@ class CartProvider with ChangeNotifier {
 
   //CALCULATE TOTAL PRICE OF TOTAL ITEM
   double get totalAmount {
-    var total = 0.0;
+    var total;
     _items.forEach((key, cartItem) {
       total += double.parse(cartItem.price.toString()) * cartItem.qty;
     });

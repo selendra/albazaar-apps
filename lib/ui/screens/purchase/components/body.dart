@@ -22,7 +22,6 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
     super.initState();
   }
 
@@ -32,7 +31,6 @@ class _BodyState extends State<Body> {
   }
 
   Widget _buildTapBarView() {
-    // var _lang = AppLocalizeService.of(context);
     final ProductsProvider productsProvider =
         Provider.of<ProductsProvider>(context);
     return Container(

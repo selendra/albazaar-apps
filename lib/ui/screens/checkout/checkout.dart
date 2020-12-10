@@ -56,7 +56,7 @@ class _CheckoutState extends State<Checkout> {
           AppLocalizeService.of(context).translate('check_out'), context),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               TotalPriceCard(),

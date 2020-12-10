@@ -26,7 +26,9 @@ class TotalPriceCard extends StatelessWidget {
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
-                  '${value.totalAmount}៛',
+                  value.totalAmount == null
+                      ? '${value.totalPrice}៛'
+                      : '${value.totalAmount}៛',
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,

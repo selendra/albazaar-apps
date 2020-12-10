@@ -10,7 +10,7 @@ class ProductDisplay extends StatelessWidget {
           child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,7 +71,9 @@ class ProductDisplay extends StatelessWidget {
             ),
           ),
           ChangeNotifierProvider.value(
-            value: value.items.values.toList()[0],
+            value: value.buyNow.values.toList().isEmpty
+                ? value.items.values.toList()[0]
+                : value.buyNow.values.toList()[0],
             child: ItemOrder(),
           ),
           // Card(

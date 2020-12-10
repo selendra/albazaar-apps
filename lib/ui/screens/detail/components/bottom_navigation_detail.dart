@@ -47,8 +47,9 @@ class BottomNavigationDetail extends StatelessWidget {
               ),
               Container(
                 width: 100,
-                child: ReuseButton.getItem('Buy Now', () {
-                  cartProvider.addCart(
+                child: ReuseButton.getItem(
+                    AppLocalizeService.of(context).translate('buy_now'), () {
+                  cartProvider.addBuyNow(
                     loadedProduct.id,
                     loadedProduct.thumbnail,
                     loadedProduct.name,
