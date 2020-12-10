@@ -57,6 +57,8 @@ class _SplashScreenState extends State<SplashScreen>
                   name.last,
                   valueUser.photoUrl,
                 );
+                Provider.of<UserProvider>(context, listen: false)
+                    .fetchUserPf(value);
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
               } else {
                 validateNormalUser();
