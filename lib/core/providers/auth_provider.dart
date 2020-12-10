@@ -126,6 +126,7 @@ class AuthProvider with ChangeNotifier {
         await StorageServices.setData(responseJson, 'user_token');
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
+        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
@@ -154,6 +155,7 @@ class AuthProvider with ChangeNotifier {
 
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
+        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
@@ -258,7 +260,6 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
-    
     print("Sign in $phone");
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
@@ -350,7 +351,7 @@ class AuthProvider with ChangeNotifier {
           'password': password,
         }));
 
-        print("Sing up with phone ${response.body}");
+    print("Sing up with phone ${response.body}");
 
     var responseBody = json.decode(response.body);
     _alertText = responseBody['message'];
