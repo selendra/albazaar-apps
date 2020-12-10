@@ -7,8 +7,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Backend _backend = Backend();
-
   GetRequest _getRequest = GetRequest();
 
   showAlertDialog(BuildContext context, String alertText) {
