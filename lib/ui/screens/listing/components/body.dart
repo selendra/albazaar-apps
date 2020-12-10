@@ -45,8 +45,7 @@ class _BodyState extends State<Body> {
 
   Widget _buildTapBarView() {
     var _lang = AppLocalizeService.of(context);
-    final ProductsProvider productsProvider =
-        Provider.of<ProductsProvider>(context);
+    final ProductsProvider productsProvider = Provider.of<ProductsProvider>(context, listen: false);
     final sellerProvider = Provider.of<SellerProvider>(context, listen: false);
     return Container(
       width: double.infinity,

@@ -7,7 +7,7 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
     final _mUser = data.mUser;
-    String userName = _mUser.firstName == null
+    String userName = _mUser.firstName == null && _mUser.midName == null && _mUser.lastName == null
         ? "User name"
         : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);

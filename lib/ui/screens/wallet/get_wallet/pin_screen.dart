@@ -107,73 +107,75 @@ class _PinScreenState extends State<PinScreen> {
 
 
     // 1 Get Wallet
-    await UserProvider().getWallet(_pin).then((value) async{// tmp
+    try {
+      await UserProvider().getWallet(_pin).then((value) async{// tmp
 
-      // 2. Show Verify Option Button
-      if (value['code'] == '001') {
-        bool actionVerify = await AllDialog().verifyDialog(context, value['message'], _phoneCodePick(), sendCode);
+        // 2. Show Verify Option Button
+        if (value['code'] == '001') {
+          bool actionVerify = await AllDialog().verifyDialog(context, value['message'], _phoneCodePick(), sendCode);
 
-        // 3. Show Add Phone Number Dialog
-        if (actionVerify == true){
-          var addPhoneRes = await showDialog(
-            barrierDismissible: false,
-            builder: (context) => AllDialog().addPhoneNumberDialog(context, _phoneCodePick(), sendCode),
-            context: context
-          );
+          // 3. Show Add Phone Number Dialog
+          if (actionVerify == true){
+            var addPhoneRes = await showDialog(
+              barrierDismissible: false,
+              builder: (context) => AllDialog().addPhoneNumberDialog(context, _phoneCodePick(), sendCode),
+              context: context
+            );
 
-          // Post Request Add Phone
-          if (addPhoneRes == true) {
-            bool sendCodeRes = await sendCode(); //tmp
+            // Post Request Add Phone
+            if (addPhoneRes == true) {
+              bool sendCodeRes = await sendCode(); //tmp
 
-            // 4. SMS Verification
-            if (sendCodeRes == true){
-              var verifyPinRes = await AllDialog().verifyPinDialog(context, checkVerify);
+              // 4. SMS Verification
+              if (sendCodeRes == true){
+                var verifyPinRes = await AllDialog().verifyPinDialog(context, checkVerify);
 
-              if (verifyPinRes != null){
+                if (verifyPinRes != null){
 
-                // Check Verify Again Request Wallet Again
-                await checkVerify(verifyPinRes); 
+                  // Check Verify Again Request Wallet Again
+                  await checkVerify(verifyPinRes); 
 
-                // // Close Loading For The First TIme
-                // setState(() {
-                //   _isLoading = false;
-                // });
+                  // // Close Loading For The First TIme
+                  // setState(() {
+                  //   _isLoading = false;
+                  // });
+                }
               }
             }
           }
+
+        } else if (value['message'].containsKey('wallet')) {//if (mBalance.data != null) { tmp
+          await _pref.read('seed').then((onValue) async {// tmp
+            if (onValue != null) {
+              await _displayWalletInfo(context, onValue);
+
+              // If Sign Up By Email
+              await StorageServices.fetchData('user').then((value) async {
+
+                if (value['email'] != null) {
+                  await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  AddUserInfoScreen()));
+                }
+                else {
+                  // Refetch User Data
+                  await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+                  await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+                  // Close Fill PIn
+                  Navigator.pop(context);
+                }
+              });
+
+              // // Close PIN Dialog
+              // Navigator.pop(context);
+            } else {
+              await ReuseAlertDialog().successDialog(context, value);
+            }
+          });// tmp
         }
-
-      } else if (value['message'].containsKey('wallet')) {//if (mBalance.data != null) { tmp
-        await _pref.read('seed').then((onValue) async {// tmp
-          if (onValue != null) {
-            await _displayWalletInfo(context, onValue);
-
-            // If Sign Up By Email
-            await StorageServices.fetchData('user').then((value) async {
-
-              if (value['email'] != null) {
-                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  AddUserInfoScreen()));
-              }
-              else {
-                // Refetch User Data
-                await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
-                await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
-                // Close Fill PIn
-                Navigator.pop(context);
-              }
-            });
-
-            // // Close PIN Dialog
-            // Navigator.pop(context);
-          } else {
-            await ReuseAlertDialog().successDialog(context, value);
-          }
-        });// tmp
-      } else {
         
-      }
-      
-    }); //tmp
+      }); //tmp
+    } catch (e){
+      print(e);
+    }
 
     // Close Loading After Succssfully Get Wallet And Refetch Portfolio
     if (mounted){

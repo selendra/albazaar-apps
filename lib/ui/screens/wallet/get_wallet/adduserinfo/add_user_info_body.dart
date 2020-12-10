@@ -17,7 +17,7 @@ class _BodyState extends State<Body> {
   int _selectedIndex;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
 
-  bool _isLoading = false;
+  bool _isLoading = false, isCheck = false;
 
   bool validateAndSave() {
     if (_formKey.currentState.validate()) {
@@ -58,11 +58,31 @@ class _BodyState extends State<Body> {
     super.initState();
     _selectedIndex = 0;
   }
+
+  void onChanged(String value){
+    print(firstName);
+    print(imageUri);
+    print(lastName);
+    print(gender);
+    print(address);
+    if (firstName != null && lastName != null && gender != null && address != null){
+      setState((){
+        isCheck = true;
+      });
+    } else if (isCheck == true) {
+      setState((){
+        isCheck = false;
+      });
+    }
+  }
   
   void setSelectedIndex(int val) {
     setState(() {
       _selectedIndex = val;
+      if (val == 1) gender = 'M'; 
+      else gender = 'F';
     });
+    onChanged(val.toString());
   }
 
   Future<void> validateAndSubmit() async {
@@ -88,19 +108,24 @@ class _BodyState extends State<Body> {
 
   Future<void>onSetUserPf() async {
     await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
-      alertText = value;
       
-      // Refetch User Data
-      await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+      if (value.containsKey('error')){
+        alertText = value['error']['message'];
 
-      // After Copy Key
-      await Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); 
+      } else {
+        alertText = value['message'];
+        // Refetch User Data
+        await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+
+        // After Copy Key
+        await Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); 
+        
+        // Disable Loading
+        setState(() {
+          _isLoading = false;
+        });
+      }
       
-      // Disable Loading
-      setState(() {
-        _isLoading = false;
-      });
-
       await showAlertDialog(context);
 
       // Close Add User Screen
@@ -124,11 +149,17 @@ class _BodyState extends State<Body> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      getAssettoFile(resultList);
+      
+      // Check User Cancel Upload Image
+      if (resultList != null){
+        getAssettoFile(resultList);
+      }
     } catch (e) {
       e.toString();
-      //print(e);
+      print("error $e");
     }
+
+    print("my image two $resultList");
     if (!mounted) return;
 
     // setState(() {
@@ -139,6 +170,8 @@ class _BodyState extends State<Body> {
   Future<void> getAssettoFile(List<Asset> resultList) async {
     for (Asset asset in resultList) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+
+      print("My file $filePath");
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)
@@ -174,24 +207,28 @@ class _BodyState extends State<Body> {
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
               Consumer<UserProvider>(
-                builder: (context, value, child) => Container(
-                  margin: EdgeInsets.all(5),
-                  width: 100, height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(width: 1, color: Colors.greenAccent)
-                  ),
-                  child: ClipOval(
-                    child: FadeInImage(
-                      fit: BoxFit.cover,
-                      placeholder: AssetImage('images/loading.gif'), 
-                      image: value.mUser.profileImg != null
-                        ? NetworkImage(value.mUser.profileImg)
-                        : AssetImage('images/avatar.png')
+                builder: (context, value, child) {
+                  print("Value ${value.mUser.profileImg.runtimeType}");
+                  print("Value ${value.mUser.profileImg}");
+                  return Container(
+                    margin: EdgeInsets.all(5),
+                    width: 100, height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(width: 1, color: Colors.greenAccent)
                     ),
-                  ),
-                )
+                    child: ClipOval(
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        placeholder: AssetImage('images/loading.gif'), 
+                        image: value.mUser.profileImg == null
+                          ? AssetImage('images/avatar.png')
+                          : NetworkImage(value.mUser.profileImg)
+                      ),
+                    ),
+                  );
+                }
                 // CircleAvatar(
                 //   backgroundImage: ,
                 // ),
@@ -239,7 +276,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 40,
               ),
-              ReuseButton.getItem('Submit', () async {
+              ReuseButton.getItem('Submit', !isCheck ? null : () async {
                 await validateAndSubmit();
               }, context),
             ],
@@ -298,6 +335,10 @@ class _BodyState extends State<Body> {
       fieldKey: _firstNameKey,
       labelText: 'Firstname',
       onSaved: (value) => firstName = value,
+      onChanged: (String value){
+        firstName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -306,6 +347,10 @@ class _BodyState extends State<Body> {
       fieldKey: _midNameKey,
       labelText: 'Midname',
       onSaved: (value) => midName = value,
+      onChanged: (String value){
+        midName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -314,6 +359,10 @@ class _BodyState extends State<Body> {
       fieldKey: _lastNameKey,
       labelText: 'Lastname',
       onSaved: (value) => lastName = value,
+      onChanged: (String value){
+        lastName = value;
+        onChanged(value);
+      },
     );
   }
 
@@ -321,6 +370,10 @@ class _BodyState extends State<Body> {
     return ReuseTextField(
       labelText: 'Adderss',
       onSaved: (value) => address = value,
+      onChanged: (String value){
+        address = value;
+        onChanged(value);
+      },
     );
   }
 }

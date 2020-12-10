@@ -108,7 +108,6 @@ class TransactionHistory extends StatelessWidget {
     List<TrxHistoryModel> history =
         Provider.of<TrxHistoryProvider>(context).trxHistoryList;
     final userProvider = Provider.of<UserProvider>(context);
-    var reversedList = history.reversed.toList();
     return Scaffold(
       // Have No History
       body: history == null
@@ -184,7 +183,7 @@ class TransactionHistory extends StatelessWidget {
                       SliverList(
                         delegate: SliverChildListDelegate(
                           _buildList(
-                              reversedList, context, userProvider.mUser.wallet),
+                              history, context, userProvider.mUser.wallet),
                         ),
                       ),
                     ],
