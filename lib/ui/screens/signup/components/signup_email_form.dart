@@ -46,7 +46,7 @@ class SignUpEmailForm extends StatelessWidget {
                   value.isEmpty ? _lang.translate('email_is_empty') : null,
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             ReusePwField(
               controller: _passwordController,
