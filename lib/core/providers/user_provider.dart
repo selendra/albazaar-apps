@@ -47,13 +47,13 @@ class UserProvider with ChangeNotifier {
     _prefService.saveString('user', jsonEncode(responseBody));
 
     //It check if the string of username is null and set it to empty string
-    if (_mUser.firstName == null &&
-        _mUser.midName == null &&
-        _mUser.lastName == null) {
-      _mUser.firstName = '';
-      _mUser.midName = '';
-      _mUser.lastName = '';
-    }
+    // if (_mUser.firstName == null &&
+    //     _mUser.midName == null &&
+    //     _mUser.lastName == null) {
+    //   _mUser.firstName = '';
+    //   _mUser.midName = '';
+    //   _mUser.lastName = '';
+    // }
 
     //Notify that value is updated and update the ui
     notifyListeners();
