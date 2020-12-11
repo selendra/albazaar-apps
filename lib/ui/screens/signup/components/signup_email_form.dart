@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
-String _email, _password;
+String _email, _password, _confirmPassword;
 
 class SignUpEmailForm extends StatelessWidget {
   final Function signUpEmailFunc;
@@ -12,14 +12,16 @@ class SignUpEmailForm extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _conpassController = TextEditingController();
 
   final _emailFormKey = GlobalKey<FormState>();
   void validateAndSubmit() {
     if (_emailFormKey.currentState.validate()) {
       _emailFormKey.currentState.save();
-      signUpEmailFunc(_email, _password);
+      signUpEmailFunc(_email, _password, _confirmPassword);
       _emailController.text = '';
       _passwordController.text = '';
+      _conpassController.text = '';
     }
   }
 
@@ -54,6 +56,19 @@ class SignUpEmailForm extends StatelessWidget {
                   : null,
               onSaved: (value) => _password = value,
             ),
+            
+            SizedBox(
+              height: 10,
+            ),
+            ReusePwField(
+              controller: _conpassController,
+              labelText: _lang.translate('confirm_password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? _lang.translate('password_is_empty')
+                  : null,
+              onSaved: (value) => _confirmPassword = value,
+            ),
+
             SizedBox(
               height: 40,
             ),

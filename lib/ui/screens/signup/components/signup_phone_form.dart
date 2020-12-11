@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-String _phone, _password;
+String _phone, _password, _confirmPassword;
 
 class SignUpPhoneForm extends StatelessWidget {
   final Function signUpPhoneFunc;
@@ -13,15 +13,17 @@ class SignUpPhoneForm extends StatelessWidget {
 
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _conpassController = TextEditingController();
   final _phoneFormKey = GlobalKey<FormState>();
 
   void validateAndSubmit() async {
     if (_phoneFormKey.currentState.validate()) {
       _phoneFormKey.currentState.save();
-      await signUpPhoneFunc(_phone, _password);
+      await signUpPhoneFunc(_phone, _password, _confirmPassword);
 
       _phoneController.text = '';
       _passwordController.text = '';
+      _conpassController.text = '';
     }
   }
 
@@ -62,6 +64,7 @@ class SignUpPhoneForm extends StatelessWidget {
                 },
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -73,6 +76,19 @@ class SignUpPhoneForm extends StatelessWidget {
                   : null,
               onSaved: (value) => _password = value,
             ),
+
+            SizedBox(
+              height: 10,
+            ),
+            ReusePwField(
+              controller: _conpassController,
+              labelText: _lang.translate('confirm_password'),
+              validator: (value) => value.isEmpty || value.length < 6
+                  ? _lang.translate('password_is_empty')
+                  : null,
+              onSaved: (value) => _confirmPassword = value,
+            ),
+
             SizedBox(
               height: 40,
             ),

@@ -6,6 +6,7 @@
     "email": "Email",
     "phone_hint": "Phone Number",
     "password": "Password",
+    "confirm_password": "Confirm Password",
     "forget_password": "Forget Password?",
     "haven't_had_account": "Haven't had an account? ",
     "had_an_account": "Already had an account? ",

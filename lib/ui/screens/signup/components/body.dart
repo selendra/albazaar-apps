@@ -13,87 +13,103 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController(initialPage: 0);
   TabController _tabController;
 
-  onSignUpByEmail(String _email, String _password) async {
+  onSignUpByEmail(String _email, String _password, String _confirmPassword) async {
     setState(() {
       _isLoading = true;
     });
-    try {
-      await AuthProvider().signUpByEmail(_email, _password).then((value) async {
-        if (value != "Your email account already exists!" ||
-            value != 'Your email doesn\'t seem right!') {
-          if (value != null) {
-            await ReuseAlertDialog().successDialog(context, value);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => SignIn()),
-                ModalRoute.withName('/'));
-          }
-        } else {
-          await ReuseAlertDialog().customDialog(context, value, () {
-            Navigator.pop(context);
-          });
-        }
+    if (_password != _confirmPassword){
+      await Components.dialog(context, Text("Password does not match"), Text("Message"));
+      setState(() {
+        _isLoading = true;
       });
-    } on SocketException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } on FormatException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } finally {
-      setInitialTab();
-      stopLoading();
+    } else {
+      try {
+        await AuthProvider().signUpByEmail(_email, _password).then((value) async {
+          if (value != "Your email account already exists!" ||
+              value != 'Your email doesn\'t seem right!') {
+            if (value != null) {
+              await ReuseAlertDialog().successDialog(context, value);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignIn()),
+                  ModalRoute.withName('/'));
+            }
+          } else {
+            await ReuseAlertDialog().customDialog(context, value, () {
+              Navigator.pop(context);
+            });
+          }
+        });
+      } on SocketException catch (e) {
+        await Components.dialog(
+            context,
+            Text(e.message.toString(), textAlign: TextAlign.center),
+            Text("Message"));
+      } on FormatException catch (e) {
+        await Components.dialog(
+            context,
+            Text(e.message.toString(), textAlign: TextAlign.center),
+            Text("Message"));
+      } finally {
+        setInitialTab();
+        stopLoading();
+      }
     }
   }
 
-  Future<void> onSignUpWithPhone(String _phone, String _password) async {
+  Future<void> onSignUpWithPhone(String _phone, String _password, String _confirmPassword) async {
+    print(_password);
+    print(_confirmPassword);
     // Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
     _phone = "+855" + AppServices.removeZero(_phone);
     setState(() {
       _isLoading = true;
     });
 
-    try {
-      await AuthProvider()
-          .signUpByPhone(_phone, _password, context)
-          .then((value) async {
-        if (value == 'Successfully registered!') {
-          setState(() {
-            _isLoading = false;
-          });
-          await ReuseAlertDialog().successDialog(context, value);
-          await Navigator.push(
-              context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
-        } else {
-          setState(() {
-            _isLoading = false;
-          });
-          // Already Register
-          await ReuseAlertDialog().successDialog(context, value);
-        }
-      });
-    } on SocketException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-
+    if (_password != _confirmPassword){
+      await Components.dialog(context, Text("Password does not match"), Text("Message"));
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
-    } on FormatException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
+    } else {
+      try {
+        await AuthProvider()
+            .signUpByPhone(_phone, _password, context)
+            .then((value) async {
+          if (value == 'Successfully registered!') {
+            setState(() {
+              _isLoading = false;
+            });
+            await ReuseAlertDialog().successDialog(context, value);
+            await Navigator.push(
+                context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+          } else {
+            setState(() {
+              _isLoading = false;
+            });
+            // Already Register
+            await ReuseAlertDialog().successDialog(context, value);
+          }
+        });
+      } on SocketException catch (e) {
+        await Components.dialog(
+            context,
+            Text(e.message.toString(), textAlign: TextAlign.center),
+            Text("Message"));
 
-      setState(() {
-        _isLoading = false;
-      });
+        setState(() {
+          _isLoading = false;
+        });
+      } on FormatException catch (e) {
+        await Components.dialog(
+            context,
+            Text(e.message.toString(), textAlign: TextAlign.center),
+            Text("Message"));
+
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
