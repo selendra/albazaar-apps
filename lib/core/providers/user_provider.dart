@@ -11,6 +11,10 @@ class UserProvider with ChangeNotifier {
   dynamic alertText;
   PrefService _prefService = PrefService();
   var responseBody;
+  String email;
+  String firstName;
+  String lastName;
+  String photoUrl;
 
   Future<void> localFetchProfile() async {
     var response;
@@ -74,14 +78,58 @@ class UserProvider with ChangeNotifier {
     });
   }
 
+  void socialUserInfo(String _token) async {
+    http.Response response =
+        await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
+      "accept": "application/json",
+      "authorization": "Bearer " + _token,
+    });
+
+    //Decode repsonsebody and assign it user object
+    var responseBody = json.decode(response.body);
+    print("Fetch profile ${response.body}");
+
+    _mUser = User.fromJson(responseBody);
+    print(email);
+    print(firstName);
+    print(lastName);
+    print(photoUrl);
+
+    if (email != null && _mUser.email == null) _mUser.email = email;
+    if (firstName != null && _mUser.firstName == null)
+      _mUser.firstName = firstName;
+    if (lastName != null && _mUser.lastName == null) _mUser.lastName = lastName;
+    if (photoUrl != null && _mUser.profileImg == null)
+      _mUser.profileImg = photoUrl;
+
+    //This will save all user information to sharepreferenece
+    _prefService.saveString('user', jsonEncode(responseBody));
+
+    //It check if the string of username is null and set it to empty string
+    // if (_mUser.firstName == null &&
+    //     _mUser.midName == null &&
+    //     _mUser.lastName == null) {
+    //   _mUser.firstName = '';
+    //   _mUser.midName = '';
+    //   _mUser.lastName = '';
+    // }
+
+    //Notify that value is updated and update the ui
+    notifyListeners();
+  }
+
   //Fetch user info from social
   void fetchSocialUserInfo(
-      String email, String firstName, String lastName, String photoUrl) {
-    _mUser.email = email;
-    _mUser.firstName = firstName;
-    _mUser.lastName = lastName;
-    _mUser.midName = '';
-    _mUser.profileImg = photoUrl;
+      String _email, String _firstName, String _lastName, String _photoUrl) {
+    email = _email;
+    firstName = _firstName;
+    lastName = _lastName;
+    photoUrl = _photoUrl;
+
+    print(email);
+    print(firstName);
+    print(lastName);
+    print(photoUrl);
   }
 
   void setLocation(String location) {

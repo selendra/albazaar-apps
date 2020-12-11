@@ -127,7 +127,9 @@ class AuthProvider with ChangeNotifier {
         await StorageServices.setData(responseJson, 'user_token');
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+        Provider.of<UserProvider>(context, listen: false)
+            .socialUserInfo(_token);
+
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
@@ -156,7 +158,8 @@ class AuthProvider with ChangeNotifier {
 
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+        Provider.of<UserProvider>(context, listen: false)
+            .socialUserInfo(_token);
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
