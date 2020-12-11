@@ -51,6 +51,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   Future<void> onSignUpWithPhone(String _phone, String _password) async {
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
     _phone = "+855" + AppServices.removeZero(_phone);
     setState(() {
       _isLoading = true;

@@ -30,7 +30,6 @@ class SellerProvider with ChangeNotifier {
   }
 
   SellerModel findById(String id) {
-    print(_allBuyerOrder.firstWhere((prod) => prod.id == id).orderStatus);
     return _allBuyerOrder.firstWhere((prod) => prod.id == id);
   }
 
@@ -51,7 +50,7 @@ class SellerProvider with ChangeNotifier {
       _allBuyerOrder.clear();
       _buyerPendingList.clear();
       _buyerCompleteList.clear();
-      print(responseJson);
+
       for (var data in responseJson) {
         var itemData = SellerModel.fromJson(data);
         _allBuyerOrder.add(itemData);

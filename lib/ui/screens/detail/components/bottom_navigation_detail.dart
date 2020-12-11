@@ -58,7 +58,11 @@ class BottomNavigationDetail extends StatelessWidget {
                   );
                   Navigator.pop(context);
                   Navigator.push(
-                      context, RouteAnimation(enterPage: Checkout()));
+                      context,
+                      RouteAnimation(
+                          enterPage: Checkout(
+                        action: 'buy_now',
+                      )));
                 }, context),
               ),
             ],

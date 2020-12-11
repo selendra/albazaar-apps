@@ -8,14 +8,14 @@ import 'package:http_parser/http_parser.dart';
 class UserProvider with ChangeNotifier {
   var _mUser = new User();
   User get mUser => _mUser;
-  String alertText;
+  dynamic alertText;
   PrefService _prefService = PrefService();
   var responseBody;
 
   Future<void> localFetchProfile() async {
     var response;
     await StorageServices.fetchData('user_token').then((value) async {
-      print("My Token ${value['wallet']}");
+      // print("My Token ${value['wallet']}");
       if (value != null) {
         //Check Wallt Have Been Successfuly Get
         while (true) {
@@ -40,7 +40,7 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
-    print("Fetch profile ${response.body}");
+    //print("Fetch profile ${response.body}");
     _mUser = User.fromJson(responseBody);
 
     //This will save all user information to sharepreferenece
@@ -95,8 +95,13 @@ class UserProvider with ChangeNotifier {
   }
 
   //This function is use to update user profile information to the Api
-  Future<String> setUserPf(String firstName, String midName, String lastName,
+  Future<dynamic> setUserPf(String firstName, String midName, String lastName,
       String gender, String imageUri, String address) async {
+    print(firstName);
+    print(imageUri);
+    print(lastName);
+    print(gender);
+    print(address);
     try {
       await _prefService.read('token').then((value) async {
         var response = await http.post(
@@ -108,25 +113,28 @@ class UserProvider with ChangeNotifier {
           },
           body: jsonEncode(
             <String, String>{
-              "first_name": firstName,
-              "mid_name": midName,
-              "last_name": lastName,
-              "gender": gender,
-              "image_uri": imageUri,
-              "address": address,
+              "first_name": firstName.toString(),
+              "mid_name": midName.toString(),
+              "last_name": lastName.toString(),
+              "gender": gender.toString(),
+              "image_uri": imageUri.toString(),
+              "address": address.toString(),
             },
           ),
         );
 
+        print("My Respons ${response.body}");
         var responseBody = json.decode(response.body);
 
         if (response.statusCode == 200) {
-          alertText = responseBody['message'];
+          alertText = responseBody;
         }
       });
     } catch (e) {
-      alertText = responseBody['error']['message'];
+      alertText = e;
+      print(e);
     }
+    print("My alert Text ${alertText}");
     return alertText;
   }
 

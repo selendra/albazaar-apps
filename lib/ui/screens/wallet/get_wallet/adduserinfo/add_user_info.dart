@@ -5,7 +5,6 @@ class AddUserInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Add User info");
     return Scaffold(
       body: Body(),
     );

@@ -30,7 +30,7 @@ class TrxHistoryProvider with ChangeNotifier {
       }
 
       //It use to show recent transaction on the top
-      trxHistoryList = trxHistoryList.reversed.toList();
+      // trxHistoryList = trxHistoryList.reversed.toList();
     });
 
     notifyListeners();

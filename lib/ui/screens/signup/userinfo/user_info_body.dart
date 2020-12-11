@@ -9,12 +9,15 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
   final _formKey = GlobalKey<FormState>();
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
-  String firstName = '', midName = '', lastName= '', gender = '', imageUri = '', address = '', alertText;
+  String firstName, midName, lastName, gender, imageUri, address, alertText;
   int _selectedIndex;
+
+  bool isLoading = false;
 
   bool isCheck = false;
   final snackBar = SnackBar(content: Text('Please Select a Gender'));
@@ -96,7 +99,7 @@ class _BodyState extends State<Body> {
   }
 
   void onChanged(String value){
-    if (firstName.isNotEmpty && lastName.isNotEmpty && gender.isNotEmpty && address.isNotEmpty){
+    if (firstName != null && lastName != null && gender != null && address != null){
       setState((){
         isCheck = true;
       });
@@ -108,11 +111,31 @@ class _BodyState extends State<Body> {
   }
 
   Future<void>onSetUserPf() async {
-    await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
-      alertText = value;
 
-      await StorageServices.removeKey('token');
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
+      
+        if (value.containsKey('error')){
+          alertText = value['error']['message'];
+
+        } else {
+          alertText = value['message'];
+
+          await StorageServices.removeKey('token');
+          await showAlertDialog(context);
+        }
+      });
+    } catch (e){
       await showAlertDialog(context);
+    }
+
+
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -132,10 +155,13 @@ class _BodyState extends State<Body> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      getAssettoFile(resultList);
+
+      // Check User Cancel Upload Image
+      if (resultList != null){
+        getAssettoFile(resultList);
+      }
     } catch (e) {
       e.toString();
-      //print(e);
     }
     if (!mounted) return;
 
@@ -147,6 +173,7 @@ class _BodyState extends State<Body> {
   Future<void> getAssettoFile(List<Asset> resultList) async {
     for (Asset asset in resultList) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      print("My file $filePath");
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)
@@ -167,7 +194,11 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30.0),
-      child: SingleChildScrollView(
+      child: isLoading 
+      ? Center(
+        child: CircularProgressIndicator()
+      )
+      : SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(

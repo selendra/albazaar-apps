@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:selendra_marketplace_app/core/models/cart.dart';
 
 class CartProvider with ChangeNotifier {
@@ -7,6 +8,10 @@ class CartProvider with ChangeNotifier {
 
   Map<String, Cart> _items = {};
   Map<String, Cart> _buyNow = {};
+
+  Cart _isBuyNow = Cart();
+
+  Cart get isBuyNow => _isBuyNow;
 
   Map<String, Cart> get items => {..._items};
   Map<String, Cart> get buyNow => {..._buyNow};
@@ -42,17 +47,28 @@ class CartProvider with ChangeNotifier {
   //Add buynow
   void addBuyNow(String productId, String image, String title, String price,
       int productOrderQty) {
-    _buyNow.clear();
-    _buyNow.putIfAbsent(
-        productId,
-        () => Cart(
-            id: productId,
-            image: image,
-            title: title,
-            price: price,
-            qty: productOrderQty));
+    // _buyNow = {};
+    totalPrice = 0;
 
-    totalPrice = totalPrice + double.parse(price.toString());
+    _isBuyNow = Cart(
+        id: productId,
+        image: image,
+        title: title,
+        price: price,
+        qty: productOrderQty);
+
+    print(productId);
+
+    // _buyNow.putIfAbsent(
+    //     productId,
+    //     () => Cart(
+    //         id: productId,
+    //         image: image,
+    //         title: title,
+    //         price: price,
+    //         qty: productOrderQty));
+
+    totalPrice = double.parse(price.toString()) * productOrderQty;
     notifyListeners();
   }
 
@@ -104,7 +120,7 @@ class CartProvider with ChangeNotifier {
 
   //CALCULATE TOTAL PRICE OF TOTAL ITEM
   double get totalAmount {
-    var total;
+    var total = 0.0;
     _items.forEach((key, cartItem) {
       total += double.parse(cartItem.price.toString()) * cartItem.qty;
     });
