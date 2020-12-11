@@ -13,18 +13,23 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController(initialPage: 0);
   TabController _tabController;
 
-  onSignUpByEmail(String _email, String _password, String _confirmPassword) async {
+  onSignUpByEmail(
+      String _email, String _password, String _confirmPassword) async {
     setState(() {
       _isLoading = true;
     });
-    if (_password != _confirmPassword){
-      await Components.dialog(context, Text("Password does not match"), Text("Message"));
+    if (_password != _confirmPassword) {
+      await Components.dialog(
+          context, Text("Password does not match"), Text("Message"));
       setState(() {
         _isLoading = false;
       });
+      setInitialTab();
     } else {
       try {
-        await AuthProvider().signUpByEmail(_email, _password).then((value) async {
+        await AuthProvider()
+            .signUpByEmail(_email, _password)
+            .then((value) async {
           if (value != "Your email account already exists!" ||
               value != 'Your email doesn\'t seem right!') {
             if (value != null) {
@@ -57,7 +62,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     }
   }
 
-  Future<void> onSignUpWithPhone(String _phone, String _password, String _confirmPassword) async {
+  Future<void> onSignUpWithPhone(
+      String _phone, String _password, String _confirmPassword) async {
     print(_password);
     print(_confirmPassword);
     // Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
@@ -66,8 +72,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
 
-    if (_password != _confirmPassword){
-      await Components.dialog(context, Text("Password does not match"), Text("Message"));
+    if (_password != _confirmPassword) {
+      await Components.dialog(
+          context, Text("Password does not match"), Text("Message"));
       setState(() {
         _isLoading = false;
       });
@@ -81,8 +88,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               _isLoading = false;
             });
             await ReuseAlertDialog().successDialog(context, value);
-            await Navigator.push(
-                context, RouteAnimation(enterPage: OTPScreen(_phone, _password)));
+            await Navigator.push(context,
+                RouteAnimation(enterPage: OTPScreen(_phone, _password)));
           } else {
             setState(() {
               _isLoading = false;

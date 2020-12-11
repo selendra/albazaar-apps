@@ -30,7 +30,10 @@ class _TrackingState extends State<Tracking> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).mUser;
+    final loadedProduct =
+        Provider.of<ProductsProvider>(context, listen: false).findById(
+      widget.productOrder.productId,
+    );
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('Tracking', context),
       body: Container(
@@ -41,7 +44,7 @@ class _TrackingState extends State<Tracking> {
               shape: kDefaultShape,
               child: Container(
                 // height: 200,
-                margin: EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +72,7 @@ class _TrackingState extends State<Tracking> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText(user.address, TextAlign.start),
+                        reuseText(loadedProduct.address, TextAlign.start),
                         reuseText(
                             widget.productOrder.shippingAddress, TextAlign.end),
                       ],
@@ -94,7 +97,6 @@ class _TrackingState extends State<Tracking> {
                 ),
               ),
             ),
-
             Expanded(
               child: Card(
                 shape: kDefaultShape,
