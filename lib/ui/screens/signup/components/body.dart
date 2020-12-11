@@ -20,7 +20,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     if (_password != _confirmPassword){
       await Components.dialog(context, Text("Password does not match"), Text("Message"));
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
     } else {
       try {
@@ -69,7 +69,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     if (_password != _confirmPassword){
       await Components.dialog(context, Text("Password does not match"), Text("Message"));
       setState(() {
-        _isLoading = true;
+        _isLoading = false;
       });
     } else {
       try {

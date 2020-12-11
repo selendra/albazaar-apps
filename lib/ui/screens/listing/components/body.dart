@@ -232,7 +232,7 @@ class _BodyState extends State<Body> {
                               onTap: () {
                                 Navigator.pushNamed(context, SellerInfoView,
                                     arguments:
-                                        value.buyerPendingList[index].id);
+                                        value.buyerCompleteList[index].id);
                               },
                               child: Card(
                                 elevation: 0,

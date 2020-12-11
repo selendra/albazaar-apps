@@ -30,6 +30,7 @@ class _TrackingState extends State<Tracking> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).mUser;
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('Tracking', context),
       body: Container(
@@ -39,7 +40,7 @@ class _TrackingState extends State<Tracking> {
             Card(
               shape: kDefaultShape,
               child: Container(
-                height: 200,
+                // height: 200,
                 margin: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -68,7 +69,7 @@ class _TrackingState extends State<Tracking> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText('Dubai', TextAlign.start),
+                        reuseText(user.address, TextAlign.start),
                         reuseText(
                             widget.productOrder.shippingAddress, TextAlign.end),
                       ],
@@ -93,6 +94,7 @@ class _TrackingState extends State<Tracking> {
                 ),
               ),
             ),
+
             Expanded(
               child: Card(
                 shape: kDefaultShape,
