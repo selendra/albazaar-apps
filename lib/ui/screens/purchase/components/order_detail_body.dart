@@ -94,7 +94,6 @@ class OrderDetailBody extends StatelessWidget {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       RouteAnimation(
