@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class ProductDisplay extends StatelessWidget {
+  final String action;
+  ProductDisplay({@required this.action});
   @override
   Widget build(BuildContext context) {
+    print(action);
     var _lang = AppLocalizeService.of(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(
           child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -18,7 +21,7 @@ class ProductDisplay extends StatelessWidget {
                   _lang.translate('your_order'),
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                value.items.length > 1
+                action != 'buy_now' && value.items.length > 1
                     ? InkWell(
                         onTap: () {
                           showBottomSheet(
@@ -71,7 +74,9 @@ class ProductDisplay extends StatelessWidget {
             ),
           ),
           ChangeNotifierProvider.value(
-            value: value.items.values.toList()[0],
+            value: action != 'buy_now'
+                ? value.items.values.toList()[0]
+                : value.isBuyNow,
             child: ItemOrder(),
           ),
           // Card(

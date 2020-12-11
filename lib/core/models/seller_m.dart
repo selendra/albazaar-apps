@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class SellerModel with ChangeNotifier {
   bool isPayment = false;
   bool isShipping = false;
+  bool isComplete = false;
   String shippingService = '';
   String orderStatus = '';
   String productId = '';
@@ -17,8 +18,6 @@ class SellerModel with ChangeNotifier {
   String shippingAddress = '';
   String type = '';
   String value = '';
-
-  SellerModel();
 
   SellerModel.fromJson(Map<String, dynamic> data) {
     shippingService = data['shipping_service'];

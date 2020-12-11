@@ -17,7 +17,12 @@ class CheckoutCard extends StatelessWidget {
             child: Column(
               children: [
                 ReuseButton.getItem(_lang.translate('check_out'), () {
-                  Navigator.pushReplacementNamed(context, CheckoutView);
+                  Navigator.push(
+                      context,
+                      RouteAnimation(
+                          enterPage: Checkout(
+                        action: 'cart',
+                      )));
                 }, context),
               ],
             ),

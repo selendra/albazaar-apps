@@ -10,14 +10,14 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   ScrollController _controller;
   ProductsProvider productsProvider;
-  SellerProvider sellerProvider;
-  // void filterSearchResults(String query) {} //Now u
+
   Future<Null> _refresh() async {
     await Future.delayed(Duration(seconds: 3)).then((value) async {
-      productsProvider = Provider.of<ProductsProvider>(context, listen: false);
-      productsProvider.fetchListingProduct();
-      sellerProvider.fetchBuyerOrder();
-      await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fetchListingProduct();
+      Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+      await Provider.of<TrxHistoryProvider>(context, listen: false)
+          .fetchTrxHistory();
     });
   }
 

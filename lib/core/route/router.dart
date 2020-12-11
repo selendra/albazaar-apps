@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 //GENERATE ROUTE FOR NAVIGATIONs
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -30,6 +31,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       break;
     case MapView:
       return RouteAnimation(enterPage: MapScreen());
+      break;
+    case SellerInfoView:
+      return MaterialPageRoute(
+        builder: (context) => SellerConfirm(),
+      );
       break;
     case ProfileView:
       return RouteAnimation(enterPage: ProfileScreen());

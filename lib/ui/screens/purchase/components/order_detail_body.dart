@@ -11,8 +11,6 @@ class OrderDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _lang = AppLocalizeService.of(context);
-    final productProvider =
-        Provider.of<ProductsProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -213,8 +211,6 @@ class OrderDetailBody extends StatelessWidget {
                                       listen: false)
                                   .markOrderComplete(
                                       productOrder.id, context, productOrder);
-                              productProvider
-                                  .removeOrderProduct(productOrder.id);
                             },
                             child: Text("Yes"),
                           ),

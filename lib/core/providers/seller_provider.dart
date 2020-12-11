@@ -29,26 +29,40 @@ class SellerProvider with ChangeNotifier {
         orElse: null);
   }
 
+  SellerModel findById(String id) {
+    return _allBuyerOrder.firstWhere((prod) => prod.id == id);
+  }
+
+  void setPayment(SellerModel product) {
+    product.isPayment = true;
+    notifyListeners();
+  }
+
+  void setShipment(SellerModel product) {
+    product.isShipping = true;
+    notifyListeners();
+  }
+
   Future<void> fetchBuyerOrder() async {
     try {
       _backend.response = await _getRequest.getAllBuyerOrder();
       var responseJson = json.decode(_backend.response.body);
+      _allBuyerOrder.clear();
       _buyerPendingList.clear();
-      buyerPendingList.clear();
       _buyerCompleteList.clear();
+
       for (var data in responseJson) {
         var itemData = SellerModel.fromJson(data);
         _allBuyerOrder.add(itemData);
+        notifyListeners();
         if (itemData.orderStatus != 'Order Complete') {
           _buyerPendingList.add(itemData);
+          notifyListeners();
         } else {
           _buyerCompleteList.add(itemData);
+          notifyListeners();
         }
-
-        notifyListeners();
       }
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 }

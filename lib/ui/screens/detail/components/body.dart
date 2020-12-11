@@ -87,10 +87,12 @@ class Body extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    RouteAnimation(
-                                        enterPage:
-                                            InteractView(value.url[index])));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        InteractView(value.url[index]),
+                                  ),
+                                );
                               },
                               child: FadeInImage(
                                   fit: BoxFit.cover,

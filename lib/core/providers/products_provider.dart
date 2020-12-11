@@ -78,7 +78,7 @@ class ProductsProvider with ChangeNotifier {
     try {
       await _prefService.read('token').then(
         (value) async {
-          await http.post(
+          http.Response response = await http.post(
             ApiUrl.MAKE_ORDER,
             headers: <String, String>{
               "accept": "application/json",
@@ -93,6 +93,8 @@ class ProductsProvider with ChangeNotifier {
               },
             ),
           );
+
+          print('order ${response.body}');
         },
       );
     } catch (e) {
@@ -116,6 +118,7 @@ class ProductsProvider with ChangeNotifier {
           newProduct.productId = json.decode(value.body)['id'];
           Navigator.pop(context, {"add": true});
         }
+        fetchListingProduct();
       });
       // Close Loading
     } on SocketException catch (e) {
@@ -163,9 +166,10 @@ class ProductsProvider with ChangeNotifier {
         "authorization": "Bearer " + token,
       });
       dynamic responseJson = json.decode(response.body);
-
+      _allOrderItems.clear();
       for (var item in responseJson) {
         _allOrderItems.add(OrderProduct.fromJson(item));
+        notifyListeners();
         var itemData = OrderProduct.fromJson(item);
         if (itemData.orderStatus == 'Order Complete') {
           _completeProduct.add(itemData);
@@ -230,8 +234,12 @@ class ProductsProvider with ChangeNotifier {
             message = responseJson['message']['error'];
             await ReuseAlertDialog().successDialog(context, message);
           } else {
+            Navigator.pop(context);
+            Provider.of<ProductsProvider>(context, listen: false)
+                .fetchListingProduct();
             await ReuseAlertDialog().customDialog(context, message, () {
-              Navigator.pop(context);
+              Navigator.pop(navigationKey.currentState.overlay.context);
+              removeOrderProduct(orderId);
               notifyListeners();
             });
           }
