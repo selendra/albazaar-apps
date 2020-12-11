@@ -112,6 +112,7 @@ class _ProfileFormState extends State<ProfileForm> {
                                   ),
                                   onPressed: () {
                                     _formKey.currentState.save();
+
                                     if (_shippingController.text != null) {
                                       Navigator.pop(context);
                                       data.setLocation(
@@ -151,20 +152,26 @@ class _ProfileFormState extends State<ProfileForm> {
                   (onValue) {
                     if (onValue != null) {
                       _formKey.currentState.save();
-                      data
-                          .updateUserPf(
-                        _firstName,
-                        _midName ?? '',
-                        _lastName,
-                        _mGender,
-                        widget._imageUrl ?? value.mUser.profileImg,
-                        value.mUser.address ?? '',
-                      )
-                          .then(
-                        (value) async {
-                          await ProfileDialog().successDialog(context, value);
-                        },
-                      );
+
+                      if (_firstName != '' && _lastName != '') {
+                        data
+                            .updateUserPf(
+                          _firstName,
+                          _midName,
+                          _lastName,
+                          _mGender,
+                          widget._imageUrl ?? value.mUser.profileImg,
+                          value.mUser.address ?? '',
+                        )
+                            .then(
+                          (value) async {
+                            await ProfileDialog().successDialog(context, value);
+                          },
+                        );
+                      } else {
+                        ProfileDialog()
+                            .successDialog(context, 'Please fill in username');
+                      }
                     }
                   },
                 );

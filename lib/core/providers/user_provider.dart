@@ -40,7 +40,8 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
-    //print("Fetch profile ${response.body}");
+    print("Fetch profile ${response.body}");
+
     _mUser = User.fromJson(responseBody);
 
     //This will save all user information to sharepreferenece
