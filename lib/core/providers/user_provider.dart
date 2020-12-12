@@ -101,6 +101,13 @@ class UserProvider with ChangeNotifier {
     if (lastName != null && _mUser.lastName == null) _mUser.lastName = lastName;
     if (photoUrl != null && _mUser.profileImg == null)
       _mUser.profileImg = photoUrl;
+    if (_mUser.midName == null) _mUser.midName = '';
+
+    print(_mUser.email);
+    print(_mUser.firstName);
+    print(_mUser.lastName);
+    print(_mUser.midName);
+    print(_mUser.profileImg);
 
     //This will save all user information to sharepreferenece
     _prefService.saveString('user', jsonEncode(responseBody));
