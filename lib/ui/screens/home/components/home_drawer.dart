@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class HomeDrawer extends StatelessWidget {
+
+  PrefService _pref = PrefService();
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
     final _mUser = data.mUser;
-    String userName = _mUser.firstName == null && _mUser.midName == null && _mUser.lastName == null
+    String userName = _mUser.firstName == null &&
+            _mUser.midName == null &&
+            _mUser.lastName == null
         ? "User name"
         : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);
@@ -122,8 +128,10 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('logout_string'),
             Icons.input,
             () async {
-              var isShow = await StorageServices.fetchData('isshow');
-              await StorageServices;
+              var isShow = await _pref.read('isshow');
+              // Clear All Local Data
+              await AppServices.clearStorage();
+              await _pref.saveString(isShow, 'isshow');
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },
