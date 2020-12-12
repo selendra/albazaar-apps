@@ -122,9 +122,8 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('logout_string'),
             Icons.input,
             () async {
-              await StorageServices.removeKey('user_token');
-              await StorageServices.removeKey('token');
-              await StorageServices.removeKey('user');
+              var isShow = await StorageServices.fetchData('isshow');
+              await StorageServices;
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },
