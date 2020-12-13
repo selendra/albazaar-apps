@@ -89,6 +89,35 @@ class SellerConfirm extends StatelessWidget {
                       ],
                     ),
                   ),
+
+
+                  RaisedButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   RouteAnimation(
+                      //     enterPage: Tracking(
+                      //       productOrder: productOrder,
+                      //     ),
+                      //   ),
+                      // );
+                    },
+                    child: Text(
+                      'Track Order',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    color: kDefaultColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          kDefaultRadius,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

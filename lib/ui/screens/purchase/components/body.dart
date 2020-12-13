@@ -40,107 +40,107 @@ class _BodyState extends State<Body> {
               builder: (context, value, child) {
                 return Container(
                   child: value.allOrderItems.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: value.allOrderItems.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  RouteAnimation(
-                                    enterPage: OrderDetail(
-                                      productOrder: value.allOrderItems[index],
+                  ? ListView.builder(
+                    itemCount: value.allOrderItems.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            RouteAnimation(
+                              enterPage: OrderDetail(
+                                productOrder: value.allOrderItems[index],
+                              ),
+                            ), //productsProvider.orItems[index]))
+                          );
+                        },
+                        child: Card(
+                          elevation: 0,
+                          shape: kDefaultShape,
+                          child: Container(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      kDefaultRadius),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[300],
+                                          spreadRadius: 5.0,
+                                          blurRadius: 5.0,
+                                        ),
+                                      ],
                                     ),
-                                  ), //productsProvider.orItems[index]))
-                                );
-                              },
-                              child: Card(
-                                elevation: 0,
-                                shape: kDefaultShape,
-                                child: Container(
-                                  height: 100,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.all(10.0),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            kDefaultRadius),
-                                        child: Container(
-                                          width: 100,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey[300],
-                                                spreadRadius: 5.0,
-                                                blurRadius: 5.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image.network(
-                                            value
-                                                .allOrderItems[index].thumbnail,
-                                            fit: BoxFit.cover,
+                                    child: Image.network(
+                                      value
+                                          .allOrderItems[index].thumbnail,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 20,
+                                      width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                          2,
+                                      child: ListTile(
+                                        title: Text(
+                                          value.allOrderItems[index].name,
+                                          style: TextStyle(
+                                              fontWeight:
+                                                  FontWeight.bold),
+                                        ),
+                                        isThreeLine: true,
+                                        subtitle: Text(
+                                          'Qty: ${value.allOrderItems[index].qauantity}',
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      height: 20,
+                                      width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                          2,
+                                      child: ListTile(
+                                        subtitle: Text(
+                                          'Price: ${value.allOrderItems[index].price}៛ ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: kDefaultColor,
                                           ),
                                         ),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: ListTile(
-                                              title: Text(
-                                                value.allOrderItems[index].name,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              isThreeLine: true,
-                                              subtitle: Text(
-                                                'Qty: ${value.allOrderItems[index].qauantity}',
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 20,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: ListTile(
-                                              subtitle: Text(
-                                                'Price: ${value.allOrderItems[index].price}៛ ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kDefaultColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            );
-                          })
-                      : Center(
-                          child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 0.3,
+                              ],
+                            ),
                           ),
                         ),
+                      );
+                    })
+                : Center(
+                    child: SvgPicture.asset(
+                      'images/undraw_loving_it.svg',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                    ),
+                  ),
                 );
               },
             ),
