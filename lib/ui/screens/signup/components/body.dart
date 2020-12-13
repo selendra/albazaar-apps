@@ -125,6 +125,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     await AuthProvider().signInWithGoogle(context).then((value) {
+      print("Google response $value");
       if (value == null) {
         setState(() {
           _isLoading = false;
@@ -134,6 +135,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             .getTokenForGoogle(value, context);
       }
     }).catchError((onError) {
+      print(onError.toString());
       setState(() {
         _isLoading = false;
       });

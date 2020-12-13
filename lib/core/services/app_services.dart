@@ -34,5 +34,10 @@ class AppServices {
     print(number);
     return number;
   }
+
+  static Future<void> clearStorage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+  }
   
 }

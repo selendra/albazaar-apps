@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class HomeDrawer extends StatelessWidget {
+
+  PrefService _pref = PrefService();
+
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
@@ -124,9 +128,10 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('logout_string'),
             Icons.input,
             () async {
-              await StorageServices.removeKey('user_token');
-              await StorageServices.removeKey('token');
-              await StorageServices.removeKey('user');
+              var isShow = await _pref.read('isshow');
+              // Clear All Local Data
+              await AppServices.clearStorage();
+              await _pref.saveString(isShow, 'isshow');
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },

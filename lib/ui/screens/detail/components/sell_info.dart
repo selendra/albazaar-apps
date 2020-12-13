@@ -65,9 +65,11 @@ class SellerInfo extends StatelessWidget {
         SizedBox(
           width: 10.0,
         ),
-        Text(
-          title,
-          overflow: TextOverflow.ellipsis,
+        Expanded(
+          child: Text(
+            title,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

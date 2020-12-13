@@ -21,8 +21,11 @@ class AuthProvider with ChangeNotifier {
   Future<String> signInWithGoogle(BuildContext context) async {
     String googleToken;
     try {
-      final GoogleSignInAccount googleSignInAccount =
-          await googleSignIn.signIn();
+      print("Sign");
+      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+
+      print("Sign in ${googleSignInAccount.authentication}");
+
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
@@ -33,8 +36,7 @@ class AuthProvider with ChangeNotifier {
 
       googleToken = googleSignInAuthentication.idToken;
 
-      final AuthResult authResult =
-          await _auth.signInWithCredential(credential);
+      final AuthResult authResult = await _auth.signInWithCredential(credential);
       final FirebaseUser user = authResult.user;
 
       // Checking if email and name is null
@@ -55,6 +57,7 @@ class AuthProvider with ChangeNotifier {
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
     } catch (e) {
+      print("error $e");
       await ReuseAlertDialog()
           .successDialog(context, 'Please try again later!');
     }
