@@ -49,6 +49,7 @@ class _TrackingState extends State<Tracking> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     SizedBox(
                       height: 5,
                     ),
@@ -57,15 +58,17 @@ class _TrackingState extends State<Tracking> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
+
                     SizedBox(
                       height: 10.0,
                     ),
                     Text('Order: ${widget.productOrder.id}'),
+
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                        'Reminder: Product ${widget.productOrder.orderStatus}'),
+                    Text('Reminder: Product ${widget.productOrder.orderStatus}'),
+
                     SizedBox(
                       height: 40,
                     ),
@@ -77,6 +80,7 @@ class _TrackingState extends State<Tracking> {
                             widget.productOrder.shippingAddress, TextAlign.end),
                       ],
                     ),
+
                     _sliderTheme(
                       AbsorbPointer(
                         child: Slider(
@@ -158,8 +162,7 @@ class _TrackingState extends State<Tracking> {
                       child: Container(
                         child: Transform(
                           alignment: FractionalOffset.center,
-                          transform: Matrix4.identity()
-                            ..rotateZ(90 * 3.1415927 / 180),
+                          transform: Matrix4.identity()..rotateZ(90 * 3.1415927 / 180),
                           child: _sliderTheme(
                             AbsorbPointer(
                               child: Slider(

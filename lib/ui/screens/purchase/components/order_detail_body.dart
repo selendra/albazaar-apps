@@ -78,6 +78,7 @@ class OrderDetailBody extends StatelessWidget {
                     ],
                   ),
                 ),
+                
                 Divider(),
                 Container(
                   width: double.infinity,
@@ -190,6 +191,7 @@ class OrderDetailBody extends StatelessWidget {
               ),
             ),
           ),
+
           SizedBox(height: 10),
           Container(
             margin: const EdgeInsets.all(20),
