@@ -56,6 +56,7 @@ class _BodyState extends State<Body> {
 
   Widget build(BuildContext context) {
     // return buildDropDown();
+    var user = Provider.of<UserProvider>(context).mUser;
     return SingleChildScrollView(
       child: _isLoading
           ? Container(
@@ -94,7 +95,9 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  ProfileForm(imageUrl),
+                  ProfileForm(
+                    imageUrl == null ? user.profileImg : imageUrl,
+                  ),
                 ],
               ),
             ),

@@ -1,6 +1,6 @@
 class User {
   String description;
-  String address;
+  String address = '';
   String email;
   String firstName;
   dynamic documentsId;
@@ -50,7 +50,8 @@ class User {
     statusName = parseJson["status_name"];
     lastName = parseJson["last_name"];
     gender = parseJson["gender"];
-    profileImg = parseJson["profile_img"] == 'null' ? null : parseJson["profile_img"];
+    profileImg =
+        parseJson["profile_img"] == 'null' ? null : parseJson["profile_img"];
     createdAt = DateTime.parse(parseJson["created_at"]);
   }
 }

@@ -153,14 +153,16 @@ class _ProfileFormState extends State<ProfileForm> {
                     if (onValue != null) {
                       _formKey.currentState.save();
 
-                      if (_firstName != '' && _lastName != '') {
+                      if (_firstName != '' &&
+                          _lastName != '' &&
+                          _mGender != null) {
                         data
                             .updateUserPf(
                           _firstName,
-                          _midName,
+                          _midName ?? '',
                           _lastName,
                           _mGender,
-                          widget._imageUrl ?? value.mUser.profileImg,
+                          widget._imageUrl,
                           value.mUser.address ?? '',
                         )
                             .then(
@@ -169,8 +171,8 @@ class _ProfileFormState extends State<ProfileForm> {
                           },
                         );
                       } else {
-                        ProfileDialog()
-                            .successDialog(context, 'Please fill in username');
+                        ProfileDialog().successDialog(
+                            context, 'Please fill in username and gender');
                       }
                     }
                   },
