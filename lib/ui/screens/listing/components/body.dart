@@ -56,49 +56,108 @@ class _BodyState extends State<Body> {
               builder: (context, value, child) {
                 return Container(
                   child: value.oItems.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: value.oItems.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                  kDefaultRadius,
-                                ),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  value.oItems[index].name,
-                                ),
-                                subtitle: Text(
-                                  value.oItems[index].description,
-                                  maxLines: 1,
-                                ),
-                                leading: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: NetworkImage(
-                                    value.oItems[index].thumbnail,
+                  ? ListView.builder(
+                    itemCount: value.oItems.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, DetailView,
+                                  arguments: value.oItems[index].id);
+                              Provider.of<ProductsProvider>(context,
+                                      listen: false)
+                                  .findImgById(value.oItems[index].id);
+                        },
+                        child: Card(
+                          elevation: 0,
+                          shape: kDefaultShape,
+                          child: Container(
+                            height: 100,
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                      kDefaultRadius),
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey[300],
+                                          spreadRadius: 5.0,
+                                          blurRadius: 5.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Image.network(
+                                      '${value.oItems[index].thumbnail}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, DetailView,
-                                      arguments: value.oItems[index].id);
-                                  Provider.of<ProductsProvider>(context,
-                                          listen: false)
-                                      .findImgById(value.oItems[index].id);
-                                },
-                              ),
-                            );
-                          })
-                      : Center(
-                          child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 0.3,
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 20,
+                                      width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                          2,
+                                      child: ListTile(
+                                        title: Text(
+                                          value.oItems[index]
+                                              .name,
+                                          style: TextStyle(
+                                              fontWeight:
+                                                  FontWeight.bold),
+                                        ),
+                                        // isThreeLine: true,
+                                        // subtitle: Text(
+                                        //   _lang.translate('quantity') +
+                                        //       ': ${value.oItems[index].qauantity}',
+                                        // ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      height: 20,
+                                      width: MediaQuery.of(context)
+                                              .size
+                                              .width /
+                                          2,
+                                      child: ListTile(
+                                        subtitle: Text(
+                                          _lang.translate('price') +
+                                              ': ${value.oItems[index].price}៛ ',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: kDefaultColor,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                      );
+                    },
+                  )
+                  : Center(
+                    child: SvgPicture.asset(
+                      'images/undraw_loving_it.svg',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                    ),
+                  ),
                 );
               },
             ),
@@ -226,105 +285,103 @@ class _BodyState extends State<Body> {
                 return Container(
                   child: value.buyerCompleteList.isNotEmpty
                       ? ListView.builder(
-                          itemCount: value.buyerCompleteList.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, SellerInfoView,
-                                    arguments:
-                                        value.buyerCompleteList[index].id);
-                              },
-                              child: Card(
-                                elevation: 0,
-                                shape: kDefaultShape,
-                                child: Container(
-                                  height: 100,
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            kDefaultRadius),
-                                        child: Container(
-                                          width: 100,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey[300],
-                                                spreadRadius: 5.0,
-                                                blurRadius: 5.0,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image.network(
-                                            '${value.buyerCompleteList[index].thumbnail}',
-                                            fit: BoxFit.cover,
-                                          ),
+                        itemCount: value.buyerCompleteList.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, SellerInfoView, arguments: value.buyerCompleteList[index].id);
+                            },
+                            child: Card(
+                              elevation: 0,
+                              shape: kDefaultShape,
+                              child: Container(
+                                height: 100,
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          kDefaultRadius),
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey[300],
+                                              spreadRadius: 5.0,
+                                              blurRadius: 5.0,
+                                            ),
+                                          ],
+                                        ),
+                                        child: Image.network(
+                                          '${value.buyerCompleteList[index].thumbnail}',
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: ListTile(
-                                              title: Text(
-                                                value.buyerCompleteList[index]
-                                                    .name,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              isThreeLine: true,
-                                              subtitle: Text(
-                                                _lang.translate('quantity') +
-                                                    ': ${value.buyerCompleteList[index].qauantity}',
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          child: ListTile(
+                                            title: Text(
+                                              value.buyerCompleteList[index]
+                                                  .name,
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      FontWeight.bold),
+                                            ),
+                                            isThreeLine: true,
+                                            subtitle: Text(
+                                              _lang.translate('quantity') +
+                                                  ': ${value.buyerCompleteList[index].qauantity}',
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          height: 20,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
+                                          child: ListTile(
+                                            subtitle: Text(
+                                              _lang.translate('price') +
+                                                  ': ${value.buyerCompleteList[index].price}៛ ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: kDefaultColor,
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            height: 20,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                2,
-                                            child: ListTile(
-                                              subtitle: Text(
-                                                _lang.translate('price') +
-                                                    ': ${value.buyerCompleteList[index].price}៛ ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kDefaultColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                        )
-                      : Center(
-                          child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                          ),
+                            ),
+                          );
+                        },
+                      )
+                    : Center(
+                        child: SvgPicture.asset(
+                          'images/undraw_loving_it.svg',
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: MediaQuery.of(context).size.width * 0.3,
                         ),
+                      ),
                 );
               },
             ),
