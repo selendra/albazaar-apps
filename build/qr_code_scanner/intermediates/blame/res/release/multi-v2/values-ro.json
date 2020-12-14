@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/chay/selendra_marketplace_app/build/qr_code_scanner/intermediates/res/merged/release/values-ro/values-ro.xml",
+            "map": [
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/e3ba12cda2a310ee227522725afac7a7/zxing-android-embedded-4.0.2/res/values-ro/values-ro.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,114,166,275",
+                        "endColumns": "58,51,108,116",
+                        "endOffsets": "109,161,270,387"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "156,215,267,376",
+                        "endColumns": "58,51,108,116",
+                        "endOffsets": "210,262,371,488"
+                    }
+                },
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/6dd5b2d5b51a2d5aa3f18cca9ca8414b/core-1.1.0/res/values-ro/values-ro.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/chay/selendra_marketplace_app/build/qr_code_scanner/intermediates/incremental/mergeReleaseResources/merged.dir/values-ro/values-ro.xml",
+            "map": [
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/e3ba12cda2a310ee227522725afac7a7/zxing-android-embedded-4.0.2/res/values-ro/values-ro.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,114,166,275",
+                        "endColumns": "58,51,108,116",
+                        "endOffsets": "109,161,270,387"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "156,215,267,376",
+                        "endColumns": "58,51,108,116",
+                        "endOffsets": "210,262,371,488"
+                    }
+                },
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/6dd5b2d5b51a2d5aa3f18cca9ca8414b/core-1.1.0/res/values-ro/values-ro.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

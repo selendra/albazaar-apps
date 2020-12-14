@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/chay/selendra_marketplace_app/build/qr_code_scanner/intermediates/incremental/mergeReleaseResources/merged.dir/values-iw/values-iw.xml",
+            "map": [
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/e3ba12cda2a310ee227522725afac7a7/zxing-android-embedded-4.0.2/res/values-iw/values-iw.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,111,161,296",
+                        "endColumns": "55,49,134,89",
+                        "endOffsets": "106,156,291,381"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "156,212,262,397",
+                        "endColumns": "55,49,134,89",
+                        "endOffsets": "207,257,392,482"
+                    }
+                },
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/6dd5b2d5b51a2d5aa3f18cca9ca8414b/core-1.1.0/res/values-iw/values-iw.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/chay/selendra_marketplace_app/build/qr_code_scanner/intermediates/res/merged/release/values-iw/values-iw.xml",
+            "map": [
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/e3ba12cda2a310ee227522725afac7a7/zxing-android-embedded-4.0.2/res/values-iw/values-iw.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,111,161,296",
+                        "endColumns": "55,49,134,89",
+                        "endOffsets": "106,156,291,381"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "156,212,262,397",
+                        "endColumns": "55,49,134,89",
+                        "endOffsets": "207,257,392,482"
+                    }
+                },
+                {
+                    "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/6dd5b2d5b51a2d5aa3f18cca9ca8414b/core-1.1.0/res/values-iw/values-iw.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}

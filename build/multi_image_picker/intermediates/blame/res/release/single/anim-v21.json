@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/chay/selendra_marketplace_app/build/multi_image_picker/intermediates/res/merged/release/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/701dd67156dc7f7c8e66ef7adc3839f2/material-1.0.0/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/home/chay/selendra_marketplace_app/build/multi_image_picker/intermediates/res/merged/release/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/home/chay/.gradle/caches/transforms-2/files-2.1/701dd67156dc7f7c8e66ef7adc3839f2/material-1.0.0/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    }
+]
