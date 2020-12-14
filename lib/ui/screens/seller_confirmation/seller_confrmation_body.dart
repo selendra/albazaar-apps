@@ -2,12 +2,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
-import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
-
 import '../../component.dart';
 
 class SellerConfirmBody extends StatelessWidget {
-
   final SellerModel productOrder;
 
   PostRequest _postRequest = PostRequest();
@@ -26,10 +23,10 @@ class SellerConfirmBody extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
                 Container(
                   margin: const EdgeInsets.only(top: 20),
-                  child: SvgPicture.asset("images/packaging.svg", width: 150, height: 150),
+                  child: SvgPicture.asset("images/packaging.svg",
+                      width: 150, height: 150),
                 ),
                 Card(
                   margin: EdgeInsets.all(10),
@@ -41,8 +38,8 @@ class SellerConfirmBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                            reuseText("SUMMARY:\n", fontSize: 17, fontWeight: FontWeight.bold),
+                            reuseText("SUMMARY:\n",
+                                fontSize: 17, fontWeight: FontWeight.bold),
                             Row(
                               children: [
                                 Expanded(
@@ -53,7 +50,6 @@ class SellerConfirmBody extends StatelessWidget {
                                 )
                               ],
                             ),
-
                             SizedBox(height: 5),
                             Row(
                               children: [
@@ -61,11 +57,11 @@ class SellerConfirmBody extends StatelessWidget {
                                   child: reuseText("Phone: "),
                                 ),
                                 Expanded(
-                                  child: reuseText("${productOrder.buyerPhonenumber}"),
+                                  child: reuseText(
+                                      "${productOrder.buyerPhonenumber}"),
                                 )
                               ],
                             ),
-
                             SizedBox(height: 5),
                             Row(
                               children: [
@@ -80,7 +76,6 @@ class SellerConfirmBody extends StatelessWidget {
                           ],
                         ),
                       ),
-
                       Divider(),
                       Container(
                         width: double.infinity,
@@ -95,7 +90,6 @@ class SellerConfirmBody extends StatelessWidget {
                           ],
                         ),
                       ),
-                      
                     ],
                   ),
                 ),

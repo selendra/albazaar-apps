@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 
 class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -22,7 +21,8 @@ class AuthProvider with ChangeNotifier {
     String googleToken;
     try {
       print("Sign");
-      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
 
       print("Sign in ${googleSignInAccount.authentication}");
 
@@ -36,7 +36,8 @@ class AuthProvider with ChangeNotifier {
 
       googleToken = googleSignInAuthentication.idToken;
 
-      final AuthResult authResult = await _auth.signInWithCredential(credential);
+      final AuthResult authResult =
+          await _auth.signInWithCredential(credential);
       final FirebaseUser user = authResult.user;
 
       // Checking if email and name is null

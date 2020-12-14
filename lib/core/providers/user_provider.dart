@@ -190,7 +190,7 @@ class UserProvider with ChangeNotifier {
       alertText = e;
       print(e);
     }
-    print("My alert Text ${alertText}");
+    print("My alert Text $alertText");
     return alertText;
   }
 

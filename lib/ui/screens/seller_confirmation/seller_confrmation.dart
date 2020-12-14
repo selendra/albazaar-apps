@@ -1,5 +1,4 @@
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 
 class SellerConfirm extends StatelessWidget {
   PostRequest _postRequest = PostRequest();
@@ -24,7 +23,7 @@ class SellerConfirm extends StatelessWidget {
                   width: 150, height: 150),
             ),
             Card(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Container(
@@ -89,8 +88,6 @@ class SellerConfirm extends StatelessWidget {
                       ],
                     ),
                   ),
-
-
                   RaisedButton(
                     onPressed: () {
                       // Navigator.push(

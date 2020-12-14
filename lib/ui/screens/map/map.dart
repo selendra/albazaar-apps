@@ -177,7 +177,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                           scrollDirection: Axis.horizontal,
                           itemCount: value.imageList.length,
                           itemBuilder: (context, index) => Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
                             width: MediaQuery.of(context).size.width / 2,
                             height: 50.0,
                             child: ClipRRect(
