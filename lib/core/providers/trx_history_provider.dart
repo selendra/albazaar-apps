@@ -6,7 +6,7 @@ class TrxHistoryProvider with ChangeNotifier {
 
   GetRequest _getRequest;
 
-  List<TrxHistoryModel> trxHistoryList;
+  List<TrxHistoryModel> trxHistoryList = [];
 
   TrxHistoryProvider() {
     fetchTrxHistory();
@@ -19,7 +19,6 @@ class TrxHistoryProvider with ChangeNotifier {
 
     // Fetch History
     await _getRequest.getTrxHistory().then((value) {
-      print("My history ${value.body}");
       _backend.listData = json.decode(value.body);
       if (_backend.listData.isEmpty)
         trxHistoryList = null;
@@ -28,9 +27,6 @@ class TrxHistoryProvider with ChangeNotifier {
           trxHistoryList.add(TrxHistoryModel(l));
         }
       }
-
-      //It use to show recent transaction on the top
-      // trxHistoryList = trxHistoryList.reversed.toList();
     });
 
     notifyListeners();

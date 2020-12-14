@@ -1,5 +1,7 @@
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_tracking.dart';
+import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
 
 class SellerConfirm extends StatelessWidget {
   PostRequest _postRequest = PostRequest();
@@ -8,8 +10,7 @@ class SellerConfirm extends StatelessWidget {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     final productId = ModalRoute.of(context).settings.arguments as String;
-    var loadedProduct =
-        Provider.of<SellerProvider>(context).findById(productId);
+    var loadedProduct = Provider.of<SellerProvider>(context).findById(productId);
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('payment_n_shipment'),
@@ -75,6 +76,7 @@ class SellerConfirm extends StatelessWidget {
                       ],
                     ),
                   ),
+
                   Divider(),
                   Container(
                     width: double.infinity,
@@ -90,17 +92,16 @@ class SellerConfirm extends StatelessWidget {
                     ),
                   ),
 
-
                   RaisedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   RouteAnimation(
-                      //     enterPage: Tracking(
-                      //       productOrder: productOrder,
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        RouteAnimation(
+                          enterPage: SellerTracking(
+                            sellerModel: loadedProduct,
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       'Track Order',
@@ -192,7 +193,6 @@ class SellerConfirm extends StatelessWidget {
             Consumer<SellerProvider>(
               builder: (context, value, child) {
                 var item = value.findById(loadedProduct.id);
-                print("in button:" + item.orderStatus);
                 return Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 40.0),
@@ -214,7 +214,6 @@ class SellerConfirm extends StatelessWidget {
                                     await Provider.of<SellerProvider>(context,
                                             listen: false)
                                         .fetchBuyerOrder();
-                                    print(data['message']);
                                   }
                                   await Components.dialog(
                                       context,

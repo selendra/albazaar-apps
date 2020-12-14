@@ -129,9 +129,12 @@ class HomeDrawer extends StatelessWidget {
             Icons.input,
             () async {
               var isShow = await _pref.read('isshow');
+              
               // Clear All Local Data
               await AppServices.clearStorage();
-              await _pref.saveString(isShow, 'isshow');
+
+              // Save Carousel Screen
+              await _pref.saveString('isshow', isShow);
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },

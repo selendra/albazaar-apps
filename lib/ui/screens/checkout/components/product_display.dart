@@ -6,7 +6,6 @@ class ProductDisplay extends StatelessWidget {
   ProductDisplay({@required this.action});
   @override
   Widget build(BuildContext context) {
-    print(action);
     var _lang = AppLocalizeService.of(context);
     return Consumer<CartProvider>(
       builder: (context, value, child) => Container(

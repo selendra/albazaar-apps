@@ -70,7 +70,6 @@ class ProductsProvider with ChangeNotifier {
         }
       });
     } catch (e) {
-      print(e.toString());
     }
   }
 
@@ -93,8 +92,6 @@ class ProductsProvider with ChangeNotifier {
               },
             ),
           );
-
-          print('order ${response.body}');
         },
       );
     } catch (e) {
@@ -193,7 +190,6 @@ class ProductsProvider with ChangeNotifier {
       });
 
       var responseJson = json.decode(response.body);
-      print(responseJson);
       _prefService.saveString('oproducts', jsonEncode(responseJson));
 
       for (var item in responseJson) {

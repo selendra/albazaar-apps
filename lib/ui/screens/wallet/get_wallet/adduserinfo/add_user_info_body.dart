@@ -60,11 +60,6 @@ class _BodyState extends State<Body> {
   }
 
   void onChanged(String value){
-    print(firstName);
-    print(imageUri);
-    print(lastName);
-    print(gender);
-    print(address);
     if (firstName != null && lastName != null && gender != null && address != null){
       setState((){
         isCheck = true;
@@ -156,10 +151,8 @@ class _BodyState extends State<Body> {
       }
     } catch (e) {
       e.toString();
-      print("error $e");
     }
 
-    print("my image two $resultList");
     if (!mounted) return;
 
     // setState(() {
@@ -171,7 +164,6 @@ class _BodyState extends State<Body> {
     for (Asset asset in resultList) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
 
-      print("My file $filePath");
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)
@@ -208,8 +200,6 @@ class _BodyState extends State<Body> {
               ),
               Consumer<UserProvider>(
                 builder: (context, value, child) {
-                  print("Value ${value.mUser.profileImg.runtimeType}");
-                  print("Value ${value.mUser.profileImg}");
                   return Container(
                     margin: EdgeInsets.all(5),
                     width: 100, height: 100,

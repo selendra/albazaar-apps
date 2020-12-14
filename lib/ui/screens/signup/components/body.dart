@@ -64,8 +64,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   Future<void> onSignUpWithPhone(
       String _phone, String _password, String _confirmPassword) async {
-    print(_password);
-    print(_confirmPassword);
     // Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoScreen()));
     _phone = "+855" + AppServices.removeZero(_phone);
     setState(() {
@@ -125,7 +123,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       _isLoading = true;
     });
     await AuthProvider().signInWithGoogle(context).then((value) {
-      print("Google response $value");
       if (value == null) {
         setState(() {
           _isLoading = false;
@@ -135,7 +132,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             .getTokenForGoogle(value, context);
       }
     }).catchError((onError) {
-      print(onError.toString());
       setState(() {
         _isLoading = false;
       });

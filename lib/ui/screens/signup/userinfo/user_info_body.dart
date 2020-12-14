@@ -173,7 +173,6 @@ class _BodyState extends State<Body> {
   Future<void> getAssettoFile(List<Asset> resultList) async {
     for (Asset asset in resultList) {
       final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      print("My file $filePath");
       try {
         if (filePath != null) {
           await Provider.of<UserProvider>(context, listen: false)

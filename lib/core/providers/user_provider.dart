@@ -44,7 +44,6 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
-    print("Fetch profile ${response.body}");
 
     _mUser = User.fromJson(responseBody);
 
@@ -87,13 +86,8 @@ class UserProvider with ChangeNotifier {
 
     //Decode repsonsebody and assign it user object
     var responseBody = json.decode(response.body);
-    print("Fetch profile ${response.body}");
 
     _mUser = User.fromJson(responseBody);
-    print(email);
-    print(firstName);
-    print(lastName);
-    print(photoUrl);
 
     if (email != null && _mUser.email == null) _mUser.email = email;
     if (firstName != null && _mUser.firstName == null)
@@ -102,12 +96,6 @@ class UserProvider with ChangeNotifier {
     if (photoUrl != null && _mUser.profileImg == null)
       _mUser.profileImg = photoUrl;
     if (_mUser.midName == null) _mUser.midName = '';
-
-    print(_mUser.email);
-    print(_mUser.firstName);
-    print(_mUser.lastName);
-    print(_mUser.midName);
-    print(_mUser.profileImg);
 
     //This will save all user information to sharepreferenece
     _prefService.saveString('user', jsonEncode(responseBody));
@@ -132,11 +120,6 @@ class UserProvider with ChangeNotifier {
     firstName = _firstName;
     lastName = _lastName;
     photoUrl = _photoUrl;
-
-    print(email);
-    print(firstName);
-    print(lastName);
-    print(photoUrl);
   }
 
   void setLocation(String location) {
@@ -153,11 +136,6 @@ class UserProvider with ChangeNotifier {
   //This function is use to update user profile information to the Api
   Future<dynamic> setUserPf(String firstName, String midName, String lastName,
       String gender, String imageUri, String address) async {
-    print(firstName);
-    print(imageUri);
-    print(lastName);
-    print(gender);
-    print(address);
     try {
       await _prefService.read('token').then((value) async {
         var response = await http.post(
@@ -179,7 +157,6 @@ class UserProvider with ChangeNotifier {
           ),
         );
 
-        print("My Respons ${response.body}");
         var responseBody = json.decode(response.body);
 
         if (response.statusCode == 200) {
@@ -188,9 +165,7 @@ class UserProvider with ChangeNotifier {
       });
     } catch (e) {
       alertText = e;
-      print(e);
     }
-    print("My alert Text ${alertText}");
     return alertText;
   }
 
@@ -262,14 +237,12 @@ class UserProvider with ChangeNotifier {
     // mBalance = Balance();
     try {
       await _prefService.read('token').then((onValue) async {
-        print("Toke $onValue");
         http.Response response =
             await http.get(ApiUrl.DISPLAY_PORTFORLIO, headers: <String, String>{
           "accept": "application/json",
           "authorization": "Bearer " + onValue,
         });
 
-        print(response.body);
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
           if (responseBody.containsKey('error')) {
@@ -281,7 +254,7 @@ class UserProvider with ChangeNotifier {
             // Check Balance Retrieve NULL
             if (mBalance.data != null)
               wallets[0].amount = mBalance.data.balance;
-            notifyListeners();
+            // notifyListeners();
           }
 
           alertText = response.statusCode.toString();
@@ -290,7 +263,7 @@ class UserProvider with ChangeNotifier {
         }
       });
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
 
     notifyListeners();

@@ -56,9 +56,6 @@ class CartProvider with ChangeNotifier {
         title: title,
         price: price,
         qty: productOrderQty);
-
-    print(productId);
-
     // _buyNow.putIfAbsent(
     //     productId,
     //     () => Cart(
