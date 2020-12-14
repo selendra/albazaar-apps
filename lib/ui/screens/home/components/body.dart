@@ -48,6 +48,7 @@ class _BodyState extends State<Body> {
               child: Container(
                 child: Column(
                   children: <Widget>[
+
                     //SearchBar(),
                     SizedBox(
                       height: 10,
