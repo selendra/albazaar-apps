@@ -21,6 +21,7 @@ class ItemCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           color: Colors.white,
+          // color: ThemeData.light().primaryColor,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
         ),
         child: Stack(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class TypeHead extends StatefulWidget {
   final Function searchPlace;

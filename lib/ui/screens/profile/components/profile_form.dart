@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:provider/provider.dart';
 
 class ProfileForm extends StatefulWidget {
   final String _imageUrl;
@@ -66,9 +65,6 @@ class _ProfileFormState extends State<ProfileForm> {
         .placemarkFromCoordinates(_place.latitude, _place.longitude);
     var place = placemark[0];
 
-    //pattern for saving address throughtfare(st) +
-    //subadministrative(sangkat) + sublocality(khan) + locality(province or city)
-    //country
     _location = place.subAdministrativeArea +
         ', ' +
         place.subLocality +
@@ -76,17 +72,7 @@ class _ProfileFormState extends State<ProfileForm> {
         place.locality +
         ', ' +
         place.country;
-    print('Admnistrative:' + placemark[0].administrativeArea);
-    print('Country:' + placemark[0].country);
-    print('Locality:' + placemark[0].locality);
-    print('Name:' + placemark[0].name);
-    print(placemark[0].position);
-    print('Postal code:' + placemark[0].postalCode);
 
-    print('SubAdministrative: ' + placemark[0].subAdministrativeArea);
-    print('SubLocality: ' + placemark[0].subLocality);
-    print('Throughfare: ' + placemark[0].thoroughfare);
-    print('SubThoroughfare: ' + placemark[0].subThoroughfare);
     final data = Provider.of<UserProvider>(context, listen: false);
 
     if (_location != null) {
@@ -96,8 +82,6 @@ class _ProfileFormState extends State<ProfileForm> {
       });
       Navigator.pop(context);
     }
-
-    //_key.currentState.expand();
   }
 
   @override

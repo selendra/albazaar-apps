@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 //Api Base Url
 const baseUrl = 'https://testnet-api.selendra.com';
@@ -7,7 +8,7 @@ const baseUrl = 'https://testnet-api.selendra.com';
 const appTitle = 'Selendra Marketplace';
 
 //Design material
-const kDefaultColor = Color(0xFF303F9F); //Color(0xFF03A9F4);
+//Color(0xFF03A9F4);
 const kDefaultRadius = 8.0;
 var kDefaultShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(kDefaultRadius),

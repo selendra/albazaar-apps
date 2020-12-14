@@ -12,7 +12,7 @@ class _BodyState extends State<Body> {
   ProductsProvider productsProvider;
 
   Future<Null> _refresh() async {
-    await Future.delayed(Duration(seconds: 3)).then((value) async {
+    await Future.delayed(Duration(seconds: 1)).then((value) async {
       Provider.of<ProductsProvider>(context, listen: false)
           .fetchListingProduct();
       Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
@@ -48,6 +48,13 @@ class _BodyState extends State<Body> {
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    RaisedButton(
+                      child: Text('DarkMode'),
+                      onPressed: () {
+                        Provider.of<DarkMode>(context, listen: false)
+                            .setDarkMode(true);
+                      },
+                    ),
                     //SearchBar(),
                     SizedBox(
                       height: 10,

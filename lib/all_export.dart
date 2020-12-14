@@ -11,7 +11,7 @@ export 'package:provider/provider.dart';
 export 'package:flutter/services.dart';
 export 'dart:async';
 
-// NonStandart Library
+// NonStandard Library
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
@@ -186,7 +186,10 @@ export 'ui/screens/chat/chat.dart';
 export 'ui/screens/welcome/welcome_screen.dart';
 
 //route
-export 'core/animation/route_animation.dart';
+export 'core/animation_styles/route_animation.dart';
+
+//style
+export 'core/animation_styles/dark_mode_style.dart';
 
 //intro screen
 export 'ui/screens/intro/intro_screen.dart';
@@ -241,6 +244,7 @@ export 'core/providers/auth_provider.dart';
 export 'core/providers/trx_history_provider.dart';
 export 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 export 'core/providers/add_product_provider.dart';
+export 'core/providers/dark_mode_provider.dart';
 
 //models
 export 'core/models/api_url.dart';

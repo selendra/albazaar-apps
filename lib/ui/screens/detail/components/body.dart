@@ -117,7 +117,7 @@ class Body extends StatelessWidget {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            color: Colors.white,
+            // color: Colors.white,
             child: Container(
               margin: const EdgeInsets.all(10.0),
               child: Column(

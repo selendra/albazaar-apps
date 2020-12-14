@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
 
 class InfoRow extends StatelessWidget {
   final String _seedText;
