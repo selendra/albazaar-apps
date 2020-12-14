@@ -46,6 +46,7 @@ class MyBottomSheet{
                           // Update Data On Wallet Screen
                           if (value != null){
                             await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+                            // await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
                             resetState();
                           }
                         });

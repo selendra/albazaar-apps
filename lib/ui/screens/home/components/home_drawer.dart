@@ -135,7 +135,6 @@ class HomeDrawer extends StatelessWidget {
 
               // Save Carousel Screen
               await _pref.saveString('isshow', isShow);
-              await _pref.read('isshow').then((value) => print(value));
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },

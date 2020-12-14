@@ -193,7 +193,6 @@ class SellerConfirm extends StatelessWidget {
             Consumer<SellerProvider>(
               builder: (context, value, child) {
                 var item = value.findById(loadedProduct.id);
-                print("in button:" + item.orderStatus);
                 return Container(
                   margin: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 40.0),
@@ -215,7 +214,6 @@ class SellerConfirm extends StatelessWidget {
                                     await Provider.of<SellerProvider>(context,
                                             listen: false)
                                         .fetchBuyerOrder();
-                                    print(data['message']);
                                   }
                                   await Components.dialog(
                                       context,

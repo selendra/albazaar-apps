@@ -92,18 +92,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         .placemarkFromCoordinates(place.latitude, place.longitude);
     //pattern for saving address throughtfare(st) +
     //subadministrative(sangkat) + sublocality(khan) + locality(province or city)
-    //
-    print('Admnistrative:' + placemark[0].administrativeArea);
-    print('Country:' + placemark[0].country);
-    print('Locality:' + placemark[0].locality);
-    print('Name:' + placemark[0].name);
-    print(placemark[0].position);
-    print('Postal code:' + placemark[0].postalCode);
-
-    print('SubAdministrative: ' + placemark[0].subAdministrativeArea);
-    print('SubLocality: ' + placemark[0].subLocality);
-    print('Throughfare: ' + placemark[0].thoroughfare);
-    print('SubThoroughfare: ' + placemark[0].subThoroughfare);
 
     setState(() {
       animateMove(place, 15.0);

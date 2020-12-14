@@ -178,8 +178,6 @@ class _BodyState extends State<Body> {
                                 Navigator.pushNamed(context, SellerInfoView,
                                     arguments:
                                         value.buyerPendingList[index].id);
-                                print(
-                                    value.buyerPendingList[index].orderStatus);
                               },
                               child: Card(
                                 elevation: 0,
