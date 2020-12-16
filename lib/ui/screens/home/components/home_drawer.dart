@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class HomeDrawer extends StatelessWidget {
-
   PrefService _pref = PrefService();
 
   @override
@@ -81,7 +80,7 @@ class HomeDrawer extends StatelessWidget {
 
           Container(
             height: 2,
-            margin: EdgeInsets.only(left: 20.0, right: 20.0),
+            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
           // ReuseInkwell.getItem(
@@ -129,9 +128,12 @@ class HomeDrawer extends StatelessWidget {
             Icons.input,
             () async {
               var isShow = await _pref.read('isshow');
+
               // Clear All Local Data
               await AppServices.clearStorage();
-              await _pref.saveString(isShow, 'isshow');
+
+              // Save Carousel Screen
+              await _pref.saveString('isshow', isShow);
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },

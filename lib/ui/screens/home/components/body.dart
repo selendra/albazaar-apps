@@ -48,14 +48,11 @@ class _BodyState extends State<Body> {
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('DarkMode'),
-                      onPressed: () {
-                        Provider.of<DarkMode>(context, listen: false)
-                            .setDarkMode(true);
-                      },
-                    ),
                     //SearchBar(),
+                    RaisedButton(onPressed: () {
+                      Provider.of<DarkMode>(context, listen: false)
+                          .setDarkMode(true);
+                    }),
                     SizedBox(
                       height: 10,
                     ),

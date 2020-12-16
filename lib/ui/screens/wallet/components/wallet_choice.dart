@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WalletChoice extends StatefulWidget {
@@ -37,7 +36,7 @@ class _WalletChoiceState extends State<WalletChoice> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.all(30.0),
+        margin: const EdgeInsets.all(30.0),
         child: Column(
           children: <Widget>[
             Container(

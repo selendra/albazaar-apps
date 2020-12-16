@@ -19,7 +19,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
         ),
         child: Column(
@@ -58,7 +58,9 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
               child: Text(
                 "${product.price}៛",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, color: kDefaultColor),
+                  fontWeight: FontWeight.bold,
+                  //color: Theme.of(context).primaryColor,
+                ),
               ),
             )
           ],

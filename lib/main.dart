@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
-import 'core/providers/auth_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -20,12 +19,19 @@ class SelendraApp extends StatefulWidget {
 }
 
 class _SelendraAppState extends State<SelendraApp> {
+  var dark = true;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return MultiProvider(
       providers: [
         StreamProvider<ConnectivityStatus>(
@@ -44,7 +50,7 @@ class _SelendraAppState extends State<SelendraApp> {
           create: (context) => CartProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => DarkMode(),
+          create: (_) => DarkMode(),
         ),
         ChangeNotifierProvider<ProductsProvider>(
             create: (context) => ProductsProvider()),
@@ -58,8 +64,9 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<TrxHistoryProvider>(
             create: (context) => TrxHistoryProvider()),
       ],
-      child: Consumer<LangProvider>(
-        builder: (context, value, child) => MaterialApp(
+      child: Consumer<LangProvider>(builder: (context, value, child) {
+        var data = Provider.of<DarkMode>(context).isDarkMode;
+        return MaterialApp(
           builder: (context, child) => ScrollConfiguration(
             behavior: ScrollBehavior()
               ..buildViewportChrome(context, child, AxisDirection.down),
@@ -107,9 +114,12 @@ class _SelendraAppState extends State<SelendraApp> {
           onGenerateRoute: router.generateRoute,
           initialRoute: SplashScreenView,
           // debugShowCheckedModeBanner: true,
-          theme: DarkModeStyle.themeData(false, context),
-          // darkTheme: ThemeData.dark(),
-          // themeMode: ThemeMode.dark,
+          theme: ThemeData(
+              primaryColor: Colors.white,
+              cardColor: Colors.white,
+              textSelectionColor: Colors.black),
+          darkTheme: ThemeData.dark(),
+          themeMode: data ? ThemeMode.dark : ThemeMode.light,
 
           routes: {
             DetailView: (context) => DetailScreen(),
@@ -117,8 +127,8 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           home: SplashScreen(),
           navigatorKey: navigationKey,
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/models/seller_m.dart';
 
-class Tracking extends StatefulWidget {
-  final OrderProduct productOrder;
-  Tracking({this.productOrder});
+class SellerTracking extends StatefulWidget {
+  final SellerModel sellerModel;
+  SellerTracking({this.sellerModel});
   @override
-  _TrackingState createState() => _TrackingState();
+  _SellerTrackingState createState() => _SellerTrackingState();
 }
 
-class _TrackingState extends State<Tracking> {
+class _SellerTrackingState extends State<SellerTracking> {
   double _currentValue = 0;
   String statusReminder = '';
 
@@ -19,11 +20,11 @@ class _TrackingState extends State<Tracking> {
   }
 
   void checkProgress() {
-    if (widget.productOrder.orderStatus == "Order Complete") {
+    if (widget.sellerModel.orderStatus == "Order Complete") {
       setState(() {
         _currentValue = 100;
       });
-    } else if (widget.productOrder.orderStatus == "Shipment") {
+    } else if (widget.sellerModel.orderStatus == "Shipment") {
       _currentValue = 50;
     }
   }
@@ -31,10 +32,10 @@ class _TrackingState extends State<Tracking> {
   @override
   Widget build(BuildContext context) {
     final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(
-      widget.productOrder.productId,
+      widget.sellerModel.productId,
     );
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem('Tracking', context),
+      appBar: ReuseSimpleAppBar.getItem('SellerTracking', context),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
@@ -53,7 +54,7 @@ class _TrackingState extends State<Tracking> {
                       height: 5,
                     ),
                     Text(
-                      '${widget.productOrder.name}',
+                      '${widget.sellerModel.name}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
@@ -61,12 +62,12 @@ class _TrackingState extends State<Tracking> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text('Order: ${widget.productOrder.id}'),
+                    Text('Order: ${widget.sellerModel.id}'),
 
                     SizedBox(
                       height: 5,
                     ),
-                    Text('Reminder: Product ${widget.productOrder.orderStatus}'),
+                    Text('Reminder: Product ${widget.sellerModel.orderStatus}'),
 
                     SizedBox(
                       height: 40,
@@ -75,7 +76,7 @@ class _TrackingState extends State<Tracking> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         reuseText(loadedProduct.address, TextAlign.start),
-                        reuseText(widget.productOrder.shippingAddress, TextAlign.end),
+                        reuseText(widget.sellerModel.shippingAddress, TextAlign.end),
                       ],
                     ),
 

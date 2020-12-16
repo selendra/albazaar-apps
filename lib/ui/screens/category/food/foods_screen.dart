@@ -32,7 +32,7 @@ class _FoodsScreenState extends State<FoodsScreen>
           width: 30,
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

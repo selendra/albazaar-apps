@@ -174,7 +174,7 @@ class _PinScreenState extends State<PinScreen> {
         
       }); //tmp
     } catch (e){
-      print(e);
+      // print(e);
     }
 
     // Close Loading After Succssfully Get Wallet And Refetch Portfolio

@@ -160,7 +160,7 @@ class Body extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 23,
-                          color: kDefaultColor,
+                          //color: kDefaultColor,
                         ),
                       ),
                     ],

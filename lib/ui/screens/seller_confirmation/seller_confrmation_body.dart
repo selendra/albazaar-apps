@@ -179,8 +179,6 @@ class SellerConfirmBody extends StatelessWidget {
                                   var data = json.decode(value.body);
                                   if (data['message'] != null) {
                                     sellerProvider.fetchBuyerOrder();
-
-                                    print(data['message']);
                                   }
                                   await Components.dialog(
                                       context,

@@ -60,7 +60,7 @@ class SellerInfo extends StatelessWidget {
       children: [
         Icon(
           _iconData,
-          color: kDefaultColor,
+          // color: kDefaultColor,
         ),
         SizedBox(
           width: 10.0,

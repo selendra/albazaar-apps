@@ -7,6 +7,7 @@ class WalletList extends StatefulWidget {
 }
 
 class _WalletListState extends State<WalletList> {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,17 +24,22 @@ class _WalletListState extends State<WalletList> {
               ),
             ),
             child: ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  RouteAnimation(
-                    enterPage: TransactionHistory(
-                      title: wallets[index].title,
-                      amount: wallets[index].amount,
-                      logo: wallets[index].logo,
+              onTap: () async {
+                if (index == 0){
+                  Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
+                  Navigator.push(
+                    context,
+                    RouteAnimation(
+                      enterPage: TransactionHistory(
+                        title: wallets[index].title,
+                        amount: wallets[index].amount,
+                        logo: wallets[index].logo,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  await Components.dialog(context, Text("This cryptos will coming soon", textAlign: TextAlign.center,), Text("Message"));
+                }
               },
               trailing: Text(
                 wallets[index].amount,

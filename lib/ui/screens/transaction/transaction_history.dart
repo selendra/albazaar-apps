@@ -105,12 +105,11 @@ class TransactionHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TrxHistoryModel> history =
-        Provider.of<TrxHistoryProvider>(context).trxHistoryList;
+    var history = Provider.of<TrxHistoryProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       // Have No History
-      body: history == null
+      body: history.trxHistoryList == null
           ? SafeArea(
               child: Column(
                 children: [
@@ -139,7 +138,7 @@ class TransactionHistory extends StatelessWidget {
             )
 
           // Display Loading
-          : history.length == 0
+          : history.trxHistoryList.length == 0
               ? Center(child: CircularProgressIndicator())
               // Display History List
               : SafeArea(
@@ -164,6 +163,10 @@ class TransactionHistory extends StatelessWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
+                            Provider.of<TrxHistoryProvider>(context,
+                                    listen: false)
+                                .trxHistoryList
+                                .clear();
                             Navigator.pop(context);
                           },
                         ),
@@ -182,8 +185,8 @@ class TransactionHistory extends StatelessWidget {
                       ),
                       SliverList(
                         delegate: SliverChildListDelegate(
-                          _buildList(
-                              history, context, userProvider.mUser.wallet),
+                          _buildList(history.trxHistoryList, context,
+                              userProvider.mUser.wallet),
                         ),
                       ),
                     ],

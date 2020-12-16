@@ -20,8 +20,7 @@ class ItemCard extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
-          // color: ThemeData.light().primaryColor,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(kDefaultRadius * 2),
         ),
         child: Stack(
@@ -63,7 +62,7 @@ class ItemCard extends StatelessWidget {
                     product.name,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        // color: Colors.black,
+                        //color: Colors.white,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w600),
                   ),
@@ -76,7 +75,7 @@ class ItemCard extends StatelessWidget {
                           AppLocalizeService.of(context).translate('kilogram'),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: kDefaultColor,
+                        //color: kDefaultColor,
                         fontSize: 14.0,
                       ),
                     ),
