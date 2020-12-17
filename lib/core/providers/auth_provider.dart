@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,20 +26,20 @@ class AuthProvider with ChangeNotifier {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
 
       googleToken = googleSignInAuthentication.idToken;
 
-      final AuthResult authResult = await _auth.signInWithCredential(credential);
-      final FirebaseUser user = authResult.user;
+      final auth.UserCredential authResult = await _auth.signInWithCredential(credential);
+      final auth.User user = authResult.user;
 
       // Checking if email and name is null
       assert(user.email != null);
       assert(user.displayName != null);
-      assert(user.photoUrl != null);
+      // assert(user.photoUrl != null);
 
       var name = user.displayName.split(' ');
 
@@ -49,7 +49,7 @@ class AuthProvider with ChangeNotifier {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
-      final FirebaseUser currentUser = await _auth.currentUser();
+      final auth.User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
     } catch (e) {
       print("error $e");
@@ -71,11 +71,11 @@ class AuthProvider with ChangeNotifier {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        final AuthCredential credential = FacebookAuthProvider.getCredential(
-            accessToken: facebookAccessToken.token);
+        final AuthCredential credential = FacebookAuthProvider.credential(
+            facebookAccessToken.token);
         fbToken = facebookAccessToken.token;
 
-        final FirebaseUser user =
+        final auth.User user =
             (await _auth.signInWithCredential(credential)).user;
 
         mBalance = Balance();
@@ -178,15 +178,15 @@ class AuthProvider with ChangeNotifier {
     return img;
   }
 
-  Future<FirebaseUser> get currentUser async {
-    return await _auth.currentUser();
+  Future<auth.User> get currentUser async {
+    return _auth.currentUser;
   }
 
   Future<void> signOut(BuildContext context) async {
     _pref?.clear('token');
     _pref.clear('seen');
     try {
-      FirebaseUser user = await _auth.currentUser();
+      auth.User user = _auth.currentUser;
       for (UserInfo profile in user.providerData) {
         switch (profile.providerId) {
           case 'facebook.com':
@@ -262,6 +262,8 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
+    print("Phone $phone");
+    print("Password $password");
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,

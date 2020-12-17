@@ -26,11 +26,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
+
+  # Social
   google_sign_in: ^4.5.1
 
   flutter_facebook_login: ^3.0.0
   
-  firebase_auth: ^0.16.1
+  firebase_auth: ^0.18.4+1
   
   intl_phone_field: ^1.2.0
   
@@ -56,7 +58,7 @@ dependencies:
   
   flutter_image_compress:
   
-  image:
+  image: ^2.1.19
   
   flutter_typeahead: ^1.8.8
   
@@ -84,7 +86,7 @@ dependencies:
   fluttercontactpicker: ^3.1.0
   
   #animation
-  flare_flutter:
+  flare_flutter: ^2.0.6
 
   # App Responsive
   responsive_framework: ^0.0.14
