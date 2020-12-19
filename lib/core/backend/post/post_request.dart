@@ -371,6 +371,8 @@ class PostRequest {
   // Upload Fil Image To Get Url Image
   Future<String> upLoadImage(File _image, String endpoint) async {
 
+    print("Image file $_image");
+
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
@@ -393,7 +395,11 @@ class PostRequest {
     String imageUrl;
     try{
       var r = await request.send();
-      imageUrl = await r.stream.bytesToString();
+      if (r.statusCode != 522){
+        imageUrl = await r.stream.bytesToString();
+      } else if (r.statusCode == 522){
+        imageUrl = r.statusCode.toString();
+      }
     } catch (e) {
       // print(e);
     }

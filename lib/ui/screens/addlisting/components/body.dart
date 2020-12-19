@@ -33,6 +33,15 @@ class _BodyState extends State<Body> {
   // }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
+    print(value);
+    print(addProductProvider.addProduct.imageUrl);
+    print(addProductProvider.addProduct.productName.text);
+    print(addProductProvider.addProduct.hintCategory);
+    print(addProductProvider.addProduct.hintWeight);
+    print(addProductProvider.addProduct.price.text);
+    print(addProductProvider.addProduct.hintPaymentOpt);
+    print(addProductProvider.addProduct.description.text);
+
     if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
       addProductProvider.addProduct.productName.text.isNotEmpty &&
       addProductProvider.addProduct.hintCategory != "Category" &&
@@ -42,11 +51,13 @@ class _BodyState extends State<Body> {
       addProductProvider.addProduct.description.text.isNotEmpty
     ) enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
+    print("My button enable ${_addProductProvider.addProduct.enable1}");
   }
 
   void ddOnChanged(String value) {}
 
   void enableButton(bool enable) {
+    print("Button ${_addProductProvider.addProduct.enable1}");
     setState(() {
       _addProductProvider.addProduct.enable1 = enable;
     });
@@ -56,59 +67,44 @@ class _BodyState extends State<Body> {
     var response = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => FillSeller(
-                  addProduct: provider.addProduct,
-                  userProvider: user,
-                )));
+        builder: (context) => FillSeller(
+          addProduct: provider.addProduct,
+          userProvider: user,
+        )
+      )
+    );
 
     if (response != null) Navigator.pop(context, response);
-    // setState(() {
-    //   if (_addProductProvider.formKeyDetail.currentState.validate() &&
-    //       _addProductProvider.formKeySeller.currentState.validate()) {
-    //     _addProductProvider.formKeyDetail.currentState.save();
-    //     _addProductProvider.formKeySeller.currentState.save();
-
-    //     // print(_title);
-    //     // print(_price);
-    //     // print(_description);
-    //     // print(_contactName);
-    //     // print(_phoneNumber);
-    //     // print(_categories);
-    //     // print(_address);
-
-    //     /*products.add(Product(
-    //         id: 20,i
-    //         title: _title,
-    //         price: int.parse(_price),
-    //         description: _description,
-    //         image: "images/new-house.jpg",
-    //         color: Color(0xFF3D82AE)));*/
-
-    //     Navigator.pop(context);
-    //     return true;
-    //   }
-    // });
-    // return false;
   }
 
   Future<void> loadAssets() async {
     String error = 'No Error Dectected';
 
     try {
-      _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
-        maxImages: 8,
-        enableCamera: false,
-        selectedAssets: _addProductProvider.addProduct.images,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-          actionBarTitle: "Selendra App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      await imageAssetToFile();
+      await Permission.camera.request().isGranted.then((value) async {
+        print(value);
+        if (value){
+          _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
+            maxImages: 8,
+            enableCamera: false,
+            selectedAssets: _addProductProvider.addProduct.images,
+            cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+            materialOptions: MaterialOptions(
+              actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+              actionBarTitle: "Selendra App",
+              allViewTitle: "All Photos",
+              useDetailsView: false,
+              selectCircleStrokeColor: "#000000",
+            ),
+          );
+
+          print(_addProductProvider.addProduct.images);
+
+          if (_addProductProvider.addProduct.images.isNotEmpty){
+            await imageAssetToFile();
+          }
+        }
+      });
     } on Exception catch (e) {
       error = e.toString();
     }
@@ -122,7 +118,9 @@ class _BodyState extends State<Body> {
       _error = error;
     });
 
-    await getImageUrl();
+    if (_addProductProvider.addProduct.images.isNotEmpty){
+      await getImageUrl();
+    }
   }
 
   Future<void> imageAssetToFile() async {
@@ -137,26 +135,30 @@ class _BodyState extends State<Body> {
   // Use After Display Image
   Future<void> getImageUrl() async {
     // Upload Image To Get Url Image
-    await _postRequest
-        .upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload")
-        .then((value) {
-      _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
-    });
+    try {
+      var value = await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload");
 
-    // Validate After Get Url Thumnail
-    onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
+      if (value != "522"){
+        _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
+      } else throw("""Something went wrong at our end""");
 
-    // // Loop Upload File Images Per Each
-    for (int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++) {
-      await _postRequest
-          .upLoadImage(
-              _addProductProvider.addProduct.fileImagesList[i], "upload")
-          .then((value) {
-        _addProductProvider.addProduct.imageUrlList
-            .add(json.decode(value)['uri']);
-      });
+      // Validate After Get Url Thumnail
+      onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
+
+      // // Loop Upload File Images Per Each
+      for (int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++) {
+        await _postRequest
+            .upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload")
+            .then((value) {
+          _addProductProvider.addProduct.imageUrlList
+              .add(json.decode(value)['uri']);
+        });
+      }
+    } catch (e) {
+      print(e);
+      await Components.dialog(context, Text(e.toString(), textAlign: TextAlign.center,), Text("Upload Image failed"));
     }
-  }
+  } 
 
   @override
   void initState() {

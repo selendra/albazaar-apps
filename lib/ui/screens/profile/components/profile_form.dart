@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong/latlong.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class _ProfileFormState extends State<ProfileForm> {
 
   PrefService _prefService = PrefService();
   String _firstName, _midName, _lastName, _mGender;
+
   final TextEditingController _shippingController = TextEditingController();
 
   void validataAndSubmit(Function setUserPf) {
@@ -21,6 +24,87 @@ class _ProfileFormState extends State<ProfileForm> {
       _formKey.currentState.save();
       setUserPf(_firstName, _midName, _lastName);
     }
+  }
+
+  _getCurrentLocation() async {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      addressName(LatLng(position.latitude, position.longitude));
+      // if (mounted) {
+      //   setState(() {
+      //     _currentPosition = position;
+      //     animateMove(
+      //         LatLng(_currentPosition.latitude, _currentPosition.longitude),
+      //         kDefaultMaxZoom - 2);
+      //     addressName(
+      //         LatLng(_currentPosition.latitude, _currentPosition.longitude));
+
+      //     markers.add(Marker(
+      //       point:
+      //           LatLng(_currentPosition.latitude, _currentPosition.longitude),
+      //       builder: (context) => Container(
+      //         child: Icon(
+      //           Icons.location_on,
+      //           color: kDefaultColor,
+      //           size: 50,
+      //         ),
+      //       ),
+      //     ));
+      //   });
+      // }
+    }).catchError((e) {});
+
+    //if (!mounted) return;
+  }
+
+  addressName(LatLng _place) async {
+    String _location;
+
+    List<Placemark> placemark = await Geolocator()
+        .placemarkFromCoordinates(_place.latitude, _place.longitude);
+    var place = placemark[0];
+
+    //pattern for saving address throughtfare(st) +
+    //subadministrative(sangkat) + sublocality(khan) + locality(province or city)
+    //country
+    _location = place.subAdministrativeArea +
+        ', ' +
+        place.subLocality +
+        ', ' +
+        place.locality +
+        ', ' +
+        place.country;
+    print('Admnistrative:' + placemark[0].administrativeArea);
+    print('Country:' + placemark[0].country);
+    print('Locality:' + placemark[0].locality);
+    print('Name:' + placemark[0].name);
+    print(placemark[0].position);
+    print('Postal code:' + placemark[0].postalCode);
+
+    print('SubAdministrative: ' + placemark[0].subAdministrativeArea);
+    print('SubLocality: ' + placemark[0].subLocality);
+    print('Throughfare: ' + placemark[0].thoroughfare);
+    print('SubThoroughfare: ' + placemark[0].subThoroughfare);
+    final data = Provider.of<UserProvider>(context, listen: false);
+
+    if (_location != null) {
+      data.setLocation(_location);
+      setState(() {
+        _shippingController.text = _location;
+      });
+      Navigator.pop(context);
+    }
+
+    //_key.currentState.expand();
+  }
+
+  @override
+  void initState() {
+    final data = Provider.of<UserProvider>(context, listen: false);
+    _shippingController.text = data.mUser.address;
+    super.initState();
   }
 
   @override
@@ -104,7 +188,10 @@ class _ProfileFormState extends State<ProfileForm> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text('Add Shipping Address'),
+                                title: Text(
+                                  'Add Shipping Address',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 trailing: IconButton(
                                   icon: Icon(
                                     Icons.add,
@@ -122,7 +209,8 @@ class _ProfileFormState extends State<ProfileForm> {
                               ),
 
                               Container(
-                                margin: const EdgeInsets.all(20.0),
+                                margin: const EdgeInsets.only(
+                                    top: 20.0, left: 20.0, right: 20.0),
                                 padding: EdgeInsets.only(
                                 bottom: MediaQuery.of(context)
                                   .viewInsets
@@ -135,6 +223,28 @@ class _ProfileFormState extends State<ProfileForm> {
                                   // initialValue: _shippingController.text,
                                 ),
                               ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 10.0),
+                                  child: FlatButton(
+                                    child: Text(
+                                      'Select Current Address',
+                                      style: TextStyle(
+                                        color: kDefaultColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      _getCurrentLocation();
+
+                                      print('my current address');
+                                    },
+                                    // color: kDefaultColor,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 20),
                             ],
                           ),
                         ),
