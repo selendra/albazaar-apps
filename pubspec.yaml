@@ -44,7 +44,7 @@ dependencies:
   
   shared_preferences: ^0.5.12+2
   
-  image_picker: ^0.6.7+4
+  # image_picker: ^0.6.7+4
   
   multi_image_picker: ^4.7.14
 
@@ -68,9 +68,14 @@ dependencies:
 
   flutter_svg_provider: ^0.1.7
 
+  # Packages For Icon Launcher Android/iOS
+  flutter_launcher_icons: ^0.8.1
+  # Packages For Rename Android/iOS
+  rename: ^1.2.0
+
   # Qr 
   qr_flutter: ^3.2.0
-  qr_code_scanner: ^0.0.13
+  qr_code_scanner: ^0.1.0
 
   badges: ^1.1.4
 
@@ -101,6 +106,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  image_path: "images/icon_launcher.png"
+  ios: true
+  android: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

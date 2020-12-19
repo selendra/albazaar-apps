@@ -177,7 +177,7 @@ export 'ui/screens/wallet/get_wallet/info_row.dart';
 export 'ui/screens/wallet/components/wallet_choice.dart';
 export 'ui/screens/wallet/get_wallet/dialog.dart';
 export 'ui/screens/wallet/my_wallet/my_qr.dart';
-export 'package:qr_code_scanner/qr_code_scanner.dart';
+// export 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //chat screen
 export 'ui/screens/chat/chat.dart';

@@ -34,13 +34,13 @@ class _BodyState extends State<Body> {
 
   void onChanged(String value, AddProductProvider addProductProvider) {
     if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
-        addProductProvider.addProduct.productName.text.isNotEmpty &&
-        addProductProvider.addProduct.hintCategory != "Category" &&
-        addProductProvider.addProduct.hintWeight != "Weight" &&
-        addProductProvider.addProduct.price.text.isNotEmpty &&
-        addProductProvider.addProduct.hintPaymentOpt != "Payment Method" &&
-        addProductProvider.addProduct.description.text.isNotEmpty)
-      enableButton(true);
+      addProductProvider.addProduct.productName.text.isNotEmpty &&
+      addProductProvider.addProduct.hintCategory != "Category" &&
+      addProductProvider.addProduct.hintWeight != "Weight" &&
+      addProductProvider.addProduct.price.text.isNotEmpty &&
+      addProductProvider.addProduct.hintPaymentOpt != "Payment Method" &&
+      addProductProvider.addProduct.description.text.isNotEmpty
+    ) enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
@@ -147,9 +147,7 @@ class _BodyState extends State<Body> {
     onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
 
     // // Loop Upload File Images Per Each
-    for (int i = 1;
-        i < _addProductProvider.addProduct.fileImagesList.length;
-        i++) {
+    for (int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++) {
       await _postRequest
           .upLoadImage(
               _addProductProvider.addProduct.fileImagesList[i], "upload")

@@ -115,18 +115,19 @@ class _ProfileFormState extends State<ProfileForm> {
 
                                     if (_shippingController.text != null) {
                                       Navigator.pop(context);
-                                      data.setLocation(
-                                          _shippingController.text);
+                                      data.setLocation(_shippingController.text);
                                     }
                                   },
                                 ),
                               ),
+
                               Container(
                                 margin: const EdgeInsets.all(20.0),
                                 padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom),
+                                bottom: MediaQuery.of(context)
+                                  .viewInsets
+                                  .bottom
+                                ),
                                 child: ReuseTextField(
                                   labelText: 'Shipping Address',
                                   controller: _shippingController,

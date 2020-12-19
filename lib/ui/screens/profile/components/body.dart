@@ -59,48 +59,48 @@ class _BodyState extends State<Body> {
     var user = Provider.of<UserProvider>(context).mUser;
     return SingleChildScrollView(
       child: _isLoading
-          ? Container(
-              height: MediaQuery.of(context).size.height,
-              child: Center(
-                child: CircularProgressIndicator(),
+      ? Container(
+          height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        )
+      : Container(
+        width: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
+                top: 10.0,
               ),
-            )
-          : Container(
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 10.0,
-                      right: 10.0,
-                      top: 10.0,
-                    ),
-                    child: Card(
-                      shape: kDefaultShape,
-                      elevation: 0,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ListTile(
-                          onTap: () => loadAsset(),
-                          title: Text(AppLocalizeService.of(context)
-                              .translate('profile_photo')),
-                          trailing: Consumer<UserProvider>(
-                            builder: (context, value, child) => CircleAvatar(
-                              backgroundImage: value.mUser.profileImg != null
-                                  ? NetworkImage(value.mUser.profileImg)
-                                  : AssetImage('images/avatar.png'),
-                            ),
-                          ),
-                        ),
+              child: Card(
+                shape: kDefaultShape,
+                elevation: 0,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListTile(
+                    onTap: () => loadAsset(),
+                    title: Text(AppLocalizeService.of(context)
+                        .translate('profile_photo')),
+                    trailing: Consumer<UserProvider>(
+                      builder: (context, value, child) => CircleAvatar(
+                        backgroundImage: value.mUser.profileImg != null
+                            ? NetworkImage(value.mUser.profileImg)
+                            : AssetImage('images/avatar.png'),
                       ),
                     ),
                   ),
-                  ProfileForm(
-                    imageUrl == null ? user.profileImg : imageUrl,
-                  ),
-                ],
+                ),
               ),
             ),
+            ProfileForm(
+              imageUrl == null ? user.profileImg : imageUrl,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
