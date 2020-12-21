@@ -83,6 +83,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
+    print("Hello phone");
     setState(() {
       _isLoading = true;
     });
@@ -170,60 +171,53 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         margin: const EdgeInsets.all(20),
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                children: <Widget>[
-                  Container(
-                      child: Image.asset(
-                    'images/logo.png',
-                    height: 80,
-                    width: 80,
-                  )),
-                  SizedBox(
-                    height: 40,
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Column(
+          children: <Widget>[
+            Container(
+                child: Image.asset(
+              'images/logo.png',
+              height: 80,
+              width: 80,
+            )),
+            SizedBox(
+              height: 40,
+            ),
+            ReuseAuthTab(
+              _tabController,
+              _lang.translate('phone'),
+              _lang.translate('email'),
+            ),
+            // tabs(context),
+            SizedBox(
+              height: 40,
+            ),
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (index) {
+                  if (isPageCanChanged) {
+                    onPageChange(index);
+                  }
+                },
+                children: [
+                  SignInPhoneForm(
+                    onApiSignInByPhone,
+                    onFacebookSignIn,
+                    onGoogleSignIn,
                   ),
-                  ReuseAuthTab(
-                    _tabController,
-                    _lang.translate('phone'),
-                    _lang.translate('email'),
-                  ),
-                  // tabs(context),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: PageView(
-                      controller: _pageController,
-                      onPageChanged: (index) {
-                        if (isPageCanChanged) {
-                          onPageChange(index);
-                        }
-                      },
-                      children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignInPhoneForm(
-                            onApiSignInByPhone,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ),
-                        ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignInEmailForm(
-                            onApiSignInByEmail,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ), //emailForm(),
-                        ),
-                      ],
-                    ),
+                  SignInEmailForm(
+                    onApiSignInByEmail,
+                    onFacebookSignIn,
+                    onGoogleSignIn,
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -40,14 +40,22 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        var value = await TrxOptionMethod.scanQR(context, portfolioList, resetState);
-                        await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value, false, []/* widget.portList */))).then((value) async {
-                          
-                          // Update Data On Wallet Screen
-                          if (value != null){
-                            await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
-                            // await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
-                            resetState();
+                        await Permission.camera.request().isGranted.then((response) async {
+                          print("My permission $response");
+                          if (response){
+                            var value = await TrxOptionMethod.scanQR(context, portfolioList, resetState);
+                            // Prevent Close Scan QR With Scan
+                            if (value != null){
+                              await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value.rawContent, false, []/* widget.portList */))).then((value) async {
+                              
+                                // Update Data On Wallet Screen
+                                if (value != null){
+                                  await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+                                  // await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
+                                  resetState();
+                                }
+                              });
+                            }
                           }
                         });
                       } catch (e){

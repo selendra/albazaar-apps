@@ -110,7 +110,9 @@ class SignUpPhoneForm extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            _buildBtnSocialRow(),
+            Expanded(
+              child: _buildBtnSocialRow()
+            ),
           ],
         ),
       ),
@@ -118,19 +120,17 @@ class SignUpPhoneForm extends StatelessWidget {
   }
 
   Widget _buildBtnSocialRow() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          BtnSocial(() {
-            facebookSignIn();
-          }, AssetImage('images/facebook.jpg')),
-          SizedBox(width: 20),
-          BtnSocial(() {
-            googleSignIn();
-          }, AssetImage('images/google.jpg')),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        BtnSocial(() {
+          facebookSignIn();
+        }, AssetImage('images/facebook.jpg')),
+        SizedBox(width: 20),
+        BtnSocial(() {
+          googleSignIn();
+        }, AssetImage('images/google.jpg')),
+      ],
     );
   }
 }
