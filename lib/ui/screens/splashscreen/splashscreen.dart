@@ -66,7 +66,8 @@ class _SplashScreenState extends State<SplashScreen>
             },
           );
         } else {
-          Navigator.pushReplacementNamed(context, WelcomeView);
+          Navigator.pushReplacementNamed(context, BottomNavigationView);
+          // Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },
     );
