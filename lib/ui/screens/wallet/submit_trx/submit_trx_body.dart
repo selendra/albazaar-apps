@@ -88,25 +88,25 @@ class SubmitTrxBody extends StatelessWidget {
               children: <Widget>[
                 listInput[0],
 
-                // Container( /* Type of payment */
-                //   margin: EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
-                //   child: Material(
-                //     borderRadius: BorderRadius.circular(10),
-                //     elevation: 10.0,
-                //     shadowColor: Colors.black.withOpacity(0.7),
-                //     child:customDropDown(
-                //       scanPayM.asset != null ? scanPayM.asset : "Asset name",
-                //       scanPayM.portfolio,
-                //       scanPayM,
-                //       resetAssetsDropDown,
-                //       item
-                //     ),
-                //   )
-                // ),
+                Container( /* Type of payment */
+                  margin: EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10),
+                    elevation: 10.0,
+                    shadowColor: Colors.black.withOpacity(0.7),
+                    child:customDropDown(
+                      scanPayM.asset != null ? scanPayM.asset : "Asset name",
+                      scanPayM.portfolio,
+                      scanPayM,
+                      resetAssetsDropDown,
+                      item
+                    ),
+                  )
+                ),
 
-                // listInput[1],
+                listInput[1],
 
-                // listInput[2],
+                listInput[2],
 
                 Container(
                   margin: const EdgeInsets.all(16.0),
