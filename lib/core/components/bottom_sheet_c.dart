@@ -1,4 +1,5 @@
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
 class MyBottomSheet{
 
@@ -39,14 +40,18 @@ class MyBottomSheet{
                     subTitle: "Scan wallet",
                     icon: "sld_qr.svg",
                     action: () async {
+                      print("POrtfolio $portfolioList");
                       try {
                         await Permission.camera.request().isGranted.then((response) async {
                           print("My permission $response");
                           if (response){
-                            var value = await TrxOptionMethod.scanQR(context, portfolioList, resetState);
+                            var value = await Navigator.push(context,MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
+
+                            print("Qr Result $value");
                             // Prevent Close Scan QR With Scan
                             if (value != null){
-                              await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value.rawContent, false, []/* widget.portList */))).then((value) async {
+                              print("Push submit");
+                              await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value, false, portfolioList))).then((value) async {
                               
                                 // Update Data On Wallet Screen
                                 if (value != null){

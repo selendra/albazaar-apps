@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,49 +24,67 @@ class _SplashScreenState extends State<SplashScreen>
   ];
 
   void checkUser() {
-    //Read token
+    // Read token
     _pref.read('token').then(
       (value) async {
         if (value != null) {
-          //Fetch all listing product
-          Provider.of<ProductsProvider>(
-            context,
-            listen: false,
-          ).fetchListingProduct();
+          // Fetch all listing product
+          await GetRequest().getUserProfile().then((user) async {
+            // Check Expired Token
+            if (user.statusCode.toString() != '200'){
+              Provider.of<ProductsProvider>(
+                context,
+                listen: false,
+              ).fetchListingProduct();
 
-          //Fetch buyer order product list
-          Provider.of<SellerProvider>(
-            context,
-            listen: false,
-          ).fetchBuyerOrder();
+              //Fetch buyer order product list
+              Provider.of<SellerProvider>(
+                context,
+                listen: false,
+              ).fetchBuyerOrder();
 
-          //Check if user is login by social media
-          AuthProvider().currentUser.then(
-            (valueUser) {
-              if (valueUser != null) {
-                //split the social user name into firstname and lastname
-                var name = valueUser.displayName.split(' ');
+              //Check if user is login by social media
+              AuthProvider().currentUser.then(
+                (valueUser) {
+                  if (valueUser != null) {
+                    //split the social user name into firstname and lastname
+                    var name = valueUser.displayName.split(' ');
 
-                /*call provider with function to set profile infomation
-                of the user*/
-                Provider.of<UserProvider>(
-                  context,
-                  listen: false,
-                ).fetchSocialUserInfo(
-                  valueUser.email,
-                  name.first,
-                  name.last,
-                  valueUser.photoUrl,
-                );
-                Provider.of<UserProvider>(context, listen: false)
-                    .socialUserInfo(value);
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                validateNormalUser();
-              }
-            },
-          );
+                    /*call provider with function to set profile infomation
+                    of the user*/
+                    Provider.of<UserProvider>(
+                      context,
+                      listen: false,
+                    ).fetchSocialUserInfo(
+                      valueUser.email,
+                      name.first,
+                      name.last,
+                      valueUser.photoUrl,
+                    );
+                    Provider.of<UserProvider>(context, listen: false)
+                        .socialUserInfo(value);
+                    Navigator.pushReplacementNamed(context, BottomNavigationView);
+                  } else {
+                    validateNormalUser();
+                  }
+                },
+              );
+            } else {
+              // Expired Token And Navigate To Welcome Screen
+              print("Expired token");
+
+              var isShow = await _pref.read('isshow');
+              
+              // Clear All Local Data
+              await AppServices.clearStorage();
+
+              // Save Carousel Screen
+              await _pref.saveString('isshow', isShow);
+              Navigator.pushReplacementNamed(context, WelcomeView);
+            }
+          });
         } else {
+          print("No Token");
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },
