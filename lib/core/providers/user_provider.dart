@@ -250,6 +250,7 @@ class UserProvider with ChangeNotifier {
           } else {
             if (mBalance.data != null) mBalance.data.balance = '';
             mBalance = Balance.fromMap(responseBody);
+            print(responseBody);
 
             // Check Balance Retrieve NULL
             if (mBalance.data != null)
