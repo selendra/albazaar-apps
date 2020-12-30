@@ -52,7 +52,6 @@ class AuthProvider with ChangeNotifier {
       final auth.User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
     } catch (e) {
-      print("error $e");
       await ReuseAlertDialog()
           .successDialog(context, 'Please try again later!');
     }
@@ -262,8 +261,6 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, context) async {
-    print("Phone $phone");
-    print("Password $password");
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,

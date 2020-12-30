@@ -196,7 +196,7 @@ class UserProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         alertText = responseBody['message'];
-        fetchUserPf(value);
+        await fetchUserPf(value);
       } else {
         alertText = responseBody['error']['message'];
       }

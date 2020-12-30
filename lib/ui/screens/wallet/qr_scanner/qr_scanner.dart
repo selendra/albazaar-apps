@@ -1,3 +1,4 @@
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class QrScanner extends StatefulWidget {
@@ -14,23 +15,26 @@ class QrScanner extends StatefulWidget {
 class QrScannerState extends State<QrScanner> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
-  // QRViewController controller;
+  QRViewController controller;
 
-  // void _onQrViewCreated(QRViewController controller) {
-  //   this.controller = controller;
-  //   controller.scannedDataStream.listen((scanData) async {
-  //     controller.pauseCamera();
-  //     Navigator.pop(context, scanData);
-  //     // await Future.delayed(Duration(seconds: 2), () async {
-  //     //   _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, []/* widget.portList */)));
-
-  //     // });
-  //   });
-  // }
+  void _onQrViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) async {
+      controller.pauseCamera();
+      Navigator.pop(context, scanData);
+      // await Future.delayed(Duration(seconds: 2), () async {
+      //   _backend.mapData = await Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //           builder: (context) =>
+      //               SubmitTrx(scanData, false, [] /* widget.portList */)));
+      // });
+    });
+  }
 
   @override
-  dispose(){
-    // controller?.dispose();
+  dispose() {
+    controller?.dispose();
     super.dispose();
   }
 
@@ -47,14 +51,14 @@ class QrScannerState extends State<QrScanner> {
               Navigator.pop(context);
             },
           ),
-          // Expanded(
-          //     flex: 5,
-          //     child: QRView(
-          //       key: qrKey,
-          //       onQRViewCreated: _onQrViewCreated,
-          //       overlay: QrScannerOverlayShape(
-          //           borderColor: Colors.red, borderRadius: 10, borderWidth: 10),
-          //     )),
+          Expanded(
+              flex: 5,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: _onQrViewCreated,
+                overlay: QrScannerOverlayShape(
+                    borderColor: Colors.red, borderRadius: 10, borderWidth: 10),
+              )),
         ],
       ),
     ));

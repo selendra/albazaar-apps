@@ -3,7 +3,7 @@ platform :ios, '9.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
-ENV['SWIFT_VERSION'] = '4.2.1'
+ENV['SWIFT_VERSION'] = '4.2 '
 
 project 'Runner', {
   'Debug' => :debug,
@@ -33,11 +33,11 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  
 
-    pod 'BSImagePicker', '~> 2.10.3'
+  pod 'BSImagePicker', '~> 2.10.3'
 
-    pod 'AppAuth','~> 1.2.0'
-
+  pod 'AppAuth','~> 1.2'
 end
 
 post_install do |installer|

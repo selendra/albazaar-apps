@@ -65,6 +65,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return 
+    // MyWallet(resetState: resetState);
     // WalletChoice(onGetWallet, showAlertDialog);
     mBalance.data == null
         ? Center(
