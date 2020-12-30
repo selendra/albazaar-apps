@@ -24,7 +24,7 @@
 **/doc/api/
 **/ios/Flutter/.last_build_id
 android/key.properties
-.dart_tool/
+/.dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .flutter-plugins-dependencies~origin_dev
