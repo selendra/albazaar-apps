@@ -16,15 +16,16 @@
 
   <meta charset="UTF-8">
   <meta name="google-signin-client_id"
-    content="996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com" />
+    content="310296399145-b36d2jgvv9hsr11cosndvki8jgo15rd8.apps.googleusercontent.com" />
 
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description"
+    content="A Decentralized Marketplace that connect community of users together to trade and exchange goods and services freely, securely and fairly. Powered by Selendra Public Blockchain built with Substrates.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="selendra_marketplace_app">
+  <meta name="apple-mobile-web-app-title" content="Selendra Marketplace">
 
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
@@ -42,7 +43,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=388913888');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=1590902944');
       });
     }
   </script>
@@ -53,7 +54,7 @@
   <script defer src="./init-firebase.js"></script>
 
   <!--Facebook SDK config -->
-  <!-- <script>
+  <script>
     window.fbAsyncInit = function () {
       FB.init({
         appId: '322788065564075',
@@ -62,31 +63,10 @@
         version: 'v7.0'
       });
     };
-  </script> -->
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '322788065564075',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v9.0'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
   </script>
 
   <!-- Facebook JS CDN SDK -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
   <!-- for interop with dart through this plugin -->
   <script src="https://flutterfacebooklogin.s3.us-east-2.amazonaws.com/web_interop.js"></script>
@@ -110,7 +90,7 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-  <script src="main.dart.js?v=388913888'" type="application/javascript"></script>
+  <script src="main.dart.js?v=1590902944" type="application/javascript"></script>
 </body>
 
 </html>
