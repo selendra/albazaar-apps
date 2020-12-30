@@ -12,7 +12,7 @@ class GetRequest {
     /* Get User Profile */
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/userprofile",
+      _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile",
           headers: _backend.conceteHeader(
               "authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
@@ -132,7 +132,7 @@ class GetRequest {
   Future getAllBranches() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/get-all-branches",
+      _backend.response = await _http.get("${_sldApi.walletAPI}/get-all-branches",
           headers: _backend.conceteHeader(
               "authorization", "Bearer ${_backend.token['token']}"));
       return json.decode(_backend.response.body);
@@ -143,7 +143,7 @@ class GetRequest {
   Future<dynamic> getReceipt() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/get-receipt",
+      _backend.response = await _http.get("${_sldApi.walletAPI}/get-receipt",
           headers: _backend.conceteHeader(
               "authorization", "Bearer ${_backend.token['token']}"));
       return json.decode(_backend.response.body);
@@ -156,7 +156,7 @@ class GetRequest {
   Future<List<dynamic>> listBranches() async {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get('${_sldApi.api}/listBranches',
+      _backend.response = await _http.get('${_sldApi.walletAPI}/listBranches',
           headers: {
             HttpHeaders.authorizationHeader: "Bearer ${_backend.token['TOKEN']}"
           });

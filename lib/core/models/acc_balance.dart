@@ -4,7 +4,7 @@ class Balance {
   Data data;
 
   factory Balance.fromMap(Map<String, dynamic> json) => Balance(
-        data: Data.fromMap(json["data"]),
+        data: Data.fromMap(json),
       );
 }
 
@@ -15,14 +15,14 @@ class Data {
     this.otherassets,
   });
 
-  String timestamp;
+  String timestamp = '';
   String balance = '';
   String otherassets;
 
   factory Data.fromMap(Map<String, dynamic> json) => Data(
-        timestamp: json["timestamp"],
-        balance: json["balance"],
-        otherassets: json["otherassets"],
+        timestamp: '',
+        balance: json["token"].toString(),
+        otherassets: json["symbol"],
       );
 
   Map<String, dynamic> toMap() => {

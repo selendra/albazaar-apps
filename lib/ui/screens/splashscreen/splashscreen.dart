@@ -24,14 +24,14 @@ class _SplashScreenState extends State<SplashScreen>
   ];
 
   void checkUser() {
-    // Read token
+    //Read token
     _pref.read('token').then(
       (value) async {
         if (value != null) {
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
             // Check Expired Token
-            if (user.statusCode.toString() != '200'){
+            if (user.statusCode.toString() == '200'){
               Provider.of<ProductsProvider>(
                 context,
                 listen: false,
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
               ).fetchBuyerOrder();
 
               //Check if user is login by social media
-              AuthProvider().currentUser.then(
+              await AuthProvider().currentUser.then(
                 (valueUser) {
                   if (valueUser != null) {
                     //split the social user name into firstname and lastname
@@ -71,8 +71,6 @@ class _SplashScreenState extends State<SplashScreen>
               );
             } else {
               // Expired Token And Navigate To Welcome Screen
-              print("Expired token");
-
               var isShow = await _pref.read('isshow');
               
               // Clear All Local Data
@@ -84,7 +82,6 @@ class _SplashScreenState extends State<SplashScreen>
             }
           });
         } else {
-          print("No Token");
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },
@@ -99,7 +96,6 @@ class _SplashScreenState extends State<SplashScreen>
           Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
           Navigator.pushReplacementNamed(context, BottomNavigationView);
         } else {
-          _pref.clear('token');
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },

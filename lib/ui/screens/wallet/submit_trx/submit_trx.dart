@@ -27,7 +27,6 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   @override
   void initState() {
-    print("Hello submit");
     _scanPayM.asset = "SEL";
     // AppServices.noInternetConnection(_scanPayM.globalKey); temp
     _scanPayM.controlReceiverAddress.text = widget._walletKey;
