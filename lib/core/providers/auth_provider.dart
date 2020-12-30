@@ -21,7 +21,8 @@ class AuthProvider with ChangeNotifier {
   Future<String> signInWithGoogle(BuildContext context) async {
     String googleToken;
     try {
-      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
 
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -33,7 +34,8 @@ class AuthProvider with ChangeNotifier {
 
       googleToken = googleSignInAuthentication.idToken;
 
-      final auth.UserCredential authResult = await _auth.signInWithCredential(credential);
+      final auth.UserCredential authResult =
+          await _auth.signInWithCredential(credential);
       final auth.User user = authResult.user;
 
       // Checking if email and name is null
@@ -44,7 +46,7 @@ class AuthProvider with ChangeNotifier {
       var name = user.displayName.split(' ');
 
       Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
-          user.email, name.first, name.last, user.photoUrl);
+          user.email, name.first, name.last, user.photoURL);
       mBalance = Balance();
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
@@ -70,8 +72,8 @@ class AuthProvider with ChangeNotifier {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        final AuthCredential credential = FacebookAuthProvider.credential(
-            facebookAccessToken.token);
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(facebookAccessToken.token);
         fbToken = facebookAccessToken.token;
 
         final auth.User user =
@@ -89,7 +91,7 @@ class AuthProvider with ChangeNotifier {
           } else {
             Provider.of<UserProvider>(context, listen: false)
                 .fetchSocialUserInfo(
-                    user.email, name.first, name.last, user.photoUrl);
+                    user.email, name.first, name.last, user.photoURL);
           }
         });
 

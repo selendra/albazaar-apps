@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
             // Check Expired Token
-            if (user.statusCode.toString() == '200'){
+            if (user.statusCode.toString() == '200') {
               Provider.of<ProductsProvider>(
                 context,
                 listen: false,
@@ -59,11 +59,12 @@ class _SplashScreenState extends State<SplashScreen>
                       valueUser.email,
                       name.first,
                       name.last,
-                      valueUser.photoUrl,
+                      valueUser.photoURL,
                     );
                     Provider.of<UserProvider>(context, listen: false)
                         .socialUserInfo(value);
-                    Navigator.pushReplacementNamed(context, BottomNavigationView);
+                    Navigator.pushReplacementNamed(
+                        context, BottomNavigationView);
                   } else {
                     validateNormalUser();
                   }
@@ -72,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen>
             } else {
               // Expired Token And Navigate To Welcome Screen
               var isShow = await _pref.read('isshow');
-              
+
               // Clear All Local Data
               await AppServices.clearStorage();
 
