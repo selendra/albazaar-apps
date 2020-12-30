@@ -20,7 +20,7 @@ class _WalletChoiceState extends State<WalletChoice> {
   Future checkFirstSeen() async {
     SharedPreferences isSeen = await SharedPreferences.getInstance();
     bool _seen = (isSeen.getBool('seen') ?? false);
-    if (_seen != true && mBalance.token == null) {
+    if (_seen != true && mBalance.data == null) {
       isSeen.setBool('seen', true);
       alertText = 'Look like you don\'t have a wallet yet!';
       widget.showAlertDialog(context, alertText);
