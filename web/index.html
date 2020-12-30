@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    Fore more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta name="google-signin-client_id"
+    content="310296399145-b36d2jgvv9hsr11cosndvki8jgo15rd8.apps.googleusercontent.com" />
+
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description"
+    content="A Decentralized Marketplace that connect community of users together to trade and exchange goods and services freely, securely and fairly. Powered by Selendra Public Blockchain built with Substrates.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Selendra Marketplace">
+
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="icon_launcher.png" />
+
+  <title>selendra_marketplace_app</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body id="app-container">
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+  </script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="/__/firebase/8.2.1/firebase-auth.js"></script>
+  <script defer src="./init-firebase.js"></script>
+
+  <!--Facebook SDK config -->
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '322788065564075',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v7.0'
+      });
+    };
+  </script>
+
+  <!-- Facebook JS CDN SDK -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <!-- for interop with dart through this plugin -->
+  <script src="https://flutterfacebooklogin.s3.us-east-2.amazonaws.com/web_interop.js"></script>
+
+
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDpnVkn76xy8cvP0cojFzxPgGBv2DHpkoA",
+      authDomain: "selendra-marketplace.firebaseapp.com",
+      databaseURL: "https://selendra-marketplace.firebaseio.com",
+      projectId: "selendra-marketplace",
+      storageBucket: "selendra-marketplace.appspot.com",
+      messagingSenderId: "996789134951",
+      appId: "1:996789134951:web:24956ffd470a9d89c996c2"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+</body>
+
+</html>
