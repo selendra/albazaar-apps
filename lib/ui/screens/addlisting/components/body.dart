@@ -33,14 +33,14 @@ class _BodyState extends State<Body> {
   // }
 
   void onChanged(String value, AddProductProvider addProductProvider) {
-    print(value);
-    print(addProductProvider.addProduct.imageUrl);
-    print(addProductProvider.addProduct.productName.text);
-    print(addProductProvider.addProduct.hintCategory);
-    print(addProductProvider.addProduct.hintWeight);
-    print(addProductProvider.addProduct.price.text);
-    print(addProductProvider.addProduct.hintPaymentOpt);
-    print(addProductProvider.addProduct.description.text);
+    // print(value);
+    // print(addProductProvider.addProduct.imageUrl);
+    // print(addProductProvider.addProduct.productName.text);
+    // print(addProductProvider.addProduct.hintCategory);
+    // print(addProductProvider.addProduct.hintWeight);
+    // print(addProductProvider.addProduct.price.text);
+    // print(addProductProvider.addProduct.hintPaymentOpt);
+    // print(addProductProvider.addProduct.description.text);
 
     if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
       addProductProvider.addProduct.productName.text.isNotEmpty &&
@@ -51,13 +51,11 @@ class _BodyState extends State<Body> {
       addProductProvider.addProduct.description.text.isNotEmpty
     ) enableButton(true);
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
-    print("My button enable ${_addProductProvider.addProduct.enable1}");
   }
 
   void ddOnChanged(String value) {}
 
   void enableButton(bool enable) {
-    print("Button ${_addProductProvider.addProduct.enable1}");
     setState(() {
       _addProductProvider.addProduct.enable1 = enable;
     });
@@ -82,7 +80,6 @@ class _BodyState extends State<Body> {
 
     try {
       await Permission.camera.request().isGranted.then((value) async {
-        print(value);
         if (value){
           _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
             maxImages: 8,
@@ -97,8 +94,6 @@ class _BodyState extends State<Body> {
               selectCircleStrokeColor: "#000000",
             ),
           );
-
-          print(_addProductProvider.addProduct.images);
 
           if (_addProductProvider.addProduct.images.isNotEmpty){
             await imageAssetToFile();
@@ -155,7 +150,6 @@ class _BodyState extends State<Body> {
         });
       }
     } catch (e) {
-      print(e);
       await Components.dialog(context, Text(e.toString(), textAlign: TextAlign.center,), Text("Upload Image failed"));
     }
   } 
@@ -339,6 +333,9 @@ class _BodyState extends State<Body> {
                           }
                         }
                         _addProductProvider.addProduct.hintCategory = value;
+
+                        // Validate After Choose Category
+                        onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
                       });
                     },
                   ),
@@ -368,6 +365,9 @@ class _BodyState extends State<Body> {
                           }
                         }
                         _addProductProvider.addProduct.hintWeight = value;
+
+                        // Validate After Choose Weight
+                        onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
                       });
                     },
                   ),

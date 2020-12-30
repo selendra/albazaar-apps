@@ -40,17 +40,13 @@ class MyBottomSheet{
                     subTitle: "Scan wallet",
                     icon: "sld_qr.svg",
                     action: () async {
-                      print("POrtfolio $portfolioList");
                       try {
                         await Permission.camera.request().isGranted.then((response) async {
-                          print("My permission $response");
                           if (response){
                             var value = await Navigator.push(context,MaterialPageRoute(builder: (context) => QrScanner(portList: [])));
 
-                            print("Qr Result $value");
                             // Prevent Close Scan QR With Scan
                             if (value != null){
-                              print("Push submit");
                               await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(value, false, portfolioList))).then((value) async {
                               
                                 // Update Data On Wallet Screen

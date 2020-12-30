@@ -83,7 +83,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onApiSignInByPhone(String _phone, String _password) async {
-    print("Hello phone");
     setState(() {
       _isLoading = true;
     });

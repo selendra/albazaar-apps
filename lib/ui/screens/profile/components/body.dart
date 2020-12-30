@@ -86,7 +86,7 @@ class _BodyState extends State<Body> {
                         .translate('profile_photo')),
                     trailing: Consumer<UserProvider>(
                       builder: (context, value, child) => CircleAvatar(
-                        backgroundImage: value.mUser.profileImg != null
+                        backgroundImage: value.mUser.profileImg != ''
                             ? NetworkImage(value.mUser.profileImg)
                             : AssetImage('images/avatar.png'),
                       ),

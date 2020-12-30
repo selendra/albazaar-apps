@@ -51,42 +51,42 @@ class FillSellerBody extends StatelessWidget {
               // onSaved: (value) => _phoneNumber = value,
             ),
 
-            SizedBox(
-              height: 10,
-            ),
-            ReuseTextField(
-              controller: addProduct.address,
-              labelText: _lang.translate('street_address'),
-              // onSaved: (newValue) => _address = newValue,
-            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // ReuseTextField(
+            //   controller: addProduct.address,
+            //   labelText: _lang.translate('street_address'),
+            //   // onSaved: (newValue) => _address = newValue,
+            // ),
 
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  child: ReuseTextField(
-                    controller: addProduct.district,
-                    labelText: _lang.translate('district'),
-                    onChanged: onChanged,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.3,
-                  child: ReuseTextField(
-                    controller: addProduct.city,
-                    labelText: _lang.translate('city_province'),
-                    textInputAction: TextInputAction.done,
-                    onChanged: onChanged,
-                  ),
-                ),
-              ],
-            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // Row(
+            //   children: [
+            //     Container(
+            //       width: MediaQuery.of(context).size.width / 2.3,
+            //       child: ReuseTextField(
+            //         controller: addProduct.district,
+            //         labelText: _lang.translate('district'),
+            //         onChanged: onChanged,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: 10.0,
+            //     ),
+            //     Container(
+            //       width: MediaQuery.of(context).size.width / 2.3,
+            //       child: ReuseTextField(
+            //         controller: addProduct.city,
+            //         labelText: _lang.translate('city_province'),
+            //         textInputAction: TextInputAction.done,
+            //         onChanged: onChanged,
+            //       ),
+            //     ),
+            //   ],
+            // ),
 
             SizedBox(
               height: 10,

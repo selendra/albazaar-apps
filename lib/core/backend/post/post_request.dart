@@ -371,8 +371,6 @@ class PostRequest {
   // Upload Fil Image To Get Url Image
   Future<String> upLoadImage(File _image, String endpoint) async {
 
-    print("Image file $_image");
-
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,

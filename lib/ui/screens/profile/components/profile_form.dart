@@ -76,17 +76,17 @@ class _ProfileFormState extends State<ProfileForm> {
         place.locality +
         ', ' +
         place.country;
-    print('Admnistrative:' + placemark[0].administrativeArea);
-    print('Country:' + placemark[0].country);
-    print('Locality:' + placemark[0].locality);
-    print('Name:' + placemark[0].name);
-    print(placemark[0].position);
-    print('Postal code:' + placemark[0].postalCode);
+    // print('Admnistrative:' + placemark[0].administrativeArea);
+    // print('Country:' + placemark[0].country);
+    // print('Locality:' + placemark[0].locality);
+    // print('Name:' + placemark[0].name);
+    // print(placemark[0].position);
+    // print('Postal code:' + placemark[0].postalCode);
 
-    print('SubAdministrative: ' + placemark[0].subAdministrativeArea);
-    print('SubLocality: ' + placemark[0].subLocality);
-    print('Throughfare: ' + placemark[0].thoroughfare);
-    print('SubThoroughfare: ' + placemark[0].subThoroughfare);
+    // print('SubAdministrative: ' + placemark[0].subAdministrativeArea);
+    // print('SubLocality: ' + placemark[0].subLocality);
+    // print('Throughfare: ' + placemark[0].thoroughfare);
+    // print('SubThoroughfare: ' + placemark[0].subThoroughfare);
     final data = Provider.of<UserProvider>(context, listen: false);
 
     if (_location != null) {
@@ -237,8 +237,6 @@ class _ProfileFormState extends State<ProfileForm> {
                                     ),
                                     onPressed: () {
                                       _getCurrentLocation();
-
-                                      print('my current address');
                                     },
                                     // color: kDefaultColor,
                                   ),
@@ -273,7 +271,7 @@ class _ProfileFormState extends State<ProfileForm> {
                           _midName ?? '',
                           _lastName,
                           _mGender,
-                          widget._imageUrl,
+                          widget._imageUrl ?? '',
                           value.mUser.address ?? '',
                         )
                             .then(
