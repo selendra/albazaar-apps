@@ -51,7 +51,7 @@ class MyWallet extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              '{mBalance.data.balance}',
+                              '${mBalance.data.balance}',
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: TextStyle(
@@ -80,7 +80,7 @@ class MyWallet extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       // List All Asset
-                      // WalletList(),
+                      WalletList(),
 
                       SizedBox(
                         height: 10,
