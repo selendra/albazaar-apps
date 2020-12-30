@@ -73,7 +73,7 @@ class _BodyState extends State<Body> {
     var history = Provider.of<TrxHistoryProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     mBalance.token = 'token';
-    return Text(mBalance.token);
+    return Container();
     // WalletChoice(onGetWallet, showAlertDialog);
     // mBalance.token == null
     //     ? Center(
