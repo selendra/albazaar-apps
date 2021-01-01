@@ -1,15 +1,21 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/root_page.dart';
 
 //Generate route for navigation
 Route<dynamic> generateRoute(RouteSettings settings) {
-  final args = settings.arguments as String;
+  //final args = settings.arguments as String;
   switch (settings.name) {
     case SplashScreenView:
       return RouteAnimation(
         enterPage: SplashScreen(),
         routeName: SplashScreenView,
+      );
+      break;
+    case RootPageView:
+      return RouteAnimation(
+        enterPage: RootPage(),
       );
       break;
     case WelcomeView:
@@ -20,7 +26,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case DetailView:
       return MaterialPageRoute(
         builder: (context) => DetailScreen(),
-        // settings: RouteSettings(name: '$DetailView/$args'),
+        //settings: RouteSettings(name: '$DetailView/$args'),
       );
     case CartView:
       return RouteAnimation(

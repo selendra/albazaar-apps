@@ -7,6 +7,8 @@ export 'package:multi_image_picker/multi_image_picker.dart';
 
 export 'package:provider/provider.dart';
 
+export 'core/enums/auth_status.dart';
+
 // Standart Library
 export 'package:flutter/services.dart';
 export 'dart:async';

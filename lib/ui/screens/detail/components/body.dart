@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
     final loadedData = Provider.of<ProductsProvider>(
       context,
     ).findById(productId);
-
+    var height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -22,45 +22,53 @@ class Body extends StatelessWidget {
               iconTheme: IconThemeData(
                 color: kDefaultColor,
               ),
-              leading: CircleShapeBtn(
-                  () => Navigator.pop(context), Icons.arrow_back),
+              leading: Responsive.isDesktop(context)
+                  ? Container()
+                  : CircleShapeBtn(
+                      () => Navigator.pop(context), Icons.arrow_back),
               actions: [
-                Consumer<CartProvider>(
-                  builder: (context, value, child) => Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(0.8),
-                      child: value.items.length == 0
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.shopping_cart,
-                                color: kDefaultColor,
-                              ),
-                              onPressed: () {
-                                Navigator.pushNamed(context, CartView);
-                              })
-                          : Badge(
-                              position: BadgePosition.topEnd(top: 0, end: 3),
-                              animationDuration: Duration(milliseconds: 300),
-                              animationType: BadgeAnimationType.scale,
-                              badgeContent: Text(
-                                value.items.length.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              child: IconButton(
-                                  icon: Icon(
-                                    Icons.shopping_cart,
-                                    color: kDefaultColor,
+                Responsive.isDesktop(context)
+                    ? Container()
+                    : Consumer<CartProvider>(
+                        builder: (context, value, child) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white.withOpacity(0.8),
+                            child: value.items.length == 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.shopping_cart,
+                                      color: kDefaultColor,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, CartView);
+                                    })
+                                : Badge(
+                                    position:
+                                        BadgePosition.topEnd(top: 0, end: 3),
+                                    animationDuration:
+                                        Duration(milliseconds: 300),
+                                    animationType: BadgeAnimationType.scale,
+                                    badgeContent: Text(
+                                      value.items.length.toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    child: IconButton(
+                                        icon: Icon(
+                                          Icons.shopping_cart,
+                                          color: kDefaultColor,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, CartView);
+                                        }),
                                   ),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, CartView);
-                                  }),
-                            ),
-                    ),
-                  ),
-                ),
+                          ),
+                        ),
+                      ),
               ],
-              expandedHeight: MediaQuery.of(context).size.height * 0.5,
+              expandedHeight:
+                  Responsive.isDesktop(context) ? height * 0.6 : height * 0.5,
               floating: true,
               pinned: true,
               primary: true,

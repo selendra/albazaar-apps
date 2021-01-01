@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/services/root_page.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
@@ -117,13 +118,13 @@ class _SelendraAppState extends State<SelendraApp> {
           themeMode: data ? ThemeMode.dark : ThemeMode.light,
 
           onGenerateRoute: router.generateRoute,
-          initialRoute: SignInView,
+          initialRoute: SplashScreenView,
 
           routes: {
             DetailView: (context) => DetailScreen(),
             SellerInfoView: (context) => SellerConfirm(),
           },
-          home: SignIn(), //SplashScreen(),
+          home: SplashScreen(), //SignIn(), //SplashScreen(),
           navigatorKey: navigationKey,
         );
       }),

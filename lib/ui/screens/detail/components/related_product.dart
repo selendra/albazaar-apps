@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/ui/reuse_widget/item_card_desktop.dart';
 
 class RelatedProduct extends StatelessWidget {
   @override
@@ -30,13 +31,19 @@ class RelatedProduct extends StatelessWidget {
               itemCount: _products.length,
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: Responsive.isDesktop(context) ? 4 : 2,
                 crossAxisSpacing: 10,
-                childAspectRatio: 0.75,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1,
               ),
               itemBuilder: (context, index) => ChangeNotifierProvider.value(
                 value: _products[index],
-                child: ReuseItemCard(),
+                child: Card(
+                  shape: kDefaultShape,
+                  child: Responsive.isDesktop(context)
+                      ? ItemCardDesktop()
+                      : ItemCard(),
+                ),
               ),
             ),
           ),

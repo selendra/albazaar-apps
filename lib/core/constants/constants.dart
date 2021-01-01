@@ -66,6 +66,7 @@ const String MyQrView = '/myqr';
 const String TransactionView = '/transaction';
 const String ResetChoiceView = '/resetchoice';
 const String SellerInfoView = '/sellerinfo';
+const String RootPageView = '/rootpage';
 
 //const String CategoryView = '/category';
 //const String ResetView = 'reset';
