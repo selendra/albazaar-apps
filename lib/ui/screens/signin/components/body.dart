@@ -179,308 +179,297 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           height: MediaQuery.of(context).size.height * 0.95,
           width: MediaQuery.of(context).size.width,
           child: Responsive(
-            mobile: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'images/logo.png',
-                            width: 150,
-                            height: 150,
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Container(
-                            width: 400,
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'A Decentralized Marketplace that connect community of users together.',
-                              style: TextStyle(
-                                fontSize: 24,
-                                //letterSpacing: 0.7,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: 400,
-                          margin: const EdgeInsets.all(20),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              SizedBox(
-                                height: 20,
-                              ),
-                              ReuseAuthTab(
-                                _tabController,
-                                _lang.translate('phone'),
-                                _lang.translate('email'),
-                              ),
-                              // tabs(context),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: PageView(
-                                  controller: _pageController,
-                                  onPageChanged: (index) {
-                                    if (isPageCanChanged) {
-                                      onPageChange(index);
-                                    }
-                                  },
-                                  children: [
-                                    ConstrainedBox(
-                                      constraints:
-                                          const BoxConstraints.expand(),
-                                      child: SingleChildScrollView(
-                                        child: Card(
-                                          //semanticContainer: ,
-                                          shape: kDefaultShape,
-                                          child: Container(
-                                            //width: 50,
-                                            // width: double.infinity,
-                                            margin: EdgeInsets.all(20.0),
-                                            child: SignInPhoneForm(
-                                              onApiSignInByPhone,
-                                              onFacebookSignIn,
-                                              onGoogleSignIn,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    ConstrainedBox(
-                                      constraints:
-                                          const BoxConstraints.expand(),
-                                      child: SingleChildScrollView(
-                                        child: Card(
-                                          shape: kDefaultShape,
-                                          child: Container(
-                                            margin: const EdgeInsets.all(20.0),
-                                            child: SignInEmailForm(
-                                              onApiSignInByEmail,
-                                              onFacebookSignIn,
-                                              onGoogleSignIn,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            desktop: SingleChildScrollView(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mobile: Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView(
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.15,
-                        ),
-                        Image.asset(
+                        Image.network(
                           'images/logo.png',
-                          width: 200,
-                          height: 200,
+                          width: 150,
+                          height: 150,
                         ),
                         SizedBox(
                           height: 40,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            // color: Colors.red,
-                            width: 400,
-                            child: Text(
-                              'A Decentralized Marketplace that connect community of users together.',
-                              style: TextStyle(
-                                fontSize: 24,
-                                letterSpacing: 0.7,
-                              ),
-                              textAlign: TextAlign.justify,
+                        Container(
+                          width: 400,
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'A Decentralized Marketplace that connect community of users together.',
+                            style: TextStyle(
+                              fontSize: 24,
+                              //letterSpacing: 0.7,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height,
-                      width: 400,
-
-                      //color: kDefaultColor,
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Column(
-                        //mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          // Container(
-                          //     child: Image.asset(
-                          //   'images/logo.png',
-                          //   height: 80,
-                          //   width: 80,
-                          // )),
-                          SizedBox(
-                            height: 80,
-                          ),
-                          ReuseAuthTab(
-                            _tabController,
-                            _lang.translate('phone'),
-                            _lang.translate('email'),
-                          ),
-                          // tabs(context),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: PageView(
-                              controller: _pageController,
-                              onPageChanged: (index) {
-                                if (isPageCanChanged) {
-                                  onPageChange(index);
-                                }
-                              },
-                              children: [
-                                ConstrainedBox(
-                                  constraints: const BoxConstraints.expand(),
-                                  child: Responsive(
-                                    mobile: SingleChildScrollView(
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 560,
+                        width: 400,
+                        margin: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ReuseAuthTab(
+                              _tabController,
+                              _lang.translate('phone'),
+                              _lang.translate('email'),
+                            ),
+                            // tabs(context),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: PageView(
+                                controller: _pageController,
+                                onPageChanged: (index) {
+                                  if (isPageCanChanged) {
+                                    onPageChange(index);
+                                  }
+                                },
+                                children: [
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints.expand(),
+                                    child: Card(
+                                      //semanticContainer: ,
+                                      shape: kDefaultShape,
+                                      child: Container(
+                                        //width: 50,
+                                        // width: double.infinity,
+                                        margin: EdgeInsets.all(20.0),
+                                        child: SignInPhoneForm(
+                                          onApiSignInByPhone,
+                                          onFacebookSignIn,
+                                          onGoogleSignIn,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints.expand(),
+                                    child: SingleChildScrollView(
                                       child: Card(
                                         shape: kDefaultShape,
                                         child: Container(
-                                          margin: EdgeInsets.all(20.0),
-                                          child: SignInPhoneForm(
-                                            onApiSignInByPhone,
+                                          margin: const EdgeInsets.all(20.0),
+                                          child: SignInEmailForm(
+                                            onApiSignInByEmail,
                                             onFacebookSignIn,
                                             onGoogleSignIn,
                                           ),
                                         ),
                                       ),
                                     ),
-                                    desktop: SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Card(
-                                        semanticContainer: true,
-                                        shape: kDefaultShape,
-                                        margin: const EdgeInsets.all(20.0),
-                                        child: SignInPhoneDesktop(
-                                          onApiSignInByPhone,
-                                          onFacebookSignIn,
-                                          onGoogleSignIn,
-                                          _mouseHover,
-                                          _hovering,
-                                        ),
-                                      ),
-                                    ),
                                   ),
-                                ),
-                                ConstrainedBox(
-                                  constraints: const BoxConstraints.expand(),
-                                  child: Responsive(
-                                    mobile: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.47,
-                                      child: SingleChildScrollView(
-                                        child: Card(
-                                          shape: kDefaultShape,
-                                          child: Container(
-                                            margin: EdgeInsets.all(20.0),
-                                            child: SignInEmailForm(
-                                              onApiSignInByEmail,
-                                              onFacebookSignIn,
-                                              onGoogleSignIn,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    desktop: SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Card(
-                                        semanticContainer: true,
-                                        shape: kDefaultShape,
-                                        margin: const EdgeInsets.all(20.0),
-                                        child: SignInEmailDesktop(
-                                          onApiSignInByEmail,
-                                          onFacebookSignIn,
-                                          onGoogleSignIn,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                // ConstrainedBox(
-                                //   constraints: const BoxConstraints.expand(),
-                                //   child: Responsive(
-                                //     mobile: SingleChildScrollView(
-                                //       child: Card(
-                                //         shape: kDefaultShape,
-                                //         child: SignInEmailForm(
-                                //           onApiSignInByEmail,
-                                //           onFacebookSignIn,
-                                //           onGoogleSignIn,
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     desktop: SizedBox(
-                                //       width:
-                                //           MediaQuery.of(context).size.width / 4,
-                                //       child: Card(
-                                //         semanticContainer: true,
-                                //         shape: kDefaultShape,
-                                //         child: Container(
-                                //           margin: const EdgeInsets.all(20.0),
-                                //           child: SignInEmailDesktop(
-                                //             onApiSignInByEmail,
-                                //             onFacebookSignIn,
-                                //             onGoogleSignIn,
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
+            desktop: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.23,
+                      ),
+                      Image.asset(
+                        'images/logo.png',
+                        width: 200,
+                        height: 200,
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          // color: Colors.red,
+                          width: 400,
+                          child: Text(
+                            'A Decentralized Marketplace that connect community of users together.',
+                            style: TextStyle(
+                              fontSize: 24,
+                              letterSpacing: 0.7,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    // height: MediaQuery.of(context).size.height,
+                    width: 400,
+                    height: 650,
+
+                    //color: kDefaultColor,
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      //mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        // Container(
+                        //     child: Image.asset(
+                        //   'images/logo.png',
+                        //   height: 80,
+                        //   width: 80,
+                        // )),
+                        SizedBox(
+                          height: 80,
+                        ),
+                        ReuseAuthTab(
+                          _tabController,
+                          _lang.translate('phone'),
+                          _lang.translate('email'),
+                        ),
+                        // tabs(context),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: PageView(
+                            controller: _pageController,
+                            onPageChanged: (index) {
+                              if (isPageCanChanged) {
+                                onPageChange(index);
+                              }
+                            },
+                            children: [
+                              ConstrainedBox(
+                                constraints: const BoxConstraints.expand(),
+                                child: Responsive(
+                                  mobile: Card(
+                                    shape: kDefaultShape,
+                                    child: Container(
+                                      margin: EdgeInsets.all(20.0),
+                                      child: SignInPhoneForm(
+                                        onApiSignInByPhone,
+                                        onFacebookSignIn,
+                                        onGoogleSignIn,
+                                      ),
+                                    ),
+                                  ),
+                                  desktop: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      shape: kDefaultShape,
+                                      margin: const EdgeInsets.all(20.0),
+                                      child: SignInPhoneDesktop(
+                                        onApiSignInByPhone,
+                                        onFacebookSignIn,
+                                        onGoogleSignIn,
+                                        _mouseHover,
+                                        _hovering,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints.expand(),
+                                child: Responsive(
+                                  mobile: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.47,
+                                    child: SingleChildScrollView(
+                                      child: Card(
+                                        shape: kDefaultShape,
+                                        child: Container(
+                                          margin: EdgeInsets.all(20.0),
+                                          child: SignInEmailForm(
+                                            onApiSignInByEmail,
+                                            onFacebookSignIn,
+                                            onGoogleSignIn,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  desktop: SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Card(
+                                      semanticContainer: true,
+                                      shape: kDefaultShape,
+                                      margin: const EdgeInsets.all(20.0),
+                                      child: SignInEmailDesktop(
+                                        onApiSignInByEmail,
+                                        onFacebookSignIn,
+                                        onGoogleSignIn,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              // ConstrainedBox(
+                              //   constraints: const BoxConstraints.expand(),
+                              //   child: Responsive(
+                              //     mobile: SingleChildScrollView(
+                              //       child: Card(
+                              //         shape: kDefaultShape,
+                              //         child: SignInEmailForm(
+                              //           onApiSignInByEmail,
+                              //           onFacebookSignIn,
+                              //           onGoogleSignIn,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     desktop: SizedBox(
+                              //       width:
+                              //           MediaQuery.of(context).size.width / 4,
+                              //       child: Card(
+                              //         semanticContainer: true,
+                              //         shape: kDefaultShape,
+                              //         child: Container(
+                              //           margin: const EdgeInsets.all(20.0),
+                              //           child: SignInEmailDesktop(
+                              //             onApiSignInByEmail,
+                              //             onFacebookSignIn,
+                              //             onGoogleSignIn,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

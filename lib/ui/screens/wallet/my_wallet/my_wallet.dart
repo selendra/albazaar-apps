@@ -268,112 +268,128 @@ class WalletMobile extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        child: ListView.builder(
-                          itemCount: history.length,
-                          itemBuilder: (context, i) => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  await Components.dialog(
-                                    context,
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        ItemList(
-                                            title: "Id",
-                                            trailing: history[i].id),
-                                        ItemList(
-                                          title: "Created At",
-                                          trailing:
-                                              AppUtils.timeStampToDateTime(
-                                                  history[i].createdAt),
-                                        ),
-                                        ItemList(
-                                            title: "Sender",
-                                            trailing: history[i].sender),
-                                        ItemList(
-                                            title: "Destination",
-                                            trailing: history[i].destination),
-                                        ItemList(
-                                            title: "Amount",
-                                            trailing:
-                                                history[i].amount.toString()),
-                                        ItemList(
-                                            title: "Fee",
-                                            trailing:
-                                                history[i].fee.toString()),
-                                        ItemList(
-                                            title: "Memo",
-                                            trailing: history[i].memo),
-                                      ],
-                                    ),
-                                    Text(
-                                      "Transaction history",
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  //margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
-                                  height: 60.0,
-                                  color: Colors.white,
-                                  child: ListTile(
-                                    trailing: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          AppUtils.timeStampToDateTime(
-                                              history[i].createdAt),
-                                          style: TextStyle(fontSize: 10.0),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        userWallet == history[i].destination
-                                            ? Text(
-                                                '+ ${history[i].amount} SEL',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.green,
-                                                  fontSize: 18.0,
-                                                ),
-                                              )
-                                            : Text(
-                                                '- ${history[i].amount} SEL',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.red,
-                                                  fontSize: 18.0,
-                                                ),
+                        child: history.isEmpty
+                            ? Center(
+                                child: SvgPicture.asset(
+                                  'images/undraw_wallet.svg',
+                                  height: 200,
+                                  width: 200,
+                                  placeholderBuilder: (context) => Center(),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: history.length,
+                                itemBuilder: (context, i) => Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await Components.dialog(
+                                          context,
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              ItemList(
+                                                  title: "Id",
+                                                  trailing: history[i].id),
+                                              ItemList(
+                                                title: "Created At",
+                                                trailing: AppUtils
+                                                    .timeStampToDateTime(
+                                                        history[i].createdAt),
                                               ),
-                                      ],
-                                    ),
-                                    leading: Image.asset(
-                                        'images/icon_launcher.png',
-                                        width: 30,
-                                        height: 30),
-                                    title: Text(
-                                      userWallet == history[i].destination
-                                          ? 'Recieved'
-                                          : 'Sent',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 18.0,
+                                              ItemList(
+                                                  title: "Sender",
+                                                  trailing: history[i].sender),
+                                              ItemList(
+                                                  title: "Destination",
+                                                  trailing:
+                                                      history[i].destination),
+                                              ItemList(
+                                                  title: "Amount",
+                                                  trailing: history[i]
+                                                      .amount
+                                                      .toString()),
+                                              ItemList(
+                                                  title: "Fee",
+                                                  trailing: history[i]
+                                                      .fee
+                                                      .toString()),
+                                              ItemList(
+                                                  title: "Memo",
+                                                  trailing: history[i].memo),
+                                            ],
+                                          ),
+                                          Text(
+                                            "Transaction history",
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        //margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 0.0),
+                                        height: 60.0,
+                                        color: Colors.white,
+                                        child: ListTile(
+                                          trailing: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                AppUtils.timeStampToDateTime(
+                                                    history[i].createdAt),
+                                                style:
+                                                    TextStyle(fontSize: 10.0),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              userWallet ==
+                                                      history[i].destination
+                                                  ? Text(
+                                                      '+ ${history[i].amount} SEL',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        color: Colors.green,
+                                                        fontSize: 18.0,
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      '- ${history[i].amount} SEL',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        color: Colors.red,
+                                                        fontSize: 18.0,
+                                                      ),
+                                                    ),
+                                            ],
+                                          ),
+                                          leading: Image.asset(
+                                              'images/icon_launcher.png',
+                                              width: 30,
+                                              height: 30),
+                                          title: Text(
+                                            userWallet == history[i].destination
+                                                ? 'Recieved'
+                                                : 'Sent',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
+                                    Divider(
+                                      height: 4.0,
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Divider(
-                                height: 4.0,
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
                     ),
                   ],

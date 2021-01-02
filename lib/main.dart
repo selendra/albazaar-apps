@@ -118,7 +118,7 @@ class _SelendraAppState extends State<SelendraApp> {
           themeMode: data ? ThemeMode.dark : ThemeMode.light,
 
           onGenerateRoute: router.generateRoute,
-          initialRoute: SplashScreenView,
+          initialRoute: '/',
 
           routes: {
             DetailView: (context) => DetailScreen(),

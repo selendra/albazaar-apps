@@ -227,7 +227,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           child: Responsive(
             mobile: Container(
               height: MediaQuery.of(context).size.height,
-              child: Column(
+              child: ListView(
                 children: [
                   Container(
                     child: Column(
@@ -254,71 +254,69 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height,
-                        width: 400,
-                        margin: const EdgeInsets.all(20),
-                        // padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 40,
-                            ),
-                            ReuseAuthTab(
-                              _tabController,
-                              _lang.translate('phone'),
-                              _lang.translate('email'),
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: PageView(
-                                controller: _pageController,
-                                onPageChanged: (index) {
-                                  onPageChange(index);
-                                },
-                                children: [
-                                  ConstrainedBox(
-                                    constraints: const BoxConstraints.expand(),
-                                    child: Card(
-                                      shape: kDefaultShape,
-                                      child: SingleChildScrollView(
-                                        child: Container(
-                                          margin: const EdgeInsets.all(20.0),
-                                          child: SignUpPhoneForm(
-                                            onSignUpWithPhone,
-                                            onFacebookSignIn,
-                                            onGoogleSignIn,
-                                          ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 600,
+                      width: 400,
+                      margin: const EdgeInsets.all(20),
+                      // padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 40,
+                          ),
+                          ReuseAuthTab(
+                            _tabController,
+                            _lang.translate('phone'),
+                            _lang.translate('email'),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: PageView(
+                              controller: _pageController,
+                              onPageChanged: (index) {
+                                onPageChange(index);
+                              },
+                              children: [
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints.expand(),
+                                  child: Card(
+                                    shape: kDefaultShape,
+                                    child: SingleChildScrollView(
+                                      child: Container(
+                                        margin: const EdgeInsets.all(20.0),
+                                        child: SignUpPhoneForm(
+                                          onSignUpWithPhone,
+                                          onFacebookSignIn,
+                                          onGoogleSignIn,
                                         ),
                                       ),
                                     ),
                                   ),
-                                  ConstrainedBox(
-                                    constraints: const BoxConstraints.expand(),
-                                    child: Card(
-                                      child: SingleChildScrollView(
-                                        child: Container(
-                                          margin: const EdgeInsets.all(20.0),
-                                          child: SignUpEmailForm(
-                                            onSignUpByEmail,
-                                            onFacebookSignIn,
-                                            onGoogleSignIn,
-                                          ),
+                                ),
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints.expand(),
+                                  child: Card(
+                                    child: SingleChildScrollView(
+                                      child: Container(
+                                        margin: const EdgeInsets.all(20.0),
+                                        child: SignUpEmailForm(
+                                          onSignUpByEmail,
+                                          onFacebookSignIn,
+                                          onGoogleSignIn,
                                         ),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -333,7 +331,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.15,
+                        height: MediaQuery.of(context).size.height * 0.23,
                       ),
                       Image.asset(
                         'images/logo.png',

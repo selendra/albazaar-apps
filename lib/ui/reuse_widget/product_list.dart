@@ -7,6 +7,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 
 class ProductList extends StatefulWidget {
   final List<Product> productsData;
+
   ProductList(this.productsData);
 
   @override

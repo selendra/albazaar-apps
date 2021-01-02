@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -12,6 +13,8 @@ class _SplashScreenState extends State<SplashScreen>
   PrefService _pref = PrefService();
   AnimationController controller;
   Animation<double> animation;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLogin = false;
 
   //List of all svg path in the app
   List<String> svg = [
@@ -27,6 +30,9 @@ class _SplashScreenState extends State<SplashScreen>
     _pref.read('token').then(
       (value) async {
         if (value != null) {
+          setState(() {
+            _isLogin = true;
+          });
           //Fetch all listing product
           Provider.of<ProductsProvider>(
             context,
@@ -39,34 +45,61 @@ class _SplashScreenState extends State<SplashScreen>
             listen: false,
           ).fetchBuyerOrder();
 
-          //Check if user is login by social media
-          AuthProvider().currentUser.then(
-            (valueUser) {
-              if (valueUser != null) {
-                //split the social user name into firstname and lastname
-                var name = valueUser.displayName.split(' ');
+          FirebaseAuth.instance.onAuthStateChanged.listen((valueUser) {
+            if (valueUser != null) {
+              //split the social user name into firstname and lastname
+              var name = valueUser.displayName.split(' ');
 
-                /*call provider with function to set profile infomation
+              /*call provider with function to set profile infomation
                 of the user*/
-                Provider.of<UserProvider>(
-                  context,
-                  listen: false,
-                ).fetchSocialUserInfo(
-                  valueUser.email,
-                  name.first,
-                  name.last,
-                  valueUser.photoUrl,
-                );
-                Provider.of<UserProvider>(context, listen: false)
-                    .socialUserInfo(value);
-                Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } else {
-                validateNormalUser();
-              }
-            },
-          );
+              Provider.of<UserProvider>(
+                context,
+                listen: false,
+              ).fetchSocialUserInfo(
+                valueUser.email,
+                name.first,
+                name.last,
+                valueUser.photoUrl,
+              );
+              Provider.of<UserProvider>(context, listen: false)
+                  .socialUserInfo(value);
+            } else {
+              validateNormalUser();
+            }
+          });
+
+          // //Check if user is login by social media
+          // AuthProvider().currentUser.then(
+          //   (valueUser) {
+          //     if (valueUser != null) {
+          //       //split the social user name into firstname and lastname
+          //       var name = valueUser.displayName.split(' ');
+
+          //       /*call provider with function to set profile infomation
+          //       of the user*/
+          //       Provider.of<UserProvider>(
+          //         context,
+          //         listen: false,
+          //       ).fetchSocialUserInfo(
+          //         valueUser.email,
+          //         name.first,
+          //         name.last,
+          //         valueUser.photoUrl,
+          //       );
+          //       Provider.of<UserProvider>(context, listen: false)
+          //           .socialUserInfo(value);
+
+          //       //Navigator.pushReplacementNamed(context, BottomNavigationView);
+          //     } else {
+
+          //     }
+          //    },
+          //);
         } else {
-          Navigator.pushReplacementNamed(context, WelcomeView);
+          setState(() {
+            _isLogin = false;
+          });
+          // Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },
     );
@@ -78,10 +111,14 @@ class _SplashScreenState extends State<SplashScreen>
       (onValue) {
         if (onValue == '200') {
           Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
+
+          // Navigator.pushReplacementNamed(context, BottomNavigationView);
         } else {
           _pref.clear('token');
-          Navigator.pushReplacementNamed(context, WelcomeView);
+          setState(() {
+            _isLogin = false;
+          });
+          // Navigator.pushReplacementNamed(context, WelcomeView);
         }
       },
     );
@@ -108,40 +145,45 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-
-    animation = CurvedAnimation(
-      curve: Curves.easeIn,
-      parent: controller,
-    );
-
-    /*Perform faded animation to logo*/
-    controller.forward().then(
-      (value) {
-        _pref.read('isshow').then(
-          (onValue) {
-            if (onValue == null) {
-              Navigator.pushReplacementNamed(context, IntroScreenView);
-            } else {
-              checkUser();
-            }
-          },
-        );
-      },
-    );
-
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    checkUser();
     //Pre svg image
     preCacheSvg();
 
     //Set Language
     setDefaultLang();
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   // controller = AnimationController(
+  //   //   duration: Duration(seconds: 2),
+  //   //   vsync: this,
+  //   // );
+
+  //   // animation = CurvedAnimation(
+  //   //   curve: Curves.easeIn,
+  //   //   parent: controller,
+  //   // );
+
+  //   // /*Perform faded animation to logo*/
+  //   // controller.forward().then(
+  //   //   (value) {
+  //   //     _pref.read('isshow').then(
+  //   //       (onValue) {
+  //   //         if (onValue == null) {
+  //   //           Navigator.pushReplacementNamed(context, IntroScreenView);
+  //   //         } else {
+  //   //           checkUser();
+  //   //         }
+  //   //       },
+  //   //     );
+  //   //   },
+  //   // );
+  // }
 
   @override
   void dispose() {
@@ -151,19 +193,20 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NetworkAlert(
-        Center(
-          child: FadeTransition(
-            opacity: animation,
-            child: Image.asset(
-              'images/logo.png',
-              height: 200,
-              width: 200,
-            ),
-          ),
-        ),
-      ),
-    );
+    return _isLogin ? BottomNavigation() : SignIn();
+    // return Scaffold(
+    //   body: NetworkAlert(
+    //     Center(
+    //       child: FadeTransition(
+    //         opacity: animation,
+    //         child: Image.asset(
+    //           'images/logo.png',
+    //           height: 200,
+    //           width: 200,
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 }

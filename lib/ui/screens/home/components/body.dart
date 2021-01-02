@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:webscrollbar/webscrollbar.dart';
+import 'package:smooth_scroll_web/smooth_scroll_web.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,7 +10,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   ScrollController _controller;
-  ScrollController _webController;
   ProductsProvider productsProvider;
 
   Future<Null> _refresh() async {
@@ -27,7 +26,6 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     _controller = ScrollController();
-    _webController = ScrollController();
   }
 
   @override
@@ -45,29 +43,25 @@ class _BodyState extends State<Body> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : WebScrollBar(
-              controller: _webController,
+          : WebScroll(
+              controller: _controller,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 controller: _controller,
-                child: Stack(
-                  children: [
-                    Container(
-                      child: Column(
-                        children: <Widget>[
-                          //SearchBar(),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      //SearchBar(),
 
-                          RaisedButton(onPressed: () {
-                            Provider.of<DarkMode>(context, listen: false)
-                                .setDarkMode(true);
-                          }),
-                          const SizedBox(height: 10),
-                          CategoriesScreen(category),
-                          ProductList(productsProvider.items),
-                        ],
-                      ),
-                    ),
-                  ],
+                      // RaisedButton(onPressed: () {
+                      //   Provider.of<DarkMode>(context, listen: false)
+                      //       .setDarkMode(true);
+                      // }),
+                      const SizedBox(height: 10),
+                      CategoriesScreen(category),
+                      ProductList(productsProvider.items),
+                    ],
+                  ),
                 ),
               ),
               visibleHeight: MediaQuery.of(context).size.height,

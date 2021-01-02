@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/reuse_widget/responsive_widget.dart';
-import 'package:webscrollbar/webscrollbar.dart';
+import 'package:smooth_scroll_web/smooth_scroll_web.dart';
 
 class BodyDesktop extends StatefulWidget {
   @override
@@ -10,19 +10,27 @@ class BodyDesktop extends StatefulWidget {
 
 class _BodyDesktopState extends State<BodyDesktop> {
   ScrollController _scrollController;
-  ScrollController _webscroll;
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    _webscroll = ScrollController();
     super.initState();
+    _scrollController = ScrollController();
+
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   if (_scrollController.hasClients) {
+    //     _scrollController.animateTo(
+    //       _scrollController.position.maxScrollExtent,
+    //       curve: Curves.easeOut,
+    //       duration: const Duration(milliseconds: 200),
+    //     );
+    //   }
+    // });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _webscroll.dispose();
+
     super.dispose();
   }
 
@@ -30,39 +38,37 @@ class _BodyDesktopState extends State<BodyDesktop> {
   Widget build(BuildContext context) {
     final product = Provider.of<ProductsProvider>(context).items;
     var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return product.isEmpty
         ? Center(
             child: CircularProgressIndicator(),
           )
-        : Row(
-            children: [
-              Flexible(flex: 2, child: Container()),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  width: Responsive.isDesktop(context) && screenWidth <= 1000
-                      ? 800
-                      : 1000,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    controller: _scrollController,
-                    child: Stack(
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              CategoriesScreen(category),
-                              ProductList(product),
-                            ],
-                          ),
-                        ),
-                      ],
+        : SingleChildScrollView(
+            controller: _scrollController,
+            scrollDirection: Axis.vertical,
+            child: Row(
+              children: [
+                Flexible(flex: 2, child: Container()),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: Responsive.isDesktop(context) && screenWidth <= 1000
+                        ? 800
+                        : 1000,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          CategoriesScreen(category),
+                          ProductList(product),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Flexible(flex: 2, child: Container()),
-            ],
+                Flexible(flex: 2, child: Container()),
+              ],
+            ),
           );
   }
 }

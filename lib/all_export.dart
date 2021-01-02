@@ -242,6 +242,7 @@ export 'ui/reuse_widget/reuse_flexspace.dart';
 export 'ui/reuse_widget/reuse_reset_form.dart';
 export 'ui/reuse_widget/reuse_desktop.dart';
 export 'ui/reuse_widget/responsive_widget.dart';
+export 'ui/reuse_widget/web_scroll.dart';
 
 //enums
 export 'core/enums/connectivity_status.dart';

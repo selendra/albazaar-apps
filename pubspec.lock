@@ -762,7 +762,7 @@ packages:
     source: sdk
     version: "0.0.99"
   smooth_scroll_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: smooth_scroll_web
       url: "https://pub.dartlang.org"
@@ -880,13 +880,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.5"
-  webscrollbar:
-    dependency: "direct main"
-    description:
-      name: webscrollbar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   win32:
     dependency: transitive
     description:

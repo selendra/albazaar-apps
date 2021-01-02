@@ -91,7 +91,7 @@ dependencies:
   # App Responsive
   responsive_framework: ^0.0.14
 
-  webscrollbar: ^0.0.2
+  smooth_scroll_web: ^0.0.4
 
   # Date time
   date_format: ^1.0.9

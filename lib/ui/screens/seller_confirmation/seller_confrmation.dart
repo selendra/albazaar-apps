@@ -22,7 +22,7 @@ class SellerConfirm extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 20),
                 child: Image.network(
-                  'images/undraw_loving_it.svg',
+                  'images/packaging.svg"',
                   height: 200,
                   width: 200,
                 ),
@@ -466,7 +466,7 @@ class SellerConfirm extends StatelessWidget {
                     var item = value.findById(loadedProduct.id);
                     return Container(
                       width: Responsive.isDesktop(context)
-                          ? MediaQuery.of(context).size.width * 0.3
+                          ? MediaQuery.of(context).size.width * 0.2
                           : MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 40.0),
