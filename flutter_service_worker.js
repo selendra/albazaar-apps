@@ -3,13 +3,13 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "index.html": "dd233984dbc534661fb7189d377ebf0e",
-"/": "dd233984dbc534661fb7189d377ebf0e",
+  "index.html": "c3c36050baa83731fdc1e597150aebf1",
+"/": "c3c36050baa83731fdc1e597150aebf1",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icon_launcher.png": "a571dfb0fa575999bd76621d2c9643c2",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"main.dart.js": "d01d5e492fba62878b0f47f99a7d08cd",
+"main.dart.js": "9327ab97588e5b9893f7587b1a29e318",
 "logo.png": "e1e078a51ace5c773d0ae05bc8622c17",
 "version.json": "b05425c51d0838c2cc7bb637cbea85c3",
 "manifest.json": "7af2de7af15b4d15636ec6eb93853ea9",
@@ -45,7 +45,7 @@ const RESOURCES = {
 "assets/images/etherium.jpg": "9910cc35043180fa6d408afa7599c86e",
 "assets/images/meat.png": "a56ada69886bb2516fbba67580157da3",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/NOTICES": "0f5e76f66f23c25e9fbf15235d5b42e0",
+"assets/NOTICES": "0e21d9aa7ad54d620d3169eb39de6b8b",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "assets/lang/km.json": "1c773757280ae4016160b1acdada0df1",
 "assets/lang/en.json": "db76ae2c5260cb7d5f9a65ff7b7a40a1",
