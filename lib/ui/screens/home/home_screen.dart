@@ -60,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen>
               centerTitle: true,
               title: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, BottomNavigationView);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, BottomNavigationView, (route) => false);
                 },
                 child: Container(
                   child: Row(

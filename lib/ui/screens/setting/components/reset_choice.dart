@@ -8,26 +8,52 @@ class ResetChoice extends StatelessWidget {
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('reset_password'), context),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            _reuseInkwell(
-                _lang.translate('reset_password_by_email'), Icons.email, () {
-              Navigator.push(
-                  context, RouteAnimation(enterPage: ResetByEmail()));
-            }),
-            _reuseInkwell(
-                _lang.translate('reset_password_by_phone'), Icons.phone, () {
-              Navigator.push(
-                  context, RouteAnimation(enterPage: ResetPassPhone()));
-            }),
-            _reuseInkwell(_lang.translate('reset_wallet_pin'),
-                Icons.account_balance_wallet, () {
-              Navigator.push(
-                  context, RouteAnimation(enterPage: ResetByEmail()));
-            }),
-          ],
+      body: Responsive(
+        desktop: ReuseDesktop(
+          widget: Container(
+            child: Column(
+              children: [
+                _reuseInkwell(
+                    _lang.translate('reset_password_by_email'), Icons.email,
+                    () {
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetByEmail()));
+                }),
+                _reuseInkwell(
+                    _lang.translate('reset_password_by_phone'), Icons.phone,
+                    () {
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetPassPhone()));
+                }),
+                _reuseInkwell(_lang.translate('reset_wallet_pin'),
+                    Icons.account_balance_wallet, () {
+                  Navigator.push(
+                      context, RouteAnimation(enterPage: ResetByEmail()));
+                }),
+              ],
+            ),
+          ),
+        ),
+        mobile: Container(
+          child: Column(
+            children: [
+              _reuseInkwell(
+                  _lang.translate('reset_password_by_email'), Icons.email, () {
+                Navigator.push(
+                    context, RouteAnimation(enterPage: ResetByEmail()));
+              }),
+              _reuseInkwell(
+                  _lang.translate('reset_password_by_phone'), Icons.phone, () {
+                Navigator.push(
+                    context, RouteAnimation(enterPage: ResetPassPhone()));
+              }),
+              _reuseInkwell(_lang.translate('reset_wallet_pin'),
+                  Icons.account_balance_wallet, () {
+                Navigator.push(
+                    context, RouteAnimation(enterPage: ResetByEmail()));
+              }),
+            ],
+          ),
         ),
       ),
     );
@@ -38,6 +64,7 @@ class ResetChoice extends StatelessWidget {
       onTap: () {
         function();
       },
+      splashColor: Colors.grey,
       child: ListTile(
         title: Text(
           title,

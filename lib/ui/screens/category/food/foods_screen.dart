@@ -68,9 +68,12 @@ class _FoodsScreenState extends State<FoodsScreen>
               ),
             )
           : Container(
-              child: ProductList(productsData),
-              // child: Container(),
-            ), //_buildTapBarView(),
+              child: ReuseDesktop(
+                widget: Align(
+                    alignment: Alignment.topCenter,
+                    child: ProductList(productsData)),
+              ),
+            ),
     );
   }
 }

@@ -291,6 +291,8 @@ class UserProvider with ChangeNotifier {
     // await _prefService.read('token').then((value) {
     //   token = value;
     // });
+    var stream = new http.ByteStream(_image.openRead());
+    var length = await _image.length();
 
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
@@ -303,19 +305,24 @@ class UserProvider with ChangeNotifier {
 
     var request = new http.MultipartRequest(
         'POST', Uri.parse('https://s3.selendra.com/upload'));
+    var multipartFile =
+        new http.MultipartFile('file', stream, length, filename: 'image/jpeg');
     /* Make Form of Multipart */
-    var multipartFile = new http.MultipartFile.fromBytes(
-      'file',
-      compressImage,
-      filename: 'image_picker.jpg',
-      contentType: MediaType.parse('image/jpeg'),
-    );
+
+    // var multipartFile = new http.MultipartFile.fromBytes(
+    //   'file',
+    //   ,
+    //   filename: 'image_picker.jpg',
+    //   contentType: MediaType.parse('image/jpeg'),
+    // );
     request.files.add(multipartFile);
     /* Start send to server */
     String imageUrl;
+    debugPrint(imageUrl);
     try {
       var r = await request.send();
       imageUrl = await r.stream.bytesToString();
+      debugPrint(imageUrl.toString());
     } catch (e) {
       // print(e);
     }

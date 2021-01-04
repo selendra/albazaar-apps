@@ -8,7 +8,12 @@ class AddListing extends StatelessWidget {
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('add_listing'), context),
-      body: Body(),
+      body: Responsive(
+        mobile: Body(),
+        desktop: ReuseDesktop(
+          widget: Body(),
+        ),
+      ),
     );
   }
 }

@@ -20,7 +20,6 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       if (_phone != null) {
-
         await AuthProvider().forgetPasswordByPhone(_phone).then((value) {
           setState(() {
             _isLoading = false;
@@ -63,32 +62,77 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Container(
-              color: Colors.white,
-              child: Container(
-                margin: EdgeInsets.all(20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Reset Password', style: titleTextStyle),
-                      SizedBox(
-                        height: 10.0,
+          : GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Responsive(
+                mobile: Container(
+                  color: Colors.white,
+                  child: Container(
+                    margin: EdgeInsets.all(20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Reset Password', style: titleTextStyle),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(resetPassText),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          _phoneCodePick(context),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          ReuseButton.getItem('Send', () {
+                            validateAndSubmit(context);
+                          }, context),
+                        ],
                       ),
-                      Text(resetPassText),
-                      SizedBox(
-                        height: 20.0,
+                    ),
+                  ),
+                ),
+                desktop: ReuseDesktop(
+                  widget: Container(
+                    color: Colors.white,
+                    child: Container(
+                      margin: EdgeInsets.all(20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Reset Password', style: titleTextStyle),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(resetPassText),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            _phoneCodePick(context),
+                            SizedBox(
+                              height: 40.0,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: ReuseButton.getItem('Send', () {
+                                  validateAndSubmit(context);
+                                }, context),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      _phoneCodePick(context),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      ReuseButton.getItem('Send', () {
-                        validateAndSubmit(context);
-                      }, context),
-                    ],
+                    ),
                   ),
                 ),
               ),

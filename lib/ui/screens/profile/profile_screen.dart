@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/screens/profile/components/body.dart';
+import '../../../all_export.dart';
 
-import '../../../all_export.dart';
-import '../../../all_export.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -50,23 +51,68 @@ class _ProfileDesktopState extends State<ProfileDesktop> {
   bool _isLoading = false;
 
   String imageUrl;
+  // Future<void> loadImage() async {
+  //   try {
+  //     File imageFile =
+  //         await ImagePickerWeb.getImage(outputType: ImageType.file);
+
+  //     debugPrint(imageFile.path.toString());
+  //     if (imageFile != null) {
+  //       await Provider.of<UserProvider>(context, listen: false)
+  //           .upLoadImage(imageFile)
+  //           .then((value) {
+  //         setState(() {
+  //           imageUrl = json.decode(value)['uri'];
+  //           Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+  //               imageUrl;
+  //         });
+  //       });
+  //     } else {
+  //       //    debugPrint('image file null');
+  //     }
+  //   } catch (e) {}
+  // }
+
   Future<void> loadAsset() async {
-    List<Asset> resultList = List<Asset>();
+    // List<Asset> resultList = [];
 
     try {
-      resultList = await MultiImagePicker.pickImages(
-        enableCamera: false,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        maxImages: 1,
-        materialOptions: MaterialOptions(
-          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-          actionBarTitle: "Selendra App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      getAssettoFile(resultList);
+      final result =
+          await ImagePickerPlugin().pickImage(source: ImageSource.gallery);
+      debugPrint('result:' + result.path);
+      debugPrint('file:' + File(result.path).toString());
+
+      if (result != null) {
+        setState(() {
+          // debugPrint(result.path);
+          Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+              result.path;
+        });
+        await Provider.of<UserProvider>(context, listen: false)
+            .upLoadImage(File(result.path))
+            .then((value) {
+          debugPrint('value:' + value.toString());
+          setState(() {
+            imageUrl = json.decode(value)['uri'];
+            Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+                imageUrl;
+          });
+        });
+      }
+
+      // resultList = await MultiImagePicker.pickImages(
+      //   enableCamera: false,
+      //   cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+      //   maxImages: 1,
+      //   materialOptions: MaterialOptions(
+      //     actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+      //     actionBarTitle: "Selendra App",
+      //     allViewTitle: "All Photos",
+      //     useDetailsView: false,
+      //     selectCircleStrokeColor: "#000000",
+      //   ),
+      // );
+      //getAssettoFile(resultList);
     } catch (e) {
       e.toString();
       //print(e);

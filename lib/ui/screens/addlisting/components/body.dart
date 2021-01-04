@@ -142,12 +142,12 @@ class _BodyState extends State<Body> {
     _addProductProvider = Provider.of<AddProductProvider>(context);
     UserProvider user = Provider.of<UserProvider>(context);
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Responsive(
-        mobile: Container(
+    return Responsive(
+      mobile: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -171,7 +171,12 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-        desktop: Container(
+      ),
+      desktop: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
           child: ReuseDesktop(
             widget: Container(
               child: SingleChildScrollView(
@@ -181,6 +186,9 @@ class _BodyState extends State<Body> {
                     _postDetail(),
                     SizedBox(height: 40),
                     Container(
+                      width: Responsive.isDesktop(context)
+                          ? MediaQuery.of(context).size.width * 0.2
+                          : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(right: 18, left: 18),
                       padding: EdgeInsets.only(bottom: 20),
                       child: ReuseButton.getItem(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_for_web/image_picker_for_web.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
@@ -12,23 +14,38 @@ class _BodyState extends State<Body> {
   bool _isLoading = false;
 
   String imageUrl;
+  // Future<void> loadImage() async {}
+
   Future<void> loadAsset() async {
-    List<Asset> resultList = List<Asset>();
+    //List<Asset> resultList = List<Asset>();
 
     try {
-      resultList = await MultiImagePicker.pickImages(
-        enableCamera: false,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        maxImages: 1,
-        materialOptions: MaterialOptions(
-          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-          actionBarTitle: "Selendra App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-      getAssettoFile(resultList);
+      final result =
+          await ImagePickerPlugin().pickImage(source: ImageSource.gallery);
+      if (result != null) {
+        await Provider.of<UserProvider>(context, listen: false)
+            .upLoadImage(File(result.path))
+            .then((value) {
+          setState(() {
+            imageUrl = json.decode(value)['uri'];
+            Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+                imageUrl;
+          });
+        });
+      }
+      // resultList = await MultiImagePicker.pickImages(
+      //   enableCamera: false,
+      //   cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+      //   maxImages: 1,
+      //   materialOptions: MaterialOptions(
+      //     actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
+      //     actionBarTitle: "Selendra App",
+      //     allViewTitle: "All Photos",
+      //     useDetailsView: false,
+      //     selectCircleStrokeColor: "#000000",
+      //   ),
+      // );
+      // getAssettoFile(resultList);
     } catch (e) {
       e.toString();
       //print(e);

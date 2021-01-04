@@ -60,41 +60,95 @@ class _ResetByEmailState extends State<ResetByEmail> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Container(
-              color: Colors.white,
-              child: Container(
-                margin: EdgeInsets.all(20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Reset Password', style: titleTextStyle),
-                      SizedBox(
-                        height: 10.0,
+          : GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Responsive(
+                mobile: Container(
+                  color: Colors.white,
+                  child: Container(
+                    margin: EdgeInsets.all(20.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Reset Password', style: titleTextStyle),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(resetPassText),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          ReuseTextField(
+                            labelText: 'Email Address',
+                            inputType: TextInputType.emailAddress,
+                            validator: (value) =>
+                                value.isEmpty ? 'Email cannot be empty' : null,
+                            onSaved: (newValue) {
+                              //print(newValue);
+                              _email = newValue;
+                            },
+                          ),
+                          SizedBox(
+                            height: 40.0,
+                          ),
+                          ReuseButton.getItem('Send', () {
+                            validateAndSubmit(context);
+                          }, context),
+                        ],
                       ),
-                      Text(resetPassText),
-                      SizedBox(
-                        height: 20.0,
+                    ),
+                  ),
+                ),
+                desktop: ReuseDesktop(
+                  widget: Container(
+                    color: Colors.white,
+                    child: Container(
+                      margin: EdgeInsets.all(20.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Reset Password', style: titleTextStyle),
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(resetPassText),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            ReuseTextField(
+                              labelText: 'Email Address',
+                              inputType: TextInputType.emailAddress,
+                              validator: (value) => value.isEmpty
+                                  ? 'Email cannot be empty'
+                                  : null,
+                              onSaved: (newValue) {
+                                //print(newValue);
+                                _email = newValue;
+                              },
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: ReuseButton.getItem('Send', () {
+                                  validateAndSubmit(context);
+                                }, context),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      ReuseTextField(
-                        labelText: 'Email Address',
-                        inputType: TextInputType.emailAddress,
-                        validator: (value) =>
-                            value.isEmpty ? 'Email cannot be empty' : null,
-                        onSaved: (newValue) {
-                          //print(newValue);
-                          _email = newValue;
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      ReuseButton.getItem('Send', () {
-                        validateAndSubmit(context);
-                      }, context),
-                    ],
+                    ),
                   ),
                 ),
               ),

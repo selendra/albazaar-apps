@@ -43,28 +43,24 @@ class _BodyState extends State<Body> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : WebScroll(
+          : SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               controller: _controller,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                controller: _controller,
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      //SearchBar(),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    //SearchBar(),
 
-                      // RaisedButton(onPressed: () {
-                      //   Provider.of<DarkMode>(context, listen: false)
-                      //       .setDarkMode(true);
-                      // }),
-                      const SizedBox(height: 10),
-                      CategoriesScreen(category),
-                      ProductList(productsProvider.items),
-                    ],
-                  ),
+                    // RaisedButton(onPressed: () {
+                    //   Provider.of<DarkMode>(context, listen: false)
+                    //       .setDarkMode(true);
+                    // }),
+                    const SizedBox(height: 10),
+                    CategoriesScreen(category),
+                    ProductList(productsProvider.items),
+                  ],
                 ),
               ),
-              visibleHeight: MediaQuery.of(context).size.height,
             ),
     );
   }

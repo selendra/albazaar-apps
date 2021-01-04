@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/reuse_widget/responsive_widget.dart';
-import 'package:smooth_scroll_web/smooth_scroll_web.dart';
 
 class BodyDesktop extends StatefulWidget {
   @override
@@ -38,8 +37,6 @@ class _BodyDesktopState extends State<BodyDesktop> {
   Widget build(BuildContext context) {
     final product = Provider.of<ProductsProvider>(context).items;
     var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
-
     return product.isEmpty
         ? Center(
             child: CircularProgressIndicator(),
