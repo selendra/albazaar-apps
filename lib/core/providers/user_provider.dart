@@ -1,9 +1,11 @@
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:http_parser/http_parser.dart';
+import 'dart:html' as html;
 
 class UserProvider with ChangeNotifier {
   var _mUser = new User();
@@ -282,7 +284,7 @@ class UserProvider with ChangeNotifier {
     return alertText ?? '';
   }
 
-  Future<String> upLoadImage(File _image) async {
+  Future<String> upLoadImage(html.File _image) async {
     /* Upload image to server by use multi part form*/
     //SharedPreferences isToken = await SharedPreferences.getInstance();
     // String token;
@@ -291,42 +293,62 @@ class UserProvider with ChangeNotifier {
     // await _prefService.read('token').then((value) {
     //   token = value;
     // });
-    var stream = new http.ByteStream(_image.openRead());
-    var length = await _image.length();
+    // var stream = new http.ByteStream(_image.openRead());
+    // var length = await _image.length();
 
     /* Compress image file */
-    List<int> compressImage = await FlutterImageCompress.compressWithFile(
-      _image.path,
-      minHeight: 900,
-      minWidth: 600,
-      quality: 100,
-    );
-    /* Make request */
+    // List<int> compressImage = await FlutterImageCompress.compressWithFile(
+    //   _image.path,
+    //   minHeight: 900,
+    //   minWidth: 600,
+    //   quality: 100,
+    // );
+    // /* Make request */
 
     var request = new http.MultipartRequest(
         'POST', Uri.parse('https://s3.selendra.com/upload'));
-    var multipartFile =
-        new http.MultipartFile('file', stream, length, filename: 'image/jpeg');
+
     /* Make Form of Multipart */
 
-    // var multipartFile = new http.MultipartFile.fromBytes(
-    //   'file',
-    //   ,
-    //   filename: 'image_picker.jpg',
-    //   contentType: MediaType.parse('image/jpeg'),
-    // );
+    var multipartFile = new http.MultipartFile.fromBytes(
+      'file',
+      await getHtmlFileContent(_image),
+      filename: 'image_picker.jpg',
+      contentType: MediaType.parse('image/jpeg'),
+    );
     request.files.add(multipartFile);
     /* Start send to server */
     String imageUrl;
-    debugPrint(imageUrl);
+
     try {
       var r = await request.send();
       imageUrl = await r.stream.bytesToString();
-      debugPrint(imageUrl.toString());
+      debugPrint('image:' + imageUrl.toString());
     } catch (e) {
       // print(e);
     }
 
     return imageUrl;
+  }
+
+  Future<Uint8List> getHtmlFileContent(html.File blob) async {
+    Uint8List file;
+    final reader = html.FileReader();
+    reader.readAsDataUrl(blob.slice(0, blob.size, blob.type));
+    reader.onLoadEnd.listen((event) {
+      Uint8List data =
+          Base64Decoder().convert(reader.result.toString().split(",").last);
+      file = data;
+    }).onData((data) {
+      file = Base64Decoder().convert(reader.result.toString().split(",").last);
+      return file;
+    });
+    while (file == null) {
+      await new Future.delayed(const Duration(milliseconds: 1));
+      if (file != null) {
+        break;
+      }
+    }
+    return file;
   }
 }

@@ -160,7 +160,7 @@ class _BodyState extends State<Body> {
 
       // Check User Cancel Upload Image
       if (resultList != null) {
-        getAssettoFile(resultList);
+        // getAssettoFile(resultList);
       }
     } catch (e) {
       e.toString();
@@ -172,26 +172,26 @@ class _BodyState extends State<Body> {
     // });
   }
 
-  Future<void> getAssettoFile(List<Asset> resultList) async {
-    for (Asset asset in resultList) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      try {
-        if (filePath != null) {
-          await Provider.of<UserProvider>(context, listen: false)
-              .upLoadImage(File(filePath))
-              .then((value) {
-            setState(() {
-              imageUri = json.decode(value)['uri'];
-              Provider.of<UserProvider>(context, listen: false)
-                  .mUser
-                  .profileImg = imageUri;
-            });
-          });
-        }
-      } catch (e) {}
-    }
-  }
+  // Future<void> getAssettoFile(List<Asset> resultList) async {
+  //   for (Asset asset in resultList) {
+  //     final filePath =
+  //         await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+  //     try {
+  //       if (filePath != null) {
+  //         await Provider.of<UserProvider>(context, listen: false)
+  //             .upLoadImage(File(filePath))
+  //             .then((value) {
+  //           setState(() {
+  //             imageUri = json.decode(value)['uri'];
+  //             Provider.of<UserProvider>(context, listen: false)
+  //                 .mUser
+  //                 .profileImg = imageUri;
+  //           });
+  //         });
+  //       }
+  //     } catch (e) {}
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

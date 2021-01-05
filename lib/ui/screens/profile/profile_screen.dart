@@ -1,10 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/screens/profile/components/body.dart';
 import '../../../all_export.dart';
 
+import 'package:image_picker_web/image_picker_web.dart';
+import 'dart:html' as html;
 import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -51,68 +54,24 @@ class _ProfileDesktopState extends State<ProfileDesktop> {
   bool _isLoading = false;
 
   String imageUrl;
-  // Future<void> loadImage() async {
-  //   try {
-  //     File imageFile =
-  //         await ImagePickerWeb.getImage(outputType: ImageType.file);
-
-  //     debugPrint(imageFile.path.toString());
-  //     if (imageFile != null) {
-  //       await Provider.of<UserProvider>(context, listen: false)
-  //           .upLoadImage(imageFile)
-  //           .then((value) {
-  //         setState(() {
-  //           imageUrl = json.decode(value)['uri'];
-  //           Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-  //               imageUrl;
-  //         });
-  //       });
-  //     } else {
-  //       //    debugPrint('image file null');
-  //     }
-  //   } catch (e) {}
-  // }
 
   Future<void> loadAsset() async {
-    // List<Asset> resultList = [];
-
     try {
-      final result =
-          await ImagePickerPlugin().pickImage(source: ImageSource.gallery);
-      debugPrint('result:' + result.path);
-      debugPrint('file:' + File(result.path).toString());
-
+      html.File result =
+          await ImagePickerWeb.getImage(outputType: ImageType.file);
       if (result != null) {
-        setState(() {
-          // debugPrint(result.path);
-          Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-              result.path;
-        });
         await Provider.of<UserProvider>(context, listen: false)
-            .upLoadImage(File(result.path))
+            .upLoadImage(result)
             .then((value) {
           debugPrint('value:' + value.toString());
           setState(() {
             imageUrl = json.decode(value)['uri'];
+            debugPrint(imageUrl);
             Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
                 imageUrl;
           });
         });
       }
-
-      // resultList = await MultiImagePicker.pickImages(
-      //   enableCamera: false,
-      //   cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-      //   maxImages: 1,
-      //   materialOptions: MaterialOptions(
-      //     actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-      //     actionBarTitle: "Selendra App",
-      //     allViewTitle: "All Photos",
-      //     useDetailsView: false,
-      //     selectCircleStrokeColor: "#000000",
-      //   ),
-      // );
-      //getAssettoFile(resultList);
     } catch (e) {
       e.toString();
       //print(e);
@@ -120,23 +79,23 @@ class _ProfileDesktopState extends State<ProfileDesktop> {
     if (!mounted) return;
   }
 
-  Future<void> getAssettoFile(List<Asset> resultList) async {
-    for (Asset asset in resultList) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      if (filePath != null) {
-        await Provider.of<UserProvider>(context, listen: false)
-            .upLoadImage(File(filePath))
-            .then((value) {
-          setState(() {
-            imageUrl = json.decode(value)['uri'];
-            Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-                imageUrl;
-          });
-        });
-      }
-    }
-  }
+  // Future<void> getAssettoFile(List<Asset> resultList) async {
+  //   for (Asset asset in resultList) {
+  //     final filePath =
+  //         await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+  //     if (filePath != null) {
+  //       await Provider.of<UserProvider>(context, listen: false)
+  //           .upLoadImage(File(filePath))
+  //           .then((value) {
+  //         setState(() {
+  //           imageUrl = json.decode(value)['uri'];
+  //           Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+  //               imageUrl;
+  //         });
+  //       });
+  //     }
+  //   }
+  // }
 
   Widget build(BuildContext context) {
     // return buildDropDown();

@@ -3,7 +3,6 @@ import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class Body extends StatefulWidget {
-  
   @override
   _BodyState createState() => _BodyState();
 }
@@ -59,23 +58,28 @@ class _BodyState extends State<Body> {
     _selectedIndex = 0;
   }
 
-  void onChanged(String value){
-    if (firstName != null && lastName != null && gender != null && address != null){
-      setState((){
+  void onChanged(String value) {
+    if (firstName != null &&
+        lastName != null &&
+        gender != null &&
+        address != null) {
+      setState(() {
         isCheck = true;
       });
     } else if (isCheck == true) {
-      setState((){
+      setState(() {
         isCheck = false;
       });
     }
   }
-  
+
   void setSelectedIndex(int val) {
     setState(() {
       _selectedIndex = val;
-      if (val == 1) gender = 'M'; 
-      else gender = 'F';
+      if (val == 1)
+        gender = 'M';
+      else
+        gender = 'F';
     });
     onChanged(val.toString());
   }
@@ -101,26 +105,28 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<void>onSetUserPf() async {
-    await UserProvider().setUserPf(firstName, midName, lastName, gender, imageUri, address).then((value) async {
-      
-      if (value.containsKey('error')){
+  Future<void> onSetUserPf() async {
+    await UserProvider()
+        .setUserPf(firstName, midName, lastName, gender, imageUri, address)
+        .then((value) async {
+      if (value.containsKey('error')) {
         alertText = value['error']['message'];
-
       } else {
         alertText = value['message'];
         // Refetch User Data
-        await Provider.of<UserProvider>(context, listen: false).localFetchProfile();
+        await Provider.of<UserProvider>(context, listen: false)
+            .localFetchProfile();
 
         // After Copy Key
-        await Provider.of<UserProvider>(context, listen: false).fetchPortforlio(); 
-        
+        await Provider.of<UserProvider>(context, listen: false)
+            .fetchPortforlio();
+
         // Disable Loading
         setState(() {
           _isLoading = false;
         });
       }
-      
+
       await showAlertDialog(context);
 
       // Close Add User Screen
@@ -144,10 +150,10 @@ class _BodyState extends State<Body> {
           selectCircleStrokeColor: "#000000",
         ),
       );
-      
+
       // Check User Cancel Upload Image
-      if (resultList != null){
-        getAssettoFile(resultList);
+      if (resultList != null) {
+        // getAssettoFile(resultList);
       }
     } catch (e) {
       e.toString();
@@ -160,119 +166,116 @@ class _BodyState extends State<Body> {
     // });
   }
 
-  Future<void> getAssettoFile(List<Asset> resultList) async {
-    for (Asset asset in resultList) {
-      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+  // Future<void> getAssettoFile(List<Asset> resultList) async {
+  //   for (Asset asset in resultList) {
+  //     final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
 
-      try {
-        if (filePath != null) {
-          await Provider.of<UserProvider>(context, listen: false)
-              .upLoadImage(File(filePath))
-              .then((value) {
-            setState(() {
-              imageUri = json.decode(value)['uri'];
-              Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-                  imageUri;
-            });
-          });
-        }
-      } catch (e){
-      }
-    }
-  }
+  //     try {
+  //       if (filePath != null) {
+  //         await Provider.of<UserProvider>(context, listen: false)
+  //             .upLoadImage(File(filePath))
+  //             .then((value) {
+  //           setState(() {
+  //             imageUri = json.decode(value)['uri'];
+  //             Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
+  //                 imageUri;
+  //           });
+  //         });
+  //       }
+  //     } catch (e){
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(30.0),
       child: _isLoading
-      ? Center(
-        child: CircularProgressIndicator(),
-      )
-      : SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              Consumer<UserProvider>(
-                builder: (context, value, child) {
-                  return Container(
-                    margin: EdgeInsets.all(5),
-                    width: 100, height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(width: 1, color: Colors.greenAccent)
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.1,
                     ),
-                    child: ClipOval(
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        placeholder: AssetImage('images/loading.gif'), 
-                        image: value.mUser.profileImg == null
-                          ? AssetImage('images/avatar.png')
-                          : NetworkImage(value.mUser.profileImg)
-                      ),
+                    Consumer<UserProvider>(builder: (context, value, child) {
+                      return Container(
+                        margin: EdgeInsets.all(5),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                                width: 1, color: Colors.greenAccent)),
+                        child: ClipOval(
+                          child: FadeInImage(
+                              fit: BoxFit.cover,
+                              placeholder: AssetImage('images/loading.gif'),
+                              image: value.mUser.profileImg == null
+                                  ? AssetImage('images/avatar.png')
+                                  : NetworkImage(value.mUser.profileImg)),
+                        ),
+                      );
+                    }
+                        // CircleAvatar(
+                        //   backgroundImage: ,
+                        // ),
+                        ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: 10, right: 5, left: 5, bottom: 5),
+                        child: InkWell(
+                          onTap: () => loadAsset(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add),
+                              Text(AppLocalizeService.of(context)
+                                  .translate('profile_photo'))
+                            ],
+                          ),
+                        )),
+                    SizedBox(
+                      height: 20,
                     ),
-                  );
-                }
-                // CircleAvatar(
-                //   backgroundImage: ,
-                // ),
+                    _firstName(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _midName(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _lastName(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _address(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _radioBtn(),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    ReuseButton.getItem(
+                        'Submit',
+                        !isCheck
+                            ? null
+                            : () async {
+                                await validateAndSubmit();
+                              },
+                        context),
+                  ],
+                ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 5),
-                child: InkWell(
-                  onTap: () => loadAsset(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add),
-                      Text(AppLocalizeService.of(context).translate('profile_photo'))
-                    ],
-                  ),
-                )
-              ),
-
-              SizedBox(
-                height: 20,
-              ),
-              _firstName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _midName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _lastName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _address(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _radioBtn(),
-
-              SizedBox(
-                height: 40,
-              ),
-              ReuseButton.getItem('Submit', !isCheck ? null : () async {
-                await validateAndSubmit();
-              }, context),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
@@ -325,7 +328,7 @@ class _BodyState extends State<Body> {
       fieldKey: _firstNameKey,
       labelText: 'Firstname',
       onSaved: (value) => firstName = value,
-      onChanged: (String value){
+      onChanged: (String value) {
         firstName = value;
         onChanged(value);
       },
@@ -337,7 +340,7 @@ class _BodyState extends State<Body> {
       fieldKey: _midNameKey,
       labelText: 'Midname',
       onSaved: (value) => midName = value,
-      onChanged: (String value){
+      onChanged: (String value) {
         midName = value;
         onChanged(value);
       },
@@ -349,7 +352,7 @@ class _BodyState extends State<Body> {
       fieldKey: _lastNameKey,
       labelText: 'Lastname',
       onSaved: (value) => lastName = value,
-      onChanged: (String value){
+      onChanged: (String value) {
         lastName = value;
         onChanged(value);
       },
@@ -360,7 +363,7 @@ class _BodyState extends State<Body> {
     return ReuseTextField(
       labelText: 'Adderss',
       onSaved: (value) => address = value,
-      onChanged: (String value){
+      onChanged: (String value) {
         address = value;
         onChanged(value);
       },

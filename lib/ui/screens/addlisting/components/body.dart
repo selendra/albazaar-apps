@@ -1,13 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'dart:async';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-
-// import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
-import 'image_list.dart';
+import 'dart:html' as html;
 
 class Body extends StatefulWidget {
   @override
@@ -17,7 +18,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   AddProductProvider _addProductProvider;
 
-  String _error = 'No Error Dectected';
+  //String _error = 'No Error Dectected';
+  ScrollController _scrollController = ScrollController();
 
   PostRequest _postRequest = PostRequest();
 
@@ -33,7 +35,7 @@ class _BodyState extends State<Body> {
     else if (_addProductProvider.addProduct.enable1) enableButton(false);
   }
 
-  void ddOnChanged(String value) {}
+  //void ddOnChanged(String value) {}
 
   void enableButton(bool enable) {
     setState(() {
@@ -54,6 +56,52 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> loadAssets() async {
+    try {
+      html.File result =
+          await ImagePickerWeb.getImage(outputType: ImageType.file);
+
+      if (result != null) {
+        _convertBlobUint8(result);
+        _addProductProvider.addProduct.imageFile.add(result);
+        debugPrint(result.name);
+      }
+    } catch (e) {
+      e.toString();
+      //print(e);
+    }
+    await getImage();
+    if (!mounted) return;
+  }
+
+  Future<void> _convertBlobUint8(html.Blob result) async {
+    await UserProvider().getHtmlFileContent(result).then((value) {
+      setState(() {
+        _addProductProvider.addProduct.imageBlob.add(value);
+      });
+    });
+  }
+
+  Future<void> getImage() async {
+    // await UserProvider().upLoadImage(_image)
+    await UserProvider()
+        .upLoadImage(_addProductProvider.addProduct.imageFile[0])
+        .then((value) {
+      _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
+    });
+
+    onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
+
+    for (int i = 1; i < _addProductProvider.addProduct.imageFile.length; i++) {
+      await UserProvider()
+          .upLoadImage(_addProductProvider.addProduct.imageFile[i])
+          .then((value) {
+        _addProductProvider.addProduct.imageUrlList
+            .add(json.decode(value)['uri']);
+      });
+    }
+  }
+
+  Future<void> loadAsset() async {
     String error = 'No Error Dectected';
 
     try {
@@ -81,7 +129,7 @@ class _BodyState extends State<Body> {
     if (!mounted) return;
 
     setState(() {
-      _error = error;
+      //_error = error;
     });
 
     await getImageUrl();
@@ -141,67 +189,71 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     _addProductProvider = Provider.of<AddProductProvider>(context);
     UserProvider user = Provider.of<UserProvider>(context);
-
-    return Responsive(
-      mobile: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: <Widget>[
-                _postDetail(),
-                SizedBox(height: 40),
-                Container(
-                  margin: EdgeInsets.only(right: 18, left: 18),
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: ReuseButton.getItem(
-                      AppLocalizeService.of(context).translate('next'),
-                      !_addProductProvider.addProduct.enable1
-                          ? null
-                          : () {
-                              toSeller(_addProductProvider, user);
-                            },
-                      context),
-                ),
-                // _sellerDetail(),
-              ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Responsive(
+        mobile: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Container(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: <Widget>[
+                  _postDetail(),
+                  SizedBox(height: 40),
+                  Container(
+                    margin: EdgeInsets.only(right: 18, left: 18),
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: ReuseButton.getItem(
+                        AppLocalizeService.of(context).translate('next'),
+                        !_addProductProvider.addProduct.enable1
+                            ? null
+                            : () {
+                                toSeller(_addProductProvider, user);
+                              },
+                        context),
+                  ),
+                  // _sellerDetail(),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      desktop: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Container(
-          child: ReuseDesktop(
-            widget: Container(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    _postDetail(),
-                    SizedBox(height: 40),
-                    Container(
-                      width: Responsive.isDesktop(context)
-                          ? MediaQuery.of(context).size.width * 0.2
-                          : MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(right: 18, left: 18),
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: ReuseButton.getItem(
-                          AppLocalizeService.of(context).translate('next'),
-                          !_addProductProvider.addProduct.enable1
-                              ? null
-                              : () {
-                                  toSeller(_addProductProvider, user);
-                                },
-                          context),
-                    ),
-                    // _sellerDetail(),
-                  ],
+        desktop: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: Container(
+            child: ReuseDesktop(
+              widget: Container(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: <Widget>[
+                      _postDetail(),
+                      SizedBox(height: 40),
+                      Container(
+                        width: Responsive.isDesktop(context)
+                            ? MediaQuery.of(context).size.width * 0.2
+                            : MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(right: 18, left: 18),
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: ReuseButton.getItem(
+                            AppLocalizeService.of(context).translate('next'),
+                            !_addProductProvider.addProduct.enable1
+                                ? null
+                                : () {
+                                    toSeller(_addProductProvider, user);
+                                  },
+                            context),
+                      ),
+                      // _sellerDetail(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -213,57 +265,133 @@ class _BodyState extends State<Body> {
 
   Widget buildGridView(Function loadAssets) {
     return Container(
-      height: 200,
       margin: EdgeInsets.only(top: 10.0),
       decoration: BoxDecoration(
-        border: Border.all(color: kDefaultColor),
+        //border: Border.all(color: kDefaultColor),
         borderRadius: BorderRadius.circular(kDefaultRadius),
       ),
-      child: GridView.count(
-        crossAxisCount: 3,
-        children: List.generate(_addProductProvider.addProduct.images.length,
-            (index) {
-          Asset asset = _addProductProvider.addProduct.images[index];
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ImageList(_addProductProvider.addProduct.images),
+      child: GridView.builder(
+        shrinkWrap: true,
+        controller: _scrollController,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: Responsive.isDesktop(context) ? 4 : 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1,
+        ),
+        itemCount: _addProductProvider.addProduct.imageBlob.length,
+        itemBuilder: (context, index) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              GridTile(
+                  child: Image.memory(
+                _addProductProvider.addProduct.imageBlob[index],
+                fit: BoxFit.cover,
+              )),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _addProductProvider.addProduct.imageBlob.remove(
+                          _addProductProvider.addProduct.imageBlob[index]);
+                    });
+                  },
+                  child: Icon(
+                    Icons.remove_circle,
+                    color: Colors.red,
                   ),
-                );
-              },
-              child: Stack(
-                children: [
-                  AssetThumb(
-                    quality: 100,
-                    asset: asset,
-                    width: 300,
-                    height: 300,
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _addProductProvider.addProduct.images.remove(asset);
-                        });
-                      },
-                      child: Icon(
-                        Icons.remove_circle,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           );
-        }),
+        },
+
+        // children: List.generate(_imageBlob.length, (index) {
+        //   // Asset asset = _addProductProvider.addProduct.images[index];
+        //   return
+        //   // return Stack(
+        //   //   children: [
+        //   //     GestureDetector(
+        //   //       onTap: () {},
+        //   //       child: ClipRRect(
+        //   //         borderRadius: BorderRadius.only(
+        //   //           topLeft: Radius.circular(5),
+        //   //           topRight: Radius.circular(5),
+        //   //           bottomLeft: Radius.circular(5),
+        //   //           bottomRight: Radius.circular(5),
+        //   //         ),
+        //   //         child: Container(
+        //   //           decoration: BoxDecoration(
+        //   //             boxShadow: [
+        //   //               BoxShadow(
+        //   //                 color: Colors.white,
+        //   //                 spreadRadius: 5.0,
+        //   //                 blurRadius: 5.0,
+        //   //               )
+        //   //             ],
+        //   //           ),
+        //   //           child: Image.memory(
+        //   //             _imageBlob[index],
+        //   //             fit: BoxFit.cover,
+        //   //             filterQuality: FilterQuality.high,
+        //   //           ),
+        //   //         ),
+        //   //       ),
+        //   //     ),
+        //   //     Positioned(
+        //   //       top: 0,
+        //   //       right: 0,
+        //   //       child: InkWell(
+        //   //         onTap: () {
+        //   //           setState(() {
+        //   //             _imageBlob.remove(_imageBlob[index]);
+        //   //           });
+        //   //         },
+        //   //         child: Icon(
+        //   //           Icons.remove_circle,
+        //   //           color: Colors.red,
+        //   //         ),
+        //   //       ),
+        //   //     ),
+        //   //   ],
+        //   //);
+        //   // Asset asset = _addProductProvider.addProduct.images[index];
+        //   // return Container(
+        //   //   color: kDefaultColor,
+        //   //   height: 50,
+        //   //   width: 50,
+        //   //   margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+        //   //   child: GestureDetector(
+        //   //     onTap: () {
+        //   //       // Navigator.push(
+        //   //       //   context,
+        //   //       //   MaterialPageRoute(
+        //   //       //     builder: (context) =>
+        //   //       //         ImageList(_addProductProvider.addProduct.images),
+        //   //       //   ),
+        //   //       // );
+        //   //     },
+        //   //     child: Stack(
+        //   //       children: [
+        //   //         Image.memory(
+        //   //           _imageBlob[index],
+        //   //           fit: BoxFit.cover,
+        //   //         ),
+        //   //         // AssetThumb(
+        //   //         //   quality: 100,
+        //   //         //   asset: asset,
+        //   //         //   width: 300,
+        //   //         //   height: 300,
+        //   //         // ),
+
+        //   //       ],
+        //   //     ),
+        //   //   ),
+        //   // );
+        // }),
       ),
     );
   }
@@ -283,7 +411,8 @@ class _BodyState extends State<Body> {
                 loadAssets,
                 context),
 
-            _addProductProvider.addProduct.images.isNotEmpty
+            _addProductProvider.addProduct.imageBlob.isNotEmpty
+                //_addProductProvider.addProduct.images.isNotEmpty
                 ? buildGridView(loadAssets)
                 : Container(
                     height: 0,

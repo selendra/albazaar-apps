@@ -325,7 +325,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   child: SingleChildScrollView(
                     child: Container(
                       width: 400,
-                      height: 650,
+                      height: 655,
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Column(
                         children: <Widget>[

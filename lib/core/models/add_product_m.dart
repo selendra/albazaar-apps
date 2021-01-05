@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'dart:html' as html;
 
 class AddProduct with ChangeNotifier {
   final formKeyDetail = GlobalKey<FormState>();
@@ -12,6 +15,8 @@ class AddProduct with ChangeNotifier {
   List<String> imageUrlList = List<String>();
   List<Asset> images = List<Asset>();
   List<File> fileImagesList = List<File>();
+  List<Uint8List> imageBlob = [];
+  List<html.File> imageFile = [];
 
   List<Map<String, dynamic>> shippingList = List<Map<String, dynamic>>();
   List<Map<String, dynamic>> paymentOptsList = List<Map<String, dynamic>>();
@@ -21,10 +26,10 @@ class AddProduct with ChangeNotifier {
   bool enable1 = false;
   bool enable2 = false;
 
-  String  hintWeight = 'Weight',
-          hintPaymentOpt = 'Direct Payment',
-          hintCategory = 'Category',
-          hintShipping = 'Shipping Services';
+  String hintWeight = 'Weight',
+      hintPaymentOpt = 'Direct Payment',
+      hintCategory = 'Category',
+      hintShipping = 'Shipping Services';
 
   String weight = '';
   String paymentOpt = '';
@@ -55,6 +60,8 @@ class AddProduct with ChangeNotifier {
   void clearProductField() {
     imageUrl = '';
     images.clear();
+    imageBlob.clear();
+    imageFile.clear();
     fileImagesList.clear();
     productName.clear();
     price.clear();
