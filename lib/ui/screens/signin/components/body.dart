@@ -187,7 +187,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   Container(
                     child: Column(
                       children: [
-                        Image.network(
+                        Image.asset(
                           'images/logo.png',
                           width: 150,
                           height: 150,
