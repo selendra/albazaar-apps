@@ -3,16 +3,16 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "index.html": "1f1cdad935e0135960562137c474deef",
-"/": "1f1cdad935e0135960562137c474deef",
+  "index.html": "34f61313424659a1bfc82e767205141f",
+"/": "34f61313424659a1bfc82e767205141f",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icon_launcher.png": "a571dfb0fa575999bd76621d2c9643c2",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"main.dart.js": "5bb46431c1b68a7369180b64c774214b",
+"main.dart.js": "aff61ee1342363efdd99311eaa1ae0ce",
 "logo.png": "e1e078a51ace5c773d0ae05bc8622c17",
 "version.json": "b05425c51d0838c2cc7bb637cbea85c3",
-"manifest.json": "7af2de7af15b4d15636ec6eb93853ea9",
+"manifest.json": "7caf3881d337acdf96d1225541848017",
 "assets/images/barley.png": "0f223f8393f22436818253909ef7bb74",
 "assets/images/sld_qr.png": "a9d3bd1966e4244d2a39d2d4fb274a2a",
 "assets/images/fruits.png": "b79ae45904e97486168364fe11a49e0f",
