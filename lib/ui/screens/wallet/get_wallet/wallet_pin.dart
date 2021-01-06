@@ -39,7 +39,12 @@ class _WalletPinState extends State<WalletPin> {
               ),
             ),
           ),
-          body: PinScreen(),
+          body: Responsive(
+            desktop: ReuseDesktop(
+              widget: PinScreen(),
+            ),
+            mobile: PinScreen(),
+          ),
         ),
       ),
     );

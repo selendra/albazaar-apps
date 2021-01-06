@@ -227,97 +227,47 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           child: Responsive(
             mobile: Container(
               height: MediaQuery.of(context).size.height,
-              child: ListView(
-                children: [
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                children: <Widget>[
                   Container(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'images/logo.png',
-                          width: 150,
-                          height: 150,
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Container(
-                          width: 400,
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            'A Decentralized Marketplace that connect community of users together.',
-                            style: TextStyle(
-                              fontSize: 24,
-                              letterSpacing: 0.7,
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Image.asset(
+                      'images/logo.png',
+                      height: 80,
+                      width: 80,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 600,
-                      width: 400,
-                      margin: const EdgeInsets.all(20),
-                      // padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(
-                            height: 40,
-                          ),
-                          ReuseAuthTab(
-                            _tabController,
-                            _lang.translate('phone'),
-                            _lang.translate('email'),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: PageView(
-                              controller: _pageController,
-                              onPageChanged: (index) {
-                                onPageChange(index);
-                              },
-                              children: [
-                                ConstrainedBox(
-                                  constraints: const BoxConstraints.expand(),
-                                  child: Card(
-                                    shape: kDefaultShape,
-                                    child: SingleChildScrollView(
-                                      child: Container(
-                                        margin: const EdgeInsets.all(20.0),
-                                        child: SignUpPhoneForm(
-                                          onSignUpWithPhone,
-                                          onFacebookSignIn,
-                                          onGoogleSignIn,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                ConstrainedBox(
-                                  constraints: const BoxConstraints.expand(),
-                                  child: Card(
-                                    child: SingleChildScrollView(
-                                      child: Container(
-                                        margin: const EdgeInsets.all(20.0),
-                                        child: SignUpEmailForm(
-                                          onSignUpByEmail,
-                                          onFacebookSignIn,
-                                          onGoogleSignIn,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ReuseAuthTab(
+                    _tabController,
+                    _lang.translate('phone'),
+                    _lang.translate('email'),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Expanded(
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (index) {
+                        onPageChange(index);
+                      },
+                      children: [
+                        SignUpPhoneForm(
+                          onSignUpWithPhone,
+                          onFacebookSignIn,
+                          onGoogleSignIn,
+                        ),
+                        SignUpEmailForm(
+                          onSignUpByEmail,
+                          onFacebookSignIn,
+                          onGoogleSignIn,
+                        ),
+                      ],
                     ),
                   ),
                 ],

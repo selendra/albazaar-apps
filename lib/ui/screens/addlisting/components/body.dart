@@ -63,7 +63,6 @@ class _BodyState extends State<Body> {
       if (result != null) {
         _convertBlobUint8(result);
         _addProductProvider.addProduct.imageFile.add(result);
-        debugPrint(result.name);
       }
     } catch (e) {
       e.toString();
@@ -297,6 +296,10 @@ class _BodyState extends State<Body> {
                     setState(() {
                       _addProductProvider.addProduct.imageBlob.remove(
                           _addProductProvider.addProduct.imageBlob[index]);
+                      if (index == 0) {
+                        _addProductProvider.addProduct.imageUrl =
+                            _addProductProvider.addProduct.imageUrlList[1];
+                      }
                     });
                   },
                   child: Icon(

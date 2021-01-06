@@ -24,56 +24,58 @@ class _FoodsScreenState extends State<FoodsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Image.asset(
-          widget._image,
-          height: 30,
-          width: 30,
-        ),
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: kDefaultColor,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Image.asset(
+            widget._image,
+            height: 30,
+            width: 30,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: <Widget>[
-          IconButton(
+          elevation: 0,
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: IconButton(
             icon: Icon(
-              Icons.search,
+              Icons.arrow_back,
               color: kDefaultColor,
             ),
             onPressed: () {
-              showSearch(
-                context: context,
-                delegate: SearchByCategories(
-                  searchProduct: productsData,
-                ),
-              );
+              Navigator.pop(context);
             },
-          )
-        ],
-      ),
-      body: productsData.isEmpty
-          ? Center(
-              child: SvgPicture.asset(
-                'images/undraw_loving_it.svg',
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width * 0.3,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: kDefaultColor,
               ),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchByCategories(
+                    searchProduct: productsData,
+                  ),
+                );
+              },
             )
-          : Container(
-              child: ReuseDesktop(
-                widget: Align(
-                    alignment: Alignment.topCenter,
-                    child: ProductList(productsData)),
-              ),
-            ),
-    );
+          ],
+        ),
+        body: productsData.isEmpty
+            ? Center(
+                child: Image.network(
+                  'images/undraw_loving_it.svg',
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
+              )
+            : Responsive(
+                mobile: ProductList(productsData),
+                desktop: Container(
+                  child: ReuseDesktop(
+                    widget: Align(
+                        alignment: Alignment.topCenter,
+                        child: ProductList(productsData)),
+                  ),
+                ),
+              ));
   }
 }

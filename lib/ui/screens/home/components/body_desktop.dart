@@ -14,6 +14,7 @@ class _BodyDesktopState extends State<BodyDesktop> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
 
     // SchedulerBinding.instance.addPostFrameCallback((_) {
     //   if (_scrollController.hasClients) {

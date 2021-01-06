@@ -46,13 +46,10 @@ class ItemCardDesktop extends StatelessWidget {
                           )
                         ],
                       ),
-                      child: Hero(
-                        tag: "${product.id}",
-                        child: FadeInImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(product.thumbnail),
-                          placeholder: AssetImage('images/loading.gif'),
-                        ),
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(product.thumbnail),
+                        placeholder: AssetImage('images/loading.gif'),
                       ),
                     ),
                   ),

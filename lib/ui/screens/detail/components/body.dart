@@ -73,47 +73,43 @@ class Body extends StatelessWidget {
               pinned: true,
               primary: true,
               flexibleSpace: FlexibleSpaceBar(
-                background: Hero(
-                  tag: "$productId",
-                  child: SizedBox(
-                    child: Consumer<ProductsProvider>(
-                      builder: (context, value, child) => Carousel(
-                        autoplay: false,
-                        dotSpacing: 15.0,
-                        dotColor: Colors.grey,
-                        dotBgColor: Colors.transparent,
-                        dotIncreasedColor: kDefaultColor,
-                        indicatorBgPadding: 10.0,
-                        borderRadius: true,
-                        animationCurve: Curves.decelerate,
-                        moveIndicatorFromBottom: 180.0,
-                        noRadiusForIndicator: true,
-                        boxFit: BoxFit.cover,
-                        images: List.generate(
-                          value.url.isEmpty ? 1 : value.url.length,
-                          (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        InteractView(value.url[index]),
-                                  ),
-                                );
-                              },
-                              child: FadeInImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    value.url.isNotEmpty
-                                        ? value.url[index]
-                                        : loadedData.thumbnail,
-                                  ),
-                                  placeholder:
-                                      AssetImage('images/loading.gif')),
-                            );
-                          },
-                        ),
+                background: SizedBox(
+                  child: Consumer<ProductsProvider>(
+                    builder: (context, value, child) => Carousel(
+                      autoplay: false,
+                      dotSpacing: 15.0,
+                      dotColor: Colors.grey,
+                      dotBgColor: Colors.transparent,
+                      dotIncreasedColor: kDefaultColor,
+                      indicatorBgPadding: 10.0,
+                      borderRadius: true,
+                      animationCurve: Curves.decelerate,
+                      moveIndicatorFromBottom: 180.0,
+                      noRadiusForIndicator: true,
+                      boxFit: BoxFit.cover,
+                      images: List.generate(
+                        value.url.isEmpty ? 1 : value.url.length,
+                        (index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      InteractView(value.url[index]),
+                                ),
+                              );
+                            },
+                            child: FadeInImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                  value.url.isNotEmpty
+                                      ? value.url[index]
+                                      : loadedData.thumbnail,
+                                ),
+                                placeholder: AssetImage('images/loading.gif')),
+                          );
+                        },
                       ),
                     ),
                   ),
