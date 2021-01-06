@@ -179,59 +179,57 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           height: MediaQuery.of(context).size.height * 0.95,
           width: MediaQuery.of(context).size.width,
           child: Responsive(
-            mobile: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: _isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Column(
-                      children: <Widget>[
-                        Container(
-                            child: Image.asset(
-                          'images/logo.png',
-                          height: 80,
-                          width: 80,
-                        )),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        ReuseAuthTab(
-                          _tabController,
-                          _lang.translate('phone'),
-                          _lang.translate('email'),
-                        ),
-                        // tabs(context),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Expanded(
-                          child: PageView(
-                            controller: _pageController,
-                            onPageChanged: (index) {
-                              if (isPageCanChanged) {
-                                onPageChange(index);
-                              }
-                            },
-                            children: [
-                              SignInPhoneForm(
-                                onApiSignInByPhone,
-                                onFacebookSignIn,
-                                onGoogleSignIn,
-                              ),
-                              SignInEmailForm(
-                                onApiSignInByEmail,
-                                onFacebookSignIn,
-                                onGoogleSignIn,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+            mobile: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        child: Image.asset(
+                      'images/logo.png',
+                      height: 80,
+                      width: 80,
+                    )),
+                    SizedBox(
+                      height: 40,
                     ),
+                    ReuseAuthTab(
+                      _tabController,
+                      _lang.translate('phone'),
+                      _lang.translate('email'),
+                    ),
+                    // tabs(context),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Expanded(
+                      child: PageView(
+                        controller: _pageController,
+                        onPageChanged: (index) {
+                          if (isPageCanChanged) {
+                            onPageChange(index);
+                          }
+                        },
+                        children: [
+                          SignInPhoneForm(
+                            onApiSignInByPhone,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                          SignInEmailForm(
+                            onApiSignInByEmail,
+                            onFacebookSignIn,
+                            onGoogleSignIn,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             // mobile: Container(
             //   height: MediaQuery.of(context).size.height,
