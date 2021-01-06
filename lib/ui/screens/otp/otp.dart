@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/ui/reuse_widget/responsive_widget.dart';
+import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_desktop.dart';
 //import 'package:selendra_marketplace_app/all_export.dart';
 import 'components/pin_screen.dart';
 
 class OTPScreen extends StatefulWidget {
-
   final String phoneNumber, password;
   OTPScreen(this.phoneNumber, this.password);
   @override
@@ -11,9 +12,8 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-
   @override
-  initState(){
+  initState() {
     super.initState();
   }
 
@@ -25,8 +25,13 @@ class _OTPScreenState extends State<OTPScreen> {
       ),
       child: Scaffold(
         body: SingleChildScrollView(
-          child: PinScreen(widget.phoneNumber, widget.password),
-        )
+          child: Responsive(
+            desktop: ReuseDesktop(
+              widget: PinScreen(widget.phoneNumber, widget.password),
+            ),
+            mobile: PinScreen(widget.phoneNumber, widget.password),
+          ),
+        ),
       ),
     );
   }

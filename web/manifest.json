@@ -1,9 +1,8 @@
 {
-    "name": "selendra_marketplace_app",
+    "name": "Selendra Marketplace",
     "short_name": "selendra_marketplace_app",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "A Decentralized Marketplace that connect community of users together to trade and exchange goods and services freely, securely and fairly. Powered by Selendra Public Blockchain built with Substrates.",
     "orientation": "portrait-primary",

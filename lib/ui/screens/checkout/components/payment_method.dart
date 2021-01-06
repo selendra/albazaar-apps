@@ -109,100 +109,196 @@ class _ShippingInformationState extends State<ShippingInformation> {
           context: context,
           builder: (context) => StatefulBuilder(
             builder: (context, setState) {
-              return Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height / 2,
-                // margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                      trailing: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.clear,
-                          color: kDefaultColor,
-                        ),
-                      ),
-                      title: Text(_lang.translate('shipping_information')),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Consumer<UserProvider>(
-                      builder: (context, value, child) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Form(
-                          key: _formKey,
-                          child: ReuseTextField(
-                            hintText: 'Address',
-                            initialValue: value.mUser.address == null
-                                ? ''
-                                : value.mUser.address,
-                            validator: (value) => value.isEmpty
-                                ? 'Address cannot be empty'
-                                : null,
-                            onSaved: (newValue) => _address = newValue,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 10.0),
-                        child: FlatButton(
-                          child: Text(
-                            'Select Current Address',
-                            style: TextStyle(
+              return Responsive(
+                  mobile: Container(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height / 2,
+                    // margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.clear,
                               color: kDefaultColor,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () {
-                            _getCurrentLocation();
-
-                            print('my current address');
-                          },
-                          // color: kDefaultColor,
+                          title: Text(_lang.translate('shipping_information')),
                         ),
-                      ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Consumer<UserProvider>(
+                          builder: (context, value, child) => Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Form(
+                              key: _formKey,
+                              child: ReuseTextField(
+                                hintText: 'Address',
+                                initialValue: value.mUser.address == null
+                                    ? ''
+                                    : value.mUser.address,
+                                validator: (value) => value.isEmpty
+                                    ? 'Address cannot be empty'
+                                    : null,
+                                onSaved: (newValue) => _address = newValue,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10.0),
+                            child: FlatButton(
+                              child: Text(
+                                'Select Current Address',
+                                style: TextStyle(
+                                  color: kDefaultColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                _getCurrentLocation();
+
+                                print('my current address');
+                              },
+                              // color: kDefaultColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: ReuseButton.getItem('Add', () {
+                            validateAndSubmit();
+                          }, context),
+                        ),
+                        // RadioListTile(
+                        //   activeColor: kDefaultColor,
+                        //   title: Text('Direct Payment'),
+                        //   value: 'Direct Payment',
+                        //   groupValue: widget._character,
+                        //   onChanged: (value) {
+                        //     print(value);
+                        //     widget.setVal(value);
+                        //     setState(() {});
+                        //   },
+                        // ),
+                        // RadioListTile(
+                        //   activeColor: kDefaultColor,
+                        //   title: Text('Escrow Payment'),
+                        //   value: 'Escrow Payment',
+                        //   groupValue: widget._character,
+                        //   onChanged: (value) {
+                        //     print(value);
+                        //     widget.setVal(value);
+                        //     setState(() {});
+                        //   },
+                        // )
+                      ],
                     ),
-                    SizedBox(
-                      height: 40.0,
+                  ),
+                  desktop: ReuseDesktop(
+                      widget: Container(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height / 2,
+                    // margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.clear,
+                              color: kDefaultColor,
+                            ),
+                          ),
+                          title: Text(_lang.translate('shipping_information')),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Consumer<UserProvider>(
+                          builder: (context, value, child) => Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Form(
+                              key: _formKey,
+                              child: ReuseTextField(
+                                hintText: 'Address',
+                                initialValue: value.mUser.address == null
+                                    ? ''
+                                    : value.mUser.address,
+                                validator: (value) => value.isEmpty
+                                    ? 'Address cannot be empty'
+                                    : null,
+                                onSaved: (newValue) => _address = newValue,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10.0),
+                            child: FlatButton(
+                              child: Text(
+                                'Select Current Address',
+                                style: TextStyle(
+                                  color: kDefaultColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                _getCurrentLocation();
+
+                                print('my current address');
+                              },
+                              // color: kDefaultColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40.0,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: ReuseButton.getItem('Add', () {
+                            validateAndSubmit();
+                          }, context),
+                        ),
+                        // RadioListTile(
+                        //   activeColor: kDefaultColor,
+                        //   title: Text('Direct Payment'),
+                        //   value: 'Direct Payment',
+                        //   groupValue: widget._character,
+                        //   onChanged: (value) {
+                        //     print(value);
+                        //     widget.setVal(value);
+                        //     setState(() {});
+                        //   },
+                        // ),
+                        // RadioListTile(
+                        //   activeColor: kDefaultColor,
+                        //   title: Text('Escrow Payment'),
+                        //   value: 'Escrow Payment',
+                        //   groupValue: widget._character,
+                        //   onChanged: (value) {
+                        //     print(value);
+                        //     widget.setVal(value);
+                        //     setState(() {});
+                        //   },
+                        // )
+                      ],
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: ReuseButton.getItem('Add', () {
-                        validateAndSubmit();
-                      }, context),
-                    ),
-                    // RadioListTile(
-                    //   activeColor: kDefaultColor,
-                    //   title: Text('Direct Payment'),
-                    //   value: 'Direct Payment',
-                    //   groupValue: widget._character,
-                    //   onChanged: (value) {
-                    //     print(value);
-                    //     widget.setVal(value);
-                    //     setState(() {});
-                    //   },
-                    // ),
-                    // RadioListTile(
-                    //   activeColor: kDefaultColor,
-                    //   title: Text('Escrow Payment'),
-                    //   value: 'Escrow Payment',
-                    //   groupValue: widget._character,
-                    //   onChanged: (value) {
-                    //     print(value);
-                    //     widget.setVal(value);
-                    //     setState(() {});
-                    //   },
-                    // )
-                  ],
-                ),
-              );
+                  )));
             },
           ),
         );

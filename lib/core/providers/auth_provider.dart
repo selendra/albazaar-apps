@@ -56,8 +56,6 @@ class AuthProvider with ChangeNotifier {
       assert(user.uid == currentUser.uid);
     } catch (e) {
       print("error $e");
-      await ReuseAlertDialog()
-          .successDialog(context, 'Please try again later!');
     }
     return googleToken;
   }

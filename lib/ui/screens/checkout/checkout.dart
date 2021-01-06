@@ -70,29 +70,58 @@ class _CheckoutState extends State<Checkout> {
       appBar: ReuseSimpleAppBar.getItem(
           AppLocalizeService.of(context).translate('check_out'), context),
       body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              TotalPriceCard(
-                action: widget.action,
+        child: Responsive(
+          mobile: Container(
+            margin: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                TotalPriceCard(
+                  action: widget.action,
+                ),
+                //ShippingInformation(),
+                SizedBox(
+                  height: 20,
+                ),
+                ProductDisplay(
+                  action: widget.action,
+                ),
+                ShippingInformation(_address, setVal),
+                SizedBox(height: 40),
+                Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: ReuseButton.getItem(_lang.translate('confirm'), () {
+                    validate(context);
+                  }, context),
+                ),
+              ],
+            ),
+          ),
+          desktop: ReuseDesktop(
+            widget: Container(
+              margin: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TotalPriceCard(
+                    action: widget.action,
+                  ),
+                  //ShippingInformation(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ProductDisplay(
+                    action: widget.action,
+                  ),
+                  ShippingInformation(_address, setVal),
+                  SizedBox(height: 40),
+                  Container(
+                    margin: const EdgeInsets.all(10.0),
+                    child: ReuseButton.getItem(_lang.translate('confirm'), () {
+                      validate(context);
+                    }, context),
+                  ),
+                ],
               ),
-              //ShippingInformation(),
-              SizedBox(
-                height: 20,
-              ),
-              ProductDisplay(
-                action: widget.action,
-              ),
-              ShippingInformation(_address, setVal),
-              SizedBox(height: 40),
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                child: ReuseButton.getItem(_lang.translate('confirm'), () {
-                  validate(context);
-                }, context),
-              ),
-            ],
+            ),
           ),
         ),
       ),

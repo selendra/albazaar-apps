@@ -46,7 +46,7 @@ class ItemOrder extends StatelessWidget {
                 children: [
                   Container(
                     height: 20,
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: 200,
                     child: ListTile(
                       title: Text(
                         order.title,
@@ -61,7 +61,7 @@ class ItemOrder extends StatelessWidget {
                   ),
                   Container(
                     height: 20,
-                    width: MediaQuery.of(context).size.width / 2,
+                    width: 200,
                     child: ListTile(
                       subtitle: Text(
                         'Price: ${order.price}៛ ',

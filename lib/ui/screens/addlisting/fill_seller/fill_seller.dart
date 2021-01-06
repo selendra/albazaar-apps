@@ -24,11 +24,15 @@ class _FillSellerState extends State<FillSeller> {
     // print(widget.addProduct.imageUrlList[0]);
   }
 
-  void fillUser(){
-    widget.addProduct.sellerName.text = widget.userProvider.mUser.firstName ?? '';
-    widget.addProduct.sellerName.text += " ${widget.userProvider.mUser.midName}" ?? '';
-    widget.addProduct.sellerName.text += " ${widget.userProvider.mUser.lastName}" ?? '';
-    widget.addProduct.sellerNumber.text = "${widget.userProvider.mUser.phonenumber}" ?? '';
+  void fillUser() {
+    widget.addProduct.sellerName.text =
+        widget.userProvider.mUser.firstName ?? '';
+    widget.addProduct.sellerName.text +=
+        " ${widget.userProvider.mUser.midName}" ?? '';
+    widget.addProduct.sellerName.text +=
+        " ${widget.userProvider.mUser.lastName}" ?? '';
+    widget.addProduct.sellerNumber.text =
+        "${widget.userProvider.mUser.phonenumber}" ?? '';
   }
 
   @override
@@ -68,7 +72,6 @@ class _FillSellerState extends State<FillSeller> {
   // }
 
   void onChanged(String value) {
-
     if (widget.addProduct.sellerName.text.isNotEmpty &&
         widget.addProduct.sellerNumber.text.isNotEmpty &&
         widget.addProduct.address.text.isNotEmpty &&
@@ -87,8 +90,8 @@ class _FillSellerState extends State<FillSeller> {
 
   void onChangedDD(String value) {
     setState(() {
-      for(int i = 0; i < widget.addProduct.shippingList.length; i++){
-        if (value == widget.addProduct.shippingList[i]['shipping_service']){
+      for (int i = 0; i < widget.addProduct.shippingList.length; i++) {
+        if (value == widget.addProduct.shippingList[i]['shipping_service']) {
           widget.addProduct.shipping = widget.addProduct.shippingList[i]['id'];
           break;
         }
@@ -101,17 +104,27 @@ class _FillSellerState extends State<FillSeller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(AppLocalizeService.of(context).translate('seller_information'), context),
+      appBar: ReuseSimpleAppBar.getItem(
+          AppLocalizeService.of(context).translate('seller_information'),
+          context),
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            child: FillSellerBody(
+              child: Responsive(
+            mobile: FillSellerBody(
               addProduct: widget.addProduct,
               onChangedDD: onChangedDD,
               onChanged: onChanged,
             ),
-          ),
+            desktop: ReuseDesktop(
+              widget: FillSellerBody(
+                addProduct: widget.addProduct,
+                onChangedDD: onChangedDD,
+                onChanged: onChanged,
+              ),
+            ),
+          )),
         ),
       ),
     );

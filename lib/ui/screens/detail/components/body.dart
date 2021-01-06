@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'interact_view.dart';
+import 'package:selendra_marketplace_app/core/services/cookie.dart';
 
 class Body extends StatelessWidget {
   @override

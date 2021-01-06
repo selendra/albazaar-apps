@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/ui/screens/detail/components/body.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/detail/components/detail_desktop.dart';
 import 'components/bottom_navigation_detail.dart';
 
 class DetailScreen extends StatelessWidget {
