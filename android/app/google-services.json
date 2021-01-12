@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:996789134951:android:1c57d1109cc658c9c996c2",
         "android_client_info": {
-          "package_name": "com.example.selendra_marketplace_app"
+          "package_name": "com.selendra.marketplace"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "996789134951-o5r8iajj3ku7ap4vs5v7e1232cp8ske8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.selendra_marketplace_app",
+            "package_name": "com.selendra.marketplace",
             "certificate_hash": "8262cad3c588eca29eee43675e5e186a7ee3f53c"
           }
         },

@@ -358,6 +358,7 @@ class AuthProvider with ChangeNotifier {
 
   //ADD PHONE NUMBER TO THEIR EXISTING ACCOUNT
   Future<String> addPhoneNumber(String _phoneNumber) async {
+    print("add _phone number $_phoneNumber");
     try {
       await _pref.read('token').then((onValue) async {
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
@@ -371,8 +372,13 @@ class AuthProvider with ChangeNotifier {
             }));
         var responseBody = json.decode(response.body);
 
+        print("Response add phone ${response.body}");
+        print("Response code ${response.statusCode}");
+
         if (response.statusCode == 200) {
-          _alertText = responseBody['message'];
+          if (responseBody.containsKey('error')){
+            _alertText = responseBody['error']['message'];
+          } else _alertText = responseBody['message'];
           // if (responseBody != null) {
           //   try {
           //     _alertText = responseBody['message'];
@@ -384,7 +390,6 @@ class AuthProvider with ChangeNotifier {
           //   }
           // }
         } else {
-          _alertText = responseBody['error']['message'];
         }
       });
     } catch (e) {
