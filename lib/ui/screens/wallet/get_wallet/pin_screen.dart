@@ -108,7 +108,9 @@ class _PinScreenState extends State<PinScreen> {
 
     // 1 Get Wallet
     try {
-      await UserProvider().getWallet(_pin).then((value) async{// tmp
+      await UserProvider().getWallet(_pin).then((value) async{
+
+        print("Wallet response $value");
 
         // 2. Show Verify Option Button
         if (value['code'] == '001') {
@@ -177,6 +179,9 @@ class _PinScreenState extends State<PinScreen> {
       // print(e);
     }
 
+    print("Clear phone");
+    _phoneController.clear();
+
     // Close Loading After Succssfully Get Wallet And Refetch Portfolio
     if (mounted){
       setState(() {
@@ -194,9 +199,14 @@ class _PinScreenState extends State<PinScreen> {
 
           // Remove PIN To Refill First PIN
           await StorageServices.removeKey('pin');
+          await StorageServices.removeKey('first');
+
+          _seen = false;
 
           // Refill Phone Number, Step 2 again
-          await AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
+          await Components.dialog(context, Text(onValue), Text("Message")); //AllDialog().verifyDialog(context, onValue, _phoneCodePick(), sendCode);
+          return false;
+
         } else {
           res = true;
         }

@@ -32,7 +32,7 @@ class HomeDrawer extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             currentAccountPicture: CircleAvatar(
-                backgroundImage: _mUser.profileImg == ''
+                backgroundImage: _mUser.profileImg == '' || _mUser.profileImg == null
                     ? AssetImage('images/avatar.png')
                     : NetworkImage(_mUser.profileImg)),
           ),

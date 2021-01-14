@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.selendra_marketplace_app"
+        applicationId "com.selendra.marketplace"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
