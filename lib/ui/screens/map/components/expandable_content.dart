@@ -22,7 +22,10 @@ class ExpandableContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(kDefaultRadius)),
                   elevation: 2,
                   child: ReuseInkwell.getItem(
-                      locate ?? 'Location', Icons.location_on, () {}),
+                    locate ?? 'Location', 
+                    () {},
+                    icon: Icon(Icons.location_on), 
+                  ),
                 ),
               ),
               SizedBox(

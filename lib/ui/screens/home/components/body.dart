@@ -46,6 +46,7 @@ class _BodyState extends State<Body> {
               scrollDirection: Axis.vertical,
               controller: _controller,
               child: Container(
+                padding: EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: <Widget>[
 

@@ -38,16 +38,26 @@ class ShippingInformation extends StatelessWidget {
                     ? Container()
                     : Column(
                         children: [
-                          ReuseInkwell.getItem(value.mUser.firstName,
-                              Icons.account_circle, () {}),
-                          ReuseInkwell.getItem(value.mUser.address ?? 'null',
-                              Icons.location_on, () {}),
                           ReuseInkwell.getItem(
-                              value.mUser.phonenumber ?? 'phone',
-                              Icons.phone,
-                              () {}),
+                            value.mUser.firstName,
+                            () {},
+                            icon: Icon(Icons.account_circle), 
+                          ),
                           ReuseInkwell.getItem(
-                              value.mUser.email ?? 'email', Icons.mail, () {}),
+                            value.mUser.address ?? 'null',
+                            () {},
+                            icon: Icon(Icons.location_on), 
+                          ),
+                          ReuseInkwell.getItem(
+                            value.mUser.phonenumber ?? 'phone',
+                            () {},
+                            icon: Icon(Icons.phone),
+                          ),
+                          ReuseInkwell.getItem(
+                            value.mUser.email ?? 'email', 
+                            () {},
+                            icon: Icon(Icons.mail), 
+                          ),
                         ],
                       )
               ],

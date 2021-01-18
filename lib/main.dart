@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
@@ -114,6 +115,7 @@ class _SelendraAppState extends State<SelendraApp> {
           theme: ThemeData(
             cursorColor: kDefaultColor,
             primaryColor: Colors.white,
+            scaffoldBackgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
             brightness: Brightness.light,
           ),
           routes: {
