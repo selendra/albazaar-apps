@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -22,7 +23,14 @@ class ItemCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+          borderRadius: BorderRadius.circular(kDefaultRadius + 4),
+          // boxShadow: [
+          //   BoxShadow(
+          //     blurRadius: 2,
+          //     color: AppServices.hexaCodeToColor("#000000").withOpacity(0.25),
+          //     spreadRadius: 2
+          //   )
+          // ]
         ),
         child: Stack(
           children: [
@@ -31,8 +39,8 @@ class ItemCard extends StatelessWidget {
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                   child: Container(
                     width: double.infinity,
@@ -86,7 +94,7 @@ class ItemCard extends StatelessWidget {
             ),
             Positioned(
               right: 5,
-              top: 5,
+              bottom: 5,
               child: Align(
                 alignment: Alignment.topRight,
                 child: Consumer<FavoriteProvider>(

@@ -37,46 +37,49 @@ class HomeDrawer extends StatelessWidget {
                     : NetworkImage(_mUser.profileImg)),
           ),
           ReuseInkwell.getItem(
-            _lang.translate('home'),
-            Icons.home,
+            _lang.translate('market'),
             () {
               Navigator.pop(context);
             },
+            icon: SvgPicture.asset('images/market.svg', width: 25, height: 25),
           ),
           ReuseInkwell.getItem(
             _lang.translate('profile'),
-            Icons.person,
             () {
               Navigator.pop(context);
               Navigator.pushNamed(context, ProfileView);
             },
+            icon: Icon(Icons.person),
           ),
           Container(
             height: 2,
             margin: EdgeInsets.only(left: 20.0, right: 20.0),
             color: Colors.grey[300],
           ),
-          ReuseInkwell.getItem(_lang.translate('cart'), Icons.shopping_cart,
+          ReuseInkwell.getItem(
+            _lang.translate('cart'), 
               () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, CartView);
-          }),
+              Navigator.pop(context);
+              Navigator.pushNamed(context, CartView);
+            },
+            icon: Icon(Icons.shopping_cart),
+          ),
           ReuseInkwell.getItem(
             _lang.translate('listing'),
-            Icons.list,
             () {
               Navigator.pop(context);
               Navigator.pushNamed(context, ListingView);
             },
+            icon: SvgPicture.asset('images/shop.svg', width: 25, height: 25),
           ),
           ReuseInkwell.getItem(
             _lang.translate('order'),
-            Icons.shopping_basket,
             () {
               Navigator.pop(context);
               Navigator.pushNamed(context, PurchaseView);
               // Navigator.push(context,
             },
+            icon: Icon(Icons.shopping_basket),
           ),
 
           Container(
@@ -86,17 +89,20 @@ class HomeDrawer extends StatelessWidget {
           ),
           // ReuseInkwell.getItem(
           //   _lang.translate('purchase'),
-          //   Icons.shopping_basket,
+          //   icon: Icon(Icons.shopping_basket),
           //   () {
           //     Navigator.pop(context);
           //     Navigator.pushNamed(context, PurchaseView);
           //     // Navigator.push(context,
           //   },
           // ),
-          ReuseInkwell.getItem(_lang.translate('message'), Icons.message, () {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, ChatView);
-          }),
+          ReuseInkwell.getItem(_lang.translate('message'), 
+            () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, ChatView);
+            },
+            icon: Icon(Icons.message), 
+          ),
           InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -118,15 +124,14 @@ class HomeDrawer extends StatelessWidget {
           ),
           ReuseInkwell.getItem(
             _lang.translate('setting'),
-            Icons.settings,
             () {
               Navigator.pop(context);
               Navigator.pushNamed(context, SettingView);
             },
+            icon: Icon(Icons.settings),
           ),
           ReuseInkwell.getItem(
             _lang.translate('logout_string'),
-            Icons.input,
             () async {
               var isShow = await _pref.read('isshow');
               
@@ -138,6 +143,7 @@ class HomeDrawer extends StatelessWidget {
               HomeDialog().alertDialog(context);
               // Auth().signOut(context);
             },
+            icon: Icon(Icons.input),
           ),
         ],
       ),

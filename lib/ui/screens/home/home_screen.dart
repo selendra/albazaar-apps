@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:badges/badges.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
       key: _scaffoldState,
       body: _buildAppBar(),
       drawer: HomeDrawer(),
