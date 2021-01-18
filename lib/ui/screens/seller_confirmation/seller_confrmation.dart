@@ -199,34 +199,38 @@ class SellerConfirm extends StatelessWidget {
                   child: item.orderStatus == 'Place Order'
                       ? ReuseButton.getItem(_lang.translate('confirm_payment'),
                           () async {
-                          await ReuseAlertDialog().customDialog(
-                            context,
-                            'Do you want to confirm payment?',
-                            () async {
-                              Navigator.pop(context);
-                              await _postRequest
-                                  .markPamyment(loadedProduct.id)
-                                  .then(
-                                (value) async {
-                                  var data = json.decode(value.body);
-                                  if (data['message'] != null) {
-                                    //  sellerProvider.fetchBuyerOrder();
-                                    await Provider.of<SellerProvider>(context,
-                                            listen: false)
-                                        .fetchBuyerOrder();
-                                  }
-                                  await Components.dialog(
-                                      context,
-                                      Text(
-                                        data['message'] == null
-                                            ? "${data['error']['message']}"
-                                            : "${data['message']}",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text("Message"));
-                                },
-                              );
-                            },
+                          await Components.dialog(
+                            context, 
+                            Text('Do you want to confirm payment?'), 
+                            Text("Message"),
+                            action: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                await _postRequest
+                                    .markPamyment(loadedProduct.id)
+                                    .then(
+                                  (value) async {
+                                    var data = json.decode(value.body);
+                                    if (data['message'] != null) {
+                                      //  sellerProvider.fetchBuyerOrder();
+                                      await Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+                                    }
+                                    await Components.dialog(
+                                        context,
+                                        Text(
+                                          data['message'] == null
+                                              ? "${data['error']['message']}"
+                                              : "${data['message']}",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text("Message"));
+                                  },
+                                );
+                              },
+                            ),
+                            firsTxtBtn: "No"
                           );
                         }, context)
                       : ReuseButton.getItem(
@@ -235,39 +239,45 @@ class SellerConfirm extends StatelessWidget {
                                   item.orderStatus == 'Order Complete'
                               ? null
                               : () async {
-                                  await ReuseAlertDialog().customDialog(
-                                    context,
-                                    'Do you want to confirm shipment?',
-                                    () async {
-                                      Navigator.pop(
-                                          context); // value.setShipment(productOrder.orderStatus);
-                                      await _postRequest
-                                          .markShipment(loadedProduct.id)
-                                          .then(
-                                        (value) async {
-                                          var data = json.decode(value.body);
-                                          if (data['message'] != null) {
-                                            // sellerProvider.fetchBuyerOrder();
-                                            await Provider.of<SellerProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .fetchBuyerOrder();
-                                          }
-                                          await Components.dialog(
+                                  await Components.dialog(
+                            context, 
+                            Text('Do you want to confirm shipment?'), 
+                            Text("Message"),
+                            action: FlatButton(
+                              padding: EdgeInsets.all(0),
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                Navigator.pop(context); // value.setShipment(productOrder.orderStatus);
+                                await _postRequest
+                                    .markShipment(loadedProduct.id)
+                                    .then(
+                                  (value) async {
+                                    var data = json.decode(value.body);
+                                    if (data['message'] != null) {
+                                      // sellerProvider.fetchBuyerOrder();
+                                      await Provider.of<SellerProvider>(
                                               context,
-                                              Text(
-                                                  data['message'] == null
-                                                      ? "${data['error']['message']}"
-                                                      : "${data['message']}",
-                                                  textAlign: TextAlign.center),
-                                              Text("Message"));
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                          context,
-                        ),
+                                              listen: false)
+                                          .fetchBuyerOrder();
+                                    }
+                                    await Components.dialog(
+                                        context,
+                                        Text(
+                                            data['message'] == null
+                                                ? "${data['error']['message']}"
+                                                : "${data['message']}",
+                                            textAlign: TextAlign.center),
+                                        Text("Message"));
+                                  },
+                                );
+                              },
+                            ),
+                            firsTxtBtn: "No"
+                          );
+
+                      },
+                    context,
+                  ),
                 );
               },
             ),
