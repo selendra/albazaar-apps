@@ -71,9 +71,9 @@ class _FillSellerState extends State<FillSeller> {
 
     if (widget.addProduct.sellerName.text.isNotEmpty &&
         widget.addProduct.sellerNumber.text.isNotEmpty &&
-        widget.addProduct.address.text.isNotEmpty &&
-        widget.addProduct.district.text.isNotEmpty &&
-        widget.addProduct.city.text.isNotEmpty &&
+        // widget.addProduct.address.text.isNotEmpty &&
+        // widget.addProduct.district.text.isNotEmpty &&
+        // widget.addProduct.city.text.isNotEmpty &&
         widget.addProduct.hintShipping != "Shipping Services")
       enableButton(true);
     else if (widget.addProduct.enable2) enableButton(false);

@@ -5,11 +5,14 @@ import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_c
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(SelendraApp());
 }
 

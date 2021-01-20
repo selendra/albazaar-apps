@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,34 +27,33 @@ class AuthProvider with ChangeNotifier {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
 
       googleToken = googleSignInAuthentication.idToken;
 
-      final AuthResult authResult =
+      final auth.UserCredential authResult =
           await _auth.signInWithCredential(credential);
-      final FirebaseUser user = authResult.user;
+      final auth.User user = authResult.user;
 
       // Checking if email and name is null
       assert(user.email != null);
       assert(user.displayName != null);
-      assert(user.photoUrl != null);
+      // assert(user.photoUrl != null);
 
       var name = user.displayName.split(' ');
 
       Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
-          user.email, name.first, name.last, user.photoUrl);
+          user.email, name.first, name.last, user.photoURL);
       mBalance = Balance();
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
 
-      final FirebaseUser currentUser = await _auth.currentUser();
+      final auth.User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
     } catch (e) {
-      print("error $e");
       await ReuseAlertDialog()
           .successDialog(context, 'Please try again later!');
     }
@@ -72,11 +72,11 @@ class AuthProvider with ChangeNotifier {
       if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
         FacebookAccessToken facebookAccessToken =
             facebookLoginResult.accessToken;
-        final AuthCredential credential = FacebookAuthProvider.getCredential(
-            accessToken: facebookAccessToken.token);
+        final AuthCredential credential =
+            FacebookAuthProvider.credential(facebookAccessToken.token);
         fbToken = facebookAccessToken.token;
 
-        final FirebaseUser user =
+        final auth.User user =
             (await _auth.signInWithCredential(credential)).user;
 
         mBalance = Balance();
@@ -91,7 +91,7 @@ class AuthProvider with ChangeNotifier {
           } else {
             Provider.of<UserProvider>(context, listen: false)
                 .fetchSocialUserInfo(
-                    user.email, name.first, name.last, user.photoUrl);
+                    user.email, name.first, name.last, user.photoURL);
           }
         });
 
@@ -179,15 +179,15 @@ class AuthProvider with ChangeNotifier {
     return img;
   }
 
-  Future<FirebaseUser> get currentUser async {
-    return await _auth.currentUser();
+  Future<auth.User> get currentUser async {
+    return _auth.currentUser;
   }
 
   Future<void> signOut(BuildContext context) async {
     _pref?.clear('token');
     _pref.clear('seen');
     try {
-      FirebaseUser user = await _auth.currentUser();
+      auth.User user = _auth.currentUser;
       for (UserInfo profile in user.providerData) {
         switch (profile.providerId) {
           case 'facebook.com':
@@ -360,6 +360,7 @@ class AuthProvider with ChangeNotifier {
 
   //ADD PHONE NUMBER TO THEIR EXISTING ACCOUNT
   Future<String> addPhoneNumber(String _phoneNumber) async {
+    print("add _phone number $_phoneNumber");
     try {
       await _pref.read('token').then((onValue) async {
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
@@ -373,8 +374,14 @@ class AuthProvider with ChangeNotifier {
             }));
         var responseBody = json.decode(response.body);
 
+        print("Response add phone ${response.body}");
+        print("Response code ${response.statusCode}");
+
         if (response.statusCode == 200) {
-          _alertText = responseBody['message'];
+          if (responseBody.containsKey('error')) {
+            _alertText = responseBody['error']['message'];
+          } else
+            _alertText = responseBody['message'];
           // if (responseBody != null) {
           //   try {
           //     _alertText = responseBody['message'];
@@ -385,9 +392,7 @@ class AuthProvider with ChangeNotifier {
           //     // print(e);
           //   }
           // }
-        } else {
-          _alertText = responseBody['error']['message'];
-        }
+        } else {}
       });
     } catch (e) {
       _alertText = e.toString();

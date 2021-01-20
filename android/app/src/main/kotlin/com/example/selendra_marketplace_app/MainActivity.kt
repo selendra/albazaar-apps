@@ -1,4 +1,4 @@
-package com.example.selendra_marketplace_app
+package com.selendra.marketplace
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 name: selendra_marketplace_app
-description: A new Flutter application.
+description: A new Flutter application. 
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.6.18+6
+version: 2.6.22+7
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -26,11 +26,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
+
+  # Social
   google_sign_in: ^4.5.1
 
   flutter_facebook_login: ^3.0.0
   
-  firebase_auth: ^0.16.1
+  firebase_auth: ^0.18.4+1
   
   intl_phone_field: ^1.2.0
   
@@ -42,7 +44,7 @@ dependencies:
   
   shared_preferences: ^0.5.12+2
   
-  image_picker: ^0.6.7+4
+  image_picker: ^0.6.7+17
   
   multi_image_picker: ^4.7.14
 
@@ -56,7 +58,7 @@ dependencies:
   
   flutter_image_compress:
   
-  image:
+  image: ^2.1.19
   
   flutter_typeahead: ^1.8.8
   
@@ -66,9 +68,14 @@ dependencies:
 
   flutter_svg_provider: ^0.1.7
 
+  # Packages For Icon Launcher Android/iOS
+  flutter_launcher_icons: ^0.8.1
+  # Packages For Rename Android/iOS
+  rename: ^1.2.0
+
   # Qr 
   qr_flutter: ^3.2.0
-  qr_code_scanner: ^0.0.13
+  qr_code_scanner: ^0.1.0
 
   badges: ^1.1.4
 
@@ -84,7 +91,7 @@ dependencies:
   fluttercontactpicker: ^3.1.0
   
   #animation
-  flare_flutter:
+  flare_flutter: ^2.0.6
 
   # App Responsive
   responsive_framework: ^0.0.14
@@ -99,6 +106,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  image_path: "images/icon_launcher.png"
+  ios: true
+  android: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

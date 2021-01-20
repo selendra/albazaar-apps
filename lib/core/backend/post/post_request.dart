@@ -393,7 +393,11 @@ class PostRequest {
     String imageUrl;
     try{
       var r = await request.send();
-      imageUrl = await r.stream.bytesToString();
+      if (r.statusCode != 522){
+        imageUrl = await r.stream.bytesToString();
+      } else if (r.statusCode == 522){
+        imageUrl = r.statusCode.toString();
+      }
     } catch (e) {
       // print(e);
     }

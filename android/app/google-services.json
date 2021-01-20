@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "996789134951-3g0f4i5lecb64ii8dvb4tbrbdrlt9buq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.selendra_marketplace_app",
+            "certificate_hash": "708c60b39bab5ba562b5bd9a3981cc20a3218a52"
+          }
+        },
+        {
           "client_id": "996789134951-o5r8iajj3ku7ap4vs5v7e1232cp8ske8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.selendra_marketplace_app",
             "certificate_hash": "8262cad3c588eca29eee43675e5e186a7ee3f53c"
+          }
+        },
+        {
+          "client_id": "996789134951-qcohbieh1lsh5d8hgbjnrdm9srhjn249.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.selendra_marketplace_app",
+            "certificate_hash": "c3b0397fbab2eac69a0d32cec9e71313a0863934"
           }
         },
         {
@@ -38,6 +54,49 @@
             {
               "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "996789134951-1dijvi95mjuf1p2uh2o97aivhf67qcdi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.selendraMarketplaceApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996789134951:android:c4a39cd4e96d36ebc996c2",
+        "android_client_info": {
+          "package_name": "com.selendra.marketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkPs9eFhNLphUA5EMZI2hkfa8zsdAFtoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "996789134951-1dijvi95mjuf1p2uh2o97aivhf67qcdi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.selendraMarketplaceApp"
+              }
             }
           ]
         }

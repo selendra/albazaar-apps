@@ -246,28 +246,21 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                     height: 40,
                   ),
                   Expanded(
-                    flex: 2,
                     child: PageView(
                       controller: _pageController,
                       onPageChanged: (index) {
                         onPageChange(index);
                       },
                       children: [
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignUpPhoneForm(
-                            onSignUpWithPhone,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ),
+                        SignUpPhoneForm(
+                          onSignUpWithPhone,
+                          onFacebookSignIn,
+                          onGoogleSignIn,
                         ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: SignUpEmailForm(
-                            onSignUpByEmail,
-                            onFacebookSignIn,
-                            onGoogleSignIn,
-                          ),
+                        SignUpEmailForm(
+                          onSignUpByEmail,
+                          onFacebookSignIn,
+                          onGoogleSignIn,
                         ),
                       ],
                     ),
