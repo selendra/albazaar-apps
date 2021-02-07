@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                     )
                   ],
                 ),
-                child: Image.network(product.thumbnail, fit: BoxFit.cover),
+                child:CachedNetworkImage(imageUrl: product.thumbnail,fit: BoxFit.cover,) //Image.network(product.thumbnail, fit: BoxFit.cover),
               ),
             ),
             Padding(

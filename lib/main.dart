@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
@@ -83,6 +83,7 @@ class _SelendraAppState extends State<SelendraApp> {
           // ),
           title: appTitle,
           locale: value.manualLocale,
+
           supportedLocales: [
             const Locale('en', 'US'),
             const Locale('km', 'KH'),
@@ -110,11 +111,13 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           onGenerateRoute: router.generateRoute,
           initialRoute: SplashScreenView,
-          // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
             primaryColor: Colors.white,
             brightness: Brightness.light,
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context).textTheme,
+            ),
           ),
           routes: {
             DetailView: (context) => DetailScreen(),

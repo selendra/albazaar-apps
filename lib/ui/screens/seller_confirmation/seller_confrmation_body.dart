@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/seller_m.dart';
@@ -122,8 +123,8 @@ class SellerConfirmBody extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Image.network(
-                              productOrder.thumbnail,
+                            child: CachedNetworkImage(
+                             imageUrl:  productOrder.thumbnail,
                               fit: BoxFit.cover,
                             ),
                           ),
