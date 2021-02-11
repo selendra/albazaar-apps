@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
             child: Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
                 children: <Widget>[
                   SizedBox(
