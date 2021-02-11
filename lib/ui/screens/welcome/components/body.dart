@@ -26,9 +26,7 @@ class Body extends StatelessWidget {
                     child: Text(
                       _lang.translate('welcome_string'),
                       style: TextStyle(
-                        fontWeight: FontWeight.w900,
                         fontSize: 22,
-                        //color: Colors.black,
                       ),
                     ),
                   ),
@@ -53,7 +51,7 @@ class Body extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Container(
                       child: SvgPicture.asset(
-                        'images/undraw_Mobile_application.svg',
+                        'images/welcome_illustrator.svg',
                         height: MediaQuery.of(context).size.height * 0.3,
                         width: MediaQuery.of(context).size.width * 0.3,
                       ),

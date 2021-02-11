@@ -114,7 +114,8 @@ class _SelendraAppState extends State<SelendraApp> {
           // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
-            primaryColor: Colors.white,
+            textTheme: TextTheme(bodyText1: TextStyle(color: AppServices.hexaCodeToColor(textColor))),
+            primaryColor: AppServices.hexaCodeToColor("#F7F7F7"),
             scaffoldBackgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
             brightness: Brightness.light,
           ),
