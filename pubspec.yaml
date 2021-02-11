@@ -108,7 +108,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path: "images/icon_launcher.png"
+  image_path: "images/sld_logo_launcher.png"
   ios: true
   android: true
 
