@@ -54,6 +54,7 @@ export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx
 
 // Utility Apps
 export 'package:selendra_marketplace_app/core/utils/app_utils.dart';
+export 'package:selendra_marketplace_app/core/utils/app_colors.dart';
 
 export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx.dart';
 

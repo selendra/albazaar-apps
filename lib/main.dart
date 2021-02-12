@@ -12,6 +12,7 @@ import 'core/route/router.dart' as router;
 import 'core/providers/auth_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
@@ -65,23 +66,24 @@ class _SelendraAppState extends State<SelendraApp> {
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(
-          builder: (context, child) => ScrollConfiguration(
-            behavior: ScrollBehavior()
-              ..buildViewportChrome(context, child, AxisDirection.down),
-            child: child,
-          ),
-          // ResponsiveWrapper.builder(
-          // ),
-          //   maxWidth: 1200,
-          //   minWidth: 480,
-          //   defaultScale: true,
-          //   breakpoints: [
-          //     ResponsiveBreakpoint.resize(480, name: MOBILE),
-          //     ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          //     ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-          //   ],
-          //   background: Container(color: Color(0xFFF5F5F5))
-          // ),
+          builder: (context, child) {
+            return ResponsiveWrapper.builder(
+              ScrollConfiguration(
+                behavior: ScrollBehavior()
+                  ..buildViewportChrome(context, child, AxisDirection.down),
+                child: child,
+              ),
+              maxWidth: 1200,
+              minWidth: 480,
+              defaultScale: true,
+              breakpoints: [
+                ResponsiveBreakpoint.resize(480, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+              ],
+              background: Container(color: Color(0xFFF5F5F5))
+            );
+          },
           title: appTitle,
           locale: value.manualLocale,
           supportedLocales: [
@@ -110,7 +112,7 @@ class _SelendraAppState extends State<SelendraApp> {
             return supportedLocales.first;
           },
           onGenerateRoute: router.generateRoute,
-          initialRoute: SplashScreenView,
+          initialRoute: SignInView, //SplashScreenView,
           // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,

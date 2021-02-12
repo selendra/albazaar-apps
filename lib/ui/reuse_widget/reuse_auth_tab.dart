@@ -16,7 +16,7 @@ class _ReuseAuthTabState extends State<ReuseAuthTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300.0,
+      width: 200.0,
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),

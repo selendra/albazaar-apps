@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/flat_button.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
@@ -163,61 +164,204 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: _isLoading
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : Column(
-          children: <Widget>[
-            Container(
-                child: Image.asset(
-              'images/logo.png',
-              height: 80,
-              width: 80,
-            )),
-            SizedBox(
-              height: 40,
-            ),
-            ReuseAuthTab(
-              _tabController,
-              _lang.translate('phone'),
-              _lang.translate('email'),
-            ),
-            // tabs(context),
-            SizedBox(
-              height: 40,
-            ),
+    return Column(
+      children: [
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
             Expanded(
-              child: PageView(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  if (isPageCanChanged) {
-                    onPageChange(index);
-                  }
-                },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SignInPhoneForm(
-                    onApiSignInByPhone,
-                    onFacebookSignIn,
-                    onGoogleSignIn,
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      _lang.translate('welcome_string'),
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
+                    )
                   ),
-                  SignInEmailForm(
-                    onApiSignInByEmail,
-                    onFacebookSignIn,
-                    onGoogleSignIn,
-                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Selendra Marketplace',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                          color: kDefaultColor,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
-              ),
+              )
+            ),
+
+            Expanded(
+              flex: 1,
+              child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
             ),
           ],
         ),
-      ),
+
+        Flexible(child: Container()),
+
+        Flexible(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ReuseAuthTab(
+              _tabController,
+              _lang.translate('phone'),
+              _lang.translate('email'),
+            )
+          ),
+        ),
+
+        // tabs(context),
+
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 25),
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                if (isPageCanChanged) {
+                  onPageChange(index);
+                }
+              },
+              children: [
+                SignInPhoneForm(
+                  onApiSignInByPhone,
+                  onFacebookSignIn,
+                  onGoogleSignIn,
+                ),
+                SignInEmailForm(
+                  onApiSignInByEmail,
+                  onFacebookSignIn,
+                  onGoogleSignIn,
+                ),
+              ],
+            )
+          ),
+        ),
+
+
+        Container(
+          margin: EdgeInsets.only(bottom: 25),
+          alignment: Alignment.centerRight,
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                  context, RouteAnimation(enterPage: ResetPassPhone()));
+            },
+            child: MyText(
+              text: _lang.translate('forget_password'),
+              color: AppColors.primary,
+              fontSize: 16,
+            ),
+          ),
+        ),
+
+        MyFlatButton(
+          edgeMargin: EdgeInsets.only(bottom: 25),
+          textButton: _lang.translate('signin_string'),
+          edgePadding: EdgeInsets.only(left: 78, right: 78),
+          action: (){
+          // validateAndSubmit();
+          },
+        ),
+        
+        Text(
+          _lang.translate('or_string'),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              BtnSocial(() {
+                // facebookSignIn();
+              }, AssetImage('images/facebook.jpg')),
+              SizedBox(width: 20),
+              BtnSocial(() {
+                // googleSignIn();
+              }, AssetImage('images/google.jpg')),
+            ],
+          )
+        ),
+
+        SizedBox(height: 10),
+        ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
+            AppLocalizeService.of(context).translate('signup_string'), () {
+          Navigator.pushReplacementNamed(context, SignUpView);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) => SignUpScreen()));
+        }),
+      ],
     );
+    // SafeArea(
+    //   child: Container(
+    //     height: MediaQuery.of(context).size.height,
+    //     width: MediaQuery.of(context).size.width,
+    //     margin: const EdgeInsets.all(20),
+    //     padding: const EdgeInsets.symmetric(vertical: 20),
+    //     child: _isLoading
+    //     ? Center(
+    //         child: CircularProgressIndicator(),
+    //       )
+    //     : Column(
+    //       children: <Widget>[
+    //         Container(
+    //             child: Image.asset(
+    //           'images/logo.png',
+    //           height: 80,
+    //           width: 80,
+    //         )),
+    //         SizedBox(
+    //           height: 40,
+    //         ),
+    //         ReuseAuthTab(
+    //           _tabController,
+    //           _lang.translate('phone'),
+    //           _lang.translate('email'),
+    //         ),
+    //         // tabs(context),
+    //         SizedBox(
+    //           height: 40,
+    //         ),
+    //         Expanded(
+    //           child: PageView(
+    //             controller: _pageController,
+    //             onPageChanged: (index) {
+    //               if (isPageCanChanged) {
+    //                 onPageChange(index);
+    //               }
+    //             },
+    //             children: [
+    //               SignInPhoneForm(
+    //                 onApiSignInByPhone,
+    //                 onFacebookSignIn,
+    //                 onGoogleSignIn,
+    //               ),
+    //               SignInEmailForm(
+    //                 onApiSignInByEmail,
+    //                 onFacebookSignIn,
+    //                 onGoogleSignIn,
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
