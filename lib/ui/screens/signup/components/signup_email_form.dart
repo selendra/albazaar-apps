@@ -34,9 +34,7 @@ class SignUpEmailForm extends StatelessWidget {
         key: _emailFormKey,
         child: Column(
           children: [
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             ReuseTextField(
               controller: _emailController,
               labelText: _lang.translate('email'),
@@ -45,9 +43,7 @@ class SignUpEmailForm extends StatelessWidget {
               validator: (value) =>
                   value.isEmpty ? _lang.translate('email_is_empty') : null,
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             ReusePwField(
               controller: _passwordController,
               labelText: _lang.translate('password'),
@@ -56,10 +52,7 @@ class SignUpEmailForm extends StatelessWidget {
                   : null,
               onSaved: (value) => _password = value,
             ),
-            
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             ReusePwField(
               controller: _conpassController,
               labelText: _lang.translate('confirm_password'),
@@ -68,33 +61,22 @@ class SignUpEmailForm extends StatelessWidget {
                   : null,
               onSaved: (value) => _confirmPassword = value,
             ),
-
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             ReuseButton.getItem(_lang.translate('signup_string'), () {
               validateAndSubmit();
             }, context),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             ReuseFlatButton.getItem(_lang.translate('had_an_account'),
                 _lang.translate('signin_string'), () {
               Navigator.pushReplacementNamed(context, SignInView);
             }),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               _lang.translate('or_string'),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: _buildBtnSocialRow()
-            ),
+            SizedBox(height: 10),
+            Expanded(child: _buildBtnSocialRow()),
           ],
         ),
       ),

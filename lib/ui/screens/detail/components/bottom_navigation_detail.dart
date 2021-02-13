@@ -21,10 +21,7 @@ class BottomNavigationDetail extends StatelessWidget {
               color: Colors.grey[100],
               boxShadow: [
                 BoxShadow(
-                  color: Colors.white,
-                  offset: Offset(0, 2),
-                  blurRadius: 6.0,
-                ),
+                    color: Colors.white, offset: Offset(0, 2), blurRadius: 6.0),
               ],
             ),
             child: Consumer<FavoriteProvider>(
@@ -42,9 +39,7 @@ class BottomNavigationDetail extends StatelessWidget {
           Row(
             children: [
               BtnAddToCart(loadedProduct),
-              SizedBox(
-                width: 5.0,
-              ),
+              SizedBox(width: 5.0),
               Container(
                 width: 100,
                 child: ReuseButton.getItem(
@@ -57,12 +52,8 @@ class BottomNavigationDetail extends StatelessWidget {
                     loadedProduct.orderQty,
                   );
                   Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      RouteAnimation(
-                          enterPage: Checkout(
-                        action: 'buy_now',
-                      )));
+                  Navigator.push(context,
+                      RouteAnimation(enterPage: Checkout(action: 'buy_now')));
                 }, context),
               ),
             ],

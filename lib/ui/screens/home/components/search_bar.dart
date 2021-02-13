@@ -22,7 +22,6 @@ class SearchBar extends StatelessWidget {
               iconData: Icons.language,
               onFieldSubmitted: (value) {
                 _query = value;
-                //productData.searchProducts(_query);
               },
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,8 @@ class _BodyState extends State<Body> {
                       ),
                       leading: CircleAvatar(
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(_fav[index].thumbnail),
+                        backgroundImage:
+                            CachedNetworkImageProvider(_fav[index].thumbnail),
                       ),
                       onTap: () {
                         Navigator.of(context)
