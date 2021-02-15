@@ -188,7 +188,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                       children: [
                         Icon(Icons.arrow_back_ios),
                         Text(
-                          _lang.translate('welcome_string'),
+                          _lang.translate('signin_string'),
                           style: TextStyle(
                             fontSize: 24,
                           ),
