@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class BtnSocial extends StatelessWidget {
   final Function onTap;
-  final AssetImage logo;
+  final String logo;
 
   const BtnSocial(this.onTap, this.logo);
 
@@ -13,8 +15,9 @@ class BtnSocial extends StatelessWidget {
         child: Container(
           height: 50.0,
           width: 50.0,
+          padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
+            // shape: BoxShape.circle,
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -23,10 +26,10 @@ class BtnSocial extends StatelessWidget {
                 blurRadius: 6.0,
               ),
             ],
-            image: DecorationImage(
-              image: logo,
-            ),
+            border: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+            borderRadius: BorderRadius.circular(8),
           ),
+          child: SvgPicture.asset(logo),
         ));
   }
 }

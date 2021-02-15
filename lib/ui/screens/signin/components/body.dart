@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/components/flat_button.dart';
+import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
@@ -11,19 +12,17 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
-  bool _isLoading = false;
-  final PageController _pageController = PageController(initialPage: 0);
-  TabController _tabController;
-  bool isPageCanChanged = true;
+
+  SignInModel _signInModel = SignInModel();
 
   onGoogleSignIn() async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     await AuthProvider().signInWithGoogle(context).then((value) {
       if (value == null) {
         setState(() {
-          _isLoading = false;
+          _signInModel.isLoading = false;
         });
       } else {
         Provider.of<AuthProvider>(context, listen: false)
@@ -31,7 +30,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       }
     }).catchError((onError) {
       setState(() {
-        _isLoading = false;
+        _signInModel.isLoading = false;
       });
       ReuseAlertDialog().successDialog(context, onError);
     });
@@ -39,7 +38,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onFacebookSignIn() async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     try {
       await AuthProvider().signInFacebook(context).then((value) {
@@ -57,7 +56,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onApiSignInByEmail(String _email, String _password) async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     try {
       await AuthProvider()
@@ -85,7 +84,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onApiSignInByPhone(String _phone, String _password) async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
 
     try {
@@ -113,10 +112,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onTabChange() {
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
+    _signInModel.tabController.addListener(() {
+      if (_signInModel.tabController.indexIsChanging) {
         setState(() {
-          onPageChange(_tabController.index, p: _pageController);
+          onPageChange(_signInModel.tabController.index, p: _signInModel.pageController);
         });
       }
     });
@@ -124,40 +123,49 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onPageChange(int index, {PageController p, TabController t}) async {
     if (p != null) {
-      isPageCanChanged = false;
-      await _pageController.animateToPage(index,
+      _signInModel.isPageCanChanged = false;
+      await _signInModel.pageController.animateToPage(index,
           duration: Duration(milliseconds: 400), curve: Curves.easeOut);
-      isPageCanChanged = true;
+      _signInModel.isPageCanChanged = true;
     } else {
-      _tabController.animateTo(index);
+      _signInModel.tabController.animateTo(index);
     }
   }
 
   //This function is use to set initial tab when setstate
   void setInitialTab() {
     setState(() {
-      _tabController.index = 0;
+      _signInModel.tabController.index = 0;
     });
   }
 
   //This function is use to stop loading circle indicator
   void stopLoading() {
     setState(() {
-      _isLoading = false;
+      _signInModel.isLoading = false;
     });
+  }
+
+  void onChanged(String value){
+    if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
+    else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
+  }
+
+  void onSubmit(String value){
+
   }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _signInModel.tabController = TabController(vsync: this, length: 2);
     onTabChange();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
-    _tabController.dispose();
+    _signInModel.pageController.dispose();
+    _signInModel.tabController.dispose();
     super.dispose();
   }
 
@@ -174,14 +182,22 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      _lang.translate('welcome_string'),
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                    )
+                  InkWell(
+                    // padding: EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      children: [
+                        Icon(Icons.arrow_back_ios),
+                        Text(
+                          _lang.translate('welcome_string'),
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        )
+                      ],
+                    ),
+                    onTap: (){
+                      
+                    },
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
@@ -208,47 +224,54 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           ],
         ),
 
-        Flexible(child: Container()),
+        Expanded(
+          child: Container()
+        ),
 
-        Flexible(
+        Container(
+          margin: EdgeInsets.only(bottom: 25),
           child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.bottomLeft,
             child: ReuseAuthTab(
-              _tabController,
+              _signInModel.tabController,
               _lang.translate('phone'),
               _lang.translate('email'),
             )
-          ),
+          )
         ),
-
         // tabs(context),
 
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 25),
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) {
-                if (isPageCanChanged) {
-                  onPageChange(index);
-                }
-              },
-              children: [
-                SignInPhoneForm(
-                  onApiSignInByPhone,
-                  onFacebookSignIn,
-                  onGoogleSignIn,
-                ),
-                SignInEmailForm(
-                  onApiSignInByEmail,
-                  onFacebookSignIn,
-                  onGoogleSignIn,
-                ),
-              ],
-            )
-          ),
+          flex: 2,
+          // height: 200,
+          // padding: EdgeInsets.only(bottom: 12),
+          child: PageView(
+            controller: _signInModel.pageController,
+            onPageChanged: (index) {
+              if (_signInModel.isPageCanChanged) {
+                onPageChange(index);
+              }
+            },
+            children: [
+              SignInPhoneForm(
+                signInPhoneFunc: onApiSignInByPhone,
+                facebookSignIn: onFacebookSignIn,
+                googleSignIn: onGoogleSignIn,
+                signInModel: _signInModel,
+                onChanged: onChanged,
+                onSubmit: onSubmit,
+              ),
+              SignInEmailForm(
+                signInEmailFunc: onApiSignInByEmail,
+                faceBookSignIn: onFacebookSignIn,
+                googleSignIn: onGoogleSignIn,
+                signInModel: _signInModel,
+                onChanged: onChanged,
+                onSubmit: onSubmit,
+              ),
+            ],
+          )
         ),
-
 
         Container(
           margin: EdgeInsets.only(bottom: 25),
@@ -268,7 +291,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         MyFlatButton(
-          edgeMargin: EdgeInsets.only(bottom: 25),
+          // edgeMargin: EdgeInsets.only(bottom: 25),
           textButton: _lang.translate('signin_string'),
           edgePadding: EdgeInsets.only(left: 78, right: 78),
           action: (){
@@ -276,35 +299,41 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           },
         ),
         
-        Text(
-          _lang.translate('or_string'),
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              BtnSocial(() {
-                // facebookSignIn();
-              }, AssetImage('images/facebook.jpg')),
-              SizedBox(width: 20),
-              BtnSocial(() {
-                // googleSignIn();
-              }, AssetImage('images/google.jpg')),
-            ],
+        Flexible(
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+            _lang.translate('or_string'),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           )
         ),
 
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            BtnSocial(
+              () {
+              // facebookSignIn();
+              }, 
+              'images/facebook.svg'
+            ),
+            SizedBox(width: 20),
+            BtnSocial(() {
+              // googleSignIn();
+            }, 'images/google.svg'),
+          ],
+        ),
+
         SizedBox(height: 10),
-        ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
-            AppLocalizeService.of(context).translate('signup_string'), () {
-          Navigator.pushReplacementNamed(context, SignUpView);
+        ReuseFlatButton.getItem(
+          _lang.translate('haven\'t_had_account'),
+          AppLocalizeService.of(context).translate('signup_string'), () {
+            Navigator.pushReplacementNamed(context, SignUpView);
           // Navigator.pushReplacement(context,
           //     MaterialPageRoute(builder: (context) => SignUpScreen()));
-        }),
+          }
+        )
       ],
     );
     // SafeArea(
@@ -313,7 +342,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     //     width: MediaQuery.of(context).size.width,
     //     margin: const EdgeInsets.all(20),
     //     padding: const EdgeInsets.symmetric(vertical: 20),
-    //     child: _isLoading
+    //     child: _signInModel.isLoading
     //     ? Center(
     //         child: CircularProgressIndicator(),
     //       )
@@ -329,7 +358,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     //           height: 40,
     //         ),
     //         ReuseAuthTab(
-    //           _tabController,
+    //           _signInModel.tabController,
     //           _lang.translate('phone'),
     //           _lang.translate('email'),
     //         ),
@@ -339,9 +368,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     //         ),
     //         Expanded(
     //           child: PageView(
-    //             controller: _pageController,
+    //             controller: _signInModel.pageController,
     //             onPageChanged: (index) {
-    //               if (isPageCanChanged) {
+    //               if (_signInModel.isPageCanChanged) {
     //                 onPageChange(index);
     //               }
     //             },

@@ -107,11 +107,11 @@ class SignUpEmailForm extends StatelessWidget {
       children: <Widget>[
         BtnSocial(() {
           facebookLogin();
-        }, AssetImage('images/facebook.jpg')),
+        }, 'images/facebook.svg'),
         SizedBox(width: 20),
         BtnSocial(() {
           googleLogin();
-        }, AssetImage('images/google.jpg')),
+        }, 'images/google.svg'),
       ],
     );
   }

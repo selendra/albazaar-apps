@@ -125,11 +125,11 @@ class SignUpPhoneForm extends StatelessWidget {
       children: <Widget>[
         BtnSocial(() {
           facebookSignIn();
-        }, AssetImage('images/facebook.jpg')),
+        }, 'images/facebook.svg'),
         SizedBox(width: 20),
         BtnSocial(() {
           googleSignIn();
-        }, AssetImage('images/google.jpg')),
+        }, 'images/google.svg'),
       ],
     );
   }

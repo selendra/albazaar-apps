@@ -2,23 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-
-TextEditingController _phoneNumber = TextEditingController(),
-    _password = TextEditingController();
+import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
 
 class SignInPhoneForm extends StatelessWidget {
+
   final Function signInPhoneFunc;
   final Function facebookSignIn;
   final Function googleSignIn;
+  final SignInModel signInModel;
+  final Function onChanged;
+  final Function onSubmit;
 
-  SignInPhoneForm(this.signInPhoneFunc, this.facebookSignIn, this.googleSignIn);
-
-  final _phoneFormKey = GlobalKey<FormState>();
+  SignInPhoneForm({
+    this.signInPhoneFunc, 
+    this.facebookSignIn, 
+    this.googleSignIn,
+    this.signInModel,
+    this.onChanged,
+    this.onSubmit
+  });
 
   void validateAndSubmit() {
-    signInPhoneFunc(_phoneNumber.text, _password.text);
-    _phoneNumber.text = '';
-    _password.text = '';
+    signInPhoneFunc(signInModel.phone.text, signInModel.password.text);
+    signInModel.phone.text = '';
+    signInModel.password.text = '';
     // if (_phoneFormKey.currentState.validate()) {
     //   // _phoneFormKey.currentState.save();
     // }
@@ -28,40 +35,66 @@ class SignInPhoneForm extends StatelessWidget {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     return Form(
-      key: _phoneFormKey,
+      key: signInModel.phoneFormKey,
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
-          IntlPhoneField(
-            controller: _phoneNumber,
-            decoration: InputDecoration(
-              labelStyle: TextStyle(color: Colors.grey),
-              labelText:
-                  AppLocalizeService.of(context).translate('phone_hint'),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kDefaultColor),
-                borderRadius:
-                    BorderRadius.all(Radius.circular(kDefaultRadius)),
+
+          Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: Container(
+              padding: EdgeInsets.only(left: 11),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.black.withOpacity(0.2),
+                //     blurRadius: 3,
+                //     spreadRadius: 0.5,
+                //     offset: Offset(0, 1)
+                //   )
+                // ]
               ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.greenAccent),
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(kDefaultRadius))),
-            ),
-            initialCountryCode: 'KH',
-            validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-            // onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
+              child: IntlPhoneField(
+                controller: signInModel.phone,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(0, 18, 0, 18),
+                  labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                  labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(  
+                    borderSide: BorderSide(color: Colors.greenAccent),
+                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+                  ),
+                ),
+                initialCountryCode: 'KH',
+                countryCodeTextColor: Colors.grey,
+                validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+              )
+            )
           ),
-          SizedBox(
-            height: 10,
-          ),
-          ReusePwField(
-            controller: _password,
-            labelText: _lang.translate('password'),
-            validator: (value) => value.isEmpty || value.length < 6
-                ? _lang.translate('password_is_empty')
-                : null,
-            // onSaved: (value) => _password = value,
-          ),
+          
+          MyInputField(
+            labelText: "Password",
+            controller: signInModel.password, 
+            focusNode: signInModel.passwordNode, 
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          )
+
+          // ReusePwField(
+          //   controller: signInModel.password,
+          //   labelText: _lang.translate('password'),
+          //   validator: (value) => value.isEmpty || value.length < 6
+          //       ? _lang.translate('password_is_empty')
+          //       : null,
+          //   // onSaved: (value) => signInModel.password = value,
+          // ),
           // Container(
           //   alignment: Alignment.centerRight,
           //   child: FlatButton(
@@ -71,7 +104,7 @@ class SignInPhoneForm extends StatelessWidget {
           //     },
           //     child: RichText(
           //       text: TextSpan(
-          //         text: _lang.translate('forget_password'),
+          //         text: _lang.translate('forgetsignInModel.password'),
           //         style: TextStyle(
           //           color: Colors.red,
           //         ),
@@ -105,6 +138,7 @@ class SignInPhoneForm extends StatelessWidget {
           // Expanded(
           //   child: _buildBtnSocialRow()
           // )
+
         ],
       ),
     );
@@ -116,11 +150,11 @@ class SignInPhoneForm extends StatelessWidget {
       children: <Widget>[
         BtnSocial(() {
           facebookSignIn();
-        }, AssetImage('images/facebook.jpg')),
+        }, 'images/facebook.svg'),
         SizedBox(width: 20),
         BtnSocial(() {
           googleSignIn();
-        }, AssetImage('images/google.jpg')),
+        }, 'images/google.svg'),
       ],
     );
   }

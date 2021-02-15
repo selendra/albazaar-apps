@@ -118,20 +118,24 @@ class Body extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MyText(
-                  text: "Play around with test account.",
+                Expanded(
+                  child: MyText(
+                    text: "Play around with test account.",
+                  ),
                 ),
 
-                FlatButton(
-                  padding: EdgeInsets.only(left: 5),
-                  onPressed: (){
+                Expanded(
+                  child: FlatButton(
+                    padding: EdgeInsets.only(left: 5),
+                    onPressed: (){
 
-                  },
-                  child: MyText(
-                    text: "Try now",
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primary,
-                  ),
+                    },
+                    child: MyText(
+                      text: "Try now",
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  )
                 )
               ],
             )

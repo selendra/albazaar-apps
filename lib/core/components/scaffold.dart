@@ -28,7 +28,9 @@ class MyBodyScaffold extends StatelessWidget{
             height: height,
             width: MediaQuery.of(context).size.width, 
             padding: padding,
-            child: child,
+            child: Expanded(
+              child: child
+            ),
           ),
         )
       )

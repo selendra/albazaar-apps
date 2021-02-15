@@ -22,7 +22,7 @@ class MyInputField extends StatelessWidget{
     this.key,
     this.labelText,
     this.prefixText,
-    this.pLeft: 16.0, this.pTop: 5.0, this.pRight: 16.0, this.pBottom: 0,
+    this.pLeft: 0, this.pTop: 0, this.pRight: 0, this.pBottom: 0,
     this.obcureText = false,
     this.enableInput = true,
     this.textInputFormatter,
@@ -40,9 +40,9 @@ class MyInputField extends StatelessWidget{
     return Container(
       padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       child: Material(
-        borderRadius: BorderRadius.circular(10),
-        elevation: 10.0,
-        shadowColor: Colors.black.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(12),
+        elevation: 0,
+        shadowColor: Colors.transparent,
         child: TextFormField(
           key: this.key,
           enabled: enableInput,
@@ -51,7 +51,7 @@ class MyInputField extends StatelessWidget{
           obscureText: obcureText,
           controller: controller,
           textInputAction: inputAction,
-          style: TextStyle(color: Colors.black, fontSize: 18.0),
+          style: TextStyle(color: Colors.black54, fontSize: 18.0),
           validator: validateField,
           decoration: InputDecoration(
             labelText: labelText,
@@ -96,7 +96,7 @@ class MyInputField extends StatelessWidget{
 OutlineInputBorder myTextInputBorder(Color borderColor) {
   return OutlineInputBorder(
     borderSide: BorderSide(color: borderColor, width: 1),
-    borderRadius: BorderRadius.circular(8)
+    borderRadius: BorderRadius.circular(12)
   );
 }
 
