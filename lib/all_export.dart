@@ -68,6 +68,8 @@ export 'ui/screens/addlisting/add_listing.dart';
 export 'ui/screens/addlisting/fill_seller/fill_seller.dart';
 export 'ui/screens/addlisting/components/image_list.dart';
 
+export 'ui/screens/seller_confirmation/seller_confrmation.dart';
+
 //listing screen
 export 'ui/screens/listing/listing_screen.dart';
 
@@ -119,6 +121,8 @@ export 'ui/screens/map/components/persistent_header.dart';
 
 //otp screen
 export 'ui/screens/otp/otp.dart';
+
+export 'ui/screens/tracking/tracking.dart';
 
 //profile screen
 export 'ui/screens/profile/profile_screen.dart';
@@ -267,3 +271,5 @@ export 'core/services/auth/auth_services.dart';
 export 'core/services/connectivity_services.dart';
 export 'core/services/pref_service.dart';
 export 'core/services/app_localize_service.dart';
+export 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+export 'package:selendra_marketplace_app/core/services/app_services.dart';

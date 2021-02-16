@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -94,15 +95,19 @@ class Body extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: FadeInImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    value.url.isNotEmpty
-                                        ? value.url[index]
-                                        : loadedData.thumbnail,
-                                  ),
-                                  placeholder:
-                                      AssetImage('images/loading.gif')),
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: loadedData.thumbnail,
+                              ),
+                              // child: FadeInImage(
+                              //     fit: BoxFit.cover,
+                              //     image: NetworkImage(
+                              //       value.url.isNotEmpty
+                              //           ? value.url[index]
+                              //           : loadedData.thumbnail,
+                              //     ),
+                              //     placeholder:
+                              //         AssetImage('images/loading.gif')),
                             );
                           },
                         ),

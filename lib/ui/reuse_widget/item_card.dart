@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
 
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
           '/detail',
@@ -47,10 +48,9 @@ class ItemCard extends StatelessWidget {
                     ),
                     child: Hero(
                       tag: "${product.id}",
-                      child: FadeInImage(
+                      child: CachedNetworkImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(product.thumbnail),
-                        placeholder: AssetImage('images/loading.gif'),
+                        imageUrl: product.thumbnail,
                       ),
                     ),
                   ),
@@ -119,3 +119,6 @@ class ItemCard extends StatelessWidget {
     );
   }
 }
+
+
+

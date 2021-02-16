@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -87,7 +88,7 @@ class _BodyState extends State<Body> {
                     trailing: Consumer<UserProvider>(
                       builder: (context, value, child) => CircleAvatar(
                         backgroundImage: value.mUser.profileImg != ''
-                            ? NetworkImage(value.mUser.profileImg)
+                            ?NetworkImage(value.mUser.profileImg)
                             : AssetImage('images/avatar.png'),
                       ),
                     ),

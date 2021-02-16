@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
@@ -22,12 +23,16 @@ class InteractView extends StatelessWidget {
         child: Center(
           child: InteractiveViewer(
             maxScale: 5.0,
-            child: FadeInImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  imgUrl,
-                ),
-                placeholder: AssetImage('images/loading.gif')),
+            child: CachedNetworkImage(
+              imageUrl: imgUrl,
+              fit: BoxFit.cover,
+            ),
+            // child: FadeInImage(
+            //     fit: BoxFit.cover,
+            //     image: NetworkImage(
+            //       imgUrl,
+            //     ),
+            //     placeholder: AssetImage('images/loading.gif')),
           ),
         ),
       ),

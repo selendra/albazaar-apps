@@ -49,13 +49,7 @@ class _BodyState extends State<Body> {
                 child: Column(
                   children: <Widget>[
                     //SearchBar(),
-                    RaisedButton(onPressed: () {
-                      Provider.of<DarkMode>(context, listen: false)
-                          .setDarkMode(true);
-                    }),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     CategoriesScreen(category),
                     ProductList(productsProvider.items),
                   ],

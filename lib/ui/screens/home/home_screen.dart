@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Padding(
                       child:
                           Image.asset('images/logo.png', width: 30, height: 30),
-                      padding: EdgeInsets.only(right: 5)),
+                      padding: const EdgeInsets.only(right: 5)),
                   Text(
                     'SELENDRA',
                     style: TextStyle(
@@ -198,8 +198,6 @@ class _HomeScreenState extends State<HomeScreen>
                     color: kDefaultColor,
                   ),
                   onPressed: () {
-                    /*Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartScreen()));*/
                     showSearch(context: context, delegate: SearchProducts());
                   },
                 ),

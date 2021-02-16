@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -89,6 +89,7 @@ class _SelendraAppState extends State<SelendraApp> {
           // ),
           title: appTitle,
           locale: value.manualLocale,
+
           supportedLocales: [
             const Locale('en', 'US'),
             const Locale('km', 'KH'),
@@ -116,14 +117,14 @@ class _SelendraAppState extends State<SelendraApp> {
           },
           onGenerateRoute: router.generateRoute,
           initialRoute: SplashScreenView,
-          // debugShowCheckedModeBanner: true,
           theme: ThemeData(
-              primaryColor: Colors.white,
-              cardColor: Colors.white,
-              textSelectionColor: Colors.black),
-          darkTheme: ThemeData.dark(),
-          themeMode: data ? ThemeMode.dark : ThemeMode.light,
-
+            cursorColor: kDefaultColor,
+            primaryColor: Colors.white,
+            brightness: Brightness.light,
+            textTheme: GoogleFonts.robotoTextTheme(
+              Theme.of(context).textTheme,
+            ),
+          ),
           routes: {
             DetailView: (context) => DetailScreen(),
             SellerInfoView: (context) => SellerConfirm(),
