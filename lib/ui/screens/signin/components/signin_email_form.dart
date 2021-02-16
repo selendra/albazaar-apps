@@ -37,44 +37,7 @@ class SignInEmailForm extends StatelessWidget {
     return Form(
       key: signInModel.phoneFormKey,
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         children: [
-
-          // Padding(
-          //   padding: EdgeInsets.only(bottom: 16),
-          //   child: Container(
-          //     padding: EdgeInsets.only(left: 11),
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.circular(12),
-          //       // boxShadow: [
-          //       //   BoxShadow(
-          //       //     color: Colors.black.withOpacity(0.2),
-          //       //     blurRadius: 3,
-          //       //     spreadRadius: 0.5,
-          //       //     offset: Offset(0, 1)
-          //       //   )
-          //       // ]
-          //     ),
-          //     child: IntlPhoneField(
-          //       controller: signInModel.phone,
-          //       decoration: InputDecoration(
-          //         contentPadding: EdgeInsets.fromLTRB(0, 18, 0, 18),
-          //         labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
-          //         labelText:  _lang.translate('email'),
-          //         enabledBorder: InputBorder.none,
-          //         focusedBorder: OutlineInputBorder(  
-          //           borderSide: BorderSide(color: Colors.greenAccent),
-          //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-          //         ),
-          //       ),
-          //       initialCountryCode: 'KH',
-          //       countryCodeTextColor: Colors.grey,
-          //       validator: (value) => value.isEmpty ? _lang.translate('email_is_empty') : null,
-          //       // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
-          //     )
-          //   )
-          // ),
           MyInputField(
             pBottom: 16,
             labelText: "Email",

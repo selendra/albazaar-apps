@@ -1,136 +1,112 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:selendra_marketplace_app/core/models/sign_up_m.dart';
 
 String _phone, _password, _confirmPassword;
 
 class SignUpPhoneForm extends StatelessWidget {
+
   final Function signUpPhoneFunc;
-  final Function facebookSignIn;
-  final Function googleSignIn;
+  final Function facebookSignUp;
+  final Function googleSignUp;
+  final SignUpModel signUpModel;
+  final Function onChanged;
+  final Function onSubmit;
 
-  SignUpPhoneForm(this.signUpPhoneFunc, this.facebookSignIn, this.googleSignIn);
-
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _conpassController = TextEditingController();
-  final _phoneFormKey = GlobalKey<FormState>();
+  SignUpPhoneForm({
+    this.signUpPhoneFunc, 
+    this.facebookSignUp, 
+    this.googleSignUp,
+    this.signUpModel,
+    this.onChanged,
+    this.onSubmit
+  });
 
   void validateAndSubmit() async {
-    if (_phoneFormKey.currentState.validate()) {
-      _phoneFormKey.currentState.save();
-      await signUpPhoneFunc(_phone, _password, _confirmPassword);
+    // if (_phoneFormKey.currentState.validate()) {
+    //   _phoneFormKey.currentState.save();
+    //   await signUpPhoneFunc(_phone, _password, _confirmPassword);
 
-      _phoneController.text = '';
-      _passwordController.text = '';
-      _conpassController.text = '';
-    }
+    //   _phoneController.text = '';
+    //   _passwordController.text = '';
+    //   _conpassController.text = '';
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: Form(
-        key: _phoneFormKey,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: IntlPhoneField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                  labelText: _lang.translate('phone_hint'),
-                  labelStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kDefaultColor),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(kDefaultRadius),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.greenAccent),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kDefaultRadius))),
-                ),
-                autoValidate: false,
-                initialCountryCode: 'KH',
-                validator: (value) => value.isEmpty ? "Phone is empty" : null,
-                onChanged: (phone) {
-                  _phone = phone.number;
-                },
+    return Form(
+      key: signUpModel.phoneFormKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+
+          Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: Container(
+              padding: EdgeInsets.only(left: 11),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.black.withOpacity(0.2),
+                //     blurRadius: 3,
+                //     spreadRadius: 0.5,
+                //     offset: Offset(0, 1)
+                //   )
+                // ]
               ),
-            ),
+              child: IntlPhoneField(
+                controller: signUpModel.phone,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                  labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                  labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: OutlineInputBorder(  
+                    borderSide: BorderSide(color: Colors.greenAccent),
+                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+                  ),
+                ),
+                initialCountryCode: 'KH',
+                countryCodeTextColor: Colors.grey,
+                validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+              )
+            )
+          ),
+          
+          MyInputField(
+            labelText: "Password",
+            controller: signUpModel.password, 
+            focusNode: signUpModel.passwordNode, 
+            validateField: (String value) {
 
-            SizedBox(
-              height: 10,
-            ),
-            ReusePwField(
-              controller: _passwordController,
-              labelText: _lang.translate('password'),
-              validator: (value) => value.isEmpty || value.length < 6
-                  ? _lang.translate('password_is_empty')
-                  : null,
-              onSaved: (value) => _password = value,
-            ),
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          )
 
-            SizedBox(
-              height: 10,
-            ),
-            ReusePwField(
-              controller: _conpassController,
-              labelText: _lang.translate('confirm_password'),
-              validator: (value) => value.isEmpty || value.length < 6
-                  ? _lang.translate('password_is_empty')
-                  : null,
-              onSaved: (value) => _confirmPassword = value,
-            ),
-
-            SizedBox(
-              height: 40,
-            ),
-            ReuseButton.getItem(_lang.translate('signup_string'), () {
-              validateAndSubmit();
-            }, context),
-            SizedBox(height: 10),
-            ReuseFlatButton.getItem(_lang.translate('had_an_account'),
-                _lang.translate('signin_string'), () {
-              Navigator.pushReplacementNamed(context, SignInView);
-            }),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              _lang.translate('or_string'),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: _buildBtnSocialRow()
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildBtnSocialRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        BtnSocial(() {
-          facebookSignIn();
-        }, 'images/facebook.svg'),
-        SizedBox(width: 20),
-        BtnSocial(() {
-          googleSignIn();
-        }, 'images/google.svg'),
-      ],
-    );
-  }
+  // Widget _buildBtnSocialRow() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: <Widget>[
+  //       BtnSocial(() {
+  //         facebookSignIn();
+  //       }, 'images/facebook.svg'),
+  //       SizedBox(width: 20),
+  //       BtnSocial(() {
+  //         googleSignIn();
+  //       }, 'images/google.svg'),
+  //     ],
+  //   );
+  // }
 }

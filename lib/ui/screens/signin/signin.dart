@@ -8,6 +8,7 @@ class SignIn extends StatelessWidget {
     return MyBodyScaffold(
       padding: const EdgeInsets.fromLTRB(35, 35, 35, 35),
       height: MediaQuery.of(context).size.height,
+      scroll: BouncingScrollPhysics(),
       child: Expanded(
         child: Body()
       )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/models/sign_up_m.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
@@ -8,6 +9,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+  
+  SignUpModel _signUpModel = SignUpModel();
+
   bool _isLoading = false, isPageCanChanged = true;
   String alertText;
   final PageController _pageController = PageController(initialPage: 0);
@@ -118,7 +122,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     }
   }
 
-  onGoogleSignIn() async {
+  onGoogleSignUp() async {
     setState(() {
       _isLoading = true;
     });
@@ -139,7 +143,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
-  onFacebookSignIn() async {
+  onFacebookSignUp() async {
     setState(() {
       _isLoading = true;
     });
@@ -198,6 +202,15 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
+  void onChanged(String value){
+    if (_signUpModel.tabController.index == 0) _signUpModel.phoneFormKey.currentState.validate();
+    else if (_signUpModel.tabController.index == 1) _signUpModel.emailFormKey.currentState.validate();
+  }
+
+  void onSubmit(String value){
+
+  }
+
   @override
   void initState() {
     super.initState();
@@ -215,59 +228,229 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                children: <Widget>[
-                  Container(
-                    child: Image.asset(
-                      'images/logo.png',
-                      height: 80,
-                      width: 80,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  ReuseAuthTab(
-                    _tabController,
-                    _lang.translate('phone'),
-                    _lang.translate('email'),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Expanded(
-                    child: PageView(
-                      controller: _pageController,
-                      onPageChanged: (index) {
-                        onPageChange(index);
-                      },
+    return Column(
+      children: [
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    // padding: EdgeInsets.only(bottom: 20),
+                    child: Row(
                       children: [
-                        SignUpPhoneForm(
-                          onSignUpWithPhone,
-                          onFacebookSignIn,
-                          onGoogleSignIn,
-                        ),
-                        SignUpEmailForm(
-                          onSignUpByEmail,
-                          onFacebookSignIn,
-                          onGoogleSignIn,
-                        ),
+                        Icon(Icons.arrow_back_ios),
+                        Text(
+                          _lang.translate('signUp_string'),
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
+                        )
                       ],
                     ),
+                    onTap: (){
+                      
+                    },
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Selendra Marketplace',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                          color: kDefaultColor,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
+              )
+            ),
+
+            Expanded(
+              flex: 1,
+              child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
+            ),
+          ],
+        ),
+
+        Expanded(
+          child: Container()
+        ),
+
+        Container(
+          margin: EdgeInsets.only(bottom: 25),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: ReuseAuthTab(
+              _signUpModel.tabController,
+              _lang.translate('phone'),
+              _lang.translate('email'),
+              onPageChange
+            )
+          )
+        ),
+        // tabs(context),
+
+        Flexible(
+          // flex: 2,
+          // height: 200,
+          // padding: EdgeInsets.only(bottom: 12),
+          child: PageView(
+            controller: _signUpModel.pageController,
+            onPageChanged: (index) {
+              if (_signUpModel.isPageCanChanged) {
+                onPageChange(index);
+              }
+            },
+            children: [
+              SignUpPhoneForm(
+                signUpPhoneFunc: onSignUpWithPhone,
+                facebookSignUp: onFacebookSignUp,
+                googleSignUp: onGoogleSignUp,
+                signUpModel: _signUpModel,
+                onChanged: onChanged,
+                onSubmit: onSubmit,
               ),
-      ),
+              SignUpEmailForm(
+                signUpEmailFunc: onSignUpByEmail,
+                faceBookSignUp: onFacebookSignUp,
+                googleSignUp: onGoogleSignUp,
+                signUpModel: _signUpModel,
+                onChanged: onChanged,
+                onSubmit: onSubmit,
+              ),
+            ],
+          )
+        ),
+
+        Container(
+          margin: EdgeInsets.only(bottom: 25),
+          alignment: Alignment.centerRight,
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.push(
+                  context, RouteAnimation(enterPage: ResetPassPhone()));
+            },
+            child: MyText(
+              text: _lang.translate('forget_password'),
+              color: AppColors.primary,
+              fontSize: 16,
+            ),
+          ),
+        ),
+
+        MyFlatButton(
+          // edgeMargin: EdgeInsets.only(bottom: 25),
+          textButton: _lang.translate('signUp_string'),
+          edgePadding: EdgeInsets.only(left: 78, right: 78),
+          action: (){
+          // validateAndSubmit();
+          },
+        ),
+        
+        Flexible(
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+            _lang.translate('or_string'),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          )
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            BtnSocial(
+              () {
+              // facebookSignUp();
+              }, 
+              'images/facebook.svg'
+            ),
+            SizedBox(width: 20),
+            BtnSocial(() {
+              // googleSignUp();
+            }, 'images/google.svg'),
+          ],
+        ),
+
+        SizedBox(height: 10),
+        ReuseFlatButton.getItem(
+          _lang.translate('haven\'t_had_account'),
+          AppLocalizeService.of(context).translate('signup_string'), () {
+            Navigator.pushReplacementNamed(context, SignUpView);
+          // Navigator.pushReplacement(context,
+          //     MaterialPageRoute(builder: (context) => SignUpScreen()));
+          }
+        )
+      ],
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   var _lang = AppLocalizeService.of(context);
+  //   return SafeArea(
+  //     child: Container(
+  //       height: MediaQuery.of(context).size.height,
+  //       width: MediaQuery.of(context).size.width,
+  //       margin: const EdgeInsets.all(20),
+  //       padding: const EdgeInsets.symmetric(vertical: 20),
+  //       child: _isLoading
+  //           ? Center(
+  //               child: CircularProgressIndicator(),
+  //             )
+  //           : Column(
+  //               children: <Widget>[
+  //                 Container(
+  //                   child: Image.asset(
+  //                     'images/logo.png',
+  //                     height: 80,
+  //                     width: 80,
+  //                   ),
+  //                 ),
+  //                 SizedBox(
+  //                   height: 40,
+  //                 ),
+  //                 ReuseAuthTab(
+  //                   _tabController,
+  //                   _lang.translate('phone'),
+  //                   _lang.translate('email'),
+  //                 ),
+  //                 SizedBox(
+  //                   height: 40,
+  //                 ),
+  //                 Expanded(
+  //                   child: PageView(
+  //                     controller: _pageController,
+  //                     onPageChanged: (index) {
+  //                       onPageChange(index);
+  //                     },
+  //                     children: [
+  //                       SignUpPhoneForm(
+  //                         onSignUpWithPhone,
+  //                         onFacebookSignUp,
+  //                         onGoogleSignUp,
+  //                       ),
+  //                       SignUpEmailForm(
+  //                         onSignUpByEmail,
+  //                         onFacebookSignUp,
+  //                         onGoogleSignUp,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //     ),
+  //   );
+  // }
 }

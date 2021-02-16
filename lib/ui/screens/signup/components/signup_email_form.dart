@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/models/sign_up_m.dart';
 
 String _email, _password, _confirmPassword;
 
 class SignUpEmailForm extends StatelessWidget {
+
   final Function signUpEmailFunc;
-  final Function facebookLogin;
-  final Function googleLogin;
+  final Function faceBookSignUp;
+  final Function googleSignUp;
+  final SignUpModel signUpModel;
+  final Function onChanged;
+  final Function onSubmit;
 
-  SignUpEmailForm(this.signUpEmailFunc, this.facebookLogin, this.googleLogin);
+  SignUpEmailForm({
+    this.signUpEmailFunc, 
+    this.faceBookSignUp, 
+    this.googleSignUp,
+    this.signUpModel,
+    this.onChanged,
+    this.onSubmit
+  });
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _conpassController = TextEditingController();
-
-  final _emailFormKey = GlobalKey<FormState>();
   void validateAndSubmit() {
-    if (_emailFormKey.currentState.validate()) {
-      _emailFormKey.currentState.save();
+    if (signUpModel.emailFormKey.currentState.validate()) {
+      signUpModel.emailFormKey.currentState.save();
       signUpEmailFunc(_email, _password, _confirmPassword);
-      _emailController.text = '';
-      _passwordController.text = '';
-      _conpassController.text = '';
+      signUpModel.email.text = '';
+      signUpModel.password.text = '';
+      signUpModel.confirmPassword.text = '';
     }
   }
 
@@ -31,14 +38,14 @@ class SignUpEmailForm extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Form(
-        key: _emailFormKey,
+        key: signUpModel.emailFormKey,
         child: Column(
           children: [
             SizedBox(
               height: 20,
             ),
             ReuseTextField(
-              controller: _emailController,
+              controller: signUpModel.email,
               labelText: _lang.translate('email'),
               inputType: TextInputType.emailAddress,
               onSaved: (value) => _email = value,
@@ -49,7 +56,7 @@ class SignUpEmailForm extends StatelessWidget {
               height: 10,
             ),
             ReusePwField(
-              controller: _passwordController,
+              controller: signUpModel.password,
               labelText: _lang.translate('password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')
@@ -61,7 +68,7 @@ class SignUpEmailForm extends StatelessWidget {
               height: 10,
             ),
             ReusePwField(
-              controller: _conpassController,
+              controller: signUpModel.confirmPassword,
               labelText: _lang.translate('confirm_password'),
               validator: (value) => value.isEmpty || value.length < 6
                   ? _lang.translate('password_is_empty')
@@ -106,11 +113,11 @@ class SignUpEmailForm extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         BtnSocial(() {
-          facebookLogin();
+          faceBookSignUp();
         }, 'images/facebook.svg'),
         SizedBox(width: 20),
         BtnSocial(() {
-          googleLogin();
+          googleSignUp();
         }, 'images/google.svg'),
       ],
     );

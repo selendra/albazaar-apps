@@ -45,6 +45,7 @@ export 'package:selendra_marketplace_app/core/components/text_c.dart';
 export 'package:selendra_marketplace_app/core/components/snackBar_c.dart';
 export 'package:selendra_marketplace_app/core/components/body_scaffold_c.dart';
 export 'package:selendra_marketplace_app/core/components/item_list.dart';
+export 'package:selendra_marketplace_app/core/components/flat_button.dart';
 
 // Transaction
 export 'package:permission_handler/permission_handler.dart';

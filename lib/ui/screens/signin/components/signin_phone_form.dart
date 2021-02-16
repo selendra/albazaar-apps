@@ -34,113 +34,50 @@ class SignInPhoneForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return Form(
-      key: signInModel.phoneFormKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
 
-          Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: Container(
-              padding: EdgeInsets.only(left: 11),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.black.withOpacity(0.2),
-                //     blurRadius: 3,
-                //     spreadRadius: 0.5,
-                //     offset: Offset(0, 1)
-                //   )
-                // ]
-              ),
-              child: IntlPhoneField(
-                controller: signInModel.phone,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(0, 18, 0, 18),
-                  labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                  labelText: AppLocalizeService.of(context).translate('phone_hint'),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(  
-                    borderSide: BorderSide(color: Colors.greenAccent),
-                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-                  ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 16),
+          child: Container(
+            padding: EdgeInsets.only(left: 11),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IntlPhoneField(
+              controller: signInModel.phone,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 14),
+                labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                enabledBorder: InputBorder.none,
+                focusedBorder: OutlineInputBorder(  
+                  borderSide: BorderSide(color: Colors.greenAccent),
+                  borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
                 ),
-                initialCountryCode: 'KH',
-                countryCodeTextColor: Colors.grey,
-                validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
-              )
+              ),
+              initialCountryCode: 'KH',
+              countryCodeTextColor: Colors.grey,
+              validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+              // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
             )
-          ),
-          
-          MyInputField(
-            labelText: "Password",
-            controller: signInModel.password, 
-            focusNode: signInModel.passwordNode, 
-            validateField: (String value) {
-
-            }, 
-            onChanged: onChanged, 
-            onSubmit: onSubmit,
           )
+        ),
+        
+        MyInputField(
+          labelText: "Password",
+          controller: signInModel.password, 
+          focusNode: signInModel.passwordNode, 
+          validateField: (String value) {
 
-          // ReusePwField(
-          //   controller: signInModel.password,
-          //   labelText: _lang.translate('password'),
-          //   validator: (value) => value.isEmpty || value.length < 6
-          //       ? _lang.translate('password_is_empty')
-          //       : null,
-          //   // onSaved: (value) => signInModel.password = value,
-          // ),
-          // Container(
-          //   alignment: Alignment.centerRight,
-          //   child: FlatButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //           context, RouteAnimation(enterPage: ResetPassPhone()));
-          //     },
-          //     child: RichText(
-          //       text: TextSpan(
-          //         text: _lang.translate('forgetsignInModel.password'),
-          //         style: TextStyle(
-          //           color: Colors.red,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // ReuseButton.getItem(_lang.translate('signin_string'), () {
-          //   validateAndSubmit();
-          // }, context),
-          // SizedBox(height: 10),
-          // ReuseFlatButton.getItem(_lang.translate('haven\'t_had_account'),
-          //     AppLocalizeService.of(context).translate('signup_string'), () {
-          //   Navigator.pushReplacementNamed(context, SignUpView);
-          //   // Navigator.pushReplacement(context,
-          //   //     MaterialPageRoute(builder: (context) => SignUpScreen()));
-          // }),
-          // SizedBox(
-          //   height: 5,
-          // ),
-          // Text(
-          //   _lang.translate('or_string'),
-          //   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          // ),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // Expanded(
-          //   child: _buildBtnSocialRow()
-          // )
+          }, 
+          onChanged: onChanged, 
+          onSubmit: onSubmit,
+        )
 
-        ],
-      ),
+      ],
     );
   }
 
