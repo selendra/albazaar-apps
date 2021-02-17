@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
@@ -47,10 +48,11 @@ class SignInPhoneForm extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: IntlPhoneField(
-              controller: signInModel.phone,
+              // controller: signInModel.phone,
+              // focusNode: signInModel.phoneNode,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 14),
-                labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                labelStyle: TextStyle(color: Colors.black, fontSize: 18),
                 labelText: AppLocalizeService.of(context).translate('phone_hint'),
                 enabledBorder: InputBorder.none,
                 focusedBorder: OutlineInputBorder(  
@@ -59,7 +61,7 @@ class SignInPhoneForm extends StatelessWidget {
                 ),
               ),
               initialCountryCode: 'KH',
-              countryCodeTextColor: Colors.grey,
+              countryCodeTextColor: Colors.black,
               validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
               // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
             )
@@ -70,6 +72,9 @@ class SignInPhoneForm extends StatelessWidget {
           labelText: "Password",
           controller: signInModel.password, 
           focusNode: signInModel.passwordNode, 
+          textInputFormatter: [
+            LengthLimitingTextInputFormatter(TextField.noMaxLength)
+          ],
           validateField: (String value) {
 
           }, 

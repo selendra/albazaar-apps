@@ -162,11 +162,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   void onChanged(String value){
-    if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
-    else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
+    print("My value");
+    // if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
+    // else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
   }
 
-  void onSubmit(String value){
+  void onSubmit(){
 
   }
 
@@ -241,9 +242,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             ],
           ),
 
-          Flexible(
-            child: Container()
-          ),
+          // Flexible(
+          //   child: Container()
+          // ),
 
           Container(
             margin: EdgeInsets.only(bottom: 25),
@@ -259,9 +260,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           ),
           // tabs(context),
 
-          Form(
-            key: _signInModel.emailFormKey,
-            child: Expanded(
+          // Form(
+          //   key: _signInModel.emailFormKey,
+          //   child: 
+            Expanded(
               child: TabBarView(
                 controller: _signInModel.tabController,
                 children: [
@@ -284,8 +286,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   )
                 ],
               )
-            )
-          ),
+            ),
+          // ),
 
           Container(
             margin: EdgeInsets.only(bottom: 25),
