@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/models/add_user_info.dart';
 
 class Body extends StatefulWidget {
-  
+
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
 
+  AddUserInfoModel _addUserInfoModel = AddUserInfoModel();
+
   final _formKey = GlobalKey<FormState>();
   final _firstNameKey = GlobalKey<FormFieldState<String>>();
   final _midNameKey = GlobalKey<FormFieldState<String>>();
   final _lastNameKey = GlobalKey<FormFieldState<String>>();
+
   String firstName, midName, lastName, gender, imageUri, address, alertText;
   int _selectedIndex;
 
@@ -110,6 +114,10 @@ class _BodyState extends State<Body> {
     }
   }
 
+  void onSubmit(){
+
+  }
+
   Future<void>onSetUserPf() async {
 
     setState(() {
@@ -197,101 +205,142 @@ class _BodyState extends State<Body> {
       ? Center(
         child: CircularProgressIndicator()
       )
-      : SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
+      : Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
 
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
-              ),
-              Consumer<UserProvider>(
-                builder: (context, value, child) => Container(
-                  margin: EdgeInsets.all(5),
-                  width: 100, height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(width: 1, color: Colors.greenAccent)
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Consumer<UserProvider>(
+              builder: (context, value, child) => Container(
+                margin: EdgeInsets.all(5),
+                width: 100, height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(width: 1, color: Colors.greenAccent)
+                ),
+                child: ClipOval(
+                  child: FadeInImage(
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage('images/loading.gif'), 
+                    image: value.mUser.profileImg != null
+                      ? NetworkImage(value.mUser.profileImg)
+                      : AssetImage('images/avatar.png')
                   ),
-                  child: ClipOval(
-                    child: FadeInImage(
-                      fit: BoxFit.cover,
-                      placeholder: AssetImage('images/loading.gif'), 
-                      image: value.mUser.profileImg != null
-                        ? NetworkImage(value.mUser.profileImg)
-                        : AssetImage('images/avatar.png')
-                    ),
+                ),
+              )
+              // CircleAvatar(
+              //   backgroundImage: ,
+              // ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 5),
+              child: InkWell(
+                onTap: () => loadAsset(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add),
+                    Text(AppLocalizeService.of(context).translate('profile_photo'))
+                  ],
+                ),
+              )
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            
+            MyInputField(
+              pRight: 5, pLeft: 5, pTop: 5,
+              pBottom: 11,
+              labelText: "First name",
+              controller: _addUserInfoModel.firstName, 
+              focusNode: _addUserInfoModel.firstNameNode, 
+              textInputFormatter: [
+                LengthLimitingTextInputFormatter(TextField.noMaxLength)
+              ],
+              validateField: (String value) {
+
+              }, 
+              onChanged: onChanged, 
+              onSubmit: onSubmit,
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            MyInputField(
+              pRight: 5, pLeft: 5, pTop: 5,
+              pBottom: 11,
+              labelText: "Mid name",
+              controller: _addUserInfoModel.midName, 
+              focusNode: _addUserInfoModel.midNameNode, 
+              textInputFormatter: [
+                LengthLimitingTextInputFormatter(TextField.noMaxLength)
+              ],
+              validateField: (String value) {
+
+              }, 
+              onChanged: onChanged, 
+              onSubmit: onSubmit,
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            MyInputField(
+              pRight: 5, pLeft: 5, pTop: 5,
+              pBottom: 11,
+              labelText: "Last name",
+              controller: _addUserInfoModel.lastName, 
+              focusNode: _addUserInfoModel.lastNameNode, 
+              textInputFormatter: [
+                LengthLimitingTextInputFormatter(TextField.noMaxLength)
+              ],
+              validateField: (String value) {
+
+              }, 
+              onChanged: onChanged, 
+              onSubmit: onSubmit,
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(child: _address()),
+                Container(
+                  width: 80,
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: SvgPicture.asset('images/pin_location.svg'), 
+                    onPressed: ()async {
+                      await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
+                    }
                   ),
                 )
-                // CircleAvatar(
-                //   backgroundImage: ,
-                // ),
-              ),
+              ],
+            ),
 
-              Padding(
-                padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 5),
-                child: InkWell(
-                  onTap: () => loadAsset(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add),
-                      Text(AppLocalizeService.of(context).translate('profile_photo'))
-                    ],
-                  ),
-                )
-              ),
+            SizedBox(
+              height: 20,
+            ),
+            _radioBtn(),
 
-              SizedBox(
-                height: 20,
-              ),
-              _firstName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _midName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              _lastName(),
-
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(child: _address()),
-                  Container(
-                    width: 80,
-                    child: IconButton(
-                      padding: EdgeInsets.all(0),
-                      icon: SvgPicture.asset('images/pin_location.svg'), 
-                      onPressed: ()async {
-                        await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
-                      }
-                    ),
-                  )
-                ],
-              ),
-
-              SizedBox(
-                height: 20,
-              ),
-              _radioBtn(),
-
-              SizedBox(
-                height: 40,
-              ),
-              ReuseButton.getItem('Submit', !isCheck ? null : () async {
-                await validateAndSubmit();
-              }, context),
-            ],
-          ),
+            SizedBox(
+              height: 40,
+            ),
+            ReuseButton.getItem('Submit', !isCheck ? null : () async {
+              await validateAndSubmit();
+            }, context),
+          ],
         ),
       ),
     );

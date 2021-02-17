@@ -13,7 +13,7 @@ class MyBodyScaffold extends StatelessWidget{
     this.pTop = 0,
     this.pRight = 0,
     this.pBottom = 0,
-    this.padding = const EdgeInsets.fromLTRB(35, 35, 35, 70),
+    this.padding = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.scroll = const NeverScrollableScrollPhysics(),
     this.height,
     this.child
@@ -28,9 +28,7 @@ class MyBodyScaffold extends StatelessWidget{
             height: height,
             width: MediaQuery.of(context).size.width, 
             padding: padding,
-            child: Expanded(
-              child: child
-            ),
+            child: child,
           ),
         )
       )

@@ -35,91 +35,57 @@ class SignUpEmailForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: Form(
-        key: signUpModel.emailFormKey,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            ReuseTextField(
-              controller: signUpModel.email,
-              labelText: _lang.translate('email'),
-              inputType: TextInputType.emailAddress,
-              onSaved: (value) => _email = value,
-              validator: (value) =>
-                  value.isEmpty ? _lang.translate('email_is_empty') : null,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ReusePwField(
-              controller: signUpModel.password,
-              labelText: _lang.translate('password'),
-              validator: (value) => value.isEmpty || value.length < 6
-                  ? _lang.translate('password_is_empty')
-                  : null,
-              onSaved: (value) => _password = value,
-            ),
-            
-            SizedBox(
-              height: 10,
-            ),
-            ReusePwField(
-              controller: signUpModel.confirmPassword,
-              labelText: _lang.translate('confirm_password'),
-              validator: (value) => value.isEmpty || value.length < 6
-                  ? _lang.translate('password_is_empty')
-                  : null,
-              onSaved: (value) => _confirmPassword = value,
-            ),
+    return Form(
+      // key: signUpModel.phoneFormKey,
+      child: Column(
+        children: [
 
-            SizedBox(
-              height: 40,
-            ),
-            ReuseButton.getItem(_lang.translate('signup_string'), () {
-              validateAndSubmit();
-            }, context),
-            SizedBox(
-              height: 10,
-            ),
-            ReuseFlatButton.getItem(_lang.translate('had_an_account'),
-                _lang.translate('signin_string'), () {
-              Navigator.pushReplacementNamed(context, SignInView);
-            }),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              _lang.translate('or_string'),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: _buildBtnSocialRow()
-            ),
-          ],
-        ),
+          MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            pBottom: 11,
+            labelText: "Email",
+            controller: signUpModel.email, 
+            focusNode: signUpModel.emailNode, 
+            textInputFormatter: [
+              LengthLimitingTextInputFormatter(TextField.noMaxLength)
+            ],
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          ),
+          
+          MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            pBottom: 11,
+            labelText: "Password",
+            controller: signUpModel.password, 
+            focusNode: signUpModel.passwordNode, 
+            textInputFormatter: [
+              LengthLimitingTextInputFormatter(TextField.noMaxLength)
+            ],
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          ),
+
+          MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            labelText: "Confirm Password",
+            controller: signUpModel.confirmPassword, 
+            focusNode: signUpModel.confirmPasswordNode, 
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          )
+
+        ],
       ),
-    );
-  }
-
-  Widget _buildBtnSocialRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        BtnSocial(() {
-          faceBookSignUp();
-        }, 'images/facebook.svg'),
-        SizedBox(width: 20),
-        BtnSocial(() {
-          googleSignUp();
-        }, 'images/google.svg'),
-      ],
     );
   }
 }

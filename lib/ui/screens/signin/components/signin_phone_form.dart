@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:selendra_marketplace_app/core/components/component.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
@@ -39,36 +40,72 @@ class SignInPhoneForm extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
 
-        Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child: Container(
-            padding: EdgeInsets.only(left: 11),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IntlPhoneField(
-              // controller: signInModel.phone,
-              // focusNode: signInModel.phoneNode,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 14),
-                labelStyle: TextStyle(color: Colors.black, fontSize: 18),
-                labelText: AppLocalizeService.of(context).translate('phone_hint'),
-                enabledBorder: InputBorder.none,
-                focusedBorder: OutlineInputBorder(  
-                  borderSide: BorderSide(color: Colors.greenAccent),
-                  borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-                ),
-              ),
-              initialCountryCode: 'KH',
-              countryCodeTextColor: Colors.black,
-              validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-              // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
-            )
-          )
+        
+        // Padding(
+        //   padding: paddingScaffold(pTop: 5, pBottom: 5),
+        //   child: Stack(
+        //     children: [
+
+        //       // Padding(
+        //       //   child: 
+        //       //   Container(
+        //       //     decoration: BoxDecoration(
+        //       //       color: Colors.white,
+        //       //       borderRadius: BorderRadius.circular(12),
+        //       //     ),
+        //       //     height: 65,
+        //       //   ),
+        //       // // ),
+
+        //       // // Padding(
+        //       // //   padding: EdgeInsets.only(top: 5, left: 16, right: 5, bottom: 11),
+        //       //   // child: 
+        //       //   Container(
+        //       //     child: IntlPhoneField(
+        //       //     decoration: InputDecoration(),
+        //       //     // controller: signInModel.phone,
+        //       //     // focusNode: signInModel.phoneNode,
+        //       //     enabled: false,
+        //       //     // decoration: InputDecoration(
+        //       //     //   // contentPadding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+        //       //     //   // labelStyle: TextStyle(color: Colors.transparent, fontSize: 18),
+        //       //     //   labelText: AppLocalizeService.of(context).translate('phone_hint'),
+        //       //     //   enabledBorder: InputBorder.none,
+        //       //     //   focusedBorder: OutlineInputBorder(  
+        //       //     //     borderSide: BorderSide(color: Colors.greenAccent),
+        //       //     //     borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+        //       //     //   ),
+        //       //     // ),
+        //       //     initialCountryCode: 'KH',
+        //       //     countryCodeTextColor: Colors.black,
+        //       //     // validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+        //       //     // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+        //       //   )
+        //       //   )
+        //       // )
+        //     ],
+        //   )
+        // ),
+
+        MyInputField(
+          pRight: 5, pLeft: 5, pTop: 5,
+          pBottom: 11,
+          labelText: "Phone",
+          controller: signInModel.phone, 
+          focusNode: signInModel.phoneNode,
+          inputType: TextInputType.phone,
+          textInputFormatter: [
+            LengthLimitingTextInputFormatter(TextField.noMaxLength)
+          ],
+          validateField: (String value) {
+
+          }, 
+          onChanged: onChanged, 
+          onSubmit: onSubmit,
         ),
         
         MyInputField(
+          pRight: 5, pLeft: 5, pTop: 5,
           labelText: "Password",
           controller: signInModel.password, 
           focusNode: signInModel.passwordNode, 

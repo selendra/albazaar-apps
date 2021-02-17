@@ -43,46 +43,76 @@ class SignUpPhoneForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
 
-          Padding(
-            padding: EdgeInsets.only(bottom: 16),
-            child: Container(
-              padding: EdgeInsets.only(left: 11),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.black.withOpacity(0.2),
-                //     blurRadius: 3,
-                //     spreadRadius: 0.5,
-                //     offset: Offset(0, 1)
-                //   )
-                // ]
-              ),
-              child: IntlPhoneField(
-                controller: signUpModel.phone,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                  labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                  labelText: AppLocalizeService.of(context).translate('phone_hint'),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: OutlineInputBorder(  
-                    borderSide: BorderSide(color: Colors.greenAccent),
-                    borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-                  ),
-                ),
-                initialCountryCode: 'KH',
-                countryCodeTextColor: Colors.grey,
-                validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
-              )
-            )
+          // Padding(
+          //   padding: EdgeInsets.only(bottom: 16),
+          //   child: Container(
+          //     padding: EdgeInsets.only(left: 11),
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(12),
+          //       // boxShadow: [
+          //       //   BoxShadow(
+          //       //     color: Colors.black.withOpacity(0.2),
+          //       //     blurRadius: 3,
+          //       //     spreadRadius: 0.5,
+          //       //     offset: Offset(0, 1)
+          //       //   )
+          //       // ]
+          //     ),
+          //     child: IntlPhoneField(
+          //       controller: signUpModel.phone,
+          //       decoration: InputDecoration(
+          //         contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+          //         labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+          //         labelText: AppLocalizeService.of(context).translate('phone_hint'),
+          //         enabledBorder: InputBorder.none,
+          //         focusedBorder: OutlineInputBorder(  
+          //           borderSide: BorderSide(color: Colors.greenAccent),
+          //           borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+          //         ),
+          //       ),
+          //       initialCountryCode: 'KH',
+          //       countryCodeTextColor: Colors.grey,
+          //       validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+          //       // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+          //     )
+          //   )
+          // ),
+          MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            pBottom: 11,
+            labelText: "Phone",
+            controller: signUpModel.phone, 
+            focusNode: signUpModel.phoneNode,
+            inputType: TextInputType.phone,
+            textInputFormatter: [
+              LengthLimitingTextInputFormatter(TextField.noMaxLength)
+            ],
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
           ),
           
           MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            pBottom: 11,
             labelText: "Password",
             controller: signUpModel.password, 
             focusNode: signUpModel.passwordNode, 
+            validateField: (String value) {
+
+            }, 
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+          ),
+
+          MyInputField(
+            pRight: 5, pLeft: 5, pTop: 5,
+            labelText: "Confirm Password",
+            controller: signUpModel.confirmPassword, 
+            focusNode: signUpModel.confirmPasswordNode, 
             validateField: (String value) {
 
             }, 

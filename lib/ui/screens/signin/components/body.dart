@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/component.dart';
 import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
@@ -188,12 +189,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return DefaultTabController(
-      length: 2,
-        child:Column(
-        children: [
+    return Column(
+      children: [
 
-          Row(
+        Padding(
+          padding: paddingScaffold(pTop: pd35),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
@@ -240,82 +241,92 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
               ),
             ],
-          ),
+          )
+        ),
 
-          // Flexible(
-          //   child: Container()
-          // ),
+        Flexible(
+          child: Padding(
+            padding: paddingScaffold(),
+            child: Container()
+          )
+        ),
 
-          Container(
-            margin: EdgeInsets.only(bottom: 25),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: ReuseAuthTab(
-                _signInModel.tabController,
-                _lang.translate('phone'),
-                _lang.translate('email'),
-                onPageChange
-              )
+        Container(
+          padding: paddingScaffold(pBottom: 25),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: ReuseAuthTab(
+              _signInModel.tabController,
+              _lang.translate('phone'),
+              _lang.translate('email'),
+              onPageChange
             )
-          ),
-          // tabs(context),
+          )
+        ),
+        // tabs(context),
 
-          // Form(
-          //   key: _signInModel.emailFormKey,
-          //   child: 
-            Expanded(
+        Expanded(
+          child: Padding(
+            padding: paddingScaffold(),
+            child: Form(
+              key: _signInModel.emailFormKey,
               child: TabBarView(
-                controller: _signInModel.tabController,
-                children: [
-                  SignInPhoneForm(
-                    signInPhoneFunc: onApiSignInByPhone,
-                    facebookSignIn: onFacebookSignIn,
-                    googleSignIn: onGoogleSignIn,
-                    signInModel: _signInModel,
-                    onChanged: onChanged,
-                    onSubmit: onSubmit,
-                  ),
+                  controller: _signInModel.tabController,
+                  children: [
+                    
+                    SignInPhoneForm(
+                      signInPhoneFunc: onApiSignInByPhone,
+                      facebookSignIn: onFacebookSignIn,
+                      googleSignIn: onGoogleSignIn,
+                      signInModel: _signInModel,
+                      onChanged: onChanged,
+                      onSubmit: onSubmit,
+                    ),
 
-                  SignInEmailForm(
-                    signInEmailFunc: onApiSignInByEmail,
-                    faceBookSignIn: onFacebookSignIn,
-                    googleSignIn: onGoogleSignIn,
-                    signInModel: _signInModel,
-                    onChanged: onChanged,
-                    onSubmit: onSubmit,
-                  )
-                ],
+                    SignInEmailForm(
+                      signInEmailFunc: onApiSignInByEmail,
+                      faceBookSignIn: onFacebookSignIn,
+                      googleSignIn: onGoogleSignIn,
+                      signInModel: _signInModel,
+                      onChanged: onChanged,
+                      onSubmit: onSubmit,
+                    )
+                  ],
+                )
               )
-            ),
-          // ),
-
-          Container(
-            margin: EdgeInsets.only(bottom: 25),
-            alignment: Alignment.centerRight,
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.push(
-                    context, RouteAnimation(enterPage: ResetPassPhone()));
-              },
-              child: MyText(
-                text: _lang.translate('forget_password'),
-                color: AppColors.primary,
-                fontSize: 16,
-              ),
-            ),
           ),
+        ),
 
-          MyFlatButton(
-            // edgeMargin: EdgeInsets.only(bottom: 25),
-            textButton: _lang.translate('signin_string'),
-            edgePadding: EdgeInsets.only(left: 78, right: 78),
-            action: (){
-            // validateAndSubmit();
+        Container(
+          padding: paddingScaffold(pBottom: 25),
+          alignment: Alignment.centerRight,
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Navigator.push(
+                  context, RouteAnimation(enterPage: ResetPassPhone()));
             },
+            child: MyText(
+              text: _lang.translate('forget_password'),
+              color: AppColors.primary,
+              fontSize: 16,
+            ),
           ),
-          
-          Flexible(
+        ),
+
+        MyFlatButton(
+          // edgeMargin: EdgeInsets.only(bottom: 25),
+          textButton: _lang.translate('signin_string'),
+          edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
+          action: (){
+          // validateAndSubmit();
+          },
+        ),
+        
+        Flexible(
+          child: Padding(
+            padding: paddingScaffold(),
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -323,9 +334,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             )
-          ),
+          )
+        ),
 
-          Row(
+        Padding(
+          padding: paddingScaffold(),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               BtnSocial(
@@ -339,19 +353,24 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 // googleSignIn();
               }, 'images/google.svg'),
             ],
-          ),
+          )
+        ),
 
-          SizedBox(height: 10),
-          ReuseFlatButton.getItem(
+        SizedBox(height: 10),
+        Padding(
+          padding: paddingScaffold(),
+          child: ReuseFlatButton.getItem(
             _lang.translate('haven\'t_had_account'),
             AppLocalizeService.of(context).translate('signup_string'), () {
+
+              FocusScope.of(context).unfocus();
               Navigator.pushReplacementNamed(context, SignUpView);
             // Navigator.pushReplacement(context,
             //     MaterialPageRoute(builder: (context) => SignUpScreen()));
             }
           )
-        ],
-      )
+        )
+      ],
     );
   }
 }

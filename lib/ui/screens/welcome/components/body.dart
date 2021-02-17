@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:selendra_marketplace_app/core/components/component.dart';
 import 'package:selendra_marketplace_app/core/components/flat_button.dart';
 import 'package:selendra_marketplace_app/core/components/scaffold.dart';
 
@@ -17,53 +18,58 @@ class Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          _lang.translate('welcome_string'),
-                          style: TextStyle(
-                            fontSize: 24,
-                          ),
-                        )
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Align(
+            Padding(
+              padding: paddingScaffold(pTop: pd35),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Selendra Marketplace',
+                            _lang.translate('welcome_string'),
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 30,
-                              color: kDefaultColor,
+                              fontSize: 24,
+                            ),
+                          )
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Selendra Marketplace',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 30,
+                                color: kDefaultColor,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  )
-                ),
+                        )
+                      ],
+                    )
+                  ),
 
-                Expanded(
-                  flex: 1,
-                  child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
-                ),
-              ],
+                  Expanded(
+                    flex: 1,
+                    child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
+                  ),
+                ],
+              )
             ),
 
             Expanded(
               child: Container()
             ),
+
             Align(
               alignment: Alignment.center,
               child: Container(
+                padding: paddingScaffold(),
                 child: SvgPicture.asset(
                   'images/welcome_illustrator.svg',
                   height: MediaQuery.of(context).size.height * 0.3,
@@ -77,7 +83,7 @@ class Body extends StatelessWidget {
             ),
 
             Container(
-              margin: EdgeInsets.only(bottom: 25),
+              padding: paddingScaffold(pBottom: 25),
               child: Row(
                 children: [
                   Expanded(
@@ -115,17 +121,18 @@ class Body extends StatelessWidget {
               )
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: MyText(
-                    text: "Play around with test account.",
+            Padding(
+              padding: paddingScaffold(pBottom: pd35+pd35),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: MyText(
+                      text: "Play around with test account.",
+                    ),
                   ),
-                ),
 
-                Expanded(
-                  child: FlatButton(
+                  FlatButton(
                     padding: EdgeInsets.only(left: 5),
                     onPressed: (){
 
@@ -136,8 +143,8 @@ class Body extends StatelessWidget {
                       color: AppColors.primary,
                     ),
                   )
-                )
-              ],
+                ],
+              )
             )
             
           ],

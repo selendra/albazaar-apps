@@ -112,7 +112,7 @@ class _SelendraAppState extends State<SelendraApp> {
             return supportedLocales.first;
           },
           onGenerateRoute: router.generateRoute,
-          initialRoute: SignInView, //SplashScreenView,
+          initialRoute: UserInfoView, //SplashScreenView,
           // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
