@@ -22,6 +22,7 @@ export 'package:selendra_marketplace_app/core/backend/get/get_request.dart';
 
 export 'package:selendra_marketplace_app/core/backend/component.dart';
 export 'package:selendra_marketplace_app/core/storage/storage.dart';
+export 'package:selendra_marketplace_app/core/components/component.dart';
 
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';

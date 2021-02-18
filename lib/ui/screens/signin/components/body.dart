@@ -192,8 +192,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     return Column(
       children: [
 
-        Padding(
-          padding: paddingScaffold(pTop: pd35),
+        PaddingScaffold(
+          pTop: pd35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -245,29 +245,29 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         Flexible(
-          child: Padding(
-            padding: paddingScaffold(),
+          child: PaddingScaffold(
             child: Container()
           )
         ),
 
         Container(
-          padding: paddingScaffold(pBottom: 25),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: ReuseAuthTab(
-              _signInModel.tabController,
-              _lang.translate('phone'),
-              _lang.translate('email'),
-              onPageChange
+          child: PaddingScaffold(
+            pBottom: 25,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: ReuseAuthTab(
+                _signInModel.tabController,
+                _lang.translate('phone'),
+                _lang.translate('email'),
+                onPageChange
+              )
             )
           )
         ),
         // tabs(context),
 
         Expanded(
-          child: Padding(
-            padding: paddingScaffold(),
+          child: PaddingScaffold(
             child: Form(
               key: _signInModel.emailFormKey,
               child: TabBarView(
@@ -298,19 +298,20 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         Container(
-          padding: paddingScaffold(pBottom: 25),
           alignment: Alignment.centerRight,
-          child: FlatButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              FocusScope.of(context).unfocus();
-              Navigator.push(
-                  context, RouteAnimation(enterPage: ResetPassPhone()));
-            },
-            child: MyText(
-              text: _lang.translate('forget_password'),
-              color: AppColors.primary,
-              fontSize: 16,
+          child: PaddingScaffold(
+            child: FlatButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Navigator.push(
+                    context, RouteAnimation(enterPage: ResetPassPhone()));
+              },
+              child: MyText(
+                text: _lang.translate('forget_password'),
+                color: AppColors.primary,
+                fontSize: 16,
+              ),
             ),
           ),
         ),
@@ -325,8 +326,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
         
         Flexible(
-          child: Padding(
-            padding: paddingScaffold(),
+          child: PaddingScaffold(
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -337,8 +337,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           )
         ),
 
-        Padding(
-          padding: paddingScaffold(),
+        PaddingScaffold(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -357,8 +356,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         SizedBox(height: 10),
-        Padding(
-          padding: paddingScaffold(),
+        PaddingScaffold(
           child: ReuseFlatButton.getItem(
             _lang.translate('haven\'t_had_account'),
             AppLocalizeService.of(context).translate('signup_string'), () {

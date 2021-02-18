@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/models/add_user_info.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
 
@@ -200,7 +201,6 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(30.0),
       child: isLoading 
       ? Center(
         child: CircularProgressIndicator()
@@ -214,22 +214,33 @@ class _BodyState extends State<Body> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Consumer<UserProvider>(
-              builder: (context, value, child) => Container(
-                margin: EdgeInsets.all(5),
-                width: 100, height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(width: 1, color: Colors.greenAccent)
-                ),
-                child: ClipOval(
-                  child: FadeInImage(
-                    fit: BoxFit.cover,
-                    placeholder: AssetImage('images/loading.gif'), 
-                    image: value.mUser.profileImg != null
-                      ? NetworkImage(value.mUser.profileImg)
-                      : AssetImage('images/avatar.png')
+              builder: (context, value, child) => PaddingScaffold(
+                child: Container(
+                  margin: EdgeInsets.all(5),
+                  width: 100, height: 100,
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 20, right: 20
                   ),
+                  decoration: BoxDecoration(
+                    color: AppServices.hexaCodeToColor(AppColors.secondary),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(width: 1, color: Colors.greenAccent)
+                  ),
+                  child: value.mUser.profileImg != null
+                  ? NetworkImage(value.mUser.profileImg)
+                  : SvgPicture.asset('images/avatar_user.svg')
+                  // ClipOval(
+                  //   child: FadeInImage(
+                  //     fit: BoxFit.cover,
+                  //     // placeholder: AssetImage('images/loading.gif'), 
+                  //     image: AssetImage('images/avatar_user.svg')
+                  //     // value.mUser.profileImg != null
+                  //     //   ? NetworkImage(value.mUser.profileImg)
+                  //     //   : AssetImage('images/avatar_user.svg')
+                  //   ),
+                  // ),
                 ),
               )
               // CircleAvatar(
@@ -237,8 +248,8 @@ class _BodyState extends State<Body> {
               // ),
             ),
 
-            Padding(
-              padding: EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 5),
+            PaddingScaffold(
+              pTop: 10, pRight: pd35+5, pLeft: pd35+5, pBottom: 5,
               child: InkWell(
                 onTap: () => loadAsset(),
                 child: Row(
@@ -255,91 +266,108 @@ class _BodyState extends State<Body> {
               height: 20,
             ),
             
-            MyInputField(
-              pRight: 5, pLeft: 5, pTop: 5,
+            PaddingScaffold(
+              child: MyInputField(
+                pRight: 5, pLeft: 5, pTop: 5,
+                pBottom: 11,
+                labelText: "First name",
+                controller: _addUserInfoModel.firstName, 
+                focusNode: _addUserInfoModel.firstNameNode, 
+                textInputFormatter: [
+                  LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                ],
+                validateField: (String value) {
+
+                }, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit,
+              ),
+            ),
+
+            PaddingScaffold(
+              child:MyInputField(
+                pRight: 5, pLeft: 5, pTop: 5,
+                pBottom: 11,
+                labelText: "Mid name",
+                controller: _addUserInfoModel.midName, 
+                focusNode: _addUserInfoModel.midNameNode, 
+                textInputFormatter: [
+                  LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                ],
+                validateField: (String value) {
+
+                }, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit,
+              )
+            ),
+
+            PaddingScaffold(
+              child: MyInputField(
+                pRight: 5, pLeft: 5, pTop: 5,
+                pBottom: 11,
+                labelText: "Last name",
+                controller: _addUserInfoModel.lastName, 
+                focusNode: _addUserInfoModel.lastNameNode, 
+                textInputFormatter: [
+                  LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                ],
+                validateField: (String value) {
+
+                }, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit,
+              ),
+            ),
+            
+            PaddingScaffold(
               pBottom: 11,
-              labelText: "First name",
-              controller: _addUserInfoModel.firstName, 
-              focusNode: _addUserInfoModel.firstNameNode, 
-              textInputFormatter: [
-                LengthLimitingTextInputFormatter(TextField.noMaxLength)
-              ],
-              validateField: (String value) {
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: MyInputField(
+                      pRight: 5, pLeft: 5, pTop: 5,
+                      labelText: "Address",
+                      controller: _addUserInfoModel.address, 
+                      focusNode: _addUserInfoModel.addressNode, 
+                      textInputFormatter: [
+                        LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                      ],
+                      validateField: (String value) {
 
-              }, 
-              onChanged: onChanged, 
-              onSubmit: onSubmit,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            MyInputField(
-              pRight: 5, pLeft: 5, pTop: 5,
-              pBottom: 11,
-              labelText: "Mid name",
-              controller: _addUserInfoModel.midName, 
-              focusNode: _addUserInfoModel.midNameNode, 
-              textInputFormatter: [
-                LengthLimitingTextInputFormatter(TextField.noMaxLength)
-              ],
-              validateField: (String value) {
-
-              }, 
-              onChanged: onChanged, 
-              onSubmit: onSubmit,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            MyInputField(
-              pRight: 5, pLeft: 5, pTop: 5,
-              pBottom: 11,
-              labelText: "Last name",
-              controller: _addUserInfoModel.lastName, 
-              focusNode: _addUserInfoModel.lastNameNode, 
-              textInputFormatter: [
-                LengthLimitingTextInputFormatter(TextField.noMaxLength)
-              ],
-              validateField: (String value) {
-
-              }, 
-              onChanged: onChanged, 
-              onSubmit: onSubmit,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(child: _address()),
-                Container(
-                  width: 80,
-                  child: IconButton(
-                    padding: EdgeInsets.all(0),
-                    icon: SvgPicture.asset('images/pin_location.svg'), 
-                    onPressed: ()async {
-                      await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
-                    }
+                      }, 
+                      onChanged: onChanged, 
+                      onSubmit: onSubmit,
+                    )
                   ),
-                )
-              ],
+                  Container(
+                    width: 80,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      icon: SvgPicture.asset('images/pin_location.svg'), 
+                      onPressed: ()async {
+                        await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
+                      }
+                    ),
+                  )
+                ],
+              ),
             ),
-
-            SizedBox(
-              height: 20,
+            PaddingScaffold(
+              pLeft: pd35+5, pRight: pd35+5,
+              pTop: 5, pBottom: pd35,
+              child: _radioBtn()
             ),
-            _radioBtn(),
-
-            SizedBox(
-              height: 40,
-            ),
-            ReuseButton.getItem('Submit', !isCheck ? null : () async {
-              await validateAndSubmit();
-            }, context),
+            
+            MyFlatButton(
+              // edgeMargin: EdgeInsets.only(bottom: 25),
+              textButton: 'Submit',
+              edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
+                action: !isCheck ? null : () async {
+                await validateAndSubmit();
+              },
+            )
           ],
         ),
       ),

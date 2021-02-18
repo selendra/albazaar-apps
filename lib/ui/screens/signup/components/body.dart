@@ -230,8 +230,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     return Column(
       children: [
 
-        Padding(
-          padding: paddingScaffold(pTop: pd35),
+        PaddingScaffold(
+          pTop: pd35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -283,8 +283,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         Flexible(
-          child: Container(
-            padding: paddingScaffold(pBottom: 25),
+          child: PaddingScaffold(
+            pBottom: 25,
             child: Align(
               alignment: Alignment.bottomLeft,
               child: ReuseAuthTab(
@@ -293,14 +293,13 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 _lang.translate('email'),
                 onPageChange
               )
-            )
+            ),
           )
         ),
         // tabs(context),
         Container(
           height: 300,
-          child: Padding(
-            padding: paddingScaffold(),
+          child: PaddingScaffold(
             child: Form(
               key: _signUpModel.emailFormKey,
               child: TabBarView(
@@ -367,13 +366,15 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         SizedBox(height: 10),
-        ReuseFlatButton.getItem(
-          _lang.translate('had_an_account'),
-          AppLocalizeService.of(context).translate('signin_string'), () {
-            Navigator.pushReplacementNamed(context, SignUpView);
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => SignUpScreen()));
-          }
+        PaddingScaffold(
+          child: ReuseFlatButton.getItem(
+            _lang.translate('had_an_account'),
+            AppLocalizeService.of(context).translate('signin_string'), () {
+              Navigator.pushReplacementNamed(context, SignUpView);
+            // Navigator.pushReplacement(context,
+            //     MaterialPageRoute(builder: (context) => SignUpScreen()));
+            }
+          ),
         )
       ],
     );
