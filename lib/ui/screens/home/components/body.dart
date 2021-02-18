@@ -38,28 +38,26 @@ class _BodyState extends State<Body> {
     productsProvider = Provider.of<ProductsProvider>(context);
     return RefreshIndicator(
       onRefresh: _refresh,
-      child: productsProvider.items.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              controller: _controller,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Column(
-                  children: <Widget>[
+      child: 
+      // productsProvider.items.isEmpty
+      // ? Center(
+      //     child: CircularProgressIndicator(),
+      //   )
+      // : 
+      Container(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Column(
+          children: <Widget>[
 
-                    //SearchBar(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    CategoriesScreen(category),
-                    ProductList(productsProvider.items),
-                  ],
-                ),
-              ),
+            //SearchBar(),
+            SizedBox(
+              height: 10,
             ),
+            // CategoriesScreen(category),
+            ProductList(productsProvider.items),
+          ],
+        ),
+      ),
     );
   }
 }

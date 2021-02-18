@@ -39,7 +39,7 @@ class _ProductListState extends State<ProductList> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: GridView.builder(
-          itemCount: widget.productsData.length,
+          itemCount: 10,//widget.productsData.length,
           controller: scrollController,
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -47,10 +47,11 @@ class _ProductListState extends State<ProductList> {
             crossAxisSpacing: 10,
             childAspectRatio: 0.75,
           ),
-          itemBuilder: (context, index) => ChangeNotifierProvider.value(
-            value: widget.productsData[index],
-            child: ItemCard(),
-          ),
+          itemBuilder: (context, index) => ItemCard()
+          // ChangeNotifierProvider.value(
+          //   value: widget.productsData[index],
+          //   child: ItemCard(),
+          // ),
         ),
       ),
     );

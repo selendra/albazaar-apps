@@ -11,13 +11,13 @@ class ItemCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/detail',
-          arguments: product.id,
-        );
+        // Navigator.of(context).pushNamed(
+        //   '/detail',
+        //   arguments: product.id,
+        // );
 
-        Provider.of<ProductsProvider>(context, listen: false)
-            .findImgById(product.id);
+        // Provider.of<ProductsProvider>(context, listen: false)
+        //     .findImgById(product.id);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
@@ -54,21 +54,23 @@ class ItemCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: Hero(
-                      tag: "${product.id}",
-                      child: FadeInImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(product.thumbnail),
-                        placeholder: AssetImage('images/loading.gif'),
-                      ),
-                    ),
+                    child: SvgPicture.asset('images/avatar_user.svg')
+                    // Hero(
+                    //   tag: "{product.id}",
+                    //   child: SvgPicture.asset('images/avatar_user.svg')
+                    //   // FadeInImage(
+                    //   //   fit: BoxFit.cover,
+                    //   //   image: NetworkImage(product.thumbnail),
+                    //   //   placeholder: AssetImage('images/loading.gif'),
+                    //   // ),
+                    // ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   child: Text(
                     // products is out demo list
-                    product.name,
+                    'product.name',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         // color: Colors.black,
@@ -80,7 +82,7 @@ class ItemCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
-                      "${product.price}៛ /" +
+                      "{product.price}៛ /" +
                           AppLocalizeService.of(context).translate('kilogram'),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
