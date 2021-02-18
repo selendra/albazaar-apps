@@ -4,6 +4,8 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:selendra_marketplace_app/core/components/scaffold.dart';
+
 class PinScreen extends StatefulWidget {
   
   final String phoneNumber, password;
@@ -28,7 +30,7 @@ class _PinScreenState extends State<PinScreen> {
   TextEditingController pinSixController = TextEditingController();
 
   var outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(16),
+    borderRadius: BorderRadius.circular(12),
     borderSide: BorderSide(color: Colors.transparent)
   );
   
@@ -234,67 +236,65 @@ class _PinScreenState extends State<PinScreen> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Center(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                    ),
-                    Text(
-                      _lang.translate('enter_6digit_code'),
-                      style: TextStyle(
-                        fontSize: 26.0,
-                        fontWeight: FontWeight.bold,
-                        color: kDefaultColor,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      _lang.translate('6digit_sent_to') + widget.phoneNumber,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                        color: kDefaultColor,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    _isCounting
-                        ? Text('Invalid in $_second seconds')
-                        : Align(
-                            alignment: Alignment.centerRight,
-                            child: FlatButton(
-                              child: Text(
-                                _lang.translate('resend_code'),
-                                style: TextStyle(color: Colors.red),
-                              ),
-                              onPressed: () async {
-                                await onResendCode(widget.phoneNumber);
-                              },
-                            )),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    _buildPinRow(),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    ReuseNumPad(pinIndexSetup, clearPin),
-                    // _buildNumberPad(),
-                  ],
-                ),
+    return _isLoading
+    ? Center(
+        child: CircularProgressIndicator(),
+      )
+    : Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
+        ),
+        Text(
+          _lang.translate('enter_6digit_code'),
+          style: TextStyle(
+            fontSize: 26.0,
+            fontWeight: FontWeight.bold,
+            color: kDefaultColor,
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          _lang.translate('6digit_sent_to') + widget.phoneNumber,
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: kDefaultColor,
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        _isCounting
+        ? Text('Invalid in $_second seconds')
+        : Container(
+          margin: EdgeInsets.only(right: 10),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child:  FlatButton(
+              child: Text(
+                _lang.translate('resend_code'),
+                style: TextStyle(color: Colors.red),
               ),
-      ),
+              onPressed: () async {
+                await onResendCode(widget.phoneNumber);
+              },
+            ),
+          )
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        _buildPinRow(),
+        SizedBox(
+          height: 50,
+        ),
+        ReuseNumPad(pinIndexSetup, clearPin),
+        // _buildNumberPad(),
+      ],
     );
   }
 

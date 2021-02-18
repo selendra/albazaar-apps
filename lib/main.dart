@@ -112,7 +112,7 @@ class _SelendraAppState extends State<SelendraApp> {
             return supportedLocales.first;
           },
           onGenerateRoute: router.generateRoute,
-          initialRoute: UserInfoView, //SplashScreenView,
+          initialRoute: OTPScreen.route, //SplashScreenView,
           // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
@@ -124,6 +124,7 @@ class _SelendraAppState extends State<SelendraApp> {
           routes: {
             DetailView: (context) => DetailScreen(),
             SellerInfoView: (context) => SellerConfirm(),
+            OTPScreen.route: (context) => OTPScreen('', '')
           },
           home: SplashScreen(),
           navigatorKey: navigationKey,

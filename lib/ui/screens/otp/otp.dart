@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:selendra_marketplace_app/core/components/scaffold.dart';
 //import 'package:selendra_marketplace_app/all_export.dart';
 import 'components/pin_screen.dart';
 
@@ -6,6 +7,7 @@ class OTPScreen extends StatefulWidget {
 
   final String phoneNumber, password;
   OTPScreen(this.phoneNumber, this.password);
+  static const String route = '/otpScreen';
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -23,11 +25,10 @@ class _OTPScreenState extends State<OTPScreen> {
       data: Theme.of(context).copyWith(
         scaffoldBackgroundColor: Colors.white,
       ),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: PinScreen(widget.phoneNumber, widget.password),
-        )
-      ),
+      child: MyBodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        child: PinScreen(widget.phoneNumber, widget.password),
+      )
     );
   }
 }

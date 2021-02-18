@@ -226,7 +226,6 @@ class _BodyState extends State<Body> {
                   decoration: BoxDecoration(
                     color: AppServices.hexaCodeToColor(AppColors.secondary),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 1, color: Colors.greenAccent)
                   ),
                   child: value.mUser.profileImg != null
                   ? NetworkImage(value.mUser.profileImg)
