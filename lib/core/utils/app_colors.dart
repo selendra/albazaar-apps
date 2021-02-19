@@ -3,4 +3,5 @@ class AppColors {
   static const String secondary = "#F39D0B";
 
   static const String txtBtn = "#5E5E5E";
+  static const String white = "#FFFFFF";
 }

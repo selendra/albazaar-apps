@@ -9,6 +9,7 @@ export 'package:provider/provider.dart';
 
 // Standart Library
 export 'package:flutter/services.dart';
+export 'package:selendra_marketplace_app/core/services/app_services.dart';
 export 'dart:async';
 
 // NonStandart Library
