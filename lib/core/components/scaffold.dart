@@ -7,6 +7,8 @@ class MyBodyScaffold extends StatelessWidget{
   final double height;
   final ScrollPhysics scroll;
   final Widget child;
+  final Widget bottomAppBar;
+  final Widget floatingActionBtn;
 
   MyBodyScaffold({
     this.pLeft = 0,
@@ -16,7 +18,9 @@ class MyBodyScaffold extends StatelessWidget{
     this.padding = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.scroll = const NeverScrollableScrollPhysics(),
     this.height,
-    this.child
+    this.child,
+    this.bottomAppBar,
+    this.floatingActionBtn
   });
   
   Widget build(BuildContext context) {
@@ -30,7 +34,9 @@ class MyBodyScaffold extends StatelessWidget{
             padding: padding,
             child: child,
           ),
-        )
+        ), 
+        floatingActionButton: floatingActionBtn,
+        bottomNavigationBar: bottomAppBar,
       )
     );
   }

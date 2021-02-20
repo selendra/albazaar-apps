@@ -4,4 +4,6 @@ class AppColors {
 
   static const String txtBtn = "#5E5E5E";
   static const String white = "#FFFFFF";
+
+  static const String cardTitleBG = "#BEBEBE";
 }

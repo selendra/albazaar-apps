@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/core/components/scaffold.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   ScrollController scrollController;
   final double padding = 16;
   final double pBottom = 20;
+  final double cPadding = 10;
 
   @override
   void initState() {
@@ -44,6 +46,34 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget _buildAppBar() {
     return MyBodyScaffold(
       height: MediaQuery.of(context).size.height,
+      bottomAppBar: BottomAppBar(
+        child: Container(
+          height: 60,
+          child: Row(
+            children: [
+              Expanded(
+                child: SvgPicture.asset('images/icons/market.svg')
+              ),
+
+              Expanded(
+                child: SvgPicture.asset('images/icons/wallet.svg')
+              ),
+
+              Expanded(
+                child: SvgPicture.asset('images/icons/favorite.svg')
+              ),
+
+              Expanded(
+                child: SvgPicture.asset('images/icons/location.svg')
+              ),
+
+              Expanded(
+                child: SvgPicture.asset('images/icons/menu.svg')
+              )
+            ],
+          )
+        ),
+      ),
       child: NestedScrollView(
         controller: scrollController,
         headerSliverBuilder: (BuildContext context, bool boxIsScroll) {
@@ -275,7 +305,97 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   height: 235,
                   child: Column(
                     children: [
-                      MyCard()
+
+                      MyCard(
+                        height: 141,
+                        hexaColor: AppColors.cardTitleBG,
+                        bBottomLeft: 0,
+                        bBottomRight: 0,
+                        align: Alignment.topCenter,
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: SvgPicture.asset('images/avatar_user.svg'),
+                            ),
+                            Positioned(
+                              right: 10, top: 10,
+                              child: GestureDetector(
+                                child: SvgPicture.asset('images/icons/heart.svg'),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      MyCard(
+                        align: Alignment.centerLeft,
+                        bTopLeft: 0, bTopRight: 0,
+                        mBottom: cPadding, mTop: cPadding, mLeft: cPadding, mRight: cPadding,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: MyText(
+                                    textAlign: TextAlign.left,
+                                    text: "Brocoli",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#000000",
+                                  )
+                                ),
+                                
+                                MyText(
+                                  textAlign: TextAlign.left,
+                                  text: "(0 sold)",
+                                  fontSize: 12,
+                                  color: "#000000",
+                                )
+                              ],
+                            ),
+
+                            MyText(
+                              textAlign: TextAlign.left,
+                              text: "New Brocoli",
+                              fontSize: 10,
+                              color: "#000000",
+                            ),
+
+                            Row(
+                              children: [
+                                Image.asset('images/symbols/riel_symbol.png'),
+                                MyText(
+                                  textAlign: TextAlign.left,
+                                  text: "50.000 /Kg",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: "#000000",
+                                )
+                              ],
+                            ),
+
+                            Row(
+                              children: [
+                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                MyText(
+                                  textAlign: TextAlign.left,
+                                  text: "(15)",
+                                  fontSize: 10,
+                                  color: "#000000",
+                                )
+                              ],
+                            )
+                            
+                          ],
+                        ),
+                      )
                     ],
                   )
                 ),
