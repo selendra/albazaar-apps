@@ -65,7 +65,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return RouteAnimation(enterPage: SignIn());
       break;
     case SignUpView:
-      return RouteAnimation(enterPage: SignUpScreen());
+      return RouteAnimation(enterPage: SignUp());
       break;
     case UserInfoView:
       return RouteAnimation(enterPage: UserInfoScreen());

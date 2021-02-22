@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/component.dart';
-import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
+
+
 
 class OrderDetailBody extends StatelessWidget {
   final OrderProduct productOrder;
@@ -78,7 +79,6 @@ class OrderDetailBody extends StatelessWidget {
                     ],
                   ),
                 ),
-                
                 Divider(),
                 Container(
                   width: double.infinity,
@@ -146,8 +146,8 @@ class OrderDetailBody extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Image.network(
-                        productOrder.thumbnail,
+                      child: CachedNetworkImage(
+                        imageUrl: productOrder.thumbnail,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -191,7 +191,6 @@ class OrderDetailBody extends StatelessWidget {
               ),
             ),
           ),
-
           SizedBox(height: 10),
           Container(
             margin: const EdgeInsets.all(20),

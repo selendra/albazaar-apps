@@ -17,6 +17,7 @@ class MyCard extends StatelessWidget {
   final double mTop;
   final double mBottom;
   final Widget child;
+  final DecorationImage image;
 
   MyCard({
     this.height,
@@ -31,7 +32,8 @@ class MyCard extends StatelessWidget {
     this.bTopRight = 12,
     this.bBottomLeft = 12,
     this.bBottomRight = 12,
-    this.child
+    this.child,
+    this.image
   });
 
   @override
@@ -45,6 +47,7 @@ class MyCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppServices.hexaCodeToColor(hexaColor),
           borderRadius: BorderRadius.only(topLeft: Radius.circular(bTopLeft), topRight: Radius.circular(bTopRight), bottomLeft: Radius.circular(bBottomLeft), bottomRight: Radius.circular(bBottomRight)),
+          image: image
         ),
         child: child,
       )

@@ -32,7 +32,9 @@ android/key.properties
 .packages~origin_dev
 .flutter_01.sksl.json
 .packages
+.metadata
 .pub-cache/
+.pubspec.lock
 .pub/
 /build/
 

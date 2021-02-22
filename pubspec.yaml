@@ -96,6 +96,10 @@ dependencies:
   # App Responsive
   responsive_framework: ^0.0.14
 
+  cached_network_image: ^2.5.0
+   
+  google_fonts: ^1.1.2
+
   # Date time
   date_format: ^1.0.9
   

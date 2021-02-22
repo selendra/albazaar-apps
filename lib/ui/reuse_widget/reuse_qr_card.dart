@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class ReuseQrCard extends StatelessWidget {
   final String image;

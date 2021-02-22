@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
@@ -187,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         },
         body: Column(
           children: [
+
             PaddingScaffold(
               pTop: padding,
               pLeft: padding, pRight: padding,
@@ -260,8 +262,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                   Expanded(
                     child: MyText(
-                      // pLeft: 20, pRight: 20,
-                      // width: 29,
                       text: "All",
                       color: AppColors.secondary,
                     )
@@ -300,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             : Expanded(
               child: PaddingScaffold(
                 pLeft: 0, pRight: padding,
-                pBottom: pd35+pd35,
+                pBottom: pd35+pd35+30,
                 child: GridView.builder(
                   itemCount: guestAccProvider.getProducts.length,//widget.productsData.length,
                   controller: scrollController,
@@ -319,16 +319,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         child: Container(
                           // height: 235,
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
 
-                              Flexible(
-                                child: FadeInImage(
-                                        fit: BoxFit.contain,
-                                        height: double.infinity,
-                                        width: double.infinity,
-                                        image: NetworkImage(guestAccProvider.productList[index].thumbnail),
-                                        placeholder: AssetImage('images/loading.gif'),
-                                      )
+                              // Flexible(
+                              //   child: 
+                                // FadeInImage(
+                                //         fit: BoxFit.contain,
+                                //         height: double.infinity,
+                                //         width: double.infinity,
+                                //         image: NetworkImage(guestAccProvider.productList[index].thumbnail),
+                                //         placeholder: AssetImage('images/loading.gif'),
+                                //       )
                                 // MyCard(
                                 //   // height: 141,
                                 //   width: double.infinity,
@@ -357,6 +359,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 //     ],
                                 //   ),
                                 // )
+                              // ),
+                              Flexible(
+                                child: MyCard(
+                                  bBottomLeft: 0, bBottomRight: 0,
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: CachedNetworkImageProvider(guestAccProvider.productList[index].thumbnail)
+                                    ),
+                                )
                               ),
 
                               MyCard(
@@ -367,61 +378,81 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: MyText(
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: MyText(
+                                              textAlign: TextAlign.left,
+                                              text: "${guestAccProvider.productList[index].name}",
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: "#000000",
+                                            )
+                                          ),
+                                          
+                                          MyText(
+                                            // textAlign: TextAlign.left,
+                                            text: "(0 sold)",
+                                            fontSize: 12,
+                                            color: "#000000",
+                                          )
+                                        ],
+                                      )
+                                    ),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: MyText(
+                                        textAlign: TextAlign.left,
+                                        text: "${guestAccProvider.productList[index].description}",
+                                        fontSize: 16,
+                                        color: "#000000",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLine: 1,
+                                      )
+                                    ),
+
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 5),
+                                      child: Row(
+                                        children: [
+                                          Image.asset('images/symbols/riel_symbol.png'),
+                                          MyText(
                                             textAlign: TextAlign.left,
-                                            text: "${guestAccProvider.productList[index].name}",
+                                            text: "${guestAccProvider.productList[index].price} /Kg",
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: "#000000",
                                           )
+                                        ],
+                                      )
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 7),
+                                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
                                         ),
-                                        
-                                        MyText(
-                                          // textAlign: TextAlign.left,
-                                          text: "(0 sold)",
-                                          fontSize: 12,
-                                          color: "#000000",
-                                        )
-                                      ],
-                                    ),
-
-                                    Column(
-                                      children: [
-                                        MyText(
-                                          textAlign: TextAlign.left,
-                                          text: "${guestAccProvider.productList[index].description}",
-                                          fontSize: 16,
-                                          color: "#000000",
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLine: 1,
-                                        )
-                                      ],
-                                    ),
-
-                                    Row(
-                                      children: [
-                                        Image.asset('images/symbols/riel_symbol.png'),
-                                        MyText(
-                                          textAlign: TextAlign.left,
-                                          text: "${guestAccProvider.productList[index].price} /Kg",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: "#000000",
-                                        )
-                                      ],
-                                    ),
-
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                        SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                        SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                        SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                        SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 7),
+                                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 7),
+                                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 7),
+                                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(right: 7),
+                                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                        ),
                                         MyText(
                                           textAlign: TextAlign.left,
                                           text: "(15)",
