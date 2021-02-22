@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/ui/component.dart';
 
 class ProductsProvider with ChangeNotifier {
+  
   PrefService _prefService = PrefService();
   PostRequest _postRequest = PostRequest();
 

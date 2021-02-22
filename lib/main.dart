@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/core/providers/guest_acc_p.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
 import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
@@ -63,6 +64,8 @@ class _SelendraAppState extends State<SelendraApp> {
             create: (context) => SellerProvider()),
         ChangeNotifierProvider<TrxHistoryProvider>(
             create: (context) => TrxHistoryProvider()),
+        ChangeNotifierProvider<GuestAccProvider>(
+          create: (context) => GuestAccProvider()),
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(
@@ -118,7 +121,7 @@ class _SelendraAppState extends State<SelendraApp> {
             cursorColor: kDefaultColor,
             textTheme: TextTheme(bodyText1: TextStyle(color: AppServices.hexaCodeToColor(textColor))),
             primaryColor: AppServices.hexaCodeToColor("#F7F7F7"),
-            scaffoldBackgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
+            scaffoldBackgroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
             brightness: Brightness.light,
           ),
           routes: {

@@ -4,7 +4,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class CartItems extends StatelessWidget {
   final String image;
   final String productName;
-  final String price;
+  final int price;
   final String productId;
   final int qty;
 

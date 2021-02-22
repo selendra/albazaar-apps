@@ -8,6 +8,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  
   ScrollController _controller;
   ProductsProvider productsProvider;
 
