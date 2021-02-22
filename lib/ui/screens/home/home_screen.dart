@@ -171,10 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 Padding(
                   padding: EdgeInsets.only(right: 20),
                   child: IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: kDefaultColor,
-                    ),
+                    icon: SvgPicture.asset('images/icons/notification_belt.svg'),
                     onPressed: () {
                       /*Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CartScreen()));*/
@@ -381,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 5),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Expanded(
                                             child: MyText(
@@ -394,7 +391,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           ),
                                           
                                           MyText(
-                                            // textAlign: TextAlign.left,
                                             text: "(0 sold)",
                                             fontSize: 12,
                                             color: "#000000",
