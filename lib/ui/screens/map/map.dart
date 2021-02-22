@@ -272,6 +272,17 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
+              onTap: (value) {
+                print(value);
+                setState(() {
+                  markers.add(Marker(
+                      width: 80,
+                      height: 80,
+                      anchorPos: AnchorPos.align(AnchorAlign.top),
+                      point: value,
+                      builder: (ctx) => Icon(Icons.location_on)));
+                });
+              },
               center: _currentPosition != null
                   ? LatLng(
                       _currentPosition.latitude, _currentPosition.longitude)
