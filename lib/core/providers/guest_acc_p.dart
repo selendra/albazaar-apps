@@ -6,9 +6,9 @@ class GuestAccProvider extends ProductsProvider{
   Backend _backend = Backend();
 
   // List All Product
-  List<Product> productList;
+  List<Product> _productList;
 
-  List<dynamic> get getProducts => _backend.listData;
+  List<Product> get getProducts => _productList;
   
   GuestAccProvider(){
     fetchProducts();
@@ -19,11 +19,12 @@ class GuestAccProvider extends ProductsProvider{
     _backend.response = await _getRequest.guestAccount();
     print(_backend.response.body);
     _backend.listData = json.decode(_backend.response.body);
-    productList = List<Product>();
+    _productList = List<Product>();
     for(var i in _backend.listData){
-      print("Index ${i['description']}");
-      productList.add(Product.fromGuestAccount(i));
+      print("Index ${i['id']}");
+      _productList.add(Product.fromGuestAccount(i));
     }
+    print("After $_productList");
     // print(productList);
     notifyListeners();
   }

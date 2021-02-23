@@ -4,15 +4,21 @@ import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'components/bottom_navigation_detail.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
+
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context).settings.arguments as String;
-    final loadedProduct =
-        Provider.of<ProductsProvider>(context).findById(productId);
+    final Product productId = ModalRoute.of(context).settings.arguments;
+    // final loadedProduct = Provider.of<ProductsProvider>(context).findById(productId.id);
     return Scaffold(
       body: Body(),
-      bottomNavigationBar: BottomNavigationDetail(loadedProduct),
+      bottomNavigationBar: BottomNavigationDetail(productId),
     );
   }
 }

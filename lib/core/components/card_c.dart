@@ -3,6 +3,7 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class MyCard extends StatelessWidget {
 
   final Alignment align;
+  final Alignment alignChild;
   final String hexaColor;
   final double height;
   final double width;
@@ -18,12 +19,14 @@ class MyCard extends StatelessWidget {
   final double mBottom;
   final Widget child;
   final DecorationImage image;
+  final BoxBorder boxBorder;
 
   MyCard({
     this.height,
     this.width,
     this.hexaColor = AppColors.white,
     this.align = Alignment.center,
+    this.alignChild = Alignment.center,
     this.mRight = 0,
     this.mLeft = 0,
     this.mTop = 0,
@@ -32,6 +35,7 @@ class MyCard extends StatelessWidget {
     this.bTopRight = 12,
     this.bBottomLeft = 12,
     this.bBottomRight = 12,
+    this.boxBorder,
     this.child,
     this.image
   });
@@ -44,9 +48,11 @@ class MyCard extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(mLeft, mTop, mRight, mBottom),
         height: height,
         width: width,
+        alignment: alignChild,
         decoration: BoxDecoration(
           color: AppServices.hexaCodeToColor(hexaColor),
           borderRadius: BorderRadius.only(topLeft: Radius.circular(bTopLeft), topRight: Radius.circular(bTopRight), bottomLeft: Radius.circular(bBottomLeft), bottomRight: Radius.circular(bBottomRight)),
+          border: boxBorder,
           image: image
         ),
         child: child,
