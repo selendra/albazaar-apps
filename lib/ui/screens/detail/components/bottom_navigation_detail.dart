@@ -13,29 +13,29 @@ class BottomNavigationDetail extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            height: 50.0,
-            width: 50.0,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[100],
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.white, offset: Offset(0, 2), blurRadius: 6.0),
-              ],
-            ),
-            child: Consumer<FavoriteProvider>(
-              builder: (context, value, child) => IconButton(
-                onPressed: () {
-                  value.isFav(loadedProduct);
-                },
-                icon: Icon(loadedProduct.isFav
-                    ? Icons.favorite
-                    : Icons.favorite_border),
-                color: Colors.red,
-              ),
-            ),
-          ),
+          // Container(
+          //   height: 50.0,
+          //   width: 50.0,
+          //   decoration: BoxDecoration(
+          //     shape: BoxShape.circle,
+          //     color: Colors.grey[100],
+          //     boxShadow: [
+          //       BoxShadow(
+          //           color: Colors.white, offset: Offset(0, 2), blurRadius: 6.0),
+          //     ],
+          //   ),
+          //   child: Consumer<FavoriteProvider>(
+          //     builder: (context, value, child) => IconButton(
+          //       onPressed: () {
+          //         value.isFav(loadedProduct);
+          //       },
+          //       icon: Icon(loadedProduct.isFav
+          //           ? Icons.favorite
+          //           : Icons.favorite_border),
+          //       color: Colors.red,
+          //     ),
+          //   ),
+          // ),
           Row(
             children: [
               BtnAddToCart(loadedProduct),
