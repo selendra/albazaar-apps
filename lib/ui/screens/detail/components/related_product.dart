@@ -54,9 +54,17 @@ class RelatedProduct extends StatelessWidget {
       //   crossAxisSpacing: 10,
       //   childAspectRatio: 0.75,
       // ),
-      itemBuilder: (context, index) => ReuseItemCard(
+      itemBuilder: (context, index) {
+        if (index == 0) return ReuseItemCard(
           product: listProducts[index],
-        )
+          mLeft: 19,
+        );
+        
+        return ReuseItemCard(
+          product: listProducts[index],
+          mLeft: 0,
+        );
+      }
       // ChangeNotifierProvider.value(
       //   value: listProducts[index],
       //   child: ReuseItemCard(

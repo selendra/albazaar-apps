@@ -9,6 +9,8 @@ class BottomNavigationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
     return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      color: AppServices.hexaCodeToColor(AppColors.white),
       height: 60,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -36,28 +38,73 @@ class BottomNavigationDetail extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          Row(
-            children: [
-              BtnAddToCart(loadedProduct),
-              SizedBox(width: 5.0),
-              Container(
-                width: 100,
-                child: ReuseButton.getItem(
-                    AppLocalizeService.of(context).translate('buy_now'), () {
-                  cartProvider.addBuyNow(
-                    loadedProduct.id,
-                    loadedProduct.thumbnail,
-                    loadedProduct.name,
-                    loadedProduct.price,
-                    loadedProduct.orderQty,
-                  );
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      RouteAnimation(enterPage: Checkout(action: 'buy_now')));
-                }, context),
-              ),
-            ],
+          Expanded(
+            child: Row(
+              children: [
+                MyText(
+                  textAlign: TextAlign.left,
+                  text: 'Total = ',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 25,
+                  color: "#000000",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    MyText(
+                      textAlign: TextAlign.left,
+                      text: "( ",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25,
+                      color: "#000000",
+                    ),
+                    Image.asset('images/symbols/riel_symbol.png', width: 12.3, height: 20),
+                    MyText(
+                      textAlign: TextAlign.right,
+                      text: " )",
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25,
+                      color: "#000000",
+                    )
+                  ],
+                ),
+                MyText(
+                  left: 8,
+                  textAlign: TextAlign.left,
+                  text: "5000 /Kg",
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                ),
+              ],
+            )
           ),
+          Container(
+            width: 100,
+            child: ReuseButton.getItem(
+              AppLocalizeService.of(context).translate('buy_now'), () {
+                cartProvider.addBuyNow(
+                  loadedProduct.id,
+                  loadedProduct.thumbnail,
+                  loadedProduct.name,
+                  loadedProduct.price,
+                  loadedProduct.orderQty,
+                );
+                Navigator.pop(context);
+                Navigator.push(context,
+                    RouteAnimation(enterPage: Checkout(action: 'buy_now'))
+                );
+              }, 
+              context,
+              height: 40
+            ),
+          )
+          // Row(
+          //   children: [
+          //     // BtnAddToCart(loadedProduct),
+          //     ,
+          //   ],
+          // ),
         ],
       ),
     );

@@ -371,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                       bBottomLeft: 0, bBottomRight: 0,
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider(listProduct[index].thumbnail)
+                                        image: NetworkImage(listProduct[index].thumbnail) //CachedNetworkImageProvider(listProduct[index].thumbnail)
                                       ),
                                     )
                                   )

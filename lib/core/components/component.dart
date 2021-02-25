@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 const pd35 = 35.0;
 
@@ -14,8 +15,57 @@ class PaddingScaffold extends StatelessWidget{
 
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: pTop, bottom: pBottom, right: pLeft, left: pRight),
+      padding: EdgeInsets.only(top: pTop, bottom: pBottom, right: pRight, left: pLeft),
       child: child
     );
   }
+}
+
+
+/* Transition Animation Fade Up And Down */
+Route transitionRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25, sigmaX: 10.0, sigmaY: 10.0}) {
+  return PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (context, animation, secondaryAnimation) => child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(offsetLeft, offsetRight);
+      var end = Offset.zero;
+      var curve = Curves.fastOutSlowIn;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: FadeTransition(
+          opacity: animation,
+          child: Material(
+            color: Colors.white.withOpacity(0.1),
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(
+                sigmaX: sigmaX,
+                sigmaY: sigmaY,
+              ),
+              child: child,
+            ),
+          ),
+        )
+      );
+    }
+  );
+}
+
+dialogblurBgDeco(BuildContext context, dynamic screen) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Material(
+        color: Colors.white.withOpacity(0.5),
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+            sigmaX: 5.0,
+            sigmaY: 5.0,
+          ),
+          child: screen,
+        ),
+      );
+    }
+  );
 }

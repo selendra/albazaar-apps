@@ -6,9 +6,11 @@ import 'package:selendra_marketplace_app/core/components/card_c.dart';
 
 class ReuseItemCard extends StatefulWidget {
 
-  final Product product;
+  //Margin Left for only first item
+  final double mLeft;
+  final Product product; 
 
-  ReuseItemCard({this.product});
+  ReuseItemCard({this.product, this.mLeft});
 
   @override
   _ReuseItemCardState createState() => _ReuseItemCardState();
@@ -34,6 +36,9 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
         Navigator.of(context).pushNamed('/detail', arguments: widget.product.id);
       },
       child: MyCard(
+        mRight: 19,
+        mLeft: widget.mLeft,
+        width: 185,//MediaQuery.of(context).size.width,
         align: Alignment.centerLeft,
         child: Container(
           // height: 235,
@@ -80,15 +85,12 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                 // )
               // ),
               Flexible(
-                child: Hero(
-                  tag: "${widget.product.id}",
-                  child: MyCard(
-                    bBottomLeft: 0, bBottomRight: 0,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(widget.product.thumbnail)
-                    ),
-                  )
+                child: MyCard(
+                  bBottomLeft: 0, bBottomRight: 0,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(widget.product.thumbnail)
+                  ),
                 )
               ),
 
