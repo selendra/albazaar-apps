@@ -11,7 +11,7 @@ class MyText extends StatelessWidget{
   final int maxLine;
 
   MyText({
-    this.text, this.color = AppColors.txtBtn, this.fontSize = 18, this.fontWeight = FontWeight.normal,
+    this.text, this.color = AppColors.black, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
     this.pLeft = 0, this.pRight = 0, this.pTop = 0, this.pBottom = 0,
     this.width, this.height, this.textAlign = TextAlign.center,

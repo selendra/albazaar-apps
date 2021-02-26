@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:provider/provider.dart';
+import 'package:selendra_marketplace_app/core/components/card_c.dart';
 
 class RelatedProduct extends StatelessWidget {
 
@@ -55,14 +56,31 @@ class RelatedProduct extends StatelessWidget {
       //   childAspectRatio: 0.75,
       // ),
       itemBuilder: (context, index) {
-        if (index == 0) return ReuseItemCard(
-          product: listProducts[index],
-          mLeft: 19,
-        );
-        
-        return ReuseItemCard(
-          product: listProducts[index],
-          mLeft: 0,
+        return Stack(
+          children: [
+            if (index == 0) ReuseItemCard(
+              product: listProducts[index],
+              mLeft: 19,
+            ),
+
+            if (index > 0)  ReuseItemCard(
+              product: listProducts[index],
+              mLeft: 0,
+            ),
+
+            Positioned(
+              left: (index == 0) ? 19 : 0 , top: 0,
+              child: MyCard(
+                bTopRight: 0,
+                bBottomLeft: 0,
+                hexaColor: AppColors.secondary,
+                width: 50, height: 45,
+                child: Center(
+                  child: SvgPicture.asset('images/icons/cart.svg', color: Colors.white, height: 24, width: 24),
+                ),
+              ),
+            )
+          ],
         );
       }
       // ChangeNotifierProvider.value(

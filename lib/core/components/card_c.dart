@@ -5,6 +5,7 @@ class MyCard extends StatelessWidget {
   final Alignment align;
   final Alignment alignChild;
   final String hexaColor;
+  final double colorOpacity;
   final double height;
   final double width;
   /* Border */
@@ -25,6 +26,7 @@ class MyCard extends StatelessWidget {
     this.height,
     this.width,
     this.hexaColor = AppColors.white,
+    this.colorOpacity = 1.0,
     this.align = Alignment.center,
     this.alignChild = Alignment.center,
     this.mRight = 0,
@@ -50,7 +52,7 @@ class MyCard extends StatelessWidget {
         width: width,
         alignment: alignChild,
         decoration: BoxDecoration(
-          color: AppServices.hexaCodeToColor(hexaColor),
+          color: AppServices.hexaCodeToColor(hexaColor).withOpacity(colorOpacity),
           borderRadius: BorderRadius.only(topLeft: Radius.circular(bTopLeft), topRight: Radius.circular(bTopRight), bottomLeft: Radius.circular(bBottomLeft), bottomRight: Radius.circular(bBottomRight)),
           border: boxBorder,
           image: image

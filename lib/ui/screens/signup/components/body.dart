@@ -332,7 +332,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
         MyFlatButton(
           // edgeMargin: EdgeInsets.only(bottom: 25),
-          textButton: _lang.translate('signup_string'),
+          child: MyText(
+            pTop: 20,
+            pBottom: 20,
+            text: _lang.translate('signup_string'),
+            color: "#FFFFFF",
+          ),
           edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
           action: (){
           // validateAndSubmit();

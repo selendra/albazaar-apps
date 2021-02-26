@@ -93,7 +93,12 @@ class Body extends StatelessWidget {
                         action: () {
                           Navigator.pushReplacementNamed(context, SignInView);
                         },
-                        textButton: _lang.translate('signin_string'),
+                        child: MyText(
+                          pTop: 20,
+                          pBottom: 20,
+                          text: _lang.translate('signin_string'),
+                          color: "#FFFFFF",
+                        ),
                         buttonColor: AppColors.primary,
                       ),
                     )
@@ -111,7 +116,12 @@ class Body extends StatelessWidget {
                         action: () {
                           Navigator.pushReplacementNamed(context, SignUpView);
                         },
-                        textButton: _lang.translate('signup_string'),
+                        child: MyText(
+                          pTop: 20,
+                          pBottom: 20,
+                          text: _lang.translate('signup_string'),
+                          color: "#FFFFFF",
+                        ),
                         buttonColor: AppColors.secondary,
                       ),
                     ),

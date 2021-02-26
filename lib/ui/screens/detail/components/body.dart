@@ -363,7 +363,7 @@ class Body extends StatelessWidget {
                         pBottom: padding,
                         child: Divider(
                           height: 1,
-                          color: AppServices.hexaCodeToColor(AppColors.txtBtn),
+                          color: AppServices.hexaCodeToColor(AppColors.black),
                         )
                       ),
 
@@ -407,7 +407,7 @@ class Body extends StatelessWidget {
                         pBottom: padding,
                         child: Divider(
                           height: 1,
-                          color: AppServices.hexaCodeToColor(AppColors.txtBtn),
+                          color: AppServices.hexaCodeToColor(AppColors.black),
                         )
                       ),
                       // ChangeNotifierProvider.value(
@@ -415,63 +415,75 @@ class Body extends StatelessWidget {
                       //   child: SellerInfo(),
                       // ),
 
-                      PaddingScaffold(
-                        pLeft: padding, pRight: padding,
-                        pBottom: padding,
-                        child: MyText(
-                          pRight: 10,
-                          text: 'Seller',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                        ),
-                      ),
-
-                      // Seller
-                      PaddingScaffold(
-                        pLeft: padding, pRight: padding,
-                        pBottom: padding,
-                        child: GestureDetector(
-                          onTap: () async {
-                            await dialogblurBgDeco(context, SellerInformation());
-                            // Navigator.push(
-                            //   context, 
-                            //   // MaterialPageRoute(builder: (context) => SellerInformation())
-                            //   transitionRoute(SellerInformation())
-                            // );
-                          },
-                          child: Row(
+                      Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
-                              //Profile
-                              MyCard(
-                                hexaColor: AppColors.secondary,
-                                mRight: 10,
-                                // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                                width: 45, height: 42,
-                                align: Alignment.centerLeft,
-                                child: SvgPicture.asset('images/avatar_user.svg', width: 25, height: 25),
+                              PaddingScaffold(
+                                pLeft: padding, pRight: padding,
+                                pBottom: padding,
+                                child: MyText(
+                                  pRight: 10,
+                                  text: 'Shop information',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                ),
                               ),
 
-                              // Name & About
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    pRight: 10,
-                                    text: 'Daveat Corn',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
+                              // Seller
+                              PaddingScaffold(
+                                pLeft: padding, pRight: padding,
+                                pBottom: padding,
+                                child: Row(
+                                  children: [
 
-                                  MyText(
-                                    text: 'Phnom penh (Steng mean chey)',
-                                    fontSize: 12,
-                                  )
-                                ],
+                                    //Profile
+                                    MyCard(
+                                      hexaColor: AppColors.secondary,
+                                      mRight: 10,
+                                      // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                                      width: 45, height: 42,
+                                      align: Alignment.centerLeft,
+                                      child: SvgPicture.asset('images/avatar_user.svg', width: 25, height: 25),
+                                    ),
+
+                                    // Name & About
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        MyText(
+                                          pRight: 10,
+                                          text: 'Koompi',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+
+                                        MyText(
+                                          text: 'Phnom penh (Steng mean chey)',
+                                          fontSize: 12,
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
-                        )
+
+                          // Tap To Pop Up Shop Information
+                          GestureDetector(
+                            onTap: () async {
+                              await dialogblurBgDeco(context, SellerInformation());
+                              // Navigator.push(
+                              //   context, 
+                              //   // MaterialPageRoute(builder: (context) => SellerInformation())
+                              //   transitionRoute(SellerInformation())
+                              // );
+                            },
+                            child: Container(width: MediaQuery.of(context).size.width, height: 100, color: Colors.red,)
+                          )
+                        ]
                       ),
 
                       PaddingScaffold(
@@ -479,7 +491,7 @@ class Body extends StatelessWidget {
                         pBottom: padding,
                         child: Divider(
                           height: 1,
-                          color: AppServices.hexaCodeToColor(AppColors.txtBtn),
+                          color: AppServices.hexaCodeToColor(AppColors.black),
                         )
                       ),
 
@@ -511,18 +523,28 @@ class Body extends StatelessWidget {
 
 
           Positioned(
-            left: 25, top: 25,
+            left: 5, top: 5,
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: SvgPicture.asset('images/icons/back.svg', width: 15, height: 25),
+              child: MyCard(
+                width: 60, height: 60,
+                colorOpacity: 0.0,
+                alignChild: Alignment.center,
+                child: SvgPicture.asset('images/icons/back.svg', width: 15, height: 25),
+              ),
             )
           ),
 
           Positioned(
-            right: 25, top: 25,
+            right: 5, top: 5,
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: SvgPicture.asset('images/icons/cart.svg', width: 25, height: 25),
+              child: MyCard(
+                width: 60, height: 60,
+                colorOpacity: 0.0,
+                alignChild: Alignment.center,
+                child: SvgPicture.asset('images/icons/cart.svg', width: 25, height: 25),
+              )
             )
           ),
         ],

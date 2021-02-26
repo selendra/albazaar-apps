@@ -14,6 +14,7 @@ class MyFlatButton extends StatelessWidget{
   final Function action;
   final double width;
   final double height;
+  final Widget child;
 
   MyFlatButton({
     this.textButton, 
@@ -25,6 +26,7 @@ class MyFlatButton extends StatelessWidget{
     this.hasShadow = false, 
     this.width = double.infinity,
     this.height,
+    this.child,
     @required this.action,
   });
 
@@ -51,13 +53,7 @@ class MyFlatButton extends StatelessWidget{
         color: AppServices.hexaCodeToColor(buttonColor),
         disabledColor: Colors.grey[700],
         focusColor: AppServices.hexaCodeToColor(buttonColor),
-        child: MyText(
-          pTop: 20,
-          pBottom: 20,
-          text: textButton,
-          fontWeight: fontWeight,
-          color: "#FFFFFF",
-        ),
+        child: child,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onPressed: action
       ),
