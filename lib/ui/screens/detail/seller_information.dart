@@ -42,8 +42,9 @@ class SellerInformation extends StatelessWidget {
                 hexaColor: AppColors.secondary,
                 align: Alignment.center,
                 width: 100, height: 100,
+                mBottom: padding*2,
                 child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(padding),
                   child: SvgPicture.asset('images/avatar_user.svg'),
                 ),
               ),
@@ -90,7 +91,11 @@ class SellerInformation extends StatelessWidget {
                     MyFlatButton(
                       width: 43, height: 50,
                       buttonColor: AppColors.white,
-                      action: (){},
+                      action: () async {
+
+                      print("Show");
+                      await MyBottomSheet().contactOption(context: context);
+                      },
                       child: SvgPicture.asset('images/icons/options.svg', height: 20,),
                     )
                   ],
@@ -98,7 +103,7 @@ class SellerInformation extends StatelessWidget {
               ),
 
               PaddingScaffold(
-                pLeft: padding, pRight: padding,
+                pLeft: padding*2, pRight: padding*2,
                 pBottom: padding * 2,
                 child: Divider(
                   height: 1,
@@ -107,7 +112,7 @@ class SellerInformation extends StatelessWidget {
               ),
 
               PaddingScaffold(
-                pLeft: padding, pRight: padding,
+                pLeft: padding * 2, pRight: padding * 2,
                 pBottom: padding * 2,
                 child: Align(
                   alignment: Alignment.centerLeft,
@@ -121,7 +126,7 @@ class SellerInformation extends StatelessWidget {
               ),
 
               PaddingScaffold(
-                pLeft: padding, pRight: padding,
+                pLeft: padding*2, pRight: padding*2,
                 pBottom: padding,
                 child: MyText(
                   textAlign: TextAlign.left,

@@ -1,4 +1,5 @@
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
 class MyBottomSheet{
@@ -128,6 +129,62 @@ class MyBottomSheet{
                   )
                 ],
               )
+            )
+          ],
+        ),
+      );
+    },
+    );
+  }
+
+  Future contactOption({BuildContext context}){
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: AppServices.hexaCodeToColor(AppColors.bgColor),
+        ),
+        height: 153,
+        child: Column(
+          children: [
+
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: AppColors.black,
+                top: 20,
+                bottom: 33,
+                text: "Contact options",
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: BtnSocial(
+                    () {
+                    // facebookSignIn();
+                    }, 
+                    'images/icons/facebook.svg'
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: BtnSocial(() {
+                  // googleSignIn();
+                  }, 'images/icons/google.svg'),
+                ),
+
+                BtnSocial(() {
+                  // googleSignIn();
+                }, 'images/icons/telegram.svg')
+              ],
             )
           ],
         ),

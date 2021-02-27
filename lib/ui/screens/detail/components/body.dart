@@ -8,9 +8,16 @@ import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/ui/screens/detail/seller_information.dart';
 import 'interact_view.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
 
-  final double padding = 20;final List<Product> listProducts = List<Product>();
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  final double padding = 20;
+  final List<Product> listProducts = List<Product>();
+  bool dropDown = false;
 
   final Product products = Product(
     description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
@@ -32,10 +39,7 @@ class Body extends StatelessWidget {
     }),
     isSold: false
   );
-
-  Body(){
-    fillData();
-  }
+  
 
   void fillData(){
     listProducts.add(products);
@@ -44,7 +48,13 @@ class Body extends StatelessWidget {
     listProducts.add(products);
     listProducts.add(products);
   }
-  
+
+  @override
+  initState(){
+    fillData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Product product = Product(
@@ -236,7 +246,7 @@ class Body extends StatelessWidget {
 
                       PaddingScaffold(
                         pLeft: padding, pRight: padding,
-                        pBottom: padding,
+                        // pBottom: padding,
                         child: Container(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
@@ -279,6 +289,69 @@ class Body extends StatelessWidget {
                               text: "(13) Sold",
                               fontSize: 12,
                               color: "#000000",
+                            ),
+
+                            Expanded(
+                              child: Container(),
+                            ),
+
+                            Stack(
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                    setState((){
+                                      dropDown = !dropDown;
+                                    });
+                                  },
+                                  child: MyCard(
+                                    mBottom: padding,
+                                    alignChild: Alignment.centerRight,
+                                    colorOpacity: 0,
+                                    // width: 160,
+                                    // height: 50,
+                                    child: Row(
+                                      children: [
+                                        MyText(text: "Measurement"),
+                                        Icon(Icons.arrow_drop_down_sharp)
+                                      ],
+                                    )
+                                    // DropdownButtonFormField(
+                                    //   hint: ),
+                                    //   decoration: InputDecoration(border: InputBorder.none),
+                                    //   items: [
+                                    //     DropdownMenuItem(value: "Kg", child: MyText(text: "Kilogram")),
+                                    //     DropdownMenuItem(value: "Kg", child: MyText(text: "Gram"))
+                                    //   ], 
+                                    //   onChanged: (String value){
+                                    //     print("Value $value");
+                                    //   },
+                                    //   onTap: (){
+                                    //     print("Hello");
+                                    //   },
+                                    // ),
+                                  ),
+                                ),
+
+                                !dropDown ? Container() : Positioned(
+                                  right: 0, top: 0,
+                                  child: MyCard(
+                                    height: 50,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                      children: [
+                                        MyText(text: "Kilogram", ),
+                                        Divider(
+                                          height: 1,
+                                          color: AppServices.hexaCodeToColor(AppColors.black),
+                                        ),
+                                        MyText(text: "Gram",),
+                                      ],
+                                    )
+                                    ),
+                                  ),
+                                )
+                              ],
                             )
                           ],
                         ),
@@ -335,7 +408,7 @@ class Body extends StatelessWidget {
 
                             Consumer<ProductsProvider>(
                               builder: (context, value, child) => BtnQty(
-                                '${product.orderQty ?? '0'}',
+                                '${product.orderQty ?? '1'}',
                                 () {
                                   value.addOrderQty(product);
                                 },
@@ -358,6 +431,55 @@ class Body extends StatelessWidget {
                           ],
                         )
                       ),
+
+                      PaddingScaffold(
+                        pLeft: padding, pRight: padding,
+                        pBottom: padding,
+                        child: Divider(
+                          height: 1,
+                          color: AppServices.hexaCodeToColor(AppColors.black),
+                        )
+                      ),
+
+                      PaddingScaffold(
+                        pLeft: padding, pRight: padding,
+                        pBottom: padding,
+                        child: Column(
+                          children: [
+
+                            //Shipping Amount
+                            Row(
+                              children: [
+                                MyText(
+                                  text: "Shipping: Riel",
+                                  fontWeight: FontWeight.bold,
+                                ),
+
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Image.asset('images/symbols/riel_symbol.png', width: 13.52, height: 15),
+                                ),
+
+                                MyText(
+                                  text: "1000",
+                                  fontWeight: FontWeight.bold,
+                                ),
+
+                                Expanded(child: Container()),
+
+                                Icon(Icons.arrow_forward_ios)
+                              ],
+                            ),
+
+                            MyText(
+                              top: padding,
+                              textAlign: TextAlign.left,
+                              text: "To Phnom Penh via SW Logistic Standard Shipping"
+                            )
+                          ],
+                        ),
+                      ),
+
                       PaddingScaffold(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
@@ -464,7 +586,11 @@ class Body extends StatelessWidget {
                                           fontSize: 12,
                                         )
                                       ],
-                                    )
+                                    ),
+
+                                    Expanded(child: Container(),),
+
+                                    Icon(Icons.arrow_forward_ios)
                                   ],
                                 ),
                               )
@@ -481,7 +607,7 @@ class Body extends StatelessWidget {
                               //   transitionRoute(SellerInformation())
                               // );
                             },
-                            child: Container(width: MediaQuery.of(context).size.width, height: 100, color: Colors.red,)
+                            child: Container(width: MediaQuery.of(context).size.width, height: 100, color: Colors.transparent)
                           )
                         ]
                       ),
@@ -520,7 +646,6 @@ class Body extends StatelessWidget {
               ),
             ),
           ), 
-
 
           Positioned(
             left: 5, top: 5,

@@ -11,7 +11,7 @@ class BottomNavigationDetail extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       color: AppServices.hexaCodeToColor(AppColors.white),
-      height: 60,
+      height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -79,24 +79,27 @@ class BottomNavigationDetail extends StatelessWidget {
               ],
             )
           ),
+          
           Container(
             width: 100,
-            child: ReuseButton.getItem(
-              AppLocalizeService.of(context).translate('buy_now'), () {
-                cartProvider.addBuyNow(
-                  loadedProduct.id,
-                  loadedProduct.thumbnail,
-                  loadedProduct.name,
-                  loadedProduct.price,
-                  loadedProduct.orderQty,
-                );
-                Navigator.pop(context);
-                Navigator.push(context,
-                    RouteAnimation(enterPage: Checkout(action: 'buy_now'))
-                );
-              }, 
-              context,
-              height: 40
+            child: Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+              child: ReuseButton.getItem(
+                AppLocalizeService.of(context).translate('buy_now'), () {
+                  cartProvider.addBuyNow(
+                    loadedProduct.id,
+                    loadedProduct.thumbnail,
+                    loadedProduct.name,
+                    loadedProduct.price,
+                    loadedProduct.orderQty,
+                  );
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      RouteAnimation(enterPage: Checkout(action: 'buy_now'))
+                  );
+                }, 
+                context,
+              ),
             ),
           )
           // Row(
