@@ -192,4 +192,65 @@ class MyBottomSheet{
     },
     );
   }
+
+  Future measurementOptions({BuildContext context}){
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: AppServices.hexaCodeToColor(AppColors.bgColor),
+        ),
+        height: 200,
+        child: Column(
+          children: [
+
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: AppColors.black,
+                top: 20,
+                bottom: 33,
+                text: "Scale options",
+              ),
+            ),
+
+            Expanded(
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context, 'kg');
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MyText(
+                    width: MediaQuery.of(context).size.width,
+                    text: "Kilogram",
+                  ),
+                ),
+              ),
+            ),
+
+            Divider(height: 1),
+
+            Expanded(
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context, 'g');
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MyText(
+                    width: MediaQuery.of(context).size.width,
+                    text: "Gram",
+                  ),
+                ),
+              )
+            )
+          ],
+        ),
+      );
+    },
+    );
+  }
 }

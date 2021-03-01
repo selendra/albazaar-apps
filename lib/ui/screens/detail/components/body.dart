@@ -82,7 +82,8 @@ class _BodyState extends State<Body> {
     // ).findById(product.id);
 
     return SafeArea(
-      child: Stack(
+      child: 
+      Stack(
         children: [
           NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -246,7 +247,7 @@ class _BodyState extends State<Body> {
 
                       PaddingScaffold(
                         pLeft: padding, pRight: padding,
-                        // pBottom: padding,
+                        pBottom: padding,
                         child: Container(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
@@ -295,63 +296,13 @@ class _BodyState extends State<Body> {
                               child: Container(),
                             ),
 
-                            Stack(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    setState((){
-                                      dropDown = !dropDown;
-                                    });
-                                  },
-                                  child: MyCard(
-                                    mBottom: padding,
-                                    alignChild: Alignment.centerRight,
-                                    colorOpacity: 0,
-                                    // width: 160,
-                                    // height: 50,
-                                    child: Row(
-                                      children: [
-                                        MyText(text: "Measurement"),
-                                        Icon(Icons.arrow_drop_down_sharp)
-                                      ],
-                                    )
-                                    // DropdownButtonFormField(
-                                    //   hint: ),
-                                    //   decoration: InputDecoration(border: InputBorder.none),
-                                    //   items: [
-                                    //     DropdownMenuItem(value: "Kg", child: MyText(text: "Kilogram")),
-                                    //     DropdownMenuItem(value: "Kg", child: MyText(text: "Gram"))
-                                    //   ], 
-                                    //   onChanged: (String value){
-                                    //     print("Value $value");
-                                    //   },
-                                    //   onTap: (){
-                                    //     print("Hello");
-                                    //   },
-                                    // ),
-                                  ),
-                                ),
 
-                                !dropDown ? Container() : Positioned(
-                                  right: 0, top: 0,
-                                  child: MyCard(
-                                    height: 50,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                      children: [
-                                        MyText(text: "Kilogram", ),
-                                        Divider(
-                                          height: 1,
-                                          color: AppServices.hexaCodeToColor(AppColors.black),
-                                        ),
-                                        MyText(text: "Gram",),
-                                      ],
-                                    )
-                                    ),
-                                  ),
-                                )
-                              ],
+                            GestureDetector(
+                              onTap: () async {
+                                final result = await MyBottomSheet().measurementOptions(context: context);
+                                print("MY scale $result");
+                              },
+                              child: MyText(text: "Choose scale"),
                             )
                           ],
                         ),
