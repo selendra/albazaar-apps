@@ -361,7 +361,13 @@ class _BodyState extends State<Body> {
             
             MyFlatButton(
               // edgeMargin: EdgeInsets.only(bottom: 25),
-              textButton: 'Submit',
+              child: MyText(
+                pTop: 20,
+                pBottom: 20,
+                text: 'Submit',
+                color: "#FFFFFF",
+              ),
+              
               edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
                 action: !isCheck ? null : () async {
                 await validateAndSubmit();

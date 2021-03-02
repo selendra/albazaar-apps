@@ -8,6 +8,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  
   ScrollController _controller;
   ProductsProvider productsProvider;
 
@@ -38,18 +39,20 @@ class _BodyState extends State<Body> {
     productsProvider = Provider.of<ProductsProvider>(context);
     return RefreshIndicator(
       onRefresh: _refresh,
-      child:
-          // productsProvider.items.isEmpty
-          // ? Center(
-          //     child: CircularProgressIndicator(),
-          //   )
-          // :
-          Container(
+      child: 
+      // productsProvider.items.isEmpty
+      // ? Center(
+      //     child: CircularProgressIndicator(),
+      //   )
+      // : 
+      Container(
         padding: EdgeInsets.only(bottom: 10),
         child: Column(
           children: <Widget>[
             //SearchBar(),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 10,
+            ),
             // CategoriesScreen(category),
             ProductList(productsProvider.items),
           ],

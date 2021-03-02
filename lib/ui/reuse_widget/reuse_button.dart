@@ -6,10 +6,11 @@ class ReuseButton {
     String text, 
     Function onTap, 
     BuildContext context,
+    {double height = 59}
   ) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 59,
+      height: height,
       child: RaisedButton(
         onPressed: onTap,
         child: Text(

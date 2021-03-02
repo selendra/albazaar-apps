@@ -18,9 +18,10 @@ class ReuseBtnQty extends StatelessWidget {
           height: height ?? 40.0,
           width: width ?? 40.0,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(kDefaultRadius),
-              color: Colors.white,
-              border: Border.all(color: kDefaultColor)),
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border.all(color: kDefaultColor, width: 2)
+          ),
           child: Icon(
             iconData,
             color: kDefaultColor,

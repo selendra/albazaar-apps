@@ -8,13 +8,14 @@ class MyText extends StatelessWidget{
   final double pTop; final double pRight; final double pBottom; final double pLeft;
   final double width; final double height; final TextAlign textAlign;
   final TextOverflow overflow;
+  final int maxLine;
 
   MyText({
-    this.text, this.color = AppColors.txtBtn, this.fontSize = 18, this.fontWeight = FontWeight.normal,
+    this.text, this.color = AppColors.black, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
     this.pLeft = 0, this.pRight = 0, this.pTop = 0, this.pBottom = 0,
     this.width, this.height, this.textAlign = TextAlign.center,
-    this.overflow,
+    this.overflow, this.maxLine
   });
   
   Widget build(BuildContext context){
@@ -33,6 +34,7 @@ class MyText extends StatelessWidget{
           ),
           textAlign: this.textAlign,
           overflow: overflow,
+          maxLines: maxLine,
         )
       ),
     );

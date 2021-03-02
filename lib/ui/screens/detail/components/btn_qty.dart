@@ -27,7 +27,7 @@ class BtnQty extends StatelessWidget {
           ),
           Text(
             '$count',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: AppServices.hexaCodeToColor(AppColors.primary)),
           ),
           SizedBox(
             width: 10,

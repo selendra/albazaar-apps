@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -53,7 +53,11 @@ class ItemCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: SvgPicture.asset('images/avatar_user.svg')
+                    child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: product.thumbnail,
+                      )
+                    // SvgPicture.asset('images/avatar_user.svg')
                     // Hero(
                     //   tag: "{product.id}",
                     //   child: SvgPicture.asset('images/avatar_user.svg')

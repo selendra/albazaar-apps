@@ -17,7 +17,7 @@ class CartProvider with ChangeNotifier {
   Map<String, Cart> get buyNow => {..._buyNow};
 
   //Add product to cart
-  void addCart(String productId, String image, String title, String price,
+  void addCart(String productId, String image, String title, int price,
       int productOrderQty) {
     if (_items.containsKey(productId)) {
       _items.update(
@@ -45,7 +45,7 @@ class CartProvider with ChangeNotifier {
   }
 
   //Add buynow
-  void addBuyNow(String productId, String image, String title, String price,
+  void addBuyNow(String productId, String image, String title, int price,
       int productOrderQty) {
     // _buyNow = {};
     totalPrice = 0;

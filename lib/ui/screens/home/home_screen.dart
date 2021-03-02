@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/core/components/scaffold.dart';
+import 'package:selendra_marketplace_app/core/providers/guest_acc_p.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/screens/home/components/body.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
@@ -33,106 +35,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-   // var data = Provider.of<DarkMode>(context).isDarkMode;
-    return Scaffold(
-      backgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
-      key: _scaffoldState,
-      body: SafeArea(
-        child: NestedScrollView(
-          controller: scrollController,
-          headerSliverBuilder: (BuildContext context, bool boxIsScroll) {
-            return <Widget>[
-              SliverAppBar(
-                floating: true,
-                pinned: true,
-                primary: true,
-                forceElevated: boxIsScroll,
-                brightness: Brightness.light,
-                elevation: 0,
-                leading: IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: kDefaultColor,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                ),
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        child: Image.asset('images/logo.png',
-                            width: 30, height: 30),
-                        padding: EdgeInsets.only(right: 5)),
-                    Text(
-                      'SELENDRA',
-                      style: TextStyle(
-                        color:kDefaultColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
-                    )
-                  ],
-                ),
-                actions: <Widget>[
-                  Consumer<CartProvider>(
-                    builder: (context, value, child) => value.items.length == 0
-                        ? IconButton(
-                            icon: Icon(
-                              Icons.shopping_cart,
-                              color: kDefaultColor,
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, CartView);
-                            })
-                        : Badge(
-                            position: BadgePosition.topEnd(top: 0, end: 3),
-                            animationDuration: Duration(milliseconds: 300),
-                            animationType: BadgeAnimationType.scale,
-                            badgeContent: Text(
-                              value.items.length.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            child: IconButton(
-                                icon: Icon(
-                                  Icons.shopping_cart,
-                                  color: kDefaultColor,
-                                ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, CartView);
-                                }),
-                          ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: kDefaultColor,
-                    ),
-                    onPressed: () {
-                      /*Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartScreen()));*/
-                      showSearch(context: context, delegate: SearchProducts());
-                    },
-                  ),
-                ],
-              ),
-            ];
-          },
-          body: GestureDetector(
-              onTap: () => FocusManager.instance.primaryFocus.unfocus(),
-              child: Body()),
-        ),
-      ),
-      drawer: HomeDrawer(),
-    );
+  void resetState(){
+    setState(() {
+      
+    });
   }
 
-  Widget _buildAppBar() {
+  @override
+  Widget build(BuildContext context) {
+    List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     return MyBodyScaffold(
+      // key: _scaffoldState,
+      // drawer: HomeDrawer(),
       height: MediaQuery.of(context).size.height,
       bottomAppBar: BottomAppBar(
         child: Container(
@@ -257,10 +171,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 Padding(
                   padding: EdgeInsets.only(right: 20),
                   child: IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: kDefaultColor,
-                    ),
+                    icon: SvgPicture.asset('images/icons/belt.svg'),
                     onPressed: () {
                       /*Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CartScreen()));*/
@@ -274,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         },
         body: Column(
           children: [
+
             PaddingScaffold(
               pTop: padding,
               pLeft: padding, pRight: padding,
@@ -347,8 +259,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                   Expanded(
                     child: MyText(
-                      // pLeft: 20, pRight: 20,
-                      // width: 29,
                       text: "All",
                       color: AppColors.secondary,
                     )
@@ -383,111 +293,197 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               )
             ),
 
-            PaddingScaffold(
-              pLeft: padding, pRight: padding,
-              pBottom: pBottom,
-              child: MyCard(
-                align: Alignment.centerLeft,
-                child: Container(
-                  width: 181,
-                  height: 235,
-                  child: Column(
-                    children: [
-
-                      MyCard(
-                        height: 141,
-                        hexaColor: AppColors.cardTitleBG,
-                        bBottomLeft: 0,
-                        bBottomRight: 0,
-                        align: Alignment.topCenter,
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: SvgPicture.asset('images/avatar_user.svg'),
-                            ),
-                            Positioned(
-                              right: 10, top: 10,
-                              child: GestureDetector(
-                                child: SvgPicture.asset('images/icons/heart.svg'),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-
-                      MyCard(
-                        align: Alignment.centerLeft,
-                        bTopLeft: 0, bTopRight: 0,
-                        mBottom: cPadding, mTop: cPadding, mLeft: cPadding, mRight: cPadding,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+            listProduct == null ? CircularProgressIndicator()
+            : Expanded(
+              child: PaddingScaffold(
+                pLeft: 0, pRight: padding,
+                pBottom: pd35+pd35+30,
+                child: GridView.builder(
+                  itemCount: listProduct.length,//widget.productsData.length,
+                  controller: scrollController,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 0,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemBuilder: (context, index) {
+                    return PaddingScaffold(
+                      pLeft: padding, pRight: 0,
+                      pBottom: padding,
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).pushNamed(
+                            '/detail',
+                            arguments: listProduct[index],
+                          );
+                        },
+                        child: MyCard(
+                          align: Alignment.centerLeft,
+                          child: Container(
+                            // height: 235,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Expanded(
-                                  child: MyText(
-                                    textAlign: TextAlign.left,
-                                    text: "Brocoli",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#000000",
+
+                                // Flexible(
+                                //   child: 
+                                  // FadeInImage(
+                                  //         fit: BoxFit.contain,
+                                  //         height: double.infinity,
+                                  //         width: double.infinity,
+                                  //         image: NetworkImage(listProduct[index].thumbnail),
+                                  //         placeholder: AssetImage('images/loading.gif'),
+                                  //       )
+                                  // MyCard(
+                                  //   // height: 141,
+                                  //   width: double.infinity,
+                                  //   hexaColor: AppColors.cardTitleBG,
+                                  //   bBottomLeft: 0,
+                                  //   bBottomRight: 0,
+                                  //   align: Alignment.topCenter,
+                                  //   child: Stack(
+                                  //     children: [
+                                  //       // Center(
+                                  //       //   child: SvgPicture.asset('images/avatar_user.svg'),
+                                  //       // ),
+                                  //       FadeInImage(
+                                  //         fit: BoxFit.contain,
+                                  //         height: double.infinity,
+                                  //         width: double.infinity,
+                                  //         image: NetworkImage(listProduct[index].thumbnail),
+                                  //         placeholder: AssetImage('images/loading.gif'),
+                                  //       ),
+                                  //       Positioned(
+                                  //         right: 10, top: 10,
+                                  //         child: GestureDetector(
+                                  //           child: SvgPicture.asset('images/icons/heart.svg'),
+                                  //         ),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // )
+                                // ),
+                                Flexible(
+                                  child: Hero(
+                                    tag: "${listProduct[index].id}",
+                                    child: MyCard(
+                                      bBottomLeft: 0, bBottomRight: 0,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(listProduct[index].thumbnail) //CachedNetworkImageProvider(listProduct[index].thumbnail)
+                                      ),
+                                    )
                                   )
                                 ),
-                                
-                                MyText(
-                                  textAlign: TextAlign.left,
-                                  text: "(0 sold)",
-                                  fontSize: 12,
-                                  color: "#000000",
-                                )
-                              ],
-                            ),
 
-                            MyText(
-                              textAlign: TextAlign.left,
-                              text: "New Brocoli",
-                              fontSize: 10,
-                              color: "#000000",
-                            ),
+                                MyCard(
+                                  align: Alignment.centerLeft,
+                                  bTopLeft: 0, bTopRight: 0,
+                                  mBottom: cPadding, mTop: cPadding, mLeft: cPadding, mRight: cPadding,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
 
-                            Row(
-                              children: [
-                                Image.asset('images/symbols/riel_symbol.png'),
-                                MyText(
-                                  textAlign: TextAlign.left,
-                                  text: "50.000 /Kg",
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: "#000000",
-                                )
-                              ],
-                            ),
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 5),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: MyText(
+                                                textAlign: TextAlign.left,
+                                                text: "${listProduct[index].name}",
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: "#000000",
+                                              )
+                                            ),
+                                            
+                                            MyText(
+                                              text: "(0 sold)",
+                                              fontSize: 12,
+                                              color: "#000000",
+                                            )
+                                          ],
+                                        )
+                                      ),
 
-                            Row(
-                              children: [
-                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13),
-                                MyText(
-                                  textAlign: TextAlign.left,
-                                  text: "(15)",
-                                  fontSize: 10,
-                                  color: "#000000",
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 5),
+                                        child: MyText(
+                                          textAlign: TextAlign.left,
+                                          text: "${listProduct[index].description}",
+                                          fontSize: 16,
+                                          color: "#000000",
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLine: 1,
+                                        )
+                                      ),
+
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 5),
+                                        child: Row(
+                                          children: [
+                                            Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                                            MyText(
+                                              textAlign: TextAlign.left,
+                                              text: "${listProduct[index].price} /Kg",
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.primary,
+                                            )
+                                          ],
+                                        )
+                                      ),
+
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 7),
+                                            child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 7),
+                                            child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 7),
+                                            child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 7),
+                                            child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 7),
+                                            child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                          ),
+                                          MyText(
+                                            textAlign: TextAlign.left,
+                                            text: "(15)",
+                                            fontSize: 10,
+                                            color: "#000000",
+                                          )
+                                        ],
+                                      )
+                                      
+                                    ],
+                                  ),
                                 )
                               ],
                             )
-                            
-                          ],
+                          ),
                         ),
                       )
-                    ],
-                  )
-                ),
-              ),
+                    );
+                  }
+                  // ChangeNotifierProvider.value(
+                  //   value: widget.productsData[index],
+                  //   child: ItemCard(),
+                  // ),
+                )
+              )
             )
             
           ],

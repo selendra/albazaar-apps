@@ -39,11 +39,11 @@ class Product with ChangeNotifier {
   String paymentId;
   dynamic updatedBy;
   String shipping;
-  String price;
-  String shippingFee;
+  int price;
+  double shippingFee;
   String createdBy;
   String categoryId;
-  DateTime createdAt;
+  String createdAt;
   Seller seller;
   bool isSold;
   bool isFav;
@@ -62,11 +62,11 @@ class Product with ChangeNotifier {
         paymentId: json["payment_id"],
         updatedBy: json["updated_by"],
         address: json["address"],
-        price: json["price"].toString(),
-        shippingFee: json["shipping_fee"].toString(),
+        price: json["price"],
+        shippingFee: json["shipping_fee"],
         createdBy: json["created_by"],
         categoryId: json["category_id"],
-        createdAt: DateTime.parse(json["created_at"]),
+        // createdAt: DateTime.parse(json["created_at"]),
         seller: Seller.fromJson(json["seller"]),
         isSold: json["is_sold"],
         isFav: false,
@@ -86,9 +86,27 @@ class Product with ChangeNotifier {
         "price": price,
         "created_by": createdBy,
         "category_id": categoryId,
-        "created_at": createdAt.toIso8601String(),
+        // "created_at": createdAt.toIso8601String(),
         "is_sold": isSold,
       };
+
+  Product.fromGuestAccount(Map<String, dynamic> item){
+    description = item['description'];
+    shippingService = item["shipping_service"];
+    address = item["address"];
+    name = item["name"];
+    categoryName = item["category_name"];
+    thumbnail = item["thumbnail"];
+    phonenumber = item["phonenumber"];
+    weight = item["weight"];
+    id = item["id"];
+    paymentId = item["payment_id"];
+    price = item["price"];
+    shippingFee = item["shipping_fee"];
+    createdAt = item["created_at"];
+    seller = Seller.fromJson(item["seller"]);
+    isSold = item["is_sold"];
+  }
 }
 
 // To parse this JSON data, do
@@ -224,7 +242,7 @@ class OwnerProduct {
         price: json["price"],
         createdBy: json["created_by"],
         categoryId: json["category_id"],
-        createdAt: DateTime.parse(json["created_at"]),
+        // createdAt: DateTime.parse(json["created_at"]),
         isSold: json["is_sold"],
       );
 

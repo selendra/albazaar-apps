@@ -34,9 +34,8 @@ class SignUpEmailForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // var _lang = AppLocalizeService.of(context);
+    var _lang = AppLocalizeService.of(context);
     return Form(
-      // key: signUpModel.phoneFormKey,
       child: Column(
         children: [
 

@@ -20,6 +20,10 @@ class GetRequest {
     return null;
   }
 
+  Future<_http.Response> guestAccount() async {
+    _backend.response = await _http.get("${_sldApi.api}/listing-guest");
+    return _backend.response;
+  }
   Future<_http.Response> checkExpiredToken() async {
     /* Expired Token In Welcome Screen */
     _backend.token = await StorageServices.fetchData('user_token');

@@ -1,4 +1,5 @@
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
 class MyBottomSheet{
@@ -127,6 +128,123 @@ class MyBottomSheet{
                     text: "There are no notification found"
                   )
                 ],
+              )
+            )
+          ],
+        ),
+      );
+    },
+    );
+  }
+
+  Future contactOption({BuildContext context}){
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: AppServices.hexaCodeToColor(AppColors.bgColor),
+        ),
+        height: 153,
+        child: Column(
+          children: [
+
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: AppColors.black,
+                top: 20,
+                bottom: 33,
+                text: "Contact options",
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: BtnSocial(
+                    () {
+                    // facebookSignIn();
+                    }, 
+                    'images/icons/facebook.svg'
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(right: 40),
+                  child: BtnSocial(() {
+                  // googleSignIn();
+                  }, 'images/icons/google.svg'),
+                ),
+
+                BtnSocial(() {
+                  // googleSignIn();
+                }, 'images/icons/telegram.svg')
+              ],
+            )
+          ],
+        ),
+      );
+    },
+    );
+  }
+
+  Future measurementOptions({BuildContext context}){
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: AppServices.hexaCodeToColor(AppColors.bgColor),
+        ),
+        height: 200,
+        child: Column(
+          children: [
+
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: AppColors.black,
+                top: 20,
+                bottom: 33,
+                text: "Scale options",
+              ),
+            ),
+
+            Expanded(
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context, 'kg');
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MyText(
+                    width: MediaQuery.of(context).size.width,
+                    text: "Kilogram",
+                  ),
+                ),
+              ),
+            ),
+
+            Divider(height: 1),
+
+            Expanded(
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context, 'g');
+                },
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MyText(
+                    width: MediaQuery.of(context).size.width,
+                    text: "Gram",
+                  ),
+                ),
               )
             )
           ],

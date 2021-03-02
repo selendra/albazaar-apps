@@ -318,7 +318,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
         MyFlatButton(
           // edgeMargin: EdgeInsets.only(bottom: 25),
-          textButton: _lang.translate('signin_string'),
+          child: MyText(
+            pTop: 20,
+            pBottom: 20,
+            text: _lang.translate('signin_string'),
+            color: "#FFFFFF",
+          ),
           edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
           action: (){
           // validateAndSubmit();
@@ -345,12 +350,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 () {
                 // facebookSignIn();
                 }, 
-                'images/facebook.svg'
+                'images/icons/facebook.svg'
               ),
               SizedBox(width: 20),
               BtnSocial(() {
                 // googleSignIn();
-              }, 'images/google.svg'),
+              }, 'images/icons/google.svg'),
             ],
           )
         ),
