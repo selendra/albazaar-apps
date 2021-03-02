@@ -40,7 +40,7 @@ class Components {
 
   /* Dialog of response from server */
   static Future dialog(BuildContext context, var text, var title,
-      {FlatButton action, Color bgColor}) async {
+      {FlatButton action, String firsTxtBtn = "Close", Color bgColor}) async {
     var result = await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -58,7 +58,8 @@ class Components {
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('Close'),
+                padding: EdgeInsets.all(0),
+                child: Text(firsTxtBtn),
                 onPressed: () => Navigator.of(context).pop(text),
               ),
               action

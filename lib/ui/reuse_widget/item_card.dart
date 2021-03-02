@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class ItemCard extends StatelessWidget {
   @override
@@ -10,19 +10,26 @@ class ItemCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/detail',
-          arguments: product.id,
-        );
+        // Navigator.of(context).pushNamed(
+        //   '/detail',
+        //   arguments: product.id,
+        // );
 
-        Provider.of<ProductsProvider>(context, listen: false)
-            .findImgById(product.id);
+        // Provider.of<ProductsProvider>(context, listen: false)
+        //     .findImgById(product.id);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(kDefaultRadius * 2),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(kDefaultRadius + 4),
+          // boxShadow: [
+          //   BoxShadow(
+          //     blurRadius: 2,
+          //     color: AppServices.hexaCodeToColor("#000000").withOpacity(0.25),
+          //     spreadRadius: 2
+          //   )
+          // ]
         ),
         child: Stack(
           children: [
@@ -31,8 +38,8 @@ class ItemCard extends StatelessWidget {
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
                   ),
                   child: Container(
                     width: double.infinity,
@@ -46,20 +53,23 @@ class ItemCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    child: Hero(
-                      tag: "${product.id}",
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: product.thumbnail,
-                      ),
-                    ),
+                    child: SvgPicture.asset('images/avatar_user.svg')
+                    // Hero(
+                    //   tag: "{product.id}",
+                    //   child: SvgPicture.asset('images/avatar_user.svg')
+                    //   // FadeInImage(
+                    //   //   fit: BoxFit.cover,
+                    //   //   image: NetworkImage(product.thumbnail),
+                    //   //   placeholder: AssetImage('images/loading.gif'),
+                    //   // ),
+                    // ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   child: Text(
                     // products is out demo list
-                    product.name,
+                    'product.name',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         //color: Colors.white,
@@ -71,7 +81,7 @@ class ItemCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
-                      "${product.price}៛ /" +
+                      "{product.price}៛ /" +
                           AppLocalizeService.of(context).translate('kilogram'),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -85,7 +95,7 @@ class ItemCard extends StatelessWidget {
             ),
             Positioned(
               right: 5,
-              top: 5,
+              bottom: 5,
               child: Align(
                 alignment: Alignment.topRight,
                 child: Consumer<FavoriteProvider>(

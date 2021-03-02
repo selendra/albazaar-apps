@@ -32,7 +32,7 @@ class _ListingScreenState extends State<ListingScreen>
       appBar: ReuseAppBar.getTitle(
           _lang.translate('listing'),
           context,
-          _lang.translate('all'),
+          _lang.translate('all_seller'),
           _lang.translate('pending'),
           _lang.translate('complete'),
           _controller), //lang.translate('Products')

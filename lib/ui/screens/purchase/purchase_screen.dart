@@ -34,7 +34,7 @@ class _PurchaseScreenState extends State<PurchaseScreen>
       appBar: ReuseAppBar.getTitle(
           _lang.translate('order'),
           context,
-          _lang.translate('all'),
+          _lang.translate('all_buyer'),
           _lang.translate('pending'),
           _lang.translate('complete'),
           _controller),

@@ -23,13 +23,14 @@ class _SplashScreenState extends State<SplashScreen>
     'images/packaging.svg'
   ];
 
-  void checkUser() {
+  void checkUser() async {
     //Read token
-    _pref.read('token').then(
+    await _pref.read('token').then(
       (value) async {
         if (value != null) {
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
+            print("Status ${user.statusCode}");
             // Check Expired Token
             if (user.statusCode.toString() == '200') {
               Provider.of<ProductsProvider>(
@@ -172,11 +173,11 @@ class _SplashScreenState extends State<SplashScreen>
         Center(
           child: FadeTransition(
             opacity: animation,
-            child: Image.asset(
-              'images/logo.png',
-              height: 200,
-              width: 200,
-            ),
+            child: SvgPicture.asset(
+              'images/sld_logo.svg',
+              height: 150,
+              width: 150,
+            )
           ),
         ),
       ),

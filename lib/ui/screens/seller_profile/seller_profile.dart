@@ -45,8 +45,7 @@ class _SellerProfileState extends State<SellerProfile>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage(
-                            'https://staticg.sportskeeda.com/editor/2020/09/9f615-15992439400294-800.jpg'),
+                        image: NetworkImage('https://staticg.sportskeeda.com/editor/2020/09/9f615-15992439400294-800.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -62,7 +61,7 @@ class _SellerProfileState extends State<SellerProfile>
                 SizedBox(
                   height: 10,
                 ),
-                ReuseAuthTab(_tabController, 'Post', 'Contact'),
+                ReuseAuthTab(_tabController, 'Post', 'Contact', (int index){}),
               ],
             ),
           ),

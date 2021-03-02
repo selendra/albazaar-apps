@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:selendra_marketplace_app/core/providers/add_product_provider.dart';
+import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
+import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
+import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 import 'all_export.dart';
 import 'core/route/router.dart' as router;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
@@ -52,9 +57,9 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<CartProvider>(
           create: (context) => CartProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => DarkMode(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => DarkMode(),
+        // ),
         ChangeNotifierProvider<ProductsProvider>(
             create: (context) => ProductsProvider()),
         ChangeNotifierProvider<FavoriteProvider>(
@@ -67,26 +72,26 @@ class _SelendraAppState extends State<SelendraApp> {
         ChangeNotifierProvider<TrxHistoryProvider>(
             create: (context) => TrxHistoryProvider()),
       ],
-      child: Consumer<LangProvider>(builder: (context, value, child) {
-        var data = Provider.of<DarkMode>(context).isDarkMode;
-        return MaterialApp(
-          builder: (context, child) => ScrollConfiguration(
-            behavior: ScrollBehavior()
-              ..buildViewportChrome(context, child, AxisDirection.down),
-            child: child,
-          ),
-          // ResponsiveWrapper.builder(
-          // ),
-          //   maxWidth: 1200,
-          //   minWidth: 480,
-          //   defaultScale: true,
-          //   breakpoints: [
-          //     ResponsiveBreakpoint.resize(480, name: MOBILE),
-          //     ResponsiveBreakpoint.autoScale(800, name: TABLET),
-          //     ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-          //   ],
-          //   background: Container(color: Color(0xFFF5F5F5))
-          // ),
+      child: Consumer<LangProvider>(
+        builder: (context, value, child) => MaterialApp(
+          builder: (context, child) {
+            return ResponsiveWrapper.builder(
+              ScrollConfiguration(
+                behavior: ScrollBehavior()
+                  ..buildViewportChrome(context, child, AxisDirection.down),
+                child: child,
+              ),
+              maxWidth: 1200,
+              minWidth: 480,
+              defaultScale: true,
+              breakpoints: [
+                ResponsiveBreakpoint.resize(480, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+              ],
+              background: Container(color: Color(0xFFF5F5F5))
+            );
+          },
           title: appTitle,
           locale: value.manualLocale,
 
@@ -116,23 +121,25 @@ class _SelendraAppState extends State<SelendraApp> {
             return supportedLocales.first;
           },
           onGenerateRoute: router.generateRoute,
-          initialRoute: SplashScreenView,
+          // initialRoute: OTPScreen.route, //SplashScreenView,
+          // debugShowCheckedModeBanner: true,
           theme: ThemeData(
             cursorColor: kDefaultColor,
-            primaryColor: Colors.white,
+            textTheme: TextTheme(bodyText1: TextStyle(color: AppServices.hexaCodeToColor(textColor))),
+            primaryColor: AppServices.hexaCodeToColor("#F7F7F7"),
+            scaffoldBackgroundColor: AppServices.hexaCodeToColor("#F1F0F0"),
             brightness: Brightness.light,
-            textTheme: GoogleFonts.robotoTextTheme(
-              Theme.of(context).textTheme,
-            ),
+          
           ),
           routes: {
             DetailView: (context) => DetailScreen(),
             SellerInfoView: (context) => SellerConfirm(),
+            OTPScreen.route: (context) => OTPScreen('', '')
           },
-          home: SplashScreen(),
+          home: HomeScreen(),
           navigatorKey: navigationKey,
-        );
-      }),
+        )
+      )
     );
   }
 }

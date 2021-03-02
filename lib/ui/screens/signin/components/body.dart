@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:selendra_marketplace_app/core/components/component.dart';
+import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
@@ -10,19 +13,17 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
-  bool _isLoading = false;
-  final PageController _pageController = PageController(initialPage: 0);
-  TabController _tabController;
-  bool isPageCanChanged = true;
+
+  SignInModel _signInModel = SignInModel();
 
   onGoogleSignIn() async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     await AuthProvider().signInWithGoogle(context).then((value) {
       if (value == null) {
         setState(() {
-          _isLoading = false;
+          _signInModel.isLoading = false;
         });
       } else {
         Provider.of<AuthProvider>(context, listen: false)
@@ -30,7 +31,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       }
     }).catchError((onError) {
       setState(() {
-        _isLoading = false;
+        _signInModel.isLoading = false;
       });
       ReuseAlertDialog().successDialog(context, onError);
     });
@@ -38,7 +39,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onFacebookSignIn() async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     try {
       await AuthProvider().signInFacebook(context).then((value) {
@@ -56,7 +57,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onApiSignInByEmail(String _email, String _password) async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
     try {
       await AuthProvider()
@@ -84,7 +85,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   onApiSignInByPhone(String _phone, String _password) async {
     setState(() {
-      _isLoading = true;
+      _signInModel.isLoading = true;
     });
 
     try {
@@ -112,112 +113,262 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   }
 
   onTabChange() {
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
+    _signInModel.tabController.addListener(() {
+      if (_signInModel.tabController.indexIsChanging) {
         setState(() {
-          onPageChange(_tabController.index, p: _pageController);
+          onPageChange(_signInModel.tabController.index, p: _signInModel.pageController);
         });
       }
     });
   }
 
   onPageChange(int index, {PageController p, TabController t}) async {
-    if (p != null) {
-      isPageCanChanged = false;
-      await _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 400), curve: Curves.easeOut);
-      isPageCanChanged = true;
+    print("My index"+index.toString());
+    print("Index ${_signInModel.tabController.index}");
+    if ( index == 1 ){
+      _signInModel.phone.clear();
+      _signInModel.phoneNode.unfocus();
+      // _signInModel.enable = false;
+      // _signInModel.label = "email";
     } else {
-      _tabController.animateTo(index);
+      _signInModel.email.clear();
+      _signInModel.emailNode.unfocus();
+      // _signInModel.enable = false;
+      // _signUpM.label = "phone";
     }
+    setState(() {});
+
+    // if (p != null) {
+    //   _signInModel.isPageCanChanged = false;
+    //   await _signInModel.pageController.animateToPage(index,
+    //       duration: Duration(milliseconds: 400), curve: Curves.easeOut);
+    //   _signInModel.isPageCanChanged = true;
+    // } else {
+    //   _signInModel.tabController.animateTo(index);
+    // }
   }
 
   //This function is use to set initial tab when setstate
   void setInitialTab() {
     setState(() {
-      _tabController.index = 0;
+      _signInModel.tabController.index = 0;
     });
   }
 
   //This function is use to stop loading circle indicator
   void stopLoading() {
     setState(() {
-      _isLoading = false;
+      _signInModel.isLoading = false;
     });
+  }
+
+  void onChanged(String value){
+    print("My value");
+    // if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
+    // else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
+  }
+
+  void onSubmit(){
+
   }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _signInModel.tabController = TabController(vsync: this, length: 2);
     onTabChange();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
-    _tabController.dispose();
+    _signInModel.pageController.dispose();
+    _signInModel.tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: _isLoading
-        ? Center(
-            child: CircularProgressIndicator(),
+    return Column(
+      children: [
+
+        PaddingScaffold(
+          pTop: pd35,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      // padding: EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        children: [
+                          Icon(Icons.arrow_back_ios),
+                          Text(
+                            _lang.translate('signin_string'),
+                            style: TextStyle(
+                              fontSize: 24,
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: (){
+                        
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Selendra Marketplace',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 30,
+                            color: kDefaultColor,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ),
+
+              Expanded(
+                flex: 1,
+                child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
+              ),
+            ],
           )
-        : Column(
-          children: <Widget>[
-            Container(
-                child: Image.asset(
-              'images/logo.png',
-              height: 80,
-              width: 80,
-            )),
-            SizedBox(
-              height: 40,
-            ),
-            ReuseAuthTab(
-              _tabController,
-              _lang.translate('phone'),
-              _lang.translate('email'),
-            ),
-            // tabs(context),
-            SizedBox(
-              height: 40,
-            ),
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  if (isPageCanChanged) {
-                    onPageChange(index);
-                  }
-                },
-                children: [
-                  SignInPhoneForm(
-                    onApiSignInByPhone,
-                    onFacebookSignIn,
-                    onGoogleSignIn,
-                  ),
-                  SignInEmailForm(
-                    onApiSignInByEmail,
-                    onFacebookSignIn,
-                    onGoogleSignIn,
-                  ),
-                ],
+        ),
+
+        Flexible(
+          child: PaddingScaffold(
+            child: Container()
+          )
+        ),
+
+        Container(
+          child: PaddingScaffold(
+            pBottom: 25,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: ReuseAuthTab(
+                _signInModel.tabController,
+                _lang.translate('phone'),
+                _lang.translate('email'),
+                onPageChange
+              )
+            )
+          )
+        ),
+        // tabs(context),
+
+        Expanded(
+          child: PaddingScaffold(
+            child: Form(
+              key: _signInModel.emailFormKey,
+              child: TabBarView(
+                  controller: _signInModel.tabController,
+                  children: [
+                    
+                    SignInPhoneForm(
+                      signInPhoneFunc: onApiSignInByPhone,
+                      facebookSignIn: onFacebookSignIn,
+                      googleSignIn: onGoogleSignIn,
+                      signInModel: _signInModel,
+                      onChanged: onChanged,
+                      onSubmit: onSubmit,
+                    ),
+
+                    SignInEmailForm(
+                      signInEmailFunc: onApiSignInByEmail,
+                      faceBookSignIn: onFacebookSignIn,
+                      googleSignIn: onGoogleSignIn,
+                      signInModel: _signInModel,
+                      onChanged: onChanged,
+                      onSubmit: onSubmit,
+                    )
+                  ],
+                )
+              )
+          ),
+        ),
+
+        Container(
+          alignment: Alignment.centerRight,
+          child: PaddingScaffold(
+            child: FlatButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {
+                FocusScope.of(context).unfocus();
+                Navigator.push(
+                    context, RouteAnimation(enterPage: ResetPassPhone()));
+              },
+              child: MyText(
+                text: _lang.translate('forget_password'),
+                color: AppColors.primary,
+                fontSize: 16,
               ),
             ),
-          ],
+          ),
         ),
-      ),
+
+        MyFlatButton(
+          // edgeMargin: EdgeInsets.only(bottom: 25),
+          textButton: _lang.translate('signin_string'),
+          edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
+          action: (){
+          // validateAndSubmit();
+          },
+        ),
+        
+        Flexible(
+          child: PaddingScaffold(
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+              _lang.translate('or_string'),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+            )
+          )
+        ),
+
+        PaddingScaffold(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              BtnSocial(
+                () {
+                // facebookSignIn();
+                }, 
+                'images/facebook.svg'
+              ),
+              SizedBox(width: 20),
+              BtnSocial(() {
+                // googleSignIn();
+              }, 'images/google.svg'),
+            ],
+          )
+        ),
+
+        SizedBox(height: 10),
+        PaddingScaffold(
+          child: ReuseFlatButton.getItem(
+            _lang.translate('haven\'t_had_account'),
+            AppLocalizeService.of(context).translate('signup_string'), () {
+
+              FocusScope.of(context).unfocus();
+              Navigator.pushReplacementNamed(context, SignUpView);
+            // Navigator.pushReplacement(context,
+            //     MaterialPageRoute(builder: (context) => SignUpScreen()));
+            }
+          )
+        )
+      ],
     );
   }
 }
