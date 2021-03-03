@@ -235,10 +235,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 children: [
 
                   Container(
-                    height: 38,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: AppServices.hexaCodeToColor(AppColors.secondary),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: FlatButton(
                       color: Colors.transparent,

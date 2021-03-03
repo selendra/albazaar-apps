@@ -3,6 +3,9 @@ import 'dart:ui' as ui;
 
 const pd35 = 35.0;
 
+const double pd10 = 10;
+const double pd20 = 20;
+
 class PaddingScaffold extends StatelessWidget{
   
   final double pTop; 
