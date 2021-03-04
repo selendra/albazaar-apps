@@ -376,8 +376,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
             _lang.translate('had_an_account'),
             AppLocalizeService.of(context).translate('signin_string'), () {
               Navigator.pushReplacementNamed(context, SignUpView);
-            // Navigator.pushReplacement(context,
-            //     MaterialPageRoute(builder: (context) => SignUpScreen()));
             }
           ),
         )

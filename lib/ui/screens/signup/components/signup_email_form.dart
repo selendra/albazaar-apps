@@ -38,7 +38,6 @@ class SignUpEmailForm extends StatelessWidget {
     return Form(
       child: Column(
         children: [
-
           MyInputField(
             pRight: 5, pLeft: 5, pTop: 5,
             pBottom: 11,
