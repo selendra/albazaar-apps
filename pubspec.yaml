@@ -26,7 +26,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
+
+
   google_sign_in: ^4.5.1
+  
 
   flutter_facebook_login: ^3.0.0
   
@@ -34,7 +37,7 @@ dependencies:
   
   flutter_facebook_login_web: ^0.2.1+1
   
-  intl_phone_field: ^1.2.0
+  ##intl_phone_field: ^1.2.0
   
   connectivity: ^2.0.2
   

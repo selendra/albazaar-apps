@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+//import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/core/services/app_services.dart';
 import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -361,31 +361,31 @@ class _PinScreenState extends State<PinScreen> {
   Widget _phoneCodePick() {
     return Container(
       height: 70,
-      child: IntlPhoneField(
-        controller: _phoneController,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(9),
-          FilteringTextInputFormatter.digitsOnly
-        ],
-        decoration: InputDecoration(
-          labelText: AppLocalizeService.of(context).translate('phone_hint'),
-          labelStyle: TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-        ),
-        initialCountryCode: _countryCode,
-        validator: (value) => value = value.isEmpty
-            ? AppLocalizeService.of(context).translate('phone_number_is_number')
-            : null,
-        onChanged: (phone) {
-          // _phoneNumber = phone.completeNumber.toString();
-        },
-      ),
+      // child: IntlPhoneField(
+      //   controller: _phoneController,
+      //   inputFormatters: [
+      //     LengthLimitingTextInputFormatter(9),
+      //     FilteringTextInputFormatter.digitsOnly
+      //   ],
+      //   decoration: InputDecoration(
+      //     labelText: AppLocalizeService.of(context).translate('phone_hint'),
+      //     labelStyle: TextStyle(color: Colors.grey),
+      //     enabledBorder: OutlineInputBorder(
+      //       borderSide: BorderSide(color: kDefaultColor),
+      //       borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+      //     ),
+      //     focusedBorder: OutlineInputBorder(
+      //         borderSide: BorderSide(color: Colors.greenAccent),
+      //         borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+      //   ),
+      //   initialCountryCode: _countryCode,
+      //   validator: (value) => value = value.isEmpty
+      //       ? AppLocalizeService.of(context).translate('phone_number_is_number')
+      //       : null,
+      //   onChanged: (phone) {
+      //     // _phoneNumber = phone.completeNumber.toString();
+      //   },
+      // ),
     );
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+// import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 
@@ -20,22 +20,22 @@ class _ReusePhoneFieldState extends State<ReusePhoneField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: IntlPhoneField(
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          labelStyle: TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-        ),
-        initialCountryCode: _countryCode,
-        onSaved: (value) => widget.onSaved,
-        onChanged: (value) => widget.onChanged,
-      ),
+      // child: IntlPhoneField(
+      //   decoration: InputDecoration(
+      //     labelText: widget.labelText,
+      //     labelStyle: TextStyle(color: Colors.grey),
+      //     enabledBorder: OutlineInputBorder(
+      //       borderSide: BorderSide(color: kDefaultColor),
+      //       borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+      //     ),
+      //     focusedBorder: OutlineInputBorder(
+      //         borderSide: BorderSide(color: Colors.greenAccent),
+      //         borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+      //   ),
+      //   initialCountryCode: _countryCode,
+      //   onSaved: (value) => widget.onSaved,
+      //   onChanged: (value) => widget.onChanged,
+      // ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+//import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
 class ResetPassPhone extends StatefulWidget {
@@ -141,21 +141,21 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
   }
 
   Widget _phoneCodePick(context) {
-    return IntlPhoneField(
-      decoration: InputDecoration(
-        labelStyle: TextStyle(color: Colors.grey),
-        labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kDefaultColor),
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.greenAccent),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
-      ),
-      initialCountryCode: 'KH',
-      validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-      onSaved: (phone) => _phone = phone.completeNumber.toString(),
-    );
+    // return IntlPhoneField(
+    //   decoration: InputDecoration(
+    //     labelStyle: TextStyle(color: Colors.grey),
+    //     labelText: AppLocalizeService.of(context).translate('phone_hint'),
+    //     enabledBorder: OutlineInputBorder(
+    //       borderSide: BorderSide(color: kDefaultColor),
+    //       borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+    //     ),
+    //     focusedBorder: OutlineInputBorder(
+    //         borderSide: BorderSide(color: Colors.greenAccent),
+    //         borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+    //   ),
+    //   initialCountryCode: 'KH',
+    //   validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+    //   onSaved: (phone) => _phone = phone.completeNumber.toString(),
+    // );
   }
 }

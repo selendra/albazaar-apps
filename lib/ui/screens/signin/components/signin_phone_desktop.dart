@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+//import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:selendra_marketplace_app/core/constants/constants.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 
@@ -44,26 +44,26 @@ class SignInPhoneDesktop extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.3,
-              child: IntlPhoneField(
-                controller: _phoneNumber,
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Colors.grey),
-                  labelText:
-                      AppLocalizeService.of(context).translate('phone_hint'),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kDefaultColor),
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(kDefaultRadius)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.greenAccent),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kDefaultRadius))),
-                ),
-                initialCountryCode: 'KH',
-                validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-                // onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
-              ),
+              // child: IntlPhoneField(
+              //   controller: _phoneNumber,
+              //   decoration: InputDecoration(
+              //     labelStyle: TextStyle(color: Colors.grey),
+              //     labelText:
+              //         AppLocalizeService.of(context).translate('phone_hint'),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderSide: BorderSide(color: kDefaultColor),
+              //       borderRadius:
+              //           BorderRadius.all(Radius.circular(kDefaultRadius)),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //         borderSide: BorderSide(color: Colors.greenAccent),
+              //         borderRadius:
+              //             BorderRadius.all(Radius.circular(kDefaultRadius))),
+              //   ),
+              //   initialCountryCode: 'KH',
+              //   validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+              //   // onSaved: (phone) => _phoneNumber = phone.completeNumber.toString(),
+              // ),
             ),
             SizedBox(
               height: 24,

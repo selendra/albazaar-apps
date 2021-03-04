@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+//import 'package:intl_phone_field/intl_phone_field.dart';
 
 String _phone, _password, _confirmPassword;
 
@@ -43,29 +43,29 @@ class SignUpPhoneFormDesktop extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.3,
-              child: IntlPhoneField(
-                controller: _phoneController,
-                decoration: InputDecoration(
-                  labelText: _lang.translate('phone_hint'),
-                  labelStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kDefaultColor),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(kDefaultRadius),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.greenAccent),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(kDefaultRadius))),
-                ),
-                autoValidate: false,
-                initialCountryCode: 'KH',
-                validator: (value) => value.isEmpty ? "Phone is empty" : null,
-                onChanged: (phone) {
-                  _phone = phone.number;
-                },
-              ),
+              // child: IntlPhoneField(
+              //   controller: _phoneController,
+              //   decoration: InputDecoration(
+              //     labelText: _lang.translate('phone_hint'),
+              //     labelStyle: TextStyle(color: Colors.grey),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderSide: BorderSide(color: kDefaultColor),
+              //       borderRadius: BorderRadius.all(
+              //         Radius.circular(kDefaultRadius),
+              //       ),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //         borderSide: BorderSide(color: Colors.greenAccent),
+              //         borderRadius:
+              //             BorderRadius.all(Radius.circular(kDefaultRadius))),
+              //   ),
+              //   autoValidate: false,
+              //   initialCountryCode: 'KH',
+              //   validator: (value) => value.isEmpty ? "Phone is empty" : null,
+              //   onChanged: (phone) {
+              //     _phone = phone.number;
+              //   },
+              // ),
             ),
             SizedBox(
               height: 10,
