@@ -6,7 +6,7 @@ const pd35 = 35.0;
 const double pd10 = 10;
 const double pd20 = 20;
 
-class PaddingScaffold extends StatelessWidget{
+class MyPadding extends StatelessWidget{
   
   final double pTop; 
   final double pBottom; 
@@ -14,7 +14,7 @@ class PaddingScaffold extends StatelessWidget{
   final double pRight;
   final Widget child;
 
-  PaddingScaffold({this.pTop: 0, this.pBottom: 0, this.pLeft: pd35, this.pRight: pd35, this.child});
+  MyPadding({this.pTop: 0, this.pBottom: 0, this.pLeft: pd35, this.pRight: pd35, this.child});
 
   Widget build(BuildContext context) {
     return Padding(

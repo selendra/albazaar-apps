@@ -224,7 +224,7 @@ class _BodyState extends State<Body> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      PaddingScaffold(
+                      MyPadding(
                         pTop: 17,
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
@@ -245,7 +245,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Container(
@@ -260,7 +260,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Row(
@@ -308,7 +308,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Row(
@@ -383,7 +383,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Divider(
@@ -392,7 +392,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Column(
@@ -431,7 +431,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Divider(
@@ -440,7 +440,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Row(
@@ -465,7 +465,7 @@ class _BodyState extends State<Body> {
                         ),
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: MyText(
@@ -475,7 +475,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Divider(
@@ -493,7 +493,7 @@ class _BodyState extends State<Body> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PaddingScaffold(
+                              MyPadding(
                                 pLeft: padding, pRight: padding,
                                 pBottom: padding,
                                 child: MyText(
@@ -505,7 +505,7 @@ class _BodyState extends State<Body> {
                               ),
 
                               // Seller
-                              PaddingScaffold(
+                              MyPadding(
                                 pLeft: padding, pRight: padding,
                                 pBottom: padding,
                                 child: Row(
@@ -563,7 +563,7 @@ class _BodyState extends State<Body> {
                         ]
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Divider(
@@ -572,7 +572,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
 
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: MyText(
@@ -583,7 +583,7 @@ class _BodyState extends State<Body> {
                       ),
 
                       // Related
-                      PaddingScaffold(
+                      MyPadding(
                         pLeft: 0, pRight: 0,
                         pBottom: padding,
                         child: SizedBox(

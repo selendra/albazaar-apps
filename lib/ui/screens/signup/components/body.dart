@@ -230,7 +230,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     return Column(
       children: [
 
-        PaddingScaffold(
+        MyPadding(
           pTop: pd35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -283,7 +283,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         Flexible(
-          child: PaddingScaffold(
+          child: MyPadding(
             pBottom: 25,
             child: Align(
               alignment: Alignment.bottomLeft,
@@ -299,7 +299,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         // tabs(context),
         Container(
           height: 300,
-          child: PaddingScaffold(
+          child: MyPadding(
             child: Form(
               key: _signUpModel.emailFormKey,
               child: TabBarView(
@@ -371,7 +371,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         SizedBox(height: 10),
-        PaddingScaffold(
+        MyPadding(
           child: ReuseFlatButton.getItem(
             _lang.translate('had_an_account'),
             AppLocalizeService.of(context).translate('signin_string'), () {

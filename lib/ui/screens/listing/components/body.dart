@@ -64,7 +64,7 @@ class _BodyState extends State<Body> {
       children: [
 
         // Header
-        PaddingScaffold(
+        MyPadding(
           pTop: pd10+2,
           pLeft: pd10+2, pRight: pd10+2,
           pBottom: pd10+pd10,
@@ -127,7 +127,7 @@ class _BodyState extends State<Body> {
                   child: MyCard(
                     height: 80, width: 80,
                     hexaColor: AppColors.black,
-                    child: PaddingScaffold(
+                    child: MyPadding(
                       pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
                       child: Image.asset('images/koompi_logo.png'),
                     )
@@ -147,7 +147,7 @@ class _BodyState extends State<Body> {
 
         // Location
         GestureDetector(
-          child: PaddingScaffold(
+          child: MyPadding(
             pBottom: pd10, pRight: pd10+2, pLeft: pd10+2, pTop: pd10,
             child: Row(
               children: [
@@ -158,7 +158,7 @@ class _BodyState extends State<Body> {
           ),
         ),
 
-        PaddingScaffold(
+        MyPadding(
           pLeft: pd10+2, pRight: pd10+2,
           pBottom: pd20,
           child: MyCard(
@@ -169,7 +169,7 @@ class _BodyState extends State<Body> {
         ),
 
         // Button
-        PaddingScaffold(
+        MyPadding(
           pLeft: pd10+2, pRight: pd10+2,
           pBottom: pd20,
           child: Row(
@@ -211,141 +211,138 @@ class _BodyState extends State<Body> {
                 )
               ),
               
-              Flexible(
+              Expanded(
                 child: MyText(
                   left: 10,
                   text: "Sold"
                 )
               ),
+              SvgPicture.asset('images/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
             ],
           ),
         ),
 
-        // Products Listing
-        PaddingScaffold(
-          pLeft: pd10+2, pRight: pd10+12,
+        Container(
+          height: 140,
+          padding: EdgeInsets.only(left: pd10+2, right: pd10+2),
           child: MyCard(
             child: Row(
               children: [
-                // MyCard(
-                //   height: 122,
-                //   child: PaddingScaffold(
-                //     pLeft: 16, pRight: 16, pTop: 16, pBottom: 16,
-                //     // child: ,
-                //   )
-                // ),
-                Flexible(
-                  child: MyCard(
-                  bBottomLeft: 0, bBottomRight: 0,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(product.thumbnail) //CachedNetworkImageProvider(listProduct[index].thumbnail)
-                    )
-                  // Hero(
-                  //   // tag: "${listProduct[index].id}",
-                  //   child: ,
-                  //   )
-                  )
+
+                MyCard(
+                  hexaColor: AppColors.secondary,
+                  height: double.infinity,
+                  width: 146,
+                  bTopRight: 0, bBottomRight: 0,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(product.thumbnail)
+                  ),
                 ),
 
-                // MyCard(
-                //   align: Alignment.centerLeft,
-                //   bTopLeft: 0, bTopRight: 0,
-                //   // mBottom: cPadding, mTop: cPadding, mLeft: cPadding, mRight: cPadding,
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
+                Flexible(
+                  child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                //       Padding(
-                //         padding: EdgeInsets.only(bottom: 5),
-                //         child: Row(
-                //           crossAxisAlignment: CrossAxisAlignment.center,
-                //           children: [
-                //             Expanded(
-                //               child: MyText(
-                //                 textAlign: TextAlign.left,
-                //                 text: "${product.name}",
-                //                 fontSize: 16,
-                //                 fontWeight: FontWeight.bold,
-                //                 color: "#000000",
-                //               )
-                //             ),
-                            
-                //             MyText(
-                //               text: "(0 sold)",
-                //               fontSize: 12,
-                //               color: "#000000",
-                //             )
-                //           ],
-                //         )
-                //       ),
+                      MyPadding(
+                        pLeft: pd10+5, pRight: pd10,
+                        pBottom: pd10,
+                        pTop: pd10,
+                        child: Row(                    
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(
+                              textAlign: TextAlign.left,
+                              text: "${product.name}",
+                              fontSize:20,
+                              fontWeight: FontWeight.bold,
+                              color: "#000000",
+                            ),
+                            Expanded(child: Container()),
+                            SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23)
+                          ],
+                        )
+                      ),
 
-                //       Padding(
-                //         padding: EdgeInsets.only(bottom: 5),
-                //         child: MyText(
-                //           textAlign: TextAlign.left,
-                //           text: "${product.description}",
-                //           fontSize: 16,
-                //           color: "#000000",
-                //           overflow: TextOverflow.ellipsis,
-                //           maxLine: 1,
-                //         )
-                //       ),
+                      MyPadding(
+                        pLeft: pd10+5, pRight: pd10+5,
+                        pBottom: pd10,
+                        child: MyText(
+                          width: MediaQuery.of(context).size.width,
+                          textAlign: TextAlign.left,
+                          text: "${product.description}",
+                          fontSize: 12,
+                          color: "#000000",
+                          overflow: TextOverflow.ellipsis,
+                          maxLine: 1,
+                        )
+                      ),
 
-                //       Padding(
-                //         padding: EdgeInsets.only(bottom: 5),
-                //         child: Row(
-                //           children: [
-                //             Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
-                //             MyText(
-                //               textAlign: TextAlign.left,
-                //               text: "${product.price} /Kg",
-                //               fontSize: 16,
-                //               fontWeight: FontWeight.bold,
-                //               color: AppColors.primary,
-                //             )
-                //           ],
-                //         )
-                //       ),
+                      MyPadding(
+                        pLeft: pd10+5, pRight: pd10+5,
+                        pBottom: pd10,
+                        child: Row(
+                          children: [
+                            Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                            MyText(
+                              left: 6,
+                              textAlign: TextAlign.left,
+                              text: "${product.price} /Kg",
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary,
+                            )
+                          ],
+                        )
+                      ),
 
-                //       Row(
-                //         children: [
-                //           Padding(
-                //             padding: EdgeInsets.only(right: 7),
-                //             child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                //           ),
-                //           Padding(
-                //             padding: EdgeInsets.only(right: 7),
-                //             child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                //           ),
-                //           Padding(
-                //             padding: EdgeInsets.only(right: 7),
-                //             child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                //           ),
-                //           Padding(
-                //             padding: EdgeInsets.only(right: 7),
-                //             child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                //           ),
-                //           Padding(
-                //             padding: EdgeInsets.only(right: 7),
-                //             child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                //           ),
-                //           MyText(
-                //             textAlign: TextAlign.left,
-                //             text: "(15)",
-                //             fontSize: 10,
-                //             color: "#000000",
-                //           )
-                //         ],
-                //       )
+                      MyPadding(
+                        pLeft: pd10+5, pRight: pd10+5,
+                        pBottom: pd10,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Expanded(
+                              child: Container(),
+                            ),
+
+                            MyText(
+                              textAlign: TextAlign.left,
+                              text: "(15 sold)",
+                              fontSize: 12,
+                              color: "#000000",
+                            )
+                          ],
+                        ),
+                      )
                       
-                //     ],
-                //   ),
-                // )
+                    ],
+                  ),
+                )
               ],
-            ),
-          ),
-        ),
+            )
+          )
+        )
       ],
     );
     //_buildTapBarView();
