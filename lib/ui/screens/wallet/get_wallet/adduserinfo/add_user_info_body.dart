@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 
 class Body extends StatefulWidget {
   

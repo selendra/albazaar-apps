@@ -9,7 +9,7 @@ export 'package:provider/provider.dart';
 
 // Standart Library
 export 'package:flutter/services.dart';
-export 'package:selendra_marketplace_app/core/services/app_services.dart';
+export 'package:albazaar_app/core/services/app_services.dart';
 export 'dart:async';
 
 // NonStandart Library
@@ -17,13 +17,13 @@ export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
 // core
-export 'package:selendra_marketplace_app/core/backend/api.dart';
-export 'package:selendra_marketplace_app/core/backend/post/post_request.dart';
-export 'package:selendra_marketplace_app/core/backend/get/get_request.dart';
+export 'package:albazaar_app/core/backend/api.dart';
+export 'package:albazaar_app/core/backend/post/post_request.dart';
+export 'package:albazaar_app/core/backend/get/get_request.dart';
 
-export 'package:selendra_marketplace_app/core/backend/component.dart';
-export 'package:selendra_marketplace_app/core/storage/storage.dart';
-export 'package:selendra_marketplace_app/core/components/component.dart';
+export 'package:albazaar_app/core/backend/component.dart';
+export 'package:albazaar_app/core/storage/storage.dart';
+export 'package:albazaar_app/core/components/component.dart';
 
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';
@@ -32,34 +32,34 @@ export 'dart:io';
 export 'package:flutter_svg/svg.dart';
 
 //Validate Mixin
-export 'package:selendra_marketplace_app/core/services/validator_mixin.dart';
+export 'package:albazaar_app/core/services/validator_mixin.dart';
 
 //Components
-export 'package:selendra_marketplace_app/core/components/flare_animation_c.dart';
-export 'package:selendra_marketplace_app/ui/component.dart';
-export 'package:selendra_marketplace_app/core/components/trx_option_c.dart';
-export 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
+export 'package:albazaar_app/core/components/flare_animation_c.dart';
+export 'package:albazaar_app/ui/component.dart';
+export 'package:albazaar_app/core/components/trx_option_c.dart';
+export 'package:albazaar_app/core/components/bottom_sheet_c.dart';
 export 'package:pinput/pin_put/pin_put.dart';
-export 'package:selendra_marketplace_app/core/components/app_bar_c.dart';
-export 'package:selendra_marketplace_app/core/components/my_input.dart';
-export 'package:selendra_marketplace_app/core/components/dropdown_c.dart';
-export 'package:selendra_marketplace_app/core/components/text_c.dart';
-export 'package:selendra_marketplace_app/core/components/snackBar_c.dart';
-export 'package:selendra_marketplace_app/core/components/body_scaffold_c.dart';
-export 'package:selendra_marketplace_app/core/components/item_list.dart';
-export 'package:selendra_marketplace_app/core/components/flat_button.dart';
+export 'package:albazaar_app/core/components/app_bar_c.dart';
+export 'package:albazaar_app/core/components/my_input.dart';
+export 'package:albazaar_app/core/components/dropdown_c.dart';
+export 'package:albazaar_app/core/components/text_c.dart';
+export 'package:albazaar_app/core/components/snackBar_c.dart';
+export 'package:albazaar_app/core/components/body_scaffold_c.dart';
+export 'package:albazaar_app/core/components/item_list.dart';
+export 'package:albazaar_app/core/components/flat_button.dart';
 
 // Transaction
 export 'package:permission_handler/permission_handler.dart';
-export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx.dart';
-export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/fill_pin_dialog.dart';
-export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx_body.dart';
+export 'package:albazaar_app/ui/screens/wallet/submit_trx/submit_trx.dart';
+export 'package:albazaar_app/ui/screens/wallet/submit_trx/fill_pin_dialog.dart';
+export 'package:albazaar_app/ui/screens/wallet/submit_trx/submit_trx_body.dart';
 
 // Utility Apps
-export 'package:selendra_marketplace_app/core/utils/app_utils.dart';
-export 'package:selendra_marketplace_app/core/utils/app_colors.dart';
+export 'package:albazaar_app/core/utils/app_utils.dart';
+export 'package:albazaar_app/core/utils/app_colors.dart';
 
-export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx.dart';
+export 'package:albazaar_app/ui/screens/wallet/submit_trx/submit_trx.dart';
 
 //main
 export 'main.dart';
@@ -245,7 +245,7 @@ export 'core/providers/lang_provider.dart';
 export 'core/providers/user_provider.dart';
 export 'core/providers/auth_provider.dart';
 export 'core/providers/trx_history_provider.dart';
-export 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
+export 'package:albazaar_app/core/providers/seller_provider.dart';
 export 'core/providers/add_product_provider.dart';
 
 //models
@@ -259,8 +259,8 @@ export 'core/models/wallet_response.dart';
 export 'core/models/notification_model.dart';
 export 'core/models/add_product_m.dart';
 export 'core/models/product_image.dart';
-export 'package:selendra_marketplace_app/core/models/scan_pay_m.dart';
-export 'package:selendra_marketplace_app/core/models/trx_history_m.dart';
+export 'package:albazaar_app/core/models/scan_pay_m.dart';
+export 'package:albazaar_app/core/models/trx_history_m.dart';
 
 //services
 export 'core/services/auth/api_post_services.dart';
@@ -269,5 +269,5 @@ export 'core/services/auth/auth_services.dart';
 export 'core/services/connectivity_services.dart';
 export 'core/services/pref_service.dart';
 export 'core/services/app_localize_service.dart';
-export 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
-export 'package:selendra_marketplace_app/core/services/app_services.dart';
+export 'package:albazaar_app/core/services/app_localize_service.dart';
+export 'package:albazaar_app/core/services/app_services.dart';

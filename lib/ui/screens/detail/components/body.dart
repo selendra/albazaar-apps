@@ -2,10 +2,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:selendra_marketplace_app/core/components/card_c.dart';
-import 'package:selendra_marketplace_app/ui/screens/detail/seller_information.dart';
+import 'package:albazaar_app/core/components/card_c.dart';
+import 'package:albazaar_app/ui/screens/detail/seller_information.dart';
 import 'interact_view.dart';
 
 class Body extends StatefulWidget {

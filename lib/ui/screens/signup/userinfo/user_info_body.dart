@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/add_user_info.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/add_user_info.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
 
 class Body extends StatefulWidget {
 

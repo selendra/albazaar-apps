@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 
 class MapScreen extends StatefulWidget {
   @override

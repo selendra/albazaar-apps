@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/ui/screens/detail/components/body.dart';
+import 'package:albazaar_app/ui/screens/detail/components/body.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'components/bottom_navigation_detail.dart';
 
 class DetailScreen extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:selendra_marketplace_app/core/components/scaffold.dart';
+import 'package:albazaar_app/core/components/scaffold.dart';
 
 class PinScreen extends StatefulWidget {
   

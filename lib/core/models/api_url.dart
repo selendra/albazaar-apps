@@ -1,4 +1,4 @@
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:albazaar_app/core/constants/constants.dart';
 
 class ApiUrl {
   static const LOG_IN_URL = baseUrl + '/pub/v1/loginbyemail';

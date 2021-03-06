@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/seller_m.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/seller_m.dart';
 
 class SellerTracking extends StatefulWidget {
   final SellerModel sellerModel;

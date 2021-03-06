@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/components/scaffold.dart';
+import 'package:albazaar_app/core/components/scaffold.dart';
 //import 'package:selendra_marketplace_app/all_export.dart';
 import 'components/pin_screen.dart';
 

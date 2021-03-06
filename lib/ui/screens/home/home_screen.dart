@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/components/card_c.dart';
-import 'package:selendra_marketplace_app/core/components/scaffold.dart';
-import 'package:selendra_marketplace_app/core/providers/guest_acc_p.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
-import 'package:selendra_marketplace_app/ui/screens/home/components/body.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/core/components/card_c.dart';
+import 'package:albazaar_app/core/components/scaffold.dart';
+import 'package:albazaar_app/core/providers/guest_acc_p.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
+import 'package:albazaar_app/ui/screens/home/components/body.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:badges/badges.dart';
 
 class HomeScreen extends StatefulWidget {

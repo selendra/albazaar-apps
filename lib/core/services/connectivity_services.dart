@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
-import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
+import 'package:albazaar_app/core/enums/connectivity_status.dart';
 
 
 class ConnectivityServices{

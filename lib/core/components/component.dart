@@ -55,6 +55,48 @@ Route transitionRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25, sigmaX:
   );
 }
 
+Route popUpRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25, sigmaX: 10.0, sigmaY: 10.0}) {
+  return PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (context, animation, secondaryAnimation) => child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(offsetLeft, offsetRight);
+      var end = Offset.zero;
+      var curve = Curves.fastOutSlowIn;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return FadeTransition(
+          opacity: animation,
+          child: Material(
+            color: Colors.white.withOpacity(0.1),
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(
+                sigmaX: sigmaX,
+                sigmaY: sigmaY,
+              ),
+              child: child,
+            ),
+          ),
+        );
+      // SlideTransition(
+      //   position: animation.drive(tween),
+      //   child: FadeTransition(
+      //     opacity: animation,
+      //     child: Material(
+      //       color: Colors.white.withOpacity(0.1),
+      //       child: BackdropFilter(
+      //         filter: ui.ImageFilter.blur(
+      //           sigmaX: sigmaX,
+      //           sigmaY: sigmaY,
+      //         ),
+      //         child: child,
+      //       ),
+      //     ),
+      //   )
+      // );
+    }
+  );
+}
+
 dialogblurBgDeco(BuildContext context, dynamic screen) {
   return showDialog(
     context: context,

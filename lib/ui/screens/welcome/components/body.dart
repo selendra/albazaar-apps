@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:selendra_marketplace_app/core/components/component.dart';
-import 'package:selendra_marketplace_app/core/components/flat_button.dart';
-import 'package:selendra_marketplace_app/core/components/scaffold.dart';
+import 'package:albazaar_app/core/components/component.dart';
+import 'package:albazaar_app/core/components/flat_button.dart';
+import 'package:albazaar_app/core/components/scaffold.dart';
 
 class Body extends StatelessWidget {
   @override

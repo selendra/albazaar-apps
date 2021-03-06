@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/components/card_c.dart';
+import 'package:albazaar_app/core/components/card_c.dart';
 
 class ReuseItemCard extends StatefulWidget {
 

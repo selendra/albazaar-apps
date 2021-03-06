@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_appbar.dart';
-import 'package:selendra_marketplace_app/ui/screens/sales/components/body.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:albazaar_app/ui/reuse_widget/reuse_appbar.dart';
+import 'package:albazaar_app/ui/screens/sales/components/body.dart';
+import 'package:albazaar_app/core/services/app_localize_service.dart';
 
 class SalesScreen extends StatefulWidget {
   @override

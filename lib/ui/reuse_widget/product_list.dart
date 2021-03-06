@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'item_card.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 
 class ProductList extends StatefulWidget {
   final List<Product> productsData;

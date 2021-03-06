@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'components/intro_slide.dart';
 
 class IntroScreen extends StatefulWidget {

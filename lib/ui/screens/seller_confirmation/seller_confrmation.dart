@@ -1,7 +1,7 @@
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/seller_m.dart';
-import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_tracking.dart';
-import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/seller_m.dart';
+import 'package:albazaar_app/ui/screens/seller_confirmation/seller_tracking.dart';
+import 'package:albazaar_app/ui/screens/tracking/tracking.dart';
 
 class SellerConfirm extends StatelessWidget {
   PostRequest _postRequest = PostRequest();

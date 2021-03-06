@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/enums/connectivity_status.dart';
+import 'package:albazaar_app/core/enums/connectivity_status.dart';
 
 class NetworkAlert extends StatefulWidget {
   final Widget child;

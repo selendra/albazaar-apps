@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/ui/screens/profile/components/body.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_simple_appbar.dart';
+import 'package:albazaar_app/ui/screens/profile/components/body.dart';
+import 'package:albazaar_app/ui/reuse_widget/reuse_simple_appbar.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

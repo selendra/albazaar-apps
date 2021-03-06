@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
 
 class HomeDrawer extends StatelessWidget {
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/components/bottom_sheet_c.dart';
-import 'package:selendra_marketplace_app/core/providers/trx_history_provider.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/components/bottom_sheet_c.dart';
+import 'package:albazaar_app/core/providers/trx_history_provider.dart';
 import 'wallet_list.dart';
 
 class MyWallet extends StatelessWidget {

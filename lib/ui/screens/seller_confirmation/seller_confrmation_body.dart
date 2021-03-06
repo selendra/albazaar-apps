@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/seller_m.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
-import 'package:selendra_marketplace_app/ui/screens/tracking/tracking.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/seller_m.dart';
+import 'package:albazaar_app/core/providers/seller_provider.dart';
+import 'package:albazaar_app/ui/screens/tracking/tracking.dart';
 
 import '../../component.dart';
 

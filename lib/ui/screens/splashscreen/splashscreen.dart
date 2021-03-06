@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

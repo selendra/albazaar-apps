@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 
 class ImageList extends StatelessWidget {
   final List<Asset> images;

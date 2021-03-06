@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/purchase/components/body.dart';
-import 'package:selendra_marketplace_app/ui/reuse_widget/reuse_appbar.dart';
-import 'package:selendra_marketplace_app/core/services/app_localize_service.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/screens/purchase/components/body.dart';
+import 'package:albazaar_app/ui/reuse_widget/reuse_appbar.dart';
+import 'package:albazaar_app/core/services/app_localize_service.dart';
 
 class PurchaseScreen extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:http/http.dart' as _http;
 
 class GetRequest {

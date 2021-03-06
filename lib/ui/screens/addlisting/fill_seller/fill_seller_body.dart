@@ -1,5 +1,5 @@
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/component.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/component.dart';
 
 class FillSellerBody extends StatelessWidget {
   final AddProduct addProduct;

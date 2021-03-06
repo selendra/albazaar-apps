@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
-import 'package:selendra_marketplace_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
+import 'package:albazaar_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PinScreen extends StatefulWidget {

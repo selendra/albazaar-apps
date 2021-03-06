@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 //GENERATE ROUTE FOR NAVIGATIONs
 Route<dynamic> generateRoute(RouteSettings settings) {

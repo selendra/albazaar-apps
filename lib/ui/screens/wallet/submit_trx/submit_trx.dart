@@ -1,5 +1,5 @@
 import 'package:flare_flutter/flare_controls.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'dart:ui';
 
 class SubmitTrx extends StatefulWidget {

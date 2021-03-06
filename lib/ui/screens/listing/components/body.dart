@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/components/card_c.dart';
-import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
-import 'package:selendra_marketplace_app/ui/screens/listing/components/my_dropdown.dart';
-import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/components/card_c.dart';
+import 'package:albazaar_app/core/providers/seller_provider.dart';
+import 'package:albazaar_app/ui/screens/listing/components/my_dropdown.dart';
+import 'package:albazaar_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class Body extends StatefulWidget {
   final TabController _controller;
@@ -226,130 +226,153 @@ class _BodyState extends State<Body> {
         ),
 
         Container(
-          height: 140,
-          padding: EdgeInsets.only(left: pd10+2, right: pd10+2),
-          child: MyCard(
-            child: Row(
-              children: [
+          height: 200,
+          constraints: BoxConstraints(
+            minHeight: 230,
+            maxHeight: 300
+          ),
+          child:  ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, int index){
+            return Container(
+              height: 150,
+              padding: EdgeInsets.only(left: pd10+2, right: pd10+2, bottom: pd10+2),
+              child: MyCard(
+                child: Row(
+                  children: [
 
-                MyCard(
-                  hexaColor: AppColors.secondary,
-                  height: double.infinity,
-                  width: 146,
-                  bTopRight: 0, bBottomRight: 0,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(product.thumbnail)
-                  ),
-                ),
+                    MyCard(
+                      hexaColor: AppColors.secondary,
+                      height: double.infinity,
+                      width: 146,
+                      bTopRight: 0, bBottomRight: 0,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(product.thumbnail)
+                      ),
+                    ),
 
-                Flexible(
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    Flexible(
+                      child:Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
 
-                      MyPadding(
-                        pLeft: pd10+5, pRight: pd10,
-                        pBottom: pd10,
-                        pTop: pd10,
-                        child: Row(                    
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyText(
-                              textAlign: TextAlign.left,
-                              text: "${product.name}",
-                              fontSize:20,
-                              fontWeight: FontWeight.bold,
-                              color: "#000000",
-                            ),
-                            Expanded(child: Container()),
-                            GestureDetector(
-                              onTap: () async {
-                                await Navigator.push(context, transitionRoute(MyDropDownCustom(), sigmaX: 0.0, sigmaY: 0.0));
-                              },
-                              child: SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23),
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10,
+                            pBottom: pd10,
+                            pTop: pd10,
+                            child: Row(                    
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                MyText(
+                                  textAlign: TextAlign.left,
+                                  text: "${product.name}",
+                                  fontSize:20,
+                                  fontWeight: FontWeight.bold,
+                                  color: "#000000",
+                                ),
+                                Expanded(child: Container()),
+                                GestureDetector(
+                                  onTapDown: (TapDownDetails detail) async {
+                                    // var x = getBox.localToGlobal(detail.globalPosition.dx);
+                                    print(detail.globalPosition);
+                                    // print("Box ${getBox.size}");
+                                    await Navigator.push(
+                                      context, 
+                                      popUpRoute(
+                                        MyDropDownCustom(x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
+                                      )
+                                    );
+
+                                  },
+                                  onTap: () async {
+                                  },
+                                  child: SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23),
+                                )
+                              ],
                             )
-                          ],
-                        )
-                      ),
+                          ),
 
-                      MyPadding(
-                        pLeft: pd10+5, pRight: pd10+5,
-                        pBottom: pd10,
-                        child: MyText(
-                          width: MediaQuery.of(context).size.width,
-                          textAlign: TextAlign.left,
-                          text: "${product.description}",
-                          fontSize: 12,
-                          color: "#000000",
-                          overflow: TextOverflow.ellipsis,
-                          maxLine: 1,
-                        )
-                      ),
-
-                      MyPadding(
-                        pLeft: pd10+5, pRight: pd10+5,
-                        pBottom: pd10,
-                        child: Row(
-                          children: [
-                            Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
-                            MyText(
-                              left: 6,
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: MyText(
+                              width: MediaQuery.of(context).size.width,
                               textAlign: TextAlign.left,
-                              text: "${product.price} /Kg",
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
-                            )
-                          ],
-                        )
-                      ),
-
-                      MyPadding(
-                        pLeft: pd10+5, pRight: pd10+5,
-                        pBottom: pd10,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Expanded(
-                              child: Container(),
-                            ),
-
-                            MyText(
-                              textAlign: TextAlign.left,
-                              text: "(15 sold)",
+                              text: "${product.description}",
                               fontSize: 12,
                               color: "#000000",
+                              overflow: TextOverflow.ellipsis,
+                              maxLine: 1,
                             )
-                          ],
-                        ),
-                      )
-                      
-                    ],
-                  ),
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                                MyText(
+                                  left: 6,
+                                  textAlign: TextAlign.left,
+                                  text: "${product.price} /Kg",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary,
+                                )
+                              ],
+                            )
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 7),
+                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 7),
+                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 7),
+                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 7),
+                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 7),
+                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                ),
+                                Expanded(
+                                  child: Container(),
+                                ),
+
+                                MyText(
+                                  textAlign: TextAlign.left,
+                                  text: "(15 sold)",
+                                  fontSize: 12,
+                                  color: "#000000",
+                                )
+                              ],
+                            ),
+                          )
+                          
+                        ],
+                      ),
+                    )
+                  ],
                 )
-              ],
-            )
-          )
+              )
+            );
+          }
+        )
         )
       ],
     );
@@ -408,8 +431,7 @@ class _BodyState extends State<Body> {
                                             ],
                                           ),
                                           child: CachedNetworkImage(
-                                            imageUrl:
-                                                '${value.oItems[index].thumbnail}',
+                                            imageUrl: '${value.oItems[index].thumbnail}',
                                             fit: BoxFit.cover,
                                           ),
                                           // child: Image.network(

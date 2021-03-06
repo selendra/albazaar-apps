@@ -1,5 +1,5 @@
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/components/card_c.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/components/card_c.dart';
 
 class SellerInformation extends StatelessWidget {
 

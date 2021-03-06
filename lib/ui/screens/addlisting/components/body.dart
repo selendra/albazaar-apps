@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'dart:async';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
-// import 'package:selendra_marketplace_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
+// import 'package:albazaar_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
 class Body extends StatefulWidget {

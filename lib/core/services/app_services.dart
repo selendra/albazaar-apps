@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
+import 'package:albazaar_app/all_export.dart';
 
 class AppServices {
   

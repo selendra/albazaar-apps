@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/services/app_services.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/services/app_services.dart';
 class ReuseAuthTab extends StatelessWidget {
 
   final TabController _tabController;

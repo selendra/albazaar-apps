@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/sign_in_m.dart';
+import 'package:albazaar_app/core/constants/constants.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/sign_in_m.dart';
 
 class SignInEmailForm extends StatelessWidget {
 

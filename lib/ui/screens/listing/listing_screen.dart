@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/ui/screens/listing/components/body.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/screens/listing/components/body.dart';
 
 class ListingScreen extends StatefulWidget {
   @override

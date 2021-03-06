@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:selendra_marketplace_app/core/constants/constants.dart';
+import 'package:albazaar_app/core/constants/constants.dart';
 
 class ReuseSearchField extends StatefulWidget {
   const ReuseSearchField(

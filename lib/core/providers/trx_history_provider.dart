@@ -1,5 +1,5 @@
-import 'package:selendra_marketplace_app/all_export.dart';
-import 'package:selendra_marketplace_app/core/models/trx_history_m.dart';
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/trx_history_m.dart';
 
 class TrxHistoryProvider with ChangeNotifier {
   Backend _backend;
