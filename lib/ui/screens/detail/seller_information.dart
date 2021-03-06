@@ -19,7 +19,7 @@ class SellerInformation extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              PaddingScaffold(
+              MyPadding(
                 pTop: padding,
                 pRight: padding,
                 pBottom: padding+padding,
@@ -63,7 +63,7 @@ class SellerInformation extends StatelessWidget {
                 color: AppColors.black
               ),
               
-              PaddingScaffold(
+              MyPadding(
                 pLeft: 0, pRight: 0,
                 pBottom: padding * 2,
                 child: Row(
@@ -102,7 +102,7 @@ class SellerInformation extends StatelessWidget {
                 ),
               ),
 
-              PaddingScaffold(
+              MyPadding(
                 pLeft: padding*2, pRight: padding*2,
                 pBottom: padding * 2,
                 child: Divider(
@@ -111,7 +111,7 @@ class SellerInformation extends StatelessWidget {
                 )
               ),
 
-              PaddingScaffold(
+              MyPadding(
                 pLeft: padding * 2, pRight: padding * 2,
                 pBottom: padding * 2,
                 child: Align(
@@ -125,7 +125,7 @@ class SellerInformation extends StatelessWidget {
                 ),
               ),
 
-              PaddingScaffold(
+              MyPadding(
                 pLeft: padding*2, pRight: padding*2,
                 pBottom: padding,
                 child: MyText(

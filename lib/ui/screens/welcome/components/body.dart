@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
-            PaddingScaffold(
+            MyPadding(
               pTop: pd35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -68,7 +68,7 @@ class Body extends StatelessWidget {
 
             Align(
               alignment: Alignment.center,
-              child: PaddingScaffold(
+              child: MyPadding(
                 child: SvgPicture.asset(
                   'images/welcome_illustrator.svg',
                   height: MediaQuery.of(context).size.height * 0.3,
@@ -81,7 +81,7 @@ class Body extends StatelessWidget {
               child: Container()
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pBottom: 25,
               child: Row(
                 children: [
@@ -130,7 +130,7 @@ class Body extends StatelessWidget {
               )
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pBottom: pd35+pd35,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

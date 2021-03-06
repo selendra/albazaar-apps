@@ -39,33 +39,46 @@ class Components {
   }
 
   /* Dialog of response from server */
-  static Future dialog(BuildContext context, var text, var title,
-      {FlatButton action, String firsTxtBtn = "Close", Color bgColor}) async {
+  static Future dialog(
+    BuildContext context, 
+    var text, 
+    var title, 
+    {
+      FlatButton action, 
+      String firsTxtBtn = "Close", 
+      Color bgColor, 
+      Color barrierColor, 
+      bool removeBtn: false,
+      double pLeft: 0,
+      double pRight: 0,
+      double pTop: 15.0,
+      double pBottom: 5
+    }
+  ) async {
     var result = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: bgColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            title: Align(
-              alignment: Alignment.center,
-              child: title,
+      context: context,
+      barrierColor: barrierColor,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: bgColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+          contentPadding: EdgeInsets.only(left: pLeft, top: pTop, right: pRight, bottom: pBottom),
+          title: title != null ? Align(
+            alignment: Alignment.center,
+            child: title,
+          ) : null,
+          content: text,
+          actions: !removeBtn ? <Widget>[
+            FlatButton(
+              padding: EdgeInsets.all(0),
+              child: Text(firsTxtBtn),
+              onPressed: () => Navigator.of(context).pop(text),
             ),
-            content: Padding(
-              padding: EdgeInsets.only(top: 15.0, bottom: 5.0),
-              child: text,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(0),
-                child: Text(firsTxtBtn),
-                onPressed: () => Navigator.of(context).pop(text),
-              ),
-              action
-            ],
-          );
-        });
+            action
+          ] : null,
+        );
+      }
+    );
     return result;
   }
 }
@@ -80,41 +93,41 @@ class MyDropDown extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-        height: 60,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          border: Border.all(color: kDefaultColor, width: 1),
-          borderRadius: BorderRadius.circular(kDefaultRadius),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: new DropdownButton<String>(
-            hint: Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(hint),
-            ),
-            items: data.map((dynamic value) {
-              return new DropdownMenuItem<String>(
-                value: value['$keyPair'],
-                child: Text(value['$keyPair']),
-              );
-            }).toList(),
-            onChanged: onChanged,
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        border: Border.all(color: kDefaultColor, width: 1),
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: new DropdownButton<String>(
+          hint: Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(hint),
           ),
-        )
-        // ListTile(
-        //   title: _addProduct.categories.text.isEmpty
-        //   ? Text(
-        //     AppLocalizeService.of(context).translate('categories'),
-        //   )
-        //   : Text(_addProduct.categories.text),
-        //   trailing: Icon(
-        //     Icons.arrow_forward_ios,
-        //     color: kDefaultColor,
-        //   ),
-        //   onTap: () {
-        //     routeA();
-        //   },
-        // ),
-        );
+          items: data.map((dynamic value) {
+            return new DropdownMenuItem<String>(
+              value: value['$keyPair'],
+              child: Text(value['$keyPair']),
+            );
+          }).toList(),
+          onChanged: onChanged,
+        ),
+      )
+      // ListTile(
+      //   title: _addProduct.categories.text.isEmpty
+      //   ? Text(
+      //     AppLocalizeService.of(context).translate('categories'),
+      //   )
+      //   : Text(_addProduct.categories.text),
+      //   trailing: Icon(
+      //     Icons.arrow_forward_ios,
+      //     color: kDefaultColor,
+      //   ),
+      //   onTap: () {
+      //     routeA();
+      //   },
+      // ),
+      );
   }
 }

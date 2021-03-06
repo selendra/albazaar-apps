@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         body: Column(
           children: [
 
-            PaddingScaffold(
+            MyPadding(
               pTop: padding,
               pLeft: padding, pRight: padding,
               pBottom: pBottom,
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               )
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pLeft: padding, pRight: padding,
               pBottom: pBottom,
               child: Container(
@@ -228,17 +228,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pLeft: padding, pRight: padding,
               pBottom: pBottom,
               child: Row(
                 children: [
 
                   Container(
-                    height: 38,
+                    height: 50,
                     decoration: BoxDecoration(
                       color: AppServices.hexaCodeToColor(AppColors.secondary),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
                     child: FlatButton(
                       color: Colors.transparent,
@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ),
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pLeft: padding, pRight: padding,
               pBottom: pBottom,
               child: Align(
@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
             listProduct == null ? CircularProgressIndicator()
             : Expanded(
-              child: PaddingScaffold(
+              child: MyPadding(
                 pLeft: 0, pRight: padding,
                 pBottom: pd35+pd35+30,
                 child: GridView.builder(
@@ -308,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     childAspectRatio: 0.75,
                   ),
                   itemBuilder: (context, index) {
-                    return PaddingScaffold(
+                    return MyPadding(
                       pLeft: padding, pRight: 0,
                       pBottom: padding,
                       child: GestureDetector(

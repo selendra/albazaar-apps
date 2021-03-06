@@ -214,7 +214,7 @@ class _BodyState extends State<Body> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Consumer<UserProvider>(
-              builder: (context, value, child) => PaddingScaffold(
+              builder: (context, value, child) => MyPadding(
                 child: Container(
                   margin: EdgeInsets.all(5),
                   width: 100, height: 100,
@@ -247,7 +247,7 @@ class _BodyState extends State<Body> {
               // ),
             ),
 
-            PaddingScaffold(
+            MyPadding(
               pTop: 10, pRight: pd35+5, pLeft: pd35+5, pBottom: 5,
               child: InkWell(
                 onTap: () => loadAsset(),
@@ -265,7 +265,7 @@ class _BodyState extends State<Body> {
               height: 20,
             ),
             
-            PaddingScaffold(
+            MyPadding(
               child: MyInputField(
                 pRight: 5, pLeft: 5, pTop: 5,
                 pBottom: 11,
@@ -283,7 +283,7 @@ class _BodyState extends State<Body> {
               ),
             ),
 
-            PaddingScaffold(
+            MyPadding(
               child:MyInputField(
                 pRight: 5, pLeft: 5, pTop: 5,
                 pBottom: 11,
@@ -301,7 +301,7 @@ class _BodyState extends State<Body> {
               )
             ),
 
-            PaddingScaffold(
+            MyPadding(
               child: MyInputField(
                 pRight: 5, pLeft: 5, pTop: 5,
                 pBottom: 11,
@@ -319,7 +319,7 @@ class _BodyState extends State<Body> {
               ),
             ),
             
-            PaddingScaffold(
+            MyPadding(
               pBottom: 11,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -353,7 +353,7 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            PaddingScaffold(
+            MyPadding(
               pLeft: pd35+5, pRight: pd35+5,
               pTop: 5, pBottom: pd35,
               child: _radioBtn()

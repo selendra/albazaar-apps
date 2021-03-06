@@ -30,13 +30,16 @@ class _ListingScreenState extends State<ListingScreen>
     var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
-          _lang.translate('listing'),
-          context,
-          _lang.translate('all_seller'),
-          _lang.translate('pending'),
-          _lang.translate('complete'),
-          _controller), //lang.translate('Products')
-      body: Body(_controller),
+        _lang.translate('listing'),
+        context,
+        _lang.translate('all_seller'),
+        _lang.translate('pending'),
+        _lang.translate('complete'),
+        _controller
+      ), //lang.translate('Products')
+      body: BodyScaffold(
+        child: Body(_controller),
+      ),
     );
   }
 }

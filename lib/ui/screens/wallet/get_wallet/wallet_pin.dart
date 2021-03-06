@@ -24,7 +24,6 @@ class _WalletPinState extends State<WalletPin> {
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          resizeToAvoidBottomPadding: false,
           appBar: AppBar(
             elevation: 0,
             //backgroundColor: Colors.white,

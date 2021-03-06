@@ -192,7 +192,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     return Column(
       children: [
 
-        PaddingScaffold(
+        MyPadding(
           pTop: pd35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -245,13 +245,13 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         Flexible(
-          child: PaddingScaffold(
+          child: MyPadding(
             child: Container()
           )
         ),
 
         Container(
-          child: PaddingScaffold(
+          child: MyPadding(
             pBottom: 25,
             child: Align(
               alignment: Alignment.bottomLeft,
@@ -267,7 +267,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         // tabs(context),
 
         Expanded(
-          child: PaddingScaffold(
+          child: MyPadding(
             child: Form(
               key: _signInModel.emailFormKey,
               child: TabBarView(
@@ -299,7 +299,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
         Container(
           alignment: Alignment.centerRight,
-          child: PaddingScaffold(
+          child: MyPadding(
             child: FlatButton(
               padding: EdgeInsets.all(0),
               onPressed: () {
@@ -331,7 +331,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
         
         Flexible(
-          child: PaddingScaffold(
+          child: MyPadding(
             child: Align(
               alignment: Alignment.center,
               child: Text(
@@ -342,7 +342,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           )
         ),
 
-        PaddingScaffold(
+        MyPadding(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -361,7 +361,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         ),
 
         SizedBox(height: 10),
-        PaddingScaffold(
+        MyPadding(
           child: ReuseFlatButton.getItem(
             _lang.translate('haven\'t_had_account'),
             AppLocalizeService.of(context).translate('signup_string'), () {
