@@ -4,14 +4,14 @@ import 'package:selendra_marketplace_app/all_export.dart';
 class ReuseAppBar {
   static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller) {
     return AppBar(
-      toolbarHeight: 68,
+      // toolbarHeight: 68,
       brightness: Brightness.light,
       titleSpacing: 20,
       // leadingWidth: 25,
       title: MyText(
         text: title,
         color: AppColors.primary,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w600,
         fontSize: 30,
       ),
       // bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
@@ -20,7 +20,7 @@ class ReuseAppBar {
         padding: EdgeInsets.only(left: 25),
         icon: Icon(
           Icons.arrow_back_ios,
-          size: 35,
+          size: 25,
           color: AppServices.hexaCodeToColor(AppColors.primary),
         ),
         onPressed: () {

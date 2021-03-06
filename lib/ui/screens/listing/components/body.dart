@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:selendra_marketplace_app/all_export.dart';
 import 'package:selendra_marketplace_app/core/components/card_c.dart';
 import 'package:selendra_marketplace_app/core/providers/seller_provider.dart';
+import 'package:selendra_marketplace_app/ui/screens/listing/components/my_dropdown.dart';
 import 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class Body extends StatefulWidget {
@@ -217,7 +218,9 @@ class _BodyState extends State<Body> {
                   text: "Sold"
                 )
               ),
+
               SvgPicture.asset('images/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+              
             ],
           ),
         ),
@@ -260,7 +263,12 @@ class _BodyState extends State<Body> {
                               color: "#000000",
                             ),
                             Expanded(child: Container()),
-                            SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23)
+                            GestureDetector(
+                              onTap: () async {
+                                await Navigator.push(context, transitionRoute(MyDropDownCustom(), sigmaX: 0.0, sigmaY: 0.0));
+                              },
+                              child: SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23),
+                            )
                           ],
                         )
                       ),

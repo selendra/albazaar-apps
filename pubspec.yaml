@@ -96,6 +96,8 @@ dependencies:
   # App Responsive
   responsive_framework: ^0.0.14
 
+  device_preview: ^0.5.5
+
   cached_network_image: ^2.5.0
    
   google_fonts: ^1.1.2
