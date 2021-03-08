@@ -4,7 +4,7 @@ import 'package:albazaar_app/all_export.dart';
 class ReuseAppBar {
   static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller) {
     return AppBar(
-      // toolbarHeight: 68,
+      toolbarHeight: 68,
       brightness: Brightness.light,
       titleSpacing: 20,
       // leadingWidth: 25,

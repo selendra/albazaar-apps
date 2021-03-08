@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/components/text_btn.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -99,10 +100,6 @@ class _BodyState extends State<Body> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                   ),
-
-                                  Expanded(child: Container(),),
-                                  
-                                  SvgPicture.asset('images/icons/edit.svg', width: 20, height: 20, color: Colors.white),
                                 ],
                               )
                             ),
@@ -137,9 +134,25 @@ class _BodyState extends State<Body> {
 
                 // Edit Logo
                 Positioned(
-                  top: 8,
-                  right: 8,
-                  child: SvgPicture.asset('images/icons/edit.svg', width: 20, height: 20),
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTapDown: (TapDownDetails detail) async {
+                      await Navigator.push(
+                        context, 
+                        popUpRoute(
+                          MyDropDownCustom.profileDropDownBtn(context: context, x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
+                        )
+                      );
+                    },
+                    child: MyPadding(
+                      pRight: 8,
+                      pTop: 8,
+                      pBottom: 8,
+                      pLeft: 8,
+                      child: SvgPicture.asset('images/icons/edit.svg', width: 20, height: 20)
+                    ),
+                  ),
                 )    
               ],
             )
@@ -219,7 +232,7 @@ class _BodyState extends State<Body> {
                 )
               ),
 
-              SvgPicture.asset('images/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+              // SvgPicture.asset('images/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
               
             ],
           ),
@@ -277,12 +290,24 @@ class _BodyState extends State<Body> {
                                     // var x = getBox.localToGlobal(detail.globalPosition.dx);
                                     print(detail.globalPosition);
                                     // print("Box ${getBox.size}");
-                                    await Navigator.push(
+                                    final result = await Navigator.push(
                                       context, 
                                       popUpRoute(
-                                        MyDropDownCustom(x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
+                                        MyDropDownCustom.productEdit(context: context,x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
                                       )
                                     );
+                                    print(result);
+                                    if (result == "delete"){
+                                      await Components.dialog(
+                                        context, 
+                                        MyText(text: "Are you sure to delete item?", pLeft: pd10, pRight: pd10,), 
+                                        null, action: 
+                                        FlatButton(
+                                          onPressed: (){}, 
+                                          child: Text("Yes")
+                                        )
+                                      );
+                                    }
 
                                   },
                                   onTap: () async {
