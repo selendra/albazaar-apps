@@ -1,6 +1,7 @@
 import 'package:albazaar_app/all_export.dart';
 
 class AddProduct with ChangeNotifier {
+  
   final formKeyDetail = GlobalKey<FormState>();
   final formKeySeller = GlobalKey<FormState>();
 

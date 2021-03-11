@@ -18,6 +18,11 @@ class MyCard extends StatelessWidget {
   final double mLeft;
   final double mTop;
   final double mBottom;
+  /* Padding */
+  final double pRight;
+  final double pLeft;
+  final double pTop;
+  final double pBottom;
   final Widget child;
   final DecorationImage image;
   final BoxBorder boxBorder;
@@ -34,6 +39,10 @@ class MyCard extends StatelessWidget {
     this.mLeft = 0,
     this.mTop = 0,
     this.mBottom = 0,
+    this.pRight = 0,
+    this.pLeft = 0,
+    this.pTop = 0,
+    this.pBottom = 0,
     this.bTopLeft = 12,
     this.bTopRight = 12,
     this.bBottomLeft = 12,
@@ -51,6 +60,7 @@ class MyCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.fromLTRB(mLeft, mTop, mRight, mBottom),
         height: height,
+        padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
         width: width,
         alignment: alignChild,
         decoration: BoxDecoration(

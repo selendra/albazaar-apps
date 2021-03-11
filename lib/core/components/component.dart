@@ -4,7 +4,9 @@ import 'dart:ui' as ui;
 const pd35 = 35.0;
 
 const double pd10 = 10;
+const double pd12 = 12;
 const double pd20 = 20;
+const double heightInput = 70;
 
 class MyPadding extends StatelessWidget{
   

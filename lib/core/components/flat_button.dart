@@ -4,26 +4,26 @@ import 'package:albazaar_app/core/services/app_services.dart';
 
 class MyFlatButton extends StatelessWidget{
 
-  final String textButton;
   final String buttonColor;
   final FontWeight fontWeight;
   final double fontSize;
   final EdgeInsetsGeometry edgeMargin;
   final EdgeInsetsGeometry edgePadding;
   final bool hasShadow;
+  final bool isTransparent;
   final Function action;
   final double width;
   final double height;
   final Widget child;
 
   MyFlatButton({
-    this.textButton, 
     this.buttonColor = AppColors.primary, 
     this.fontWeight =  FontWeight.w600, 
     this.fontSize = 18, 
     this.edgeMargin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
     this.hasShadow = false, 
+    this.isTransparent = false,
     this.width = double.infinity,
     this.height,
     this.child,
@@ -50,7 +50,7 @@ class MyFlatButton extends StatelessWidget{
       ),
       child: FlatButton(
         height: height,
-        color: AppServices.hexaCodeToColor(buttonColor),
+        color: !isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent,
         disabledColor: Colors.grey[700],
         focusColor: AppServices.hexaCodeToColor(buttonColor),
         child: child,

@@ -70,6 +70,7 @@ dependencies:
 
   # Packages For Icon Launcher Android/iOS
   flutter_launcher_icons: ^0.8.1
+
   # Packages For Rename Android/iOS
   rename: ^1.2.0
 

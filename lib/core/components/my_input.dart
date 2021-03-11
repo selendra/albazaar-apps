@@ -6,6 +6,7 @@ class MyInputField extends StatelessWidget{
   final String labelText;
   final String prefixText;
   final double pLeft, pTop, pRight, pBottom;
+  final height;
   final bool obcureText;
   final bool enableInput;
   final List<TextInputFormatter> textInputFormatter;
@@ -23,6 +24,7 @@ class MyInputField extends StatelessWidget{
     this.labelText,
     this.prefixText,
     this.pLeft: 0, this.pTop: 0, this.pRight: 0, this.pBottom: 0,
+    this.height,
     this.obcureText = false,
     this.enableInput = true,
     this.textInputFormatter,
@@ -39,6 +41,7 @@ class MyInputField extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
+      height: height,
       child: Material(
         borderRadius: BorderRadius.circular(12),
         elevation: 0,

@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/components/text_btn.dart';
+import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -297,7 +298,10 @@ class _BodyState extends State<Body> {
                                       )
                                     );
                                     print(result);
-                                    if (result == "delete"){
+                                    if (result == 'edit'){
+                                      await Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProduct()));
+                                    }
+                                    else  if (result == "delete"){
                                       await Components.dialog(
                                         context, 
                                         MyText(text: "Are you sure to delete item?", pLeft: pd10, pRight: pd10,), 

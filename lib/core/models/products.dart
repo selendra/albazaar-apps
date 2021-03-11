@@ -50,45 +50,45 @@ class Product with ChangeNotifier {
   int orderQty;
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        description: json["description"],
-        shippingService: json["shipping_service"],
-        name: json["name"],
-        categoryName: json["category_name"],
-        updatedAt: json["updated_at"],
-        thumbnail: json["thumbnail"],
-        phonenumber: json["phonenumber"],
-        weight: json["weight"],
-        id: json["id"],
-        paymentId: json["payment_id"],
-        updatedBy: json["updated_by"],
-        address: json["address"],
-        price: json["price"],
-        shippingFee: json["shipping_fee"],
-        createdBy: json["created_by"],
-        categoryId: json["category_id"],
-        // createdAt: DateTime.parse(json["created_at"]),
-        seller: Seller.fromJson(json["seller"]),
-        isSold: json["is_sold"],
-        isFav: false,
-        orderQty: 1,
-      );
+    description: json["description"],
+    shippingService: json["shipping_service"],
+    name: json["name"],
+    categoryName: json["category_name"],
+    updatedAt: json["updated_at"],
+    thumbnail: json["thumbnail"],
+    phonenumber: json["phonenumber"],
+    weight: json["weight"],
+    id: json["id"],
+    paymentId: json["payment_id"],
+    updatedBy: json["updated_by"],
+    address: json["address"],
+    price: json["price"],
+    shippingFee: json["shipping_fee"],
+    createdBy: json["created_by"],
+    categoryId: json["category_id"],
+    // createdAt: DateTime.parse(json["created_at"]),
+    seller: Seller.fromJson(json["seller"]),
+    isSold: json["is_sold"],
+    isFav: false,
+    orderQty: 1,
+  );
 
   Map<String, dynamic> toMap() => {
-        "description": description,
-        "name": name,
-        "updated_at": updatedAt,
-        "thumbnail": thumbnail,
-        "weight": weight,
-        "id": id,
-        "payment_id": paymentId,
-        "updated_by": updatedBy,
-        "shipping": shipping,
-        "price": price,
-        "created_by": createdBy,
-        "category_id": categoryId,
-        // "created_at": createdAt.toIso8601String(),
-        "is_sold": isSold,
-      };
+    "description": description,
+    "name": name,
+    "updated_at": updatedAt,
+    "thumbnail": thumbnail,
+    "weight": weight,
+    "id": id,
+    "payment_id": paymentId,
+    "updated_by": updatedBy,
+    "shipping": shipping,
+    "price": price,
+    "created_by": createdBy,
+    "category_id": categoryId,
+    // "created_at": createdAt.toIso8601String(),
+    "is_sold": isSold,
+  };
 
   Product.fromGuestAccount(Map<String, dynamic> item){
     description = item['description'];
@@ -107,6 +107,25 @@ class Product with ChangeNotifier {
     seller = Seller.fromJson(item["seller"]);
     isSold = item["is_sold"];
   }
+}
+
+class ProductModel {
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String image;
+  String currency;
+  String weight;
+  TextEditingController productName = TextEditingController();
+  TextEditingController price = TextEditingController();
+  TextEditingController location = TextEditingController();
+  TextEditingController description = TextEditingController();
+
+  FocusNode productNameNode = FocusNode();
+  FocusNode priceNode = FocusNode();
+  FocusNode locationNode = FocusNode();
+  FocusNode descriptionNode = FocusNode();
+
 }
 
 // To parse this JSON data, do

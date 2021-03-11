@@ -139,4 +139,67 @@ class MyDropDownCustom{
       )
     );
   }
+  
+  static Widget currencyDdBtn({BuildContext context, double x, double y}){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white.withOpacity(0),
+        child: Stack(
+          children: [
+            Positioned(
+              left: x,
+              top: y, //MediaQuery.of(context).size.height/2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyCard(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 3,
+                        spreadRadius: 1,
+                        color: Colors.grey.withOpacity(0.2)
+                      )
+                    ],
+                    alignChild: Alignment.center,
+                    mRight: margin, mLeft: margin,
+                    hexaColor: AppColors.white,
+                    width: 100,
+                    height: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MyTextButton(
+                          onTap: (){
+                          },
+                          text: "Riel",
+                        ),
+                        Divider(color: Colors.grey.withOpacity(0.2), height: 2),
+                        MyTextButton(
+                          onTap: ()  async {
+                          },
+                          text: "Dollar",
+                        ),
+
+                        Divider(color: Colors.grey.withOpacity(0.2), height: 2),
+                        MyTextButton(
+                          onTap: ()  async {
+                          },
+                          text: "SEL",
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        )
+      )
+    );
+  }
 }
