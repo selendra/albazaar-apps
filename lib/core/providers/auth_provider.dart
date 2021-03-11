@@ -9,7 +9,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthProvider with ChangeNotifier {
-  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FacebookLogin facebookLogin = FacebookLogin();
@@ -64,8 +63,6 @@ class AuthProvider with ChangeNotifier {
   Future<String> signInFacebook(BuildContext context) async {
     String fbToken;
 
-    // fbLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    // if you remove above comment then facebook login will take username and pasword for login in Webview
     try {
       final FacebookLoginResult facebookLoginResult =
           await facebookLogin.logIn(['email', 'public_profile']);

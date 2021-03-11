@@ -7,6 +7,8 @@ export 'package:multi_image_picker/multi_image_picker.dart';
 
 export 'package:provider/provider.dart';
 
+// export 'core/enums/auth_status.dart';
+
 // Standart Library
 export 'package:flutter/services.dart';
 export 'package:selendra_marketplace_app/core/services/app_services.dart';
@@ -64,6 +66,9 @@ export 'package:selendra_marketplace_app/ui/screens/wallet/submit_trx/submit_trx
 //main
 export 'main.dart';
 
+//seller confirmation
+export 'package:selendra_marketplace_app/ui/screens/seller_confirmation/seller_confrmation.dart';
+
 //bottom navigation
 export 'ui/reuse_widget/bottom_navigation.dart';
 
@@ -76,6 +81,8 @@ export 'ui/screens/seller_confirmation/seller_confrmation.dart';
 
 //listing screen
 export 'ui/screens/listing/listing_screen.dart';
+
+// export 'core/animation_styles/hover.dart';
 
 //cart screen
 export 'ui/screens/cart/cart.dart';
@@ -166,10 +173,13 @@ export 'ui/screens/signin/signin.dart';
 export 'ui/screens/signin/components/signin_email_form.dart';
 export 'ui/screens/signin/components/signin_phone_form.dart';
 
+
+
 //sign up screen
 export 'ui/screens/signup/signup.dart';
 export 'ui/screens/signup/components/signup_email_form.dart';
 export 'ui/screens/signup/components/signup_phone_form.dart';
+// export 'ui/screens/signup/components/signup_phone_desktiop.dart';
 
 //user info
 export 'ui/screens/signup/userinfo/user_info.dart';
@@ -185,13 +195,14 @@ export 'ui/screens/wallet/get_wallet/info_row.dart';
 export 'ui/screens/wallet/components/wallet_choice.dart';
 export 'ui/screens/wallet/get_wallet/dialog.dart';
 export 'ui/screens/wallet/my_wallet/my_qr.dart';
-// export 'package:qr_code_scanner/qr_code_scanner.dart';
+
+export 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //chat screen
 export 'ui/screens/chat/chat.dart';
 
-//welcome screen
-export 'ui/screens/welcome/welcome_screen.dart';
+//welcoexport 'ui/screens/welcome/welcome_screen.dart';me screen
+export 'ui/screens//welcome/welcome_screen.dart';
 
 //route
 export 'core/animation_styles/route_animation.dart';

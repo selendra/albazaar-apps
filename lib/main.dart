@@ -16,9 +16,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 final navigationKey = GlobalKey<NavigatorState>();
 final sfKey = GlobalKey<ScaffoldState>();
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(SelendraApp());
 }
 
@@ -42,107 +40,110 @@ class _SelendraAppState extends State<SelendraApp> {
     ]);
 
     return MultiProvider(
-      providers: [
-        StreamProvider<ConnectivityStatus>(
-          create: (context) => ConnectivityServices().streamController.stream,
-        ),
-        ChangeNotifierProvider<LangProvider>(
-          create: (context) => LangProvider(),
-        ),
-        ChangeNotifierProvider<UserProvider>(
-          create: (context) => UserProvider(),
-        ),
-        ChangeNotifierProvider<AuthProvider>(
-          create: (context) => AuthProvider(),
-        ),
-        ChangeNotifierProvider<CartProvider>(
-          create: (context) => CartProvider(),
-        ),
-        // ChangeNotifierProvider(
-        //   create: (_) => DarkMode(),
-        // ),
-        ChangeNotifierProvider<ProductsProvider>(
-            create: (context) => ProductsProvider()),
-        ChangeNotifierProvider<FavoriteProvider>(
-          create: (context) => FavoriteProvider(),
-        ),
-        ChangeNotifierProvider<AddProductProvider>(
-            create: (context) => AddProductProvider()),
-        ChangeNotifierProvider<SellerProvider>(
-            create: (context) => SellerProvider()),
-        ChangeNotifierProvider<TrxHistoryProvider>(
-            create: (context) => TrxHistoryProvider()),
-        ChangeNotifierProvider<GuestAccProvider>(
-          create: (context) => GuestAccProvider()),
-      ],
-      child: Consumer<LangProvider>(
-        builder: (context, value, child) => MaterialApp(
-          builder: (context, child) {
-            return ResponsiveWrapper.builder(
-              ScrollConfiguration(
-                behavior: ScrollBehavior()
-                  ..buildViewportChrome(context, child, AxisDirection.down),
-                child: child,
-              ),
-              maxWidth: 1200,
-              minWidth: 480,
-              defaultScale: true,
-              breakpoints: [
-                ResponsiveBreakpoint.resize(480, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: TABLET),
-                ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-              ],
-              background: Container(color: Color(0xFFF5F5F5))
-            );
-          },
-          title: appTitle,
-          locale: value.manualLocale,
-
-          supportedLocales: [
-            const Locale('en', 'US'),
-            const Locale('km', 'KH'),
-          ],
-          localizationsDelegates: [
-            AppLocalizeService.delegate,
-            //build-in localization for material wiidgets
-            GlobalWidgetsLocalizations.delegate,
-
-            GlobalMaterialLocalizations.delegate,
-          ],
-          localeResolutionCallback: (locale, supportedLocales) {
-            // Check if the current device locale is supported
-            if (locale != null) {
-              for (var supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode &&
-                    supportedLocale.countryCode == locale.countryCode) {
-                  return supportedLocale;
-                }
-              }
-            }
-            // If the locale of the device is not supported, use the first one
-            // from the list (English, in this case).
-            return supportedLocales.first;
-          },
-          onGenerateRoute: router.generateRoute,
-          // initialRoute: OTPScreen.route, //SplashScreenView,
-          // debugShowCheckedModeBanner: true,
-          theme: ThemeData(
-            cursorColor: kDefaultColor,
-            // textTheme: TextTheme(bodyText1: TextStyle(color: AppServices.hexaCodeToColor(textColor))),
-            primaryColor: AppServices.hexaCodeToColor("#F7F7F7"),
-            scaffoldBackgroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
-            brightness: Brightness.light,
-          
+        providers: [
+          StreamProvider<ConnectivityStatus>(
+            create: (context) => ConnectivityServices().streamController.stream,
           ),
-          routes: {
-            DetailView: (context) => DetailScreen(),
-            SellerInfoView: (context) => SellerConfirm(),
-            OTPScreen.route: (context) => OTPScreen('', '')
-          },
-          home: ListingScreen(),
-          navigatorKey: navigationKey,
-        )
-      )
-    );
+          ChangeNotifierProvider<LangProvider>(
+            create: (context) => LangProvider(),
+          ),
+          ChangeNotifierProvider<UserProvider>(
+            create: (context) => UserProvider(),
+          ),
+          ChangeNotifierProvider<AuthProvider>(
+            create: (context) => AuthProvider(),
+          ),
+          ChangeNotifierProvider<CartProvider>(
+            create: (context) => CartProvider(),
+          ),
+          // ChangeNotifierProvider(
+          //   create: (_) => DarkMode(),
+          // ),
+          ChangeNotifierProvider<ProductsProvider>(
+              create: (context) => ProductsProvider()),
+          ChangeNotifierProvider<FavoriteProvider>(
+            create: (context) => FavoriteProvider(),
+          ),
+          ChangeNotifierProvider<AddProductProvider>(
+              create: (context) => AddProductProvider()),
+          ChangeNotifierProvider<SellerProvider>(
+              create: (context) => SellerProvider()),
+          ChangeNotifierProvider<TrxHistoryProvider>(
+              create: (context) => TrxHistoryProvider()),
+          ChangeNotifierProvider<GuestAccProvider>(
+              create: (context) => GuestAccProvider()),
+        ],
+        child: Consumer<LangProvider>(
+            builder: (context, value, child) => MaterialApp(
+                  builder: (context, child) {
+                    return ResponsiveWrapper.builder(
+                        ScrollConfiguration(
+                          behavior: ScrollBehavior()
+                            ..buildViewportChrome(
+                                context, child, AxisDirection.down),
+                          child: child,
+                        ),
+                        maxWidth: 1200,
+                        minWidth: 480,
+                        defaultScale: true,
+                        breakpoints: [
+                          ResponsiveBreakpoint.resize(480, name: MOBILE),
+                          ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                          ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+                        ],
+                        background: Container(color: Color(0xFFF5F5F5)));
+                  },
+                  title: appTitle,
+                  locale: value.manualLocale,
+
+                  supportedLocales: [
+                    const Locale('en', 'US'),
+                    const Locale('km', 'KH'),
+                  ],
+                  localizationsDelegates: [
+                    AppLocalizeService.delegate,
+                    //build-in localization for material wiidgets
+                    GlobalWidgetsLocalizations.delegate,
+
+                    GlobalMaterialLocalizations.delegate,
+                  ],
+                  localeResolutionCallback: (locale, supportedLocales) {
+                    // Check if the current device locale is supported
+                    if (locale != null) {
+                      for (var supportedLocale in supportedLocales) {
+                        if (supportedLocale.languageCode ==
+                                locale.languageCode &&
+                            supportedLocale.countryCode == locale.countryCode) {
+                          return supportedLocale;
+                        }
+                      }
+                    }
+                    // If the locale of the device is not supported, use the first one
+                    // from the list (English, in this case).
+                    return supportedLocales.first;
+                  },
+                  onGenerateRoute: router.generateRoute,
+                  // initialRoute: OTPScreen.route, //SplashScreenView,
+                  // debugShowCheckedModeBanner: true,
+                  theme: ThemeData(
+                    cursorColor: kDefaultColor,
+                    // textTheme: TextTheme(bodyText1: TextStyle(color: AppServices.hexaCodeToColor(textColor))),
+                    primaryColor: AppServices.hexaCodeToColor("#F7F7F7"),
+                    scaffoldBackgroundColor:
+                        AppServices.hexaCodeToColor(AppColors.bgColor),
+                    brightness: Brightness.light,
+                  ),
+                  darkTheme: ThemeData.dark(),
+
+                  initialRoute: '/',
+
+                  routes: {
+                    DetailView: (context) => DetailScreen(),
+                    SellerInfoView: (context) => SellerConfirm(),
+                    OTPScreen.route: (context) => OTPScreen('', '')
+                  },
+                  home: ListingScreen(),
+                  navigatorKey: navigationKey,
+                )));
   }
 }
