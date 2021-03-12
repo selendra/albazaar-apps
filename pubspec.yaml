@@ -114,6 +114,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+dependency_overrides:
+  intl: ^0.17.0-nullsafety.2
+
 flutter_icons:
   image_path: "images/sld_logo_launcher.png"
   ios: true

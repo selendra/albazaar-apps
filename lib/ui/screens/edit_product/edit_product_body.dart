@@ -147,18 +147,63 @@ class EditProductBody extends StatelessWidget {
                 ),
               ),
 
-              MyCard(
-                height: heightInput,
-                mLeft: pd12,
-                mRight: pd12,
-                mBottom: pd12,
-                pLeft: 21,
-                width: MediaQuery.of(context).size.width,
-                alignChild: Alignment.centerLeft,
-                child: MyText(
-                  text: "Weight"
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: MyPadding(
+                        pLeft: pd12, 
+                        pRight: 0,
+                        child: MyInputField(
+                          labelText: "Weight",
+                          controller: product.weight,
+                          focusNode: product.weightNode, 
+                          validateField: (String value){
+                            validate(value, label: "weight");
+                          }, 
+                          onChanged: onChanged, 
+                          onSubmit: onSubmit
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        await Navigator.push(context, popUpRoute(MyDropDownCustom.weightDbBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: pd12,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: "Weight", pRight: 15,),
+
+                            SvgPicture.asset('images/icons/dropdown.svg', width: 18.52, height: 10)
+                          ],
+                        ),
+                      ),
+                      )
+                  ],
                 ),
               ),
+
+              // MyCard(
+              //   height: heightInput,
+              //   mLeft: pd12,
+              //   mRight: pd12,
+              //   mBottom: pd12,
+              //   pLeft: 21,
+              //   width: MediaQuery.of(context).size.width,
+              //   alignChild: Alignment.centerLeft,
+              //   child: MyText(
+              //     text: "Weight"
+              //   ),
+              // ),
 
               MyInputField(
                 height: 159.0,

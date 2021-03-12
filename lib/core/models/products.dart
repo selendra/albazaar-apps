@@ -115,15 +115,16 @@ class ProductModel {
 
   String image;
   String currency;
-  String weight;
   TextEditingController productName = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController location = TextEditingController();
+  TextEditingController weight = TextEditingController();
   TextEditingController description = TextEditingController();
 
   FocusNode productNameNode = FocusNode();
   FocusNode priceNode = FocusNode();
   FocusNode locationNode = FocusNode();
+  FocusNode weightNode = FocusNode();
   FocusNode descriptionNode = FocusNode();
 
 }
