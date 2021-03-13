@@ -25,6 +25,8 @@ export 'package:albazaar_app/core/backend/component.dart';
 export 'package:albazaar_app/core/storage/storage.dart';
 export 'package:albazaar_app/core/components/component.dart';
 export 'package:albazaar_app/core/components/card_c.dart';
+export 'package:albazaar_app/core/components/text_btn.dart';
+export 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
 
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';
@@ -74,7 +76,7 @@ export 'ui/screens/addlisting/fill_seller/fill_seller.dart';
 export 'ui/screens/addlisting/components/image_list.dart';
 
 //listing screen
-export 'ui/screens/listing/listing_screen.dart';
+export 'ui/screens/shop/shop.dart';
 
 //cart screen
 export 'ui/screens/cart/cart.dart';

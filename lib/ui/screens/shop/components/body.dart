@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/card_c.dart';
 import 'package:albazaar_app/core/providers/seller_provider.dart';
-import 'package:albazaar_app/ui/screens/listing/components/my_dropdown.dart';
+import 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
 import 'package:albazaar_app/ui/screens/seller_confirmation/seller_confrmation.dart';
 
 class Body extends StatefulWidget {

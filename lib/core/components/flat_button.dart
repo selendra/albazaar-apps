@@ -48,15 +48,14 @@ class MyFlatButton extends StatelessWidget{
           )
         ]
       ),
-      child: FlatButton(
-        height: height,
-        color: !isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent,
-        disabledColor: Colors.grey[700],
-        focusColor: AppServices.hexaCodeToColor(buttonColor),
+      child: TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(!isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))
+        ),
         child: child,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onPressed: action
-      ),
+      )
     );
   }
 }

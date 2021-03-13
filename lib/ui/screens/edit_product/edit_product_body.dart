@@ -1,6 +1,4 @@
 import 'package:albazaar_app/all_export.dart';
-import 'package:albazaar_app/core/components/text_btn.dart';
-import 'package:albazaar_app/ui/screens/listing/components/my_dropdown.dart';
 
 class EditProductBody extends StatelessWidget {
 
