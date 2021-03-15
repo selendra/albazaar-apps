@@ -7,6 +7,8 @@ class MyFlatButton extends StatelessWidget{
   final String buttonColor;
   final FontWeight fontWeight;
   final double fontSize;
+  final Border border;
+  final double borderRadius;
   final EdgeInsetsGeometry edgeMargin;
   final EdgeInsetsGeometry edgePadding;
   final bool hasShadow;
@@ -20,6 +22,8 @@ class MyFlatButton extends StatelessWidget{
     this.buttonColor = AppColors.primary, 
     this.fontWeight =  FontWeight.w600, 
     this.fontSize = 18, 
+    this.borderRadius = 12,
+    this.border,
     this.edgeMargin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
     this.hasShadow = false, 
@@ -38,7 +42,8 @@ class MyFlatButton extends StatelessWidget{
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12), 
+        borderRadius: BorderRadius.circular(borderRadius), 
+        border: border,
         boxShadow: [
           if (hasShadow) BoxShadow(
             color: Colors.black54.withOpacity(0.3),
@@ -51,7 +56,7 @@ class MyFlatButton extends StatelessWidget{
       child: TextButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(!isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)))
         ),
         child: child,
         onPressed: action

@@ -47,26 +47,40 @@ class _ListingScreenState extends State<ListingScreen>
 
               MyFlatButton(
                 edgeMargin: EdgeInsets.only(left: 90, right: 90),
+                height: 70,
+                border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
                 isTransparent: true,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset('images/icons/plus.svg', color: AppServices.hexaCodeToColor(AppColors.primary)),
-                    MyText(
-                      pLeft: 10,
-                      pTop: pd20,
-                      pBottom: pd20,
-                      text: "Create Shop",
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 25,
-                    )
+                    SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                    MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
                   ],
                 ),
-                action: (){
-
-                }
+                action: (){},
               )
+
+              // MyFlatButton(
+              //   isTransparent: true,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       SvgPicture.asset('images/icons/plus.svg', color: AppServices.hexaCodeToColor(AppColors.primary)),
+              //       MyText(
+              //         pLeft: 10,
+              //         pTop: pd20,
+              //         pBottom: pd20,
+              //         text: "Create Shop",
+              //         color: AppColors.primary,
+              //         fontWeight: FontWeight.w600,
+              //         fontSize: 25,
+              //       )
+              //     ],
+              //   ),
+              //   action: (){
+
+              //   }
+              // )
             ],
           )
         ),

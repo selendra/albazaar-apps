@@ -7,6 +7,7 @@ import 'package:albazaar_app/core/components/flat_button.dart';
 import 'package:albazaar_app/core/components/scaffold.dart';
 
 class Body extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
@@ -88,7 +89,7 @@ class Body extends StatelessWidget {
                   Expanded(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 59,
+                      // height: 59,
                       child: MyFlatButton(
                         action: () {
                           Navigator.pushReplacementNamed(context, SignInView);
@@ -111,7 +112,7 @@ class Body extends StatelessWidget {
                   Expanded(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 59,
+                      // height: 59,
                       child: MyFlatButton(
                         action: () {
                           Navigator.pushReplacementNamed(context, SignUpView);
@@ -141,16 +142,18 @@ class Body extends StatelessWidget {
                     ),
                   ),
 
-                  FlatButton(
-                    padding: EdgeInsets.only(left: 5),
-                    onPressed: (){
-
-                    },
+                  MyFlatButton(
+                    width: 100,
+                    isTransparent: true,
+                    edgePadding: EdgeInsets.only(left: 5),
                     child: MyText(
                       text: "Try now",
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,
                     ),
+                    action: (){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    }
                   )
                 ],
               )

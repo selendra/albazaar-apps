@@ -5,17 +5,17 @@ import 'package:albazaar_app/core/services/app_services.dart';
 
 class HomeDrawer extends StatelessWidget {
 
-  PrefService _pref = PrefService();
+  final PrefService _pref = PrefService();
 
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<UserProvider>(context);
-    final _mUser = data.mUser;
-    String userName = _mUser.firstName == null &&
-            _mUser.midName == null &&
-            _mUser.lastName == null
-        ? "User name"
-        : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
+    // final _mUser = data.mUser;
+    // String userName = _mUser.firstName == null &&
+    //         _mUser.midName == null &&
+    //         _mUser.lastName == null
+    //     ? "User name"
+    //     : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);
     return Drawer(
       child: ListView(
@@ -23,18 +23,18 @@ class HomeDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: kDefaultColor),
-            accountEmail: Text(
-              _mUser.email ?? _lang.translate('no_email'),
+            accountEmail: Text('no_email',
+              // _mUser.email ?? _lang.translate('no_email'),
               style: TextStyle(color: Colors.white),
             ),
-            accountName: Text(
-              userName ?? 'no username', // userName ?? 'no username',
+            accountName: Text('no username',
+              // userName ?? 'no username', // userName ?? 'no username',
               style: TextStyle(color: Colors.white),
             ),
-            currentAccountPicture: CircleAvatar(
-                backgroundImage: _mUser.profileImg == '' || _mUser.profileImg == null
-                    ? AssetImage('images/avatar.png')
-                    : NetworkImage(_mUser.profileImg)),
+            // currentAccountPicture: CircleAvatar(
+                // backgroundImage: _mUser.profileImg == '' || _mUser.profileImg == null
+                //     ? AssetImage('images/avatar.png')
+                //     : NetworkImage(_mUser.profileImg)),
           ),
           ReuseInkwell.getItem(
             _lang.translate('market'),
@@ -68,7 +68,8 @@ class HomeDrawer extends StatelessWidget {
             _lang.translate('listing'),
             () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, ListingView);
+              // Navigator.pushNamed(context, ListingView);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ListingScreen()));
             },
             icon: SvgPicture.asset('images/shop.svg', width: 25, height: 25),
           ),
