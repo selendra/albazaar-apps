@@ -54,7 +54,7 @@ class Chat extends StatelessWidget {
                     color: Colors.red,
                   ),
                   child: Image(
-                    image: AssetImage('images/avatar.png'),
+                    image: AssetImage('assets/avatar.png'),
                   ),
                 ),
                 title: Text(

@@ -276,7 +276,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
               Expanded(
                 flex: 1,
-                child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
+                child: SvgPicture.asset('assets/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
               ),
             ],
           )
@@ -361,12 +361,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               () {
               // facebookSignUp();
               }, 
-              'images/facebook.svg'
+              'assets/facebook.svg'
             ),
             SizedBox(width: 20),
             BtnSocial(() {
               // googleSignUp();
-            }, 'images/google.svg'),
+            }, 'assets/google.svg'),
           ],
         ),
 

@@ -16,11 +16,11 @@ class _SplashScreenState extends State<SplashScreen>
 
   //List of all svg path in the app
   List<String> svg = [
-    'images/undraw_wallet.svg',
-    'images/undraw_loving_it.svg',
-    'images/undraw_empty_cart.svg',
-    'images/undraw_Mobile_application.svg',
-    'images/packaging.svg'
+    'assets/undraw_wallet.svg',
+    'assets/undraw_loving_it.svg',
+    'assets/undraw_empty_cart.svg',
+    'assets/undraw_Mobile_application.svg',
+    'assets/packaging.svg'
   ];
 
   void checkUser() async {
@@ -174,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: FadeTransition(
             opacity: animation,
             child: SvgPicture.asset(
-              'images/sld_logo.svg',
+              'assets/sld_logo.svg',
               height: 150,
               width: 150,
             )

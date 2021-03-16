@@ -81,7 +81,7 @@ class _BodyState extends State<Body> {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       height: 228,
-                      child: Image.asset('images/shop_cover_image.jpg',fit: BoxFit.contain)
+                      child: Image.asset('assets/shop_cover_image.jpg',fit: BoxFit.contain)
                     ),
 
                     MyCard(
@@ -128,7 +128,7 @@ class _BodyState extends State<Body> {
                     hexaColor: AppColors.black,
                     child: MyPadding(
                       pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
-                      child: Image.asset('images/koompi_logo.png'),
+                      child: Image.asset('assets/koompi_logo.png'),
                     )
                   ),
                 ),   
@@ -151,7 +151,7 @@ class _BodyState extends State<Body> {
                       pTop: 8,
                       pBottom: 8,
                       pLeft: 8,
-                      child: SvgPicture.asset('images/icons/edit.svg', width: 20, height: 20)
+                      child: SvgPicture.asset('assets/icons/edit.svg', width: 20, height: 20)
                     ),
                   ),
                 )    
@@ -166,7 +166,7 @@ class _BodyState extends State<Body> {
             pBottom: pd10, pRight: pd10+2, pLeft: pd10+2, pTop: pd10,
             child: Row(
               children: [
-                SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+                SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
                 MyText(left: pd10, text: "Set Address", fontWeight: FontWeight.w600, color: AppColors.secondary,),
               ],
             ),
@@ -233,7 +233,7 @@ class _BodyState extends State<Body> {
                 )
               ),
 
-              // SvgPicture.asset('images/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+              // SvgPicture.asset('assets/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
               
             ],
           ),
@@ -316,7 +316,7 @@ class _BodyState extends State<Body> {
                                   },
                                   onTap: () async {
                                   },
-                                  child: SvgPicture.asset('images/icons/edit.svg', width: 23, height: 23),
+                                  child: SvgPicture.asset('assets/icons/edit.svg', width: 23, height: 23),
                                 )
                               ],
                             )
@@ -341,7 +341,7 @@ class _BodyState extends State<Body> {
                             pBottom: pd10,
                             child: Row(
                               children: [
-                                Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                                Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
                                 MyText(
                                   left: 6,
                                   textAlign: TextAlign.left,
@@ -361,23 +361,23 @@ class _BodyState extends State<Body> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(right: 7),
-                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                  child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 7),
-                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                  child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 7),
-                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                  child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 7),
-                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                  child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(right: 7),
-                                  child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                  child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                 ),
                                 Expanded(
                                   child: Container(),
@@ -524,7 +524,7 @@ class _BodyState extends State<Body> {
                         )
                       : Center(
                           child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
+                            'assets/undraw_loving_it.svg',
                             height: MediaQuery.of(context).size.height * 0.3,
                             width: MediaQuery.of(context).size.width * 0.3,
                           ),
@@ -642,7 +642,7 @@ class _BodyState extends State<Body> {
                         )
                       : Center(
                           child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
+                            'assets/undraw_loving_it.svg',
                             height: MediaQuery.of(context).size.height * 0.3,
                             width: MediaQuery.of(context).size.width * 0.3,
                           ),
@@ -754,7 +754,7 @@ class _BodyState extends State<Body> {
                         )
                       : Center(
                           child: SvgPicture.asset(
-                            'images/undraw_loving_it.svg',
+                            'assets/undraw_loving_it.svg',
                             height: MediaQuery.of(context).size.height * 0.3,
                             width: MediaQuery.of(context).size.width * 0.3,
                           ),

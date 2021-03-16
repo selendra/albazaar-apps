@@ -89,7 +89,7 @@ class _BodyState extends State<Body> {
                       builder: (context, value, child) => CircleAvatar(
                         backgroundImage: value.mUser.profileImg != ''
                             ?NetworkImage(value.mUser.profileImg)
-                            : AssetImage('images/avatar.png'),
+                            : AssetImage('assets/avatar.png'),
                       ),
                     ),
                   ),

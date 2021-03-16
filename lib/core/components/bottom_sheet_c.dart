@@ -170,7 +170,7 @@ class MyBottomSheet{
                     () {
                     // facebookSignIn();
                     }, 
-                    'images/icons/facebook.svg'
+                    'assets/icons/facebook.svg'
                   ),
                 ),
 
@@ -178,12 +178,12 @@ class MyBottomSheet{
                   padding: EdgeInsets.only(right: 40),
                   child: BtnSocial(() {
                   // googleSignIn();
-                  }, 'images/icons/google.svg'),
+                  }, 'assets/icons/google.svg'),
                 ),
 
                 BtnSocial(() {
                   // googleSignIn();
-                }, 'images/icons/telegram.svg')
+                }, 'assets/icons/telegram.svg')
               ],
             )
           ],

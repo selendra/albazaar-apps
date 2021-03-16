@@ -30,7 +30,7 @@ class SellerConfirmBody extends StatelessWidget {
                 
                 Container(
                   margin: const EdgeInsets.only(top: 20),
-                  child: SvgPicture.asset("images/packaging.svg", width: 150, height: 150),
+                  child: SvgPicture.asset("assets/packaging.svg", width: 150, height: 150),
                 ),
                 Card(
                   margin: EdgeInsets.all(10),

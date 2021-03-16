@@ -125,7 +125,7 @@ class TransactionHistory extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: SvgPicture.asset(
-                        'images/undraw_wallet.svg',
+                        'assets/undraw_wallet.svg',
                         height: MediaQuery.of(context).size.height * 0.2,
                         width: MediaQuery.of(context).size.height * 0.2,
                         placeholderBuilder: (context) => Center(),

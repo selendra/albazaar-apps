@@ -118,7 +118,7 @@ dependency_overrides:
   intl: ^0.17.0-nullsafety.2
 
 flutter_icons:
-  image_path: "images/sld_logo_launcher.png"
+  image_path: "assets/sld_logo_launcher.png"
   ios: true
   android: true
 
@@ -135,10 +135,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/
-     - images/symbols/
-     - images/icons/
-     - images/animation/
+     - assets/
+     - assets/symbols/
+     - assets/icons/
+     - assets/animation/
      - lang/
 
   # An image asset can refer to one or more resolution-specific "variants", see

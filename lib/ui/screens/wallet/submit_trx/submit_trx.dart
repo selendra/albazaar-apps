@@ -271,7 +271,7 @@ class SubmitTrxState extends State<SubmitTrx> {
                           Expanded(
                               child: CustomAnimation.flareAnimation(
                                   flareController,
-                                  "images/animation/check.flr",
+                                  "assets/animation/check.flr",
                                   "Checkmark"))
                         ],
                       )),

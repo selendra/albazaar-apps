@@ -53,19 +53,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Row(
             children: [
               Expanded(
-                child: SvgPicture.asset('images/icons/market.svg')
+                child: Column(
+                  children: [
+                    Divider(color: AppServices.hexaCodeToColor(AppColors.primary), thickness: 3, height: 2,),
+                    Expanded(
+                      child: SvgPicture.asset('assets/icons/market.svg', width: 30, height: 30, color: AppServices.hexaCodeToColor(AppColors.black),),
+                    )
+                  ],
+                ),
               ),
 
               Expanded(
-                child: SvgPicture.asset('images/icons/wallet.svg')
+                child: SvgPicture.asset('assets/icons/wallet.svg')
               ),
 
               Expanded(
-                child: SvgPicture.asset('images/icons/favorite.svg')
+                child: SvgPicture.asset('assets/icons/favorite.svg')
               ),
 
               Expanded(
-                child: SvgPicture.asset('images/icons/location.svg')
+                child: SvgPicture.asset('assets/icons/location.svg')
               ),
 
               Expanded(
@@ -73,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   onTap: (){
                     _scaffoldState.currentState.openDrawer();
                   },
-                  child: SvgPicture.asset('images/icons/menu.svg'),
+                  child: SvgPicture.asset('assets/icons/menu.svg'),
                 )
               )
             ],
@@ -101,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      child: SvgPicture.asset('images/sld_logo.svg', width: 35, height: 47),
+                      child: SvgPicture.asset('assets/sld_logo.svg', width: 35, height: 47),
                       padding: EdgeInsets.only(left: 25, right: 10)
                     ),
 
@@ -149,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   Padding(
                     padding: EdgeInsets.only(right: 20),
                     child: IconButton(
-                      icon: SvgPicture.asset('images/icons/cart.svg'),
+                      icon: SvgPicture.asset('assets/icons/cart.svg'),
                       onPressed: () {
                         /*Navigator.push(context,
                             MaterialPageRoute(builder: (context) => CartScreen()));*/
@@ -160,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   Padding(
                     padding: EdgeInsets.only(right: 20),
                     child: IconButton(
-                      icon: SvgPicture.asset('images/icons/belt.svg'),
+                      icon: SvgPicture.asset('assets/icons/belt.svg'),
                       onPressed: () {
                         /*Navigator.push(context,
                             MaterialPageRoute(builder: (context) => CartScreen()));*/
@@ -322,7 +329,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     //         height: double.infinity,
                                     //         width: double.infinity,
                                     //         image: NetworkImage(listProduct[index].thumbnail),
-                                    //         placeholder: AssetImage('images/loading.gif'),
+                                    //         placeholder: AssetImage('assets/loading.gif'),
                                     //       )
                                     // MyCard(
                                     //   // height: 141,
@@ -334,19 +341,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     //   child: Stack(
                                     //     children: [
                                     //       // Center(
-                                    //       //   child: SvgPicture.asset('images/avatar_user.svg'),
+                                    //       //   child: SvgPicture.asset('assets/avatar_user.svg'),
                                     //       // ),
                                     //       FadeInImage(
                                     //         fit: BoxFit.contain,
                                     //         height: double.infinity,
                                     //         width: double.infinity,
                                     //         image: NetworkImage(listProduct[index].thumbnail),
-                                    //         placeholder: AssetImage('images/loading.gif'),
+                                    //         placeholder: AssetImage('assets/loading.gif'),
                                     //       ),
                                     //       Positioned(
                                     //         right: 10, top: 10,
                                     //         child: GestureDetector(
-                                    //           child: SvgPicture.asset('images/icons/heart.svg'),
+                                    //           child: SvgPicture.asset('assets/icons/heart.svg'),
                                     //         ),
                                     //       )
                                     //     ],
@@ -414,13 +421,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           padding: EdgeInsets.only(bottom: 5),
                                           child: Row(
                                             children: [
-                                              Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                                              Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
                                               MyText(
                                                 textAlign: TextAlign.left,
                                                 text: "${listProduct[index].price} /Kg",
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.primary,
+                                                pLeft: 5,
                                               )
                                             ],
                                           )
@@ -430,23 +438,23 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           children: [
                                             Padding(
                                               padding: EdgeInsets.only(right: 7),
-                                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(right: 7),
-                                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(right: 7),
-                                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(right: 7),
-                                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                             ),
                                             Padding(
                                               padding: EdgeInsets.only(right: 7),
-                                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                                             ),
                                             MyText(
                                               textAlign: TextAlign.left,

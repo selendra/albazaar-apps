@@ -229,15 +229,15 @@ class _BodyState extends State<Body> {
                   ),
                   child: value.mUser.profileImg != null
                   ? NetworkImage(value.mUser.profileImg)
-                  : SvgPicture.asset('images/avatar_user.svg')
+                  : SvgPicture.asset('assets/avatar_user.svg')
                   // ClipOval(
                   //   child: FadeInImage(
                   //     fit: BoxFit.cover,
-                  //     // placeholder: AssetImage('images/loading.gif'), 
-                  //     image: AssetImage('images/avatar_user.svg')
+                  //     // placeholder: AssetImage('assets/loading.gif'), 
+                  //     image: AssetImage('assets/avatar_user.svg')
                   //     // value.mUser.profileImg != null
                   //     //   ? NetworkImage(value.mUser.profileImg)
-                  //     //   : AssetImage('images/avatar_user.svg')
+                  //     //   : AssetImage('assets/avatar_user.svg')
                   //   ),
                   // ),
                 ),
@@ -344,7 +344,7 @@ class _BodyState extends State<Body> {
                     width: 80,
                     child: IconButton(
                       padding: EdgeInsets.all(0),
-                      icon: SvgPicture.asset('images/pin_location.svg'), 
+                      icon: SvgPicture.asset('assets/pin_location.svg'), 
                       onPressed: ()async {
                         await Components.dialog(context, Text("This feature under constuction", textAlign: TextAlign.center,), Text("Message"));
                       }

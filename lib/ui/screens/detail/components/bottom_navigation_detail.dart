@@ -58,7 +58,7 @@ class BottomNavigationDetail extends StatelessWidget {
                       fontSize: 25,
                       color: "#000000",
                     ),
-                    Image.asset('images/symbols/riel_symbol.png', width: 12.3, height: 20),
+                    Image.asset('assets/symbols/riel_symbol.png', width: 12.3, height: 20),
                     MyText(
                       textAlign: TextAlign.right,
                       text: " )",

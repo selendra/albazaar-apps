@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
             )
           : Center(
               child: SvgPicture.asset(
-                'images/undraw_empty_cart.svg',
+                'assets/undraw_empty_cart.svg',
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width * 0.3,
               ),

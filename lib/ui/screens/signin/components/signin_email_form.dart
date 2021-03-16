@@ -132,11 +132,11 @@ class SignInEmailForm extends StatelessWidget {
   //     children: <Widget>[
   //       BtnSocial(() {
   //         facebookSignIn();
-  //       }, 'images/facebook.svg'),
+  //       }, 'assets/facebook.svg'),
   //       SizedBox(width: 20),
   //       BtnSocial(() {
   //         googleSignIn();
-  //       }, 'images/google.svg'),
+  //       }, 'assets/google.svg'),
   //     ],
   //   );
   // }

@@ -57,7 +57,7 @@ class _FillSellerState extends State<FillSeller> {
   //           title: _title,
   //           price: int.parse(_price),
   //           description: _description,
-  //           image: "images/new-house.jpg",
+  //           image: "assets/new-house.jpg",
   //           color: Color(0xFF3D82AE)));*/
 
   //   //   Navigator.pop(context);

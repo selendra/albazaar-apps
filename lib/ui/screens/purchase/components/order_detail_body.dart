@@ -19,7 +19,7 @@ class OrderDetailBody extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 20.0),
             child: SvgPicture.asset(
-              "images/confirm_product.svg",
+              "assets/confirm_product.svg",
               width: 150,
               height: 150,
             ),

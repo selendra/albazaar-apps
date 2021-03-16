@@ -31,7 +31,7 @@ class SellerInformation extends StatelessWidget {
                       child: MyCard(
                         height: 40, width: 40,
                         colorOpacity: 0,
-                        child: SvgPicture.asset('images/icons/close.svg'),
+                        child: SvgPicture.asset('assets/icons/close.svg'),
                       ),
                     )
                   ],
@@ -45,7 +45,7 @@ class SellerInformation extends StatelessWidget {
                 mBottom: padding*2,
                 child: Padding(
                   padding: EdgeInsets.all(padding),
-                  child: SvgPicture.asset('images/avatar_user.svg'),
+                  child: SvgPicture.asset('assets/avatar_user.svg'),
                 ),
               ),
               
@@ -85,7 +85,7 @@ class SellerInformation extends StatelessWidget {
                       width: 53, height: 50,
                       buttonColor: AppColors.secondary,
                       action: (){},
-                      child: SvgPicture.asset('images/icons/message.svg', width: 25, height: 25),
+                      child: SvgPicture.asset('assets/icons/chat.svg', width: 25, height: 25),
                     ),
 
                     MyFlatButton(
@@ -96,7 +96,7 @@ class SellerInformation extends StatelessWidget {
                       print("Show");
                       await MyBottomSheet().contactOption(context: context);
                       },
-                      child: SvgPicture.asset('images/icons/options.svg', height: 20,),
+                      child: SvgPicture.asset('assets/icons/options.svg', height: 20,),
                     )
                   ],
                 ),

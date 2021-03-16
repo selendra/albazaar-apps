@@ -16,19 +16,19 @@ class _IntroScreenState extends State<IntroScreen> {
   List<Widget> slidePage = [
     IntroSlide(
       title: 'Trade & Exchange',
-      svgImage: 'images/undraw_Mobile_application.svg',
+      svgImage: 'assets/undraw_Mobile_application.svg',
       description:
           'A Decentralized Marketplace that connect community of users together to trade and exchange goods and services freely, securely and fairly.',
     ),
     IntroSlide(
       title: 'Secured Transactions',
-      svgImage: 'images/undraw_Mobile_application.svg',
+      svgImage: 'assets/undraw_Mobile_application.svg',
       description:
           'The communication and transactiIons are done securely on Blockchain. Powered by Selendra Public Blockchain built with Substrates.',
     ),
     IntroSlide(
       title: 'Start Trading Now',
-      svgImage: 'images/undraw_Mobile_application.svg',
+      svgImage: 'assets/undraw_Mobile_application.svg',
       description:
           'A virtual market for goods and services exchange that empower community to take charge of their own goods and connect directly with buyers.',
     ),

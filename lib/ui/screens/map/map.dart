@@ -187,7 +187,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                                 child: FadeInImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(value.imageList[0].url),
-                                  placeholder: AssetImage('images/loading.gif'),
+                                  placeholder: AssetImage('assets/loading.gif'),
                                 ),
                               ),
                             ),

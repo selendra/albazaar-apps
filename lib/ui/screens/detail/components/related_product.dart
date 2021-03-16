@@ -76,7 +76,7 @@ class RelatedProduct extends StatelessWidget {
                 hexaColor: AppColors.secondary,
                 width: 50, height: 45,
                 child: Center(
-                  child: SvgPicture.asset('images/icons/cart.svg', color: Colors.white, height: 24, width: 24),
+                  child: SvgPicture.asset('assets/icons/cart.svg', color: Colors.white, height: 24, width: 24),
                 ),
               ),
             )

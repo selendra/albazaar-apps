@@ -81,7 +81,7 @@ class _MyQrState extends State<MyQr> {
                       child: Container(
                           margin: const EdgeInsets.only(top: 50),
                           child: BtnSocial(
-                              () {}, 'images/avatar.png')),
+                              () {}, 'assets/avatar.png')),
                     ),
                     ReuseIndicator(currentIndex),
                   ],

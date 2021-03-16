@@ -11,7 +11,7 @@ class IndividualChat extends StatelessWidget {
           children: [
             Padding(
                 child: CircleAvatar(
-                  backgroundImage: AssetImage('images/avatar.png'),
+                  backgroundImage: AssetImage('assets/avatar.png'),
                 ),
                 padding: const EdgeInsets.only(right: 10, left: 0)),
             Column(
@@ -71,7 +71,7 @@ class IndividualChat extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundImage: AssetImage('images/avatar.png'),
+                            backgroundImage: AssetImage('assets/avatar.png'),
                           ),
                           SizedBox(
                             width: 5.0,

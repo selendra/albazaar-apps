@@ -21,7 +21,7 @@ class SellerConfirm extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.only(top: 20),
-              child: SvgPicture.asset("images/packaging.svg",
+              child: SvgPicture.asset("assets/packaging.svg",
                   width: 150, height: 150),
             ),
             Card(

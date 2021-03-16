@@ -211,9 +211,9 @@ class _BodyState extends State<Body> {
                     child: ClipOval(
                       child: FadeInImage(
                         fit: BoxFit.cover,
-                        placeholder: AssetImage('images/loading.gif'), 
+                        placeholder: AssetImage('assets/loading.gif'), 
                         image: value.mUser.profileImg == null
-                          ? AssetImage('images/avatar.png')
+                          ? AssetImage('assets/avatar.png')
                           : NetworkImage(value.mUser.profileImg)
                       ),
                     ),

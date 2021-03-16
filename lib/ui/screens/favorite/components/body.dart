@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
               })
           : Center(
               child: SvgPicture.asset(
-                'images/undraw_loving_it.svg',
+                'assets/undraw_loving_it.svg',
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width * 0.3,
               ),

@@ -149,7 +149,7 @@ class _BodyState extends State<Body> {
                                       //           : product.thumbnail,
                                       //     ),
                                       //     placeholder:
-                                      //         AssetImage('images/loading.gif')),
+                                      //         AssetImage('assets/loading.gif')),
                                     );
                                   },
                                 ),
@@ -230,7 +230,7 @@ class _BodyState extends State<Body> {
                         pBottom: padding,
                         child: Row(
                           children: [
-                            Image.asset('images/symbols/riel_symbol.png', width: 13.52, height: 22),
+                            Image.asset('assets/symbols/riel_symbol.png', width: 13.52, height: 22),
                             MyText(
                               left: 8,
                               textAlign: TextAlign.left,
@@ -240,7 +240,7 @@ class _BodyState extends State<Body> {
                               color: AppColors.primary,
                             ),
                             Expanded(child: Container()),
-                            SvgPicture.asset('images/icons/heart.svg', width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),)
+                            SvgPicture.asset('assets/icons/heart.svg', width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),)
                           ],
                         )
                       ),
@@ -267,23 +267,23 @@ class _BodyState extends State<Body> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                             ),
                             MyText(
                               textAlign: TextAlign.left,
@@ -408,7 +408,7 @@ class _BodyState extends State<Body> {
 
                                 Padding(
                                   padding: EdgeInsets.only(left: 5),
-                                  child: Image.asset('images/symbols/riel_symbol.png', width: 13.52, height: 15),
+                                  child: Image.asset('assets/symbols/riel_symbol.png', width: 13.52, height: 15),
                                 ),
 
                                 MyText(
@@ -518,7 +518,7 @@ class _BodyState extends State<Body> {
                                       // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
                                       width: 45, height: 42,
                                       align: Alignment.centerLeft,
-                                      child: SvgPicture.asset('images/avatar_user.svg', width: 25, height: 25),
+                                      child: SvgPicture.asset('assets/avatar_user.svg', width: 25, height: 25),
                                     ),
 
                                     // Name & About
@@ -606,7 +606,7 @@ class _BodyState extends State<Body> {
                 width: 60, height: 60,
                 colorOpacity: 0.0,
                 alignChild: Alignment.center,
-                child: SvgPicture.asset('images/icons/back.svg', width: 15, height: 25),
+                child: SvgPicture.asset('assets/icons/back.svg', width: 15, height: 25),
               ),
             )
           ),
@@ -619,7 +619,7 @@ class _BodyState extends State<Body> {
                 width: 60, height: 60,
                 colorOpacity: 0.0,
                 alignChild: Alignment.center,
-                child: SvgPicture.asset('images/icons/cart.svg', width: 25, height: 25),
+                child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
               )
             )
           ),

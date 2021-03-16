@@ -33,7 +33,33 @@ class _EditProductState extends State<EditProduct> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 68,
+        brightness: Brightness.light,
+        titleSpacing: 20,
+        // leadingWidth: 25,
+        title: MyText(
+          text: "Add Product",
+          color: AppColors.primary,
+          fontWeight: FontWeight.w600,
+          fontSize: 30,
+        ),
+        // bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
+        //  backgroundColor: Colors.white,
+        leading: IconButton(
+          padding: EdgeInsets.only(left: 25),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 25,
+            color: AppServices.hexaCodeToColor(AppColors.primary),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: EditProductBody(

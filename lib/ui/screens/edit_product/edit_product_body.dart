@@ -23,7 +23,7 @@ class EditProductBody extends StatelessWidget {
           mTop: 70, mBottom: 16,
           width: 145, height: 122,
           pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
-          child: SvgPicture.asset('images/avatar_user.svg'),
+          child: SvgPicture.asset('assets/avatar_user.svg'),
         ),
         
         MyFlatButton(
@@ -32,7 +32,7 @@ class EditProductBody extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
               MyText(text: "Change image", color: AppColors.secondary, fontSize: 16, left: 10,),
             ],
           ), 
@@ -96,7 +96,7 @@ class EditProductBody extends StatelessWidget {
                           children: [
                             MyText(text: "Currency", pRight: 15,),
 
-                            SvgPicture.asset('images/icons/dropdown.svg', width: 18.52, height: 10)
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10)
                           ],
                         ),
                       ),
@@ -132,7 +132,7 @@ class EditProductBody extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SvgPicture.asset('images/icons/check_in.svg', width: 20, height: 20,),
+                            SvgPicture.asset('assets/icons/check_in.svg', width: 20, height: 20,),
                             MyText(text: "location", color: AppColors.secondary, pLeft: 5,)
                           ],
                         ), 
@@ -181,7 +181,7 @@ class EditProductBody extends StatelessWidget {
                           children: [
                             MyText(text: "Weight", pRight: 15,),
 
-                            SvgPicture.asset('images/icons/dropdown.svg', width: 18.52, height: 10)
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10)
                           ],
                         ),
                       ),

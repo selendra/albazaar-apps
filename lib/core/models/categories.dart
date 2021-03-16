@@ -6,10 +6,10 @@ class Categories {
 }
 
 List<Categories> category = [
-  Categories(title: 'Cereals', img: 'images/barley.png'),
-  Categories(title: 'Fruit', img: 'images/fruits.png'),
-  Categories(title: 'Vegetable', img: 'images/vegetable.png'),
-  Categories(title: 'Meat', img: 'images/meat.png'),
-  Categories(title: 'Fish', img: 'images/fish.png'),
-  Categories(title: 'Others', img: 'images/others.png'),
+  Categories(title: 'Cereals', img: 'assets/barley.png'),
+  Categories(title: 'Fruit', img: 'assets/fruits.png'),
+  Categories(title: 'Vegetable', img: 'assets/vegetable.png'),
+  Categories(title: 'Meat', img: 'assets/meat.png'),
+  Categories(title: 'Fish', img: 'assets/fish.png'),
+  Categories(title: 'Others', img: 'assets/others.png'),
 ];

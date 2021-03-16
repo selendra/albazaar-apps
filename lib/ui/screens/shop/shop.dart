@@ -1,3 +1,5 @@
+import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop.dart';
+import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop_body.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/shop/components/body.dart';
@@ -12,7 +14,13 @@ class _ListingScreenState extends State<ListingScreen>
   TabController _controller;
 
   bool isSold = false;
-  bool shopCreate = false;
+  String shopCreate = 'no';
+
+  void submit(){
+    setState(() {
+      shopCreate = 'created';
+    });
+  }
 
   @override
   void initState() {
@@ -39,11 +47,13 @@ class _ListingScreenState extends State<ListingScreen>
         _controller
       ), //lang.translate('Products')
       body: BodyScaffold(
-        child: shopCreate ? Body(_controller) : Center(
+        height: shopCreate == 'creating' ? MediaQuery.of(context).size.height : null,
+        child: shopCreate == 'created' ? Body(_controller) : 
+        shopCreate == 'creating' ? CreateShopBody(submit: submit) :Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('images/create_shop.svg', width: 293, height: 293),
+              SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
 
               MyFlatButton(
                 edgeMargin: EdgeInsets.only(left: 90, right: 90),
@@ -53,11 +63,15 @@ class _ListingScreenState extends State<ListingScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                    SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
                     MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
                   ],
                 ),
-                action: (){},
+                action: (){
+                  setState(() {
+                    shopCreate = 'creating';
+                  });
+                },
               )
 
               // MyFlatButton(
@@ -65,7 +79,7 @@ class _ListingScreenState extends State<ListingScreen>
               //   child: Row(
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     children: [
-              //       SvgPicture.asset('images/icons/plus.svg', color: AppServices.hexaCodeToColor(AppColors.primary)),
+              //       SvgPicture.asset('assets/icons/plus.svg', color: AppServices.hexaCodeToColor(AppColors.primary)),
               //       MyText(
               //         pLeft: 10,
               //         pTop: pd20,
@@ -83,7 +97,7 @@ class _ListingScreenState extends State<ListingScreen>
               // )
             ],
           )
-        ),
+        )
       ),
     );
   }

@@ -13,8 +13,8 @@ final List<Wallet> wallets = [
   Wallet(
     'Selendra (SEL)',
     '${mBalance.data.balance}',
-    'images/icon_launcher.png',
+    'assets/icon_launcher.png',
   ),
-  Wallet('Maker Dai', '0.00', 'images/maker_dai.png'),
-  Wallet('Ethereum', '000000', 'images/etherium.jpg')
+  Wallet('Maker Dai', '0.00', 'assets/maker_dai.png'),
+  Wallet('Ethereum', '000000', 'assets/etherium.jpg')
 ];

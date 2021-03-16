@@ -1,6 +1,12 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 
 class CreateShopBody extends StatelessWidget {
+
+  final Function submit;
+
+  CreateShopBody({this.submit});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,8 +27,8 @@ class CreateShopBody extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       height: 228,
-                      child: SvgPicture.asset('images/gallery.svg', width: 140, height: 107.33,)
-                      // child: Image.asset('images/gallery.svg',fit: BoxFit.contain)
+                      child: SvgPicture.asset('assets/gallery.svg', width: 140, height: 107.33,)
+                      // child: Image.asset('assets/gallery.svg',fit: BoxFit.contain)
                     ),
 
                     MyCard(
@@ -65,7 +71,7 @@ class CreateShopBody extends StatelessWidget {
                     hexaColor: AppColors.white,
                     child: MyPadding(
                       pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
-                      child: SvgPicture.asset('images/gallery.svg', width: 50, height: 38.33),
+                      child: SvgPicture.asset('assets/gallery.svg', width: 50, height: 38.33),
                     )
                   ),
                 ),   
@@ -80,7 +86,7 @@ class CreateShopBody extends StatelessWidget {
             pBottom: pd10, pRight: pd10+2, pLeft: pd10+2, pTop: pd10,
             child: Row(
               children: [
-                SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+                SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
                 MyText(left: pd10, text: "Set Address", fontWeight: FontWeight.w600, color: AppColors.secondary,),
               ],
             ),
@@ -106,11 +112,13 @@ class CreateShopBody extends StatelessWidget {
           height: 46,
           child: Row(
             children: [
-              SvgPicture.asset('images/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
               MyText(left: pd10, text: "Add product", fontWeight: FontWeight.w600, color: AppColors.secondary,),
             ],
           ),
-          action: (){},
+          action: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct()));
+          },
         ),
 
         Expanded(
@@ -126,7 +134,7 @@ class CreateShopBody extends StatelessWidget {
             fontSize: 25,
             color: AppColors.white,
           ),
-          action: (){},
+          action: submit,
         )
       ],
     );

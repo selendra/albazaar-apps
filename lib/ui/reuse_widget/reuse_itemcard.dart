@@ -53,7 +53,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                 //         height: double.infinity,
                 //         width: double.infinity,
                 //         image: NetworkImage(widget.product.thumbnail),
-                //         placeholder: AssetImage('images/loading.gif'),
+                //         placeholder: AssetImage('assets/loading.gif'),
                 //       )
                 // MyCard(
                 //   // height: 141,
@@ -65,19 +65,19 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                 //   child: Stack(
                 //     children: [
                 //       // Center(
-                //       //   child: SvgPicture.asset('images/avatar_user.svg'),
+                //       //   child: SvgPicture.asset('assets/avatar_user.svg'),
                 //       // ),
                 //       FadeInImage(
                 //         fit: BoxFit.contain,
                 //         height: double.infinity,
                 //         width: double.infinity,
                 //         image: NetworkImage(widget.product.thumbnail),
-                //         placeholder: AssetImage('images/loading.gif'),
+                //         placeholder: AssetImage('assets/loading.gif'),
                 //       ),
                 //       Positioned(
                 //         right: 10, top: 10,
                 //         child: GestureDetector(
-                //           child: SvgPicture.asset('images/icons/heart.svg'),
+                //           child: SvgPicture.asset('assets/icons/heart.svg'),
                 //         ),
                 //       )
                 //     ],
@@ -142,7 +142,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                       padding: EdgeInsets.only(bottom: 5),
                       child: Row(
                         children: [
-                          Image.asset('images/symbols/riel_symbol.png', width: 9, height: 15),
+                          Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
                           MyText(
                             textAlign: TextAlign.left,
                             text: "${widget.product.price} /Kg",
@@ -158,23 +158,23 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: 7),
-                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                          child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 7),
-                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                          child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 7),
-                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                          child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 7),
-                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                          child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 7),
-                          child: SvgPicture.asset('images/icons/rate_star.svg', height: 13, width: 13)
+                          child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
                         ),
                         MyText(
                           textAlign: TextAlign.left,

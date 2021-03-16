@@ -57,7 +57,7 @@ class Body extends StatelessWidget {
 
                   Expanded(
                     flex: 1,
-                    child: SvgPicture.asset('images/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
+                    child: SvgPicture.asset('assets/sld_logo.svg', alignment: Alignment.centerRight, width: 90, height: 107.37),
                   ),
                 ],
               )
@@ -71,7 +71,7 @@ class Body extends StatelessWidget {
               alignment: Alignment.center,
               child: MyPadding(
                 child: SvgPicture.asset(
-                  'images/welcome_illustrator.svg',
+                  'assets/welcome_illustrator.svg',
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.width * 0.3,
                 ),

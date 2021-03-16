@@ -15,7 +15,7 @@ class MyBottomSheetItem extends StatelessWidget {
         onTap: action,
         child: Column(
           children: [
-            SvgPicture.asset('images/icons/$icon',
+            SvgPicture.asset('assets/icons/$icon',
                 width: 30, height: 30, color: Colors.black),
             MyText(
               top: 6,
