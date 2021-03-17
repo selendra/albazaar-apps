@@ -1,6 +1,13 @@
 import 'package:albazaar_app/all_export.dart';
 
 class SignInModel {
+
+  // Validator
+  String emailValidate;
+  String phoneValidate;
+  String passwordValidate;
+
+
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -17,7 +24,5 @@ class SignInModel {
 
   bool isPageCanChanged = true;
 
-  final phoneFormKey = GlobalKey<FormState>();
-
-  final emailFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 }

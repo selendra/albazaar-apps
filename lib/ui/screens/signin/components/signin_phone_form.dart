@@ -87,22 +87,70 @@ class SignInPhoneForm extends StatelessWidget {
         //   )
         // ),
 
-        MyInputField(
-          pRight: 5, pLeft: 5, pTop: 5,
-          pBottom: 11,
-          labelText: "Phone",
-          controller: signInModel.phone, 
-          focusNode: signInModel.phoneNode,
-          inputType: TextInputType.phone,
-          textInputFormatter: [
-            LengthLimitingTextInputFormatter(TextField.noMaxLength)
-          ],
-          validateField: (String value) {
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
 
-          }, 
-          onChanged: onChanged, 
-          onSubmit: onSubmit,
+            Container(
+              width: 130,
+              child: IntlPhoneField(
+                decoration: InputDecoration(),
+                // controller: signInModel.phone,
+                // focusNode: signInModel.phoneNode,
+                enabled: false,
+                // decoration: InputDecoration(
+                //   // contentPadding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                //   // labelStyle: TextStyle(color: Colors.transparent, fontSize: 18),
+                //   labelText: AppLocalizeService.of(context).translate('phone_hint'),
+                //   enabledBorder: InputBorder.none,
+                //   focusedBorder: OutlineInputBorder(  
+                //     borderSide: BorderSide(color: Colors.greenAccent),
+                //     borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+                //   ),
+                // ),
+                initialCountryCode: 'KH',
+                countryCodeTextColor: Colors.black,
+                // validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+              ),
+            ),
+
+            Expanded(
+              child: MyInputField(
+                pRight: 5, pLeft: 5, pTop: 5,
+                pBottom: 11,
+                labelText: "Phone",
+                controller: signInModel.phone, 
+                focusNode: signInModel.phoneNode,
+                inputType: TextInputType.phone,
+                textInputFormatter: [
+                  LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                ],
+                validateField: (String value) {
+
+                }, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit,
+              ))
+          ],
         ),
+
+        // MyInputField(
+        //         pRight: 5, pLeft: 5, pTop: 5,
+        //         pBottom: 11,
+        //         labelText: "Phone",
+        //         controller: signInModel.phone, 
+        //         focusNode: signInModel.phoneNode,
+        //         inputType: TextInputType.phone,
+        //         textInputFormatter: [
+        //           LengthLimitingTextInputFormatter(TextField.noMaxLength)
+        //         ],
+        //         validateField: (String value) {
+
+        //         }, 
+        //         onChanged: onChanged, 
+        //         onSubmit: onSubmit,
+        //       ),
         
         MyInputField(
           pRight: 5, pLeft: 5, pTop: 5,

@@ -240,7 +240,7 @@ class MyDropDownCustom{
                           onTap: (){
                             Navigator.pop(context, 'kg');
                           },
-                          text: "Kilogram",
+                          text: "Fruit",
                         ),
 
                         Divider(height: 1),
@@ -249,7 +249,25 @@ class MyDropDownCustom{
                           onTap: (){
                             Navigator.pop(context, 'g');
                           },
-                          text: "Gram",
+                          text: "Meat",
+                        ),
+
+                        Divider(height: 1),
+
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'g');
+                          },
+                          text: "Vegetable",
+                        ),
+
+                        Divider(height: 1),
+
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'g');
+                          },
+                          text: "Electronic",
                         )
                       ],
                     ),

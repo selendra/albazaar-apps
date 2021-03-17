@@ -239,7 +239,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    InkWell(
+                    GestureDetector(
                       // padding: EdgeInsets.only(bottom: 20),
                       child: Row(
                         children: [
@@ -253,7 +253,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                         ],
                       ),
                       onTap: (){
-                        
+                        Navigator.pop(context);
                       },
                     ),
                     Container(
@@ -261,7 +261,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Selendra Marketplace',
+                          'Selendra Albazaar',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 30,

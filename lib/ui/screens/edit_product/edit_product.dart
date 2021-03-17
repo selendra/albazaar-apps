@@ -44,7 +44,7 @@ class _EditProductState extends State<EditProduct> {
           text: "Add Product",
           color: AppColors.primary,
           fontWeight: FontWeight.w600,
-          fontSize: 30,
+          fontSize: 25,
         ),
         // bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
         //  backgroundColor: Colors.white,

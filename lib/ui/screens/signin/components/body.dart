@@ -162,8 +162,43 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     });
   }
 
+  String validateInput(String value) { /* Initial Validate */
+    // if (_signInModel.label == "email") {
+    //   if (_signInModel.nodeEmails.hasFocus) {
+    //     /* If Email Field Has Focus */
+    //     _signInModel.responseEmailPhone = instanceValidate.validateEmails(value);
+    //     if (_signInModel.responseEmailPhone == null && _signInModel.responsePassword == null)
+    //       enableButton();
+    //     else if (_signInModel.enable == true)
+    //       setState(() => _signInModel.enable = false);
+    //   }
+    // } else {
+    //   if (_signInModel.nodePhoneNums.hasFocus) {
+    //     /* If Phone Number Field Has Focus */
+    //     _signInModel.responseEmailPhone = instanceValidate.validatePhone(value);
+    //     if (_signInModel.responseEmailPhone == null && _signInModel.responsePassword == null)
+    //       enableButton();
+    //     else if (_signInModel.enable == true)
+    //       setState(() => _signInModel.enable = false);
+    //   }
+    // }
+    // return _signInModel.responseEmailPhone;
+  }
+
+  String validatePassword(String value) { /* Validate User Password Input */
+    // if (_signInModel.passwordNode.hasFocus) {
+    //   _signInModel.passwordValidate = instanceValidate.validatePassword(value);
+    //   if (
+    //     _signInModel.phone == null &&
+    //     _signInModel.passwordValidate == null
+    //   ) enableButton();
+    //   else if (_signInModel.enable == true) setState(() => _signInModel.enable = false);
+    // }
+    // return _signInModel.passwordValidate;
+  }
+
   void onChanged(String value){
-    print("My value");
+    _signInModel.formKey.currentState.validate();
     // if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
     // else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
   }
@@ -197,11 +232,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    InkWell(
+                    GestureDetector(
                       // padding: EdgeInsets.only(bottom: 20),
                       child: Row(
                         children: [
@@ -215,7 +251,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                         ],
                       ),
                       onTap: (){
-                        
+                        Navigator.pop(context);
                       },
                     ),
                     Container(
@@ -223,7 +259,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Selendra Marketplace',
+                          'Albazaar',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 30,
@@ -269,39 +305,39 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
         Expanded(
           child: MyPadding(
             child: Form(
-              key: _signInModel.emailFormKey,
+              key: _signInModel.formKey,
               child: TabBarView(
-                  controller: _signInModel.tabController,
-                  children: [
-                    
-                    SignInPhoneForm(
-                      signInPhoneFunc: onApiSignInByPhone,
-                      facebookSignIn: onFacebookSignIn,
-                      googleSignIn: onGoogleSignIn,
-                      signInModel: _signInModel,
-                      onChanged: onChanged,
-                      onSubmit: onSubmit,
-                    ),
+                controller: _signInModel.tabController,
+                children: [
+                  
+                  SignInPhoneForm(
+                    signInPhoneFunc: onApiSignInByPhone,
+                    facebookSignIn: onFacebookSignIn,
+                    googleSignIn: onGoogleSignIn,
+                    signInModel: _signInModel,
+                    onChanged: onChanged,
+                    onSubmit: onSubmit,
+                  ),
 
-                    SignInEmailForm(
-                      signInEmailFunc: onApiSignInByEmail,
-                      faceBookSignIn: onFacebookSignIn,
-                      googleSignIn: onGoogleSignIn,
-                      signInModel: _signInModel,
-                      onChanged: onChanged,
-                      onSubmit: onSubmit,
-                    )
-                  ],
-                )
+                  SignInEmailForm(
+                    signInEmailFunc: onApiSignInByEmail,
+                    faceBookSignIn: onFacebookSignIn,
+                    googleSignIn: onGoogleSignIn,
+                    signInModel: _signInModel,
+                    onChanged: onChanged,
+                    onSubmit: onSubmit,
+                  )
+                ],
               )
+            )
           ),
         ),
-
+        
         Container(
           alignment: Alignment.centerRight,
           child: MyPadding(
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
+            pLeft: 10, pTop: 10, pBottom:10,
+            child: TextButton(
               onPressed: () {
                 FocusScope.of(context).unfocus();
                 Navigator.push(

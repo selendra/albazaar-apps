@@ -7,12 +7,13 @@ class ReuseDropDown extends StatelessWidget {
   final TextStyle style;
   final List<String> itemsList;
 
-  ReuseDropDown(
-      {this.onChanged,
-      this.initialValue,
-      this.icon,
-      this.style,
-      this.itemsList});
+  ReuseDropDown({
+    this.onChanged,
+    this.initialValue,
+    this.icon,
+    this.style,
+    this.itemsList
+  });
 
   @override
   Widget build(BuildContext context) {

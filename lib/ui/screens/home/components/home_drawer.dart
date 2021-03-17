@@ -122,13 +122,15 @@ class HomeDrawer extends StatelessWidget {
               pLeft: 25, pTop: 15, pBottom: 15, pRight: 15,
               child: Row(
                 children: [
-                  SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
-
-                  MyText(left: 20,text: iconText[i]['title']), //_lang.translate(iconText[i]['title'])
-
-                  Expanded(
-                    child: Container(),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    width: 50,
+                    child: SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
                   ),
+
+                  MyText(text: iconText[i]['title'], textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
+
+                  Expanded(child: Container()),
 
                   Icon(
                     Icons.arrow_forward_ios,
@@ -164,13 +166,15 @@ class HomeDrawer extends StatelessWidget {
               pLeft: 25, pTop: 15, pBottom: 15, pRight: 15,
               child: Row(
                 children: [
-                  SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
-
-                  MyText(left: 20,text: iconText[i]['title']), //_lang.translate(iconText[i]['title'])
-
-                  Expanded(
-                    child: Container(),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    width: 50,
+                    child: SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
                   ),
+
+                  MyText(text: iconText[i]['title'], textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
+
+                  Expanded(child: Container()),
 
                   Icon(
                     Icons.arrow_forward_ios,

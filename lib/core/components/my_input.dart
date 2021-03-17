@@ -96,7 +96,7 @@ class MyInputField extends StatelessWidget{
 }
 
 /* User input Outline Border */
-OutlineInputBorder myTextInputBorder(Color borderColor) {
+OutlineInputBorder myTextInputBorder(Color borderColor, ) {
   return OutlineInputBorder(
     borderSide: BorderSide(color: borderColor, width: 1),
     borderRadius: BorderRadius.circular(12)

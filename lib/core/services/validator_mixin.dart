@@ -21,8 +21,11 @@ class ValidateMixin {
 
   /* ----------User Sign Up Next Step---------- */
   String validatePassword(String value) {
+    Pattern pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])$';
+    RegExp regex = new RegExp(pattern);
     if (value.isEmpty) return 'Please fill password';
     else if (value.length < 5) return 'Password less than 5 digit';
+    else if(!regex.hasMatch(value)) return "Invalid phone number";
     return null;
   }
 

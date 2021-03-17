@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Selendra Marketplace',
+                              'Albazaar',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 30,
@@ -92,7 +92,7 @@ class Body extends StatelessWidget {
                       // height: 59,
                       child: MyFlatButton(
                         action: () {
-                          Navigator.pushReplacementNamed(context, SignInView);
+                          Navigator.pushNamed(context, SignInView);
                         },
                         child: MyText(
                           pTop: 20,
@@ -115,7 +115,7 @@ class Body extends StatelessWidget {
                       // height: 59,
                       child: MyFlatButton(
                         action: () {
-                          Navigator.pushReplacementNamed(context, SignUpView);
+                          Navigator.pushNamed(context, SignUpView);
                         },
                         child: MyText(
                           pTop: 20,

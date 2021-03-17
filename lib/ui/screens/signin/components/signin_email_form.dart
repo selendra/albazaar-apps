@@ -23,8 +23,8 @@ class SignInEmailForm extends StatelessWidget {
   });
 
   void validateAndSubmit() {
-    if (signInModel.emailFormKey.currentState.validate()) {
-      signInModel.emailFormKey.currentState.save();
+    if (signInModel.formKey.currentState.validate()) {
+      signInModel.formKey.currentState.save();
       signInEmailFunc(signInModel.email.text, signInModel.password.text);
       signInModel.email.text = '';
       signInModel.password.text = '';

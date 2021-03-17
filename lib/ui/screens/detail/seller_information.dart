@@ -85,7 +85,7 @@ class SellerInformation extends StatelessWidget {
                       width: 53, height: 50,
                       buttonColor: AppColors.secondary,
                       action: (){},
-                      child: SvgPicture.asset('assets/icons/chat.svg', width: 25, height: 25),
+                      child: SvgPicture.asset('assets/icons/chat.svg', width: 25, height: 25, color: Colors.white),
                     ),
 
                     MyFlatButton(

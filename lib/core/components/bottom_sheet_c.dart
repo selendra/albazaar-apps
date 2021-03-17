@@ -210,9 +210,11 @@ class MyBottomSheet{
               alignment: Alignment.center,
               child: MyText(
                 color: AppColors.black,
+                fontWeight: FontWeight.bold,
                 top: 20,
                 bottom: 33,
                 text: "Scale options",
+                fontSize: 20,
               ),
             ),
 

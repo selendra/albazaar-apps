@@ -156,7 +156,7 @@ class EditProductBody extends StatelessWidget {
                         pLeft: pd12, 
                         pRight: 0,
                         child: MyInputField(
-                          labelText: "Weight",
+                          labelText: "Category",
                           controller: product.weight,
                           focusNode: product.weightNode, 
                           validateField: (String value){
@@ -179,7 +179,7 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: "Weight", pRight: 15,),
+                            MyText(text: "Category", pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10)
                           ],
