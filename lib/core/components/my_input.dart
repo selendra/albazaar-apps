@@ -42,11 +42,7 @@ class MyInputField extends StatelessWidget{
     return Container(
       padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       height: height,
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        child: TextFormField(
+      child: TextFormField(
           key: this.key,
           enabled: enableInput,
           focusNode: focusNode,
@@ -90,7 +86,12 @@ class MyInputField extends StatelessWidget{
             onSubmit(context);
           },
         )
-      )
+      // Material(
+      //   borderRadius: BorderRadius.circular(12),
+      //   elevation: 0,
+      //   shadowColor: Colors.transparent,
+      //   child: 
+      // )
     );
   }
 }
@@ -105,5 +106,5 @@ OutlineInputBorder myTextInputBorder(Color borderColor, ) {
 
 OutlineInputBorder errorOutline() {
   /* User Error Input Outline Border */
-  return OutlineInputBorder(borderSide: BorderSide(color: Colors.red));
+  return OutlineInputBorder(borderSide: BorderSide(color: Colors.red),borderRadius: BorderRadius.circular(12));
 }

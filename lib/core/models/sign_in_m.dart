@@ -2,9 +2,12 @@ import 'package:albazaar_app/all_export.dart';
 
 class SignInModel {
 
+  bool enable = false;
+
+  String label;
+
   // Validator
-  String emailValidate;
-  String phoneValidate;
+  String phoneNMailValidate;
   String passwordValidate;
 
 

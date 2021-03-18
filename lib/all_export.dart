@@ -5,14 +5,14 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'dart:convert';
 export 'package:multi_image_picker/multi_image_picker.dart';
 
-export 'package:provider/provider.dart';
-
 // Standart Library
+export 'package:provider/provider.dart';
 export 'package:flutter/services.dart';
 export 'package:albazaar_app/core/services/app_services.dart';
 export 'dart:async';
 
 // NonStandart Library
+export 'package:intl_phone_field/intl_phone_field.dart';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
@@ -30,6 +30,9 @@ export 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
 
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';
+export 'package:albazaar_app/core/models/sign_in_m.dart';
+export 'package:albazaar_app/core/services/app_services.dart';
+
 
 //Pubspac
 export 'package:flutter_svg/svg.dart';

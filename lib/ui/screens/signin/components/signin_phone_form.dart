@@ -12,6 +12,8 @@ class SignInPhoneForm extends StatelessWidget {
   final Function facebookSignIn;
   final Function googleSignIn;
   final SignInModel signInModel;
+  final Function validateInput;
+  final Function validatePassword;
   final Function onChanged;
   final Function onSubmit;
 
@@ -20,6 +22,8 @@ class SignInPhoneForm extends StatelessWidget {
     this.facebookSignIn, 
     this.googleSignIn,
     this.signInModel,
+    this.validateInput,
+    this.validatePassword,
     this.onChanged,
     this.onSubmit
   });
@@ -88,7 +92,6 @@ class SignInPhoneForm extends StatelessWidget {
         // ),
 
         Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
 
             Container(
@@ -126,47 +129,13 @@ class SignInPhoneForm extends StatelessWidget {
                 textInputFormatter: [
                   LengthLimitingTextInputFormatter(TextField.noMaxLength)
                 ],
-                validateField: (String value) {
-
-                }, 
+                validateField: validateInput,
                 onChanged: onChanged, 
                 onSubmit: onSubmit,
-              ))
+              )
+            )
           ],
         ),
-
-        // MyInputField(
-        //         pRight: 5, pLeft: 5, pTop: 5,
-        //         pBottom: 11,
-        //         labelText: "Phone",
-        //         controller: signInModel.phone, 
-        //         focusNode: signInModel.phoneNode,
-        //         inputType: TextInputType.phone,
-        //         textInputFormatter: [
-        //           LengthLimitingTextInputFormatter(TextField.noMaxLength)
-        //         ],
-        //         validateField: (String value) {
-
-        //         }, 
-        //         onChanged: onChanged, 
-        //         onSubmit: onSubmit,
-        //       ),
-        
-        MyInputField(
-          pRight: 5, pLeft: 5, pTop: 5,
-          labelText: "Password",
-          controller: signInModel.password, 
-          focusNode: signInModel.passwordNode, 
-          textInputFormatter: [
-            LengthLimitingTextInputFormatter(TextField.noMaxLength)
-          ],
-          validateField: (String value) {
-
-          }, 
-          onChanged: onChanged, 
-          onSubmit: onSubmit,
-        )
-
       ],
     );
   }

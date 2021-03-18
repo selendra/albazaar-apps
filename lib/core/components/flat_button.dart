@@ -55,7 +55,7 @@ class MyFlatButton extends StatelessWidget{
       ),
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(!isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent),
+          backgroundColor: action == null ? MaterialStateProperty.all(Colors.grey) : MaterialStateProperty.all(!isTransparent ? AppServices.hexaCodeToColor(buttonColor) : Colors.transparent),
           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)))
         ),
         child: child,
