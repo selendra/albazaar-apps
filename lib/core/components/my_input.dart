@@ -3,6 +3,7 @@ import 'package:albazaar_app/all_export.dart';
 class MyInputField extends StatelessWidget{
 
   final Key key;
+  final Widget icon;
   final String labelText;
   final String prefixText;
   final double pLeft, pTop, pRight, pBottom;
@@ -14,13 +15,13 @@ class MyInputField extends StatelessWidget{
   final TextInputAction inputAction;
   final TextEditingController controller;
   final FocusNode focusNode;
-  final IconButton icon;
   final Function validateField;
   final Function onChanged;
   final Function onSubmit;  
 
   MyInputField({/* User Input Field */
     this.key,
+    this.icon,
     this.labelText,
     this.prefixText,
     this.pLeft: 0, this.pTop: 0, this.pRight: 0, this.pBottom: 0,
@@ -32,7 +33,6 @@ class MyInputField extends StatelessWidget{
     this.inputAction = TextInputAction.next,
     @required this.controller,
     @required this.focusNode,
-    this.icon,
     @required this.validateField,
     @required this.onChanged,
     @required this.onSubmit
@@ -53,6 +53,7 @@ class MyInputField extends StatelessWidget{
           style: TextStyle(color: Colors.black54, fontSize: 18.0),
           validator: validateField,
           decoration: InputDecoration(
+            prefix: icon,
             labelText: labelText,
             labelStyle: TextStyle(
               fontSize: 18.0,
@@ -61,7 +62,7 @@ class MyInputField extends StatelessWidget{
               : Colors.black
             ),
             prefixText: prefixText,
-            prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+            prefixStyle: TextStyle(color: AppServices.hexaCodeToColor(AppColors.primary), fontSize: 18.0),
             /* Prefix Text */
             filled: true, 
             fillColor: Colors.white,
@@ -77,7 +78,7 @@ class MyInputField extends StatelessWidget{
             focusColor: Colors.black,
             /* Border Color When Focusing */
             contentPadding: EdgeInsets.fromLTRB(21, 23, 21, 23), // Default padding = -10.0 px
-            suffixIcon: icon,
+            // suffixIcon: icon,
           ),
           inputFormatters: textInputFormatter,
           /* Limit Length Of Text Input */

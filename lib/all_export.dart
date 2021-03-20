@@ -27,11 +27,13 @@ export 'package:albazaar_app/core/components/component.dart';
 export 'package:albazaar_app/core/components/card_c.dart';
 export 'package:albazaar_app/core/components/text_btn.dart';
 export 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
+export 'package:albazaar_app/core/components/scaffold.dart';
+export 'package:albazaar_app/core/components/search.dart';
 
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';
 export 'package:albazaar_app/core/models/sign_in_m.dart';
-export 'package:albazaar_app/core/services/app_services.dart';
+export 'package:albazaar_app/core/models/sign_up_m.dart';
 
 
 //Pubspac
@@ -39,6 +41,7 @@ export 'package:flutter_svg/svg.dart';
 
 //Validate Mixin
 export 'package:albazaar_app/core/services/validator_mixin.dart';
+export 'package:albazaar_app/core/services/app_services.dart';
 
 //Components
 export 'package:albazaar_app/core/components/flare_animation_c.dart';

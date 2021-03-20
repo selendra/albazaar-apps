@@ -1,6 +1,18 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/components/countries.dart';
 
 class SignUpModel {
+
+  bool enable = false;
+
+  String label;
+
+  String countryCode = countries[36]['dial_code'];
+
+  // Validator
+  String phoneNMailValidate;
+  String passwordValidate;
+
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -19,8 +31,6 @@ class SignUpModel {
 
   bool isPageCanChanged = true;
 
-  final phoneFormKey = GlobalKey<FormState>();
-
-  final emailFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   
 }

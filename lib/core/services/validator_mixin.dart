@@ -25,7 +25,8 @@ class ValidateMixin {
     RegExp regex = new RegExp(pattern);
     if (value.isEmpty) return 'Please fill password';
     else if (value.length < 8) return 'Password less than 8 digit';
-    else if(!regex.hasMatch(value)) return "Please input strong password\nExample: Con";
+    else if(!regex.hasMatch(value)) return "Please input strong password\nExample: Abcd\$123";
+    else if (value == 'Abcd\$123') return "You cannot use this password 'Abcd\$123',\nTry with another password";
     return null;
   }
 

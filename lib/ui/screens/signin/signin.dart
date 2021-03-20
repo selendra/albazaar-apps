@@ -1,14 +1,15 @@
+import 'package:albazaar_app/core/components/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/scaffold.dart';
-import 'package:albazaar_app/ui/screens/signin/components/body.dart';
+import 'package:albazaar_app/ui/screens/signin/components/singIn_body.dart';
 
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
+class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
 
   Backend _backend = Backend();
@@ -115,40 +116,27 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
 
   onTabChange() {
     _signInModel.tabController.addListener(() {
-      if (_signInModel.tabController.indexIsChanging) {
-        setState(() {
-          onPageChange(_signInModel.tabController.index, p: _signInModel.pageController);
-        });
-      }
+      // if (_signInModel)
+      // print("My controller ${_signInModel.label}");
+      // if (_signInModel.tabController.indexIsChanging) {
+      //   setState(() {
+      //   });
+      // }
+      onPageChange(_signInModel.tabController.index, p: _signInModel.pageController);
     });
   }
 
   onPageChange(int index, {PageController p, TabController t}) async {
-    print("My index"+index.toString());
-    print("Index ${_signInModel.tabController.index}");
     if ( index == 1 ){
-
-      _signInModel.phone.clear();
-      _signInModel.phoneNode.unfocus();
+      clearInput();
       // _signInModel.enable = false;
       _signInModel.label = "email";
     } else {
-      _signInModel.email.clear();
-      _signInModel.emailNode.unfocus();
+      clearInput();
       // _signInModel.enable = false;
       _signInModel.label = "phone";
     }
-    print(_signInModel.label);
     setState(() {});
-
-    // if (p != null) {
-    //   _signInModel.isPageCanChanged = false;
-    //   await _signInModel.pageController.animateToPage(index,
-    //       duration: Duration(milliseconds: 400), curve: Curves.easeOut);
-    //   _signInModel.isPageCanChanged = true;
-    // } else {
-    //   _signInModel.tabController.animateTo(index);
-    // }
   }
 
   //This function is use to set initial tab when setstate
@@ -168,8 +156,14 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
 
   void onChanged(String value){
     _signInModel.formKey.currentState.validate();
-    // if (_signInModel.tabController.index == 0) _signInModel.phoneFormKey.currentState.validate();
-    // else if (_signInModel.tabController.index == 1) _signInModel.emailFormKey.currentState.validate();
+  }
+
+  void onChangedCountryCode(String code){
+    if (code != null){
+      setState(() {
+        _signInModel.countryCode = code;
+      });
+    }
   }
 
   void onSubmit(){
@@ -204,7 +198,7 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
     if (_signInModel.passwordNode.hasFocus) {
       _signInModel.passwordValidate = instanceValidate.validatePassword(value);
       if (
-        _signInModel.phone == null &&
+        _signInModel.phoneNMailValidate == null &&
         _signInModel.passwordValidate == null
       ) enableButton();
       else if (_signInModel.enable == true) setState(() => _signInModel.enable = false);
@@ -213,6 +207,9 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
   }
 
   void enableButton() { /* Validate Button */
+    print("Email ${_signInModel.email.text}");
+    print("Phone ${_signInModel.phone.text}");
+    print("Password ${_signInModel.password.text}");
     if (_signInModel.label == 'email') {
       if (_signInModel.email.text != '' &&
           _signInModel.password.text != '')
@@ -285,6 +282,19 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
     }
   }
 
+  void clearInput(){
+    _signInModel.email.clear();
+    _signInModel.phone.clear();
+    _signInModel.password.clear();
+
+    _signInModel.emailNode.unfocus();
+    _signInModel.phoneNode.unfocus();
+    _signInModel.passwordNode.unfocus();
+
+    _signInModel.phoneNMailValidate = null;
+    _signInModel.passwordValidate = null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -321,6 +331,7 @@ class _SignInState extends State<SignIn>  with SingleTickerProviderStateMixin {
                   onGoogleSignIn: onGoogleSignIn,
                   onApiSignInByEmail: onApiSignInByEmail,
                   onPageChange: onPageChange,
+                  onChangedCountryCode: onChangedCountryCode,
                   validateInput:  validateInput,
                   validatePassword:  validatePassword,
                   onChanged: onChanged,

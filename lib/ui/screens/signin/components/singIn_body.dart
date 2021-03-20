@@ -10,6 +10,7 @@ class SignInBody extends StatelessWidget{
   final Function onFacebookSignIn;
   final Function onGoogleSignIn;
   final Function onApiSignInByEmail;
+  final Function onChangedCountryCode;
   final Function validateInput;
   final Function validatePassword;
   final Function onPageChange;
@@ -22,6 +23,7 @@ class SignInBody extends StatelessWidget{
     this.onFacebookSignIn,
     this.onGoogleSignIn,
     this.onApiSignInByEmail,
+    this.onChangedCountryCode,
     this.validateInput,
     this.validatePassword,
     this.onPageChange,
@@ -88,27 +90,19 @@ class SignInBody extends StatelessWidget{
           )
         ),
 
-        // Flexible(
-        //   flex: 1,
-        //   child: Container()
-        // ),
-
-        Container(
-          child: MyPadding(
-            pTop: 60,
-            pBottom: 30,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: ReuseAuthTab(
-                signInModel.tabController,
-                _lang.translate('phone'),
-                _lang.translate('email'),
-                onPageChange
-              )
+        MyPadding(
+          pTop: 60,
+          pBottom: 30,
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: ReuseAuthTab(
+              signInModel.tabController,
+              _lang.translate('phone'),
+              _lang.translate('email'),
+              onPageChange
             )
           )
         ),
-        // tabs(context),
 
         Container(
           width: MediaQuery.of(context).size.width,
@@ -118,34 +112,18 @@ class SignInBody extends StatelessWidget{
               controller: signInModel.tabController,
               children: [
                 
-                // SignInPhoneForm(
-                //   signInPhoneFunc: onApiSignInByPhone,
-                //   facebookSignIn: onFacebookSignIn,
-                //   googleSignIn: onGoogleSignIn,
-                //   signInModel: signInModel,
-                //   validateInput: validateInput,
-                //   validatePassword: validatePassword,
-                //   onChanged: onChanged,
-                //   onSubmit: onSubmit,
-                // ),
-                MyInputField(
-                  pRight: 5, pLeft: 5, pTop: 5,
-                  labelText: "Phone",
-                  controller: signInModel.phone, 
-                  focusNode: signInModel.phoneNode,
-                  inputType: TextInputType.phone,
-                  textInputFormatter: [
-                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
-                  ],
-                  validateField: validateInput,
-                  onChanged: onChanged, 
+                SignInPhoneForm(
+                  signInPhoneFunc: onApiSignInByPhone,
+                  signInModel: signInModel,
+                  onChangedCountryCode: onChangedCountryCode,
+                  validateInput: validateInput,
+                  validatePassword: validatePassword,
+                  onChanged: onChanged,
                   onSubmit: onSubmit,
                 ),
 
                 SignInEmailForm(
                   signInEmailFunc: onApiSignInByEmail,
-                  faceBookSignIn: onFacebookSignIn,
-                  googleSignIn: onGoogleSignIn,
                   signInModel: signInModel,
                   validateInput: validateInput,
                   validatePassword: validatePassword,
@@ -179,8 +157,7 @@ class SignInBody extends StatelessWidget{
             child: TextButton(
               onPressed: () {
                 FocusScope.of(context).unfocus();
-                Navigator.push(
-                    context, RouteAnimation(enterPage: ResetPassPhone()));
+                Navigator.pushReplacement(context, RouteAnimation(enterPage: ResetPassPhone()));
               },
               child: MyText(
                 text: _lang.translate('forget_password'),
@@ -223,13 +200,13 @@ class SignInBody extends StatelessWidget{
             children: <Widget>[
               BtnSocial(
                 () {
-                // facebookSignIn();
+                  onFacebookSignIn();
                 }, 
                 'assets/facebook.svg'
               ),
               SizedBox(width: 20),
               BtnSocial(() {
-                // googleSignIn();
+                onGoogleSignIn();
               }, 'assets/google.svg'),
             ],
           )
@@ -243,8 +220,6 @@ class SignInBody extends StatelessWidget{
 
               FocusScope.of(context).unfocus();
               Navigator.pushReplacementNamed(context, SignUpView);
-            // Navigator.pushReplacement(context,
-            //     MaterialPageRoute(builder: (context) => SignUpScreen()));
             }
           )
         )

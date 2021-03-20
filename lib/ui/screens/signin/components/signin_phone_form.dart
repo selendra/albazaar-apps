@@ -1,3 +1,5 @@
+import 'package:albazaar_app/core/components/countries.dart';
+import 'package:albazaar_app/core/components/search.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
@@ -8,22 +10,20 @@ import 'package:albazaar_app/core/models/sign_in_m.dart';
 
 class SignInPhoneForm extends StatelessWidget {
 
-  final Function signInPhoneFunc;
-  final Function facebookSignIn;
-  final Function googleSignIn;
   final SignInModel signInModel;
+  final Function signInPhoneFunc;
   final Function validateInput;
   final Function validatePassword;
+  final Function onChangedCountryCode;
   final Function onChanged;
   final Function onSubmit;
 
   SignInPhoneForm({
-    this.signInPhoneFunc, 
-    this.facebookSignIn, 
-    this.googleSignIn,
+    this.signInPhoneFunc,
     this.signInModel,
     this.validateInput,
     this.validatePassword,
+    this.onChangedCountryCode,
     this.onChanged,
     this.onSubmit
   });
@@ -40,118 +40,38 @@ class SignInPhoneForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-
-        
-        // Padding(
-        //   padding: paddingScaffold(pTop: 5, pBottom: 5),
-        //   child: Stack(
-        //     children: [
-
-        //       // Padding(
-        //       //   child: 
-        //       //   Container(
-        //       //     decoration: BoxDecoration(
-        //       //       color: Colors.white,
-        //       //       borderRadius: BorderRadius.circular(12),
-        //       //     ),
-        //       //     height: 65,
-        //       //   ),
-        //       // // ),
-
-        //       // // Padding(
-        //       // //   padding: EdgeInsets.only(top: 5, left: 16, right: 5, bottom: 11),
-        //       //   // child: 
-        //       //   Container(
-        //       //     child: IntlPhoneField(
-        //       //     decoration: InputDecoration(),
-        //       //     // controller: signInModel.phone,
-        //       //     // focusNode: signInModel.phoneNode,
-        //       //     enabled: false,
-        //       //     // decoration: InputDecoration(
-        //       //     //   // contentPadding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-        //       //     //   // labelStyle: TextStyle(color: Colors.transparent, fontSize: 18),
-        //       //     //   labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        //       //     //   enabledBorder: InputBorder.none,
-        //       //     //   focusedBorder: OutlineInputBorder(  
-        //       //     //     borderSide: BorderSide(color: Colors.greenAccent),
-        //       //     //     borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-        //       //     //   ),
-        //       //     // ),
-        //       //     initialCountryCode: 'KH',
-        //       //     countryCodeTextColor: Colors.black,
-        //       //     // validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-        //       //     // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
-        //       //   )
-        //       //   )
-        //       // )
-        //     ],
-        //   )
-        // ),
-
-        Row(
-          children: [
-
-            Container(
-              width: 130,
-              child: IntlPhoneField(
-                decoration: InputDecoration(),
-                // controller: signInModel.phone,
-                // focusNode: signInModel.phoneNode,
-                enabled: false,
-                // decoration: InputDecoration(
-                //   // contentPadding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                //   // labelStyle: TextStyle(color: Colors.transparent, fontSize: 18),
-                //   labelText: AppLocalizeService.of(context).translate('phone_hint'),
-                //   enabledBorder: InputBorder.none,
-                //   focusedBorder: OutlineInputBorder(  
-                //     borderSide: BorderSide(color: Colors.greenAccent),
-                //     borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
-                //   ),
-                // ),
-                initialCountryCode: 'KH',
-                countryCodeTextColor: Colors.black,
-                // validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-                // onSaved: (phone) => signInModel.phone = phone.completeNumber.toString(),
+    return MyInputField(
+      pRight: 5, pLeft: 5, pTop: 5,
+      labelText: "Phone",
+      controller: signInModel.phone, 
+      focusNode: signInModel.phoneNode,
+      inputType: TextInputType.phone,
+      textInputFormatter: [
+        LengthLimitingTextInputFormatter(TextField.noMaxLength),
+        FilteringTextInputFormatter.digitsOnly
+      ],
+      validateField: validateInput,
+      icon: GestureDetector(
+        onTapDown: (TapDownDetails details) async {
+          final query = await showSearch(context: context, delegate: DataSearch());
+          onChangedCountryCode(query);
+        },
+        child: Padding(
+          padding: EdgeInsets.only(right: 5),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MyText(
+                text: "${signInModel.countryCode}"
               ),
-            ),
 
-            Expanded(
-              child: MyInputField(
-                pRight: 5, pLeft: 5, pTop: 5,
-                pBottom: 11,
-                labelText: "Phone",
-                controller: signInModel.phone, 
-                focusNode: signInModel.phoneNode,
-                inputType: TextInputType.phone,
-                textInputFormatter: [
-                  LengthLimitingTextInputFormatter(TextField.noMaxLength)
-                ],
-                validateField: validateInput,
-                onChanged: onChanged, 
-                onSubmit: onSubmit,
-              )
-            )
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBtnSocialRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        BtnSocial(() {
-          facebookSignIn();
-        }, 'assets/facebook.svg'),
-        SizedBox(width: 20),
-        BtnSocial(() {
-          googleSignIn();
-        }, 'assets/google.svg'),
-      ],
+              Icon(Icons.arrow_drop_down, color: Colors.black,)                   
+            ],
+          )
+        )
+      ),
+      onChanged: onChanged, 
+      onSubmit: onSubmit,
     );
   }
 }

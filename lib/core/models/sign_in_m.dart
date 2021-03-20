@@ -1,10 +1,13 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/components/countries.dart';
 
 class SignInModel {
 
   bool enable = false;
 
   String label;
+
+  String countryCode = countries[36]['dial_code'];
 
   // Validator
   String phoneNMailValidate;
