@@ -71,6 +71,7 @@ class _SelendraAppState extends State<SelendraApp> {
       ],
       child: Consumer<LangProvider>(
         builder: (context, value, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
           builder: (context, child) {
             return ResponsiveWrapper.builder(
               ScrollConfiguration(
@@ -135,7 +136,7 @@ class _SelendraAppState extends State<SelendraApp> {
             SellerInfoView: (context) => SellerConfirm(),
             OTPScreen.route: (context) => OTPScreen('', '')
           },
-          home: SignUp(),
+          home: HomeScreen(),
           navigatorKey: navigationKey,
         ),
       ),

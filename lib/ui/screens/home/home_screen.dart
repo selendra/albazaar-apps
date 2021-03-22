@@ -205,18 +205,42 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                       Expanded(
                         child: MyCard(
+                          boxShadow:[
+                            BoxShadow(
+                              color: Colors.grey[300],
+                              spreadRadius: 2.0,
+                              offset: Offset(0,0),
+                              blurRadius: 5.0,
+                            )
+                          ],
                           mRight: padding,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                          )
+                          width: MediaQuery.of(context).size.width,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/promotion5.jpg'
+                            ),
+                            fit: BoxFit.cover
+                          ),
                         )
                       ),
 
                       Flexible(
                         child: MyCard(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                          )
+                          boxShadow:[
+                            BoxShadow(
+                              color: Colors.grey[300],
+                              spreadRadius: 2.0,
+                              offset: Offset(0,0),
+                              blurRadius: 5.0,
+                            )
+                          ],
+                          width: MediaQuery.of(context).size.width,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              'assets/promotion6.jpg',
+                            ),
+                            fit: BoxFit.cover
+                          ),
                         )
                       )
                     ],

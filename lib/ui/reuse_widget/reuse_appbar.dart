@@ -1,3 +1,4 @@
+import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
@@ -35,8 +36,8 @@ class ReuseAppBar {
             size: 40,
             color: AppServices.hexaCodeToColor(AppColors.primary),
           ),
-          onPressed: () {
-            Navigator.pop(context);
+          onPressed: () async {
+            await Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProduct()));
           },
         )
       ],

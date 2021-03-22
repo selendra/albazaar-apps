@@ -116,3 +116,12 @@ dialogblurBgDeco(BuildContext context, dynamic screen) {
     }
   );
 }
+
+BoxShadow boxShadow(){
+  return BoxShadow(
+    color: Colors.grey[300],
+    spreadRadius: 2.0,
+    offset: Offset(0,0),
+    blurRadius: 5.0,
+  );
+}

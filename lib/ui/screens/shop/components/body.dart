@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/components/text_btn.dart';
+import 'package:albazaar_app/core/providers/guest_acc_p.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+
+    List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     return Column(
       children: [
 
@@ -72,6 +75,9 @@ class _BodyState extends State<Body> {
           pLeft: pd10+2, pRight: pd10+2,
           pBottom: pd10+pd10,
           child: MyCard(
+            boxShadow: [
+              boxShadow()
+            ],
             // height: 382.0,
             child: Stack(
               children: [
@@ -162,6 +168,9 @@ class _BodyState extends State<Body> {
 
         // Location
         GestureDetector(
+          onTap: () async{
+            // await Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProduct()));
+          },
           child: MyPadding(
             pBottom: pd10, pRight: pd10+2, pLeft: pd10+2, pTop: pd10,
             child: Row(
@@ -177,9 +186,17 @@ class _BodyState extends State<Body> {
           pLeft: pd10+2, pRight: pd10+2,
           pBottom: pd20,
           child: MyCard(
+            boxShadow: [
+              boxShadow()
+            ],
             height: 136,
             width: MediaQuery.of(context).size.width,
-            // child: ,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(
+                'assets/map.png'
+              )
+            ),
           )
         ),
 
@@ -246,12 +263,15 @@ class _BodyState extends State<Body> {
             maxHeight: 300
           ),
           child:  ListView.builder(
-          itemCount: 10,
+          itemCount: listProduct.length,
           itemBuilder: (context, int index){
             return Container(
               height: 150,
               padding: EdgeInsets.only(left: pd10+2, right: pd10+2, bottom: pd10+2),
               child: MyCard(
+                boxShadow: [
+                  boxShadow()
+                ],
                 child: Row(
                   children: [
 
@@ -262,7 +282,7 @@ class _BodyState extends State<Body> {
                       bTopRight: 0, bBottomRight: 0,
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(product.thumbnail)
+                        image: NetworkImage(listProduct[index].thumbnail)
                       ),
                     ),
 
@@ -277,15 +297,20 @@ class _BodyState extends State<Body> {
                             pTop: pd10,
                             child: Row(                    
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                MyText(
-                                  textAlign: TextAlign.left,
-                                  text: "${product.name}",
-                                  fontSize:20,
-                                  fontWeight: FontWeight.bold,
-                                  color: "#000000",
+                                Expanded(
+                                  flex: 2,
+                                  child: MyText(
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].name}",
+                                    fontSize:20,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#000000",
+                                  )
                                 ),
-                                Expanded(child: Container()),
+                                Expanded(flex: 0, child: Container()),
                                 GestureDetector(
                                   onTapDown: (TapDownDetails detail) async {
                                     // var x = getBox.localToGlobal(detail.globalPosition.dx);
@@ -328,7 +353,7 @@ class _BodyState extends State<Body> {
                             child: MyText(
                               width: MediaQuery.of(context).size.width,
                               textAlign: TextAlign.left,
-                              text: "${product.description}",
+                              text: "${listProduct[index].description}",
                               fontSize: 12,
                               color: "#000000",
                               overflow: TextOverflow.ellipsis,
@@ -345,7 +370,7 @@ class _BodyState extends State<Body> {
                                 MyText(
                                   left: 6,
                                   textAlign: TextAlign.left,
-                                  text: "${product.price} /Kg",
+                                  text: "${listProduct[index].price} /Kg",
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.primary,
