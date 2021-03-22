@@ -4,6 +4,7 @@ import 'package:albazaar_app/core/components/countries.dart';
 class SignInModel {
 
   bool enable = false;
+  bool hidePassword = true;
 
   String label;
 

@@ -4,6 +4,7 @@ import 'package:albazaar_app/core/components/countries.dart';
 class SignUpModel {
 
   bool enable = false;
+  bool hidePassword = true;
 
   String label;
 
@@ -12,6 +13,7 @@ class SignUpModel {
   // Validator
   String phoneNMailValidate;
   String passwordValidate;
+  String conPasswordValidate;
 
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();

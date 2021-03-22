@@ -14,6 +14,7 @@ class SignInBody extends StatelessWidget{
   final Function validateInput;
   final Function validatePassword;
   final Function onPageChange;
+  final Function showPassword;
   final Function onChanged;
   final Function onSubmit;
 
@@ -27,6 +28,7 @@ class SignInBody extends StatelessWidget{
     this.validateInput,
     this.validatePassword,
     this.onPageChange,
+    this.showPassword,
     this.onChanged,
     this.onSubmit
   });
@@ -139,6 +141,13 @@ class SignInBody extends StatelessWidget{
           child: MyInputField(
             pRight: 5, pLeft: 5, pTop: 5,
             labelText: "Password",
+            obcureText: signInModel.hidePassword,
+            suffexIcon: IconButton(
+              icon: Icon( signInModel.hidePassword ? Icons.visibility_off :Icons.visibility, color: Colors.black),
+              onPressed: (){
+                showPassword();
+              },
+            ),
             controller: signInModel.password, 
             focusNode: signInModel.passwordNode, 
             textInputFormatter: [

@@ -12,6 +12,7 @@ class SignUpBody extends StatelessWidget {
   final Function validatePassword;
   final Function validateConPassword;
   final Function onPageChange;
+  final Function showPassword;
   final Function onChanged;
   final Function onSubmit;
 
@@ -26,6 +27,7 @@ class SignUpBody extends StatelessWidget {
     this.validatePassword,
     this.validateConPassword,
     this.onPageChange,
+    this.showPassword,
     this.onChanged,
     this.onSubmit
   });
@@ -67,7 +69,7 @@ class SignUpBody extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Selendra Albazaar',
+                          'Albazaar',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 30,
@@ -139,6 +141,7 @@ class SignUpBody extends StatelessWidget {
           child :MyInputField(
             pRight: 5, pLeft: 5, pTop: 5,
             pBottom: 11,
+            obcureText: signUpModel.hidePassword,
             labelText: "Password",
             controller: signUpModel.password, 
             focusNode: signUpModel.passwordNode, 
@@ -152,6 +155,13 @@ class SignUpBody extends StatelessWidget {
           child: MyInputField(
             pRight: 5, pLeft: 5, pTop: 25,
             labelText: "Confirm Password",
+            obcureText: signUpModel.hidePassword,
+            suffexIcon: IconButton(
+              icon: Icon( signUpModel.hidePassword ? Icons.visibility_off :Icons.visibility, color: Colors.black),
+              onPressed: (){
+                showPassword();
+              },
+            ),
             controller: signUpModel.confirmPassword, 
             focusNode: signUpModel.confirmPasswordNode, 
             validateField: validateConPassword, 
@@ -170,7 +180,7 @@ class SignUpBody extends StatelessWidget {
             color: "#FFFFFF",
           ),
           edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
-          action: (){
+          action: !signUpModel.enable ? null : (){
           // validateAndSubmit();
           },
         ),

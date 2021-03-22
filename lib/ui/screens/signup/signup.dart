@@ -205,6 +205,12 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
     }
   }
 
+  void showPassword() {
+    setState(() {
+      _signUpModel.hidePassword  = !_signUpModel.hidePassword;
+    });
+  }
+
   //This function is use to set initial tab when setstate
   void setInitialTab() {
     setState(() {
@@ -254,55 +260,60 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
 
   String validatePassword(String value) { /* Validate User Password Input */
     if (_signUpModel.passwordNode.hasFocus) {
-
-      if (value == 'not match'){
-        return "Password does not match";
-      } else {
-
-        _signUpModel.passwordValidate = instanceValidate.validatePassword(value);
-        if (
-          _signUpModel.phoneNMailValidate == null &&
-          _signUpModel.passwordValidate == null
-        ) enableButton();
-        else if (_signUpModel.enable == true) setState(() => _signUpModel.enable = false);
-      }
+      _signUpModel.passwordValidate = instanceValidate.validatePassword(value);
+      if (
+        _signUpModel.phoneNMailValidate == null &&
+        _signUpModel.passwordValidate == null
+      ) enableButton();
+      
+      else if (_signUpModel.enable == true) setState(() => _signUpModel.enable = false);
     }
     return _signUpModel.passwordValidate;
   }
 
   String validateConPassword(String value) { /* Validate User Password Input */
+    print("My value$value");
     if (_signUpModel.confirmPasswordNode.hasFocus) {
 
-      if (value == 'not match'){
-        return "Password does not match";
-      } else {
-
-        _signUpModel.passwordValidate = instanceValidate.validatePassword(value);
+      _signUpModel.conPasswordValidate= instanceValidate.validatePassword(value);
         if (
           _signUpModel.phoneNMailValidate == null &&
-          _signUpModel.passwordValidate == null
+          _signUpModel.conPasswordValidate == null
         ) enableButton();
+
         else if (_signUpModel.enable == true) setState(() => _signUpModel.enable = false);
-      }
     }
-    return _signUpModel.passwordValidate;
+    return _signUpModel.conPasswordValidate;
   }
 
   void enableButton() { /* Validate Button */
     if (_signUpModel.label == 'email') {
-      if (_signUpModel.email.text != '' && _signUpModel.password.text != '') {
-        
-        // Check Password Match With Confirm Password
-        if (_signUpModel.password.text == _signUpModel.confirmPassword.text) setState(() => _signUpModel.enable = true);
-        else {
-          FocusScope.of(context).requestFocus(_signUpModel.confirmPasswordNode);
-          validatePassword('not match');
-        }
-
+      if (_signUpModel.email.text != '' && _signUpModel.password.text != '' && _signUpModel.confirmPassword.text.isNotEmpty) {
+        matchPassword();
       }
     } else {
-      if (_signUpModel.phone.text != '' && _signUpModel.password.text != '')
-        setState(() => _signUpModel.enable = true);
+      if (_signUpModel.phone.text != '' && _signUpModel.password.text != '' && _signUpModel.confirmPassword.text.isNotEmpty)
+        matchPassword();
+    }
+  }
+
+  void matchPassword(){
+
+    // Check Password Match With Confirm Password
+    if (_signUpModel.password.text == _signUpModel.confirmPassword.text) {
+
+      print("Match");
+      if(_signUpModel.passwordNode.hasFocus){
+        _signUpModel.conPasswordValidate = null;
+        onChanged(_signUpModel.confirmPassword.text);
+      }
+      _signUpModel.enable = true;
+    }
+    else {
+      print("Notmatch");
+      if (_signUpModel.enable) _signUpModel.enable = false;
+      _signUpModel.conPasswordValidate = "Password does not match";
+      onChanged(_signUpModel.confirmPassword.text);
     }
   }
 
@@ -322,6 +333,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _signUpModel.label = 'phone';
     _signUpModel.tabController = TabController(vsync: this, length: 2, initialIndex: 0);
     onTabChange();
   }
@@ -353,6 +365,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
             validateInput:  validateInput,
             validatePassword:  validatePassword,
             validateConPassword:  validateConPassword,
+            showPassword: showPassword,
             onChanged: onChanged,
             onSubmit: onSubmit
           )

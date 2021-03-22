@@ -139,6 +139,12 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     setState(() {});
   }
 
+  void showPassword() {
+    setState(() {
+      _signInModel.hidePassword  = !_signInModel.hidePassword;
+    });
+  }
+
   //This function is use to set initial tab when setstate
   void setInitialTab() {
     setState(() {
@@ -207,9 +213,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
   }
 
   void enableButton() { /* Validate Button */
-    print("Email ${_signInModel.email.text}");
-    print("Phone ${_signInModel.phone.text}");
-    print("Password ${_signInModel.password.text}");
     if (_signInModel.label == 'email') {
       if (_signInModel.email.text != '' &&
           _signInModel.password.text != '')
@@ -334,6 +337,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   onChangedCountryCode: onChangedCountryCode,
                   validateInput:  validateInput,
                   validatePassword:  validatePassword,
+                  showPassword: showPassword,
                   onChanged: onChanged,
                   onSubmit: onSubmit
                 )

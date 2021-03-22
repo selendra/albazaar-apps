@@ -4,6 +4,7 @@ class MyInputField extends StatelessWidget{
 
   final Key key;
   final Widget icon;
+  final Widget suffexIcon;
   final String labelText;
   final String prefixText;
   final double pLeft, pTop, pRight, pBottom;
@@ -22,6 +23,7 @@ class MyInputField extends StatelessWidget{
   MyInputField({/* User Input Field */
     this.key,
     this.icon,
+    this.suffexIcon,
     this.labelText,
     this.prefixText,
     this.pLeft: 0, this.pTop: 0, this.pRight: 0, this.pBottom: 0,
@@ -61,9 +63,12 @@ class MyInputField extends StatelessWidget{
               ? Colors.black.withOpacity(0.3)
               : Colors.black
             ),
+            /* Prefix Text */
             prefixText: prefixText,
             prefixStyle: TextStyle(color: AppServices.hexaCodeToColor(AppColors.primary), fontSize: 18.0),
-            /* Prefix Text */
+
+            /* SuffixIcon */
+            suffixIcon: suffexIcon,
             filled: true, 
             fillColor: Colors.white,
             enabledBorder: myTextInputBorder(controller.text != ""
