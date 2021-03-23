@@ -3,10 +3,9 @@ import 'package:albazaar_app/all_export.dart';
 class SignUpBody extends StatelessWidget {
 
   final SignUpModel signUpModel;
-  final Function onApiSignUpByPhone;
   final Function onFacebookSignUp;
   final Function onGoogleSignUp;
-  final Function onApiSignUpByEmail;
+  final Function onApiSignUp;
   final Function onChangedCountryCode;
   final Function validateInput;
   final Function validatePassword;
@@ -18,10 +17,9 @@ class SignUpBody extends StatelessWidget {
 
   SignUpBody({
     this.signUpModel,
-    this.onApiSignUpByPhone,
     this.onFacebookSignUp,
     this.onGoogleSignUp,
-    this.onApiSignUpByEmail,
+    this.onApiSignUp,
     this.onChangedCountryCode,
     this.validateInput,
     this.validatePassword,
@@ -114,7 +112,6 @@ class SignUpBody extends StatelessWidget {
               children: [
                 
                 SignUpPhoneForm(
-                  signUpPhoneFunc: onApiSignUpByPhone,
                   signUpModel: signUpModel,
                   onChangedCountryCode: onChangedCountryCode,
                   validateInput: validateInput,
@@ -124,7 +121,6 @@ class SignUpBody extends StatelessWidget {
                 ),
 
                 SignUpEmailForm(
-                  signUpEmailFunc: onApiSignUpByEmail,
                   signUpModel: signUpModel,
                   validateInput: validateInput,
                   validatePassword: validatePassword,
@@ -182,6 +178,7 @@ class SignUpBody extends StatelessWidget {
           edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
           action: !signUpModel.enable ? null : (){
           // validateAndSubmit();
+            onApiSignUp();
           },
         ),
         

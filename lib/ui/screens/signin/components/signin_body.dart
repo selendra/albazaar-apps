@@ -6,10 +6,9 @@ import 'package:albazaar_app/core/components/component.dart';
 class SignInBody extends StatelessWidget{
 
   final SignInModel signInModel;
-  final Function onApiSignInByPhone;
   final Function onFacebookSignIn;
   final Function onGoogleSignIn;
-  final Function onApiSignInByEmail;
+  final Function onApiSignIn;
   final Function onChangedCountryCode;
   final Function validateInput;
   final Function validatePassword;
@@ -20,10 +19,9 @@ class SignInBody extends StatelessWidget{
 
   SignInBody({
     this.signInModel,
-    this.onApiSignInByPhone,
     this.onFacebookSignIn,
     this.onGoogleSignIn,
-    this.onApiSignInByEmail,
+    this.onApiSignIn,
     this.onChangedCountryCode,
     this.validateInput,
     this.validatePassword,
@@ -115,7 +113,6 @@ class SignInBody extends StatelessWidget{
               children: [
                 
                 SignInPhoneForm(
-                  signInPhoneFunc: onApiSignInByPhone,
                   signInModel: signInModel,
                   onChangedCountryCode: onChangedCountryCode,
                   validateInput: validateInput,
@@ -125,7 +122,6 @@ class SignInBody extends StatelessWidget{
                 ),
 
                 SignInEmailForm(
-                  signInEmailFunc: onApiSignInByEmail,
                   signInModel: signInModel,
                   validateInput: validateInput,
                   validatePassword: validatePassword,
@@ -187,8 +183,8 @@ class SignInBody extends StatelessWidget{
           ),
           edgePadding: EdgeInsets.only(left: 78 + pd35, right: 78+ pd35),
           action: !signInModel.enable ? null : (){
-          // validateAndSubmit();
-          },
+            onApiSignIn();
+          }
         ),
         
         Flexible(

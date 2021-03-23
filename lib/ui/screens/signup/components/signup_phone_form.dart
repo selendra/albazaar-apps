@@ -6,7 +6,6 @@ import 'package:albazaar_app/core/models/sign_up_m.dart';
 class SignUpPhoneForm extends StatelessWidget {
 
   final SignUpModel signUpModel;
-  final Function signUpPhoneFunc;
   final Function validateInput;
   final Function validatePassword;
   final Function onChangedCountryCode;
@@ -14,7 +13,6 @@ class SignUpPhoneForm extends StatelessWidget {
   final Function onSubmit;
 
   SignUpPhoneForm({
-    this.signUpPhoneFunc,
     this.signUpModel,
     this.validateInput,
     this.validatePassword,

@@ -3,6 +3,7 @@ import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/models/add_user_info.dart';
 import 'package:albazaar_app/core/services/app_services.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
 
 class Body extends StatefulWidget {
 
@@ -149,7 +150,7 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> loadAsset() async {
-    List<Asset> resultList = List<Asset>();
+    List resultList = List.filled(3, 0, growable: true);
 
     try {
       resultList = await MultiImagePicker.pickImages(
@@ -189,6 +190,7 @@ class _BodyState extends State<Body> {
             .then((value) {
             setState(() {
               imageUri = json.decode(value)['uri'];
+              print("Image  $imageUri");
               Provider.of<UserProvider>(context, listen: false).mUser.profileImg = imageUri;
             });
           });
@@ -215,21 +217,22 @@ class _BodyState extends State<Body> {
             ),
             Consumer<UserProvider>(
               builder: (context, value, child) => MyPadding(
-                child: Container(
-                  margin: EdgeInsets.all(5),
+                child: MyCard(
                   width: 100, height: 100,
-                  padding: EdgeInsets.only(
-                    top: 10,
-                    bottom: 10,
-                    left: 20, right: 20
+                  // padding: value.mUser.profileImg != null ? EdgeInsets.only(
+                  // ) : EdgeInsets.zero,
+                  pTop: value.mUser.profileImg == null ? 10 : 0,
+                  pBottom: value.mUser.profileImg == null ? 10 : 0,
+                  pLeft: value.mUser.profileImg == null ? 20 : 0, 
+                  pRight: value.mUser.profileImg == null ? 20 : 0,
+                  hexaColor: AppColors.secondary,
+                  bTopRight: 12, bTopLeft: 12, bBottomLeft: 12, bBottomRight: 12,
+                  image: DecorationImage(
+                    image: value.mUser.profileImg != null
+                    ? NetworkImage(value.mUser.profileImg)
+                    : svg.Svg('assets/avatar_user.svg'),
+                    fit: BoxFit.cover
                   ),
-                  decoration: BoxDecoration(
-                    color: AppServices.hexaCodeToColor(AppColors.secondary),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: value.mUser.profileImg != null
-                  ? NetworkImage(value.mUser.profileImg)
-                  : SvgPicture.asset('assets/avatar_user.svg')
                   // ClipOval(
                   //   child: FadeInImage(
                   //     fit: BoxFit.cover,

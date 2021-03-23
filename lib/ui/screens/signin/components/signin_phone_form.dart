@@ -11,7 +11,6 @@ import 'package:albazaar_app/core/models/sign_in_m.dart';
 class SignInPhoneForm extends StatelessWidget {
 
   final SignInModel signInModel;
-  final Function signInPhoneFunc;
   final Function validateInput;
   final Function validatePassword;
   final Function onChangedCountryCode;
@@ -19,7 +18,6 @@ class SignInPhoneForm extends StatelessWidget {
   final Function onSubmit;
 
   SignInPhoneForm({
-    this.signInPhoneFunc,
     this.signInModel,
     this.validateInput,
     this.validatePassword,
@@ -27,15 +25,6 @@ class SignInPhoneForm extends StatelessWidget {
     this.onChanged,
     this.onSubmit
   });
-
-  void validateAndSubmit() {
-    signInPhoneFunc(signInModel.phone.text, signInModel.password.text);
-    signInModel.phone.text = '';
-    signInModel.password.text = '';
-    // if (_phoneFormKey.currentState.validate()) {
-    //   // _phoneFormKey.currentState.save();
-    // }
-  }
 
   @override
   Widget build(BuildContext context) {

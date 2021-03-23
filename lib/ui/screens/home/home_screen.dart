@@ -46,47 +46,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     return Scaffold(
-      drawer: HomeDrawer(),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: 60,
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Divider(color: AppServices.hexaCodeToColor(AppColors.primary), thickness: 3, height: 2,),
-                    Expanded(
-                      child: SvgPicture.asset('assets/icons/market.svg', width: 30, height: 30, color: AppServices.hexaCodeToColor(AppColors.black),),
-                    )
-                  ],
-                ),
-              ),
-
-              Expanded(
-                child: SvgPicture.asset('assets/icons/wallet.svg')
-              ),
-
-              Expanded(
-                child: SvgPicture.asset('assets/icons/favorite.svg')
-              ),
-
-              Expanded(
-                child: SvgPicture.asset('assets/icons/location.svg')
-              ),
-
-              Expanded(
-                child: GestureDetector(
-                  onTap: (){
-                    _scaffoldState.currentState.openDrawer();
-                  },
-                  child: SvgPicture.asset('assets/icons/menu.svg'),
-                )
-              )
-            ],
-          )
-        ),
-      ),
+      // bottomNavigationBar: ,
       key: _scaffoldState,
       body: BodyScaffold(
         bottom: 0,

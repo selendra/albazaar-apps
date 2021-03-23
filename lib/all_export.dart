@@ -37,7 +37,7 @@ export 'package:albazaar_app/core/models/sign_up_m.dart';
 
 
 //Pubspac
-export 'package:flutter_svg/svg.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 
 //Validate Mixin
 export 'package:albazaar_app/core/services/validator_mixin.dart';

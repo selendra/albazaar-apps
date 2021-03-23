@@ -263,7 +263,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
-  Future<String> signInByPhone(String phone, String password, context) async {
+  Future<String> signInByPhone(String phone, String password, BuildContext context) async {
     var response = await http.post(
         "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
         headers: ApiHeader.headers,
@@ -272,6 +272,7 @@ class AuthProvider with ChangeNotifier {
           'password': password,
         }));
     if (response.statusCode == 200) {
+      print("Data response ${response.body}");
       dynamic responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
@@ -283,8 +284,7 @@ class AuthProvider with ChangeNotifier {
         _pref.saveString('token', _token);
         Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
         Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        Provider.of<ProductsProvider>(context, listen: false)
-            .fetchListingProduct();
+        Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
         Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
         Navigator.pushReplacementNamed(context, BottomNavigationView);
       } else {

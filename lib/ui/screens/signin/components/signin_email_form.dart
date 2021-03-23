@@ -6,7 +6,6 @@ import 'package:albazaar_app/core/models/sign_in_m.dart';
 
 class SignInEmailForm extends StatelessWidget {
 
-  final Function signInEmailFunc;
   final SignInModel signInModel;
   final Function validateInput;
   final Function validatePassword;
@@ -14,22 +13,12 @@ class SignInEmailForm extends StatelessWidget {
   final Function onSubmit;
 
   SignInEmailForm({
-    this.signInEmailFunc, 
     this.signInModel,
     this.validateInput,
     this.validatePassword,
     this.onChanged,
     this.onSubmit
   });
-
-  void validateAndSubmit() {
-    if (signInModel.formKey.currentState.validate()) {
-      signInModel.formKey.currentState.save();
-      signInEmailFunc(signInModel.email.text, signInModel.password.text);
-      signInModel.email.text = '';
-      signInModel.password.text = '';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

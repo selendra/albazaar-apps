@@ -88,16 +88,8 @@ class MyInputField extends StatelessWidget{
           inputFormatters: textInputFormatter,
           /* Limit Length Of Text Input */
           onChanged: onChanged,
-          onFieldSubmitted: (value) {
-            onSubmit(context);
-          },
+          onFieldSubmitted: onSubmit,
         )
-      // Material(
-      //   borderRadius: BorderRadius.circular(12),
-      //   elevation: 0,
-      //   shadowColor: Colors.transparent,
-      //   child: 
-      // )
     );
   }
 }

@@ -7,7 +7,6 @@ String _email, _password, _confirmPassword;
 class SignUpEmailForm extends StatelessWidget {
 
   
-  final Function signUpEmailFunc;
   final SignUpModel signUpModel;
   final Function validateInput;
   final Function validatePassword;
@@ -15,7 +14,6 @@ class SignUpEmailForm extends StatelessWidget {
   final Function onSubmit;
 
   SignUpEmailForm({
-    this.signUpEmailFunc,
     this.signUpModel,
     this.validateInput,
     this.validatePassword,

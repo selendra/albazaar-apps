@@ -1,7 +1,7 @@
 import 'package:albazaar_app/all_export.dart';
 
 class Components {
-  static void dialogLoading({BuildContext context, String contents}) {
+  static void dialogLoading({@required BuildContext context, String contents}) {
     showDialog(
         barrierDismissible: false,
         context: context,

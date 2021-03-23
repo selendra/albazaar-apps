@@ -2,7 +2,7 @@ import 'package:albazaar_app/core/components/countries.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/scaffold.dart';
-import 'package:albazaar_app/ui/screens/signin/components/singIn_body.dart';
+import 'package:albazaar_app/ui/screens/signin/components/signin_body.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -18,110 +18,8 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
   SignInModel _signInModel = SignInModel();
 
-  onGoogleSignIn() async {
-    setState(() {
-      _signInModel.isLoading = true;
-    });
-    await AuthProvider().signInWithGoogle(context).then((value) {
-      if (value == null) {
-        setState(() {
-          _signInModel.isLoading = false;
-        });
-      } else {
-        Provider.of<AuthProvider>(context, listen: false)
-            .getTokenForGoogle(value, context);
-      }
-    }).catchError((onError) {
-      setState(() {
-        _signInModel.isLoading = false;
-      });
-      ReuseAlertDialog().successDialog(context, onError);
-    });
-  }
-
-  onFacebookSignIn() async {
-    setState(() {
-      _signInModel.isLoading = true;
-    });
-    try {
-      await AuthProvider().signInFacebook(context).then((value) {
-        if (value == null) {
-          stopLoading();
-        } else {
-          Provider.of<AuthProvider>(context, listen: false)
-              .getTokenForFb(value, context);
-        }
-      });
-    } on PlatformException catch (e) {
-      stopLoading();
-    }
-  }
-
-  onApiSignInByEmail(String _email, String _password) async {
-    setState(() {
-      _signInModel.isLoading = true;
-    });
-    try {
-      await AuthProvider()
-          .signInByEmail(_email, _password, context)
-          .then((onValue) {
-        if (onValue != null) {
-          ReuseAlertDialog().successDialog(context, onValue);
-        }
-      }).catchError((onError) {});
-    } on SocketException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } on FormatException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } finally {
-      setInitialTab();
-      stopLoading();
-    }
-  }
-
-  onApiSignInByPhone(String _phone, String _password) async {
-    setState(() {
-      _signInModel.isLoading = true;
-    });
-
-    try {
-      await AuthProvider()
-          .signInByPhone(
-              "+855" + AppServices.removeZero(_phone), _password, context)
-          .then((value) {
-        if (value != null) {
-          ReuseAlertDialog().successDialog(context, value);
-        }
-      });
-    } on SocketException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } on FormatException catch (e) {
-      await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
-    } finally {
-      stopLoading();
-    }
-  }
-
   onTabChange() {
     _signInModel.tabController.addListener(() {
-      // if (_signInModel)
-      // print("My controller ${_signInModel.label}");
-      // if (_signInModel.tabController.indexIsChanging) {
-      //   setState(() {
-      //   });
-      // }
       onPageChange(_signInModel.tabController.index, p: _signInModel.pageController);
     });
   }
@@ -172,8 +70,15 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     }
   }
 
-  void onSubmit(){
-
+  void onSubmit(String value){
+    if (
+      _signInModel.label == 'phone' && _signInModel.phoneNode.hasFocus || 
+      _signInModel.label == 'email' && _signInModel.emailNode.hasFocus){
+      FocusScope.of(context).requestFocus(_signInModel.passwordNode);
+    } else if (_signInModel.passwordNode.hasFocus){
+      print("Last submit");
+      onApiSignIn();
+    }
   }
 
   String validateInput(String value) { /* Initial Validate */
@@ -224,64 +129,110 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     }
   }
 
-  Future<void> loginByPhone() async {
-    
-    // Rest Api
-    await _postRequest.loginByPhone(_signInModel.phone.text, _signInModel.password.text).then((value) async {
-      
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-        }
-        await navigator();
+  onGoogleSignIn() async {
+    setState(() {
+      _signInModel.isLoading = true;
     });
-
-  }
-
-  Future<void> loginByEmail() async {
-
-    // Rest Api
-    await _postRequest.loginByEmail(_signInModel.email.text, _signInModel.password.text).then((value) async {
-      
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-        }
-        await navigator();
-    });
-  }
-
-  Future<void> navigator() async {
-
-    // Close Loading
-    Navigator.pop(context);
-
-    if (_backend.response.statusCode != 502) {
-      if (_backend.mapData.containsKey("error")) {
-        await Components.dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
-      } else { 
-        // If Successfully
-        if (_backend.mapData.containsKey("token")) {
-          _backend.mapData.addAll({
-            "isLoggedIn": true
-          });
-          await StorageServices.setData(_backend.mapData, 'user_token');
-          
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            ModalRoute.withName('/')
-          );
-        }
-        // If Incorrect Email 
-        else { 
-          await Components.dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
-        }
+    await AuthProvider().signInWithGoogle(context).then((value) {
+      if (value == null) {
+        setState(() {
+          _signInModel.isLoading = false;
+        });
+      } else {
+        Provider.of<AuthProvider>(context, listen: false)
+            .getTokenForGoogle(value, context);
       }
+    }).catchError((onError) {
+      setState(() {
+        _signInModel.isLoading = false;
+      });
+      ReuseAlertDialog().successDialog(context, onError);
+    });
+  }
+
+  onFacebookSignIn() async {
+    setState(() {
+      _signInModel.isLoading = true;
+    });
+    try {
+      await AuthProvider().signInFacebook(context).then((value) {
+        if (value == null) {
+          stopLoading();
+        } else {
+          Provider.of<AuthProvider>(context, listen: false)
+              .getTokenForFb(value, context);
+        }
+      });
+    } on PlatformException catch (e) {
+      stopLoading();
+    }
+  }
+
+  onApiSignIn() async {
+
+    if(_signInModel.label == 'phone'){
+      await signInByPhone();
     } else {
-      await Components.dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+      await signInByEmail();
+    }
+  }
+
+  Future<void> signInByPhone() async {
+
+    print(_signInModel.phone.text);
+    print(_signInModel.password.text);
+    
+    Components.dialogLoading(context: context);
+
+    try {
+      await AuthProvider().signInByPhone("+855" + AppServices.removeZero(_signInModel.phone.text), _signInModel.password.text, context)
+          .then((value) {
+        if (value != null) {
+          ReuseAlertDialog().successDialog(context, value);
+        }
+      });
+    } on SocketException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
+    } finally {
+      stopLoading();
+    }
+
+  }
+
+  Future<void> signInByEmail() async {
+
+    setState(() {
+      _signInModel.isLoading = true;
+    });
+    try {
+      await AuthProvider()
+          .signInByEmail(_signInModel.email.text, _signInModel.password.text, context)
+          .then((onValue) {
+        if (onValue != null) {
+          ReuseAlertDialog().successDialog(context, onValue);
+        }
+      }).catchError((onError) {});
+    } on SocketException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
+    } on FormatException catch (e) {
+      await Components.dialog(
+          context,
+          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Message"));
+    } finally {
+      setInitialTab();
+      stopLoading();
     }
   }
 
@@ -289,13 +240,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     _signInModel.email.clear();
     _signInModel.phone.clear();
     _signInModel.password.clear();
-
-    _signInModel.emailNode.unfocus();
-    _signInModel.phoneNode.unfocus();
-    _signInModel.passwordNode.unfocus();
+    
+    FocusScope.of(context).unfocus();
 
     _signInModel.phoneNMailValidate = null;
     _signInModel.passwordValidate = null;
+    
+    if(_signInModel.enable == true) _signInModel.enable = false;
   }
 
   @override
@@ -329,10 +280,9 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
               Expanded(
                 child: SignInBody(
                   signInModel: _signInModel,
-                  onApiSignInByPhone: onApiSignInByPhone,
                   onFacebookSignIn: onFacebookSignIn,
                   onGoogleSignIn: onGoogleSignIn,
-                  onApiSignInByEmail: onApiSignInByEmail,
+                  onApiSignIn: onApiSignIn,
                   onPageChange: onPageChange,
                   onChangedCountryCode: onChangedCountryCode,
                   validateInput:  validateInput,
