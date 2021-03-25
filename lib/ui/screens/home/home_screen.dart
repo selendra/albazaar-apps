@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/components/sliver_persistent.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -52,24 +53,67 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         height: MediaQuery.of(context).size.height,
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              automaticallyImplyLeading: false,
+
+            SliverPersistentHeader(
               pinned: true,
-              expandedHeight: 450.0,
-              centerTitle: false,
-              foregroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(top: 30),
-                collapseMode: CollapseMode.pin,
-                title: Container(
-                  alignment: Alignment.bottomCenter,
-                  child: Text("0")
-                ),
-                centerTitle: false,
-                background: Column(
+              delegate: MySliverAppBarDelegate(
+                minHeight: 70,
+                maxHeight: 70,
+                child: Container(
+                  padding: EdgeInsets.only(left: 25, right: 20),
+                  color: Colors.white,
+                  child:  Row(
+                    children: <Widget>[
+                      Padding(
+                        child: SvgPicture.asset('assets/sld_logo.svg', width: 35, height: 47),
+                        padding: EdgeInsets.only(right: 10)
+                      ),
+
+                      Text(
+                        'Albazaar',
+                        style: TextStyle(
+                          color: kDefaultColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                        ),
+                      ),
+                      Expanded(child: Container()),
+
+                      Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: IconButton(
+                          icon: SvgPicture.asset('assets/icons/cart.svg'),
+                          onPressed: () {
+                            /*Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => CartScreen()));*/
+                            // showSearch(context: context, delegate: SearchProducts());
+                          },
+                        )
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset('assets/icons/belt.svg'),
+                        onPressed: () {
+                          /*Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => CartScreen()));*/
+                          // showSearch(context: context, delegate: SearchProducts());
+                        },
+                      )
+                    ],
+                  )
+                )
+              )
+            ),
+
+            SliverPersistentHeader(
+              pinned: false,
+              delegate: MySliverAppBarDelegate(
+                minHeight: 270,
+                maxHeight: 270,
+                child: Container(
+                  margin: EdgeInsets.only(top: 25),
+                  child: Column(
                   children: [
                     MyPadding(
-                      pTop: pd35*2,
                       pLeft: padding, pRight: padding,
                       pBottom: pBottom,
                       child: Align(
@@ -83,7 +127,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                     MyPadding(
                       pLeft: padding, pRight: padding,
-                      pBottom: pBottom,
                       child: Container(
                         height: 200,
                         child: Row(
@@ -131,157 +174,233 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             )
                           ],
                         ),
-                      ),
-                    ),
-
-                    MyPadding(
-                      pLeft: padding, pRight: padding,
-                      pBottom: pBottom,
-                      child: Row(
-                        children: [
-
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: AppServices.hexaCodeToColor(AppColors.secondary),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            child: FlatButton(
-                              color: Colors.transparent,
-                              onPressed: (){},
-                              child: Row(
-                                children: [
-                                  Icon(Icons.search, color: Colors.white),
-                                  MyText(
-                                    pLeft: 10,
-                                    fontSize: 16.0,
-                                    text: "Search",
-                                    color: AppColors.white,
-                                  )
-                                ],
-                              ),
-                            )
-                          ),
-
-                          Expanded(
-                            child: MyText(
-                              text: "All",
-                              color: AppColors.secondary,
-                            )
-                          ),
-                          
-                          Expanded(
-                            child: MyText(
-                              text: "Categories"
-                            )
-                          ),
-                          
-                          Flexible(
-                            child: MyText(
-                              left: 10,
-                              text: "Coupons"
-                            )
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    MyPadding(
-                      pLeft: padding, pRight: padding,
-                      pBottom: pBottom,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: MyText(
-                          text: "All Products",
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20.0,
-                        )
                       )
                     )
-                  ],
+                  ]
+                ),
+                )
+              )
+            ),
+            // SliverAppBar(
+            //   automaticallyImplyLeading: false,
+            //   pinned: true,
+            //   expandedHeight: 380.0,
+            //   centerTitle: false,
+            //   foregroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
+            //   flexibleSpace: FlexibleSpaceBar(
+            //     collapseMode: CollapseMode.pin,
+            //     centerTitle: false,
+            //     background: Column(
+            //       children: [
+            //         MyPadding(
+            //           pTop: pd35*3,
+            //           pLeft: padding, pRight: padding,
+            //           pBottom: pBottom,
+            //           child: Align(
+            //             alignment: Alignment.centerLeft,  
+            //             child: MyText(
+            //               text: "Promo and Events",
+            //               fontWeight: FontWeight.w600,
+            //             )
+            //           )
+            //         ),
+
+            //         MyPadding(
+            //           pLeft: padding, pRight: padding,
+            //           pBottom: pBottom,
+            //           child: Container(
+            //             height: 200,
+            //             child: Row(
+            //               children: [
+
+            //                 Expanded(
+            //                   child: MyCard(
+            //                     boxShadow:[
+            //                       BoxShadow(
+            //                         color: Colors.grey[300],
+            //                         spreadRadius: 2.0,
+            //                         offset: Offset(0,0),
+            //                         blurRadius: 5.0,
+            //                       )
+            //                     ],
+            //                     mRight: padding,
+            //                     width: MediaQuery.of(context).size.width,
+            //                     image: DecorationImage(
+            //                       image: AssetImage(
+            //                         'assets/promotion5.jpg'
+            //                       ),
+            //                       fit: BoxFit.cover
+            //                     ),
+            //                   )
+            //                 ),
+
+            //                 Flexible(
+            //                   child: MyCard(
+            //                     boxShadow:[
+            //                       BoxShadow(
+            //                         color: Colors.grey[300],
+            //                         spreadRadius: 2.0,
+            //                         offset: Offset(0,0),
+            //                         blurRadius: 5.0,
+            //                       )
+            //                     ],
+            //                     width: MediaQuery.of(context).size.width,
+            //                     image: DecorationImage(
+            //                       image: AssetImage(
+            //                         'assets/promotion6.jpg',
+            //                       ),
+            //                       fit: BoxFit.cover
+            //                     ),
+            //                   )
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            //   // forceElevated: boxIsScroll,
+            //   // brightness: Brightness.light,
+            //   backgroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
+            //   elevation: 0,
+            //   leadingWidth: 0,
+            //   toolbarHeight: 100,
+            //   // title: ,
+            //   // actions: <Widget>[
+            //   //   // Consumer<CartProvider>(
+            //   //   //   builder: (context, value, child) => value.items.length == 0
+            //   //   //       ? IconButton(
+            //   //   //           icon: Icon(
+            //   //   //             Icons.shopping_cart,
+            //   //   //             color: kDefaultColor,
+            //   //   //           ),
+            //   //   //           onPressed: () {
+            //   //   //             Navigator.pushNamed(context, CartView);
+            //   //   //           })
+            //   //   //       : Badge(
+            //   //   //           position: BadgePosition.topEnd(top: 0, end: 3),
+            //   //   //           animationDuration: Duration(milliseconds: 300),
+            //   //   //           animationType: BadgeAnimationType.scale,
+            //   //   //           badgeContent: Text(
+            //   //   //             value.items.length.toString(),
+            //   //   //             style: TextStyle(color: Colors.white),
+            //   //   //           ),
+            //   //   //           child: IconButton(
+            //   //   //               icon: Icon(
+            //   //   //                 Icons.shopping_cart,
+            //   //   //                 color: kDefaultColor,
+            //   //   //               ),
+            //   //   //               onPressed: () {
+            //   //   //                 // Navigator.pushNamed(context, CartView);
+            //   //   //               }),
+            //   //   //         ),
+            //   //   // ),
+
+            //   //   ,
+            //   // ],
+            // ),
+
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: MySliverAppBarDelegate(
+                minHeight: 80.0,
+                maxHeight: 90.0,
+                child: Container(
+                  color: AppServices.hexaCodeToColor(AppColors.bgColor),
+                  child: MyPadding(
+                    pLeft: padding, pRight: padding,
+                    // pBottom: pBottom,
+                    child: Row(
+                      children: [
+
+                        Container(
+                          width: 130,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: AppServices.hexaCodeToColor(AppColors.secondary),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          child: MyFlatButton(
+                            isTransparent: true,
+                            action: () async {
+                              final query = await showSearch(context: context, delegate: ProductSearch() );
+                            },
+                            height: double.infinity,
+                            width: null,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.search, color: Colors.white),
+                                MyText(
+                                  pLeft: 10,
+                                  fontSize: 16.0,
+                                  text: "Search",
+                                  color: AppColors.white,
+                                )
+                              ],
+                            ),
+                          )
+                        ),
+
+                        Expanded(
+                          child: MyText(
+                            text: "All",
+                            color: AppColors.secondary,
+                          )
+                        ),
+                        
+                        Expanded(
+                          child: MyText(
+                            text: "Categories"
+                          )
+                        ),
+                        
+                        Flexible(
+                          child: MyText(
+                            left: 10,
+                            text: "Coupons"
+                          )
+                        ),
+                      ],
+                    ),
+                  )
                 ),
               ),
-              // forceElevated: boxIsScroll,
-              // brightness: Brightness.light,
-              backgroundColor: AppServices.hexaCodeToColor(AppColors.bgColor),
-              elevation: 0,
-              leadingWidth: 0,
-              toolbarHeight: 100,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    child: SvgPicture.asset('assets/sld_logo.svg', width: 35, height: 47),
-                    padding: EdgeInsets.only(right: 10)
-                  ),
-
-                  Text(
-                    'Albazaar',
-                    style: TextStyle(
-                      color: kDefaultColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                    ),
-                  ),
-                  Expanded(child: Container()),
-
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: SvgPicture.asset('assets/icons/cart.svg'),
-                      onPressed: () {
-                        /*Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => CartScreen()));*/
-                        // showSearch(context: context, delegate: SearchProducts());
-                      },
-                    )
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset('assets/icons/belt.svg'),
-                    onPressed: () {
-                      /*Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => CartScreen()));*/
-                      // showSearch(context: context, delegate: SearchProducts());
-                    },
-                  )
-                ],
-              ),
-              // actions: <Widget>[
-              //   // Consumer<CartProvider>(
-              //   //   builder: (context, value, child) => value.items.length == 0
-              //   //       ? IconButton(
-              //   //           icon: Icon(
-              //   //             Icons.shopping_cart,
-              //   //             color: kDefaultColor,
-              //   //           ),
-              //   //           onPressed: () {
-              //   //             Navigator.pushNamed(context, CartView);
-              //   //           })
-              //   //       : Badge(
-              //   //           position: BadgePosition.topEnd(top: 0, end: 3),
-              //   //           animationDuration: Duration(milliseconds: 300),
-              //   //           animationType: BadgeAnimationType.scale,
-              //   //           badgeContent: Text(
-              //   //             value.items.length.toString(),
-              //   //             style: TextStyle(color: Colors.white),
-              //   //           ),
-              //   //           child: IconButton(
-              //   //               icon: Icon(
-              //   //                 Icons.shopping_cart,
-              //   //                 color: kDefaultColor,
-              //   //               ),
-              //   //               onPressed: () {
-              //   //                 // Navigator.pushNamed(context, CartView);
-              //   //               }),
-              //   //         ),
-              //   // ),
-
-              //   ,
-              // ],
             ),
 
-            SliverPadding(
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: MySliverAppBarDelegate(
+                minHeight: 50,
+                maxHeight: 50,
+                child: Container(
+                  color: AppServices.hexaCodeToColor(AppColors.bgColor),
+                  child: MyPadding(
+                    pLeft: padding, pRight: padding,
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: MyText(
+                        text: "All Products",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.0,
+                      )
+                    )
+                  )
+                )
+              ),
+            ),
+
+            listProduct == null ? SliverPersistentHeader(
+              delegate: MySliverAppBarDelegate(
+                maxHeight: 100,
+                minHeight: 100,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                )
+              )
+            )
+            : SliverPadding(
               padding: EdgeInsets.only(left: padding, right: padding, bottom: pd35+pd35+padding),
               sliver: SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
