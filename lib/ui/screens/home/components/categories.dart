@@ -3,31 +3,87 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
-class Body extends StatelessWidget {
+class ProductCategories extends StatefulWidget {
 
   final TabController tabController;
   final Function onTapTab;
   final Function refresh;
 
-  Body({
+  ProductCategories({
     this.tabController,
     this.onTapTab,
     this.refresh
   });
-  
+
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<ProductCategories> {
+
   final double cPadding = 10;
+
   final double padding = 16;
+
+  bool clicked = false;
+
+  List<Map<String, dynamic>> images = [
+    {'name': 'Vegetables', 'image': 'assets/categories/vegetable.png'},
+    {'name': 'Electronics', 'image': 'assets/categories/koompi.png'},
+    {'name': 'Vegetables', 'image': 'assets/categories/book.png'},
+  ];
+
   ProductsProvider productsProvider;
-  
+
   @override
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
     List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     return RefreshIndicator(
-      onRefresh: refresh,
-      child: listProduct == null ? Center(
-        child: CircularProgressIndicator(),
-        )
+      onRefresh: widget.refresh,
+      child: clicked == false ?
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: images.length,
+          itemBuilder: (context, index){
+          return GestureDetector(
+            onTap: (){
+              
+            },
+            child: MyCard(
+              colorOpacity: 0.0,
+              pLeft: 16, pRight: 16, pBottom: 16,
+              height: 171,
+                child: Stack(
+                  children: [
+                    // Image.asset(),
+                    MyCard(
+                      colorOpacity: 0.0,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          images[index]['image']
+                        )
+                      ),
+                    ),
+
+                    MyCard(
+                      width: double.infinity,
+                      height: double.infinity,
+                      colorOpacity: 0.4,
+                      hexaColor: AppColors.lowBlack,
+                      alignChild: Alignment.center,
+                      child: MyText(
+                        text: images[index]['name'],
+                        color: AppColors.white
+                      ),
+                    ),
+                  ],
+                )
+              ),
+            );
+          }
+        )      
         : Column(
           children: [
             Container(
@@ -235,7 +291,7 @@ class Body extends StatelessWidget {
 
           ],
         ),
-      );
+    );
       // productsProvider.items.isEmpty
       // ? Center(
       //     child: CircularProgressIndicator(),

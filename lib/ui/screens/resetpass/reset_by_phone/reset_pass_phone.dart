@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class ResetPassPhone extends StatefulWidget {
@@ -9,6 +8,12 @@ class ResetPassPhone extends StatefulWidget {
 
 class _ResetPassPhoneState extends State<ResetPassPhone> {
   final _formKey = GlobalKey<FormState>();
+
+  String phoneValidate;
+
+  TextEditingController phone = TextEditingController();
+  FocusNode phoneNode = FocusNode();
+  String countryCode = '+855';
 
   String _phone;
   bool _isLoading = false;
@@ -36,6 +41,32 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
       }
     }
   }
+
+  String validateInput(String value) { /* Initial Validate */
+    phoneValidate = instanceValidate.validatePhone(value);
+        // if (_signInModel.phoneNMailValidate == null && _signInModel.passwordValidate == null)
+        //   enableButton();
+        // else if (_signInModel.enable == true)
+        //   setState(() => _signInModel.enable = false);
+    return phoneValidate;
+  }
+
+  void onChangedCountryCode(String code){
+    if (code != null){
+      setState(() {
+        countryCode = code;
+      });
+    }
+  }
+  
+  void onChanged(String value){
+    validateInput(value);
+  }
+
+  void onSubmit(){
+
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -97,21 +128,54 @@ class _ResetPassPhoneState extends State<ResetPassPhone> {
   }
 
   Widget _phoneCodePick(context) {
-    return IntlPhoneField(
-      decoration: InputDecoration(
-        labelStyle: TextStyle(color: Colors.grey),
-        labelText: AppLocalizeService.of(context).translate('phone_hint'),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: kDefaultColor),
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.greenAccent),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+    return MyInputField(
+      pRight: 5, pLeft: 5, pTop: 5,
+      labelText: AppLocalizeService.of(context).translate('phone_hint'),
+      controller: phone, 
+      focusNode: phoneNode,
+      inputType: TextInputType.phone,
+      textInputFormatter: [
+        LengthLimitingTextInputFormatter(TextField.noMaxLength),
+        FilteringTextInputFormatter.digitsOnly
+      ],
+      validateField: validateInput,
+      icon: GestureDetector(
+        onTapDown: (TapDownDetails details) async {
+          final query = await showSearch(context: context, delegate: CountrySearch());
+          onChangedCountryCode(query);
+        },
+        child: Padding(
+          padding: EdgeInsets.only(right: 5),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MyText(
+                text: "$countryCode"
+              ),
+
+              Icon(Icons.arrow_drop_down, color: Colors.black,)                   
+            ],
+          )
+        )
       ),
-      initialCountryCode: 'KH',
-      validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
-      onSaved: (phone) => _phone = phone.completeNumber.toString(),
+      onChanged: onChanged, 
+      onSubmit: onSubmit,
     );
+    // IntlPhoneField(
+    //   decoration: InputDecoration(
+    //     labelStyle: TextStyle(color: Colors.grey),
+    //     labelText: ,
+    //     enabledBorder: OutlineInputBorder(
+    //       borderSide: BorderSide(color: kDefaultColor),
+    //       borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
+    //     ),
+    //     focusedBorder: OutlineInputBorder(
+    //         borderSide: BorderSide(color: Colors.greenAccent),
+    //         borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+    //   ),
+    //   initialCountryCode: 'KH',
+    //   validator: (value) => value.isEmpty ? 'Phone is Empty' : null,
+    //   onSaved: (phone) => _phone = phone.completeNumber.toString(),
+    // );
   }
 }

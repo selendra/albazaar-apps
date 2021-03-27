@@ -128,18 +128,19 @@ class ProductSearch extends SearchDelegate<String>{
     final suggestionList = query.isEmpty ? recentCode : listProduct.where((element) => element.name.startsWith(query)).toList();
     return MyPadding(
       pTop:16,
-      pLeft: 0, pRight: 0,
+      pLeft: 16, pRight: 16,
       child: GridView.builder(
-
+        shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 0,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
           childAspectRatio: 0.75,
         ),
         itemCount: suggestionList.length,
         itemBuilder: (context,index) {
         return ListTile(
+          contentPadding: EdgeInsets.zero,
           onTap: (){
             Navigator.of(context).pushNamed(
               '/detail',

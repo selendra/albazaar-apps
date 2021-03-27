@@ -8,4 +8,6 @@ class AppColors {
 
   static const String cardTitleBG = "#BEBEBE";
   static const String lineColor = "#5E5E5E";
+
+  static const String lowBlack = "#2C2727";
 }

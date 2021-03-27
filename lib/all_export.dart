@@ -12,7 +12,6 @@ export 'package:albazaar_app/core/services/app_services.dart';
 export 'dart:async';
 
 // NonStandart Library
-export 'package:intl_phone_field/intl_phone_field.dart';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
@@ -38,6 +37,9 @@ export 'package:albazaar_app/core/models/sign_up_m.dart';
 
 //Pubspac
 export 'package:flutter_svg/flutter_svg.dart';
+export 'package:cached_network_image/cached_network_image.dart';
+export 'package:badges/badges.dart';
+export 'package:provider/provider.dart';
 
 //Validate Mixin
 export 'package:albazaar_app/core/services/validator_mixin.dart';
@@ -57,6 +59,9 @@ export 'package:albazaar_app/core/components/snackBar_c.dart';
 export 'package:albazaar_app/core/components/body_scaffold_c.dart';
 export 'package:albazaar_app/core/components/item_list.dart';
 export 'package:albazaar_app/core/components/flat_button.dart';
+export 'package:albazaar_app/core/components/sliver_persistent.dart';
+export 'package:albazaar_app/core/components/card_c.dart';
+export 'package:albazaar_app/core/components/scaffold.dart';
 
 // Transaction
 export 'package:permission_handler/permission_handler.dart';
@@ -256,6 +261,8 @@ export 'core/providers/auth_provider.dart';
 export 'core/providers/trx_history_provider.dart';
 export 'package:albazaar_app/core/providers/seller_provider.dart';
 export 'core/providers/add_product_provider.dart';
+export 'package:albazaar_app/core/providers/guest_acc_p.dart';
+export 'package:albazaar_app/core/services/app_services.dart';
 
 //models
 export 'core/models/api_url.dart';

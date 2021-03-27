@@ -34,8 +34,6 @@ dependencies:
   
   firebase_auth: ^0.18.4+1
   
-  intl_phone_field: ^1.2.0
-  
   connectivity: ^2.0.2
   
   provider: ^4.3.1
@@ -105,6 +103,8 @@ dependencies:
 
   # Date time
   date_format: ^1.0.9
+
+  skeleton_text: ^3.0.0
   
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -139,6 +139,7 @@ flutter:
      - assets/symbols/
      - assets/icons/
      - assets/animation/
+     - assets/categories/
      - lang/
 
   # An image asset can refer to one or more resolution-specific "variants", see

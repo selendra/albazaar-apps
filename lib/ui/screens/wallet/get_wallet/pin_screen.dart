@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:albazaar_app/all_export.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:albazaar_app/core/services/app_services.dart';
 import 'package:albazaar_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +27,8 @@ class _PinScreenState extends State<PinScreen> {
   final TextEditingController _pinPutController = TextEditingController();
 
   TextEditingController _phoneController;
+  FocusNode phoneNode = FocusNode();
+  String countryCode = "+855";
   
   int pinIndex = 0;
   
@@ -368,34 +369,59 @@ class _PinScreenState extends State<PinScreen> {
     );
   }
 
+  void onChangedCountryCode(String code){
+    if (code != null){
+      setState(() {
+        countryCode = code;
+      });
+    }
+  }
+
+  String validateInput(String value) { /* Initial Validate */
+    String phoneValidate = instanceValidate.validatePhone(value);
+    // if (phoneValidate == null && _phoneController.text.isNotEmpty)
+    // else if (_signInModel.enable == true)
+    //   setState(() => _signInModel.enable = false);
+    return phoneValidate;
+  }
+
   Widget _phoneCodePick() {
     return Container(
       height: 70,
-      child: IntlPhoneField(
+      child: MyInputField(
+        pRight: 5, pLeft: 5, pTop: 5,
+        labelText: AppLocalizeService.of(context).translate('phone_hint'),
         controller: _phoneController,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(9),
+        focusNode: phoneNode,
+        inputType: TextInputType.phone,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(TextField.noMaxLength),
           FilteringTextInputFormatter.digitsOnly
         ],
-        decoration: InputDecoration(
-          labelText: AppLocalizeService.of(context).translate('phone_hint'),
-          labelStyle: TextStyle(color: Colors.grey),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kDefaultColor),
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.greenAccent),
-              borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))),
+        validateField: validateInput,
+        icon: GestureDetector(
+          onTapDown: (TapDownDetails details) async {
+            final query = await showSearch(context: context, delegate: CountrySearch());
+            onChangedCountryCode(query);
+          },
+          child: Padding(
+            padding: EdgeInsets.only(right: 5),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MyText(
+                  text: "$countryCode"
+                ),
+
+                Icon(Icons.arrow_drop_down, color: Colors.black,)                   
+              ],
+            )
+          )
         ),
-        initialCountryCode: _countryCode,
-        validator: (value) => value = value.isEmpty
-            ? AppLocalizeService.of(context).translate('phone_number_is_number')
-            : null,
-        onChanged: (phone) {
-          // _phoneNumber = phone.completeNumber.toString();
-        },
-      ),
+        onChanged: (String value){}, 
+        onSubmit: (){},
+      )
+      // AppLocalizeService.of(context).translate('phone_number_is_number')
     );
   }
 
