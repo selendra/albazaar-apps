@@ -6,6 +6,7 @@ import 'package:albazaar_app/all_export.dart';
 class ProductCategories extends StatefulWidget {
 
   final TabController tabController;
+
   final Function onTapTab;
   final Function refresh;
 
@@ -34,6 +35,11 @@ class _CategoriesState extends State<ProductCategories> {
   ];
 
   ProductsProvider productsProvider;
+
+  @override
+  initState(){
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

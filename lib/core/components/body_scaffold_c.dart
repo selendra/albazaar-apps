@@ -4,18 +4,21 @@ class BodyScaffold extends StatelessWidget{
 
   final double left, top, right, bottom;
   final Widget child;
+  final ScrollPhysics physics;
   final double width;
   final double height;
 
   BodyScaffold({
     this.left = 0, this.top = 0, this.right = 0, this.bottom = 16,
     this.child,
+    this.physics,
     this.height,
     this.width,
   });
   
   Widget build(BuildContext context){
     return SingleChildScrollView(
+      physics: physics,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: height,

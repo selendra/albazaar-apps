@@ -1,7 +1,5 @@
 
-import 'package:albazaar_app/ui/screens/home/components/categories.dart';
-import 'package:albazaar_app/ui/screens/home/components/header.dart';
-import 'package:flutter/material.dart';
+import 'package:albazaar_app/ui/screens/home/components/product_categories.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/home/components/body.dart';
 
@@ -18,12 +16,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   ScrollController _scrollController;
 
   final double pBottom = 20;
+  final padding= 16.0;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 3);
     _scrollController = ScrollController();
+
+    _scrollController.addListener(scrollListener);
   }
 
   @override
@@ -44,11 +45,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   onTabChange() {
     _tabController.addListener(() {
+      if (_tabController.index == 0){
+        _scrollController.jumpTo(_scrollController.offset);
+      print(_scrollController.keepScrollOffset);
+
+      print(_scrollController.offset);
+      print(_tabController.index);
+      }
+      // if (_tabController.index == 0)  _scrollController.initialScrollOffset;
+    });
+  }
+  scrollListener() {
+    _scrollController.addListener(() {
+      print(_scrollController.keepScrollOffset);
+
+      print(_scrollController.offset);
     });
   }
 
   onTapTab(int index, {PageController p, TabController t}) {
-    print(index);
+    onTabChange();
     setState(() {});
   }
 
@@ -66,32 +82,170 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       child: Scaffold(
         key: _scaffoldState,
         body: BodyScaffold(
-          bottom: 0,
+          physics: NeverScrollableScrollPhysics(),
+          bottom: pBottom+pBottom,
           height: MediaQuery.of(context).size.height,
-          child: NestedScrollView(
-            headerSliverBuilder: (context, value){
-              return HomeHeader().sliverHeader(
-                context: context,
-                tabController: _tabController,
-                onTapTab: onTapTab,
-              );
-            },
-            body: Container(
-              width: MediaQuery.of(context).size.width,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  Body(
-                    refresh: _refresh,
-                  ),
-                  ProductCategories(
-                    refresh: _refresh,
-                  ),
-                  Text("Coupons")
-                ],
+          child: Column(
+            children: [
+
+              Container(
+                height: 70,
+                margin: EdgeInsets.only(bottom: 30),
+                padding: EdgeInsets.only(left: 25, right: 20),
+                color: Colors.white,
+                child:  Row(
+                  children: <Widget>[
+                    Padding(
+                      child: SvgPicture.asset('assets/sld_logo.svg', width: 35, height: 47),
+                      padding: EdgeInsets.only(right: 10)
+                    ),
+
+                    Text(
+                      'Albazaar',
+                      style: TextStyle(
+                        color: kDefaultColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                    Expanded(child: Container()),
+
+                    Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: SvgPicture.asset('assets/icons/cart.svg'),
+                        onPressed: () {
+                          /*Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => CartScreen()));*/
+                          // showSearch(context: context, delegate: SearchProducts());
+                        },
+                      )
+                    ),
+                    IconButton(
+                      icon: SvgPicture.asset('assets/icons/belt.svg'),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => NotificationScreen()));
+                        // showSearch(context: context, delegate: SearchProducts());
+                      },
+                    )
+                  ],
+                )
               ),
-            ),
-          )
+
+              MyPadding(
+                pLeft: padding, pRight: padding,
+                pBottom: pBottom,
+                child: Row(
+                  children: [
+
+                    Container(
+                      width: 130,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: AppServices.hexaCodeToColor(AppColors.secondary),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: MyFlatButton(
+                        isTransparent: true,
+                        action: () async {
+                          final query = await showSearch(context: context, delegate: ProductSearch() );
+                        },
+                        height: double.infinity,
+                        width: null,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.search, color: Colors.white),
+                            MyText(
+                              pLeft: 10,
+                              fontSize: 16.0,
+                              text: "Search",
+                              color: AppColors.white,
+                            )
+                          ],
+                        ),
+                      )
+                    ),
+
+                    Flexible(
+                      child: TabBar(
+                        labelPadding: EdgeInsets.zero,
+                        controller: _tabController,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicator: new BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.transparent
+                          // indicatorHeight: 40,
+                          // indicatorRadius: kDefaultRadius,
+                          // indicatorColor: kDefaultColor,
+                          // tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                        ),
+                        unselectedLabelColor: Colors.black,
+                        labelColor: AppServices.hexaCodeToColor(AppColors.secondary),
+                        onTap: onTapTab,
+                        tabs: [
+                          Text(
+                            "All",
+                            style: TextStyle(
+                              fontSize: 18
+                            )
+                          ),
+                          
+                          Text(
+                            "Categories",
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
+                          ),
+                          
+                          Flexible(
+                            child: Text(
+                              "Coupons",
+                              style: TextStyle(
+                                fontSize: 18
+                              ),
+                            )
+                          )
+                        ]
+                      )
+                    )
+                  ],
+                ),
+              ),
+
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Body(
+                      scrollController: _scrollController,
+                      refresh: _refresh,
+                    ),
+                    ProductCategories(
+                      refresh: _refresh,
+                    ),
+                    Center(
+                      child: MyText(text: "No Coupon")
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          // NestedScrollView(
+          //   physics: NeverScrollableScrollPhysics(),
+          //   headerSliverBuilder: (context, value){
+          //     return HomeHeader().sliverHeader(
+          //       context: context,
+          //       tabController: _tabController,
+          //       onTapTab: onTapTab,
+          //     );
+          //   },
+          //   body: ,
+          // )
+
+
           //     NestedScrollView(
           //   controller: scrollController,
           //   headerSliverBuilder: (BuildContext context, bool boxIsScroll) {

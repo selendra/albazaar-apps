@@ -6,11 +6,13 @@ import 'package:albazaar_app/all_export.dart';
 class Body extends StatelessWidget {
 
   final TabController tabController;
+  final ScrollController scrollController;
   final Function onTapTab;
   final Function refresh;
 
   Body({
     this.tabController,
+    this.scrollController,
     this.onTapTab,
     this.refresh
   });
@@ -51,6 +53,8 @@ class Body extends StatelessWidget {
                 pLeft: padding, pRight: padding,
                 pBottom: padding,
                 child: GridView.builder(
+                  controller: scrollController,
+                  shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: padding,
@@ -60,7 +64,7 @@ class Body extends StatelessWidget {
                   itemCount: listProduct == null ? 0 : listProduct.length,
                   itemBuilder: (context, index) => MyPadding(
                       pLeft: 0, pRight: 0,
-                      pBottom: 0,
+                      pBottom: listProduct.length -1 == index || listProduct.length - 2 == index ? 16 : 0, 
                       child: GestureDetector(
                         onTap: (){
                           Navigator.of(context).pushNamed(
