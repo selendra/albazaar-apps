@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class ReuseSimpleAppBar {
-  static getItem(String title, context) {
+  static getItem(String title, context, {List<Widget> actions}) {
     return AppBar(
       //backgroundColor: Colors.white,
       elevation: 0,
@@ -25,6 +25,7 @@ class ReuseSimpleAppBar {
           Navigator.pop(context);
         },
       ),
+      actions: actions,
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_swipe_action_cell/core/controller.dart';
 import 'components/body.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -8,9 +10,14 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+   
+  SwipeActionController swipe = SwipeActionController();
 
   
-  bool check = false;
+  int check = -1;
+  List<int> checkList = [];
+  
+  SlidableController _slidableController =  new SlidableController();
 
   List<NotificationModel> _notification = [
     NotificationModel(
@@ -90,28 +97,78 @@ class _NotificationScreenState extends State<NotificationScreen> {
     setState((){});
   }
 
-  void checkChange(bool check){
-    print(check);
-    setState((){
-      this.check = true;
-    });
+  void checkChange(int index){
+    print("On change $index");
+    print("List ${checkList[index]}");
+    if(checkList[index] != -1){
+      setState((){
+        this.checkList[index] = -1;
+      });
+    } else {
+      setState((){
+        this.checkList[index] = index;
+      });
+    }
+    print(checkList[index]);
+  }
+
+  void openSlidePrimary(){
+  }
+
+  void editSwipe(){
+    swipe.toggleEditingMode();
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    // swipe.toggleEditingMode();
+    checkList.length = _notification.length;
+    checkList.fillRange(0, checkList.length-1, -1);
+    _slidableController = SlidableController(onSlideIsOpenChanged: (bool b){}, onSlideAnimationChanged: (Animation<double> ani){});
+    openSlidePrimary();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(AppLocalizeService.of(context).translate('notification'), context),
+      appBar: ReuseSimpleAppBar.getItem(
+        AppLocalizeService.of(context).translate('notification'), 
+        context,
+        actions: [
+          if (swipe.isEditing) IconButton(
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+            onPressed: (){
+              swipe.deleteCellAt(indexPaths: swipe.getSelectedIndexPaths());
+              swipe.getSelectedIndexPaths().forEach((element) {
+                removeMessage(element);
+              });
+              setState(() {
+                
+              });
+            },
+          )
+        ]
+      ),
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: MyPadding(
           pLeft: 0, pRight: 0,
           pBottom: 65,
-          child:  Body(
+          child: Body(
             _notification,
+            slidableController: _slidableController,
+            swipeActionController: swipe,
             check: check,
+            checkList: checkList,
             snackBar: snackBar,
             removeMessage: removeMessage,
-            checkChange: checkChange
+            checkChange: checkChange,
+            editSwipe: editSwipe
           )
         ),
       )
