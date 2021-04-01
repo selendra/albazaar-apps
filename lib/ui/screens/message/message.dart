@@ -1,86 +1,111 @@
+import 'package:albazaar_app/core/models/message_m.dart';
+import 'package:albazaar_app/ui/screens/message/message_body.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
-import 'components/body.dart';
 
-class NotificationScreen extends StatefulWidget {
+class MessageScreen extends StatefulWidget {
+
   @override
-  _NotificationScreenState createState() => _NotificationScreenState();
+  _MessageScreenState createState() => _MessageScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
-   
+class _MessageScreenState extends State<MessageScreen> {
+
   SwipeActionController swipe = SwipeActionController();
 
   int check = -1;
   List<int> checkList = [];
   bool selectedAll = false;
 
-  List<NotificationModel> _notification = [
-    NotificationModel(
+  List<MessageModel>_messageScreen = [
+    MessageModel(
       'https://i.pinimg.com/originals/24/5e/34/245e341e485ca2d1178ac76230587e00.jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      true,
+      true,
     ),
-    NotificationModel(
+    MessageModel(
       'https://images6.alphacoders.com/348/348379.jpg',
-      'Aliza buy your product', 
+      'Aliza sent you a message', 
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      false,
+      true,
     ),
-    NotificationModel(
+    MessageModel(
       'https://eskipaper.com/images/cute-little-girl-1.jpg',
-      'Lona buy your grape', 
+      'Aliza sent you a message', 
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      true,
+      false
     ),
-    NotificationModel(
+    MessageModel(
       'https://i.pinimg.com/originals/35/37/9f/35379f32387bb23dd48bf235b071eaf5.jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      true,
+      false
     ),
-    NotificationModel(
+    MessageModel(
       'https://s1.1zoom.me/big3/318/Little_girls_Smile_489609.jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      true,
+      false
     ),
-    NotificationModel(
+    MessageModel(
       'https://i.pinimg.com/originals/24/5e/34/245e341e485ca2d1178ac76230587e00.jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      false,
+      false
     ),
-    NotificationModel(
+    MessageModel(
       'https://img.freepik.com/free-photo/happy-cute-little-girl-running-grass-park-happiness_109285-143.jpg?size=626&ext=jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      false,
+      false
     ),
-    NotificationModel(
+    MessageModel(
       'https://c4.wallpaperflare.com/wallpaper/982/256/975/cute-little-girl-kid-smiling-decoration-on-head-barefoot-wallpaper-preview.jpg',
       'Aliza sent you a message',
       'Buy your grapes',
       '5 minutes ago',
       '09:24 pm',
-      '23/Jan/2021'
+      '23/Jan/2021',
+      'Aliza',
+      true,
+      false
     ),
   ];
 
@@ -91,7 +116,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void removeMessage(List<int> items){
-    _notification.removeRange(items.first, items.length);
+    _messageScreen.removeRange(items.first, items.length);
     setState((){});
   }
 
@@ -120,8 +145,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   void initState() {
-    // swipe.toggleEditingMode();
-    checkList.length = _notification.length;
+    checkList.length = _messageScreen.length;
     checkList.fillRange(0, checkList.length-1, -1);
     openSlidePrimary();
     super.initState();
@@ -129,9 +153,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem(
-        AppLocalizeService.of(context).translate('notification'), 
+        AppLocalizeService.of(context).translate('message'), 
         context,
         actions: [
           if (swipe.isEditing) IconButton(
@@ -148,7 +173,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 // });
                 swipe.deselectAll();
 
-                if (_notification.length == 0){
+                if (_messageScreen.length == 0){
                   swipe.stopEditingMode();
                 }
                 setState(() {
@@ -180,7 +205,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
             onTap: (){
               if (selectedAll == false) {
-                swipe.selectAll(dataLength: _notification.length);
+                swipe.selectAll(dataLength: _messageScreen.length);
               } else {
                 swipe.deselectAll();
               }
@@ -204,11 +229,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
         child: MyPadding(
           pLeft: 0, pRight: 0,
           pBottom: 65,
-          child: _notification.length == 0 ? Center(
-            child: MyText(text: "No notification", fontSize: 20,)
+          child: _messageScreen.length == 0 ? Center(
+            child: MyText(text: "No message", fontSize: 20,)
           ) 
-          : Body(
-            _notification,
+          : MessageScreenBody(
+            _messageScreen,
             swipeActionController: swipe,
             check: check,
             checkList: checkList,

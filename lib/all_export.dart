@@ -15,6 +15,8 @@ export 'dart:async';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
+export 'package:albazaar_app/app_config.dart';
+
 // core
 export 'package:albazaar_app/core/backend/api.dart';
 export 'package:albazaar_app/core/backend/post/post_request.dart';
@@ -200,7 +202,7 @@ export 'ui/screens/wallet/my_wallet/my_qr.dart';
 // export 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //chat screen
-export 'ui/screens/chat/chat.dart';
+export 'ui/screens/message/message.dart';
 
 //welcome screen
 export 'ui/screens/welcome/welcome_screen.dart';

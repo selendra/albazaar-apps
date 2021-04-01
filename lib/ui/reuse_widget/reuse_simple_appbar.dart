@@ -5,6 +5,7 @@ class ReuseSimpleAppBar {
   static getItem(String title, context, {List<Widget> actions}) {
     return AppBar(
       //backgroundColor: Colors.white,
+      toolbarHeight: 68,
       elevation: 0,
       brightness: Brightness.light,
       // centerTitle: true,
@@ -13,14 +14,12 @@ class ReuseSimpleAppBar {
         style: TextStyle(
           color: kDefaultColor,
           fontWeight: FontWeight.bold,
-          fontSize: 22,
+          fontSize: 25,
         ),
       ),
       leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: kDefaultColor,
-        ),
+        alignment: Alignment.centerRight,
+        icon: SvgPicture.asset('assets/icons/back.svg'),
         onPressed: () {
           Navigator.pop(context);
         },

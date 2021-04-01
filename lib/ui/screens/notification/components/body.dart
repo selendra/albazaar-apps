@@ -7,7 +7,6 @@ import 'package:flutter_swipe_action_cell/core/controller.dart';
 class Body extends StatelessWidget {
   
   final int check;
-  final SlidableController slidableController;
   final SwipeActionController swipeActionController;
   final List<int> checkList;
   final List<NotificationModel> _notification;
@@ -19,7 +18,6 @@ class Body extends StatelessWidget {
   Body(
     this._notification,
     {
-      this.slidableController,
       this.swipeActionController,
       this.check,
       this.checkList,
@@ -36,44 +34,48 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(slidableController.activeState);
     return ListView.builder(
       itemCount: _notification.length,
       itemBuilder: (context, index) {
         return SwipeActionCell(
+          selectedIndicator: Icon(Icons.add_circle, color: AppServices.hexaCodeToColor(AppColors.primary)),
+          backgroundColor: Colors.white,
           index: index,
           controller: swipeActionController,
           closeWhenScrolling: false,
-          key: ValueKey(index), 
+          key: ValueKey(index),
           trailingActions: [
             
             SwipeAction(
-              content: MyText(text: 'Remove', color: AppColors.white,),
+              widthSpace: 100,
+              icon: MyPadding(
+                pLeft: 0, pRight: 10,
+                child: MyText(text: 'Remove', color: AppColors.white,)
+              ),
               onTap: (b){
                 // snackBar();
                 // print("Delete");               
-                // removeMessage(index);
-                editSwipe();
+                removeMessage(swipeActionController.getSelectedIndexPaths());
               }
             )
           ],
-          leadingActions: [
+          // leadingActions: [
 
-            SwipeAction(
-              color: Colors.white,
-              content: Radio(
-                value: index,
-                groupValue: checkList[index],
-                // fillColor: MaterialStateProperty.all(AppServices.hexaCodeToColor(AppColors.secondary)),
-                // activeColor: kDefaultColor,
-                onChanged: (val) {
-                },
-              ),
-              onTap: (b){
-                checkChange(index); 
-              }
-            )
-          ],
+          //   SwipeAction(
+          //     color: Colors.white,
+          //     content: Radio(
+          //       value: index,
+          //       groupValue: checkList[index],
+          //       // fillColor: MaterialStateProperty.all(AppServices.hexaCodeToColor(AppColors.secondary)),
+          //       // activeColor: kDefaultColor,
+          //       onChanged: (val) {
+          //       },
+          //     ),
+          //     onTap: (b){
+          //       checkChange(index); 
+          //     }
+          //   )
+          // ],
           child: Column(
             children: [
 
