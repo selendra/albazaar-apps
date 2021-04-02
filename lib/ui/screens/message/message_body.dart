@@ -36,6 +36,7 @@ class MessageScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: message.length,
+      shrinkWrap: true,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: (){
@@ -67,80 +68,80 @@ class MessageScreenBody extends StatelessWidget {
               children: [
 
                 Container(
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      children: [
-
-                        MyCard(
-                          mLeft: 20,
-                          height: 50,
-                          width: 53,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(message[index].img,)
-                          ),
-                        ),
-                        
-                        MyPadding(
-                          pLeft: 16, pRight: 0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              MyText(
-                                text: message[index].title,
-                                fontSize: fontSize + 5,
-                              ),
-
-                              MyText(
-                                text: message[index].subTitle,
-                                fontWeight: message[index].newMessage ? FontWeight.w800 : FontWeight.normal,
-                                color: message[index].newMessage ? "#000000" : AppColors.lowBlack,
-                                fontSize: fontSize + 3,
-                              )
-                            ]
-                          ),
-                        ),
-
-                        Expanded(child: Container(),),
-                        MyPadding(
-                          pRight: 20,
-                          pLeft: 0,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-
-                              MyText(
-                                pBottom: 10,
-                                fontSize: fontSize,
-                                text: message[index].time
-                              ),
-
-                              MyText(
-                                pBottom: 10,
-                                fontSize: fontSize,
-                                text: message[index].moment
-                              ),
-
-                              Row(
-                                children: [
-                                  MyText(text: message[index].active ? "Active" : "Inactive", fontSize: fontSize),
-                                  message[index].newMessage ? MyPadding(
-                                    pLeft: 10, pRight: 0,
-                                    child: SvgPicture.asset(AppConfig.iconPath+'dot.svg', height: 10, width: 10)
-                                  ) : Container()
-                                ]
-                              )
-                            ],
-                          ), 
-                        )
-                      ],
-                    )
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
                   ),
+                  child: Row(
+                    children: [
+
+                      MyCard(
+                        mLeft: 20,
+                        height: 50,
+                        width: 53,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(message[index].img,)
+                        ),
+                      ),
+                      
+                      MyPadding(
+                        pLeft: 16, pRight: 0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            MyText(
+                              text: message[index].title,
+                              fontSize: fontSize + 5,
+                            ),
+
+                            MyText(
+                              text: message[index].subTitle,
+                              fontWeight: message[index].newMessage ? FontWeight.w800 : FontWeight.normal,
+                              color: message[index].newMessage ? "#000000" : AppColors.lowBlack,
+                              fontSize: fontSize + 3,
+                            )
+                          ]
+                        ),
+                      ),
+
+                      Expanded(child: Container(),),
+                      MyPadding(
+                        pRight: 20,
+                        pLeft: 0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+
+                            MyText(
+                              pBottom: 10,
+                              fontSize: fontSize,
+                              text: message[index].time
+                            ),
+
+                            MyText(
+                              pBottom: 10,
+                              fontSize: fontSize,
+                              text: message[index].moment
+                            ),
+
+                            Row(
+                              children: [
+                                MyText(text: message[index].active ? "Active" : "Inactive", fontSize: fontSize),
+                                message[index].newMessage ? MyPadding(
+                                  pLeft: 10, pRight: 0,
+                                  child: SvgPicture.asset(AppConfig.iconPath+'dot.svg', height: 10, width: 10)
+                                ) : Container()
+                              ]
+                            )
+                          ],
+                        ), 
+                      )
+                    ],
+                  )
+                ),
                 
                 if (index != message.length-1) Divider(height: 1, color: Colors.grey[400],)
               ]

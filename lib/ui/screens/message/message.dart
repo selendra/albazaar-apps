@@ -226,21 +226,46 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
+        physics: BouncingScrollPhysics(),
         child: MyPadding(
           pLeft: 0, pRight: 0,
           pBottom: 65,
           child: _messageScreen.length == 0 ? Center(
             child: MyText(text: "No message", fontSize: 20,)
           ) 
-          : MessageScreenBody(
-            _messageScreen,
-            swipeActionController: swipe,
-            check: check,
-            checkList: checkList,
-            snackBar: snackBar,
-            removeMessage: removeMessage,
-            checkChange: checkChange,
-            editSwipe: editSwipe
+          : Column(
+            children: [
+
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: "Search...",
+                  hintStyle: TextStyle(color: Colors.grey.shade600),
+                  prefixIcon: Icon(Icons.search,color: Colors.grey.shade600, size: 20,),
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
+                  contentPadding: EdgeInsets.all(8),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                          color: Colors.grey.shade100
+                      )
+                  ),
+                )
+              ),
+
+              Expanded(
+                child: MessageScreenBody(
+                  _messageScreen,
+                  swipeActionController: swipe,
+                  check: check,
+                  checkList: checkList,
+                  snackBar: snackBar,
+                  removeMessage: removeMessage,
+                  checkChange: checkChange,
+                  editSwipe: editSwipe
+                )
+              )
+            ],
           )
         ),
       )

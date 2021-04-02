@@ -3,39 +3,40 @@ import 'package:albazaar_app/all_export.dart';
 class Components {
   static void dialogLoading({@required BuildContext context, String contents}) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () => Future(() => false),
-            child: Material(
-              color: Colors.transparent,
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      CircularProgressIndicator(
-                        backgroundColor: Colors.transparent,
-                        // valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
-                      ),
-                      contents == null
-                          ? Container()
-                          : Padding(
-                              child: Text(
-                                contents,
-                                style: TextStyle(color: Color(0xffFFFFFF)),
-                              ),
-                              padding:
-                                  EdgeInsets.only(bottom: 10.0, top: 10.0)),
-                    ],
-                  )
-                ],
-              ),
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () => Future(() => false),
+          child: Material(
+            color: Colors.transparent,
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    CircularProgressIndicator(
+                      backgroundColor: Colors.transparent,
+                      // valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
+                    ),
+                    contents == null
+                        ? Container()
+                        : Padding(
+                            child: Text(
+                              contents,
+                              style: TextStyle(color: Color(0xffFFFFFF)),
+                            ),
+                            padding:
+                                EdgeInsets.only(bottom: 10.0, top: 10.0)),
+                  ],
+                )
+              ],
             ),
-          );
-        });
+          ),
+        );
+      }
+    );
   }
 
   /* Dialog of response from server */
