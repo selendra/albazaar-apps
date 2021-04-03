@@ -7,10 +7,10 @@ class AddProductProvider with ChangeNotifier {
   AddProductProvider() {
     addProduct = AddProduct();
     _getRequest = GetRequest();
-    fetchShippingServices();
-    fetchCategories();
-    fetchPaymentOpt();
-    fetchWeightOpt();
+    // fetchShippingServices();
+    // fetchCategories();
+    // fetchPaymentOpt();
+    // fetchWeightOpt();
   }
 
   // Fetch Shipping To Shipping Listing

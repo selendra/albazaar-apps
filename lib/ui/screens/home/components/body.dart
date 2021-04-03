@@ -19,6 +19,7 @@ class Body extends StatelessWidget {
   
   final double cPadding = 10;
   final double padding = 16;
+  
   ProductsProvider productsProvider;
   
   @override

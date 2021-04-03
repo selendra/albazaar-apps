@@ -137,17 +137,7 @@ class _SelendraAppState extends State<SelendraApp> {
             SellerInfoView: (context) => SellerConfirm(),
             OTPScreen.route: (context) => OTPScreen('', '')
           },
-          home: Chat(messageModel: MessageModel(
-            'https://img.freepik.com/free-photo/happy-cute-little-girl-running-grass-park-happiness_109285-143.jpg?size=626&ext=jpg',
-            'Aliza sent you a message',
-            'Buy your grapes',
-            '5 minutes ago',
-            '09:24 pm',
-            '23/Jan/2021',
-            'Aliza',
-            false,
-            false
-          ),),//BottomNavigation(),
+          home: BottomNavigation(),
           navigatorKey: navigationKey,
         ),
       ),

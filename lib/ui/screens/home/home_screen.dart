@@ -199,13 +199,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             ),
                           ),
                           
-                          Flexible(
-                            child: Text(
-                              "Coupons",
-                              style: TextStyle(
-                                fontSize: 18
-                              ),
-                            )
+                          Text(
+                            "Coupons",
+                            style: TextStyle(
+                              fontSize: 18
+                            ),
                           )
                         ]
                       )
