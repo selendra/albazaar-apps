@@ -32,10 +32,12 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
   String category;
 
+  bool dispsseAnimation = false;
+
   List<Map<String, dynamic>> images = [
     {'name': 'Vegetables', 'image': 'assets/categories/vegetable.png'},
     {'name': 'Electronics', 'image': 'assets/categories/koompi.png'},
-    {'name': 'Vegetables', 'image': 'assets/categories/book.png'},
+    {'name': 'Books', 'image': 'assets/categories/book.png'},
   ];
 
   ProductsProvider productsProvider;
@@ -54,7 +56,7 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
     animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     animation = Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero).animate(
-      CurvedAnimation(parent: animationController, curve: Curves.fastLinearToSlowEaseIn)
+      CurvedAnimation(parent: animationController, curve: Curves.easeInOutCubic)
     )..addListener(() {
       setState((){});
     });
@@ -65,6 +67,7 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   @override
   void dispose(){
     animationController.dispose();
+    print("Hello dispose");
     super.dispose();
   }
 
@@ -123,10 +126,13 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
         ),
         SlideTransition(
           position: animation,
-          child: CategoriesBuider(
-            category: category,
-            onTapCategoy: onTapCategoy,
-            popAnmation: popAnmation
+          child: Opacity(
+            opacity: animation.value.dx == 1 ? 0 : 1, // Prevent remain UIs blink When tap Another Tabbar
+            child: CategoriesBuider(
+              category: category,
+              onTapCategoy: onTapCategoy,
+              popAnmation: popAnmation
+            ),
           ),
         ),
       ],
