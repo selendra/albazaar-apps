@@ -38,7 +38,6 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
             child:  Container(
               color: AppServices.hexaCodeToColor(AppColors.bgColor),
               child: MyPadding(
-                pTop: 10,
                 pLeft: 16, pRight: 16,
                 pBottom: 20,
                 child: Row(
@@ -52,7 +51,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                       text: widget.category,
                       fontWeight: FontWeight.w700,
                       color: AppColors.primary,
-                      fontSize: 20,
+                      fontSize: 22,
                     )
                   ],
                 )

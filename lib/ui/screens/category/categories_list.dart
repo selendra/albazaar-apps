@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class CategoriesListScreen extends StatefulWidget {
-  final List<Categories> allCategories;
+  final List<CategoriesModel> allCategories;
   CategoriesListScreen(this.allCategories);
 
   @override

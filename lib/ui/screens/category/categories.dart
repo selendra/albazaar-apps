@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  final List<Categories> allCategories;
+  final List<CategoriesModel> allCategories;
   CategoriesScreen(this.allCategories);
 
   void itemTap(int index, context, String image, String categoriesName) {

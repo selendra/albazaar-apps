@@ -1,15 +1,31 @@
-class Categories {
+import 'package:albazaar_app/all_export.dart';
+
+class CategoriesModel {
   String title;
   String img;
+  List<CategoriesModel> category;
+  List<Product> listProduct;
 
-  Categories({this.title, this.img});
+  CategoriesModel({this.title, this.img});
+
+  CategoriesModel.init(){
+    category = [
+      CategoriesModel(title: 'Vegetable', img: AppConfig.categoryPath+'vegetable.png'),
+      CategoriesModel(title: 'Fruit', img: AppConfig.categoryPath+'fish.jpg'),
+      CategoriesModel(title: 'Fish', img: AppConfig.categoryPath+'fish.jpg'),
+      CategoriesModel(title: 'Meats', img: AppConfig.categoryPath+'meat.jpg'),
+      CategoriesModel(title: 'Cereals', img: AppConfig.categoryPath+'careal.jpg'),
+      CategoriesModel(title: 'Others', img: AppConfig.categoryPath+'koompi.png'),
+    ];
+  }
+
+  void listProductCategories(Product product){
+    // if (product.categoryName == 'Fish'){
+
+    // } else if (product.categoryName == 'Others') {
+      
+    // } else if (product.categoryName == 'Meat')
+  }
+
 }
 
-List<Categories> category = [
-  Categories(title: 'Cereals', img: 'assets/barley.png'),
-  Categories(title: 'Fruit', img: 'assets/fruits.png'),
-  Categories(title: 'Vegetable', img: 'assets/vegetable.png'),
-  Categories(title: 'Meat', img: 'assets/meat.png'),
-  Categories(title: 'Fish', img: 'assets/fish.png'),
-  Categories(title: 'Others', img: 'assets/others.png'),
-];

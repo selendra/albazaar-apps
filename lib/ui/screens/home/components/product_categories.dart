@@ -32,13 +32,9 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
   String category;
 
+  CategoriesModel _categoriesModel = CategoriesModel.init();
+  
   bool dispsseAnimation = false;
-
-  List<Map<String, dynamic>> images = [
-    {'name': 'Vegetables', 'image': 'assets/categories/vegetable.png'},
-    {'name': 'Electronics', 'image': 'assets/categories/koompi.png'},
-    {'name': 'Books', 'image': 'assets/categories/book.png'},
-  ];
 
   ProductsProvider productsProvider;
 
@@ -81,48 +77,53 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
         RefreshIndicator(
           onRefresh: widget.refresh,
           child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: images.length,
-              itemBuilder: (context, index){
-              return GestureDetector(
-                onTap: (){
-                  category = images[index]['name'];
-                  onTapCategoy();
-                  print(animationController.status);
-                },
-                child: MyCard(
-                  colorOpacity: 0.0,
-                  pLeft: 16, pRight: 16, pBottom: 16,
-                  height: 171,
-                    child: Stack(
-                      children: [
-                        MyCard(
-                          colorOpacity: 0.0,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              images[index]['image']
-                            )
+            shrinkWrap: true,
+            itemCount: _categoriesModel.category.length,
+            itemBuilder: (context, index){
+              return MyPadding(
+                pLeft: 0, pRight: 0,
+                pBottom: index == _categoriesModel.category.length -1 ? 18 : 0,
+                child: GestureDetector(
+                  onTap: (){
+                    category = _categoriesModel.category[index].title;
+                    onTapCategoy();
+                  },
+                  child: MyCard(
+                    colorOpacity: 0.0,
+                    pLeft: 16, pRight: 16, pBottom: 16,
+                    height: 171,
+                      child: Stack(
+                        children: [
+                          MyCard(
+                            colorOpacity: 0.0,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                _categoriesModel.category[index].img
+                              )
+                            ),
                           ),
-                        ),
 
-                        MyCard(
-                          width: double.infinity,
-                          height: double.infinity,
-                          colorOpacity: 0.4,
-                          hexaColor: AppColors.lowBlack,
-                          alignChild: Alignment.center,
-                          child: MyText(
-                            text: images[index]['name'],
-                            color: AppColors.white
+                          MyCard(
+                            width: double.infinity,
+                            height: double.infinity,
+                            colorOpacity: 0.4,
+                            hexaColor: AppColors.lowBlack,
+                            alignChild: Alignment.center,
+                            child: MyText(
+                              text: _categoriesModel.category[index].title,
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
+                            ),
                           ),
-                        ),
-                      ],
-                    )
+                        ],
+                      )
+                    ),
                   ),
-                );
-              }
-            ),   
+              );
+            }
+          ),   
         ),
         SlideTransition(
           position: animation,
