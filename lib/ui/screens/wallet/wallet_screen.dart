@@ -6,21 +6,17 @@ import '../../screens/wallet/components/body.dart';
 class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        // backgroundColor: Colors.white,
-        brightness: Brightness.light,
-        title: Text(
-          AppLocalizeService.of(context).translate('wallet'),
-          style: TextStyle(fontWeight: FontWeight.w600, color: kDefaultColor),
+    return SafeArea(
+      child: Scaffold(
+        appBar: MyAppBar().appBar(
+          leading: MyPadding(
+            pLeft: 25, pRight: 10,
+            child: SvgPicture.asset(AppConfig.iconPath+'wallet.svg', height: 35, width: 35),
+          ),
+          title: AppLocalizeService.of(context).translate('wallet'),
         ),
-        leading: Icon(
-          Icons.account_balance_wallet,
-          color: kDefaultColor,
-        ),
+        body: Body(),
       ),
-      body: Body(),
     );
   }
 }

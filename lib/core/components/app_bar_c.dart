@@ -1,46 +1,47 @@
 import 'package:albazaar_app/all_export.dart';
 
-class MyAppBar extends StatelessWidget{
+class MyAppBar{
 
-  final double  pLeft; final double pTop; final double pRight; final double pBottom;
-  final EdgeInsetsGeometry margin;
-  final String title;
-  final Function onPressed;
-
-  MyAppBar({
-    this.pLeft = 0,
-    this.pTop = 0,
-    this.pRight = 0,
-    this.pBottom = 0,
-    this.margin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
-    @required this.title,
-    this.onPressed
-  });
+  double  pLeft; double pTop; double pRight; double pBottom;
+  Widget leading;
+  EdgeInsetsGeometry margin;
+  String title;
+  String titleHexaColor;
+  Function onPressed;
   
-  Widget build(BuildContext context) {
-    return Container(
+  PreferredSizeWidget appBar({
+    leading,
+    titleHexaColor,
+    pLeft = 0,
+    pTop = 0,
+    pRight = 0,
+    pBottom = 0,
+    margin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
+    @required title,
+    onPressed
+  }) {
+    
+    return AppBar(
       // height: 65.0, 
-      width: MediaQuery.of(context).size.width, 
-      margin: margin,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          IconButton(
-            /* Menu Icon */
-            alignment: Alignment.center,
-            // padding: edgePadding,
-            padding: EdgeInsets.only(left: 30),
-            iconSize: 40.0,
-            icon: Icon(Icons.arrow_back, color: Colors.black, size: 30),
-            onPressed: onPressed,
-          ),
-          MyText(
-            color: "#FFFFFF",
-            text: title,
-            left: 15,
-            fontSize: 22,
-          )
-        ],
+      leadingWidth: 0,
+      toolbarHeight: 70,
+      elevation: 0,
+      backgroundColor: Colors.white,
+      brightness: Brightness.light,
+      flexibleSpace: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            leading ?? Container(),
+            MyText(
+              color: titleHexaColor ?? AppColors.primary,
+              text: title,
+              fontWeight: FontWeight.w700,
+              fontSize: 22,
+            )
+          ],
+        )
       )
     );
   }

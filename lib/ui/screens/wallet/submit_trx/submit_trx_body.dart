@@ -74,11 +74,14 @@ class SubmitTrxBody extends StatelessWidget {
 
     return Column(
       children: [
-        MyAppBar(
+        MyAppBar().appBar(
           title: "Send wallet",
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          leading: GestureDetector(
+            child: SvgPicture.asset(AppConfig.iconPath+'back.svg'),
+            onTap: (){
+              Navigator.pop(context);
+            }
+          ),
         ),
         Expanded(
           child: Form(

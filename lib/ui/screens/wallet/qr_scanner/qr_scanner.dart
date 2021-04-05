@@ -45,11 +45,14 @@ class QrScannerState extends State<QrScanner> {
       bottom: 0,
       child: Column(
         children: [
-          MyAppBar(
+          MyAppBar().appBar(
             title: "Transaction",
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            leading: GestureDetector(
+              child: SvgPicture.asset(AppConfig.iconPath+'back.svg'),
+              onTap: (){
+                Navigator.pop(context);
+              }
+            ),
           ),
           Expanded(
               flex: 5,
