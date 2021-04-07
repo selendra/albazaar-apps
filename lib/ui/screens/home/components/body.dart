@@ -6,13 +6,11 @@ import 'package:albazaar_app/all_export.dart';
 class Body extends StatelessWidget {
 
   final TabController tabController;
-  final ScrollController scrollController;
   final Function onTapTab;
   final Function refresh;
 
   Body({
     this.tabController,
-    this.scrollController,
     this.onTapTab,
     this.refresh
   });
@@ -26,6 +24,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
     List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
+    Provider.of<CategoriesModel>(context).init();
     return RefreshIndicator(
       onRefresh: refresh,
       child: listProduct == null ? Center(
@@ -54,7 +53,6 @@ class Body extends StatelessWidget {
                 pLeft: padding, pRight: padding,
                 pBottom: padding,
                 child: GridView.builder(
-                  controller: scrollController,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -68,57 +66,14 @@ class Body extends StatelessWidget {
                       pBottom: listProduct.length -1 == index || listProduct.length - 2 == index ? 16 : 0, 
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.of(context).pushNamed(
-                            '/detail',
-                            arguments: listProduct[index],
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: listProduct[index])));
                         },
                         child: MyCard(
                           align: Alignment.centerLeft,
                           child: Container(
-                            // height: 235,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-
-                                // Flexible(
-                                //   child: 
-                                  // FadeInImage(
-                                  //         fit: BoxFit.contain,
-                                  //         height: double.infinity,
-                                  //         width: double.infinity,
-                                  //         image: NetworkImage(listProduct[index].thumbnail),
-                                  //         placeholder: AssetImage('assets/loading.gif'),
-                                  //       )
-                                  // MyCard(
-                                  //   // height: 141,
-                                  //   width: double.infinity,
-                                  //   hexaColor: AppColors.cardTitleBG,
-                                  //   bBottomLeft: 0,
-                                  //   bBottomRight: 0,
-                                  //   align: Alignment.topCenter,
-                                  //   child: Stack(
-                                  //     children: [
-                                  //       // Center(
-                                  //       //   child: SvgPicture.asset('assets/avatar_user.svg'),
-                                  //       // ),
-                                  //       FadeInImage(
-                                  //         fit: BoxFit.contain,
-                                  //         height: double.infinity,
-                                  //         width: double.infinity,
-                                  //         image: NetworkImage(listProduct[index].thumbnail),
-                                  //         placeholder: AssetImage('assets/loading.gif'),
-                                  //       ),
-                                  //       Positioned(
-                                  //         right: 10, top: 10,
-                                  //         child: GestureDetector(
-                                  //           child: SvgPicture.asset('assets/icons/heart.svg'),
-                                  //         ),
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // )
-                                // ),
                                 Flexible(
                                   child: Hero(
                                     tag: "${listProduct[index].id}",

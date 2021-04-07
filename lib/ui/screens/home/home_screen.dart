@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
   TabController _tabController;
-  ScrollController _scrollController;
+  // ScrollController _scrollController;
 
   final double pBottom = 20;
   final padding= 16.0;
@@ -22,50 +22,53 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 3);
-    _scrollController = ScrollController();
+    // _scrollController = ScrollController();
 
-    _scrollController.addListener(scrollListener);
+    // _scrollController.addListener(scrollListener);
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    // _scrollController.dispose();
     super.dispose();
   }
 
   Future<Null> _refresh() async {
-    await Future.delayed(Duration(seconds: 3)).then((value) async {
-      Provider.of<ProductsProvider>(context, listen: false)
-          .fetchListingProduct();
-      Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
-      await Provider.of<TrxHistoryProvider>(context, listen: false)
-          .fetchTrxHistory();
-    });
+    // await Future.delayed(Duration(seconds: 3)).then((value) async {
+    //   Provider.of<ProductsProvider>(context, listen: false)
+    //       .fetchListingProduct();
+    //   Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+    //   await Provider.of<TrxHistoryProvider>(context, listen: false)
+    //       .fetchTrxHistory();
+    // });
   }
 
   onTabChange() {
     _tabController.addListener(() {
-      if (_tabController.index == 0){
-        _scrollController.jumpTo(_scrollController.offset);
-      print(_scrollController.keepScrollOffset);
+      print("INdex" +_tabController.index.toString());
+      setState(() {});
+      // print()
+      // if (_tabController.index == 0){
+      //   _scrollController.jumpTo(_scrollController.offset);
+      // print(_scrollController.keepScrollOffset);
 
-      print(_scrollController.offset);
-      print(_tabController.index);
-      }
+      // print(_scrollController.offset);
+      // print(_tabController.index);
+      // }
       // if (_tabController.index == 0)  _scrollController.initialScrollOffset;
     });
   }
-  scrollListener() {
-    _scrollController.addListener(() {
-      print(_scrollController.keepScrollOffset);
 
-      print(_scrollController.offset);
-    });
+  scrollListener() {
+    // _scrollController.addListener(() {
+    //   print(_scrollController.keepScrollOffset);
+
+    //   print(_scrollController.offset);
+    // });
   }
 
   onTapTab(int index, {PageController p, TabController t}) {
     onTabChange();
-    setState(() {});
   }
 
   void resetState(){
@@ -76,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    
     return DefaultTabController(
       length: 3,
       initialIndex: 0,
@@ -217,12 +221,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   controller: _tabController,
                   children: [
                     Body(
-                      scrollController: _scrollController,
                       refresh: _refresh,
                     ),
-                    ProductCategories(
-                      refresh: _refresh,
-                    ),
+                    ProductCategories(),
                     Center(
                       child: MyText(text: "No Coupon")
                     ),

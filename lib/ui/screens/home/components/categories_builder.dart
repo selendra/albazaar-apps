@@ -2,11 +2,14 @@ import 'package:albazaar_app/all_export.dart';
 
 class CategoriesBuider extends StatefulWidget {
 
+  final ScrollController scrollController;
+
+  final List<Product> productCategories;
   final String category;
   final Function onTapCategoy;
   final Function popAnmation;
 
-  CategoriesBuider({this.onTapCategoy, this.category, this.popAnmation});
+  CategoriesBuider({this.scrollController, this.productCategories, this.onTapCategoy, this.category, this.popAnmation});
 
   @override
   _CategoriesBuiderState createState() => _CategoriesBuiderState();
@@ -21,9 +24,13 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
   final double padding = 16;
 
   @override
+  initState(){
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
-    List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Vegetables'),
@@ -64,13 +71,14 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
               pLeft: padding, pRight: padding,
               pBottom: padding,
               child: GridView.builder(
+                controller: widget.scrollController,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: padding,
                   mainAxisSpacing: padding,
                   childAspectRatio: 0.75,
                 ),
-                itemCount: listProduct == null ? 0 : listProduct.length,
+                itemCount: widget.productCategories == null ? 0 : widget.productCategories.length,
                 itemBuilder: (context, index) => MyPadding(
                     pLeft: 0, pRight: 0,
                     pBottom: 0,
@@ -78,7 +86,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                       onTap: (){
                         Navigator.of(context).pushNamed(
                           '/detail',
-                          arguments: listProduct[index],
+                          arguments: widget.productCategories[index],
                         );
                       },
                       child: MyCard(
@@ -90,12 +98,12 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                             children: [
                               Flexible(
                                 child: Hero(
-                                  tag: "${listProduct[index].id}",
+                                  tag: "${widget.productCategories[index].id}",
                                   child: MyCard(
                                     bBottomLeft: 0, bBottomRight: 0,
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(listProduct[index].thumbnail) //CachedNetworkImageProvider(listProduct[index].thumbnail)
+                                      image: NetworkImage(widget.productCategories[index].thumbnail) //CachedNetworkImageProvider(widget.productCategories[index].thumbnail)
                                     ),
                                   )
                                 )
@@ -117,7 +125,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                           Expanded(
                                             child: MyText(
                                               textAlign: TextAlign.left,
-                                              text: "${listProduct[index].name}",
+                                              text: "${widget.productCategories[index].name}",
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: "#000000",
@@ -137,7 +145,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                       padding: EdgeInsets.only(bottom: 5),
                                       child: MyText(
                                         textAlign: TextAlign.left,
-                                        text: "${listProduct[index].description}",
+                                        text: "${widget.productCategories[index].description}",
                                         fontSize: 16,
                                         color: "#000000",
                                         overflow: TextOverflow.ellipsis,
@@ -152,7 +160,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                           Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
                                           MyText(
                                             textAlign: TextAlign.left,
-                                            text: "${listProduct[index].price} /Kg",
+                                            text: "${widget.productCategories[index].price} /Kg",
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,

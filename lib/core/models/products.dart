@@ -74,20 +74,37 @@ class Product with ChangeNotifier {
   );
 
   Map<String, dynamic> toMap() => {
-    "description": description,
-    "name": name,
-    "updated_at": updatedAt,
-    "thumbnail": thumbnail,
-    "weight": weight,
-    "id": id,
-    "payment_id": paymentId,
-    "updated_by": updatedBy,
-    "shipping": shipping,
-    "price": price,
-    "created_by": createdBy,
-    "category_id": categoryId,
-    // "created_at": createdAt.toIso8601String(),
-    "is_sold": isSold,
+    "description": description, 
+    "shipping_service": shippingService, 
+    "name": name, 
+    "category_name": categoryName, 
+    "updated_at": updatedAt, 
+    "thumbnail": thumbnail, 
+    "phonenumber": phonenumber, 
+    "weight": weight, 
+    "id": id, 
+    "payment_id": paymentId, 
+    "updated_by": updatedBy, 
+    "address": address, 
+    "price": price, 
+    "shipping_fee": shippingFee, 
+    "created_by": createdBy, 
+    "category_id": categoryId, 
+    "seller": seller.toJson()
+    // "description": description,
+    // "name": name,
+    // "updated_at": updatedAt,
+    // "thumbnail": thumbnail,
+    // "weight": weight,
+    // "id": id,
+    // "payment_id": paymentId,
+    // "updated_by": updatedBy,
+    // "shipping": shipping,
+    // "price": price,
+    // "created_by": createdBy,
+    // "category_id": categoryId,
+    // // "created_at": createdAt.toIso8601String(),
+    // "is_sold": isSold,
   };
 
   Product.fromGuestAccount(Map<String, dynamic> item){
@@ -205,15 +222,15 @@ class Seller {
   String type;
   String value;
 
-  factory Seller.fromJson(Map<String, dynamic> json) => Seller(
-        type: json["type"],
-        value: json["value"],
-      );
+  factory Seller.fromJson(Map<String, dynamic> jsons) => Seller(
+    type: jsons == null ? '' : jsons["type"],
+    value: jsons == null ? '' : jsons["value"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "value": value,
-      };
+    "type": type,
+    "value": value,
+  };
 }
 
 class OwnerProduct {

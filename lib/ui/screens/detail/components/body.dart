@@ -10,76 +10,48 @@ import 'interact_view.dart';
 
 class Body extends StatefulWidget {
 
+  final Product product;
+
+  Body({this.product});
+
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+
   final double padding = 20;
-  final List<Product> listProducts = List<Product>();
+  final List<Product> listProducts = [];
   bool dropDown = false;
 
-  final Product products = Product(
-    description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
-    shippingService: "SW Logistic",
-    address: null,
-    name: "កាពីទែនជីវិត ភាគ1",
-    categoryName: "Others",
-    thumbnail: "https://selendra.s3-ap-southeast-1.amazonaws.com/1bf46702-f69e-4fad-840b-89e0ae9a8edc",
-    phonenumber: null,
-    weight: "b8fd8a60-242c-405d-8a62-1ae2880094a7",
-    id: "be630b54-f67b-4b89-aed2-c3a997a9a105",
-    paymentId: "3802b352-4b1e-4ec3-a24c-c1e042d3fadd",
-    price: 7,
-    shippingFee: 1.99,
-    createdAt: "2021-02-18T02:31:54Z",
-    seller: Seller.fromJson({
-      "type": "record",
-      "value": "(,)"
-    }),
-    isSold: false
-  );
-  
-
   void fillData(){
-    listProducts.add(products);
-    listProducts.add(products);
-    listProducts.add(products);
-    listProducts.add(products);
-    listProducts.add(products);
+    listProducts.add(widget.product);
+    listProducts.add(widget.product);
+    listProducts.add(widget.product);
+    listProducts.add(widget.product);
+    listProducts.add(widget.product);
   }
 
   @override
   initState(){
+    // print(widget.product.address);
+    // print(widget.product.categoryId);
+    // print(widget.product.categoryName);
+    // print(widget.product.address);
+    // print(widget.product.address);
+    // print(widget.product.address);
+    // print(widget.product.address);
+    // print(widget.product.address);
+    // print(widget.product.address);
     fillData();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    final Product product = Product(
-      description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
-      shippingService: "SW Logistic",
-      address: null,
-      name: "កាពីទែនជីវិត ភាគ1",
-      categoryName: "Others",
-      thumbnail: "https://selendra.s3-ap-southeast-1.amazonaws.com/1bf46702-f69e-4fad-840b-89e0ae9a8edc",
-      phonenumber: null,
-      weight: "b8fd8a60-242c-405d-8a62-1ae2880094a7",
-      id: "be630b54-f67b-4b89-aed2-c3a997a9a105",
-      paymentId: "3802b352-4b1e-4ec3-a24c-c1e042d3fadd",
-      price: 7,
-      shippingFee: 1.99,
-      createdAt: "2021-02-18T02:31:54Z",
-      seller: Seller.fromJson({
-        "type": "record",
-        "value": "(,)"
-      }),
-      isSold: false
-    );//ModalRoute.of(context).settings.arguments;
-    // final product = Provider.of<ProductsProvider>(
+  Widget build(BuildContext context) {//ModalRoute.of(context).settings.arguments;
+    // final widget.product = Provider.of<widget.ProductsProvider>(
     //   context,
-    // ).findById(product.id);
+    // ).findById(widget.product.id);
 
     return SafeArea(
       child: 
@@ -108,7 +80,7 @@ class _BodyState extends State<Body> {
                     background: Stack(
                       children: [
                         // Hero(
-                        //   tag: "${product.id}",
+                        //   tag: "${widget.product.id}",
                         //   child: 
                           SizedBox(
                             child: Consumer<ProductsProvider>(
@@ -133,20 +105,20 @@ class _BodyState extends State<Body> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                InteractView(/*value.url[index]*/product.thumbnail),
+                                                InteractView(/*value.url[index]*/widget.product.thumbnail),
                                           ),
                                         );
                                       },
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl: product.thumbnail,
+                                        imageUrl: widget.product.thumbnail,
                                       ),
                                       // child: FadeInImage(
                                       //     fit: BoxFit.cover,
                                       //     image: NetworkImage(
                                       //       value.url.isNotEmpty
                                       //           ? value.url[index]
-                                      //           : product.thumbnail,
+                                      //           : widget.product.thumbnail,
                                       //     ),
                                       //     placeholder:
                                       //         AssetImage('assets/loading.gif')),
@@ -172,7 +144,7 @@ class _BodyState extends State<Body> {
                                   width: 40, height: 40,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(product.thumbnail)
+                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
                                   ), 
                                 ),
                               ),
@@ -186,7 +158,7 @@ class _BodyState extends State<Body> {
                                   width: 40, height: 40,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(product.thumbnail)
+                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
                                   ), 
                                 ),
                               ),
@@ -200,7 +172,7 @@ class _BodyState extends State<Body> {
                                   width: 40, height: 40,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(product.thumbnail)
+                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
                                   ), 
                                 ),
                               )
@@ -234,7 +206,7 @@ class _BodyState extends State<Body> {
                             MyText(
                               left: 8,
                               textAlign: TextAlign.left,
-                              text: "${product.price} /Kg",
+                              text: "${widget.product.price} /Kg",
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
@@ -251,7 +223,7 @@ class _BodyState extends State<Body> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 2,
                           child: Text(
-                            product.name,
+                            widget.product.name,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w700,
@@ -359,17 +331,17 @@ class _BodyState extends State<Body> {
 
                             Consumer<ProductsProvider>(
                               builder: (context, value, child) => BtnQty(
-                                '${product.orderQty ?? '1'}',
+                                '${widget.product.orderQty ?? '1'}',
                                 () {
-                                  value.addOrderQty(product);
+                                  value.addOrderQty(widget.product);
                                 },
                                 () {
-                                  value.minusOrderQty(product);
+                                  value.minusOrderQty(widget.product);
                                 },
                               ),
                             ),
                             // Text(
-                            //   product.price.toString() +
+                            //   widget.product.price.toString() +
                             //       '៛ /' +
                             //       AppLocalizeService.of(context)
                             //           .translate('kilogram'),
@@ -396,6 +368,7 @@ class _BodyState extends State<Body> {
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
                             //Shipping Amount
@@ -470,7 +443,7 @@ class _BodyState extends State<Body> {
                         pBottom: padding,
                         child: MyText(
                           textAlign: TextAlign.left,
-                          text: product.description,
+                          text: widget.product.description ?? '',
                           fontSize: 16,
                         )
                       ),
@@ -484,7 +457,7 @@ class _BodyState extends State<Body> {
                         )
                       ),
                       // ChangeNotifierProvider.value(
-                      //   value: product,
+                      //   value: widget.product,
                       //   child: SellerInfo(),
                       // ),
 

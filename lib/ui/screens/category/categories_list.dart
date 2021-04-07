@@ -30,22 +30,6 @@ class _CategoriesListScreenState extends State<CategoriesListScreen> {
     var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem(_lang.translate('categories'), context),
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: Text(
-      //     'All Categories',
-      //     style: TextStyle(
-      //       color: Colors.blue,
-      //       fontWeight: FontWeight.bold,
-      //       fontSize: 18,
-      //     ),
-      //   ),
-      //   elevation: 0,
-      //   backgroundColor: Colors.white,
-      //   leading: IconButton(icon: Icon(Icons.close,color: kDefaultColor,),onPressed: (){
-      //     Navigator.pop(context);
-      //   },),
-      // ),
       body: _buildListVertical(context),
     );
   }

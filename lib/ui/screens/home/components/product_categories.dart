@@ -6,15 +6,10 @@ import 'package:albazaar_app/all_export.dart';
 
 class ProductCategories extends StatefulWidget {
 
-  final TabController tabController;
-
   final Function onTapTab;
-  final Function refresh;
 
   ProductCategories({
-    this.tabController,
     this.onTapTab,
-    this.refresh
   });
 
   @override
@@ -23,6 +18,8 @@ class ProductCategories extends StatefulWidget {
 
 class _CategoriesState extends State<ProductCategories> with TickerProviderStateMixin {
 
+  ScrollController _scrollController = ScrollController();
+
   Animation<Offset> animation;
   AnimationController animationController;
 
@@ -30,15 +27,34 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
   final double padding = 16;
 
-  String category;
-
-  CategoriesModel _categoriesModel = CategoriesModel.init();
+  String category = '';
   
   bool dispsseAnimation = false;
 
+  List<Product> listProduct;
+  List<Product> productCategories;
+
   ProductsProvider productsProvider;
+  CategoriesModel _categoriesModel;
 
   void onTapCategoy(){
+    productCategories.clear();
+    if (category == 'Vegetable'){
+      productCategories = _categoriesModel.vegetableList;
+    } else if (category == 'Fruit') {
+      productCategories = _categoriesModel.fruitList;
+    } else if (category == 'Fish'){
+      productCategories = _categoriesModel.fishList;
+    } else if (category == 'Meat'){
+      productCategories = _categoriesModel.meatList;
+    } else if (category == 'Cereal'){
+      productCategories = _categoriesModel.carealList;
+    } else if (category == 'Others'){
+      productCategories = _categoriesModel.othersList;
+    }
+    print(category);
+    print("Categoires $productCategories");
+    // _scrollController.jumpTo(0);
     animationController.forward();
   }
 
@@ -48,7 +64,10 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
   @override
   initState(){
+    _scrollController = ScrollController();
+    listProduct = [];
     category = '';
+    productCategories = [];
 
     animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     animation = Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero).animate(
@@ -63,19 +82,21 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   @override
   void dispose(){
     animationController.dispose();
-    print("Hello dispose");
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    productsProvider = Provider.of<ProductsProvider>(context);
-    List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
+    _categoriesModel = Provider.of<CategoriesModel>(context);
+    Provider.of<CategoriesModel>(context).getData();
+    listProduct = Provider.of<CategoriesModel>(context).listProduct;
+    // print("My  product ${guestAcc[0].categoryName}");
     return Stack(
       children: [
         
         RefreshIndicator(
-          onRefresh: widget.refresh,
+          onRefresh: () {},
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: _categoriesModel.category.length,
@@ -130,6 +151,8 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
           child: Opacity(
             opacity: animation.value.dx == 1 ? 0 : 1, // Prevent remain UIs blink When tap Another Tabbar
             child: CategoriesBuider(
+              scrollController: _scrollController,
+              productCategories: productCategories,
               category: category,
               onTapCategoy: onTapCategoy,
               popAnmation: popAnmation
