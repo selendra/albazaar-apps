@@ -17,7 +17,6 @@ class GuestAccProvider extends ProductsProvider{
   }
 
   void fetchProducts() async {
-    print("Hello");
     await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
       print("My Value $value");
       if (value == null){

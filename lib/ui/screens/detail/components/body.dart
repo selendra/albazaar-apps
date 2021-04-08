@@ -1,4 +1,5 @@
 // import 'package:badges/badges.dart';
+import 'package:albazaar_app/core/components/widget_builder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,7 @@ class _BodyState extends State<Body> {
     // ).findById(widget.product.id);
 
     return SafeArea(
-      child: 
-      Stack(
+      child: Stack(
         children: [
           NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -67,11 +67,6 @@ class _BodyState extends State<Body> {
                   ),
                   leading: Container(),
                   toolbarHeight: 70,
-                  // CircleShapeBtn(
-                  //     () => , Icons.arrow_back),
-                  // actions: [
-                  //   ,
-                  // ],
                   expandedHeight: MediaQuery.of(context).size.height * 0.5,
                   floating: true,
                   pinned: true,
@@ -133,51 +128,57 @@ class _BodyState extends State<Body> {
                         Positioned(
                           left: (MediaQuery.of(context).size.width/2) - (25.0 * 3.0),
                           bottom: 20,
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () => Navigator.pop(context),
-                                child: MyCard(
-                                  hexaColor: "#FFFFFF",
-                                  mRight: 10,
-                                  boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                                  width: 40, height: 40,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
-                                  ), 
-                                ),
-                              ),
-
-                              GestureDetector(
-                                onTap: () => Navigator.pop(context),
-                                child: MyCard(
-                                  hexaColor: "#FFFFFF",
-                                  mRight: 10,
-                                  // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                                  width: 40, height: 40,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
-                                  ), 
-                                ),
-                              ),
-
-                              GestureDetector(
-                                onTap: () => Navigator.pop(context),
-                                child: MyCard(
-                                  hexaColor: "#FFFFFF",
-                                  mRight: 10,
-                                  // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                                  width: 40, height: 40,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: CachedNetworkImageProvider(widget.product.thumbnail)
-                                  ), 
-                                ),
-                              )
-                            ],
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: 3,
+                            itemBuilder: (context, i){
+                              return ListWidgetBuilder.imageRowBuilder(
+                                context: context, 
+                                image: widget.product.thumbnail,
+                                onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => InteractView(/*value.url[index]*/widget.product.thumbnail),
+                                    ),
+                                  );
+                                }
+                              );
+                            }
                           )
+                          // Row(
+                          //   children: [,
+
+                          //     GestureDetector(
+                          //       onTap: () => Navigator.pop(context),
+                          //       child: MyCard(
+                          //         hexaColor: "#FFFFFF",
+                          //         mRight: 10,
+                          //         // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                          //         width: 40, height: 40,
+                          //         image: DecorationImage(
+                          //           fit: BoxFit.cover,
+                          //           image: CachedNetworkImageProvider(widget.product.thumbnail)
+                          //         ), 
+                          //       ),
+                          //     ),
+
+                          //     GestureDetector(
+                          //       onTap: () => Navigator.pop(context),
+                          //       child: MyCard(
+                          //         hexaColor: "#FFFFFF",
+                          //         mRight: 10,
+                          //         // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                          //         width: 40, height: 40,
+                          //         image: DecorationImage(
+                          //           fit: BoxFit.cover,
+                          //           image: CachedNetworkImageProvider(widget.product.thumbnail)
+                          //         ), 
+                          //       ),
+                          //     )
+                          //   ],
+                          // )
                         )
                       ],
                     ),

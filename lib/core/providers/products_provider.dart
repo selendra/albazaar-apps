@@ -266,7 +266,7 @@ class ProductsProvider with ChangeNotifier {
 
   //find image of each product in image list using product Id
   void findImgById(String productId) async {
-    _url = List<String>();
+    _url = [];
 
     final product = findById(productId);
     addThumbnail(product.thumbnail);

@@ -17,16 +17,21 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+
+  List<ProductImage> _listImage = [];
   
   @override
   Widget build(BuildContext context) {
     // final Product productId = ModalRoute.of(context).settings.arguments;
-    // final loadedProduct = Provider.of<ProductsProvider>(context).findById(productId.id);
+    final List<Product>  product = Provider.of<GuestAccProvider>(context).getProducts;
+    _listImage = Provider.of<ProductsProvider>(context).imageList;
+    // final loadedProduct = Provider.of<ProductsProvider>(context).findById(product[0].id);
     return Scaffold(
-      body: Body(
-        product: widget.product,
-      ),
-      bottomNavigationBar: BottomNavigationDetail(widget.product),
+      body: product == null ? Center(child: CircularProgressIndicator()) : Body(
+        product: product[0]//widget.product,
+        // listImage: l
+      )
+      // bottomNavigationBar: BottomNavigationDetail(product[0]),// widget.product
     );
   }
 }
