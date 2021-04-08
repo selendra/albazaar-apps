@@ -10,12 +10,11 @@ class FavoriteProvider with ChangeNotifier {
     if (product.isFav) {
       product.isFav = false;
       removeFav(product);
-      notifyListeners();
     } else {
       product.isFav = true;
       addFav(product);
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   //ADD PRODUCT TO FAVORITE LIST
@@ -24,7 +23,6 @@ class FavoriteProvider with ChangeNotifier {
     if (!_fav.contains(product)) {
       _fav.add(product);
       product.isFav = true;
-      notifyListeners();
     }
   }
 

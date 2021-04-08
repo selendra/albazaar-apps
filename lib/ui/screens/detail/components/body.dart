@@ -78,10 +78,9 @@ class _BodyState extends State<Body> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
-                        // Hero(
-                        //   tag: "${widget.product.id}",
-                        //   child: 
-                          SizedBox(
+                        Hero(
+                          tag: "${widget.product.id}",
+                          child: SizedBox(
                             child: Consumer<ProductsProvider>(
                               builder: (context, value, child) => Carousel(
                                 autoplay: false,
@@ -129,10 +128,10 @@ class _BodyState extends State<Body> {
                               ),
                             ),
                           ),
-                        // ),
+                        ),
 
                         Positioned(
-                          left: (MediaQuery.of(context).size.width/2) - (25.0 * 3.0),
+                          left: (MediaQuery.of(context).size.width/2) - (25.0 * widget.listImage.length),
                           bottom: 20,
                           child: SizedBox(
                             height: 50,
@@ -229,15 +228,28 @@ class _BodyState extends State<Body> {
                               color: AppColors.primary,
                             ),
                             Expanded(child: Container()),
-                            GestureDetector(
-                              onTap: (){
 
+                            Consumer<FavoriteProvider>(
+                              builder: (context, value, widgets){
+                                return GestureDetector(
+                                  onTap: (){
+                                    setState((){
+
+                                      // Not Yet Favorite and Click Add
+                                      if (widget.product.isFav) {
+                                        widget.product.isFav = false;
+                                        value.removeFav(widget.product);
+                                      }
+                                      // Favorited and Click Remove
+                                      else {
+                                        widget.product.isFav = true;
+                                        value.addFav(widget.product);
+                                      }
+                                    });
+                                  },
+                                  child: SvgPicture.asset(AppConfig.iconPath+ ((widget.product.isFav) ? 'full_heart.svg': 'heart.svg'), width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),)
+                                );
                               },
-                              child: Consumer<ProductsProvider>(
-                                builder: (context, value, widget){
-                                  return SvgPicture.asset('assets/icons/heart.svg', width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),);
-                                },
-                              )
                             )
                           ],
                         )
@@ -601,10 +613,11 @@ class _BodyState extends State<Body> {
           ), 
 
           Positioned(
-            left: 5, top: 5,
+            left: 20, top: 20,
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: MyCard(
+                hexaColor: AppColors.bgColor,
                 width: 40, height: 40,
                 alignChild: Alignment.center,
                 child: SvgPicture.asset('assets/icons/back.svg', width: 15, height: 25),
@@ -613,11 +626,12 @@ class _BodyState extends State<Body> {
           ),
 
           Positioned(
-            right: 5, top: 5,
+            right: 20, top: 20,
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: MyCard(
                 width: 40, height: 40,
+                hexaColor: AppColors.bgColor,
                 alignChild: Alignment.center,
                 child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
               )

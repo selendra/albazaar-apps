@@ -18,12 +18,13 @@ class Body extends StatelessWidget {
   final double cPadding = 10;
   final double padding = 16;
   
-  ProductsProvider productsProvider;
+  ProductsProvider productsProvider = ProductsProvider();
+  List<Product> listProduct = [];
   
   @override
   Widget build(BuildContext context) {
-    productsProvider = Provider.of<ProductsProvider>(context);
-    List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
+    listProduct = Provider.of<ProductsProvider>(context).items;
+    // listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     Provider.of<CategoriesModel>(context).init();
     return RefreshIndicator(
       onRefresh: refresh,

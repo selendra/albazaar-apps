@@ -48,8 +48,7 @@ class ProductsProvider with ChangeNotifier {
     try {
       await _prefService.read('token').then((value) async {
         if (value != null) {
-          http.Response response =
-              await http.get(ApiUrl.LISTING, headers: <String, String>{
+          http.Response response = await http.get(ApiUrl.LISTING, headers: <String, String>{
             "accept": "application/json",
             "authorization": "Bearer " + value,
           });
@@ -59,15 +58,14 @@ class ProductsProvider with ChangeNotifier {
           //_prefService.saveString('products', jsonEncode(responseJson));
           clearProperty();
           for (var mItem in responseJson) {
+            print("My fetcing data ${mItem['is_sold']}");
             _items.add(
               Product.fromMap(mItem),
             );
-            notifyListeners();
           }
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
-          notifyListeners();
         }
       });
     } catch (e) {
