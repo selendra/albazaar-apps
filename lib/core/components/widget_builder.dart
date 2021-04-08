@@ -2,13 +2,13 @@ import 'package:albazaar_app/all_export.dart';
 
 class ListWidgetBuilder{
 
-  static Widget imageRowBuilder({BuildContext context, dynamic image, Function onPressed}){
+  static Widget imageRowBuilder({BuildContext context, dynamic image, Function onPressed, int selected, int index}){
     return GestureDetector(
       onTap: onPressed,
       child: MyCard(
         hexaColor: "#FFFFFF",
         mRight: 10,
-        boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+        boxBorder: Border.all(width: 2, color: selected == index ? AppServices.hexaCodeToColor(AppColors.primary) : Colors.transparent),
         width: 40, height: 40,
         image: DecorationImage(
           fit: BoxFit.cover,

@@ -100,7 +100,7 @@ class _SelendraAppState extends State<SelendraApp> {
             SellerInfoView: (context) => SellerConfirm(),
             OTPScreen.route: (context) => OTPScreen('', '')
           },
-          home: DetailScreen(product: Product(),),//BottomNavigation(),
+          home: SplashScreen(),//BottomNavigation(),
           navigatorKey: navigationKey,
         ),
       ),

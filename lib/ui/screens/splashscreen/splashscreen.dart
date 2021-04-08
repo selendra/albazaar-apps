@@ -8,8 +8,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderStateMixin {
   PrefService _pref = PrefService();
   AnimationController controller;
   Animation<double> animation;
@@ -27,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
     //Read token
     await _pref.read('token').then(
       (value) async {
+        print("My Token $value");
         if (value != null) {
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
@@ -109,8 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
    */
   void preCacheSvg() {
     for (int i = 0; i < svg.length; i++) {
-      precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
+      precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
   }
 

@@ -90,7 +90,8 @@ class Product with ChangeNotifier {
     "shipping_fee": shippingFee, 
     "created_by": createdBy, 
     "category_id": categoryId, 
-    "seller": seller.toJson()
+    "seller": seller.toJson(),
+    "is_sold": isSold,
     // "description": description,
     // "name": name,
     // "updated_at": updatedAt,

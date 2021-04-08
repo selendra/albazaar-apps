@@ -127,6 +127,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void getAllProductImg(String token) {
+    print("Getting all image");
     for (int i = 0; i < _items.length; i++) {
       fetchImage(token, _items[i].id);
     }
@@ -147,6 +148,8 @@ class ProductsProvider with ChangeNotifier {
             "product-id": productId,
           }));
       dynamic responseJson = json.decode(response.body);
+
+      print(response.body);
 
       for (var item in responseJson) {
         _imageList.add(ProductImage.fromJson(item));
@@ -274,7 +277,6 @@ class ProductsProvider with ChangeNotifier {
     for (int i = 0; i < _imageList.length; i++) {
       if (_imageList[i].productId == productId) {
         _url.add(_imageList[i].url);
-        notifyListeners();
       }
     }
   }
@@ -282,7 +284,6 @@ class ProductsProvider with ChangeNotifier {
   //Add Image thumbnail to show first index of all images
   void addThumbnail(String thumbnail) {
     _url.add(thumbnail);
-    notifyListeners();
   }
 
   List<Product> filterProductByCategories(String categoryName) {

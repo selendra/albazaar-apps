@@ -12,8 +12,9 @@ import 'interact_view.dart';
 class Body extends StatefulWidget {
 
   final Product product;
+  final List<String> listImage;
 
-  Body({this.product});
+  Body({this.product, this.listImage});
 
   @override
   _BodyState createState() => _BodyState();
@@ -24,6 +25,8 @@ class _BodyState extends State<Body> {
   final double padding = 20;
   final List<Product> listProducts = [];
   bool dropDown = false;
+  String display;
+  int selected = 0;
 
   void fillData(){
     listProducts.add(widget.product);
@@ -44,6 +47,7 @@ class _BodyState extends State<Body> {
     // print(widget.product.address);
     // print(widget.product.address);
     // print(widget.product.address);
+    display = widget.product.thumbnail;
     fillData();
     super.initState();
   }
@@ -99,14 +103,16 @@ class _BodyState extends State<Body> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                InteractView(/*value.url[index]*/widget.product.thumbnail),
+                                            builder: (context) => InteractView(display),
                                           ),
                                         );
                                       },
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        imageUrl: widget.product.thumbnail,
+                                        imageUrl: display,
+                                        placeholder: (context, str){
+                                          return Image.asset('assets/loading.gif');
+                                        },
                                       ),
                                       // child: FadeInImage(
                                       //     fit: BoxFit.cover,
@@ -128,24 +134,34 @@ class _BodyState extends State<Body> {
                         Positioned(
                           left: (MediaQuery.of(context).size.width/2) - (25.0 * 3.0),
                           bottom: 20,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: 3,
-                            itemBuilder: (context, i){
-                              return ListWidgetBuilder.imageRowBuilder(
-                                context: context, 
-                                image: widget.product.thumbnail,
-                                onPressed: (){
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => InteractView(/*value.url[index]*/widget.product.thumbnail),
-                                    ),
-                                  );
-                                }
-                              );
-                            }
+                          child: SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: widget.listImage.length,
+                              itemBuilder: (context, i){
+                                return ListWidgetBuilder.imageRowBuilder(
+                                  context: context, 
+                                  image: widget.listImage[i],
+                                  selected: selected,
+                                  index: i,
+                                  onPressed: (){
+                                    setState((){
+                                      display = widget.listImage[i];
+                                      selected = i;
+                                    });
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => InteractView(/*value.url[index]*/widget.listImage[i]),
+                                    //   ),
+                                    // );
+                                  }
+                                );
+                              }
+                            )
                           )
                           // Row(
                           //   children: [,
@@ -213,7 +229,16 @@ class _BodyState extends State<Body> {
                               color: AppColors.primary,
                             ),
                             Expanded(child: Container()),
-                            SvgPicture.asset('assets/icons/heart.svg', width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),)
+                            GestureDetector(
+                              onTap: (){
+
+                              },
+                              child: Consumer<ProductsProvider>(
+                                builder: (context, value, widget){
+                                  return SvgPicture.asset('assets/icons/heart.svg', width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),);
+                                },
+                              )
+                            )
                           ],
                         )
                       ),
@@ -331,15 +356,18 @@ class _BodyState extends State<Body> {
                             ),
 
                             Consumer<ProductsProvider>(
-                              builder: (context, value, child) => BtnQty(
-                                '${widget.product.orderQty ?? '1'}',
-                                () {
-                                  value.addOrderQty(widget.product);
-                                },
-                                () {
-                                  value.minusOrderQty(widget.product);
-                                },
-                              ),
+                              builder: (context, value, child) {
+                                if (widget.product.orderQty == null) widget.product.orderQty = 1;
+                                return BtnQty(
+                                  '${widget.product.orderQty ?? '1'}',
+                                  () {
+                                    value.addOrderQty(widget.product);
+                                  },
+                                  () {
+                                    value.minusOrderQty(widget.product);
+                                  },
+                                );
+                              }
                             ),
                             // Text(
                             //   widget.product.price.toString() +
@@ -577,8 +605,7 @@ class _BodyState extends State<Body> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: MyCard(
-                width: 60, height: 60,
-                colorOpacity: 0.0,
+                width: 40, height: 40,
                 alignChild: Alignment.center,
                 child: SvgPicture.asset('assets/icons/back.svg', width: 15, height: 25),
               ),
@@ -590,8 +617,7 @@ class _BodyState extends State<Body> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: MyCard(
-                width: 60, height: 60,
-                colorOpacity: 0.0,
+                width: 40, height: 40,
                 alignChild: Alignment.center,
                 child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
               )
