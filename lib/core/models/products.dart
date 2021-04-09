@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
+  
   Product({
     this.description,
     this.shippingService,

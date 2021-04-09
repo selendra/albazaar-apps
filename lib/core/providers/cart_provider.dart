@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/core/models/cart.dart';
 
 class CartProvider with ChangeNotifier {
+  
   int quantity = 0;
   double totalPrice = 0;
+
+  bool cartNotified = false;
 
   Map<String, Cart> _items = {};
   Map<String, Cart> _buyNow = {};
@@ -17,29 +20,40 @@ class CartProvider with ChangeNotifier {
   Map<String, Cart> get buyNow => {..._buyNow};
 
   //Add product to cart
-  void addCart(String productId, String image, String title, int price,
-      int productOrderQty) {
+  void addCart(String productId, String image, String title, int price, int productOrderQty) {
     if (_items.containsKey(productId)) {
       _items.update(
-          productId,
-          (existingItem) => Cart(
-              id: productId,
-              image: existingItem.image,
-              title: existingItem.title,
-              price: existingItem.price,
-              qty: existingItem.qty + productOrderQty));
+        productId,
+        (existingItem) => Cart(
+          id: productId,
+          image: existingItem.image,
+          title: existingItem.title,
+          price: existingItem.price,
+          qty: existingItem.qty + productOrderQty
+        )
+      );
     } else {
       _items.putIfAbsent(
-          productId,
-          () => Cart(
-              id: productId,
-              image: image,
-              title: title,
-              price: price,
-              qty: productOrderQty));
+        productId,
+        () => Cart(
+          id: productId,
+          image: image,
+          title: title,
+          price: price,
+          qty: productOrderQty
+        )
+      );
 
       totalPrice = totalPrice + double.parse(price.toString());
+
+      cartNotifier(true);
     }
+  }
+
+  // Method For Change Cart Icon 
+  void cartNotifier(bool value) {
+
+    cartNotified = value;
 
     notifyListeners();
   }

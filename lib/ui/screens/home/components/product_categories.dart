@@ -89,9 +89,8 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   @override
   Widget build(BuildContext context) {
     _categoriesModel = Provider.of<CategoriesModel>(context);
-    Provider.of<CategoriesModel>(context).getData();
     listProduct = Provider.of<CategoriesModel>(context).listProduct;
-    // print("My  product ${guestAcc[0].categoryName}");
+    print("My  product ${_categoriesModel.listProduct}");
     return Stack(
       children: [
         

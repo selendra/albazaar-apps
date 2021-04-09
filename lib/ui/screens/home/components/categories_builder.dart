@@ -32,9 +32,6 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Vegetables'),
-      // ),
       body: Column(
         children: [
 
@@ -84,10 +81,9 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                     pBottom: 0,
                     child: GestureDetector(
                       onTap: (){
-                        Navigator.of(context).pushNamed(
-                          '/detail',
-                          arguments: widget.productCategories[index],
-                        );
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => DetailScreen(product: widget.productCategories[index],)
+                        ));
                       },
                       child: MyCard(
                         align: Alignment.centerLeft,

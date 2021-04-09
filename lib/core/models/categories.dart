@@ -30,9 +30,9 @@ class CategoriesModel with ChangeNotifier{
   }
 
   void listProductByCategories(Product product){
-    print(product.categoryName);
+    print("Sorting ${product.categoryName}");
     if (product.categoryName == 'Vegetable'){
-      vegetableList.addAll({product});
+      vegetableList.add(product);
     } else if (product.categoryName == 'Fruit') {
       fruitList.add(product);
     } else if (product.categoryName == 'Fish'){
@@ -47,21 +47,26 @@ class CategoriesModel with ChangeNotifier{
   }
 
   getData() async {
-    fromDb = List<Map<String, dynamic>>.from(await StorageServices.fetchData('guestAccData'));
+    fromDb = List<Map<String, dynamic>>.from(await StorageServices.fetchData(AppConfig.categoryPath));
+    clearAllData();
+    clearDataCategory();
     if (fromDb != null) {
-      clearAllData();
-      for(var i in fromDb){
-        print(Product.fromGuestAccount(i).categoryName);
-        listProduct.add(Product.fromGuestAccount(i));
-        listProductByCategories(Product.fromGuestAccount(i));
-      }
+      sortDataByCategory(fromDb, 'guest');
+    }
+  }
 
+  sortDataByCategory(dynamic data, String account) async {
+    clearDataCategory();
+    for(var i in data){
+      listProductByCategories(account == 'guest' ? Product.fromGuestAccount(i) : i);
     }
   }
 
   void clearAllData(){
     listProduct.clear();
-    listProduct.clear();
+  }
+
+  void clearDataCategory(){
     vegetableList.clear();
     fruitList.clear();
     fishList.clear();

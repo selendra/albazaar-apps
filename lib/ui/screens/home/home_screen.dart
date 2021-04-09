@@ -21,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+
+    StorageServices.removeKey(AppConfig.categoryPath);  
     _tabController = TabController(vsync: this, length: 3);
     // _scrollController = ScrollController();
 
@@ -116,13 +118,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                     Padding(
                       padding: EdgeInsets.only(right: 20),
-                      child: IconButton(
-                        icon: SvgPicture.asset('assets/icons/cart.svg'),
-                        onPressed: () {
-                          /*Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => CartScreen()));*/
-                          // showSearch(context: context, delegate: SearchProducts());
-                        },
+                      child: Consumer<CartProvider>(
+                        builder: (context, value, widgets){
+                          print("Home cart items ${value.items.length}");
+                          return IconButton(
+                            icon: SvgPicture.asset(
+                              AppConfig.iconPath + ( 
+                                // Check For Add Product To Card And When Click Check Card 
+                                value.items.length != 0 && value.cartNotified ? 'cart_notified.svg' : 'cart.svg'
+                              )
+                            ),
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+
+                              //Check User Checkout Their Card Disable CartNotified
+                              value.cartNotifier(false);
+                              // showSearch(context: context, delegate: SearchProducts());
+                            },
+                          );
+                        }
                       )
                     ),
                     IconButton(

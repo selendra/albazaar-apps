@@ -28,7 +28,7 @@ class _BodyState extends State<Body> {
   String display;
   int selected = 0;
 
-  void fillData(){
+  void relatedProducts(){
     listProducts.add(widget.product);
     listProducts.add(widget.product);
     listProducts.add(widget.product);
@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
     // print(widget.product.address);
     // print(widget.product.address);
     display = widget.product.thumbnail;
-    fillData();
+    relatedProducts();
     super.initState();
   }
 
@@ -57,6 +57,7 @@ class _BodyState extends State<Body> {
     // final widget.product = Provider.of<widget.ProductsProvider>(
     //   context,
     // ).findById(widget.product.id);
+    print("My Id ${widget.product.id}");
 
     return SafeArea(
       child: Stack(
@@ -627,14 +628,23 @@ class _BodyState extends State<Body> {
 
           Positioned(
             right: 20, top: 20,
-            child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: MyCard(
-                width: 40, height: 40,
-                hexaColor: AppColors.bgColor,
-                alignChild: Alignment.center,
-                child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
-              )
+            child: Consumer<CartProvider>(
+              builder: (context, value, widgets){
+                return GestureDetector(
+                  onTap: () {
+                    value.addCart(widget.product.id, widget.product.thumbnail, widget.product.name, widget.product.price, widget.product.orderQty);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: MyText(text: 'Added ${widget.product.name} into cart', color: AppColors.white, textAlign: TextAlign.left,))
+                    );
+                  },
+                  child: MyCard(
+                    width: 40, height: 40,
+                    hexaColor: AppColors.bgColor,
+                    alignChild: Alignment.center,
+                    child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
+                  )
+                );
+              },
             )
           ),
         ],

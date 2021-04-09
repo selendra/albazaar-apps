@@ -31,6 +31,8 @@ class ProductsProvider with ChangeNotifier {
   List<String> _url = [];
 
   List<OrderProduct> _completeProduct = [];
+  
+  CategoriesModel _categoriesModel = CategoriesModel();
 
   //initial product orderqty
 
@@ -58,14 +60,23 @@ class ProductsProvider with ChangeNotifier {
           //_prefService.saveString('products', jsonEncode(responseJson));
           clearProperty();
           for (var mItem in responseJson) {
-            print("My fetcing data ${mItem['is_sold']}");
+            // print("My fetcing data ${mItem['is_sold']}");
             _items.add(
               Product.fromMap(mItem),
             );
+
+            // Sort Products By Category 
+            _categoriesModel.listProduct.add(Product.fromMap(mItem));
+            print(mItem['name']);
+            // _categoriesModel.listProductByCategories(product)
           }
+          _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
+          
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
+
+          // After Get Product Sort Those product By Category
         }
       });
     } catch (e) {
@@ -159,8 +170,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchOrListingProduct(token) async {
     try {
-      http.Response response =
-          await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
+      http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
         "accept": "application/json",
         "authorization": "Bearer " + token,
       });
