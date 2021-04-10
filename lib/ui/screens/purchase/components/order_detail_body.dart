@@ -204,7 +204,7 @@ class OrderDetailBody extends StatelessWidget {
                           context,
                           Text("Do you want to complete order?"),
                           Text("Message"),
-                          action: FlatButton(
+                          action: TextButton(
                             onPressed: () {
                               Navigator.pop(context);
                               Provider.of<ProductsProvider>(context,

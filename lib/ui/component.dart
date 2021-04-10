@@ -45,7 +45,7 @@ class Components {
     var text, 
     var title, 
     {
-      FlatButton action, 
+      TextButton action, 
       String firsTxtBtn = "Close", 
       Color bgColor, 
       Color barrierColor, 
@@ -70,8 +70,7 @@ class Components {
           ) : null,
           content: text,
           actions: !removeBtn ? <Widget>[
-            FlatButton(
-              padding: EdgeInsets.all(0),
+            TextButton(
               child: Text(firsTxtBtn),
               onPressed: () => Navigator.of(context).pop(text),
             ),

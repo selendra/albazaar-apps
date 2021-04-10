@@ -31,6 +31,8 @@ class _BodyState extends State<Body> {
   List<int> listAmount;
   int selectedAmount;
 
+  TextEditingController _controller = TextEditingController();
+
   void relatedProducts(){
     listProducts.add(widget.product);
     listProducts.add(widget.product);
@@ -46,6 +48,12 @@ class _BodyState extends State<Body> {
     selectedAmount = -1;
     relatedProducts();
     super.initState();
+  }
+  
+  @override
+  dispose(){
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -318,18 +326,21 @@ class _BodyState extends State<Body> {
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Flexible(
+                            Container(
+                              height: 50,
                               child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: listAmount.length,
                                 physics: NeverScrollableScrollPhysics(),
-                                // scrollDirection: Axis.horizontal,
+                                scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index){
                                 return GestureDetector(
                                   onTap: (){
                                     setState((){
                                       selectedAmount = index;
+                                      widget.product.orderQty = listAmount[index];
                                     });
                                   },
                                   child: MyCard(
@@ -345,9 +356,7 @@ class _BodyState extends State<Body> {
                                   );
                               })
                             ),
-                            Expanded(
-                              child: Container()
-                            ),
+                            Expanded(child: Container()),
 
                             Consumer<ProductsProvider>(
                               builder: (context, value, child) {
@@ -366,21 +375,33 @@ class _BodyState extends State<Body> {
                                         selectedAmount = -1;
                                       }
                                     });
-                                  }
+                                  },
+                                  tapText: () async {
+                                    await Components.dialog(
+                                      context, 
+                                      MyPadding(
+                                        child: TextFormField(
+                                          controller: _controller,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(TextField.noMaxLength),
+                                            FilteringTextInputFormatter.digitsOnly
+                                          ],
+                                        )
+                                      ),
+                                      Text("Input your quantity"),
+                                      action: TextButton(
+                                        child: MyText(text: "Submit", color: AppColors.primary),
+                                        onPressed: () {
+                                          Navigator.pop(context, _controller.text);
+                                        }
+                                      )
+                                    );
+
+                                    if (_controller.text.isNotEmpty) setState((){widget.product.orderQty = int.parse(_controller.text);});
+                                  },
                                 );
                               }
                             ),
-                            // Text(
-                            //   widget.product.price.toString() +
-                            //       '៛ /' +
-                            //       AppLocalizeService.of(context)
-                            //           .translate('kilogram'),
-                            //   style: TextStyle(
-                            //     fontWeight: FontWeight.w700,
-                            //     fontSize: 23,
-                            //     color: kDefaultColor,
-                            //   ),
-                            // )
                           ],
                         )
                       ),
@@ -591,7 +612,10 @@ class _BodyState extends State<Body> {
                         pBottom: padding,
                         child: SizedBox(
                           height: 240,
-                          child: RelatedProduct(),
+                          child: RelatedProduct(
+                            category: widget.product.categoryName,
+                            currentProductId: widget.product.id
+                          ),
                         )
                       )
                     ],

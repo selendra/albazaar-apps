@@ -81,7 +81,7 @@ class TrxOptionMethod {
                   ],
                 ),
                 textMessage(),
-                action: FlatButton(
+                action: TextButton(
                   child: Text("Invite"),
                   onPressed: () async {
                     Navigator.pop(context); // Close Dialog Invite

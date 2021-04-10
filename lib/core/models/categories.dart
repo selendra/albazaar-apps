@@ -54,6 +54,23 @@ class CategoriesModel with ChangeNotifier{
     }
   }
 
+  List<Product> getCategories(String category){
+    if (category == 'Vegetable'){
+      return vegetableList;
+    } else if (category == 'Fruit') {
+      return fruitList;
+    } else if (category == 'Fish'){
+      return fishList;
+    } else if (category == 'Meat'){
+      return meatList;
+    } else if (category == 'Cereal'){
+      return carealList;
+    } else if (category == 'Others'){
+      return othersList;
+    }
+    return null;
+  }
+
   sortDataByCategory(dynamic data, String account) async {
     clearDataCategory();
     for(var i in data){

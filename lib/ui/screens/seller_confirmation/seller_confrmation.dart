@@ -1,7 +1,5 @@
 import 'package:albazaar_app/all_export.dart';
-import 'package:albazaar_app/core/models/seller_m.dart';
 import 'package:albazaar_app/ui/screens/seller_confirmation/seller_tracking.dart';
-import 'package:albazaar_app/ui/screens/tracking/tracking.dart';
 
 class SellerConfirm extends StatelessWidget {
   PostRequest _postRequest = PostRequest();
@@ -203,8 +201,7 @@ class SellerConfirm extends StatelessWidget {
                             context, 
                             Text('Do you want to confirm payment?'), 
                             Text("Message"),
-                            action: FlatButton(
-                              padding: EdgeInsets.all(0),
+                            action: TextButton(
                               child: Text("Yes"),
                               onPressed: () async {
                                 Navigator.pop(context);
@@ -243,8 +240,7 @@ class SellerConfirm extends StatelessWidget {
                             context, 
                             Text('Do you want to confirm shipment?'), 
                             Text("Message"),
-                            action: FlatButton(
-                              padding: EdgeInsets.all(0),
+                            action: TextButton(
                               child: Text("Yes"),
                               onPressed: () async {
                                 Navigator.pop(context); // value.setShipment(productOrder.orderStatus);

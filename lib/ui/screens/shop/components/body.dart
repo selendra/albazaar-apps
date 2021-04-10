@@ -331,7 +331,7 @@ class _BodyState extends State<Body> {
                                         context, 
                                         MyText(text: "Are you sure to delete item?", pLeft: pd10, pRight: pd10,), 
                                         null, action: 
-                                        FlatButton(
+                                        TextButton(
                                           onPressed: (){}, 
                                           child: Text("Yes")
                                         )

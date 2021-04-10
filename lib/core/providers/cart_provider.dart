@@ -91,13 +91,15 @@ class CartProvider with ChangeNotifier {
   //Increase quantity of order product
   void addQty(String productId) {
     _items.update(
-        productId,
-        (existingItem) => Cart(
-            id: productId,
-            image: existingItem.image,
-            title: existingItem.title,
-            price: existingItem.price,
-            qty: existingItem.qty + 1));
+      productId,
+      (existingItem) => Cart(
+        id: productId,
+        image: existingItem.image,
+        title: existingItem.title,
+        price: existingItem.price,
+        qty: existingItem.qty + 1
+      )
+    );
 
     notifyListeners();
   }
