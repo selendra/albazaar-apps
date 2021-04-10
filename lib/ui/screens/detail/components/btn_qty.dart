@@ -5,17 +5,18 @@ class BtnQty extends StatelessWidget {
   final String count;
   final Function addQty;
   final Function minusQty;
+  final Function numberPressed;
 
-  BtnQty(this.count, this.addQty, this.minusQty);
+  BtnQty(this.count, this.addQty, this.minusQty, this.numberPressed);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _btnQtyRow(),
+      child: _btnQtyRow(numberPressed: numberPressed),
     );
   }
 
-  Widget _btnQtyRow() {
+  Widget _btnQtyRow({Function numberPressed}) {
     return Container(
       child: Row(
         children: <Widget>[
@@ -25,9 +26,14 @@ class BtnQty extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          Text(
-            '$count',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: AppServices.hexaCodeToColor(AppColors.primary)),
+          GestureDetector(
+            onTap: numberPressed,
+            child: MyText(
+              pLeft: 10, pRight: 10,
+              text: '$count',
+              fontSize: 30,
+              fontWeight: FontWeight.w900, color: AppColors.primary,
+            )
           ),
           SizedBox(
             width: 10,

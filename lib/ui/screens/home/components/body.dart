@@ -24,8 +24,9 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     listProduct = Provider.of<ProductsProvider>(context).items;
-    // listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     Provider.of<CategoriesModel>(context).init();
+    if (listProduct != null) Provider.of<CategoriesModel>(context).sortDataByCategory(listProduct, 'user');
+
     return RefreshIndicator(
       onRefresh: refresh,
       child: listProduct == null ? Center(
@@ -67,6 +68,10 @@ class Body extends StatelessWidget {
                       pBottom: listProduct.length -1 == index || listProduct.length - 2 == index ? 16 : 0, 
                       child: GestureDetector(
                         onTap: (){
+                          print(listProduct[index]);
+                          print(listProduct[index].id);
+                          print(listProduct[index].isFav);
+                          print("Hello world");
                           Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: listProduct[index])));
                         },
                         child: MyCard(

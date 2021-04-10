@@ -31,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
             print("Status ${user.statusCode}");
+
             // Check Expired Token
             if (user.statusCode.toString() == '200') {
               Provider.of<ProductsProvider>(

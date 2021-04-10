@@ -66,11 +66,10 @@ class ProductsProvider with ChangeNotifier {
             );
 
             // Sort Products By Category 
-            _categoriesModel.listProduct.add(Product.fromMap(mItem));
-            print(mItem['name']);
+            // _categoriesModel.listProduct.add(Product.fromMap(mItem));
             // _categoriesModel.listProductByCategories(product)
           }
-          _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
+          // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
           
           fetchOListingProduct(value);
           fetchOrListingProduct(value);
@@ -136,7 +135,6 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void getAllProductImg(String token) {
-    print("Getting all image");
     for (int i = 0; i < _items.length; i++) {
       fetchImage(token, _items[i].id);
     }
@@ -157,8 +155,6 @@ class ProductsProvider with ChangeNotifier {
             "product-id": productId,
           }));
       dynamic responseJson = json.decode(response.body);
-
-      print(response.body);
 
       for (var item in responseJson) {
         _imageList.add(ProductImage.fromJson(item));

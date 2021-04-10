@@ -30,7 +30,6 @@ class CategoriesModel with ChangeNotifier{
   }
 
   void listProductByCategories(Product product){
-    print("Sorting ${product.categoryName}");
     if (product.categoryName == 'Vegetable'){
       vegetableList.add(product);
     } else if (product.categoryName == 'Fruit') {
@@ -60,6 +59,13 @@ class CategoriesModel with ChangeNotifier{
     for(var i in data){
       listProductByCategories(account == 'guest' ? Product.fromGuestAccount(i) : i);
     }
+    // print("listProduct"+listProduct.length.toString());
+    // print("vegetableList"+vegetableList.length.toString());
+    // print("fruitList"+fruitList.length.toString());
+    // print("fishList"+fishList.length.toString());
+    // print("meatList"+meatList.length.toString());
+    // print("carealList"+carealList.length.toString());
+    // print("othersList"+othersList.length.toString());
   }
 
   void clearAllData(){

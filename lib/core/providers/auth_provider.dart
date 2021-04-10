@@ -272,7 +272,6 @@ class AuthProvider with ChangeNotifier {
           'password': password,
         }));
     if (response.statusCode == 200) {
-      print("Data response ${response.body}");
       dynamic responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
@@ -361,7 +360,6 @@ class AuthProvider with ChangeNotifier {
 
   //ADD PHONE NUMBER TO THEIR EXISTING ACCOUNT
   Future<String> addPhoneNumber(String _phoneNumber) async {
-    print("add _phone number $_phoneNumber");
     try {
       await _pref.read('token').then((onValue) async {
         var response = await http.post(ApiUrl.ADD_PHONE_NUMBER,
@@ -374,9 +372,6 @@ class AuthProvider with ChangeNotifier {
               "phone": "+855" + _phoneNumber,
             }));
         var responseBody = json.decode(response.body);
-
-        print("Response add phone ${response.body}");
-        print("Response code ${response.statusCode}");
 
         if (response.statusCode == 200) {
           if (responseBody.containsKey('error')){

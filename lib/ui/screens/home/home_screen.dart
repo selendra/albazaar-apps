@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   onTabChange() {
     _tabController.addListener(() {
-      print("INdex" +_tabController.index.toString());
+      // print("INdex" +_tabController.index.toString());
       setState(() {});
       // print()
       // if (_tabController.index == 0){

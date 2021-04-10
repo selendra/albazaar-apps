@@ -18,9 +18,7 @@ class GuestAccProvider extends ProductsProvider{
 
   void fetchProducts() async {
     await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
-      print("My Value $value");
       if (value == null){
-        print("From api");
         _backend.response = await _getRequest.guestAccount();
         _backend.listData = json.decode(_backend.response.body);
 
@@ -36,10 +34,8 @@ class GuestAccProvider extends ProductsProvider{
         await storeData(_productListToMap);
 
       } else {
-        print("From db");
         _productList = [];
         for(var i in value){
-          print("Item $i");
           _productList.add(Product.fromGuestAccount(i));
         }
 
@@ -55,8 +51,6 @@ class GuestAccProvider extends ProductsProvider{
   }
 
   Future<void> storeData(List<Map<String, dynamic>> list) async {
-    await StorageServices.setData(list, DbKey.guestAcc).then((value) {
-      print(value);
-    });
+    await StorageServices.setData(list, DbKey.guestAcc);
   }
 }

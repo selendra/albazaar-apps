@@ -28,6 +28,9 @@ class _BodyState extends State<Body> {
   String display;
   int selected = 0;
 
+  List<int> listAmount;
+  int selectedAmount;
+
   void relatedProducts(){
     listProducts.add(widget.product);
     listProducts.add(widget.product);
@@ -38,16 +41,9 @@ class _BodyState extends State<Body> {
 
   @override
   initState(){
-    // print(widget.product.address);
-    // print(widget.product.categoryId);
-    // print(widget.product.categoryName);
-    // print(widget.product.address);
-    // print(widget.product.address);
-    // print(widget.product.address);
-    // print(widget.product.address);
-    // print(widget.product.address);
-    // print(widget.product.address);
     display = widget.product.thumbnail;
+    listAmount = [1, 3, 5, 10];
+    selectedAmount = -1;
     relatedProducts();
     super.initState();
   }
@@ -57,7 +53,6 @@ class _BodyState extends State<Body> {
     // final widget.product = Provider.of<widget.ProductsProvider>(
     //   context,
     // ).findById(widget.product.id);
-    print("My Id ${widget.product.id}");
 
     return SafeArea(
       child: Stack(
@@ -324,45 +319,31 @@ class _BodyState extends State<Body> {
                         pBottom: padding,
                         child: Row(
                           children: [
-                            MyCard(
-                              hexaColor: "#FFFFFF",
-                              mRight: 10,
-                              boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                              width: 40, height: 40,
-                              child: MyText(
-                                fontSize: 12,
-                                text: "1Kg"
-                              ), 
-                            ),
-                            MyCard(
-                              hexaColor: "#FFFFFF",
-                              mRight: 10,
-                              // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                              width: 40, height: 40,
-                              child: MyText(
-                                fontSize: 12,
-                                text: "3Kg"
-                              ), 
-                            ),
-                            MyCard(
-                              hexaColor: "#FFFFFF",
-                              mRight: 10,
-                              // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                              width: 40, height: 40,
-                              child: MyText(
-                                fontSize: 12,
-                                text: "5Kg"
-                              ), 
-                            ),
-                            MyCard(
-                              hexaColor: "#FFFFFF",
-                              mRight: 10,
-                              // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                              width: 40, height: 40,
-                              child: MyText(
-                                fontSize: 12,
-                                text: "10Kg"
-                              ), 
+                            Flexible(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: listAmount.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                // scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index){
+                                return GestureDetector(
+                                  onTap: (){
+                                    setState((){
+                                      selectedAmount = index;
+                                    });
+                                  },
+                                  child: MyCard(
+                                    hexaColor: "#FFFFFF",
+                                    mRight: 10,
+                                    boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(selectedAmount == index && selectedAmount != -1 ? AppColors.primary : AppColors.white)),
+                                    width: 40, height: 40,
+                                    child: MyText(
+                                      fontSize: 12,
+                                      text: "${listAmount[index]}Kg"
+                                    ), 
+                                  )
+                                  );
+                              })
                             ),
                             Expanded(
                               child: Container()
@@ -370,15 +351,22 @@ class _BodyState extends State<Body> {
 
                             Consumer<ProductsProvider>(
                               builder: (context, value, child) {
-                                if (widget.product.orderQty == null) widget.product.orderQty = 1;
+                                if (widget.product.orderQty == null) widget.product.orderQty = 0;
                                 return BtnQty(
-                                  '${widget.product.orderQty ?? '1'}',
+                                  '${widget.product.orderQty ?? '0'}',
                                   () {
                                     value.addOrderQty(widget.product);
                                   },
                                   () {
                                     value.minusOrderQty(widget.product);
                                   },
+                                  (){
+                                    setState(() {
+                                      if (widget.product.orderQty != 0){
+                                        selectedAmount = -1;
+                                      }
+                                    });
+                                  }
                                 );
                               }
                             ),
