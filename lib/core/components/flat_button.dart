@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/services/app_services.dart';
 
-class MyFlatButton extends TextButton{
+class MyFlatButton extends StatelessWidget{
 
   final String buttonColor;
   final FontWeight fontWeight;

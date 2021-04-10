@@ -12,4 +12,6 @@ class AppColors {
   static const String lowBlack = "#2C2727";
 
   static const String delete = "#C8001C";
+
+  static const String unSelected = "#C4C4C4";
 }

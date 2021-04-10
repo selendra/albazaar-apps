@@ -3,10 +3,13 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationDetail extends StatelessWidget {
+  
   final Product loadedProduct;
   BottomNavigationDetail(this.loadedProduct);
+
   @override
   Widget build(BuildContext context) {
+
     final cartProvider = Provider.of<CartProvider>(context);
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
@@ -71,7 +74,7 @@ class BottomNavigationDetail extends StatelessWidget {
                 MyText(
                   left: 8,
                   textAlign: TextAlign.left,
-                  text: "5000 /Kg",
+                  text: "${cartProvider.totalPrice} /Kg",
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,

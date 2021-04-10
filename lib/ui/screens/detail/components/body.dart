@@ -1,5 +1,6 @@
 // import 'package:badges/badges.dart';
 import 'package:albazaar_app/core/components/widget_builder.dart';
+import 'package:albazaar_app/ui/screens/detail/components/comment_user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:albazaar_app/core/components/card_c.dart';
 import 'package:albazaar_app/ui/screens/detail/seller_information.dart';
 import 'interact_view.dart';
+import 'package:readmore/readmore.dart';
 
 class Body extends StatefulWidget {
 
@@ -30,6 +32,10 @@ class _BodyState extends State<Body> {
 
   List<int> listAmount;
   int selectedAmount;
+  
+  bool about = true;
+
+  Product _productProvider;
 
   TextEditingController _controller = TextEditingController();
 
@@ -316,7 +322,7 @@ class _BodyState extends State<Body> {
                                 final result = await MyBottomSheet().measurementOptions(context: context);
                                 print("MY scale $result");
                               },
-                              child: MyText(text: "Choose scale"),
+                              child: MyText(text: "Choose scale", fontWeight: FontWeight.bold, color: AppColors.primary),
                             )
                           ],
                         ),
@@ -369,14 +375,8 @@ class _BodyState extends State<Body> {
                                   () {
                                     value.minusOrderQty(widget.product);
                                   },
-                                  (){
-                                    setState(() {
-                                      if (widget.product.orderQty != 0){
-                                        selectedAmount = -1;
-                                      }
-                                    });
-                                  },
                                   tapText: () async {
+                                    _controller.text = widget.product.orderQty.toString();
                                     await Components.dialog(
                                       context, 
                                       MyPadding(
@@ -392,6 +392,7 @@ class _BodyState extends State<Body> {
                                       action: TextButton(
                                         child: MyText(text: "Submit", color: AppColors.primary),
                                         onPressed: () {
+                                          selectedAmount = -1;
                                           Navigator.pop(context, _controller.text);
                                         }
                                       )
@@ -469,33 +470,67 @@ class _BodyState extends State<Body> {
                         pBottom: padding,
                         child: Row(
                           children: [
-                            MyText(
-                              pRight: 10,
-                              text: 'About',
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.primary,
-                              fontSize: 20,
+                            GestureDetector(
+                              onTap: (){
+                                if (about == false){
+                                  setState((){
+                                    about = true;
+                                  });
+                                }
+                              },
+                              child: MyText(
+                                pRight: 10,
+                                text: 'About',
+                                fontWeight: FontWeight.w600,
+                                color: about ? AppColors.primary : AppColors.unSelected,
+                                fontSize: 20,
+                              ),
                             ),
 
                             MyText(text: "/", pRight: 10),
 
-                            MyText(
-                              text: 'Review (250)',
-                              color: "#C4C4C4",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
+                            GestureDetector(
+                              onTap: (){
+                                if (about = true){
+                                  setState((){
+                                    about = false;
+                                  });
+                                }
+                              },
+                              child: MyText(
+                                text: 'Review (250)',
+                                color: !about ? AppColors.primary : AppColors.unSelected,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                              ),
                             )
                           ],
                         ),
                       ),
 
+                      about ? MyPadding(
+                        pLeft: padding, pRight: padding,
+                        pBottom: padding,
+                        child: ReadMoreText(
+                          widget.product.description,
+                          trimLines: 5,
+                          colorClickableText: AppServices.hexaCodeToColor(AppColors.black),
+                          trimMode: TrimMode.Line,
+                          trimCollapsedText: 'Show more',
+                          trimExpandedText: 'Show less',
+                          style: TextStyle(fontSize: 18, color: AppServices.hexaCodeToColor(AppColors.black)),
+                          lessStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppServices.hexaCodeToColor(AppColors.black)),
+                          moreStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppServices.hexaCodeToColor(AppColors.black)),
+                        )
+                      ) 
+                      : 
                       MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
-                        child: MyText(
-                          textAlign: TextAlign.left,
-                          text: widget.product.description ?? '',
-                          fontSize: 16,
+                        child: Container(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          child: CommentUser(),
                         )
                       ),
 
@@ -539,7 +574,6 @@ class _BodyState extends State<Body> {
                                     MyCard(
                                       hexaColor: AppColors.secondary,
                                       mRight: 10,
-                                      // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
                                       width: 45, height: 42,
                                       align: Alignment.centerLeft,
                                       child: SvgPicture.asset('assets/avatar_user.svg', width: 25, height: 25),
@@ -576,11 +610,6 @@ class _BodyState extends State<Body> {
                           GestureDetector(
                             onTap: () async {
                               await dialogblurBgDeco(context, SellerInformation());
-                              // Navigator.push(
-                              //   context, 
-                              //   // MaterialPageRoute(builder: (context) => SellerInformation())
-                              //   transitionRoute(SellerInformation())
-                              // );
                             },
                             child: Container(width: MediaQuery.of(context).size.width, height: 100, color: Colors.transparent)
                           )

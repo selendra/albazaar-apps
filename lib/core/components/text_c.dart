@@ -30,7 +30,7 @@ class MyText extends StatelessWidget{
           style: TextStyle(
             fontWeight: this.fontWeight,
             color: Color(AppUtils.convertHexaColor(this.color)),
-            fontSize: this.fontSize
+            fontSize: this.fontSize,
           ),
           textAlign: this.textAlign,
           overflow: overflow,

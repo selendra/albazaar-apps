@@ -5,19 +5,18 @@ class BtnQty extends StatelessWidget {
   final String count;
   final Function addQty;
   final Function minusQty;
-  final Function numberPressed;
   final Function tapText;
 
-  BtnQty(this.count, this.addQty, this.minusQty, this.numberPressed, {this.tapText});
+  BtnQty(this.count, this.addQty, this.minusQty,{this.tapText});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _btnQtyRow(numberPressed: numberPressed, context: context, tapText: tapText)
+      child: _btnQtyRow(context: context, tapText: tapText)
     );
   }
 
-  Widget _btnQtyRow({Function numberPressed, BuildContext context, Function tapText}) {
+  Widget _btnQtyRow({BuildContext context, Function tapText}) {
 
     return Container(
       child: Row(
