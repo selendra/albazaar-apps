@@ -16,7 +16,7 @@ class HomeDialog {
             _lang.translate('are_you_sure_to_log_out'),
           ),
           actions: [
-            FlatButton(
+            TextButton(
               child: Text(
                 _lang.translate('no'),
               ),
@@ -24,7 +24,7 @@ class HomeDialog {
                 Navigator.pop(context);
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text(_lang.translate('yes')),
               onPressed: () {
                 Navigator.pop(context);

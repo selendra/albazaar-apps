@@ -38,7 +38,7 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   CategoriesModel _categoriesModel;
 
   void onTapCategoy(){
-    productCategories.clear();
+    // productCategories.clear();
     if (category == 'Vegetable'){
       productCategories = _categoriesModel.vegetableList;
     } else if (category == 'Fruit') {
@@ -90,7 +90,6 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   Widget build(BuildContext context) {
     _categoriesModel = Provider.of<CategoriesModel>(context);
     listProduct = Provider.of<CategoriesModel>(context).listProduct;
-    print("My  product ${_categoriesModel.listProduct}");
     return Stack(
       children: [
         

@@ -27,8 +27,7 @@ class _CheckoutState extends State<Checkout> {
     } else {
       try {
         if (widget.action == 'buy_now') {
-          final buyNow =
-              Provider.of<CartProvider>(context, listen: false).isBuyNow;
+          final buyNow = Provider.of<CartProvider>(context, listen: false).isBuyNow;
           if (buyNow != null) {
             Provider.of<ProductsProvider>(context, listen: false).addOrder(
               buyNow.id,

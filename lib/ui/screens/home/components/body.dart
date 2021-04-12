@@ -68,10 +68,6 @@ class Body extends StatelessWidget {
                       pBottom: listProduct.length -1 == index || listProduct.length - 2 == index ? 16 : 0, 
                       child: GestureDetector(
                         onTap: (){
-                          print(listProduct[index]);
-                          print(listProduct[index].id);
-                          print(listProduct[index].isFav);
-                          print("Hello world");
                           Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: listProduct[index])));
                         },
                         child: MyCard(
@@ -87,7 +83,10 @@ class Body extends StatelessWidget {
                                       bBottomLeft: 0, bBottomRight: 0,
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(listProduct[index].thumbnail) //CachedNetworkImageProvider(listProduct[index].thumbnail)
+                                        image: CachedNetworkImageProvider(
+                                          listProduct[index].thumbnail
+                                        )
+                                        // NetworkImage() //CachedNetworkImageProvider(listProduct[index].thumbnail)
                                       ),
                                     )
                                   )
@@ -202,24 +201,5 @@ class Body extends StatelessWidget {
           ],
         ),
       );
-      // productsProvider.items.isEmpty
-      // ? Center(
-      //     child: CircularProgressIndicator(),
-      //   )
-      // : 
-      // Container(
-      //   padding: EdgeInsets.only(bottom: 10),
-      //   child: Column(
-      //     children: <Widget>[
-
-      //       //SearchBar(),
-      //       SizedBox(
-      //         height: 10,
-      //       ),
-      //       // CategoriesScreen(category),
-      //       ProductList(productsProvider.items),
-      //     ],
-      //   ),
-      // ),
   }
 }

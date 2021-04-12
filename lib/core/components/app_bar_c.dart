@@ -28,6 +28,7 @@ class MyAppBar{
       elevation: 0,
       backgroundColor: Colors.white,
       brightness: Brightness.light,
+      leading: null,
       flexibleSpace: Align(
         alignment: Alignment.centerLeft,
         child: Row(

@@ -19,6 +19,13 @@ class CartProvider with ChangeNotifier {
   Map<String, Cart> get items => {..._items};
   Map<String, Cart> get buyNow => {..._buyNow};
 
+  void caculateAmount(int price, int qty){
+    totalPrice = (price * qty).toDouble();
+    print("My tatal $totalPrice");
+
+    notifyListeners();
+  }
+
   //Add product to cart
   void addCart(String productId, String image, String title, int price, int productOrderQty) {
     if (_items.containsKey(productId)) {

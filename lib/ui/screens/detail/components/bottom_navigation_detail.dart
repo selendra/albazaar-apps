@@ -3,7 +3,7 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavigationDetail extends StatelessWidget {
-  
+
   final Product loadedProduct;
   BottomNavigationDetail(this.loadedProduct);
 
@@ -11,6 +11,7 @@ class BottomNavigationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final cartProvider = Provider.of<CartProvider>(context);
+    print(cartProvider.totalAmount);
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       color: AppServices.hexaCodeToColor(AppColors.white),
@@ -89,17 +90,23 @@ class BottomNavigationDetail extends StatelessWidget {
               padding: EdgeInsets.only(top: 10, bottom: 10),
               child: ReuseButton.getItem(
                 AppLocalizeService.of(context).translate('buy_now'), () {
-                  cartProvider.addBuyNow(
-                    loadedProduct.id,
-                    loadedProduct.thumbnail,
-                    loadedProduct.name,
-                    loadedProduct.price,
-                    loadedProduct.orderQty,
-                  );
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      RouteAnimation(enterPage: Checkout(action: 'buy_now'))
-                  );
+
+                    print(loadedProduct.id);
+                    print(loadedProduct.thumbnail);
+                    print(loadedProduct.name);
+                    print(loadedProduct.price);
+                    print(loadedProduct.orderQty);
+                  // cartProvider.addBuyNow(
+                  //   loadedProduct.id,
+                  //   loadedProduct.thumbnail,
+                  //   loadedProduct.name,
+                  //   loadedProduct.price,
+                  //   loadedProduct.orderQty,
+                  // );
+                  // Navigator.pop(context);
+                  // Navigator.push(context,
+                  //     RouteAnimation(enterPage: Checkout(action: 'buy_now'))
+                  // );
                 }, 
                 context,
               ),

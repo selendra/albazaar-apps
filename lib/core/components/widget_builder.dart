@@ -9,7 +9,7 @@ class ListWidgetBuilder{
         hexaColor: "#FFFFFF",
         mRight: 10,
         boxBorder: Border.all(width: 2, color: selected == index ? AppServices.hexaCodeToColor(AppColors.primary) : Colors.transparent),
-        width: 40, height: 40,
+        width: selected == index ? 60 : 40, height: selected == index ? 60 : 40,
         image: DecorationImage(
           fit: BoxFit.cover,
           image: CachedNetworkImageProvider(image)

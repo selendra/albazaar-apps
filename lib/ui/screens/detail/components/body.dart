@@ -15,8 +15,10 @@ class Body extends StatefulWidget {
 
   final Product product;
   final List<String> listImage;
+  final CartProvider cartProvider;
+  final List<Product> productByCategory;
 
-  Body({this.product, this.listImage});
+  Body({this.product, this.listImage, this.cartProvider, this.productByCategory});
 
   @override
   _BodyState createState() => _BodyState();
@@ -30,21 +32,36 @@ class _BodyState extends State<Body> {
   String display;
   int selected = 0;
 
+  // List Of Amount 1, 3, 5, 10
   List<int> listAmount;
+
+  // For Handle Selected On List Row Selected Amount VS Increase and Input
   int selectedAmount;
   
   bool about = true;
 
-  Product _productProvider;
-
   TextEditingController _controller = TextEditingController();
 
   void relatedProducts(){
-    listProducts.add(widget.product);
-    listProducts.add(widget.product);
-    listProducts.add(widget.product);
-    listProducts.add(widget.product);
-    listProducts.add(widget.product);
+    for(var p in widget.productByCategory){
+      if (p.id == widget.product.id){
+        widget.productByCategory.remove(p);
+        break;
+      }
+    }
+  }
+
+  void onChangeTotal(){
+    // Caculate and Display Total
+    widget.cartProvider.totalPrice = 0;
+    widget.cartProvider.caculateAmount(widget.product.price, widget.product.orderQty);
+  }
+
+  void onChangeImage(int i){
+    setState((){
+      display = widget.listImage[i];
+      selected = i;
+    });
   }
 
   @override
@@ -53,6 +70,9 @@ class _BodyState extends State<Body> {
     listAmount = [1, 3, 5, 10];
     selectedAmount = -1;
     relatedProducts();
+
+    print(widget.cartProvider);
+
     super.initState();
   }
   
@@ -67,6 +87,9 @@ class _BodyState extends State<Body> {
     // final widget.product = Provider.of<widget.ProductsProvider>(
     //   context,
     // ).findById(widget.product.id);
+    
+    // Initailize total with product detail price
+    if (widget.cartProvider != null) widget.cartProvider.caculateAmount(widget.product.price, widget.product.orderQty);
 
     return SafeArea(
       child: Stack(
@@ -93,6 +116,9 @@ class _BodyState extends State<Body> {
                           child: SizedBox(
                             child: Consumer<ProductsProvider>(
                               builder: (context, value, child) => Carousel(
+                                onImageChange: (i,j){
+                                  onChangeImage(j);
+                                },
                                 autoplay: false,
                                 dotSpacing: 15.0,
                                 dotColor: Colors.transparent,
@@ -157,10 +183,7 @@ class _BodyState extends State<Body> {
                                   selected: selected,
                                   index: i,
                                   onPressed: (){
-                                    setState((){
-                                      display = widget.listImage[i];
-                                      selected = i;
-                                    });
+                                    onChangeImage(i);
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute(
@@ -346,7 +369,11 @@ class _BodyState extends State<Body> {
                                   onTap: (){
                                     setState((){
                                       selectedAmount = index;
+                                      // Assign orderQty with List Row Selection
                                       widget.product.orderQty = listAmount[index];
+
+                                      // Caculate and Display Total
+                                      onChangeTotal();
                                     });
                                   },
                                   child: MyCard(
@@ -365,17 +392,24 @@ class _BodyState extends State<Body> {
                             Expanded(child: Container()),
 
                             Consumer<ProductsProvider>(
-                              builder: (context, value, child) {
+                              builder: (context, pValue, child) {
                                 if (widget.product.orderQty == null) widget.product.orderQty = 0;
                                 return BtnQty(
                                   '${widget.product.orderQty ?? '0'}',
                                   () {
-                                    value.addOrderQty(widget.product);
+                                    // Caculate and Display Total
+                                    onChangeTotal();
+
+                                    pValue.addOrderQty(widget.product);
                                   },
                                   () {
-                                    value.minusOrderQty(widget.product);
+                                    // Caculate and Display Total
+                                    onChangeTotal();
+
+                                    pValue.minusOrderQty(widget.product);
                                   },
                                   tapText: () async {
+                                    // Aisgn Controller value with current Qty
                                     _controller.text = widget.product.orderQty.toString();
                                     await Components.dialog(
                                       context, 
@@ -398,7 +432,12 @@ class _BodyState extends State<Body> {
                                       )
                                     );
 
-                                    if (_controller.text.isNotEmpty) setState((){widget.product.orderQty = int.parse(_controller.text);});
+                                    if (_controller.text.isNotEmpty) {
+                                      setState((){widget.product.orderQty = int.parse(_controller.text);});
+                                      
+                                      // Caculate and Display Total
+                                      onChangeTotal();
+                                    }
                                   },
                                 );
                               }
@@ -671,7 +710,7 @@ class _BodyState extends State<Body> {
             right: 20, top: 20,
             child: Consumer<CartProvider>(
               builder: (context, value, widgets){
-                return GestureDetector(
+                return value == null ? GestureDetector(
                   onTap: () {
                     value.addCart(widget.product.id, widget.product.thumbnail, widget.product.name, widget.product.price, widget.product.orderQty);
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -684,7 +723,7 @@ class _BodyState extends State<Body> {
                     alignChild: Alignment.center,
                     child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
                   )
-                );
+                ) : Container();
               },
             )
           ),

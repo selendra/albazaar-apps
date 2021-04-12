@@ -15,15 +15,14 @@ class RelatedProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<ProductsProvider>(context);
-    final _products = productsData.items;
 
     relatedProduct = Provider.of<CategoriesModel>(context).getCategories(category);
+
+    print("My length ${relatedProduct.length ?? ''}" );
     
     return ListView.builder(
-      // physics: Axis.horizontal,
       scrollDirection: Axis.horizontal,
-      itemCount: relatedProduct.length,//_products.length,
+      itemCount: relatedProduct.length,
       shrinkWrap: true,
       // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       //   crossAxisCount: 2,
@@ -32,9 +31,11 @@ class RelatedProduct extends StatelessWidget {
       // ),
       itemBuilder: (context, index) {
 
-        if (currentProductId == relatedProduct[index].id) relatedProduct.removeAt(index);
+        // if (currentProductId == relatedProduct[index].id) print(index.toString()+"INDex");
+
+        print("My length after ${relatedProduct.length ?? ''}" );
         // Remove Current Reviewing Product From Ralated List && If Still have More Product Else Not Display
-        return relatedProduct.length != 0 ? Stack(
+        return Stack(
           children:  [
             
             if (index == 0) ReuseItemCard(
@@ -42,7 +43,7 @@ class RelatedProduct extends StatelessWidget {
               mLeft: 19,
             ),
 
-            if (index > 0 && index < relatedProduct.length)  ReuseItemCard(
+            if (index > 0 && index < relatedProduct.length) ReuseItemCard(
               product: relatedProduct[index],
               mLeft: 0,
             ),
@@ -72,7 +73,7 @@ class RelatedProduct extends StatelessWidget {
               )
             )
           ],
-        ) : Container();
+        );
       }
       // ChangeNotifierProvider.value(
       //   value: listProducts[index],
