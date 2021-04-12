@@ -5,9 +5,9 @@ import 'package:albazaar_app/all_export.dart';
 class ReuseAppBar {
   static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller) {
     return AppBar(
-      toolbarHeight: 68,
+      toolbarHeight: 70,
       brightness: Brightness.light,
-      titleSpacing: 20,
+      titleSpacing: 0,
       // leadingWidth: 25,
       title: MyText(
         text: title,
@@ -18,10 +18,11 @@ class ReuseAppBar {
       // bottom: ReuseTabBar.getItem(appBarItemOne, appBarItemTwo, appBarItemThree, controller, context),
       //  backgroundColor: Colors.white,
       leading: IconButton(
+        alignment: Alignment.centerRight,
         padding: EdgeInsets.only(left: 25),
         icon: Icon(
           Icons.arrow_back_ios,
-          size: 25,
+          size: 30,
           color: AppServices.hexaCodeToColor(AppColors.primary),
         ),
         onPressed: () {

@@ -22,9 +22,9 @@ class CartProvider with ChangeNotifier {
   void caculateAmount(int price, int qty){
     totalPrice = (price * qty).toDouble();
     print("My tatal $totalPrice");
-
-    notifyListeners();
   }
+
+  void updateNotifier() => notifyListeners();
 
   //Add product to cart
   void addCart(String productId, String image, String title, int price, int productOrderQty) {

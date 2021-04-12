@@ -1,11 +1,16 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/models/shop_m.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 
 class CreateShopBody extends StatelessWidget {
 
+  final ShopModel shopModel;
+
+  final Function onChangeImage;
+
   final Function submit;
 
-  CreateShopBody({this.submit});
+  CreateShopBody({this.shopModel, this.onChangeImage, this.submit});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +29,29 @@ class CreateShopBody extends StatelessWidget {
                 Column(
                   children: [
 
-                    Container(
-                      padding: EdgeInsets.only(top: 20),
-                      height: 228,
-                      child: SvgPicture.asset('assets/gallery.svg', width: 140, height: 107.33,)
-                      // child: Image.asset('assets/gallery.svg',fit: BoxFit.contain)
+                    GestureDetector(
+                      onTap: (){
+                        onChangeImage('bgImage');
+                      },
+                      child: shopModel.bgImage != '' ? 
+                      // Image have picked
+                      MyCard(
+                        height: 228,
+                        pBottom: 20, pTop: 20, pRight: 20, pLeft: 20,
+                        bBottomLeft: 0, bBottomRight: 0,
+                        image: DecorationImage(
+                          alignment: Alignment.center,
+                          fit: BoxFit.cover,
+                          image: FileImage(File(shopModel.bgImage))
+                        ),
+                      ) 
+                      // Default image
+                      : Container(
+                        padding: EdgeInsets.only(top: 20),
+                        height: 228,
+                        child: SvgPicture.asset('assets/gallery.svg', width: 140, height: 107.33)
+                        // child: Image.asset('assets/gallery.svg',fit: BoxFit.contain)
+                      )
                     ),
 
                     MyCard(
@@ -41,11 +64,13 @@ class CreateShopBody extends StatelessWidget {
                           children: [
 
                             TextFormField(
+                              controller: shopModel.about,
                               decoration: InputDecoration(
-                                labelStyle: TextStyle(color: Colors.white),
+                                labelStyle: TextStyle(color: Colors.white, fontSize: 20),
                                 border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                                 enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white, width: 2)),
-                                labelText: "About"
+                                labelText: "About",
+                                
                               ),
                             )
                           ],
@@ -59,20 +84,30 @@ class CreateShopBody extends StatelessWidget {
                 Positioned(
                   top: (382/2.3),
                   left: 20,
-                  child: MyCard(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.4),
-                        blurRadius: 2,
-                        spreadRadius: 1,
+                  child: GestureDetector(
+                    onTap: (){
+                      onChangeImage('thumbnail');
+                    },
+                    child: MyCard(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          blurRadius: 2,
+                          spreadRadius: 1,
+                        )
+                      ],
+                      image: shopModel.thumbnail == '' ? null : DecorationImage(
+                        alignment: Alignment.center,
+                        fit: BoxFit.cover,
+                        image: FileImage(File(shopModel.thumbnail))
+                      ),
+                      height: 80, width: 80,
+                      hexaColor: AppColors.white,
+                      child: shopModel.thumbnail != '' ? Container() : MyPadding(
+                        pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
+                        child: SvgPicture.asset('assets/gallery.svg', width: 50, height: 38.33),
                       )
-                    ],
-                    height: 80, width: 80,
-                    hexaColor: AppColors.white,
-                    child: MyPadding(
-                      pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
-                      child: SvgPicture.asset('assets/gallery.svg', width: 50, height: 38.33),
-                    )
+                    ),
                   ),
                 ),   
               ],
@@ -127,7 +162,7 @@ class CreateShopBody extends StatelessWidget {
 
         MyFlatButton(
           height: 72,
-          borderRadius: 0,
+          width: MediaQuery.of(context).size.width/2,
           buttonColor: AppColors.secondary,
           child: MyText(
             text: "Submit",

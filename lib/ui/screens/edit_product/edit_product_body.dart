@@ -5,12 +5,14 @@ class EditProductBody extends StatelessWidget {
   final ProductModel product;
   final Function validate;
   final Function onChanged;
+  final Function onChangeImage;
   final Function onSubmit;
 
   EditProductBody({
     this.product,
     this.validate,
     this.onChanged,
+    this.onChangeImage,
     this.onSubmit
   });
   
@@ -23,7 +25,12 @@ class EditProductBody extends StatelessWidget {
           mTop: 70, mBottom: 16,
           width: 145, height: 122,
           pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
-          child: SvgPicture.asset('assets/avatar_user.svg'),
+          image: product.image != null ? DecorationImage(
+            image: FileImage(
+              File(product.image)
+            )
+          ) : null,
+          child: product.image == null ? SvgPicture.asset('assets/avatar_user.svg') : Container(),
         ),
         
         MyFlatButton(
@@ -37,7 +44,7 @@ class EditProductBody extends StatelessWidget {
             ],
           ), 
           action: (){
-
+            onChangeImage();
           }, 
         ),
 
@@ -220,10 +227,10 @@ class EditProductBody extends StatelessWidget {
           ),
         ),
 
-        Expanded(child: Container()),
+        // Expanded(child: Container()),
         MyFlatButton(
           // height: 59,
-          edgeMargin: EdgeInsets.only(left: 55, right: 55, bottom: 31),
+          edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
           action: (){
 

@@ -21,7 +21,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return RouteAnimation(enterPage: AddListing());
       break;
     case ListingView:
-      return RouteAnimation(enterPage: ListingScreen());
+      return RouteAnimation(enterPage: ShopScreen());
       break;
     case CheckoutView:
       return RouteAnimation(enterPage: Checkout());

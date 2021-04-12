@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:albazaar_app/all_export.dart';
@@ -153,18 +154,7 @@ class _BodyState extends State<Body> {
     List resultList = List.filled(3, 0, growable: true);
 
     try {
-      resultList = await MultiImagePicker.pickImages(
-        enableCamera: false,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        maxImages: 1,
-        materialOptions: MaterialOptions(
-          actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-          actionBarTitle: "Selendra App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
+      resultList = await MyImagePicker.imagePicker();
 
       // Check User Cancel Upload Image
       if (resultList != null){
@@ -181,16 +171,15 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> getAssettoFile(List<Asset> resultList) async {
-    for (Asset asset in resultList) {
-      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+    List<String> _filePath = await MyImagePicker.getAssettoFile(resultList);
+    for (var img in _filePath) {
       try {
-        if (filePath != null) {
+        if (img != null) {
           await Provider.of<UserProvider>(context, listen: false)
-            .upLoadImage(File(filePath))
+            .upLoadImage(File(img))
             .then((value) {
             setState(() {
               imageUri = json.decode(value)['uri'];
-              print("Image  $imageUri");
               Provider.of<UserProvider>(context, listen: false).mUser.profileImg = imageUri;
             });
           });

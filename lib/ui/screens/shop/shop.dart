@@ -1,36 +1,35 @@
+import 'package:albazaar_app/core/models/shop_m.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop_body.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/shop/components/body.dart';
 
-class ListingScreen extends StatefulWidget {
+class ShopScreen extends StatefulWidget {
   @override
-  _ListingScreenState createState() => _ListingScreenState();
+  _ShopScreenState createState() => _ShopScreenState();
 }
 
-class _ListingScreenState extends State<ListingScreen>
-    with SingleTickerProviderStateMixin {
-  TabController _controller;
+class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateMixin {
+  
+  ShopModel _shopModel = ShopModel();
 
-  bool isSold = false;
-  String shopCreate = 'no';
-
-  void submit(){
-    setState(() {
-      shopCreate = 'created';
-    });
-  }
+  // void submit(){
+  //   setState(() {
+  //     _shopModel.shopCreate = 'created';
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(vsync: this, length: 3);
+    _shopModel.init();
+    _shopModel.controller = TabController(vsync: this, length: 3);
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _shopModel.controller.dispose();
     super.dispose();
   }
 
@@ -44,19 +43,19 @@ class _ListingScreenState extends State<ListingScreen>
         _lang.translate('all_seller'),
         _lang.translate('pending'),
         _lang.translate('complete'),
-        _controller
-      ), //lang.translate('Products')
+        _shopModel.controller
+      ), //lang.translate('Products')x
       body: BodyScaffold(
-        height: shopCreate == 'creating' ? MediaQuery.of(context).size.height : null,
-        child: shopCreate == 'created' ? Body(_controller) : 
-        shopCreate == 'creating' ? CreateShopBody(submit: submit) :Center(
+        height: _shopModel.shopCreate == 'creating' ? MediaQuery.of(context).size.height : null,
+        child: _shopModel.shopCreate == 'created' ? Body(_shopModel.controller) : 
+        _shopModel.shopCreate == 'creating' ? CreateShop(shopModel: _shopModel) : Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
 
               MyFlatButton(
-                edgeMargin: EdgeInsets.only(left: 90, right: 90),
+                edgeMargin: EdgeInsets.only(left: 110, right: 110),
                 height: 70,
                 border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
                 isTransparent: true,
@@ -69,32 +68,10 @@ class _ListingScreenState extends State<ListingScreen>
                 ),
                 action: (){
                   setState(() {
-                    shopCreate = 'creating';
+                    _shopModel.shopCreate = 'creating';
                   });
                 },
               )
-
-              // MyFlatButton(
-              //   isTransparent: true,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       SvgPicture.asset('assets/icons/plus.svg', color: AppServices.hexaCodeToColor(AppColors.primary)),
-              //       MyText(
-              //         pLeft: 10,
-              //         pTop: pd20,
-              //         pBottom: pd20,
-              //         text: "Create Shop",
-              //         color: AppColors.primary,
-              //         fontWeight: FontWeight.w600,
-              //         fontSize: 25,
-              //       )
-              //     ],
-              //   ),
-              //   action: (){
-
-              //   }
-              // )
             ],
           )
         )

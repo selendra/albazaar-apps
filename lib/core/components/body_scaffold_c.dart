@@ -24,9 +24,7 @@ class BodyScaffold extends StatelessWidget{
         height: height,
         // color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
         padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-        child: SafeArea(
-          child: this.child
-        ),
+        child: this.child,
       )
     );
   }

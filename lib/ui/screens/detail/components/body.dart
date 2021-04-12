@@ -55,6 +55,8 @@ class _BodyState extends State<Body> {
     // Caculate and Display Total
     widget.cartProvider.totalPrice = 0;
     widget.cartProvider.caculateAmount(widget.product.price, widget.product.orderQty);
+
+    widget.cartProvider.updateNotifier();
   }
 
   void onChangeImage(int i){
@@ -70,8 +72,6 @@ class _BodyState extends State<Body> {
     listAmount = [1, 3, 5, 10];
     selectedAmount = -1;
     relatedProducts();
-
-    print(widget.cartProvider);
 
     super.initState();
   }
