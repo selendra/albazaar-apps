@@ -152,49 +152,47 @@ class MyDropDownCustom{
         child: Stack(
           children: [
             Positioned(
-              left: x,
+              right: 0,
               top: y, //MediaQuery.of(context).size.height/2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  MyCard(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 3,
-                        spreadRadius: 1,
-                        color: Colors.grey.withOpacity(0.2)
-                      )
-                    ],
-                    alignChild: Alignment.center,
-                    mRight: margin, mLeft: margin,
-                    hexaColor: AppColors.white,
-                    width: 100,
-                    height: 200,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        MyTextButton(
-                          onTap: (){
-                          },
-                          text: "Riel",
-                        ),
-                        Divider(color: Colors.grey.withOpacity(0.2), height: 2),
-                        MyTextButton(
-                          onTap: ()  async {
-                          },
-                          text: "Dollar",
-                        ),
-
-                        Divider(color: Colors.grey.withOpacity(0.2), height: 2),
-                        MyTextButton(
-                          onTap: ()  async {
-                          },
-                          text: "SEL",
-                        ),
-                      ],
-                    ),
+              child: MyCard(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 3,
+                    spreadRadius: 1,
+                    color: Colors.grey.withOpacity(0.2)
                   )
                 ],
+                alignChild: Alignment.center,
+                mRight: margin, mLeft: margin,
+                hexaColor: AppColors.white,
+                width: 100,
+                height: 200,
+                child: Column(
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MyTextButton(
+                      onTap: (){
+                        Navigator.pop(context, 'riel');
+                      },
+                      text: "Riel",
+                    ),
+                    Divider(color: Colors.grey.withOpacity(0.2), height: 2),
+                    MyTextButton(
+                      onTap: ()  async {
+                        Navigator.pop(context, 'dollar');
+                      },
+                      text: "Dollar",
+                    ),
+
+                    Divider(color: Colors.grey.withOpacity(0.2), height: 2),
+                    MyTextButton(
+                      onTap: ()  async {
+                        Navigator.pop(context, 'sel');
+                      },
+                      text: "SEL",
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -238,7 +236,7 @@ class MyDropDownCustom{
                            
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'kg');
+                            Navigator.pop(context, 'kilogram');
                           },
                           text: "Fruit",
                         ),
@@ -247,7 +245,7 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'g');
+                            Navigator.pop(context, 'gram');
                           },
                           text: "Meat",
                         ),
@@ -256,7 +254,7 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'g');
+                            Navigator.pop(context, 'gram');
                           },
                           text: "Vegetable",
                         ),
@@ -265,7 +263,7 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'g');
+                            Navigator.pop(context, 'unit');
                           },
                           text: "Electronic",
                         )

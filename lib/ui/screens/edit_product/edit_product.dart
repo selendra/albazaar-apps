@@ -43,10 +43,21 @@ class _EditProductState extends State<EditProduct> {
       });
     }
   }
+  
+  void onChangeDropDown(String label, String value){
+    print(value);
+    setState((){
+      if (label == 'currency'){
+        _product.currency = value;
+      } else {
+        _product.category.text = value;
+      }
+    });
+  }
 
   @override
   void initState(){
-
+    _product.currency = 'Currency';
     super.initState();
   }
 
@@ -58,7 +69,7 @@ class _EditProductState extends State<EditProduct> {
         appBar: AppBar(
           toolbarHeight: 68,
           brightness: Brightness.light,
-          titleSpacing: 20,
+          titleSpacing: 0,
           // leadingWidth: 25,
           title: MyText(
             text: "Add Product",
@@ -87,6 +98,7 @@ class _EditProductState extends State<EditProduct> {
             onChanged: onChanged,
             validate: validateField,
             onChangeImage: onChangeImage,
+            onChangeDropDown: onChangeDropDown,
             onSubmit: onSubmit,
           )
         ),

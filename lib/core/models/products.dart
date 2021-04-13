@@ -137,13 +137,13 @@ class ProductModel {
   TextEditingController productName = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController location = TextEditingController();
-  TextEditingController weight = TextEditingController();
+  TextEditingController category = TextEditingController();
   TextEditingController description = TextEditingController();
 
   FocusNode productNameNode = FocusNode();
   FocusNode priceNode = FocusNode();
   FocusNode locationNode = FocusNode();
-  FocusNode weightNode = FocusNode();
+  FocusNode categoryNode = FocusNode();
   FocusNode descriptionNode = FocusNode();
 
 }

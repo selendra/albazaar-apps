@@ -6,6 +6,7 @@ class EditProductBody extends StatelessWidget {
   final Function validate;
   final Function onChanged;
   final Function onChangeImage;
+  final Function onChangeDropDown;
   final Function onSubmit;
 
   EditProductBody({
@@ -13,6 +14,7 @@ class EditProductBody extends StatelessWidget {
     this.validate,
     this.onChanged,
     this.onChangeImage,
+    this.onChangeDropDown,
     this.onSubmit
   });
   
@@ -26,6 +28,7 @@ class EditProductBody extends StatelessWidget {
           width: 145, height: 122,
           pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
           image: product.image != null ? DecorationImage(
+            fit: BoxFit.cover,
             image: FileImage(
               File(product.image)
             )
@@ -39,8 +42,8 @@ class EditProductBody extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
-              MyText(text: "Change image", color: AppColors.secondary, fontSize: 16, left: 10,),
+              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+              MyText(text: "Change image", color: AppColors.primary, fontSize: 16, left: 10,),
             ],
           ), 
           action: (){
@@ -80,7 +83,12 @@ class EditProductBody extends StatelessWidget {
                         child: MyInputField(
                           labelText: "Price",
                           controller: product.price, 
-                          focusNode: product.priceNode, 
+                          focusNode: product.priceNode,
+                          textInputFormatter: [
+                            LengthLimitingTextInputFormatter(TextField.noMaxLength),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          inputType: TextInputType.number,
                           validateField: (String value){
                             validate(value, label: "price");
                           }, 
@@ -92,7 +100,10 @@ class EditProductBody extends StatelessWidget {
 
                     GestureDetector(
                       onTapDown: (TapDownDetails details) async {
-                        await Navigator.push(context, popUpRoute(MyDropDownCustom.currencyDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.currencyDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('currency', result);
+                        }
                       },
                       child: MyCard(
                         mLeft: pd12, mRight: pd12,
@@ -101,9 +112,9 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: "Currency", pRight: 15,),
+                            MyText(text: product.currency, height: 15,),
 
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10)
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary),)
                           ],
                         ),
                       ),
@@ -137,10 +148,11 @@ class EditProductBody extends StatelessWidget {
                         isTransparent: true,
                         edgePadding: EdgeInsets.only(right: pd12, left: pd12),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SvgPicture.asset('assets/icons/check_in.svg', width: 20, height: 20,),
-                            MyText(text: "location", color: AppColors.secondary, pLeft: 5,)
+                            SvgPicture.asset('assets/icons/check_in.svg', width: 20, height: 20, color: AppServices.hexaCodeToColor(AppColors.primary),),
+                            MyText(text: "location", pLeft: 5, color: AppColors.primary)
                           ],
                         ), 
                         action: (){
@@ -164,8 +176,8 @@ class EditProductBody extends StatelessWidget {
                         pRight: 0,
                         child: MyInputField(
                           labelText: "Category",
-                          controller: product.weight,
-                          focusNode: product.weightNode, 
+                          controller: product.category,
+                          focusNode: product.categoryNode, 
                           validateField: (String value){
                             validate(value, label: "weight");
                           }, 
@@ -177,7 +189,10 @@ class EditProductBody extends StatelessWidget {
 
                     GestureDetector(
                       onTapDown: (TapDownDetails details) async {
-                        await Navigator.push(context, popUpRoute(MyDropDownCustom.weightDbBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.weightDbBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('category', result);
+                        }
                       },
                       child: MyCard(
                         mLeft: pd12, mRight: pd12,
@@ -188,7 +203,7 @@ class EditProductBody extends StatelessWidget {
                           children: [
                             MyText(text: "Category", pRight: 15,),
 
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10)
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
                           ],
                         ),
                       ),
@@ -213,7 +228,7 @@ class EditProductBody extends StatelessWidget {
               MyInputField(
                 height: 159.0,
                 pLeft: pd12, pRight: pd12,
-                labelText: "Description...",
+                labelText: "Description",
                 controller: product.description, 
                 focusNode: product.descriptionNode, 
                 validateField: (String value){
@@ -233,7 +248,11 @@ class EditProductBody extends StatelessWidget {
           edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
           action: (){
-
+            print(product.productName.text);
+            print(product.price.text);
+            print(product.currency);
+            print(product.category.text);
+            print(product.description.text);
           },
         )
       ],
