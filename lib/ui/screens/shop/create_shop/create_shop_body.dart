@@ -138,25 +138,25 @@ class CreateShopBody extends StatelessWidget {
           )
         ),
 
-        Expanded(child: Container(),),
-
-        MyFlatButton(
-          border: Border.all(color: AppServices.hexaCodeToColor(AppColors.secondary), width: 2),
-          isTransparent: true,
-          width: 161,
-          height: 46,
-          child: Row(
-            children: [
-              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
-              MyText(left: pd10, text: "Add product", fontWeight: FontWeight.w600, color: AppColors.secondary,),
-            ],
-          ),
-          action: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct()));
-          },
+        Center(
+          child: MyFlatButton(
+            border: Border.all(color: AppServices.hexaCodeToColor(AppColors.secondary), width: 2),
+            isTransparent: true,
+            width: 161,
+            height: 46,
+            child: Row(
+              children: [
+                SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.secondary)),
+                MyText(left: pd10, text: "Add product", fontWeight: FontWeight.w600, color: AppColors.secondary,),
+              ],
+            ),
+            action: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct()));
+            },
+          )
         ),
 
-        Expanded(
+        Flexible(
           child: Container(),
         ),
 

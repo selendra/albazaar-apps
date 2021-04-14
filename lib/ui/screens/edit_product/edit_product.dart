@@ -49,15 +49,46 @@ class _EditProductState extends State<EditProduct> {
     setState((){
       if (label == 'currency'){
         _product.currency = value;
-      } else {
+      } 
+      else if (label == 'scale'){
+        _product.scale = value;
+      }
+      else if (label == 'category'){
+        _product.categoryDropDown = value;
         _product.category.text = value;
       }
     });
   }
 
+  validateAllInput(){
+    if(
+      _product.category.text.isNotEmpty &&
+      _product.scale != null &&
+      _product.currency != null &&
+      _product.location != null &&
+      _product.image != null &&
+      _product.price.text.isEmpty &&
+      _product.productName.text.isNotEmpty
+    ){
+      enableBtn();
+    } else if (_product.enable == true){
+      enableBtn();
+    }
+  }
+
+  submitProduct() async {
+    
+  }
+
+  void enableBtn(){
+    setState((){ _product.enable = !_product.enable;});
+  }
+
   @override
   void initState(){
     _product.currency = 'Currency';
+    _product.scale = 'Scale';
+    _product.categoryDropDown = 'Category';
     super.initState();
   }
 

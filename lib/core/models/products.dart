@@ -132,8 +132,12 @@ class ProductModel {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  bool enable = false;
+
   String image;
   String currency;
+  String scale;
+  String categoryDropDown;
   TextEditingController productName = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController location = TextEditingController();

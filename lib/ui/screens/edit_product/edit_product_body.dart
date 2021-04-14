@@ -33,7 +33,7 @@ class EditProductBody extends StatelessWidget {
               File(product.image)
             )
           ) : null,
-          child: product.image == null ? SvgPicture.asset('assets/avatar_user.svg') : Container(),
+          child: product.image == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
         ),
         
         MyFlatButton(
@@ -112,7 +112,7 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: product.currency, height: 15,),
+                            MyText(text: product.currency, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary),)
                           ],
@@ -169,6 +169,7 @@ class EditProductBody extends StatelessWidget {
                 pLeft: 0, pRight: 0,
                 child: Row(
                   children: [
+
                     Expanded(
                       flex: 2,
                       child: MyPadding(
@@ -187,9 +188,33 @@ class EditProductBody extends StatelessWidget {
                       ),
                     ),
 
+                    // DropDown Scale
                     GestureDetector(
                       onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.weightDbBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('scale', result);
+                        }
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: 0,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: product.scale, pRight: 15,),
+
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // DropDown Category
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
                         if (result != null){
                           onChangeDropDown('category', result);
                         }
@@ -201,29 +226,16 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: "Category", pRight: 15,),
+                            MyText(text: product.categoryDropDown, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
                           ],
                         ),
                       ),
-                      )
+                    )
                   ],
                 ),
               ),
-
-              // MyCard(
-              //   height: heightInput,
-              //   mLeft: pd12,
-              //   mRight: pd12,
-              //   mBottom: pd12,
-              //   pLeft: 21,
-              //   width: MediaQuery.of(context).size.width,
-              //   alignChild: Alignment.centerLeft,
-              //   child: MyText(
-              //     text: "Weight"
-              //   ),
-              // ),
 
               MyInputField(
                 height: 159.0,
@@ -242,12 +254,10 @@ class EditProductBody extends StatelessWidget {
           ),
         ),
 
-        // Expanded(child: Container()),
         MyFlatButton(
-          // height: 59,
           edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
-          action: (){
+          action: product.enable == false ? null : (){
             print(product.productName.text);
             print(product.price.text);
             print(product.currency);

@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/models/shop_m.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop_body.dart';
 import 'package:flutter/material.dart';
@@ -13,16 +14,33 @@ class ShopScreen extends StatefulWidget {
 class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateMixin {
   
   ShopModel _shopModel = ShopModel();
+  ShopProvider _shopProvider;
 
   // void submit(){
   //   setState(() {
   //     _shopModel.shopCreate = 'created';
   //   });
   // }
+  
+  void isCreatedShop() async {
+    await StorageServices.fetchData(DbKey.shop).then((value) {
+      if (value != null){
+        setState((){
+          _shopModel.shopCreate = jsonDecode(value);
+        });
+      }
+    });
+
+    if (_shopModel.shopCreate == "created")
+    print(_shopModel.shopCreate.runtimeType);
+  }
 
   @override
   void initState() {
     super.initState();
+
+    isCreatedShop();
+
     _shopModel.init();
     _shopModel.controller = TabController(vsync: this, length: 3);
   }
@@ -36,6 +54,7 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
+    _shopProvider = Provider.of<ShopProvider>(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
         _lang.translate('listing'),
@@ -46,9 +65,20 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
         _shopModel.controller
       ), //lang.translate('Products')x
       body: BodyScaffold(
-        height: _shopModel.shopCreate == 'creating' ? MediaQuery.of(context).size.height : null,
-        child: _shopModel.shopCreate == 'created' ? Body(_shopModel.controller) : 
-        _shopModel.shopCreate == 'creating' ? CreateShop(shopModel: _shopModel) : Center(
+        height: MediaQuery.of(context).size.height,
+        physics: BouncingScrollPhysics(),
+        child: 
+        
+        // Check Shop Already Create And Display Shop
+        _shopModel.shopCreate == 'created' ? 
+          Body(_shopModel.controller, shopProvider: _shopProvider) 
+        
+        // Check User Press Create Shop
+        : _shopModel.shopCreate == 'creating' 
+          ? CreateShop(shopModel: _shopModel)
+
+          // Check User Not Yet Create Shop And Show Create Shop Screen
+          : Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

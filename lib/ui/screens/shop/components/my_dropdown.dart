@@ -200,8 +200,8 @@ class MyDropDownCustom{
       )
     );
   }
-  
-  static Widget weightDbBtn({BuildContext context, double x, double y}){
+
+  static Widget scaleDdBtn({BuildContext context, double x, double y}){
     return GestureDetector(
       onTap: (){
         Navigator.pop(context);
@@ -213,8 +213,8 @@ class MyDropDownCustom{
         child: Stack(
           children: [
             Positioned(
-              left: x,
-              top: y + 100, //MediaQuery.of(context).size.height/2,
+              left: x-120,
+              top: y, //MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -236,7 +236,76 @@ class MyDropDownCustom{
                            
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'kilogram');
+                            Navigator.pop(context, 'Kilogram');
+                          },
+                          text: "Kilogram",
+                        ),
+
+                        Divider(height: 1),
+
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'Gram');
+                          },
+                          text: "Gram",
+                        ),
+
+                        Divider(height: 1),
+
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'Unit');
+                          },
+                          text: "Unit",
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        )
+      )
+    );
+  }
+  
+  static Widget categoryDdBtn({BuildContext context, double x, double y}){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.white.withOpacity(0),
+        child: Stack(
+          children: [
+            Positioned(
+              right: 0,
+              top: y, //MediaQuery.of(context).size.height/2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyCard(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 3,
+                        spreadRadius: 1,
+                        color: Colors.grey.withOpacity(0.2)
+                      )
+                    ],
+                    alignChild: Alignment.center,
+                    mRight: margin, mLeft: margin,
+                    hexaColor: AppColors.white,
+                    width: 120,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                           
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'Fruit');
                           },
                           text: "Fruit",
                         ),
@@ -245,7 +314,7 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'gram');
+                            Navigator.pop(context, 'Meat');
                           },
                           text: "Meat",
                         ),
@@ -254,7 +323,7 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'gram');
+                            Navigator.pop(context, 'Vegetable');
                           },
                           text: "Vegetable",
                         ),
@@ -263,9 +332,18 @@ class MyDropDownCustom{
 
                         MyTextButton(
                           onTap: (){
-                            Navigator.pop(context, 'unit');
+                            Navigator.pop(context, 'Cereal');
                           },
-                          text: "Electronic",
+                          text: "Cereal",
+                        ),
+
+                        Divider(height: 1),
+
+                        MyTextButton(
+                          onTap: (){
+                            Navigator.pop(context, 'Others');
+                          },
+                          text: "Others",
                         )
                       ],
                     ),

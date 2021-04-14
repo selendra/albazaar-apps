@@ -61,8 +61,8 @@ class _CreateShopState extends State<CreateShop> {
     });
   }
 
-  void submit(){
-
+  void submit() async   {
+    await StorageServices.setData('created', DbKey.shop);
   }
 
   void onChangeImage(String spotName) async {
@@ -89,14 +89,7 @@ class _CreateShopState extends State<CreateShop> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BodyScaffold(
-        physics: BouncingScrollPhysics(),
-        bottom: 0,
-        height: MediaQuery.of(context).size.height,
-        child: CreateShopBody(shopModel: widget.shopModel, onChangeImage: onChangeImage, submit: submit,),
-      )
-    );
+    return CreateShopBody(shopModel: widget.shopModel, onChangeImage: onChangeImage, submit: submit,);
     //_buildTapBarView();
   }
 }

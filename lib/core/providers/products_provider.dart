@@ -71,7 +71,7 @@ class ProductsProvider with ChangeNotifier {
           }
           // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
           
-          fetchOListingProduct(value);
+          // fetchOListingProduct(value);
           fetchOrListingProduct(value);
           getAllProductImg(value);
 
@@ -184,29 +184,6 @@ class ProductsProvider with ChangeNotifier {
           notifyListeners();
         }
       }
-    } catch (e) {
-      // print(e.toString());
-    }
-  }
-
-  Future<void> fetchOListingProduct(String token) async {
-    try {
-      http.Response response =
-          await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + token,
-      });
-
-      var responseJson = json.decode(response.body);
-      _prefService.saveString('oproducts', jsonEncode(responseJson));
-
-      for (var item in responseJson) {
-        _oItems.add(OwnerProduct.fromJson(item));
-        notifyListeners();
-      }
-
-      // findIsSold(oItems);
-
     } catch (e) {
       // print(e.toString());
     }

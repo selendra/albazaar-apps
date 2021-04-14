@@ -2,6 +2,7 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/providers/add_product_provider.dart';
 import 'package:albazaar_app/core/providers/guest_acc_p.dart';
 import 'package:albazaar_app/core/providers/seller_provider.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/core/providers/trx_history_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -36,6 +37,8 @@ class AppProvider {
         create: (context) => TrxHistoryProvider()),
     ChangeNotifierProvider<GuestAccProvider>(
       create: (context) => GuestAccProvider()),
-    ChangeNotifierProvider<CategoriesModel>(create: (context) => CategoriesModel())
+    ChangeNotifierProvider<CategoriesModel>(create: (context) => CategoriesModel()),
+
+    ChangeNotifierProvider<ShopProvider>(create: (context) => ShopProvider())
   ];
 }

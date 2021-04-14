@@ -9,4 +9,5 @@ class AppConfig{
 
 class DbKey{
   static const String guestAcc = "guestAccData";
+  static const String shop = "shopData";
 }
