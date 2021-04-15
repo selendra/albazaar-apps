@@ -134,7 +134,7 @@ class ProductModel {
 
   bool enable = false;
 
-  String image;
+  List<String> image;
   String currency;
   String scale;
   String categoryDropDown;
@@ -150,6 +150,19 @@ class ProductModel {
   FocusNode categoryNode = FocusNode();
   FocusNode descriptionNode = FocusNode();
 
+  ProductModel();
+
+  ProductModel.fromOwner(OwnerProduct product){
+    image = [product.thumbnail];
+    currency = "Currency";
+    scale = "Scale";
+    categoryDropDown = product.categoryName ?? "Category";
+    productName.text = product.name;
+    price.text = product.price.toString();
+    location.text = '';
+    category.text = product.categoryName ?? '';
+    description.text = product.description;
+  }
 }
 
 // To parse this JSON data, do
@@ -239,72 +252,77 @@ class Seller {
   };
 }
 
-class OwnerProduct {
+class OwnerProduct extends Product{
   OwnerProduct({
-    this.description,
-    this.name,
-    this.updatedAt,
-    this.thumbnail,
-    this.weight,
-    this.id,
-    this.paymentId,
-    this.updatedBy,
-    this.shipping,
-    this.price,
-    this.createdBy,
-    this.categoryId,
-    this.createdAt,
-    this.isSold,
-  });
+    description,
+    shippingService,
+    address,
+    name,
+    categoryName,
+    updatedAt,
+    thumbnail,
+    phonenumber,
+    weight,
+    id,
+    paymentId,
+    updatedBy,
+    shipping,
+    price,
+    shippingFee,
+    createdBy,
+    categoryId,
+    createdAt,
+    seller,
+    isSold,
+    isFav,
+    orderQty,
+  }) : super(
+    description: description,
+    shippingService: shippingService,
+    address: address,
+    name: name,
+    categoryName: categoryName,
+    updatedAt: updatedAt,
+    thumbnail: thumbnail,
+    phonenumber: phonenumber,
+    weight: weight,
+    id: id,
+    paymentId: paymentId,
+    updatedBy: updatedBy,
+    shipping: shipping,
+    price: price,
+    shippingFee: shippingFee,
+    createdBy: createdBy,
+    categoryId: categoryId,
+    createdAt: createdAt,
+    seller: seller,
+    isSold: isSold,
+    isFav: isFav,
+    orderQty: orderQty
+  );
+  
+  ProductModel productModel;
 
-  String description;
-  String name;
-  dynamic updatedAt;
-  String thumbnail;
-  String weight;
-  String id;
-  String paymentId;
-  dynamic updatedBy;
-  String shipping;
-  int price;
-  String createdBy;
-  String categoryId;
-  DateTime createdAt;
-  bool isSold;
-
-  factory OwnerProduct.fromJson(Map<String, dynamic> json) => OwnerProduct(
-        description: json["description"],
-        name: json["name"],
-        updatedAt: json["updated_at"],
-        thumbnail: json["thumbnail"],
-        weight: json["weight"],
-        id: json["id"],
-        paymentId: json["payment_id"],
-        updatedBy: json["updated_by"],
-        shipping: json["shipping"],
-        price: json["price"],
-        createdBy: json["created_by"],
-        categoryId: json["category_id"],
-        // createdAt: DateTime.parse(json["created_at"]),
-        isSold: json["is_sold"],
-      );
+  factory OwnerProduct.fromJson(Map<String, dynamic> json) {
+    return Product.fromMap(json);
+  }
 
   Map<String, dynamic> toJson() => {
-        "description": description,
-        "name": name,
-        "updated_at": updatedAt,
-        "thumbnail": thumbnail,
-        "weight": weight,
-        "id": id,
-        "payment_id": paymentId,
-        "updated_by": updatedBy,
-        "shipping": shipping,
-        "price": price,
-        "created_by": createdBy,
-        "category_id": categoryId,
-        "created_at": createdAt.toIso8601String(),
-        "is_sold": isSold,
-      };
+    "description": description,
+    "name": name,
+    "updated_at": updatedAt,
+    "thumbnail": thumbnail,
+    "weight": weight,
+    "id": id,
+    "payment_id": paymentId,
+    "updated_by": updatedBy,
+    "shipping": shipping,
+    "price": price,
+    "created_by": createdBy,
+    "category_id": categoryId,
+    "created_at": DateTime.parse(createdAt).toIso8601String(),
+    "is_sold": isSold,
+  };
 }
 
 // To parse this JSON data, do

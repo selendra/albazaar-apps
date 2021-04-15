@@ -3,6 +3,11 @@ import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product_body.dart';
 
 class EditProduct extends StatefulWidget {
+
+  final OwnerProduct productOwner;
+
+  EditProduct({this.productOwner});
+
   @override
   _EditProductState createState() => _EditProductState();
 }
@@ -34,12 +39,13 @@ class _EditProductState extends State<EditProduct> {
   }
 
   void onChangeImage() async {
-    List fromPicker = await MyImagePicker.imagePicker();
+    widget.productOwner.productModel.image = [];
+    List fromPicker = await MyImagePicker.imagePicker(maxImages: 10);
     if (fromPicker != null){
-      images = await MyImagePicker.getAssettoFile(fromPicker);
+      widget.productOwner.productModel.image = await MyImagePicker.getAssettoFile(fromPicker);
 
+      print(widget.productOwner.productModel.image);
       setState((){
-        _product.image = images[0];
       });
     }
   }
@@ -84,11 +90,19 @@ class _EditProductState extends State<EditProduct> {
     setState((){ _product.enable = !_product.enable;});
   }
 
+  void removeImageByIndex(int index){
+    print("My index $index");
+    setState(()=> widget.productOwner.productModel.image.removeAt(index));
+  }
+
   @override
   void initState(){
-    _product.currency = 'Currency';
-    _product.scale = 'Scale';
-    _product.categoryDropDown = 'Category';
+
+    widget.productOwner.productModel = ProductModel.fromOwner(widget.productOwner);
+
+    // widget.productOwner.productModel.currency = 'Currency';
+    // widget.productOwner.productModel.scale = 'Scale';
+    // widget.productOwner.productModel.categoryDropDown = 'Category';
     super.initState();
   }
 
@@ -125,11 +139,12 @@ class _EditProductState extends State<EditProduct> {
         body: BodyScaffold(
           // height: MediaQuery.of(context).size.height,
           child: EditProductBody(
-            product: _product,
+            productOwner: widget.productOwner,
             onChanged: onChanged,
             validate: validateField,
             onChangeImage: onChangeImage,
             onChangeDropDown: onChangeDropDown,
+            removeImageByIndex: removeImageByIndex,
             onSubmit: onSubmit,
           )
         ),

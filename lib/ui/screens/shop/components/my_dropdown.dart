@@ -19,8 +19,8 @@ class MyDropDownCustom{
         child: Stack(
           children: [
             Positioned(
-              left: x,
-              top: y, //MediaQuery.of(context).size.height/2,
+              right: 0,
+              top: y-200, //MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -89,8 +89,8 @@ class MyDropDownCustom{
         child: Stack(
           children: [
             Positioned(
-              left: x - 150,
-              top: y + 10, //MediaQuery.of(context).size.height/2,
+              right: 0,
+              top: y, //MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

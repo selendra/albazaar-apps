@@ -1,217 +1,335 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'dart:async';
 import 'package:albazaar_app/all_export.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-
-// import 'package:albazaar_app/ui/screens/addlisting/fill_seller/fill_sellter.dart';
 import 'image_list.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
+class Body extends StatelessWidget {
 
-class _BodyState extends State<Body> {
-  AddProductProvider _addProductProvider;
+  AddProductProvider addProductProvider;
 
-  String _error = 'No Error Dectected';
+  final ProductModel product;
+  final Function toSeller;
+  final Function removeAsset;
+  final Function loadAssets;
+  final Function onChanged;
+  final Function onSubmit;
+  final Function onChangeCategory;
+  final Function onChangeWeight;
+  final Function onChangedPaymentOption;
 
-  PostRequest _postRequest = PostRequest();
+  final Function validateField;
+  final Function onChangeDropDown;
 
-  // BuildContext context;
-  // void routeA() async {
-  //   String resultOfC = await Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //           builder: (context) => CategoriesListScreen(category)));
-  //   setState(() {
-  //     // _addProductProvider.categories = resultOfC;
-  //   });
-  // }
+  Body({
+    this.addProductProvider,
+    this.product,
+    this.toSeller,
+    this.removeAsset,
+    this.loadAssets,
+    this.onChanged,
+    this.onChangeCategory,
+    this.onChangeWeight,
+    this.onChangedPaymentOption,
 
-  void onChanged(String value, AddProductProvider addProductProvider) {
-    // print(value);
-    // print(addProductProvider.addProduct.imageUrl);
-    // print(addProductProvider.addProduct.productName.text);
-    // print(addProductProvider.addProduct.hintCategory);
-    // print(addProductProvider.addProduct.hintWeight);
-    // print(addProductProvider.addProduct.price.text);
-    // print(addProductProvider.addProduct.hintPaymentOpt);
-    // print(addProductProvider.addProduct.description.text);
-
-    if (addProductProvider.addProduct.imageUrl.isNotEmpty &&
-      addProductProvider.addProduct.productName.text.isNotEmpty &&
-      addProductProvider.addProduct.hintCategory != "Category" &&
-      addProductProvider.addProduct.hintWeight != "Weight" &&
-      addProductProvider.addProduct.price.text.isNotEmpty &&
-      addProductProvider.addProduct.hintPaymentOpt != "Payment Method" &&
-      addProductProvider.addProduct.description.text.isNotEmpty
-    ) enableButton(true);
-    else if (_addProductProvider.addProduct.enable1) enableButton(false);
-  }
-
-  void ddOnChanged(String value) {}
-
-  void enableButton(bool enable) {
-    setState(() {
-      _addProductProvider.addProduct.enable1 = enable;
-    });
-  }
-
-  void toSeller(AddProductProvider provider, UserProvider user) async {
-    var response = await Navigator.push(
-        context,
-        MaterialPageRoute(
-        builder: (context) => FillSeller(
-          addProduct: provider.addProduct,
-          userProvider: user,
-        )
-      )
-    );
-
-    if (response != null) Navigator.pop(context, response);
-  }
-
-  Future<void> loadAssets() async {
-    String error = 'No Error Dectected';
-
-    try {
-      await Permission.camera.request().isGranted.then((value) async {
-        if (value){
-          _addProductProvider.addProduct.images = await MultiImagePicker.pickImages(
-            maxImages: 8,
-            enableCamera: false,
-            selectedAssets: _addProductProvider.addProduct.images,
-            cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-            materialOptions: MaterialOptions(
-              actionBarColor: '#${kDefaultColor.value.toRadixString(16)}',
-              actionBarTitle: "Selendra App",
-              allViewTitle: "All Photos",
-              useDetailsView: false,
-              selectCircleStrokeColor: "#000000",
-            ),
-          );
-
-          if (_addProductProvider.addProduct.images.isNotEmpty){
-            await imageAssetToFile();
-          }
-        }
-      });
-    } on Exception catch (e) {
-      error = e.toString();
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _error = error;
-    });
-
-    if (_addProductProvider.addProduct.images.isNotEmpty){
-      await getImageUrl();
-    }
-  }
-
-  Future<void> imageAssetToFile() async {
-    // Fetch Image From Asset
-    _addProductProvider.addProduct.fileImagesList.clear();
-    for (Asset asset in _addProductProvider.addProduct.images) {
-      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
-      _addProductProvider.addProduct.fileImagesList.add(File(filePath));
-    }
-  }
-
-  // Use After Display Image
-  Future<void> getImageUrl() async {
-    // Upload Image To Get Url Image
-    try {
-      var value = await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[0], "upload");
-
-      if (value != "522"){
-        _addProductProvider.addProduct.imageUrl = json.decode(value)['uri'];
-      } else throw("""Something went wrong at our end""");
-
-      // Validate After Get Url Thumnail
-      onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
-
-      // // Loop Upload File Images Per Each
-      for (int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++) {
-        await _postRequest
-            .upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload")
-            .then((value) {
-          _addProductProvider.addProduct.imageUrlList
-              .add(json.decode(value)['uri']);
-        });
-      }
-    } catch (e) {
-      await Components.dialog(context, Text(e.toString(), textAlign: TextAlign.center,), Text("Upload Image failed"));
-    }
-  } 
-
-  @override
-  void initState() {
-    _addProductProvider = AddProductProvider();
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    Timer(Duration(milliseconds: 500), () {
-      _addProductProvider.addProduct.clearProductField();
-    });
-    super.dispose();
-  }
+    this.validateField,
+    this.onChangeDropDown,
+    this.onSubmit
+  });
 
   @override
   Widget build(BuildContext context) {
-    _addProductProvider = Provider.of<AddProductProvider>(context);
+    addProductProvider = Provider.of<AddProductProvider>(context);
     UserProvider user = Provider.of<UserProvider>(context);
     // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Container(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+      child: Column(
+      children: [
+
+        MyCard(
+          mTop: 70, mBottom: 16,
+          width: 145, height: 122,
+          pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
+          image: product.image != null ? DecorationImage(
+            fit: BoxFit.cover,
+            image: FileImage(
+              File(product.image[0])
+            )
+          ) : null,
+          child: product.image == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
+        ),
+        
+        MyFlatButton(
+          edgeMargin: EdgeInsets.only(bottom: pd35-5),
+          isTransparent: true,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+              MyText(text: "Change image", color: AppColors.primary, fontSize: 16, left: 10,),
+            ],
+          ), 
+          action: (){
+            // onChangeImage();
+          }, 
+        ),
+
+        Form(
+          key: product.formKey,
           child: Column(
-            children: <Widget>[
-              _postDetail(),
-              SizedBox(
-                height: 40,
+            children: [
+              MyPadding(
+                pLeft: pd12, pRight: pd12,
+                pBottom: pd12,
+                child: MyInputField(
+                  labelText: "Product Name",
+                  controller: product.productName, 
+                  focusNode: product.productNameNode, 
+                  validateField: (String value){
+                    // validate(value, label: "productName");
+                  }, 
+                  onChanged: onChanged, 
+                  onSubmit: onSubmit
+                ),
               ),
 
-              Container(
-                margin: EdgeInsets.only(right: 18, left: 18),
-                padding: EdgeInsets.only(bottom: 20),
-                child: ReuseButton.getItem(
-                    AppLocalizeService.of(context).translate('next'),
-                    !_addProductProvider.addProduct.enable1
-                        ? null
-                        : () {
-                            toSeller(_addProductProvider, user);
-                            // if (toSeller()) {
-                            //   value.addItem(_addProductProvider.title.text, double.parse(_addProductProvider.price.text), _addProductProvider.description.text,
-                            //       _addProductProvider.contactName.text, _addProductProvider.phoneNumber.text);
-                            // }
-                          },
-                    context),
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+
+                    Expanded(
+                      flex: 2,
+                      child: MyPadding(
+                        pLeft: pd12, 
+                        pRight: 0,
+                        child: MyInputField(
+                          labelText: "Price",
+                          controller: product.price, 
+                          focusNode: product.priceNode,
+                          textInputFormatter: [
+                            LengthLimitingTextInputFormatter(TextField.noMaxLength),
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          inputType: TextInputType.number,
+                          validateField: (String value){
+                            validateField(value, label: "price");
+                          }, 
+                          onChanged: onChanged, 
+                          onSubmit: onSubmit
+                        ),
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.currencyDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('currency', result);
+                        }
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: pd12,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: product.currency, pRight: 15,),
+
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary),)
+                          ],
+                        ),
+                      ),
+                      )
+                  ],
+                ),
               ),
-              // _sellerDetail(),
+
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: MyInputField(
+                        pLeft: pd12,
+                        labelText: "Search Location",
+                        controller: product.location, 
+                        focusNode: product.locationNode, 
+                        validateField: (String value){
+                          validateField(value, label: "location");
+                        }, 
+                        onChanged: onChanged, 
+                        onSubmit: onSubmit
+                      )
+                    ),
+
+                    Flexible(
+                      child: MyFlatButton(
+                        isTransparent: true,
+                        edgePadding: EdgeInsets.only(right: pd12, left: pd12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/icons/check_in.svg', width: 20, height: 20, color: AppServices.hexaCodeToColor(AppColors.primary),),
+                            MyText(text: "location", pLeft: 5, color: AppColors.primary)
+                          ],
+                        ), 
+                        action: (){
+
+                        }, 
+                      )
+                    )
+                  ],
+                ),
+              ),
+
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+
+                    Expanded(
+                      flex: 2,
+                      child: MyPadding(
+                        pLeft: pd12, 
+                        pRight: 0,
+                        child: MyInputField(
+                          labelText: "Category",
+                          controller: product.category,
+                          focusNode: product.categoryNode, 
+                          validateField: (String value){
+                            validateField(value, label: "weight");
+                          }, 
+                          onChanged: onChanged, 
+                          onSubmit: onSubmit
+                        ),
+                      ),
+                    ),
+
+                    // DropDown Scale
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('scale', result);
+                        }
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: 0,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: product.scale, pRight: 15,),
+
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // DropDown Category
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('category', result);
+                        }
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: pd12,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: product.categoryDropDown, pRight: 15,),
+
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              MyInputField(
+                height: 159.0,
+                pLeft: pd12, pRight: pd12,
+                labelText: "Description",
+                controller: product.description, 
+                focusNode: product.descriptionNode, 
+                validateField: (String value){
+                  validateField(value, label: "description");
+                }, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit
+              ),
+              
             ],
           ),
         ),
-      ),
+
+        MyFlatButton(
+          edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
+          child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
+          action: product.enable == false ? null : (){
+            print(product.productName.text);
+            print(product.price.text);
+            print(product.currency);
+            print(product.category.text);
+            print(product.description.text);
+          },
+        )
+      ],
+    )
+      // Container(
+      //   child: SingleChildScrollView(
+      //     scrollDirection: Axis.vertical,
+      //     child: Column(
+      //       children: <Widget>[
+      //         _postDetail(context, loadAssets, onChangeCategory, onChangeWeight, onChangedPaymentOption),
+      //         SizedBox(
+      //           height: 40,
+      //         ),
+
+      //         Container(
+      //           margin: EdgeInsets.only(right: 18, left: 18),
+      //           padding: EdgeInsets.only(bottom: 20),
+      //           child: ReuseButton.getItem(
+      //               AppLocalizeService.of(context).translate('next'),
+      //               !addProductProvider.addProduct.enable1
+      //                   ? null
+      //                   : () {
+      //                       toSeller(addProductProvider, user);
+      //                       // if (toSeller()) {
+      //                       //   value.addItem(addProductProvider.title.text, double.parse(addProductProvider.price.text), addProductProvider.description.text,
+      //                       //       addProductProvider.contactName.text, addProductProvider.phoneNumber.text);
+      //                       // }
+      //                     },
+      //               context),
+      //         ),
+      //         // _sellerDetail(),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 
-  Widget buildGridView(Function loadAssets) {
+  Widget buildGridView(Function loadAssets, BuildContext context) {
     // return GestureDetector(
     //   onTap: loadAssets,
     //   child: Container(
@@ -234,9 +352,8 @@ class _BodyState extends State<Body> {
       ),
       child: GridView.count(
         crossAxisCount: 3,
-        children: List.generate(_addProductProvider.addProduct.images.length,
-            (index) {
-          Asset asset = _addProductProvider.addProduct.images[index];
+        children: List.generate(addProductProvider.addProduct.images.length, (index) {
+          Asset asset = addProductProvider.addProduct.images[index];
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
             child: GestureDetector(
@@ -245,7 +362,7 @@ class _BodyState extends State<Body> {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        ImageList(_addProductProvider.addProduct.images),
+                        ImageList(addProductProvider.addProduct.images),
                   ),
                 );
               },
@@ -262,9 +379,6 @@ class _BodyState extends State<Body> {
                     right: 0,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
-                          _addProductProvider.addProduct.images.remove(asset);
-                        });
                       },
                       child: Icon(
                         Icons.remove_circle,
@@ -281,9 +395,9 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _postDetail() {
+  Widget _postDetail(BuildContext context, Function loadAssets, Function onChangeCategory, Function onChangeWeight, Function onChangePaymentOption) {
     return Form(
-      key: _addProductProvider.addProduct.formKeyDetail,
+      key: addProductProvider.addProduct.formKeyDetail,
       child: Container(
         margin: EdgeInsets.only(left: 18, right: 18),
         child: Column(
@@ -292,12 +406,13 @@ class _BodyState extends State<Body> {
               height: 10,
             ),
             ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('pick_image'),
-                loadAssets,
-                context),
+              AppLocalizeService.of(context).translate('pick_image'),
+              loadAssets,
+              context
+            ),
 
-            _addProductProvider.addProduct.images.isNotEmpty
-                ? buildGridView(loadAssets)
+            addProductProvider.addProduct.images.isNotEmpty
+                ? buildGridView(loadAssets, context)
                 : Container(
                     height: 0,
                   ),
@@ -305,7 +420,7 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            _productNameField(),
+            _productNameField(context),
             SizedBox(
               height: 10,
             ),
@@ -313,30 +428,11 @@ class _BodyState extends State<Body> {
               children: [
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProductProvider.addProduct.hintCategory,
-                    data: _addProductProvider.addProduct.categoriesList,
+                    hint: addProductProvider.addProduct.hintCategory,
+                    data: addProductProvider.addProduct.categoriesList,
                     keyPair: 'category_name',
                     onChanged: (String value) {
-                      setState(() {
-                        for (int i = 0;
-                            i <
-                                _addProductProvider
-                                    .addProduct.categoriesList.length;
-                            i++) {
-                          if (value ==
-                              _addProductProvider.addProduct.categoriesList[i]
-                                  ['category_name']) {
-                            _addProductProvider.addProduct.category =
-                                _addProductProvider.addProduct.categoriesList[i]
-                                    ['id'];
-                            break;
-                          }
-                        }
-                        _addProductProvider.addProduct.hintCategory = value;
-
-                        // Validate After Choose Category
-                        onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
-                      });
+                      onChangeCategory(value);
                     },
                   ),
                 ),
@@ -345,30 +441,11 @@ class _BodyState extends State<Body> {
                 ),
                 Expanded(
                   child: MyDropDown(
-                    hint: _addProductProvider.addProduct.hintWeight,
-                    data: _addProductProvider.addProduct.weightList,
+                    hint: addProductProvider.addProduct.hintWeight,
+                    data: addProductProvider.addProduct.weightList,
                     keyPair: 'weight_option',
                     onChanged: (String value) {
-                      setState(() {
-                        for (int i = 0;
-                            i <
-                                _addProductProvider
-                                    .addProduct.weightList.length;
-                            i++) {
-                          if (value ==
-                              _addProductProvider.addProduct.weightList[i]
-                                  ['weight_option']) {
-                            _addProductProvider.addProduct.weight =
-                                _addProductProvider.addProduct.weightList[i]
-                                    ['id'];
-                            break;
-                          }
-                        }
-                        _addProductProvider.addProduct.hintWeight = value;
-
-                        // Validate After Choose Weight
-                        onChanged(_addProductProvider.addProduct.imageUrl, _addProductProvider);
-                      });
+                      onChangeWeight(value);
                     },
                   ),
                 )
@@ -379,47 +456,33 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: 10,
             ),
-            _priceField(),
+            _priceField(context),
 
             SizedBox(
               height: 10,
             ),
             MyDropDown(
-              hint: _addProductProvider.addProduct.hintPaymentOpt,
-              data: _addProductProvider.addProduct.paymentOptsList,
+              hint: addProductProvider.addProduct.hintPaymentOpt,
+              data: addProductProvider.addProduct.paymentOptsList,
               keyPair: 'options_name',
               onChanged: (String value) {
-                setState(() {
-                  for (int i = 0;
-                      i < _addProductProvider.addProduct.paymentOptsList.length;
-                      i++) {
-                    if (value ==
-                        _addProductProvider.addProduct.paymentOptsList[i]
-                            ['options_name']) {
-                      _addProductProvider.addProduct.paymentOpt =
-                          _addProductProvider.addProduct.paymentOptsList[i]
-                              ['id'];
-                      break;
-                    }
-                  }
-                  _addProductProvider.addProduct.hintPaymentOpt = value;
-                });
+                onChangePaymentOption(value);
               },
             ),
 
             SizedBox(
               height: 10,
             ),
-            _descriptionField(),
+            _descriptionField(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _productNameField() {
+  Widget _productNameField(BuildContext context) {
     return ReuseTextField(
-        controller: _addProductProvider.addProduct.productName,
+        controller: addProductProvider.addProduct.productName,
         labelText: AppLocalizeService.of(context).translate('product_name'),
         maxLine: 1,
         textInputAction: TextInputAction.done,
@@ -427,15 +490,15 @@ class _BodyState extends State<Body> {
             ? AppLocalizeService.of(context).translate('contact_name_is_empty')
             : null,
         onChanged: (String value) {
-          onChanged(value, _addProductProvider);
+          onChanged(value, addProductProvider);
         }
         // onSaved: (value) => _contactName = value,
         );
   }
 
-  Widget _priceField() {
+  Widget _priceField(BuildContext context) {
     return ReuseTextField(
-      controller: _addProductProvider.addProduct.price,
+      controller: addProductProvider.addProduct.price,
       labelText: AppLocalizeService.of(context).translate('price'),
       maxLine: 1,
       inputType: TextInputType.number,
@@ -444,15 +507,15 @@ class _BodyState extends State<Body> {
           ? AppLocalizeService.of(context).translate('price_is_empty')
           : null,
       onChanged: (String value) {
-        onChanged(value, _addProductProvider);
+        onChanged(value, addProductProvider);
       },
-      // onSaved: (newValue) => _addProductProvider.price. = newValue,
+      // onSaved: (newValue) => addProductProvider.price. = newValue,
     );
   }
 
-  Widget _descriptionField() {
+  Widget _descriptionField(BuildContext context) {
     return ReuseTextField(
-      controller: _addProductProvider.addProduct.description,
+      controller: addProductProvider.addProduct.description,
       maxLine: 3,
       inputType: TextInputType.text,
       textInputAction: TextInputAction.done,
@@ -462,7 +525,7 @@ class _BodyState extends State<Body> {
           ? AppLocalizeService.of(context).translate('description_is_empty')
           : null,
       onChanged: (String value) {
-        onChanged(value, _addProductProvider);
+        onChanged(value, addProductProvider);
       },
       // onSaved: (value) => _description = value,
     );
@@ -479,7 +542,7 @@ class _BodyState extends State<Body> {
 //         ),
 //         child: DropdownButtonHideUnderline(
 //           child: new DropdownButton<String>(
-//             items: _addProductProvider.addProduct.categoriesList
+//             items: addProductProvider.addProduct.categoriesList
 //                 .map((Map<String, dynamic> value) {
 //               return new DropdownMenuItem<String>(
 //                 value: value['category_name'],
@@ -490,11 +553,11 @@ class _BodyState extends State<Body> {
 //           ),
 //         )
 //         // ListTile(
-//         //   title: _addProductProvider.categories.text.isEmpty
+//         //   title: addProductProvider.categories.text.isEmpty
 //         //   ? Text(
 //         //     AppLocalizeService.of(context).translate('categories'),
 //         //   )
-//         //   : Text(_addProductProvider.categories.text),
+//         //   : Text(addProductProvider.categories.text),
 //         //   trailing: Icon(
 //         //     Icons.arrow_forward_ios,
 //         //     color: kDefaultColor,
@@ -508,7 +571,7 @@ class _BodyState extends State<Body> {
 
 //   Widget _phoneNumberField() {
 //     return ReuseTextField(
-//         controller: _addProductProvider.addProduct.sellerNumber,
+//         controller: addProductProvider.addProduct.sellerNumber,
 //         labelText: AppLocalizeService.of(context).translate('phone_hint'),
 //         maxLine: 1,
 //         textInputAction: TextInputAction.done,
@@ -516,7 +579,7 @@ class _BodyState extends State<Body> {
 //             ? AppLocalizeService.of(context).translate('phone_number_is_empty')
 //             : null,
 //         onChanged: (String value) {
-//           onChanged(value, _addProductProvider);
+//           onChanged(value, addProductProvider);
 //         }
 //         // onSaved: (value) => _phoneNumber = value,
 //         );
@@ -524,7 +587,7 @@ class _BodyState extends State<Body> {
 
 //   Widget _streetAddress() {
 //     return ReuseTextField(
-//       controller: _addProductProvider.addProduct.address,
+//       controller: addProductProvider.addProduct.address,
 //       labelText: AppLocalizeService.of(context).translate('street_address'),
 //       // onSaved: (newValue) => _address = newValue,
 //     );

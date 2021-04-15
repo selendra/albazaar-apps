@@ -12,7 +12,7 @@ class AllProductOwner extends StatelessWidget{
     return Container(
       height: 200,
       constraints: BoxConstraints(
-        minHeight: 230,
+        minHeight: 200,
         maxHeight: 300
       ),
       child: ListView.builder(
@@ -22,6 +22,7 @@ class AllProductOwner extends StatelessWidget{
             height: 180,
             padding: EdgeInsets.only(left: pd10+2, right: pd10+2, bottom: pd10+2),
             child: MyCard(
+              height: double.infinity,
               boxShadow: [
                 boxShadow()
               ],
@@ -77,7 +78,7 @@ class AllProductOwner extends StatelessWidget{
                                   );
                                   print(result);
                                   if (result == 'edit'){
-                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct() ));
+                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProduct[index]) ));
                                   }
                                   else  if (result == "delete"){
                                     await Components.dialog(
@@ -132,7 +133,14 @@ class AllProductOwner extends StatelessWidget{
                           )
                         ),
 
-                        // RateProduct()
+                        Container(
+                          height: 30,
+                          child: MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: RateProduct(),
+                          )
+                        )
                         
                       ],
                     ),

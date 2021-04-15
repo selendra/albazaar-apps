@@ -9,6 +9,7 @@ class ShopTabbar extends StatelessWidget{
         children: [
 
           Container(
+            width: 130,
             height: 50,
             decoration: BoxDecoration(
               color: AppServices.hexaCodeToColor(AppColors.secondary),
@@ -17,6 +18,7 @@ class ShopTabbar extends StatelessWidget{
             child: TextButton(
               onPressed: (){},
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.search, color: Colors.white),
                   MyText(
