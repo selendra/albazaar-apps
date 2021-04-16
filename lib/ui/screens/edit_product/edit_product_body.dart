@@ -9,6 +9,7 @@ class EditProductBody extends StatelessWidget {
   final Function onChangeDropDown;
   final Function removeImageByIndex;
   final Function onSubmit;
+  final Function submitProduct;
 
   EditProductBody({
     this.productOwner,
@@ -17,7 +18,8 @@ class EditProductBody extends StatelessWidget {
     this.onChangeImage,
     this.onChangeDropDown,
     this.removeImageByIndex,
-    this.onSubmit
+    this.onSubmit,
+    this.submitProduct
   });
   
   @override
@@ -203,25 +205,30 @@ class EditProductBody extends StatelessWidget {
               ),
 
               MyPadding(
-                pBottom: pd12,
+                pBottom: pd35,
                 pLeft: 0, pRight: 0,
                 child: Row(
                   children: [
 
-                    Expanded(
-                      flex: 2,
-                      child: MyPadding(
-                        pLeft: pd12, 
-                        pRight: 0,
-                        child: MyInputField(
-                          labelText: "Category",
-                          controller: productOwner.productModel.category,
-                          focusNode: productOwner.productModel.categoryNode, 
-                          validateField: (String value){
-                            validate(value, label: "weight");
-                          }, 
-                          onChanged: onChanged, 
-                          onSubmit: onSubmit
+                    // DropDown Category
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) async {
+                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                        if (result != null){
+                          onChangeDropDown('category', result);
+                        }
+                      },
+                      child: MyCard(
+                        mLeft: pd12, mRight: pd12,
+                        height: heightInput,
+                        pRight: pd12+3, pLeft: pd12+3,
+                        alignChild: Alignment.center,
+                        child: Row(
+                          children: [
+                            MyText(text: productOwner.productModel.categoryDropDown, pRight: 15,),
+
+                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                          ],
                         ),
                       ),
                     ),
@@ -248,29 +255,6 @@ class EditProductBody extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    // DropDown Category
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
-                        if (result != null){
-                          onChangeDropDown('category', result);
-                        }
-                      },
-                      child: MyCard(
-                        mLeft: pd12, mRight: pd12,
-                        height: heightInput,
-                        pRight: pd12+3, pLeft: pd12+3,
-                        alignChild: Alignment.center,
-                        child: Row(
-                          children: [
-                            MyText(text: productOwner.productModel.categoryDropDown, pRight: 15,),
-
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
-                          ],
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -296,12 +280,9 @@ class EditProductBody extends StatelessWidget {
         MyFlatButton(
           edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
-          action: () {
-            print(productOwner.productModel.productName.text);
-            print(productOwner.productModel.price.text);
-            print(productOwner.productModel.currency);
-            print(productOwner.productModel.category.text);
-            print(productOwner.productModel.description.text);
+          action: () async {
+            print(productOwner.productModel.categoryDropDown);
+            await submitProduct(OwnerProduct.fromEdit(productOwner));
           },
         )
       ],

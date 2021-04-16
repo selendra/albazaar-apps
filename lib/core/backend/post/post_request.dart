@@ -22,6 +22,39 @@ class PostRequest {
     return null;
   }
 
+  Future<_http.Response> updateProduct(OwnerProduct ownerProduct) async {
+    print("description" + ownerProduct.description);
+    print("name" + ownerProduct.name);
+    print("categoryId" + ownerProduct.categoryId);
+    print("thumbnail" + ownerProduct.thumbnail);
+    print("weight" + ownerProduct.weight);
+    print("id" + ownerProduct.id);
+    print("shippingId" + ownerProduct.shippingId.toString());
+    print("price" + ownerProduct.price.toString());
+    print("paymentId" + ownerProduct.paymentId);
+    _backend.token = jsonDecode(await StorageServices.fetchData('user_token'));
+    _backend.token.clear();
+    _backend.token.addAll({"token": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0"});
+    _backend.bodyEncode = json.encode({
+      "description": ownerProduct.description,
+      "name": ownerProduct.name,
+      "category-id": ownerProduct.categoryId,
+      "thumbnail": ownerProduct.thumbnail,
+      "weight": ownerProduct.weight,
+      "id": ownerProduct.id,
+      "shipping": ownerProduct.shippingId,
+      "price": ownerProduct.price.toString(),
+      "payment-id": ownerProduct.paymentId
+    });
+
+    _backend.response = await _http.post(
+      '${_sldApi.api}/update-product', 
+      headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"), 
+      body: _backend.bodyEncode
+    );
+    return _backend.response;
+  }
+
   /* ------------------User Login-------------- */
 
   Future<_http.Response> loginByPhone(String phone, String passwords) async {

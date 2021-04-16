@@ -16,7 +16,7 @@ class RelatedProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    relatedProduct = Provider.of<CategoriesModel>(context).getCategories(category);
+    relatedProduct = Provider.of<CategoriesModel>(context).fillProductByCategories(category);
 
     print("My length ${relatedProduct.length ?? ''}" );
     

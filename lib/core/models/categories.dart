@@ -5,6 +5,9 @@ class CategoriesModel with ChangeNotifier{
   String title;
   String img;
 
+  GetRequest _getRequest = GetRequest();
+  Backend _backend = Backend();
+
   List<CategoriesModel> category = [];
   List<Product> listProduct = [];
   List<Product> vegetableList = [];
@@ -15,8 +18,9 @@ class CategoriesModel with ChangeNotifier{
   List<Product> othersList = [];
 
   List<Map<String, dynamic>> fromDb;
+  List<Map<String, dynamic>> listCategories = [];
 
-  CategoriesModel({this.title, this.img});
+  CategoriesModel({this.title, this.img}){getCategories();}
 
   void init(){
     category = [
@@ -54,7 +58,7 @@ class CategoriesModel with ChangeNotifier{
     }
   }
 
-  List<Product> getCategories(String category){
+  List<Product> fillProductByCategories(String category){
     if (category == 'Vegetable'){
       return vegetableList;
     } else if (category == 'Fruit') {
@@ -67,6 +71,32 @@ class CategoriesModel with ChangeNotifier{
       return carealList;
     } else if (category == 'Others'){
       return othersList;
+    }
+    return null;
+  }
+
+  void getCategories() async {
+    try{
+      _backend.response = await _getRequest.categories();
+      _backend.data = json.decode(_backend.response.body);
+
+      print("My data category ${_backend.data}");
+
+      listCategories = List.from(_backend.data);
+
+      await StorageServices.setData(listCategories, DbKey.categories);
+    } catch (e){
+      print(e);
+    }
+
+    notifyListeners();
+  }
+
+  String findCategoriesById(String categoryId) {
+    for (var c in listCategories){
+      if (c['id'] == categoryId) {
+        return c['category_name'];
+      }
     }
     return null;
   }

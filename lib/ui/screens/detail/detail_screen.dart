@@ -29,7 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
     _listImage = Provider.of<ProductsProvider>(context).url;
     
     _cartProvider = Provider.of<CartProvider>(context);
-    _productByCategory = Provider.of<CategoriesModel>(context).getCategories(widget.product.categoryName);
+    _productByCategory = Provider.of<CategoriesModel>(context).fillProductByCategories(widget.product.categoryName);
     // final loadedProduct = Provider.of<ProductsProvider>(context).findById(product[0].id);
     return Scaffold(
       body: widget.product == null ? Center(child: CircularProgressIndicator()) : Body(

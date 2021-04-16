@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class ShopProvider extends ChangeNotifier{
 
-  http.Response _response;
+  Backend _backend = Backend();
   
   List<OwnerProduct> _allOwnerProduct;
 
@@ -17,30 +17,35 @@ class ShopProvider extends ChangeNotifier{
     _allOwnerProduct = [];
     await StorageServices.fetchData('token').then((token) async {
       // token = '';
-      if(token != null){
+      // if(token != null){
         print("Hello");
         try {
-            _response =  await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
+          _backend.response =  await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
             "accept": "application/json",
-            "authorization": "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg0NzQ4NzN9.Sf39wMbDDIyywa5scJ2OzXc3UvWHGQorU_St9ECGjhE',
+            "authorization": "Bearer " + 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0',
           });
 
-          var responseJson = json.decode(_response.body);
-          print("My response $responseJson");
-          StorageServices.setData(responseJson, 'oproducts');
+          _backend.data = json.decode(_backend.response.body);
+          print("My response ${_backend.data}");
+          await StorageServices.setData(_backend.data, 'oproducts');
 
-
-          for (var item in responseJson) {
-            _allOwnerProduct.add(OwnerProduct.fromJson(item));
+          for (var item in _backend.data) {
+            print(item);
+            _allOwnerProduct.add(OwnerProduct.fromJsons(item));
           }
 
           // findIsSold(oItems);
 
         } catch (e) {
+          print("My error");
           print(e.toString());
         }
-      }
+      // }
     });
+
+    // for (var item in _backend.data) {
+    //   _allOwnerProduct.add(OwnerProduct.fromJson(item));
+    // }
 
     notifyListeners();
   }

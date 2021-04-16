@@ -15,7 +15,7 @@ class Product with ChangeNotifier {
     this.id,
     this.paymentId,
     this.updatedBy,
-    this.shipping,
+    this.shippingId,
     this.price,
     this.shippingFee,
     this.createdBy,
@@ -39,7 +39,7 @@ class Product with ChangeNotifier {
   String id;
   String paymentId;
   dynamic updatedBy;
-  String shipping;
+  String shippingId;
   int price;
   double shippingFee;
   String createdBy;
@@ -64,6 +64,7 @@ class Product with ChangeNotifier {
     updatedBy: json["updated_by"],
     address: json["address"],
     price: json["price"],
+    shippingId: json["shipping"],
     shippingFee: json["shipping_fee"],
     createdBy: json["created_by"],
     categoryId: json["category_id"],
@@ -88,6 +89,7 @@ class Product with ChangeNotifier {
     "updated_by": updatedBy, 
     "address": address, 
     "price": price, 
+    "shipping": shippingId,
     "shipping_fee": shippingFee, 
     "created_by": createdBy, 
     "category_id": categoryId, 
@@ -156,7 +158,7 @@ class ProductModel {
     image = [product.thumbnail];
     currency = "Currency";
     scale = "Scale";
-    categoryDropDown = product.categoryName ?? "Category";
+    categoryDropDown = product.categoryName;
     productName.text = product.name;
     price.text = product.price.toString();
     location.text = '';
@@ -266,7 +268,7 @@ class OwnerProduct extends Product{
     id,
     paymentId,
     updatedBy,
-    shipping,
+    shippingId,
     price,
     shippingFee,
     createdBy,
@@ -289,7 +291,7 @@ class OwnerProduct extends Product{
     id: id,
     paymentId: paymentId,
     updatedBy: updatedBy,
-    shipping: shipping,
+    shippingId: shippingId,
     price: price,
     shippingFee: shippingFee,
     createdBy: createdBy,
@@ -303,8 +305,58 @@ class OwnerProduct extends Product{
   
   ProductModel productModel;
 
-  factory OwnerProduct.fromJson(Map<String, dynamic> json) {
-    return Product.fromMap(json);
+  factory OwnerProduct.fromJsons(Map<String, dynamic> json) {
+    print("My shipping id ${json['shipping']}");
+    return OwnerProduct(
+      description: json["description"],
+      shippingService: json["shipping_service"],
+      name: json["name"],
+      categoryName: json["category_name"],
+      updatedAt: json["updated_at"],
+      thumbnail: json["thumbnail"],
+      phonenumber: json["phonenumber"],
+      weight: json["weight"],
+      id: json["id"],
+      paymentId: json["payment_id"],
+      updatedBy: json["updated_by"],
+      address: json["address"],
+      price: json["price"],
+      shippingId: json["shipping"],
+      shippingFee: json["shipping_fee"],
+      createdBy: json["created_by"],
+      categoryId: json["category_id"],
+      // createdAt: DateTime.parse(json["created_at"]),
+      seller: Seller.fromJson(json["seller"]),
+      isSold: json["is_sold"],
+      isFav: false,
+      orderQty: 1
+    );
+  }
+
+  factory OwnerProduct.fromEdit(OwnerProduct owner) {
+    return OwnerProduct(
+      description: owner.productModel.description.text,
+      shippingService: owner.shippingService,
+      name: owner.productModel.productName.text,
+      categoryName: owner.productModel.categoryDropDown,
+      updatedAt: owner.updatedAt,
+      thumbnail: owner.productModel.image[0],
+      phonenumber: owner.phonenumber,
+      weight: owner.productModel.scale == "Scale" ? owner.weight : owner.productModel.scale,
+      id: owner.id,
+      paymentId: owner.paymentId,
+      updatedBy: owner.updatedBy,
+      shippingId: owner.shippingId,
+      price: int.parse(owner.productModel.price.text),
+      shippingFee: owner.shippingFee,
+      createdBy: owner.createdBy,
+      categoryId: owner.categoryId,
+      createdAt: owner.createdAt,
+      seller: owner.seller,
+      isSold: owner.isSold,
+      isFav: owner.isFav,
+      orderQty: owner.orderQty
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -316,13 +368,14 @@ class OwnerProduct extends Product{
     "id": id,
     "payment_id": paymentId,
     "updated_by": updatedBy,
-    "shipping": shipping,
+    "shipping": shippingId,
     "price": price,
     "created_by": createdBy,
     "category_id": categoryId,
     "created_at": DateTime.parse(createdAt).toIso8601String(),
     "is_sold": isSold,
   };
+
 }
 
 // To parse this JSON data, do

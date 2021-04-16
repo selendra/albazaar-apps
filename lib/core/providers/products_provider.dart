@@ -32,8 +32,6 @@ class ProductsProvider with ChangeNotifier {
 
   List<OrderProduct> _completeProduct = [];
   
-  CategoriesModel _categoriesModel = CategoriesModel();
-
   //initial product orderqty
 
   List<Product> get items => [..._items];

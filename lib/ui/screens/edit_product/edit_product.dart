@@ -1,4 +1,5 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product_body.dart';
 
@@ -82,10 +83,6 @@ class _EditProductState extends State<EditProduct> {
     }
   }
 
-  submitProduct() async {
-    
-  }
-
   void enableBtn(){
     setState((){ _product.enable = !_product.enable;});
   }
@@ -95,11 +92,33 @@ class _EditProductState extends State<EditProduct> {
     setState(()=> widget.productOwner.productModel.image.removeAt(index));
   }
 
+  Future<void> submitProduct(OwnerProduct ownerProduct) async {
+    Components.dialogLoading(context: context);
+    try{
+      await PostRequest().updateProduct(ownerProduct).then((value) async {
+        // Close Loading
+        Navigator.pop(context);
+        if (value.statusCode == 200){
+          await Components.dialog(context, MyText(text: json.decode(value.body)['message']), Text("Message"));
+
+          // // Refetch Product Owner
+          await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+
+          // Close Edit Screen
+          Navigator.pop(context);
+        }
+      });
+    } catch (e){
+      print("Hello error");
+      await Components.dialog(context, Text(e.toString()), Text("Message"));
+      print(e);
+    }
+  }
+
   @override
   void initState(){
 
     widget.productOwner.productModel = ProductModel.fromOwner(widget.productOwner);
-
     // widget.productOwner.productModel.currency = 'Currency';
     // widget.productOwner.productModel.scale = 'Scale';
     // widget.productOwner.productModel.categoryDropDown = 'Category';
@@ -109,6 +128,8 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
+    widget.productOwner.productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
+    widget.productOwner.productModel.categoryDropDown = widget.productOwner.productModel.category.text;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -146,6 +167,7 @@ class _EditProductState extends State<EditProduct> {
             onChangeDropDown: onChangeDropDown,
             removeImageByIndex: removeImageByIndex,
             onSubmit: onSubmit,
+            submitProduct: submitProduct,
           )
         ),
       ),

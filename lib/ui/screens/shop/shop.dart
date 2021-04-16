@@ -55,7 +55,7 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    // _shopProvider = Provider.of<ShopProvider>(context);
+    _shopProvider = Provider.of<ShopProvider>(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
         _lang.translate('listing'),

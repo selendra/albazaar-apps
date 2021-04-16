@@ -26,7 +26,7 @@ class _BodyState extends State<Body> {
   //ProductsProvider productsProvider;
   //SellerProvider sellerProvider;
   //
-  List<OwnerProduct> listProduct;
+  List<OwnerProduct> listProduct = [];
 
   Product product = Product(
     description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
@@ -51,8 +51,7 @@ class _BodyState extends State<Body> {
 
   Future<Null> _refresh() async {
     await Future.delayed(Duration(seconds: 3)).then((value) {
-      Provider.of<ProductsProvider>(context, listen: false)
-          .fetchListingProduct();
+      Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
     });
   }
 
@@ -64,35 +63,37 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    listProduct = [
-      OwnerProduct(
+    // listProduct = [
+    //   OwnerProduct(
        
-        description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
-        shipping: "SW Logistic",
-        // address: null,
-        name: "កាពីទែនជីវិត ភាគ1",
-        categoryName: "Others",
-        thumbnail: "https://selendra.s3-ap-southeast-1.amazonaws.com/1bf46702-f69e-4fad-840b-89e0ae9a8edc",
-        // phonenumber: null,
-        weight: "b8fd8a60-242c-405d-8a62-1ae2880094a7",
-        id: "be630b54-f67b-4b89-aed2-c3a997a9a105",
-        paymentId: "3802b352-4b1e-4ec3-a24c-c1e042d3fadd",
-        price: 7,
-        shippingFee: 1.99,
-        createdAt: "2021-02-18T02:31:54Z",
-        seller: Seller.fromJson({
-          "type": "record",
-          "value": "(,)"
-        }),
-        isSold: false 
-      )
-    ];
+    //     description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
+    //     shipping: "SW Logistic",
+    //     // address: null,
+    //     name: "កាពីទែនជីវិត ភាគ1",
+    //     categoryName: "Others",
+    //     thumbnail: "https://selendra.s3-ap-southeast-1.amazonaws.com/1bf46702-f69e-4fad-840b-89e0ae9a8edc",
+    //     // phonenumber: null,
+    //     weight: "b8fd8a60-242c-405d-8a62-1ae2880094a7",
+    //     id: "be630b54-f67b-4b89-aed2-c3a997a9a105",
+    //     paymentId: "3802b352-4b1e-4ec3-a24c-c1e042d3fadd",
+    //     price: 7,
+    //     shippingFee: 1.99,
+    //     createdAt: "2021-02-18T02:31:54Z",
+    //     seller: Seller.fromJson({
+    //       "type": "record",
+    //       "value": "(,)"
+    //     }),
+    //     isSold: false 
+    //   )
+    // ];
+    // listProduct = widget.shopProvider.allProduct;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // listProduct = widget.shopProvider.allProduct;
+    listProduct = Provider.of<ShopProvider>(context).allProduct;
+    print(listProduct.length);
     return Column(
       children: [
 
@@ -136,7 +137,7 @@ class _BodyState extends State<Body> {
         // Button
         ShopTabbar(),
 
-        listProduct == null ? Center(
+        listProduct == null || listProduct.length == 0 ? Center(
           child: CircularProgressIndicator(),
         ) 
         : Expanded(child: AllProductOwner(listProduct: listProduct,))
