@@ -1,3 +1,4 @@
+import 'package:albazaar_app/all_export.dart';
 import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
@@ -130,13 +131,14 @@ class Product with ChangeNotifier {
   }
 }
 
+// Model Almost For Edit
 class ProductModel {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool enable = false;
 
-  List<String> image;
+  List<String> images;
   String currency;
   String scale;
   String categoryDropDown;
@@ -154,8 +156,9 @@ class ProductModel {
 
   ProductModel();
 
+  // Call When We Fetching Data From Server
   ProductModel.fromOwner(OwnerProduct product){
-    image = [product.thumbnail];
+    images = images;
     currency = "Currency";
     scale = "Scale";
     categoryDropDown = product.categoryName;
@@ -302,11 +305,10 @@ class OwnerProduct extends Product{
     isFav: isFav,
     orderQty: orderQty
   );
-  
-  ProductModel productModel;
+
+  List<String> listImages;
 
   factory OwnerProduct.fromJsons(Map<String, dynamic> json) {
-    print("My shipping id ${json['shipping']}");
     return OwnerProduct(
       description: json["description"],
       shippingService: json["shipping_service"],
@@ -329,25 +331,25 @@ class OwnerProduct extends Product{
       seller: Seller.fromJson(json["seller"]),
       isSold: json["is_sold"],
       isFav: false,
-      orderQty: 1
+      orderQty: 1,
     );
   }
 
-  factory OwnerProduct.fromEdit(OwnerProduct owner) {
+  factory OwnerProduct.fromEdit(ProductModel productModel, OwnerProduct owner){
     return OwnerProduct(
-      description: owner.productModel.description.text,
+      description: productModel.description.text,
       shippingService: owner.shippingService,
-      name: owner.productModel.productName.text,
-      categoryName: owner.productModel.categoryDropDown,
+      name: productModel.productName.text,
+      categoryName: productModel.categoryDropDown,
       updatedAt: owner.updatedAt,
-      thumbnail: owner.productModel.image[0],
+      thumbnail: productModel.images[0],
       phonenumber: owner.phonenumber,
-      weight: owner.productModel.scale == "Scale" ? owner.weight : owner.productModel.scale,
+      weight: productModel.scale == "Scale" ? owner.weight : productModel.scale,
       id: owner.id,
       paymentId: owner.paymentId,
       updatedBy: owner.updatedBy,
       shippingId: owner.shippingId,
-      price: int.parse(owner.productModel.price.text),
+      price: int.parse(productModel.price.text),
       shippingFee: owner.shippingFee,
       createdBy: owner.createdBy,
       categoryId: owner.categoryId,

@@ -15,6 +15,7 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   
   ShopModel _shopModel = ShopModel();
   ShopProvider _shopProvider;
+  ProductsProvider _productProvider;
 
   // void submit(){
   //   setState(() {
@@ -24,9 +25,10 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   
   void isCreatedShop() async {
     await StorageServices.fetchData(DbKey.shop).then((value) {
+      print("MY response  $value");
       if (value != null){
         setState((){
-          _shopModel.shopCreate = jsonDecode(value);
+          _shopModel.shopCreate = value;
         });
       }
     });
@@ -35,11 +37,17 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
     print(_shopModel.shopCreate.runtimeType);
   }
 
+  void addToken() async {
+    await StorageServices.setData({'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg3MzAxMDl9.L3GyfktrauuCHnQ79XudBwmUX5ot0LVLGhb91y-Yngc'}, 'token');
+  }
+
   @override
   void initState() {
     super.initState();
 
     isCreatedShop();
+
+    // addToken();
 
     _shopModel.init();
     _shopModel.controller = TabController(vsync: this, length: 3);
@@ -56,6 +64,10 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     _shopProvider = Provider.of<ShopProvider>(context);
+
+    // Use Product Provder Here to get All Product Images
+    _productProvider = Provider.of<ProductsProvider>(context);
+
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
         _lang.translate('listing'),
@@ -72,7 +84,7 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
         
         // Check Shop Already Create And Display Shop
         _shopModel.shopCreate == 'created' ? 
-          Body(_shopModel.controller, shopProvider: _shopProvider) 
+          Body(_shopModel.controller, shopProvider: _shopProvider, productProvider: _productProvider) 
         
         // Check User Press Create Shop
         : _shopModel.shopCreate == 'creating' 

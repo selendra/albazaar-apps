@@ -3,6 +3,7 @@ import 'package:albazaar_app/all_export.dart';
 class EditProductBody extends StatelessWidget {
 
   final OwnerProduct productOwner;
+  final ProductModel productModel;
   final Function validate;
   final Function onChanged;
   final Function onChangeImage;
@@ -13,6 +14,7 @@ class EditProductBody extends StatelessWidget {
 
   EditProductBody({
     this.productOwner,
+    this.productModel,
     this.validate,
     this.onChanged,
     this.onChangeImage,
@@ -39,9 +41,9 @@ class EditProductBody extends StatelessWidget {
           //   )
           // ) : null,
           alignChild: Alignment.center,
-          child: productOwner.productModel.image.length != 0 ? GridView.count(
+          child: productOwner.listImages.length != 0 ? GridView.count(
             crossAxisCount: 3,
-            children: List.generate(productOwner.productModel.image.length, (index) {
+            children: List.generate(productOwner.listImages.length, (index) {
               return MyCard(
                 height: 100, width: 100,
                 align: Alignment.center,
@@ -49,7 +51,7 @@ class EditProductBody extends StatelessWidget {
                   children: [
 
                     CachedNetworkImage(
-                      imageUrl: productOwner.productModel.image[index],
+                      imageUrl: productOwner.listImages[index],
                       placeholder: (context, value){
                         return Image.asset(AppConfig.imagePath+'loading.gif');
                       },
@@ -91,7 +93,7 @@ class EditProductBody extends StatelessWidget {
         ),
 
         Form(
-          key: productOwner.productModel.formKey,
+          key: productModel.formKey,
           child: Column(
             children: [
               MyPadding(
@@ -99,8 +101,8 @@ class EditProductBody extends StatelessWidget {
                 pBottom: pd12,
                 child: MyInputField(
                   labelText: "Product Name",
-                  controller: productOwner.productModel.productName, 
-                  focusNode: productOwner.productModel.productNameNode, 
+                  controller: productModel.productName, 
+                  focusNode: productModel.productNameNode, 
                   validateField: (String value){
                     validate(value, label: "productName");
                   }, 
@@ -121,8 +123,8 @@ class EditProductBody extends StatelessWidget {
                         pRight: 0,
                         child: MyInputField(
                           labelText: "Price",
-                          controller: productOwner.productModel.price, 
-                          focusNode: productOwner.productModel.priceNode,
+                          controller: productModel.price, 
+                          focusNode: productModel.priceNode,
                           textInputFormatter: [
                             LengthLimitingTextInputFormatter(TextField.noMaxLength),
                             FilteringTextInputFormatter.digitsOnly
@@ -151,7 +153,7 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: productOwner.productModel.currency, pRight: 15,),
+                            MyText(text: productModel.currency, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary),)
                           ],
@@ -173,8 +175,8 @@ class EditProductBody extends StatelessWidget {
                       child: MyInputField(
                         pLeft: pd12,
                         labelText: "Search Location",
-                        controller: productOwner.productModel.location, 
-                        focusNode: productOwner.productModel.locationNode, 
+                        controller: productModel.location, 
+                        focusNode: productModel.locationNode, 
                         validateField: (String value){
                           validate(value, label: "location");
                         }, 
@@ -225,7 +227,7 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: productOwner.productModel.categoryDropDown, pRight: 15,),
+                            MyText(text: productModel.categoryDropDown, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
                           ],
@@ -248,7 +250,7 @@ class EditProductBody extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: productOwner.productModel.scale, pRight: 15,),
+                            MyText(text: productModel.scale, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
                           ],
@@ -263,8 +265,8 @@ class EditProductBody extends StatelessWidget {
                 height: 159.0,
                 pLeft: pd12, pRight: pd12,
                 labelText: "Description",
-                controller: productOwner.productModel.description, 
-                focusNode: productOwner.productModel.descriptionNode, 
+                controller: productModel.description, 
+                focusNode: productModel.descriptionNode, 
                 maxLines: 5,
                 validateField: (String value){
                   validate(value, label: "description");
@@ -278,11 +280,11 @@ class EditProductBody extends StatelessWidget {
         ),
 
         MyFlatButton(
-          edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
+          edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: pd35, top: pd35),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
           action: () async {
-            print(productOwner.productModel.categoryDropDown);
-            await submitProduct(OwnerProduct.fromEdit(productOwner));
+            print(productModel.categoryDropDown);
+            await submitProduct(OwnerProduct.fromEdit(productModel, productOwner));
           },
         )
       ],

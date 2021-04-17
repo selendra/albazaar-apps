@@ -16,7 +16,6 @@ class EditProduct extends StatefulWidget {
 class _EditProductState extends State<EditProduct> {
 
   ProductModel _product = ProductModel();
-  List<String> images;
 
   void onChanged(String value){
     _product.formKey.currentState.validate();
@@ -40,12 +39,11 @@ class _EditProductState extends State<EditProduct> {
   }
 
   void onChangeImage() async {
-    widget.productOwner.productModel.image = [];
     List fromPicker = await MyImagePicker.imagePicker(maxImages: 10);
     if (fromPicker != null){
-      widget.productOwner.productModel.image = await MyImagePicker.getAssettoFile(fromPicker);
+      widget.productOwner.listImages = await MyImagePicker.getAssettoFile(fromPicker);
 
-      print(widget.productOwner.productModel.image);
+      print(widget.productOwner.listImages);
       setState((){
       });
     }
@@ -73,7 +71,7 @@ class _EditProductState extends State<EditProduct> {
       _product.scale != null &&
       _product.currency != null &&
       _product.location != null &&
-      _product.image != null &&
+      _product.images != null &&
       _product.price.text.isEmpty &&
       _product.productName.text.isNotEmpty
     ){
@@ -89,7 +87,7 @@ class _EditProductState extends State<EditProduct> {
 
   void removeImageByIndex(int index){
     print("My index $index");
-    setState(()=> widget.productOwner.productModel.image.removeAt(index));
+    setState(()=> widget.productOwner.listImages.removeAt(index));
   }
 
   Future<void> submitProduct(OwnerProduct ownerProduct) async {
@@ -118,7 +116,8 @@ class _EditProductState extends State<EditProduct> {
   @override
   void initState(){
 
-    widget.productOwner.productModel = ProductModel.fromOwner(widget.productOwner);
+    _product = ProductModel.fromOwner(widget.productOwner);
+    widget.productOwner.listImages.insert(0, widget.productOwner.thumbnail);
     // widget.productOwner.productModel.currency = 'Currency';
     // widget.productOwner.productModel.scale = 'Scale';
     // widget.productOwner.productModel.categoryDropDown = 'Category';
@@ -128,8 +127,8 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    widget.productOwner.productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
-    widget.productOwner.productModel.categoryDropDown = widget.productOwner.productModel.category.text;
+    _product.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
+    _product.categoryDropDown = _product.category.text;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -161,6 +160,7 @@ class _EditProductState extends State<EditProduct> {
           // height: MediaQuery.of(context).size.height,
           child: EditProductBody(
             productOwner: widget.productOwner,
+            productModel: _product,
             onChanged: onChanged,
             validate: validateField,
             onChangeImage: onChangeImage,

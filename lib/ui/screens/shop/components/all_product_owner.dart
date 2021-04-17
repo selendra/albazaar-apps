@@ -1,14 +1,18 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/rate_product_c.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 
 class AllProductOwner extends StatelessWidget{
 
-  final List<OwnerProduct> listProduct;
+  final List<OwnerProduct> listProductOwner;
 
-  AllProductOwner({this.listProduct});
+  AllProductOwner({this.listProductOwner});
 
   Widget build(BuildContext context){
+
+    // final _listImages = Provider.of<ShopProvider>(context).listImages;
+
     return Container(
       height: 200,
       constraints: BoxConstraints(
@@ -16,7 +20,7 @@ class AllProductOwner extends StatelessWidget{
         maxHeight: 300
       ),
       child: ListView.builder(
-        itemCount: 1,//listProduct.length,
+        itemCount: 1,//listProductOwner.length,
         itemBuilder: (context, int index){
           return Container(
             height: 180,
@@ -36,7 +40,7 @@ class AllProductOwner extends StatelessWidget{
                     bTopRight: 0, bBottomRight: 0,
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: NetworkImage(listProduct[index].thumbnail)
+                      image: NetworkImage(listProductOwner[index].thumbnail)
                     ),
                   ),
 
@@ -58,7 +62,7 @@ class AllProductOwner extends StatelessWidget{
                                 child: MyText(
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
-                                  text: "${listProduct[index].name}",
+                                  text: "${listProductOwner[index].name}",
                                   fontSize:20,
                                   fontWeight: FontWeight.bold,
                                   color: "#000000",
@@ -78,7 +82,7 @@ class AllProductOwner extends StatelessWidget{
                                   );
                                   print(result);
                                   if (result == 'edit'){
-                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProduct[index]) ));
+                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProductOwner[index])));
                                   }
                                   else  if (result == "delete"){
                                     await Components.dialog(
@@ -107,7 +111,7 @@ class AllProductOwner extends StatelessWidget{
                           child: MyText(
                             width: MediaQuery.of(context).size.width,
                             textAlign: TextAlign.left,
-                            text: "${listProduct[index].description}",
+                            text: "${listProductOwner[index].description}",
                             fontSize: 12,
                             color: "#000000",
                             overflow: TextOverflow.ellipsis,
@@ -124,7 +128,7 @@ class AllProductOwner extends StatelessWidget{
                               MyText(
                                 left: 6,
                                 textAlign: TextAlign.left,
-                                text: "${listProduct[index].price} /Kg",
+                                text: "${listProductOwner[index].price} /Kg",
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primary,

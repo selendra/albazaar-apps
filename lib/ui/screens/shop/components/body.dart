@@ -12,11 +12,13 @@ import 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
 
 class Body extends StatefulWidget {
   
-  ShopProvider shopProvider;
+  final ShopProvider shopProvider;
 
   final TabController _controller;
 
-  Body(this._controller, {this.shopProvider});
+  final ProductsProvider productProvider;
+
+  Body(this._controller, {this.shopProvider, this.productProvider});
 
   @override
   _BodyState createState() => _BodyState();
@@ -25,8 +27,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   //ProductsProvider productsProvider;
   //SellerProvider sellerProvider;
-  //
-  List<OwnerProduct> listProduct = [];
 
   Product product = Product(
     description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
@@ -63,7 +63,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // listProduct = [
+    // listProductOwner = [
     //   OwnerProduct(
        
     //     description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
@@ -86,14 +86,12 @@ class _BodyState extends State<Body> {
     //     isSold: false 
     //   )
     // ];
-    // listProduct = widget.shopProvider.allProduct;
+    // listProductOwner = widget.shopProvider.allProduct;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    listProduct = Provider.of<ShopProvider>(context).allProduct;
-    print(listProduct.length);
     return Column(
       children: [
 
@@ -137,10 +135,10 @@ class _BodyState extends State<Body> {
         // Button
         ShopTabbar(),
 
-        listProduct == null || listProduct.length == 0 ? Center(
+        widget.shopProvider.allOwnerProduct == null || widget.shopProvider.allOwnerProduct.length == 0 ? Center(
           child: CircularProgressIndicator(),
         ) 
-        : Expanded(child: AllProductOwner(listProduct: listProduct,))
+        : Expanded(child: AllProductOwner(listProductOwner: widget.shopProvider.allOwnerProduct))
       ],
     );
     //_buildTapBarView();

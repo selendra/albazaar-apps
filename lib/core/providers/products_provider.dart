@@ -6,6 +6,7 @@ class ProductsProvider with ChangeNotifier {
   
   PrefService _prefService = PrefService();
   PostRequest _postRequest = PostRequest();
+  Backend _backend = Backend();
 
   //List of all product items
   List<Product> _items = [];
@@ -132,34 +133,37 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void getAllProductImg(String token) {
+  void getAllProductImg(String token) async {
     for (int i = 0; i < _items.length; i++) {
-      fetchImage(token, _items[i].id);
+      final listImagesResponse = await fetchImage(token, _items[i].id);
+      for (var item in listImagesResponse) {
+        _imageList.add(ProductImage.fromJson(item));
+      }
     }
   }
 
   /*Fetch all product image by looping all product id in list 
   and add it into all image list*/
-  Future<void> fetchImage(String token, String productId) async {
+  Future<List<Map<String, dynamic>>> fetchImage(String token, String productId) async {
+    _imageList.clear();
     try {
-      http.Response response = await http.post(ApiUrl.GET_PRODUCT_IMAGE,
-          headers: <String, String>{
-            "accept": "application/json",
-            "authorization": "Bearer " + token,
-            "Content-Type": "application/json",
-          },
-          body: jsonEncode(<String, String>{
-            "url": "string",
-            "product-id": productId,
-          }));
-      dynamic responseJson = json.decode(response.body);
-
-      for (var item in responseJson) {
-        _imageList.add(ProductImage.fromJson(item));
-      }
+      _backend.response = await http.post(
+        ApiUrl.GET_PRODUCT_IMAGE,
+        headers: <String, String>{
+          "accept": "application/json",
+          "authorization": "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(<String, String>{
+          "url": "string",
+          "product-id": productId,
+        })
+      );
+      _backend.data = await json.decode(_backend.response.body);
     } catch (e) {
       // print(e.toString());
     }
+    return List<Map<String, dynamic>>.from(_backend.data);
   }
 
   Future<void> fetchOrListingProduct(token) async {

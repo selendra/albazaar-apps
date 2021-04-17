@@ -206,7 +206,7 @@ AddProductProvider _addProductProvider;
       images = await MyImagePicker.getAssettoFile(fromPicker);
 
       setState((){
-        _product.image = images;
+        _product.images = images;
       });
     }
   }
@@ -233,7 +233,7 @@ AddProductProvider _addProductProvider;
       _product.scale != null &&
       _product.currency != null &&
       _product.location != null &&
-      _product.image != null &&
+      _product.images != null &&
       _product.price.text.isEmpty &&
       _product.productName.text.isNotEmpty
     ){

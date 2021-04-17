@@ -34,7 +34,7 @@ class PostRequest {
     print("paymentId" + ownerProduct.paymentId);
     _backend.token = jsonDecode(await StorageServices.fetchData('user_token'));
     _backend.token.clear();
-    _backend.token.addAll({"token": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0"});
+    // _backend.token.addAll({"token": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0"});
     _backend.bodyEncode = json.encode({
       "description": ownerProduct.description,
       "name": ownerProduct.name,

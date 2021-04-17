@@ -54,13 +54,13 @@ class Body extends StatelessWidget {
           mTop: 70, mBottom: 16,
           width: 145, height: 122,
           pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
-          image: product.image != null ? DecorationImage(
+          image: product.images != null ? DecorationImage(
             fit: BoxFit.cover,
             image: FileImage(
-              File(product.image[0])
+              File(product.images[0])
             )
           ) : null,
-          child: product.image == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
+          child: product.images == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
         ),
         
         MyFlatButton(

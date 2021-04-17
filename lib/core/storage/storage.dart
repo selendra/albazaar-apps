@@ -25,7 +25,7 @@ class StorageServices{
     print("Data Equal $_data");
     if ( _data == null ) return null;
     else {
-      return _data; //await jsonDecode(_data);
+      return await jsonDecode(_data);
     }
   }
 
