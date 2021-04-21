@@ -23,17 +23,16 @@ class PostRequest {
   }
 
   Future<_http.Response> updateProduct(OwnerProduct ownerProduct) async {
-    print("description" + ownerProduct.description);
-    print("name" + ownerProduct.name);
-    print("categoryId" + ownerProduct.categoryId);
-    print("thumbnail" + ownerProduct.thumbnail);
-    print("weight" + ownerProduct.weight);
-    print("id" + ownerProduct.id);
-    print("shippingId" + ownerProduct.shippingId.toString());
-    print("price" + ownerProduct.price.toString());
-    print("paymentId" + ownerProduct.paymentId);
-    _backend.token = jsonDecode(await StorageServices.fetchData('user_token'));
-    _backend.token.clear();
+    // print("description" + ownerProduct.description);
+    // print("name" + ownerProduct.name);
+    // print("categoryId" + ownerProduct.categoryId);
+    // print("thumbnail" + ownerProduct.thumbnail);
+    // print("weight" + ownerProduct.weight);
+    // print("id" + ownerProduct.id);
+    // print("shippingId" + ownerProduct.shippingId.toString());
+    // print("price" + ownerProduct.price.toString());
+    // print("paymentId" + ownerProduct.paymentId);
+    _backend.token = await StorageServices.fetchData('token');
     // _backend.token.addAll({"token": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0"});
     _backend.bodyEncode = json.encode({
       "description": ownerProduct.description,
@@ -49,6 +48,20 @@ class PostRequest {
 
     _backend.response = await _http.post(
       '${_sldApi.api}/update-product', 
+      headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"), 
+      body: _backend.bodyEncode
+    );
+    return _backend.response;
+  }
+
+  Future<_http.Response> deleteProduct(String id) async {
+    _backend.token = await StorageServices.fetchData('token');
+    _backend.bodyEncode = json.encode({
+      "id": id,
+    });
+
+    _backend.response = await _http.post(
+      '${_sldApi.api}/delete-product', 
       headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"), 
       body: _backend.bodyEncode
     );
@@ -309,7 +322,10 @@ class PostRequest {
   }
 
   Future<_http.Response> addProductImage(String image, String productId) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    print("Url image $image");
+    print("product Id $productId");
+    _backend.token = await StorageServices.fetchData('token');
+    print("My token ${_backend.token['token']}");
     _backend.bodyEncode = json.encode({
       "url": image,
       "product-id": productId,
@@ -404,6 +420,9 @@ class PostRequest {
   // Upload Fil Image To Get Url Image
   Future<String> upLoadImage(File _image, String endpoint) async {
 
+    print("Uploading image $_image");
+    print("Endpoint $endpoint");
+
     /* Compress image file */
     List<int> compressImage = await FlutterImageCompress.compressWithFile(
       _image.path,
@@ -422,8 +441,10 @@ class PostRequest {
       contentType: MediaType.parse('image/jpeg'),
     );
     request.files.add(multipartFile);
+
     /* Start send to server */
     String imageUrl;
+    print("MyImage url $imageUrl");
     try{
       var r = await request.send();
       if (r.statusCode != 522){

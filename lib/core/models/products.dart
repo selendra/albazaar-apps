@@ -136,6 +136,8 @@ class ProductModel {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  List<String> tmpImagesUrl;
+
   bool enable = false;
 
   List<String> images;
@@ -157,16 +159,17 @@ class ProductModel {
   ProductModel();
 
   // Call When We Fetching Data From Server
-  ProductModel.fromOwner(OwnerProduct product){
-    images = images;
+  ProductModel.fromOwner(OwnerProduct productOwner){
+    print(productOwner.categoryName);
+    images = productOwner.listImages;
     currency = "Currency";
     scale = "Scale";
-    categoryDropDown = product.categoryName;
-    productName.text = product.name;
-    price.text = product.price.toString();
+    categoryDropDown = productOwner.categoryName;
+    productName.text = productOwner.name;
+    price.text = productOwner.price.toString();
     location.text = '';
-    category.text = product.categoryName ?? '';
-    description.text = product.description;
+    category.text = productOwner.categoryName ?? '';
+    description.text = productOwner.description;
   }
 }
 

@@ -80,8 +80,6 @@ class CategoriesModel with ChangeNotifier{
       _backend.response = await _getRequest.categories();
       _backend.data = json.decode(_backend.response.body);
 
-      print("My data category ${_backend.data}");
-
       listCategories = List.from(_backend.data);
 
       await StorageServices.setData(listCategories, DbKey.categories);
@@ -93,6 +91,7 @@ class CategoriesModel with ChangeNotifier{
   }
 
   String findCategoriesById(String categoryId) {
+    print("Category ID $categoryId");
     for (var c in listCategories){
       if (c['id'] == categoryId) {
         return c['category_name'];

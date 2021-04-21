@@ -140,8 +140,7 @@ AddProductProvider _addProductProvider;
 
       // // Loop Upload File Images Per Each
       for (int i = 1; i < _addProductProvider.addProduct.fileImagesList.length; i++) {
-        await _postRequest
-            .upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload")
+        await _postRequest.upLoadImage(_addProductProvider.addProduct.fileImagesList[i], "upload")
             .then((value) {
           _addProductProvider.addProduct.imageUrlList
               .add(json.decode(value)['uri']);

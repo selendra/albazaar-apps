@@ -15,10 +15,12 @@ class EditProduct extends StatefulWidget {
 
 class _EditProductState extends State<EditProduct> {
 
-  ProductModel _product = ProductModel();
+  ProductModel _productModel = ProductModel();
+  PostRequest _postRequest = PostRequest();
+  Backend _backend = Backend();
 
   void onChanged(String value){
-    _product.formKey.currentState.validate();
+    _productModel.formKey.currentState.validate();
   }
 
   void onSubmit(String value){
@@ -26,26 +28,53 @@ class _EditProductState extends State<EditProduct> {
   }
 
   String validateField(String value, {String label}){
-    if (_product.productNameNode.hasFocus){
+    if (_productModel.productNameNode.hasFocus){
       print("Product $label");
-    } else if (_product.priceNode.hasFocus){
+    } else if (_productModel.priceNode.hasFocus){
       print("Price $label");
-    } else if (_product.locationNode.hasFocus){
+    } else if (_productModel.locationNode.hasFocus){
       print("Location $label");
-    } else if (_product.descriptionNode.hasFocus){
+    } else if (_productModel.descriptionNode.hasFocus){
       print("Description $label");
     }
     return "Error";
   }
 
   void onChangeImage() async {
+    // Trigger Image
     List fromPicker = await MyImagePicker.imagePicker(maxImages: 10);
     if (fromPicker != null){
-      widget.productOwner.listImages = await MyImagePicker.getAssettoFile(fromPicker);
+      // Get Image From List Asset 
+      await MyImagePicker.getAssettoFile(fromPicker).then((value) => 
+        _productModel.images.addAll(value)
+      );
 
-      print(widget.productOwner.listImages);
+      print(_productModel.images);
       setState((){
       });
+    }
+
+        
+    _productModel.images.forEach((element) async {
+      if (!element.contains('https')){
+        await getImageUrl(element);
+      }
+    });
+  }
+
+  Future<void> getImageUrl(String image) async {
+    print("Image path $image");
+    try {
+      await _postRequest.upLoadImage(File(image), 'upload').then((value) {
+        _backend.data = json.decode(value);
+
+        // Add Image Uri Into TmpImageUrl For After Submit Edit Will Submit later
+        _productModel.tmpImagesUrl.add(_backend.data['uri']);
+      });
+
+      print("Temp images url ${_productModel.tmpImagesUrl}");
+    } catch (e){
+      print("Error of get image ${e.toString()}");
     }
   }
   
@@ -53,36 +82,36 @@ class _EditProductState extends State<EditProduct> {
     print(value);
     setState((){
       if (label == 'currency'){
-        _product.currency = value;
+        _productModel.currency = value;
       } 
       else if (label == 'scale'){
-        _product.scale = value;
+        _productModel.scale = value;
       }
       else if (label == 'category'){
-        _product.categoryDropDown = value;
-        _product.category.text = value;
+        _productModel.categoryDropDown = value;
+        _productModel.category.text = value;
       }
     });
   }
 
   validateAllInput(){
     if(
-      _product.category.text.isNotEmpty &&
-      _product.scale != null &&
-      _product.currency != null &&
-      _product.location != null &&
-      _product.images != null &&
-      _product.price.text.isEmpty &&
-      _product.productName.text.isNotEmpty
+      _productModel.category.text.isNotEmpty &&
+      _productModel.scale != null &&
+      _productModel.currency != null &&
+      _productModel.location != null &&
+      _productModel.images != null &&
+      _productModel.price.text.isEmpty &&
+      _productModel.productName.text.isNotEmpty
     ){
       enableBtn();
-    } else if (_product.enable == true){
+    } else if (_productModel.enable == true){
       enableBtn();
     }
   }
 
   void enableBtn(){
-    setState((){ _product.enable = !_product.enable;});
+    setState((){ _productModel.enable = !_productModel.enable;});
   }
 
   void removeImageByIndex(int index){
@@ -92,6 +121,7 @@ class _EditProductState extends State<EditProduct> {
 
   Future<void> submitProduct(OwnerProduct ownerProduct) async {
     Components.dialogLoading(context: context);
+    
     try{
       await PostRequest().updateProduct(ownerProduct).then((value) async {
         // Close Loading
@@ -100,10 +130,12 @@ class _EditProductState extends State<EditProduct> {
           await Components.dialog(context, MyText(text: json.decode(value.body)['message']), Text("Message"));
 
           // // Refetch Product Owner
-          await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+          // await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
 
           // Close Edit Screen
-          Navigator.pop(context);
+          // We pass productModel because we need images inside tmpImagesUrl To Upload One By One
+          // We pass productOwner.Category because we need product Id
+          Navigator.pop(context, {'productModel': _productModel, 'productId': widget.productOwner.id});
         }
       });
     } catch (e){
@@ -116,8 +148,11 @@ class _EditProductState extends State<EditProduct> {
   @override
   void initState(){
 
-    _product = ProductModel.fromOwner(widget.productOwner);
-    widget.productOwner.listImages.insert(0, widget.productOwner.thumbnail);
+    _productModel = ProductModel.fromOwner(widget.productOwner);
+    // Insert Thumbnail Inot images of ProductModel
+    _productModel.images.insert(0, widget.productOwner.thumbnail);
+    _productModel.tmpImagesUrl = [];
+
     // widget.productOwner.productModel.currency = 'Currency';
     // widget.productOwner.productModel.scale = 'Scale';
     // widget.productOwner.productModel.categoryDropDown = 'Category';
@@ -127,8 +162,8 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    _product.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
-    _product.categoryDropDown = _product.category.text;
+    _productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
+    _productModel.categoryDropDown = _productModel.category.text;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -160,7 +195,7 @@ class _EditProductState extends State<EditProduct> {
           // height: MediaQuery.of(context).size.height,
           child: EditProductBody(
             productOwner: widget.productOwner,
-            productModel: _product,
+            productModel: _productModel,
             onChanged: onChanged,
             validate: validateField,
             onChangeImage: onChangeImage,

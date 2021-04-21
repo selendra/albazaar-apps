@@ -3,14 +3,16 @@ import 'package:albazaar_app/all_export.dart';
 class ShopTabbar extends StatelessWidget{
   Widget build(BuildContext context){
     return MyPadding(
+      pTop: pd20,
       pLeft: pd10+2, pRight: pd10+2,
       pBottom: pd20,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
           Container(
             width: 130,
-            height: 50,
+            height: 60,
             decoration: BoxDecoration(
               color: AppServices.hexaCodeToColor(AppColors.secondary),
               borderRadius: BorderRadius.circular(30.0),
@@ -47,9 +49,9 @@ class ShopTabbar extends StatelessWidget{
           
           Expanded(
             child: MyText(
-              left: 10,
-              text: "Sold"
-            )
+            left: 10,
+            text: "Sold"
+          )
           ),
 
           // SvgPicture.asset('assets/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),

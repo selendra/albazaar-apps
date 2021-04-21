@@ -13,23 +13,30 @@ class Components {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.transparent,
-                      // valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
-                    ),
-                    contents == null
-                        ? Container()
-                        : Padding(
-                            child: Text(
-                              contents,
-                              style: TextStyle(color: Color(0xffFFFFFF)),
-                            ),
-                            padding:
-                                EdgeInsets.only(bottom: 10.0, top: 10.0)),
-                  ],
+                Container(
+                  padding: EdgeInsets.all(20),
+                  color: Colors.white,
+                  width: 100,
+                  height: 100,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                        backgroundColor: Colors.transparent,
+                        // valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
+                      ),
+                      contents == null
+                          ? Container()
+                          : Padding(
+                              child: Text(
+                                contents,
+                                style: TextStyle(color: Color(0xffFFFFFF)),
+                              ),
+                              padding:
+                                  EdgeInsets.only(bottom: 10.0, top: 10.0)),
+                    ],
+                  )
                 )
               ],
             ),
@@ -60,23 +67,25 @@ class Components {
       context: context,
       barrierColor: barrierColor,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: bgColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-          contentPadding: EdgeInsets.only(left: pLeft, top: pTop, right: pRight, bottom: pBottom),
-          title: title != null ? Align(
-            alignment: Alignment.center,
-            child: title,
-          ) : null,
-          content: text,
-          actions: !removeBtn ? <Widget>[
-            TextButton(
-              child: Text(firsTxtBtn),
-              onPressed: () => Navigator.of(context).pop(text),
-            ),
-            action
-          ] : null,
-        );
+        return StatefulBuilder(builder: (context, setState){
+          return AlertDialog(
+            backgroundColor: bgColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+            contentPadding: EdgeInsets.only(left: pLeft, top: pTop, right: pRight, bottom: pBottom),
+            title: title != null ? Align(
+              alignment: Alignment.center,
+              child: title,
+            ) : null,
+            content: text,
+            actions: !removeBtn ? <Widget>[
+              TextButton(
+                child: Text(firsTxtBtn),
+                onPressed: () => Navigator.of(context).pop(text),
+              ),
+              action
+            ] : null,
+          );
+        });
       }
     );
     return result;

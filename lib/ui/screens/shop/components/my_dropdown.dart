@@ -20,7 +20,7 @@ class MyDropDownCustom{
           children: [
             Positioned(
               right: 0,
-              top: y-200, //MediaQuery.of(context).size.height/2,
+              top: y, //MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -17,7 +17,8 @@ class HomeHeader{
         delegate: MySliverAppBarDelegate(
           minHeight: 70,
           maxHeight: 70,
-          child: Container(
+          child: 
+          Container(
             padding: EdgeInsets.only(left: 25, right: 20),
             color: Colors.white,
             child:  Row(

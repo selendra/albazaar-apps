@@ -17,6 +17,9 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   ShopProvider _shopProvider;
   ProductsProvider _productProvider;
 
+  PostRequest _postRequest = PostRequest();
+  Backend _backend = Backend();
+
   // void submit(){
   //   setState(() {
   //     _shopModel.shopCreate = 'created';
@@ -38,7 +41,52 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
   }
 
   void addToken() async {
-    await StorageServices.setData({'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg3MzAxMDl9.L3GyfktrauuCHnQ79XudBwmUX5ot0LVLGhb91y-Yngc'}, 'token');
+    await StorageServices.setData({'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTkwNzUzNjB9.Ovvt4mEbItFtuHOWT0cKh8No4qi_bJMvNYdsfo2xx1g'}, 'token').then((value) => print("Hey response"));
+  }
+
+  // This Function Pass By Parameter (Shop -> Body -> All)
+  Future<void> uploadRemainUrlImage(ProductModel productModel, String productId) async {
+
+    print("After  Success edit");
+    print(productModel.tmpImagesUrl);
+    print(productId);
+
+    // Remove File Images From Images Url
+    // productOwner.listImages.forEach((element) {
+    //   if(!element.contains('https')){
+    //     productOwner.listImages.removeAt(productOwner.listImages.indexOf(element));
+    //   }
+    // });
+    
+    // Upload Image One By One
+    productModel.tmpImagesUrl.forEach((element) async {
+      await _postRequest.addProductImage(element, productId).then((value) {
+        print(value.body);
+      });
+    });
+
+    // Refetch Data product Owner
+    await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+  }
+
+  // This Function Pass By Parameter (Shop -> Body -> All)
+  Future<void> deleteProduct(String id) async {
+    print("Delete $id");
+
+    Components.dialogLoading(context: context);
+    try {
+      // _backend.response = await _postRequest.deleteProduct(id);
+      //CLose Loading
+      Navigator.pop(context);
+      // _backend.data = json.decode(_backend.response.body);
+      await Components.dialog(context, Text('_backend.data.toString()', textAlign: TextAlign.center), Text("Message"));
+
+      // Refetch All Product After Deleted
+      setState((){});
+      await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+    } catch (e){
+      await Components.dialog(context, Text(e.toString()), Text("Message"));
+    }
   }
 
   @override
@@ -47,12 +95,13 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
 
     isCreatedShop();
 
-    // addToken();
+    addToken();
 
     _shopModel.init();
     _shopModel.controller = TabController(vsync: this, length: 3);
     
   }
+
 
   @override
   void dispose() {
@@ -77,48 +126,57 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
         _lang.translate('complete'),
         _shopModel.controller
       ), //lang.translate('Products')x
-      body: BodyScaffold(
-        height: MediaQuery.of(context).size.height,
-        physics: BouncingScrollPhysics(),
-        child: 
-        
-        // Check Shop Already Create And Display Shop
-        _shopModel.shopCreate == 'created' ? 
-          Body(_shopModel.controller, shopProvider: _shopProvider, productProvider: _productProvider) 
-        
-        // Check User Press Create Shop
-        : _shopModel.shopCreate == 'creating' 
-          ? CreateShop(shopModel: _shopModel)
+      body: 
+      // Check Shop Already Create And Display Shop
+      _shopModel.shopCreate == 'created' ? 
 
-          // Check User Not Yet Create Shop And Show Create Shop Screen
-          : Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
+        // BodyScaffold(
+        //   physics: BouncingScrollPhysics(),
+        //   child: 
+          
+        // )
+        Body(_shopModel.controller, shopProvider: _shopProvider, productProvider: _productProvider, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct) 
+      
+      // Check User Press Create Shop
+      : _shopModel.shopCreate == 'creating' 
+        ? BodyScaffold(
+          height: MediaQuery.of(context).size.height,
+          physics: BouncingScrollPhysics(),
+          child: CreateShop(shopModel: _shopModel)
+        )
 
-              MyFlatButton(
-                edgeMargin: EdgeInsets.only(left: 110, right: 110),
-                height: 70,
-                border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
-                isTransparent: true,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                    MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
-                  ],
-                ),
-                action: (){
-                  setState(() {
-                    _shopModel.shopCreate = 'creating';
-                  });
-                },
-              )
-            ],
+        // Check User Not Yet Create Shop And Show Create Shop Screen
+        : BodyScaffold(
+          height: MediaQuery.of(context).size.height,
+          physics: BouncingScrollPhysics(),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
+
+                MyFlatButton(
+                  edgeMargin: EdgeInsets.only(left: 110, right: 110),
+                  height: 70,
+                  border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
+                  isTransparent: true,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                      MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
+                    ],
+                  ),
+                  action: (){
+                    setState(() {
+                      _shopModel.shopCreate = 'creating';
+                    });
+                  },
+                )
+              ],
+            ),
           )
         )
-      ),
     );
   }
 }

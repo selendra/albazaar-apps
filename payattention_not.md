@@ -1,1 +1,1 @@
-- remove jsonDecode from SharePreference
+- Update not yet complete on (add, remove multiple image with function and upload)

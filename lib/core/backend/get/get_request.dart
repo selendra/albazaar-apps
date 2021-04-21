@@ -52,9 +52,7 @@ class GetRequest {
 
   Future<_http.Response> categories() async {
     /* Expired Token In Welcome Screen */
-    await _pref.read('token').then((value) {
-      _backend.token = Map<String, dynamic>.from({"token": value});
-    });
+    _backend.token = await StorageServices.fetchData('token');
     // _backend.token = {'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0'};
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/product-categories",

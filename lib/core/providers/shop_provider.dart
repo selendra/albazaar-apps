@@ -20,7 +20,7 @@ class ShopProvider extends ChangeNotifier{
   Future<void> fetchOListingProduct() async {
     _allOwnerProduct = [];
     await StorageServices.fetchData('token').then((token) async {
-      // print("My token $token");
+      print("My token ${token['token']} Hello");
       if(token != null){
         try {
           _backend.response =  await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
@@ -69,7 +69,7 @@ class ShopProvider extends ChangeNotifier{
     try {
       for(int i =0; i < _allOwnerProduct.length; i++){
         final listImagesResponse = await productsProvider.fetchImage(token, _allOwnerProduct[i].id);
-        print("Get response $listImagesResponse");
+        print("All Images Get response $listImagesResponse");
         await addImgIntoProductOwner(listImagesResponse, i);
         // print("Index $i");
         // print("My Product ${_allOwnerProduct[i].name}");
@@ -82,7 +82,6 @@ class ShopProvider extends ChangeNotifier{
   Future<void> addImgIntoProductOwner(List<Map<String, dynamic>> images, int i) async {
     // Loop Add All Images Of Product Provider
     // Into Owner Product Images
-    print(images.length);
     _allOwnerProduct[i].listImages = [];
     // Add Images Fetched Into image variable Of ProductModel's AllOwner
     images.forEach((element) {

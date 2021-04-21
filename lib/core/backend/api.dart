@@ -1,6 +1,6 @@
 class SelendraApi {
   /* Zeetomic api image upload */
-  final apiPostImage = "http://s3.selendra.com";
+  final apiPostImage = "https://s3.selendra.com";
 
   // final url = "https://testnet-api.selendra.com/pub/v1";
 

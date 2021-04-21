@@ -43,19 +43,19 @@ class EditProductBody extends StatelessWidget {
           alignChild: Alignment.center,
           child: productOwner.listImages.length != 0 ? GridView.count(
             crossAxisCount: 3,
-            children: List.generate(productOwner.listImages.length, (index) {
+            children: List.generate(productModel.images.length, (index) {
               return MyCard(
                 height: 100, width: 100,
                 align: Alignment.center,
                 child: Stack(
                   children: [
-
-                    CachedNetworkImage(
-                      imageUrl: productOwner.listImages[index],
+                    if (productModel.images[index].contains('https')) CachedNetworkImage(
+                      imageUrl: productModel.images[index],
                       placeholder: (context, value){
                         return Image.asset(AppConfig.imagePath+'loading.gif');
                       },
-                    ),
+                    )
+                    else Image.file(File(productModel.images[index])),
                     Positioned(
                       top: 0,
                       right: 0,
