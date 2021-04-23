@@ -10,7 +10,7 @@ class _BodyState extends State<Body> {
   GetRequest _getRequest = GetRequest();
 
   showAlertDialog(BuildContext context, String alertText) {
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
         context = navigationKey.currentState.overlay.context;

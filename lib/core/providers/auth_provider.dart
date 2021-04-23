@@ -264,18 +264,19 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, BuildContext context) async {
-    var response = await http.post(
-        "https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
-        headers: ApiHeader.headers,
-        body: jsonEncode(<String, String>{
-          'phone': phone,
-          'password': password,
-        }));
+    var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
+      headers: ApiHeader.headers,
+      body: jsonEncode(<String, String>{
+        'phone': phone,
+        'password': password,
+      })
+    );
     if (response.statusCode == 200) {
       dynamic responseJson = json.decode(response.body);
 
       _token = responseJson['token'];
       await StorageServices.setData(responseJson, 'user_token');
+      print(responseJson.toString()+"My token");
 
       mBalance = Balance();
 

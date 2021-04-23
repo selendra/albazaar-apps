@@ -12,9 +12,7 @@ class GetRequest {
     /* Get User Profile */
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
     return null;
@@ -52,12 +50,10 @@ class GetRequest {
 
   Future<_http.Response> categories() async {
     /* Expired Token In Welcome Screen */
-    _backend.token = await StorageServices.fetchData('token');
+    _backend.token = await StorageServices.fetchData('user_token');
     // _backend.token = {'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0'};
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/product-categories",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.api}/product-categories",headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
     return null;

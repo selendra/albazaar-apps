@@ -45,51 +45,75 @@ class ProductsProvider with ChangeNotifier {
   List<String> get url => [..._url];
   List<OrderProduct> get completeProduct => [..._completeProduct];
 
-  Future<void> fetchListingProduct() async {
+  Future<dynamic> fetchListingProduct() async {
+    List<Map<String, dynamic>> responseJson = [];
     try {
-      await _prefService.read('token').then((value) async {
-        if (value != null) {
+      await _prefService.read('token').then((token) async {
+        print("Hello again");
+        if (token != null) {
           http.Response response = await http.get(ApiUrl.LISTING, headers: <String, String>{
             "accept": "application/json",
-            "authorization": "Bearer " + value,
+            "authorization": "Bearer " + token,
           });
 
-          var responseJson = json.decode(response.body);
+          print(json.decode(response.body));
 
-          //_prefService.saveString('products', jsonEncode(responseJson));
-          clearProperty();
-          for (var mItem in responseJson) {
-            // print("My fetcing data ${mItem['is_sold']}");
-            _items.add(
-              Product.fromMap(mItem),
+          print(json.decode(response.body).runtimeType);
+
+          print("First repsonse ${(json.decode(response.body).runtimeType.toString() != 'List<Map<String, dynamic>>')}");
+
+          // If Have Something Wrong Evern If Response 200
+          // Can't check with = responseJson.contains('error') directly
+          // _GrowableList<dynamic> Response When Run Release
+          if (json.decode(response.body).runtimeType.toString() != "List<dynamic>" && json.decode(response.body).runtimeType.toString() != "_GrowableList<dynamic>"){
+            responseJson.add(
+              {'error': json.decode(response.body)['error']}
             );
+            print("Have error ");
+            throw(responseJson);
+          } else {
+            print("NO");
+            json.decode(response.body).forEach((value){
+              responseJson.add(value);
+            });
+            print("SUccess $responseJson");
+            clearProperty();
+            for (var mItem in responseJson) {
+              // print("My fetcing data ${mItem['is_sold']}");
+              _items.add(
+                Product.fromMap(mItem),
+              );
 
-            // Sort Products By Category 
-            // _categoriesModel.listProduct.add(Product.fromMap(mItem));
-            // _categoriesModel.listProductByCategories(product)
+            }
+
+            _prefService.saveString('products', jsonEncode(responseJson));
+            
+            // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
+              // Sort Products By Category 
+            await fetchOrListingProduct(token);
+            getAllProductImg(token);
           }
-          // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
-          
-          // fetchOListingProduct(value);
-          fetchOrListingProduct(value);
-          getAllProductImg(value);
 
-          // After Get Product Sort Those product By Category
+          // fetchOListingProduct(token);
+
         }
       });
     } catch (e) {
+      print(e.toString()+"Why error");
+      return e;
     }
+    return responseJson;
   }
 
   Future<void> addOrder(String productId, String qty, String address) async {
     try {
       await _prefService.read('token').then(
-        (value) async {
+        (token) async {
           http.Response response = await http.post(
             ApiUrl.MAKE_ORDER,
             headers: <String, String>{
               "accept": "application/json",
-              "authorization": "Bearer " + value,
+              "authorization": "Bearer " + token,
               "Content-Type": "application/json",
             },
             body: jsonEncode(
@@ -110,17 +134,17 @@ class ProductsProvider with ChangeNotifier {
   void addItem(BuildContext context, AddProduct newProduct) async {
     Components.dialogLoading(context: context, contents: "Adding");
     try {
-      await _postRequest.addListing(newProduct).then((value) async {
+      await _postRequest.addListing(newProduct).then((token) async {
         // Close Loading
         Navigator.pop(context);
         await Components.dialog(
             context,
-            Text("${json.decode(value.body)['message']}",
+            Text("${json.decode(token.body)['message']}",
                 textAlign: TextAlign.center),
             Text("Message"));
         // Close Seller Screen
-        if (json.decode(value.body)['message'].length > 1) {
-          newProduct.productId = json.decode(value.body)['id'];
+        if (json.decode(token.body)['message'].length > 1) {
+          newProduct.productId = json.decode(token.body)['id'];
           Navigator.pop(context, {"add": true});
         }
         fetchListingProduct();
@@ -167,6 +191,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchOrListingProduct(token) async {
+    print("hey");
     try {
       http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
         "accept": "application/json",
@@ -196,12 +221,12 @@ class ProductsProvider with ChangeNotifier {
     String message;
     try {
       await _prefService.read('token').then(
-        (value) async {
+        (token) async {
           http.Response response = await http.post(
             ApiUrl.MARK_COMPLETE,
             headers: <String, String>{
               "accept": "application/json",
-              "authorization": "Bearer " + value,
+              "authorization": "Bearer " + token,
               "Content-Type": "application/json",
             },
             body: jsonEncode(
@@ -234,8 +259,8 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void findIsSold(List<Product> allListing) {
-    _isSold = List<Product>();
-    _isAvailable = List<Product>();
+    _isSold = [];
+    _isAvailable = [];
 
     for (int i = 0; i < allListing.length; i++) {
       if (allListing[i].isSold && !_isSold.contains(allListing[i])) {
@@ -282,17 +307,17 @@ class ProductsProvider with ChangeNotifier {
   }
 
   // Future<void> readLocalProduct() async {
-  //   await _prefService.read('products').then((value) {
-  //     if (value != null) {
-  //       dynamic repsonseJson = json.decode(value);
+  //   await _prefService.read('products').then((token) {
+  //     if (token != null) {
+  //       dynamic repsonseJson = json.decode(token);
   //       for (var item in repsonseJson) {
   //         _items.add(Product.fromMap(item));
   //       }
   //     }
   //   });
-  //   await _prefService.read('oproducts').then((value) {
-  //     if (value != null) {
-  //       dynamic responseJson = json.decode(value);
+  //   await _prefService.read('oproducts').then((token) {
+  //     if (token != null) {
+  //       dynamic responseJson = json.decode(token);
   //       _oItems.add(Product.fromMap(responseJson));
   //     }
   //   });

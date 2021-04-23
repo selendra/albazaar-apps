@@ -13,12 +13,13 @@ class Components {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(20),
-                  color: Colors.white,
-                  width: 100,
-                  height: 100,
+                MyCard(
+                  pLeft: 10, pRight: 10, pTop: 10, pBottom: 10,
+                  hexaColor: AppColors.white,
+                  width: 80,
+                  height: 80,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -57,8 +58,8 @@ class Components {
       Color bgColor, 
       Color barrierColor, 
       bool removeBtn: false,
-      double pLeft: 0,
-      double pRight: 0,
+      double pLeft: 10,
+      double pRight: 10,
       double pTop: 15.0,
       double pBottom: 5
     }

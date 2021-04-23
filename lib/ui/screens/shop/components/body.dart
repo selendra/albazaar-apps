@@ -35,27 +35,6 @@ class _BodyState extends State<Body> with TickerProviderStateMixin{
   //SellerProvider sellerProvider;
   bool enableDelete = false;
 
-  Product product = Product(
-    description: 'នេះគឺជាដំណើរជីវិតរបស់ក្មេងស្រីម្នាក់ក្នុងចំណោមក្មេងស្រីជាច្រើនផ្សេងទៀតដែលចាប់កំណើតឡើងនៅទីជនបទ។ នាងចេះមានក្តីស្រមៃតាំងពីតូច ហើយក្ដីស្រមៃនោះបានជំរុញឱ្យនាងខិតខំតតាំងនឹងភាពលំបាកក្នុងជីវិត។ ពេលវេលានៃកុមារភាពរបស់នាងក្លាយជាពេលវេលាដែលត្រូវតតាំងប្រឹងរស់ដូចមនុស្សធំពេញវ័យ វាខុសពីក្មេងដទៃផ្សេងទៀតជាច្រើនដែលអាចស្គាល់ពីរសជាតិជីវិតដ៏កក់ក្ដៅក្នុងរង្វង់ដ',
-    shippingService: "SW Logistic",
-    address: null,
-    name: "កាពីទែនជីវិត ភាគ1",
-    categoryName: "Others",
-    thumbnail: "https://selendra.s3-ap-southeast-1.amazonaws.com/1bf46702-f69e-4fad-840b-89e0ae9a8edc",
-    phonenumber: null,
-    weight: "b8fd8a60-242c-405d-8a62-1ae2880094a7",
-    id: "be630b54-f67b-4b89-aed2-c3a997a9a105",
-    paymentId: "3802b352-4b1e-4ec3-a24c-c1e042d3fadd",
-    price: 7,
-    shippingFee: 1.99,
-    createdAt: "2021-02-18T02:31:54Z",
-    seller: Seller.fromJson({
-      "type": "record",
-      "value": "(,)"
-    }),
-    isSold: false
-  );
-
   Future<Null> _refresh() async {
     await Future.delayed(Duration(seconds: 3)).then((value) {
       Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
@@ -100,35 +79,43 @@ class _BodyState extends State<Body> with TickerProviderStateMixin{
   TabController _tabController;
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      headerSliverBuilder: (context, value){
-        return ShopSliverHeader().sliverHeader(
-          context: context,
-          tabController: _tabController,
-          onTapTab: (int index){
+    return Stack(
+      children: [
+        NestedScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          headerSliverBuilder: (context, value){
+            return ShopSliverHeader().sliverHeader(
+              context: context,
+              tabController: _tabController,
+              onTapTab: (int index){
 
+              },
+            );
           },
-        );
-      },
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: AllProductOwner(enableDelete: enableDelete, listProductOwner: widget.shopProvider.allOwnerProduct, uploadRemainUrlImage: widget.uploadRemainUrlImage, deleteProduct: widget.deleteProduct, onChanged: onChanged,))//Expanded(child: )
+            ],
+          )
+        ),
 
-          widget.shopProvider.allOwnerProduct == null || widget.shopProvider.allOwnerProduct.length == 0 ? Expanded(
+
+        if (widget.shopProvider.allOwnerProduct == null || widget.shopProvider.allOwnerProduct.length == 0) 
+        Container(
+          color: Colors.black.withOpacity(0.3),
+          child: Center(
             child: MyCard(
-              pTop: 20, pRight: 20, pLeft: 20, pBottm: 20,
+              pTop: 20, pRight: 20, pLeft: 20, pBottom: 20,
               hexaColor: AppColors.white,
-              width: 100,
-              height: 100,
+              width: 80,
+              height: 80,
               alignChild: Alignment.center,
-              child: CircularProgressIndicator()
+              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppServices.hexaCodeToColor(AppColors.primary)))
             ) 
           )
-          : Expanded(
-            child: AllProductOwner(enableDelete: enableDelete, listProductOwner: widget.shopProvider.allOwnerProduct, uploadRemainUrlImage: widget.uploadRemainUrlImage, deleteProduct: widget.deleteProduct, onChanged: onChanged,))//Expanded(child: )
-        ],
-      )
+        )
+      ],
     );
 
   //   Column(

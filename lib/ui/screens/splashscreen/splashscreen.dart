@@ -13,6 +13,8 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
   AnimationController controller;
   Animation<double> animation;
 
+  List<Map<String, dynamic>> response;
+
   //List of all svg path in the app
   List<String> svg = [
     'assets/undraw_wallet.svg',
@@ -23,9 +25,10 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
   ];
 
   void checkUser() async {
-    //Read token
-    await _pref.read('token').then(
-      (value) async {
+    print("Hello check have user");
+    try {
+      //Read token
+      await _pref.read('token').then((value) async {
         print("My Token $value");
         if (value != null) {
           // Fetch all listing product
@@ -34,20 +37,29 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
             // Check Expired Token
             if (user.statusCode.toString() == '200') {
-              Provider.of<ProductsProvider>(
+
+              // Fetching Listing Product
+              response = await Provider.of<ProductsProvider>(
                 context,
                 listen: false,
               ).fetchListingProduct();
 
-              //Fetch buyer order product list
-              Provider.of<SellerProvider>(
-                context,
-                listen: false,
-              ).fetchBuyerOrder();
+              print("REsponse ${response.runtimeType}");
 
-              //Check if user is login by social media
-              await AuthProvider().currentUser.then(
-                (valueUser) {
+              print(!response[0].containsKey('error'));
+
+              // Check Someting Wrong When Fetcing Listing Product
+              // if (response.runtimeType.toString() != "List<dynamic>"){
+              if (response[0]['error'] == null){
+
+                //Fetch buyer order product list
+                await Provider.of<SellerProvider>(
+                  context,
+                  listen: false,
+                ).fetchBuyerOrder();
+
+                //Check if user is login by social media
+                await AuthProvider().currentUser.then((valueUser) {
                   if (valueUser != null) {
                     //split the social user name into firstname and lastname
                     var name = valueUser.displayName.split(' ');
@@ -63,32 +75,43 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                       name.last,
                       valueUser.photoURL,
                     );
-                    Provider.of<UserProvider>(context, listen: false)
-                        .socialUserInfo(value);
-                    Navigator.pushReplacementNamed(
-                        context, BottomNavigationView);
+                    Provider.of<UserProvider>(context, listen: false).socialUserInfo(value);
+                    Navigator.pushReplacementNamed(context, BottomNavigationView);
                   } else {
                     validateNormalUser();
                   }
-                },
-              );
-            } else {
-              // Expired Token And Navigate To Welcome Screen
-              var isShow = await _pref.read('isshow');
-
-              // Clear All Local Data
-              await AppServices.clearStorage();
-
-              // Save Carousel Screen
-              await _pref.saveString('isshow', isShow);
-              Navigator.pushReplacementNamed(context, WelcomeView);
+              });
+            } 
+            // Throw Error If Something With Fetching 
+            else {
+              throw (response);
             }
+          }
+
+          // Expired Token And Navigate To Welcome Screen 
+          else {
+            
+            var isShow = await _pref.read('isshow');
+
+            // Clear All Local Data
+            await AppServices.clearStorage();
+
+            // Save Carousel Screen
+            await _pref.saveString('isshow', isShow);
+            throw (response);
+          }
           });
-        } else {
+        }
+        // No Token Or Not Yet Login In Before 
+        else {
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
-      },
-    );
+      });
+    } catch (e){
+      print(e);
+      await Components.dialog(context, Text(e[0]['error']['message'].toString(), textAlign: TextAlign.center), Text("Message"));
+      Navigator.pushReplacementNamed(context, WelcomeView);
+    }
   }
 
   //It is use for validate normal user that register in sld api

@@ -7,25 +7,24 @@ class AddProductProvider with ChangeNotifier {
   AddProductProvider() {
     addProduct = AddProduct();
     _getRequest = GetRequest();
-    // fetchShippingServices();
-    // fetchCategories();
-    // fetchPaymentOpt();
-    // fetchWeightOpt();
+    fetchShippingServices();
+    fetchCategories();
+    fetchPaymentOpt();
+    fetchWeightOpt();
   }
 
   // Fetch Shipping To Shipping Listing
   void fetchShippingServices() async {
     await _getRequest.shippingServices().then((value) {
-      addProduct.shippingList =
-          List<Map<String, dynamic>>.from(json.decode(value.body));
+      addProduct.shippingList = List<Map<String, dynamic>>.from(json.decode(value.body));
       notifyListeners();
     });
   }
 
   void fetchCategories() async {
     await _getRequest.categories().then((value) {
-      addProduct.categoriesList =
-          List<Map<String, dynamic>>.from(json.decode(value.body));
+      print("Fetch category $value");
+      addProduct.categoriesList = List<Map<String, dynamic>>.from(json.decode(value.body));
     });
     notifyListeners();
   }

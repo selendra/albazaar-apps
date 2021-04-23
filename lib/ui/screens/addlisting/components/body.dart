@@ -7,12 +7,14 @@ import 'image_list.dart';
 
 class Body extends StatelessWidget {
 
-  AddProductProvider addProductProvider;
-
-  final ProductModel product;
+  final AddProductProvider addProductProvider;
+  final ProductModel productModel;
   final Function toSeller;
-  final Function removeAsset;
+  final Function removeAsset; // Will remove later
+  final Function removeImageByIndex;
   final Function loadAssets;
+  final Function onChangeImage;
+
   final Function onChanged;
   final Function onSubmit;
   final Function onChangeCategory;
@@ -21,13 +23,16 @@ class Body extends StatelessWidget {
 
   final Function validateField;
   final Function onChangeDropDown;
+  final Function submitProduct;
 
   Body({
     this.addProductProvider,
-    this.product,
+    this.productModel,
     this.toSeller,
     this.removeAsset,
+    this.removeImageByIndex,
     this.loadAssets,
+    this.onChangeImage,
     this.onChanged,
     this.onChangeCategory,
     this.onChangeWeight,
@@ -35,32 +40,59 @@ class Body extends StatelessWidget {
 
     this.validateField,
     this.onChangeDropDown,
-    this.onSubmit
+    this.onSubmit,
+    this.submitProduct
   });
 
   @override
   Widget build(BuildContext context) {
-    addProductProvider = Provider.of<AddProductProvider>(context);
-    UserProvider user = Provider.of<UserProvider>(context);
-    // Provider.of<AddProductProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Column(
       children: [
-
+        
         MyCard(
           mTop: 70, mBottom: 16,
-          width: 145, height: 122,
-          pBottom: 16, pRight: 16, pTop: 16, pLeft: 16,
-          image: product.images != null ? DecorationImage(
-            fit: BoxFit.cover,
-            image: FileImage(
-              File(product.images[0])
-            )
-          ) : null,
-          child: product.images == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
+          height: 150 ,
+          pRight: 16, pLeft: 16,
+          mRight: 16, mLeft: 16,
+          alignChild: Alignment.center,
+          child: productModel.images.length != 0 ? GridView.count(
+            crossAxisCount: 3,
+            children: List.generate(productModel.images.length, (index) {
+              return MyCard(
+                height: 100, width: 100,
+                align: Alignment.center,
+                child: Stack(
+                  children: [
+                    if (productModel.images[index].contains('https')) CachedNetworkImage(
+                      imageUrl: productModel.images[index],
+                      placeholder: (context, value){
+                        return Image.asset(AppConfig.imagePath+'loading.gif');
+                      },
+                    )
+                    else Image.file(File(productModel.images[index])),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () {
+                          removeImageByIndex(index);
+                        },
+                        child: Icon(
+                          Icons.remove_circle,
+                          color: Colors.red,
+                        ),
+                      )
+                    )
+                  ],
+                )//Image.asset(AppConfig.imagePath+'loading.gif'),
+              );
+            })
+          ) : MyPadding(pTop: 16, pBottom: 16, child: SvgPicture.asset(AppConfig.imagePath+'gallery.svg',)),
+          // productOwner.productModel.image == null ? SvgPicture.asset('assets/avatar_user.svg', color: AppServices.hexaCodeToColor(AppColors.primary)) : Container(),
         ),
         
         MyFlatButton(
@@ -74,12 +106,13 @@ class Body extends StatelessWidget {
             ],
           ), 
           action: (){
-            // onChangeImage();
+            onChangeImage();
           }, 
         ),
 
+        // All Input
         Form(
-          key: product.formKey,
+          key: productModel.formKey,
           child: Column(
             children: [
               MyPadding(
@@ -87,12 +120,14 @@ class Body extends StatelessWidget {
                 pBottom: pd12,
                 child: MyInputField(
                   labelText: "Product Name",
-                  controller: product.productName, 
-                  focusNode: product.productNameNode, 
+                  controller: productModel.productName, 
+                  focusNode: productModel.productNameNode, 
                   validateField: (String value){
                     // validate(value, label: "productName");
                   }, 
-                  onChanged: onChanged, 
+                  onChanged: (String value){
+                    onChanged(value, addProductProvider);
+                  }, 
                   onSubmit: onSubmit
                 ),
               ),
@@ -110,8 +145,8 @@ class Body extends StatelessWidget {
                         pRight: 0,
                         child: MyInputField(
                           labelText: "Price",
-                          controller: product.price, 
-                          focusNode: product.priceNode,
+                          controller: productModel.price, 
+                          focusNode: productModel.priceNode,
                           textInputFormatter: [
                             LengthLimitingTextInputFormatter(TextField.noMaxLength),
                             FilteringTextInputFormatter.digitsOnly
@@ -120,7 +155,9 @@ class Body extends StatelessWidget {
                           validateField: (String value){
                             validateField(value, label: "price");
                           }, 
-                          onChanged: onChanged, 
+                          onChanged: (String value){
+                            onChanged(value, addProductProvider);
+                          }, 
                           onSubmit: onSubmit
                         ),
                       ),
@@ -140,7 +177,7 @@ class Body extends StatelessWidget {
                         alignChild: Alignment.center,
                         child: Row(
                           children: [
-                            MyText(text: product.currency, pRight: 15,),
+                            MyText(text: productModel.currency, pRight: 15,),
 
                             SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary),)
                           ],
@@ -161,12 +198,14 @@ class Body extends StatelessWidget {
                       child: MyInputField(
                         pLeft: pd12,
                         labelText: "Search Location",
-                        controller: product.location, 
-                        focusNode: product.locationNode, 
+                        controller: productModel.location, 
+                        focusNode: productModel.locationNode, 
                         validateField: (String value){
                           validateField(value, label: "location");
                         }, 
-                        onChanged: onChanged, 
+                        onChanged: (String value){
+                          onChanged(value, addProductProvider);
+                        }, 
                         onSubmit: onSubmit
                       )
                     ),
@@ -198,66 +237,137 @@ class Body extends StatelessWidget {
                 child: Row(
                   children: [
 
+                    // Expanded(
+                    //   flex: 2,
+                    //   child: MyPadding(
+                    //     pLeft: pd12, 
+                    //     pRight: 0,
+                    //     child: MyInputField(
+                    //       labelText: "Scale",
+                    //       controller: productModel.scale,
+                    //       focusNode: productModel.scale., 
+                    //       validateField: (String value){
+                    //         validateField(value, label: "weight");
+                    //       }, 
+                    //       onChanged: onChanged, 
+                    //       onSubmit: onSubmit
+                    //     ),
+                    //   ),
+                    // ),
+
+                    // DropDown Category
                     Expanded(
-                      flex: 2,
-                      child: MyPadding(
-                        pLeft: pd12, 
-                        pRight: 0,
-                        child: MyInputField(
-                          labelText: "Category",
-                          controller: product.category,
-                          focusNode: product.categoryNode, 
-                          validateField: (String value){
-                            validateField(value, label: "weight");
-                          }, 
-                          onChanged: onChanged, 
-                          onSubmit: onSubmit
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('category', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12, mRight: pd12/2,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.categoryDropDown, pRight: 15,)
+                              ),
+
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
                         ),
                       ),
                     ),
 
                     // DropDown Scale
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
-                        if (result != null){
-                          onChangeDropDown('scale', result);
-                        }
-                      },
-                      child: MyCard(
-                        mLeft: pd12, mRight: 0,
-                        height: heightInput,
-                        pRight: pd12+3, pLeft: pd12+3,
-                        alignChild: Alignment.center,
-                        child: Row(
-                          children: [
-                            MyText(text: product.scale, pRight: 15,),
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('scale', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12/2, mRight: 12,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.scale, pRight: 15,)
+                              ),
 
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
-                          ],
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              
+              // Shipping and Payment method
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+
+                    // DropDown Shipping
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.shippingDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('shipping', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12, mRight: pd12/2,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.shippingOpt, pRight: 15,)
+                              ),
+
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
                         ),
                       ),
                     ),
 
-                    // DropDown Category
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
-                        if (result != null){
-                          onChangeDropDown('category', result);
-                        }
-                      },
-                      child: MyCard(
-                        mLeft: pd12, mRight: pd12,
-                        height: heightInput,
-                        pRight: pd12+3, pLeft: pd12+3,
-                        alignChild: Alignment.center,
-                        child: Row(
-                          children: [
-                            MyText(text: product.categoryDropDown, pRight: 15,),
-
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
-                          ],
+                    // DropDown Payment Method
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.paymentDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('payment', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12 /2, mRight: 12,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.paymentOpt, pRight: 15,),
+                              ),
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -269,12 +379,14 @@ class Body extends StatelessWidget {
                 height: 159.0,
                 pLeft: pd12, pRight: pd12,
                 labelText: "Description",
-                controller: product.description, 
-                focusNode: product.descriptionNode, 
+                controller: productModel.description, 
+                focusNode: productModel.descriptionNode, 
                 validateField: (String value){
                   validateField(value, label: "description");
                 }, 
-                onChanged: onChanged, 
+                onChanged: (String value){
+                  onChanged(value, addProductProvider);
+                }, 
                 onSubmit: onSubmit
               ),
               
@@ -285,12 +397,17 @@ class Body extends StatelessWidget {
         MyFlatButton(
           edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
-          action: product.enable == false ? null : (){
-            print(product.productName.text);
-            print(product.price.text);
-            print(product.currency);
-            print(product.category.text);
-            print(product.description.text);
+          action: //productModel.enable == false ? null : 
+          () async {
+            productModel.productName.text = "Meat";
+            productModel.price.text = "15000";
+            productModel.shippingOptId = "b8fd8a60-242c-405d-8a62-1ae2880094a6";
+            productModel.paymentOptId = "375f4c4b-945d-437e-9a2d-4a0af398f925";
+            productModel.scaleId = "b8fd8a60-242c-405d-8a62-1ae2880094a7";
+            productModel.categoryId = "4e984edb-abd2-4691-990f-a6b1413cf472";
+            productModel.description.text = "New meat";
+            productModel.tmpImagesUrl.add("https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf");
+            await submitProduct(ProductModel().fromAddProduct(productModel));
           },
         )
       ],

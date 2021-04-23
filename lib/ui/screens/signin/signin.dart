@@ -196,11 +196,16 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+          
+      // Close Loading
+      Navigator.pop(context);
     } on FormatException catch (e) {
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
           Text("Message"));
+      // Close Loading
+      Navigator.pop(context);
     } finally {
       stopLoading();
     }

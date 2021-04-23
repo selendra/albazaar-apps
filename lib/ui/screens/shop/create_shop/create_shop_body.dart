@@ -4,13 +4,17 @@ import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 
 class CreateShopBody extends StatelessWidget {
 
+  final List<OwnerProduct> listProduct;
+
   final ShopModel shopModel;
 
   final Function onChangeImage;
 
   final Function submit;
 
-  CreateShopBody({this.shopModel, this.onChangeImage, this.submit});
+  final Function upLoadedProduct;
+
+  CreateShopBody({this.listProduct, this.shopModel, this.onChangeImage, this.submit, this.upLoadedProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +142,7 @@ class CreateShopBody extends StatelessWidget {
           )
         ),
 
+        listProduct.isEmpty ? 
         Center(
           child: MyFlatButton(
             border: Border.all(color: AppServices.hexaCodeToColor(AppColors.secondary), width: 2),
@@ -150,23 +155,163 @@ class CreateShopBody extends StatelessWidget {
                 MyText(left: pd10, text: "Add product", fontWeight: FontWeight.w600, color: AppColors.secondary,),
               ],
             ),
-            action: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct()));
+            action: () async {
+              final uploadResponse = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddListing(from: "fromCreateShop",)));
+              if (uploadResponse != null){
+                upLoadedProduct(uploadResponse);
+              }
             },
           )
-        ),
+        ) 
+        : ListView.builder(
+          itemCount: listProduct.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index){
+            return Container(
+              // height: 180,
+              padding: EdgeInsets.only(left: pd10+2, right: pd10+2, bottom: pd10+2),
+              child: MyCard(
+                boxShadow: [
+                  boxShadow()
+                ],
+                child: Row(
+                  children: [
 
-        Flexible(
-          child: Container(),
+                    Expanded(
+                      flex: 0,
+                      child: MyCard(
+                      hexaColor: AppColors.secondary,
+                        width: 146,
+                        bTopRight: 0, bBottomRight: 0,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(listProduct[index].thumbnail)
+                        ),
+                      )
+                    ),
+
+                    Expanded(
+                      child:Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10,
+                            pBottom: pd10,
+                            pTop: pd10,
+                            child: Row(                    
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                MyText(text: "Name: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black,),
+                                Expanded(
+                                  child: MyText(
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].name}",
+                                    fontSize:20,
+                                    color: "#000000",
+                                  )
+                                ),
+                              ],
+                            )
+                          ),
+                          
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Price: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                                Expanded(
+                                  child: MyText(
+                                    left: 6,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].price}}",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primary,
+                                  )
+                                )
+                              ],
+                            )
+                          ),
+                          
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Weight: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                Flexible(
+                                  child: MyText(
+                                    width: MediaQuery.of(context).size.width,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].weight}",
+                                    fontSize: 16,
+                                    color: "#000000",
+                                    overflow: TextOverflow.clip,
+                                  )
+                                )
+                              ]
+                            )
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Category: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                MyText(
+                                  width: MediaQuery.of(context).size.width,
+                                  textAlign: TextAlign.left,
+                                  text: "${listProduct[index].categoryId}",
+                                  fontSize: 16,
+                                  color: "#000000",
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ]
+                            )
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Description: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                Expanded(
+                                  child: MyText(
+                                    width: MediaQuery.of(context).size.width,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].description}",
+                                    fontSize: 16,
+                                    color: "#000000",
+                                  )
+                                )
+                              ]
+                            )
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              )
+            );
+          }
         ),
 
         MyFlatButton(
+          edgeMargin: EdgeInsets.only(top: 100),
           height: 72,
           width: MediaQuery.of(context).size.width/2,
           buttonColor: AppColors.secondary,
           child: MyText(
             text: "Submit",
-            fontSize: 25,
+            fontSize: 20,
             color: AppColors.white,
           ),
           action: submit,

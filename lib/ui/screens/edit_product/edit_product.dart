@@ -147,7 +147,7 @@ class _EditProductState extends State<EditProduct> {
 
   @override
   void initState(){
-
+    _productModel.images = [];
     _productModel = ProductModel.fromOwner(widget.productOwner);
     // Insert Thumbnail Inot images of ProductModel
     _productModel.images.insert(0, widget.productOwner.thumbnail);
@@ -162,6 +162,7 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
+    // Finding Category By CategoryID
     _productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
     _productModel.categoryDropDown = _productModel.category.text;
     return SafeArea(

@@ -5,7 +5,7 @@ class ShopModel {
   TabController controller;
 
   bool isSold = false;
-  String shopCreate = 'no';
+  List<dynamic> shopCreate = [];
 
   String thumbnail;
   String bgImage;

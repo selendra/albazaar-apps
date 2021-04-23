@@ -8,6 +8,7 @@ class ShopProvider extends ChangeNotifier{
   List<OwnerProduct> _allOwnerProduct;
 
   List<OwnerProduct> get allOwnerProduct => _allOwnerProduct;
+  
 
   ProductsProvider productsProvider = ProductsProvider();
 
@@ -17,36 +18,49 @@ class ShopProvider extends ChangeNotifier{
     fetchOListingProduct();
   }
 
+  set allOwnwerProductSetter(dynamic value){
+    _allOwnerProduct = value;
+  }
+
   Future<void> fetchOListingProduct() async {
     _allOwnerProduct = [];
-    await StorageServices.fetchData('token').then((token) async {
-      print("My token ${token['token']} Hello");
-      if(token != null){
-        try {
-          _backend.response =  await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
+    try{
+      await StorageServices.fetchData('user_token').then((token) async {
+        print("My token ${token['token']} Hello");
+        if(token != null){
+          _backend.response = await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
             "accept": "application/json",
             "authorization": "Bearer " + token['token'],
           });
 
-          _backend.data = json.decode(_backend.response.body);
-          // print("My response ${_backend.data}");
-          await StorageServices.setData(_backend.data, 'oproducts');
+          if (json.decode(_backend.response.body).isEmpty){
+            print("hello");
+            _allOwnerProduct = null;
+          } else {
 
-          for (var item in _backend.data) {
-            // print(item);
-            _allOwnerProduct.add(OwnerProduct.fromJsons(item));
+            print("Body ${_backend.response.body}");
+
+            _backend.data = json.decode(_backend.response.body);
+            // print("My response ${_backend.data}");
+            await StorageServices.setData(_backend.data, 'oproducts');
+
+            print("Hey My data very ${_backend.data}");
+
+            for (var item in _backend.data) {
+              // print(item);
+              _allOwnerProduct.add(OwnerProduct.fromJsons(item));
+            }
+
+            // findIsSold(oItems);
+
+            await getAllImageProductOwner(token['token']);
           }
 
-          // findIsSold(oItems);
-
-        } catch (e) {
-          print("My error");
-          print(e.toString());
         }
-
-        await getAllImageProductOwner(token['token']);
-      }
-    });
+      });
+    } catch (e) {
+      print("My error ${e.toString()}");
+    }
 
     // for (var item in _backend.data) {
     //   _allOwnerProduct.add(OwnerProduct.fromJson(item));

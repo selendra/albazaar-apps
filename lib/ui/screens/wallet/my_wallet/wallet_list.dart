@@ -24,6 +24,7 @@ class _WalletListState extends State<WalletList> {
               ),
             ),
             child: ListTile(
+              contentPadding: EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
               onTap: () async {
                 if (index == 0){
                   Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
@@ -43,12 +44,15 @@ class _WalletListState extends State<WalletList> {
               },
               trailing: Text(
                 wallets[index].amount,
-                style: TextStyle(fontWeight: FontWeight.w900),
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
               ),
-              leading: Image.asset(wallets[index].logo, width: 30, height: 30),
+              leading: Container(
+                width: 70, height: 70,
+                child: (wallets[index].logo.contains('svg')) ? SvgPicture.asset(wallets[index].logo, width: 50, height: 50) : Image.asset(wallets[index].logo, width: 50, height: 50)
+              ),
               title: Text(
                 wallets[index].title,
-                style: TextStyle(fontWeight: FontWeight.w900),
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
               ),
             ),
           );

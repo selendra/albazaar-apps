@@ -38,7 +38,7 @@ class ReuseAppBar {
             color: AppServices.hexaCodeToColor(AppColors.primary),
           ),
           onPressed: () async {
-            await Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProduct()));
+            await Navigator.push(context, MaterialPageRoute(builder: (context) => AddListing()));
           },
         )
       ],

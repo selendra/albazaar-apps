@@ -79,6 +79,7 @@ class AllProductOwner extends StatelessWidget{
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
                                 onTapDown: (TapDownDetails detail) async {
+                                  print("My category edit ${listProductOwner[index].categoryId}");
                                   // var x = getBox.localToGlobal(detail.globalPosition.dx);
                                   print(detail.globalPosition);
                                   // print("Box ${getBox.size}");

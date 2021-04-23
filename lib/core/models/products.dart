@@ -136,14 +136,24 @@ class ProductModel {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  // This Variable For Images After First Image Upload
+  // To Prepare For Upload Afrter Submit
   List<String> tmpImagesUrl;
 
   bool enable = false;
 
   List<String> images;
   String currency;
-  String scale;
   String categoryDropDown;
+  String scale;
+  String shippingOpt;
+  String paymentOpt;
+
+  String scaleId;
+  String shippingOptId;
+  String paymentOptId;
+  String categoryId;
+
   TextEditingController productName = TextEditingController();
   TextEditingController price = TextEditingController();
   TextEditingController location = TextEditingController();
@@ -158,9 +168,23 @@ class ProductModel {
 
   ProductModel();
 
+  ProductModel.initalizeData(){
+    tmpImagesUrl = [];
+    images = [];
+    scale = 'Scale';
+    currency = 'Currency';
+    categoryDropDown = 'Category';
+    shippingOpt = 'Shipping';
+    paymentOpt = 'Payment';
+    scaleId = '';
+    shippingOptId = '';
+    paymentOptId = '';
+    categoryId = '';
+  }
+
   // Call When We Fetching Data From Server
   ProductModel.fromOwner(OwnerProduct productOwner){
-    print(productOwner.categoryName);
+    print(productOwner.categoryName.toString()+"Category");
     images = productOwner.listImages;
     currency = "Currency";
     scale = "Scale";
@@ -170,6 +194,18 @@ class ProductModel {
     location.text = '';
     category.text = productOwner.categoryName ?? '';
     description.text = productOwner.description;
+  }
+  AddProduct fromAddProduct(ProductModel productModel){
+    AddProduct _addProduct = AddProduct();
+    _addProduct.productName.text = productModel.productName.text;
+    _addProduct.price.text = productModel.price.text;
+    _addProduct.shipping = productModel.shippingOptId;
+    _addProduct.weight = productModel.scaleId;
+    _addProduct.description.text = productModel.description.text;
+    _addProduct.imageUrl = productModel.tmpImagesUrl[0];
+    _addProduct.category = productModel.categoryDropDown;
+    _addProduct.paymentOpt = productModel.paymentOptId;
+    return _addProduct;
   }
 }
 
@@ -361,6 +397,22 @@ class OwnerProduct extends Product{
       isSold: owner.isSold,
       isFav: owner.isFav,
       orderQty: owner.orderQty
+    );
+  }
+  
+  factory OwnerProduct.fromCreateShop(AddProduct addProduct){
+    return OwnerProduct(
+      description: addProduct.description.text,
+      shippingService: addProduct.shipping,
+      name: addProduct.productName.text,
+      categoryName: addProduct.category,
+      thumbnail: addProduct.imageUrl,
+      weight: addProduct.weight,
+      paymentId: addProduct.paymentOpt,
+      shippingId: addProduct.shipping,
+      price: int.parse(addProduct.price.text),
+      categoryId: addProduct.category,
+      orderQty: 1
     );
   }
 

@@ -32,6 +32,7 @@ class ShopSliverHeader{
           maxHeight: 50.0,
           child: GestureDetector(
             onTap: () async{
+              Components.dialogLoading(context: context);
               // await Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProduct()));
             },
             child: MyPadding(

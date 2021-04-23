@@ -15,7 +15,11 @@ class WalletScreen extends StatelessWidget {
           ),
           title: AppLocalizeService.of(context).translate('wallet'),
         ),
-        body: Body(),
+        body: BodyScaffold(
+          physics: BouncingScrollPhysics(),
+          bottom: 0,
+          child: Body(),
+        ),
       ),
     );
   }
