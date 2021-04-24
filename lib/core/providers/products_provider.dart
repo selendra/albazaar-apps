@@ -64,12 +64,6 @@ class ProductsProvider with ChangeNotifier {
             "authorization": "Bearer " + token,
           });
 
-          print(json.decode(response.body));
-
-          print(json.decode(response.body).runtimeType);
-
-          print("First repsonse ${(json.decode(response.body).runtimeType.toString() != 'List<Map<String, dynamic>>')}");
-
           // If Have Something Wrong Evern If Response 200
           // Can't check with = responseJson.contains('error') directly
           // _GrowableList<dynamic> Response When Run Release
