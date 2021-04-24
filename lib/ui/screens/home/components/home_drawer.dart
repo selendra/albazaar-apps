@@ -190,15 +190,19 @@ class HomeDrawer extends StatelessWidget {
                     ),
                     action: ()async {
 
-                      var isShow = await _pref.read('isshow');
-                      
-                      // Clear All Local Data
-                      await AppServices.clearStorage();
+                      if (i == iconText.length -1){
+                        var isShow = await _pref.read('isshow');
+                        
+                        // Clear All Local Data
+                        await AppServices.clearStorage();
 
-                      // Save Carousel Screen
-                      await _pref.saveString('isshow', isShow);
-                      HomeDialog().alertDialog(context);
-                      // Auth().signOut(context);
+                        // Save Carousel Screen
+                        await _pref.saveString('isshow', isShow);
+                        HomeDialog().alertDialog(context);
+                        // Auth().signOut(context);
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
+                      }
                     }
                   ),
                   
