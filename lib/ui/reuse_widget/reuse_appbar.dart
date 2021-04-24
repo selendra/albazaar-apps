@@ -1,9 +1,10 @@
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class ReuseAppBar {
-  static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller) {
+  static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller, {ShopProvider shopProvider, Function upLoadedProduct}) {
     return AppBar(
       toolbarHeight: 70,
       brightness: Brightness.light,
@@ -38,7 +39,10 @@ class ReuseAppBar {
             color: AppServices.hexaCodeToColor(AppColors.primary),
           ),
           onPressed: () async {
-            await Navigator.push(context, MaterialPageRoute(builder: (context) => AddListing()));
+            final response = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddListing(from: shopProvider.shopCheck == 'creating' ? 'fromCreateShop' : null,)));
+            if (response != null ){
+              upLoadedProduct(response);
+            }
           },
         )
       ],

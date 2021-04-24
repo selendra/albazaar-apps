@@ -9,25 +9,25 @@ class AllProductOwner extends StatelessWidget{
 
   final List<OwnerProduct> listProductOwner;
 
+  final ProductsProvider productProvider;
+
   final Function uploadRemainUrlImage;
 
   final Function deleteProduct;
 
   final Function onChanged;
 
-  AllProductOwner({this.enableDelete, this.listProductOwner, this.uploadRemainUrlImage, this.deleteProduct, this.onChanged});
-
-  TextEditingController _controller = TextEditingController();
+  AllProductOwner({this.enableDelete, this.productProvider, this.listProductOwner, this.uploadRemainUrlImage, this.deleteProduct, this.onChanged});
 
   Widget build(BuildContext context){
-
+    print(productProvider.addProductProvider.addProduct.weightList.toString() +"weight");
     // final _listImages = Provider.of<ShopProvider>(context).listImages;
     print(enableDelete);
 
     return ListView.builder(
       itemCount: listProductOwner.length,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: BouncingScrollPhysics(),
       itemBuilder: (context, int index){
         return Container(
           // height: 180,
@@ -91,13 +91,13 @@ class AllProductOwner extends StatelessWidget{
                                   );
                                   print(result);
                                   if (result == 'edit'){
-                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProductOwner[index]))).then((value) async {
+                                    await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProductOwner[index], addProductProvider: productProvider.addProductProvider,))).then((value) async {
                                       if(value != null){
                                         await uploadRemainUrlImage(value['productModel'], value['productId']);
                                       }
                                     });
                                   }
-                                  else  if (result == "delete"){
+                                  else if (result == "delete"){
                                     final result = await Components.dialog(
                                       context, 
                                       Column(
@@ -147,7 +147,7 @@ class AllProductOwner extends StatelessWidget{
                           width: MediaQuery.of(context).size.width,
                           textAlign: TextAlign.left,
                           text: "${listProductOwner[index].description}",
-                          fontSize: 12,
+                          fontSize: 16,
                           color: "#000000",
                           overflow: TextOverflow.ellipsis,
                           maxLine: 1,

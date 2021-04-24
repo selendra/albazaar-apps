@@ -30,18 +30,14 @@ class ShopHeader extends StatelessWidget{
                     padding: EdgeInsets.only(left: pd20, right: pd20, top: pd20+15, bottom: pd20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              MyText(
-                                text: "About",
-                                color: AppColors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ],
-                          )
+                        MyText(
+                          textAlign: TextAlign.start,
+                          text: "About",
+                          color: AppColors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
 
                         MyText(

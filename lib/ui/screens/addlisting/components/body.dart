@@ -234,7 +234,7 @@ class Body extends StatelessWidget {
               MyPadding(
                 pBottom: pd12,
                 pLeft: 0, pRight: 0,
-                child: Row(
+                child: Row( 
                   children: [
 
                     // Expanded(
@@ -248,7 +248,7 @@ class Body extends StatelessWidget {
                     //       focusNode: productModel.scale., 
                     //       validateField: (String value){
                     //         validateField(value, label: "weight");
-                    //       }, 
+                    //       }, fromJsons
                     //       onChanged: onChanged, 
                     //       onSubmit: onSubmit
                     //     ),
@@ -398,15 +398,25 @@ class Body extends StatelessWidget {
           edgeMargin: EdgeInsets.only(left: 110, right: 110, bottom: 31),
           child: MyText(text: "Save edit", color: AppColors.white, pTop: 19, pBottom: 19,),
           action: //productModel.enable == false ? null : 
-          () async {
-            productModel.productName.text = "Meat";
-            productModel.price.text = "15000";
-            productModel.shippingOptId = "b8fd8a60-242c-405d-8a62-1ae2880094a6";
-            productModel.paymentOptId = "375f4c4b-945d-437e-9a2d-4a0af398f925";
-            productModel.scaleId = "b8fd8a60-242c-405d-8a62-1ae2880094a7";
-            productModel.categoryId = "4e984edb-abd2-4691-990f-a6b1413cf472";
-            productModel.description.text = "New meat";
-            productModel.tmpImagesUrl.add("https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf");
+          () async {       
+
+            // productModel.productName.text = "Meat";
+            // productModel.price.text = "15000";
+            // productModel.shippingOptId = "b8fd8a60-242c-405d-8a62-1ae2880094a6";
+            // productModel.paymentOptId = "375f4c4b-945d-437e-9a2d-4a0af398f925";
+            // productModel.scaleId = "b8fd8a60-242c-405d-8a62-1ae2880094a7";
+            // productModel.categoryId = "4e984edb-abd2-4691-990f-a6b1413cf472";
+            // productModel.description.text = "New meat";
+            // productModel.tmpImagesUrl.add("https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf");
+
+            // print(productModel.productName.text);
+            // print(productModel.price.text);
+            // print(productModel.shippingOptId);
+            // print(productModel.paymentOptId);
+            // print(productModel.scaleId);
+            // print(productModel.categoryId);
+            // print(productModel.description.text);
+            // print(productModel.tmpImagesUrl);
             await submitProduct(ProductModel().fromAddProduct(productModel));
           },
         )

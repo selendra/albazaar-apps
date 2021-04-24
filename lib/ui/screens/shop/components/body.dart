@@ -72,50 +72,29 @@ class _BodyState extends State<Body> with TickerProviderStateMixin{
   @override
   void initState() {
     _tabController =  TabController(length: 3, vsync: this);
-
     super.initState();
   }
 
   TabController _tabController;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          headerSliverBuilder: (context, value){
-            return ShopSliverHeader().sliverHeader(
-              context: context,
-              tabController: _tabController,
-              onTapTab: (int index){
+    return NestedScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      headerSliverBuilder: (context, value){
+        return ShopSliverHeader().sliverHeader(
+          context: context,
+          tabController: _tabController,
+          onTapTab: (int index){
 
-              },
-            );
           },
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(child: AllProductOwner(enableDelete: enableDelete, listProductOwner: widget.shopProvider.allOwnerProduct, uploadRemainUrlImage: widget.uploadRemainUrlImage, deleteProduct: widget.deleteProduct, onChanged: onChanged,))//Expanded(child: )
-            ],
-          )
-        ),
-
-
-        if (widget.shopProvider.allOwnerProduct == null || widget.shopProvider.allOwnerProduct.length == 0) 
-        Container(
-          color: Colors.black.withOpacity(0.3),
-          child: Center(
-            child: MyCard(
-              pTop: 20, pRight: 20, pLeft: 20, pBottom: 20,
-              hexaColor: AppColors.white,
-              width: 80,
-              height: 80,
-              alignChild: Alignment.center,
-              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppServices.hexaCodeToColor(AppColors.primary)))
-            ) 
-          )
-        )
-      ],
+          shopProvider: widget.shopProvider,
+          productProvider: widget.productProvider,
+          uploadRemainUrlImage: widget.uploadRemainUrlImage,
+          deleteProduct: widget.deleteProduct,
+          onChanged: onChanged
+        );
+      },
+      body: Container()
     );
 
   //   Column(

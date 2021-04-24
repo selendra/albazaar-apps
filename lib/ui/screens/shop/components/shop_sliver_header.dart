@@ -1,4 +1,6 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
+import 'package:albazaar_app/ui/screens/shop/components/all_product_owner.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_header.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_tabbar.dart';
 
@@ -8,18 +10,24 @@ class ShopSliverHeader{
   final double padding = 16;
   
   List<Widget> sliverHeader({
-    BuildContext  context,
+    bool enableDelete,
+    ShopProvider shopProvider,
+    ProductsProvider productProvider,
+    BuildContext context,
     TabController tabController,
     Function onTapTab,
-    Function refresh
+    Function refresh,
+    Function uploadRemainUrlImage,
+    Function deleteProduct,
+    Function onChanged,
   }){
     return [
       // Header
       SliverPersistentHeader(
         pinned: false,
         delegate: MySliverAppBarDelegate(
-          minHeight: 386,
-          maxHeight: 386,
+          minHeight: 400,
+          maxHeight: 400,
           child: ShopHeader()
         )
       ),
@@ -99,6 +107,25 @@ class ShopSliverHeader{
             color: AppServices.hexaCodeToColor(AppColors.bgColor),
             child: ShopTabbar()
           ),
+        )
+      ),
+      
+      // Button
+      SliverPersistentHeader(
+        pinned: true,
+        delegate: MySliverAppBarDelegate(
+          minHeight: MediaQuery.of(context).size.height,
+          maxHeight: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Expanded(child: AllProductOwner(enableDelete: enableDelete, productProvider: productProvider, listProductOwner: shopProvider.allOwnerProduct, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct, onChanged: onChanged,)),
+              // For Empty Size From Bottom
+              SizedBox(
+                height: 185,
+                child: Container(),
+              )
+            ]
+          )
         )
       )
     ];

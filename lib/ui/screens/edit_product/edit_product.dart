@@ -1,5 +1,6 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/providers/shop_provider.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product_body.dart';
 
@@ -7,7 +8,10 @@ class EditProduct extends StatefulWidget {
 
   final OwnerProduct productOwner;
 
-  EditProduct({this.productOwner});
+  // We declare For Get All Of (Category, Shipping service, Weight, Payment method)
+  final AddProductProvider addProductProvider;
+
+  EditProduct({this.productOwner, this.addProductProvider});
 
   @override
   _EditProductState createState() => _EditProductState();
@@ -140,6 +144,9 @@ class _EditProductState extends State<EditProduct> {
       });
     } catch (e){
       print("Hello error");
+
+      // Close Dialog Loading
+      Navigator.pop(context);
       await Components.dialog(context, Text(e.toString()), Text("Message"));
       print(e);
     }
@@ -148,7 +155,18 @@ class _EditProductState extends State<EditProduct> {
   @override
   void initState(){
     _productModel.images = [];
+
+    _productModel = ProductModel.initalizeData();
+
+    widget.productOwner.weightName = FindingServices().findScaleById(widget.productOwner.weight, widget.addProductProvider.addProduct.weightList);
+    widget.productOwner.shippingName = FindingServices().findShippingById(widget.productOwner.shippingId, widget.addProductProvider.addProduct.shippingList);
+    print(widget.productOwner.shippingName);
+    widget.productOwner.paymentName = FindingServices().findPaymentById(widget.productOwner.paymentId, widget.addProductProvider.addProduct.paymentOptsList);
+    print(widget.productOwner.shippingName);
+    // print("My weight ${widget.productOwner.weightName}");
+
     _productModel = ProductModel.fromOwner(widget.productOwner);
+
     // Insert Thumbnail Inot images of ProductModel
     _productModel.images.insert(0, widget.productOwner.thumbnail);
     _productModel.tmpImagesUrl = [];
@@ -165,6 +183,7 @@ class _EditProductState extends State<EditProduct> {
     // Finding Category By CategoryID
     _productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
     _productModel.categoryDropDown = _productModel.category.text;
+    
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -173,7 +192,7 @@ class _EditProductState extends State<EditProduct> {
           titleSpacing: 0,
           // leadingWidth: 25,
           title: MyText(
-            text: "Add Product",
+            text: "Edit Product",
             color: AppColors.primary,
             fontWeight: FontWeight.w600,
             fontSize: 25,

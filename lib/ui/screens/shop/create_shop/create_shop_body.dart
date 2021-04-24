@@ -6,6 +6,8 @@ class CreateShopBody extends StatelessWidget {
 
   final List<OwnerProduct> listProduct;
 
+  final AddProductProvider addProductProvider;
+
   final ShopModel shopModel;
 
   final Function onChangeImage;
@@ -14,7 +16,7 @@ class CreateShopBody extends StatelessWidget {
 
   final Function upLoadedProduct;
 
-  CreateShopBody({this.listProduct, this.shopModel, this.onChangeImage, this.submit, this.upLoadedProduct});
+  CreateShopBody({this.listProduct, this.addProductProvider, this.shopModel, this.onChangeImage, this.submit, this.upLoadedProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +183,8 @@ class CreateShopBody extends StatelessWidget {
                       flex: 0,
                       child: MyCard(
                       hexaColor: AppColors.secondary,
-                        width: 146,
+                        width: 200,
+                        height: 226,
                         bTopRight: 0, bBottomRight: 0,
                         image: DecorationImage(
                           fit: BoxFit.cover,
@@ -228,7 +231,7 @@ class CreateShopBody extends StatelessWidget {
                                   child: MyText(
                                     left: 6,
                                     textAlign: TextAlign.left,
-                                    text: "${listProduct[index].price}}",
+                                    text: "${listProduct[index].price}",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.primary,
@@ -244,14 +247,14 @@ class CreateShopBody extends StatelessWidget {
                             child: Row(
                               children: [
                                 MyText(text: "Weight: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
-                                Flexible(
+                                Expanded(
                                   child: MyText(
                                     width: MediaQuery.of(context).size.width,
                                     textAlign: TextAlign.left,
-                                    text: "${listProduct[index].weight}",
+                                    text: "${listProduct[index].weightName}",
                                     fontSize: 16,
                                     color: "#000000",
-                                    overflow: TextOverflow.clip,
+                                    overflow: TextOverflow.ellipsis,
                                   )
                                 )
                               ]
@@ -264,13 +267,55 @@ class CreateShopBody extends StatelessWidget {
                             child: Row(
                               children: [
                                 MyText(text: "Category: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
-                                MyText(
-                                  width: MediaQuery.of(context).size.width,
-                                  textAlign: TextAlign.left,
-                                  text: "${listProduct[index].categoryId}",
-                                  fontSize: 16,
-                                  color: "#000000",
-                                  overflow: TextOverflow.ellipsis,
+                                Expanded(
+                                  child: MyText(
+                                    width: MediaQuery.of(context).size.width,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].categoryName}",
+                                    fontSize: 16,
+                                    color: "#000000",
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                )
+                              ]
+                            )
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Payment method: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                Expanded(
+                                  child: MyText(
+                                    width: MediaQuery.of(context).size.width,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].paymentName}",
+                                    fontSize: 16,
+                                    color: "#000000",
+                                    overflow: TextOverflow.ellipsis,
+                                  )
+                                )
+                              ]
+                            )
+                          ),
+
+                          MyPadding(
+                            pLeft: pd10+5, pRight: pd10+5,
+                            pBottom: pd10,
+                            child: Row(
+                              children: [
+                                MyText(text: "Shipping: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
+                                Expanded(
+                                  child: MyText(
+                                    width: MediaQuery.of(context).size.width,
+                                    textAlign: TextAlign.left,
+                                    text: "${listProduct[index].shippingName}",
+                                    fontSize: 16,
+                                    color: "#000000",
+                                    overflow: TextOverflow.ellipsis,
+                                  )
                                 )
                               ]
                             )
@@ -314,7 +359,9 @@ class CreateShopBody extends StatelessWidget {
             fontSize: 20,
             color: AppColors.white,
           ),
-          action: submit,
+          action: () async {
+            await submit();
+          },
         )
       ],
     );

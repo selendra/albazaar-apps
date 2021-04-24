@@ -8,11 +8,14 @@ class ShopProvider extends ChangeNotifier{
   List<OwnerProduct> _allOwnerProduct;
 
   List<OwnerProduct> get allOwnerProduct => _allOwnerProduct;
-  
 
   ProductsProvider productsProvider = ProductsProvider();
 
   List<ProductImage> productImages;
+
+  String shopCheck = '';
+
+  List<OwnerProduct> listProductCreateShop = [];
 
   ShopProvider(){
     fetchOListingProduct();
@@ -34,10 +37,11 @@ class ShopProvider extends ChangeNotifier{
           });
 
           if (json.decode(_backend.response.body).isEmpty){
-            print("hello");
-            _allOwnerProduct = null;
+            shopCheck = 'create';
           } else {
 
+            shopCheck = 'created';
+            
             print("Body ${_backend.response.body}");
 
             _backend.data = json.decode(_backend.response.body);
@@ -62,12 +66,10 @@ class ShopProvider extends ChangeNotifier{
       print("My error ${e.toString()}");
     }
 
-    // for (var item in _backend.data) {
-    //   _allOwnerProduct.add(OwnerProduct.fromJson(item));
-    // }
-
     notifyListeners();
   }
+
+
 
   // After Retrieve Product And Then Get All Images Of Products
   Future<void> getAllImageProductOwner(String token) async {

@@ -206,57 +206,148 @@ class EditProductBody extends StatelessWidget {
                 ),
               ),
 
+              
+
               MyPadding(
-                pBottom: pd35,
+                pBottom: pd12,
                 pLeft: 0, pRight: 0,
                 child: Row(
                   children: [
 
-                    // DropDown Category
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
-                        if (result != null){
-                          onChangeDropDown('category', result);
-                        }
-                      },
-                      child: MyCard(
-                        mLeft: pd12, mRight: pd12,
-                        height: heightInput,
-                        pRight: pd12+3, pLeft: pd12+3,
-                        alignChild: Alignment.center,
-                        child: Row(
-                          children: [
-                            MyText(text: productModel.categoryDropDown, pRight: 15,),
+                    // Expanded(
+                    //   flex: 2,
+                    //   child: MyPadding(
+                    //     pLeft: pd12, 
+                    //     pRight: 0,
+                    //     child: MyInputField(
+                    //       labelText: "Scale",
+                    //       controller: productModel.scale,
+                    //       focusNode: productModel.scale., 
+                    //       validateField: (String value){
+                    //         validateField(value, label: "weight");
+                    //       }, 
+                    //       onChanged: onChanged, 
+                    //       onSubmit: onSubmit
+                    //     ),
+                    //   ),
+                    // ),
 
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
-                          ],
+                    // DropDown Category
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('category', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12, mRight: pd12/2,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.categoryDropDown, pRight: 15,)
+                              ),
+
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
                         ),
                       ),
                     ),
 
                     // DropDown Scale
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) async {
-                        dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
-                        if (result != null){
-                          onChangeDropDown('scale', result);
-                        }
-                      },
-                      child: MyCard(
-                        mLeft: pd12, mRight: 0,
-                        height: heightInput,
-                        pRight: pd12+3, pLeft: pd12+3,
-                        alignChild: Alignment.center,
-                        child: Row(
-                          children: [
-                            MyText(text: productModel.scale, pRight: 15,),
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.scaleDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('scale', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12/2, mRight: 12,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.scale, pRight: 15,)
+                              ),
 
-                            SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
-                          ],
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              
+              // Shipping and Payment method
+              MyPadding(
+                pBottom: pd12,
+                pLeft: 0, pRight: 0,
+                child: Row(
+                  children: [
+
+                    // DropDown Shipping
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.shippingDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('shipping', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12, mRight: pd12/2,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.shippingOpt, pRight: 15,)
+                              ),
+
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
                         ),
                       ),
                     ),
+
+                    // DropDown Payment Method
+                    Expanded(
+                      child: GestureDetector(
+                        onTapDown: (TapDownDetails details) async {
+                          dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.paymentDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          if (result != null){
+                            onChangeDropDown('payment', result);
+                          }
+                        },
+                        child: MyCard(
+                          mLeft: pd12 /2, mRight: 12,
+                          height: heightInput,
+                          pRight: pd12+3, pLeft: pd12+3,
+                          alignChild: Alignment.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: MyText(text: productModel.paymentOpt, pRight: 15,),
+                              ),
+                              SvgPicture.asset('assets/icons/dropdown.svg', width: 18.52, height: 10, color: AppServices.hexaCodeToColor(AppColors.primary))
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/ui/reuse_widget/reuse_simple_appbar.dart';
@@ -18,6 +19,7 @@ class AddListing extends StatefulWidget {
 }
 
 class _AddListingState extends State<AddListing> {
+
   AddProductProvider _addProductProvider;
 
   String _error = 'No Error Dectected';
@@ -272,19 +274,6 @@ class _AddListingState extends State<AddListing> {
     }
   }
 
-  Future<void> submitProduct(AddProduct addProduct) async {
-    print("From ${widget.from}");
-    if(widget.from == "fromCreateShop"){
-      Navigator.pop(context, addProduct);
-    } else {
-      try{
-        _backend.response = await _postRequest.addListing(addProduct);
-      } catch (e){
-        await Components.dialog(context, Text(e['message'].toString()), Text("Message"));
-      }
-    }
-  }
-
   void enableBtn(bool value) {
     print("Button ${_productModel.enable}");
     setState(() {
@@ -334,8 +323,41 @@ class _AddListingState extends State<AddListing> {
     }
   }
 
+  Future<void> submitProduct(AddProduct addProduct) async {
+    print("From ${widget.from}");
+    if(widget.from == "fromCreateShop"){
+      Navigator.pop(context, addProduct);
+    } else {
+      Components.dialogLoading(context: context);
+      try{
+        _backend.response = await _postRequest.addListing(addProduct);
+
+        _backend.data = json.decode(_backend.response.body);
+
+        await Future.delayed(Duration(seconds: 1), (){
+          //Close Loading
+          Navigator.pop(context);
+        });
+
+        await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center,), Text("Message"));
+
+        Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+        Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+
+        Navigator.pop(context);
+        
+      } catch (e){
+
+        //Close Loading
+        Navigator.pop(context);
+        await Components.dialog(context, Text(e['message'].toString()), Text("Message"));
+      }
+    }
+  }
+
   @override
   void initState() {
+    print("From my ${widget.from}}");
     _productModel = ProductModel.initalizeData();
     _addProductProvider = AddProductProvider();
     super.initState();

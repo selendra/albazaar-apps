@@ -252,36 +252,6 @@ class MyDropDownCustom{
                         );
                       }
                     )
-                    // Column(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                           
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Kilogram');
-                    //       },
-                    //       text: "Kilogram",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Gram');
-                    //       },
-                    //       text: "Gram",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Unit');
-                    //       },
-                    //       text: "Unit",
-                    //     ),
-                    //   ],
-                    // ),
                   )
                 ],
               ),
@@ -341,54 +311,6 @@ class MyDropDownCustom{
                         );
                       }
                     )
-                    // Column(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                           
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Fruit');
-                    //       },
-                    //       text: "Fruit",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Meat');
-                    //       },
-                    //       text: "Meat",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Vegetable');
-                    //       },
-                    //       text: "Vegetable",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Cereal');
-                    //       },
-                    //       text: "Cereal",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Others');
-                    //       },
-                    //       text: "Others",
-                    //     )
-                    //   ],
-                    // ),
                   )
                 ],
               ),
@@ -412,7 +334,7 @@ class MyDropDownCustom{
         child: Stack(
           children: [
             Positioned(
-              left: x,
+              right: 0,
               top: y, //MediaQuery.of(context).size.height/2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -508,36 +430,6 @@ class MyDropDownCustom{
                         );
                       }
                     )
-                    // Column(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   children: [
-                           
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Kilogram');
-                    //       },
-                    //       text: "Kilogram",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Gram');
-                    //       },
-                    //       text: "Gram",
-                    //     ),
-
-                    //     Divider(height: 1),
-
-                    //     MyTextButton(
-                    //       onTap: (){
-                    //         Navigator.pop(context, 'Unit');
-                    //       },
-                    //       text: "Unit",
-                    //     ),
-                    //   ],
-                    // ),
                   )
                 ],
               ),

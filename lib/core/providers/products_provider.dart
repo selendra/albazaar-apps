@@ -32,6 +32,11 @@ class ProductsProvider with ChangeNotifier {
   List<String> _url = [];
 
   List<OrderProduct> _completeProduct = [];
+
+  List<Map<String, dynamic>> _categoryList = [];
+  List<Map<String, dynamic>> _paymentOptList = [];
+  List<Map<String, dynamic>> _shippingList = [];
+  List<Map<String, dynamic>> _weightList = [];
   
   //initial product orderqty
 
@@ -44,6 +49,9 @@ class ProductsProvider with ChangeNotifier {
   List<ProductImage> get imageList => [..._imageList];
   List<String> get url => [..._url];
   List<OrderProduct> get completeProduct => [..._completeProduct];
+
+  AddProductProvider get addProductProvider => _addProductProvider;
+  AddProductProvider _addProductProvider;
 
   Future<dynamic> fetchListingProduct() async {
     List<Map<String, dynamic>> responseJson = [];
@@ -95,7 +103,7 @@ class ProductsProvider with ChangeNotifier {
           }
 
           // fetchOListingProduct(token);
-
+          _addProductProvider = AddProductProvider();
         }
       });
     } catch (e) {

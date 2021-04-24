@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/models/shop_m.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop_body.dart';
@@ -15,7 +16,11 @@ class CreateShop extends StatefulWidget {
 
   final ShopModel shopModel;
 
-  CreateShop({this.shopModel});
+  final ShopProvider shopProvider;
+
+  final Function uploadedProduct;
+
+  CreateShop({this.shopModel, this.shopProvider, this.uploadedProduct});
 
   @override
   _CreateShopState createState() => _CreateShopState();
@@ -24,8 +29,8 @@ class CreateShop extends StatefulWidget {
 class _CreateShopState extends State<CreateShop> {
   //ProductsProvider productsProvider;
   //SellerProvider sellerProvider;
-
-  List<OwnerProduct> listProduct = <OwnerProduct>[]; 
+  PostRequest _postRequest = PostRequest();
+  Backend _backend = Backend();
 
   List<String> listImage;
 
@@ -40,10 +45,6 @@ class _CreateShopState extends State<CreateShop> {
     await Future.delayed(Duration(seconds: 3)).then((value) {
       Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
     });
-  }
-
-  void submit() async   {
-    await StorageServices.setData('created', DbKey.shop);
   }
 
   void onChangeImage(String spotName) async {
@@ -62,10 +63,29 @@ class _CreateShopState extends State<CreateShop> {
     }
   }
 
-  void upLoadedProduct(AddProduct tmpProductOwner){
-    setState((){
-      listProduct.add(OwnerProduct.fromCreateShop(tmpProductOwner));
-    });
+  Future<void> submit() async {
+    Components.dialogLoading(context: context);
+    try {
+      widget.shopProvider.listProductCreateShop.forEach((element) async {
+        _backend.response = await _postRequest.addListing(OwnerProduct().toAddProduct(element));
+        _backend.data = json.decode(_backend.response.body);
+        print(_backend.data['message']);
+      });
+
+      await Future.delayed(Duration(seconds: 1), (){
+        // Close Dialog Loading
+        Navigator.pop(context);
+      });
+
+      await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
+
+      Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+      Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+    } catch (e) {
+      // Close Dialog Loading
+      Navigator.pop(context);
+      await Components.dialog(context, Text(e['message'].toString()), Text("Message"));
+    }
   }
 
   @override
@@ -76,7 +96,13 @@ class _CreateShopState extends State<CreateShop> {
 
   @override
   Widget build(BuildContext context) {
-    return CreateShopBody(listProduct: listProduct, shopModel: widget.shopModel, onChangeImage: onChangeImage, submit: submit, upLoadedProduct: upLoadedProduct);
+    return CreateShopBody(
+      listProduct: widget.shopProvider.listProductCreateShop, 
+      shopModel: widget.shopModel, 
+      onChangeImage: onChangeImage,
+      submit: submit, 
+      upLoadedProduct: widget.uploadedProduct
+    );
     //_buildTapBarView();
   }
 }

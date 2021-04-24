@@ -82,8 +82,10 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                   }
               });
             } 
+
             // Throw Error If Something With Fetching 
             else {
+              print("I have error $response");
               throw (response);
             }
           }

@@ -171,11 +171,13 @@ class ProductModel {
   ProductModel.initalizeData(){
     tmpImagesUrl = [];
     images = [];
+    
     scale = 'Scale';
     currency = 'Currency';
     categoryDropDown = 'Category';
     shippingOpt = 'Shipping';
     paymentOpt = 'Payment';
+
     scaleId = '';
     shippingOptId = '';
     paymentOptId = '';
@@ -186,13 +188,16 @@ class ProductModel {
   ProductModel.fromOwner(OwnerProduct productOwner){
     print(productOwner.categoryName.toString()+"Category");
     images = productOwner.listImages;
-    currency = "Currency";
-    scale = "Scale";
-    categoryDropDown = productOwner.categoryName;
     productName.text = productOwner.name;
     price.text = productOwner.price.toString();
+    currency = "Currency";
     location.text = '';
-    category.text = productOwner.categoryName ?? '';
+
+    scale = productOwner.weightName ?? scale;
+    categoryDropDown = productOwner.categoryName ?? categoryDropDown;
+    shippingOpt = productOwner.shippingName ?? shippingOpt;
+    paymentOpt = productOwner.paymentName ?? paymentOpt;
+
     description.text = productOwner.description;
   }
   AddProduct fromAddProduct(ProductModel productModel){
@@ -203,8 +208,14 @@ class ProductModel {
     _addProduct.weight = productModel.scaleId;
     _addProduct.description.text = productModel.description.text;
     _addProduct.imageUrl = productModel.tmpImagesUrl[0];
-    _addProduct.category = productModel.categoryDropDown;
+    _addProduct.category = productModel.categoryId;
     _addProduct.paymentOpt = productModel.paymentOptId;
+
+    // For Display On Creating Shop
+    _addProduct.hintCategory = productModel.categoryDropDown;
+    _addProduct.hintPaymentOpt = productModel.paymentOpt;
+    _addProduct.hintShipping = productModel.shippingOpt;
+    _addProduct.hintWeight = productModel.scale;
     return _addProduct;
   }
 }
@@ -297,12 +308,12 @@ class Seller {
 }
 
 class OwnerProduct extends Product{
+
   OwnerProduct({
     description,
     shippingService,
     address,
     name,
-    categoryName,
     updatedAt,
     thumbnail,
     phonenumber,
@@ -320,6 +331,12 @@ class OwnerProduct extends Product{
     isSold,
     isFav,
     orderQty,
+
+    categoryName,
+    // For Add Product Display
+    this.weightName,
+    this.shippingName,
+    this.paymentName
   }) : super(
     description: description,
     shippingService: shippingService,
@@ -347,7 +364,12 @@ class OwnerProduct extends Product{
 
   List<String> listImages;
 
+  String weightName;
+  String paymentName;
+  String shippingName;
+
   factory OwnerProduct.fromJsons(Map<String, dynamic> json) {
+    print("Shop category product ${json['category_name']}");
     return OwnerProduct(
       description: json["description"],
       shippingService: json["shipping_service"],
@@ -371,6 +393,7 @@ class OwnerProduct extends Product{
       isSold: json["is_sold"],
       isFav: false,
       orderQty: 1,
+      
     );
   }
 
@@ -405,15 +428,33 @@ class OwnerProduct extends Product{
       description: addProduct.description.text,
       shippingService: addProduct.shipping,
       name: addProduct.productName.text,
-      categoryName: addProduct.category,
       thumbnail: addProduct.imageUrl,
       weight: addProduct.weight,
       paymentId: addProduct.paymentOpt,
       shippingId: addProduct.shipping,
       price: int.parse(addProduct.price.text),
       categoryId: addProduct.category,
-      orderQty: 1
+      orderQty: 1,
+      // For Display Product When Create Shop
+      categoryName: addProduct.hintCategory,
+      paymentName: addProduct.hintPaymentOpt,
+      weightName: addProduct.hintWeight,
+      shippingName: addProduct.hintShipping
     );
+  }
+
+  AddProduct toAddProduct(OwnerProduct productOwner){
+
+    AddProduct _addProduct = AddProduct();
+    _addProduct.productName.text = productOwner.name;
+    _addProduct.price.text = productOwner.price.toString();
+    _addProduct.shipping = productOwner.shippingId;
+    _addProduct.weight = productOwner.weight;
+    _addProduct.description.text = productOwner.description;
+    _addProduct.imageUrl = productOwner.thumbnail;
+    _addProduct.category = productOwner.categoryId;
+    _addProduct.paymentOpt = productOwner.paymentId;
+    return _addProduct;
   }
 
   Map<String, dynamic> toJson() => {
