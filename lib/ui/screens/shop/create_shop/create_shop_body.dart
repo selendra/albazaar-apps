@@ -226,7 +226,7 @@ class CreateShopBody extends StatelessWidget {
                             child: Row(
                               children: [
                                 MyText(text: "Price: ", fontWeight: FontWeight.bold, right: 10, color: AppColors.black),
-                                Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                                SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
                                 Expanded(
                                   child: MyText(
                                     left: 6,

@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
@@ -142,10 +143,10 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                       padding: EdgeInsets.only(bottom: 5),
                       child: Row(
                         children: [
-                          Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                          SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
                           MyText(
                             textAlign: TextAlign.left,
-                            text: "${widget.product.price} /Kg",
+                            text: "${widget.product.price} /" + FindingServices().findScaleById(widget.product.weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,

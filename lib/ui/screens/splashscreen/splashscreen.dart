@@ -85,8 +85,9 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
             // Throw Error If Something With Fetching 
             else {
-              print("I have error $response");
-              throw (response);
+              print("My response error $response");
+              await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
+              Navigator.pushReplacementNamed(context, WelcomeView);
             }
           }
 

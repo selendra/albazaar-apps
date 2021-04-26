@@ -20,36 +20,38 @@ class ShopHeader extends StatelessWidget{
                 Container(
                   padding: EdgeInsets.only(top: 20),
                   height: 228,
-                  child: Image.asset('assets/shop_cover_image.jpg',fit: BoxFit.contain)
+                  child: Image.asset('assets/shop_cover_image.jpg',fit: BoxFit.cover)
                 ),
 
-                MyCard(
-                  bTopLeft: 0, bTopRight: 0,
-                  hexaColor: AppColors.secondary,
-                  child: Container(
-                    padding: EdgeInsets.only(left: pd20, right: pd20, top: pd20+15, bottom: pd20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyText(
-                          textAlign: TextAlign.start,
-                          text: "About",
-                          color: AppColors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
+                Flexible(
+                  child: MyCard(
+                    bTopLeft: 0, bTopRight: 0,
+                    hexaColor: AppColors.secondary,
+                    child: Container(
+                      padding: EdgeInsets.only(left: pd20, right: pd20, top: pd20+15, bottom: pd20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyText(
+                            textAlign: TextAlign.start,
+                            text: "About",
+                            color: AppColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
 
-                        MyText(
-                          top: pd10,
-                          textAlign: TextAlign.left,
-                          color: AppColors.white,
-                          text: "Hello ! My name’s Daveat. I’m come from phnom penh and sell crops like broccoli, etc.",
-                          fontSize: 16,
-                        )
-                      ],
-                    )
-                  ),
+                          MyText(
+                            top: pd10,
+                            textAlign: TextAlign.left,
+                            color: AppColors.white,
+                            text: "Hello ! My name’s Daveat. I’m come from phnom penh and sell crops like broccoli, etc.",
+                            fontSize: 16,
+                          )
+                        ],
+                      )
+                    ),
+                  )
                 )    
               ]   
             ),

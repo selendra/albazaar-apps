@@ -1,6 +1,7 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/countries.dart';
 import 'package:albazaar_app/core/providers/guest_acc_p.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 
 import 'package:flutter/material.dart';
 
@@ -108,6 +109,7 @@ class ProductSearch extends SearchDelegate<String>{
 
   @override
   Widget buildResults(BuildContext context) {
+    
     // return Container(
     //   height: 100.0,
     //   width: 100.0,
@@ -126,6 +128,7 @@ class ProductSearch extends SearchDelegate<String>{
 
     List<Product> listProduct = Provider.of<GuestAccProvider>(context).getProducts;
     final suggestionList = query.isEmpty ? recentCode : listProduct.where((element) => element.name.startsWith(query)).toList();
+
     return MyPadding(
       pTop:16,
       pLeft: 16, pRight: 16,
@@ -219,10 +222,10 @@ class ProductSearch extends SearchDelegate<String>{
                           padding: EdgeInsets.only(bottom: 5),
                           child: Row(
                             children: [
-                              Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                              SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
                               MyText(
                                 textAlign: TextAlign.left,
-                                text: "${suggestionList[index].price} /Kg",
+                                text: "${suggestionList[index].price}" + FindingServices().findScaleById(suggestionList[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primary,

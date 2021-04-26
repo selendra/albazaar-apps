@@ -49,7 +49,7 @@ class BottomNavigationDetail extends StatelessWidget {
                   textAlign: TextAlign.left,
                   text: 'Total = ',
                   fontWeight: FontWeight.w600,
-                  fontSize: 25,
+                  fontSize: 20,
                   color: "#000000",
                 ),
                 Row(
@@ -59,15 +59,15 @@ class BottomNavigationDetail extends StatelessWidget {
                       textAlign: TextAlign.left,
                       text: "( ",
                       fontWeight: FontWeight.w600,
-                      fontSize: 25,
+                      fontSize: 20,
                       color: "#000000",
                     ),
-                    Image.asset('assets/symbols/riel_symbol.png', width: 12.3, height: 20),
+                    Image.asset('assets/symbols/l.png', width: 12.3, height: 20),
                     MyText(
                       textAlign: TextAlign.right,
                       text: " )",
                       fontWeight: FontWeight.w600,
-                      fontSize: 25,
+                      fontSize: 20,
                       color: "#000000",
                     )
                   ],
@@ -76,7 +76,7 @@ class BottomNavigationDetail extends StatelessWidget {
                   left: 8,
                   textAlign: TextAlign.left,
                   text: "${cartProvider.totalPrice} /Kg",
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
                 ),
@@ -89,7 +89,7 @@ class BottomNavigationDetail extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: 10, bottom: 10),
               child: ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('buy_now'), () {
+                AppLocalizeService.of(context).translate('check_out'), () {
 
                     print(loadedProduct.id);
                     print(loadedProduct.thumbnail);

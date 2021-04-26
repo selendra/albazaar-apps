@@ -32,6 +32,8 @@ class _BodyState extends State<Body> {
   String display;
   int selected = 0;
 
+  String scale = 'Scale';
+
   // List Of Amount 1, 3, 5, 10
   List<int> listAmount;
 
@@ -171,6 +173,7 @@ class _BodyState extends State<Body> {
                           bottom: 20,
                           child: SizedBox(
                             height: 50,
+                            width: 50,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               physics: NeverScrollableScrollPhysics(),
@@ -245,110 +248,76 @@ class _BodyState extends State<Body> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      MyPadding(
-                        pTop: 17,
-                        pLeft: padding, pRight: padding,
-                        pBottom: padding,
-                        child: Row(
-                          children: [
-                            Image.asset('assets/symbols/riel_symbol.png', width: 13.52, height: 22),
-                            MyText(
-                              left: 8,
-                              textAlign: TextAlign.left,
-                              text: "${widget.product.price} /Kg",
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.primary,
-                            ),
-                            Expanded(child: Container()),
 
-                            Consumer<FavoriteProvider>(
-                              builder: (context, value, widgets){
-                                return GestureDetector(
-                                  onTap: (){
-                                    setState((){
-
-                                      // Not Yet Favorite and Click Add
-                                      if (widget.product.isFav) {
-                                        widget.product.isFav = false;
-                                        value.removeFav(widget.product);
-                                      }
-                                      // Favorited and Click Remove
-                                      else {
-                                        widget.product.isFav = true;
-                                        value.addFav(widget.product);
-                                      }
-                                    });
-                                  },
-                                  child: SvgPicture.asset(AppConfig.iconPath+ ((widget.product.isFav) ? 'full_heart.svg': 'heart.svg'), width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.secondary),)
-                                );
-                              },
-                            )
-                          ],
-                        )
-                      ),
-
-                      MyPadding(
-                        pLeft: padding, pRight: padding,
-                        pBottom: padding,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Text(
-                            widget.product.name,
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w700,
+                      Row(
+                        children: [
+                          MyPadding(
+                            pTop: 16,
+                            pLeft: padding, pRight: padding,
+                            pBottom: padding,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                widget.product.name,
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+
+                          Expanded(
+                            child: Container()
+                          ),
+
+                          MyPadding(
+                            pTop: 16,
+                            pLeft: padding, pRight: padding,
+                            pBottom: padding,
+                            child: Row(
+                              children: [
+                                SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 13.52, height: 22),
+                                MyText(
+                                  left: 8,
+                                  textAlign: TextAlign.left,
+                                  text: "${widget.product.price}",
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primary,
+                                ),
+                              ],
+                            )
+                          )
+                        ]
                       ),
 
-                      MyPadding(
-                        pLeft: padding, pRight: padding,
-                        pBottom: padding,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 7),
-                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
-                            ),
-                            MyText(
-                              textAlign: TextAlign.left,
-                              text: "(13) Sold",
-                              fontSize: 12,
-                              color: "#000000",
-                            ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container()
+                          ),
 
-                            Expanded(
-                              child: Container(),
+                          MyPadding(
+                            pLeft: padding, pRight: padding,
+                            pBottom: padding,
+                            child: Row(
+                              children: [
+
+                                GestureDetector(
+                                  onTap: () async {
+                                    final result = await MyBottomSheet().measurementOptions(context: context);
+                                    print(result);
+                                    setState(() {
+                                      scale = result['weight_option'];
+                                    });
+                                  },
+                                  child: MyText(text: scale, fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 25,),
+                                )
+                              ],
                             ),
-
-
-                            GestureDetector(
-                              onTap: () async {
-                                final result = await MyBottomSheet().measurementOptions(context: context);
-                                print("MY scale $result");
-                              },
-                              child: MyText(text: "Choose scale", fontWeight: FontWeight.bold, color: AppColors.primary),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
 
                       MyPadding(
@@ -449,6 +418,41 @@ class _BodyState extends State<Body> {
                       MyPadding(
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 7),
+                              child: SvgPicture.asset('assets/icons/rate_star.svg', height: 13, width: 13)
+                            ),
+                            MyText(
+                              textAlign: TextAlign.left,
+                              text: "(13) Sold",
+                              fontSize: 12,
+                              color: "#000000",
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      MyPadding(
+                        pLeft: padding, pRight: padding,
+                        pBottom: padding,
                         child: Divider(
                           height: 1,
                           color: AppServices.hexaCodeToColor(AppColors.black),
@@ -472,7 +476,7 @@ class _BodyState extends State<Body> {
 
                                 Padding(
                                   padding: EdgeInsets.only(left: 5),
-                                  child: Image.asset('assets/symbols/riel_symbol.png', width: 13.52, height: 15),
+                                  child: SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 13.52, height: 15),
                                 ),
 
                                 MyText(
@@ -698,33 +702,75 @@ class _BodyState extends State<Body> {
             child: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: MyCard(
-                hexaColor: AppColors.bgColor,
+                hexaColor: AppColors.primary,
                 width: 40, height: 40,
                 alignChild: Alignment.center,
-                child: SvgPicture.asset('assets/icons/back.svg', width: 15, height: 25),
+                child: SvgPicture.asset('assets/icons/back.svg', color: AppServices.hexaCodeToColor(AppColors.white), width: 15, height: 25),
               ),
             )
           ),
 
           Positioned(
             right: 20, top: 20,
-            child: Consumer<CartProvider>(
-              builder: (context, value, widgets){
-                return value == null ? GestureDetector(
-                  onTap: () {
-                    value.addCart(widget.product.id, widget.product.thumbnail, widget.product.name, widget.product.price, widget.product.orderQty);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: MyText(text: 'Added ${widget.product.name} into cart', color: AppColors.white, textAlign: TextAlign.left,))
+            child: Row(
+              children: [
+
+                Container(
+                  margin: EdgeInsets.only(right: 12),
+                  child: Consumer<CartProvider>(
+                    builder: (context, value, widgets){
+                      return GestureDetector(
+                        onTap: () async {
+                          print(value);
+                          // if (value.ite == (widget.product.id) {
+                          //   value.addCart(widget.product.id, widget.product.thumbnail, widget.product.name, widget.product.price, widget.product.orderQty);
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     SnackBar(content: MyText(text: 'Added ${widget.product.name} into cart', color: AppColors.white, textAlign: TextAlign.left,))
+                          //   );
+                          // } else {
+                          //   await Components.dialog(context, Text("This item already add", textAlign: TextAlign.center), Text("Message"));
+                          // }
+                        },
+                        child: MyCard(
+                          width: 40, height: 40,
+                          hexaColor: AppColors.primary,
+                          alignChild: Alignment.center,
+                          child: SvgPicture.asset('assets/icons/cart.svg', color: AppServices.hexaCodeToColor(AppColors.white), width: 25, height: 25),
+                        )
+                      );
+                    },
+                  )
+                ),
+
+                Consumer<FavoriteProvider>(
+                  builder: (context, value, widgets){
+                    return GestureDetector(
+                      onTap: (){
+                        setState((){
+
+                          // Not Yet Favorite and Click Add
+                          if (widget.product.isFav) {
+                            widget.product.isFav = false;
+                            value.removeFav(widget.product);
+                          }
+                          // Favorited and Click Remove
+                          else {
+                            widget.product.isFav = true;
+                            value.addFav(widget.product);
+                          }
+                        });
+                      },
+                      child: MyCard(
+                        hexaColor: AppColors.primary,
+                        width: 40, height: 40,
+                        alignChild: Alignment.center,
+                        child: SvgPicture.asset(AppConfig.iconPath+ ((widget.product.isFav) ? 'full_heart.svg': 'heart.svg'), width: 25, height: 23, color: AppServices.hexaCodeToColor(AppColors.white),)
+                        // SvgPicture.asset('assets/icons/heart.svg', color: AppServices.hexaCodeToColor(AppColors.white), width: 15, height: 25),
+                      )
                     );
                   },
-                  child: MyCard(
-                    width: 40, height: 40,
-                    hexaColor: AppColors.bgColor,
-                    alignChild: Alignment.center,
-                    child: SvgPicture.asset('assets/icons/cart.svg', width: 25, height: 25),
-                  )
-                ) : Container();
-              },
+                )
+              ],
             )
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/providers/guest_acc_p.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
@@ -24,6 +25,9 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     listProduct = Provider.of<ProductsProvider>(context).items;
+
+    final weightList =  Provider.of<AddProductProvider>(context).addProduct.weightList;
+
     Provider.of<CategoriesModel>(context).init();
     if (listProduct != null) Provider.of<CategoriesModel>(context).sortDataByCategory(listProduct, 'user');
 
@@ -140,10 +144,10 @@ class Body extends StatelessWidget {
                                         padding: EdgeInsets.only(bottom: 5),
                                         child: Row(
                                           children: [
-                                            Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                                            SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
                                             MyText(
                                               textAlign: TextAlign.left,
-                                              text: "${listProduct[index].price} /Kg",
+                                              text: "${listProduct[index].price.toString()} / ${FindingServices().findScaleById(listProduct[index].weight, weightList)}",
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.primary,

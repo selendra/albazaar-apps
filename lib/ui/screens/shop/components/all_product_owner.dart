@@ -1,6 +1,7 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/rate_product_c.dart';
 import 'package:albazaar_app/core/providers/shop_provider.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
 
 class AllProductOwner extends StatelessWidget{
@@ -159,11 +160,11 @@ class AllProductOwner extends StatelessWidget{
                         pBottom: pd10,
                         child: Row(
                           children: [
-                            Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                            SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
                             MyText(
                               left: 6,
                               textAlign: TextAlign.left,
-                              text: "${listProductOwner[index].price} /Kg",
+                              text: "${listProductOwner[index].price} / ${FindingServices().findScaleById(listProductOwner[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList)}",
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,

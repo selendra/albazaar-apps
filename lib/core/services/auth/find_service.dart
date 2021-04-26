@@ -11,7 +11,7 @@ class FindingServices {
 
     if (i == paymentsList.length) return null;
 
-    return paymentsList[i]['options_name'];
+    return paymentsList[i]['options_name'] ?? '';
   }
 
   String findCategoryById(String id, List<Map<String, dynamic>> categoriesList){
@@ -22,7 +22,7 @@ class FindingServices {
 
     if (i == categoriesList.length) return null;
 
-    return categoriesList[i]['category_name'];
+    return categoriesList[i]['category_name'] ?? '';
   }
 
   String findShippingById(String id, List<Map<String, dynamic>> shippingList){
@@ -33,7 +33,7 @@ class FindingServices {
 
     if (i == shippingList.length) return null;
 
-    return shippingList[i]['shipping_service'];
+    return shippingList[i]['shipping_service'] ?? '';
   }
   
   String findScaleById(String id, List<Map<String, dynamic>> scalesList){
@@ -44,6 +44,6 @@ class FindingServices {
 
     if (i == scalesList.length) return null;
 
-    return scalesList[i]['weight_option'];
+    return scalesList[i]['weight_option'] ?? '';
   }
 }

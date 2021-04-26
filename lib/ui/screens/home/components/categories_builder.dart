@@ -1,4 +1,5 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 
 class CategoriesBuider extends StatefulWidget {
 
@@ -153,10 +154,10 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                       padding: EdgeInsets.only(bottom: 5),
                                       child: Row(
                                         children: [
-                                          Image.asset('assets/symbols/riel_symbol.png', width: 9, height: 15),
+                                          SvgPicture.asset('${AppConfig.symbolPath}/riel.svgg', width: 9, height: 15),
                                           MyText(
                                             textAlign: TextAlign.left,
-                                            text: "${widget.productCategories[index].price} /Kg",
+                                            text: "${widget.productCategories[index].price} / " + FindingServices().findScaleById(widget.productCategories[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,

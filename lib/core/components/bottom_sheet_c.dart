@@ -1,5 +1,6 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/card_c.dart';
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:albazaar_app/ui/screens/wallet/qr_scanner/qr_scanner.dart';
 
 class MyBottomSheet{
@@ -194,6 +195,7 @@ class MyBottomSheet{
   }
 
   Future measurementOptions({BuildContext context}){
+    final scaleList = Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList;
     return showModalBottomSheet(
       context: context, 
       isScrollControlled: true,
@@ -202,8 +204,9 @@ class MyBottomSheet{
         decoration: BoxDecoration(
           color: AppServices.hexaCodeToColor(AppColors.bgColor),
         ),
-        height: 200,
+        // height: 200,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
 
             Align(
@@ -218,36 +221,32 @@ class MyBottomSheet{
               ),
             ),
 
-            Expanded(
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context, 'kg');
-                },
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MyText(
-                    width: MediaQuery.of(context).size.width,
-                    text: "Kilogram",
-                  ),
-                ),
-              ),
-            ),
+            ListView.builder(
+              itemCount: scaleList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index){
+                return Container(
+                  height: 50,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context, scaleList[index]);
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: MyText(
+                            width: MediaQuery.of(context).size.width,
+                            text: FindingServices().findScaleById(scaleList[index]['id'], scaleList),
+                          ),
+                        ),
+                      ),
 
-            Divider(height: 1),
-
-            Expanded(
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context, 'g');
-                },
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MyText(
-                    width: MediaQuery.of(context).size.width,
-                    text: "Gram",
-                  ),
-                ),
-              )
+                      if (index != scaleList.length - 1 ) Divider(height: 1)
+                    ],
+                  )
+                );
+              },
             )
           ],
         ),

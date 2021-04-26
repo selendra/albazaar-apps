@@ -8,12 +8,13 @@ class HomeDrawer extends StatelessWidget {
   final PrefService _pref = PrefService();
 
   final iconText = [
-    {'icon': 'assets/icons/market.svg', 'title': 'market', 'route': HomeScreen()},
     {'icon': 'assets/icons/cart.svg', 'title': 'card', 'route': CartScreen()},
     {'icon': 'assets/icons/shop.svg', 'title': 'shop', 'route': ShopScreen()},
     {'icon': 'assets/icons/order.svg', 'title': 'order'},
-
     {'icon': 'assets/icons/chat.svg', 'title': 'chat', 'route': MessageScreen()},
+
+
+    {'icon': 'assets/icons/referral.svg', 'title': 'invitation', 'route': MessageScreen()},
     {'icon': 'assets/icons/belt.svg', 'title': 'notificatioin', 'route': NotificationScreen()},
     {'icon': 'assets/icons/favorite.svg', 'title': 'favorite', 'route': FavoriteScreen()},
     {'icon': 'assets/icons/setting.svg', 'title': 'settings', 'route': FavoriteScreen()},
@@ -30,65 +31,65 @@ class HomeDrawer extends StatelessWidget {
     //     ? "User name"
     //     : _mUser.firstName + ' ' + _mUser.midName + _mUser.lastName;
     final _lang = AppLocalizeService.of(context);
-    return SafeArea(
-      child: Drawer(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              //Profile
-              MyCard(
-                bBottomLeft: 0, bBottomRight: 0,
-                bTopLeft: 0, bTopRight: 0,
-                pLeft: 25, pTop: 25, pBottom: 25, pRight: 25,
-                mBottom: 20,
-                hexaColor: AppColors.white,
-                // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                width: double.infinity,
-                align: Alignment.centerLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          children: [
+            //Profile
+            MyCard(
+              bBottomLeft: 0, bBottomRight: 0,
+              bTopLeft: 0, bTopRight: 0,
+              pLeft: 25, pTop: 25, pBottom: 25, pRight: 25,
+              mBottom: 20,
+              hexaColor: AppColors.white,
+              // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
+              width: double.infinity,
+              align: Alignment.centerLeft,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
 
-                    MyCard(
-                      hexaColor: AppColors.secondary,
-                      mRight: 10,
-                      width: 70, height: 70,
-                      align: Alignment.centerLeft,
-                      child: SvgPicture.asset('assets/avatar_user.svg', width: 40, height: 40),
-                    ),
-                    
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                  MyCard(
+                    hexaColor: AppColors.secondary,
+                    mRight: 10,
+                    width: 70, height: 70,
+                    align: Alignment.centerLeft,
+                    child: SvgPicture.asset('assets/avatar_user.svg', width: 40, height: 40),
+                  ),
+                  
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
-                          MyText(
-                            textAlign: TextAlign.left,
-                            color: AppColors.primary,
-                            pRight: 10,
-                            text: 'Daveat',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
+                        MyText(
+                          textAlign: TextAlign.left,
+                          color: AppColors.primary,
+                          pRight: 10,
+                          text: 'Daveat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
 
-                          MyText(
-                            textAlign: TextAlign.left,
-                            text: 'Phnom penh (Steng mean chey)',
-                            fontSize: 12,
-                          )
-                        ],
-                      )
-                    ),
-
-                    Container(
-                      margin: EdgeInsets.only(left:  10),
-                      child: Icon(Icons.arrow_forward_ios),
+                        MyText(
+                          textAlign: TextAlign.left,
+                          text: 'Phnom penh (Steng mean chey)',
+                          fontSize: 12,
+                        )
+                      ],
                     )
-                  ],
-                )
-              ),
+                  ),
 
-              ListView(
+                  Container(
+                    margin: EdgeInsets.only(left:  10),
+                    child: Icon(Icons.arrow_forward_ios),
+                  )
+                ],
+              )
+            ),
+
+            Expanded(
+              child: ListView(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
@@ -313,10 +314,10 @@ class HomeDrawer extends StatelessWidget {
                   // ),
                 ],
               )
-            ],
-          ),
-        )
-        )
+            )
+          ],
+        ),
+      )
     );
   }
 }
