@@ -277,7 +277,7 @@ class _BodyState extends State<Body> {
                             pBottom: padding,
                             child: Row(
                               children: [
-                                SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 13.52, height: 22),
+                                SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 13.52, height: 22),
                                 MyText(
                                   left: 8,
                                   textAlign: TextAlign.left,
@@ -476,7 +476,7 @@ class _BodyState extends State<Body> {
 
                                 Padding(
                                   padding: EdgeInsets.only(left: 5),
-                                  child: SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 13.52, height: 15),
+                                  child: SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 13.52, height: 15),
                                 ),
 
                                 MyText(

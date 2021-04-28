@@ -144,7 +144,7 @@ class Body extends StatelessWidget {
                                         padding: EdgeInsets.only(bottom: 5),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
+                                            SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 9, height: 15),
                                             MyText(
                                               textAlign: TextAlign.left,
                                               text: "${listProduct[index].price.toString()} / ${FindingServices().findScaleById(listProduct[index].weight, weightList)}",

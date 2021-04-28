@@ -143,7 +143,7 @@ class _ReuseItemCardState extends State<ReuseItemCard> {
                       padding: EdgeInsets.only(bottom: 5),
                       child: Row(
                         children: [
-                          SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
+                          SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 9, height: 15),
                           MyText(
                             textAlign: TextAlign.left,
                             text: "${widget.product.price} /" + FindingServices().findScaleById(widget.product.weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),

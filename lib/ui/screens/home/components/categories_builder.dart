@@ -154,7 +154,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                       padding: EdgeInsets.only(bottom: 5),
                                       child: Row(
                                         children: [
-                                          SvgPicture.asset('${AppConfig.symbolPath}/riel.svgg', width: 9, height: 15),
+                                          SvgPicture.asset('${AppConfig.symbolPath}riel.svgg', width: 9, height: 15),
                                           MyText(
                                             textAlign: TextAlign.left,
                                             text: "${widget.productCategories[index].price} / " + FindingServices().findScaleById(widget.productCategories[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),

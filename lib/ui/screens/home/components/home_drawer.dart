@@ -91,7 +91,7 @@ class HomeDrawer extends StatelessWidget {
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.zero,
                 children: [
                   // UserAccountsDrawerHeader(

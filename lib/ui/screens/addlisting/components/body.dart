@@ -409,14 +409,14 @@ class Body extends StatelessWidget {
             // productModel.description.text = "New meat";
             // productModel.tmpImagesUrl.add("https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf");
 
-            // print(productModel.productName.text);
-            // print(productModel.price.text);
-            // print(productModel.shippingOptId);
-            // print(productModel.paymentOptId);
-            // print(productModel.scaleId);
-            // print(productModel.categoryId);
-            // print(productModel.description.text);
-            // print(productModel.tmpImagesUrl);
+            print(productModel.productName.text);
+            print(productModel.price.text);
+            print(productModel.shippingOptId);
+            print(productModel.paymentOptId);
+            print(productModel.scaleId);
+            print(productModel.categoryId);
+            print(productModel.description.text);
+            print(productModel.tmpImagesUrl);
             await submitProduct(ProductModel().fromAddProduct(productModel));
           },
         )
@@ -559,7 +559,7 @@ class Body extends StatelessWidget {
                     data: addProductProvider.addProduct.categoriesList,
                     keyPair: 'category_name',
                     onChanged: (String value) {
-                      onChangeCategory(value);
+                      onChangeCategory('category', value);
                     },
                   ),
                 ),
@@ -572,7 +572,7 @@ class Body extends StatelessWidget {
                     data: addProductProvider.addProduct.weightList,
                     keyPair: 'weight_option',
                     onChanged: (String value) {
-                      onChangeWeight(value);
+                      onChangeWeight('scale', value);
                     },
                   ),
                 )

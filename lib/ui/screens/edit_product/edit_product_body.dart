@@ -237,6 +237,7 @@ class EditProductBody extends StatelessWidget {
                       child: GestureDetector(
                         onTapDown: (TapDownDetails details) async {
                           dynamic result = await Navigator.push(context, popUpRoute(MyDropDownCustom.categoryDdBtn(context: context, x: details.globalPosition.dx, y: details.globalPosition.dy), sigmaX: 0.0, sigmaY: 0.0));
+                          print("My category $result");
                           if (result != null){
                             onChangeDropDown('category', result);
                           }

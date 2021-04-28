@@ -13,9 +13,8 @@ class GetRequest {
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
-      return _backend.response;
     }
-    return null;
+    return _backend.response;
   }
 
   Future<_http.Response> guestAccount() async {
@@ -26,9 +25,7 @@ class GetRequest {
     /* Expired Token In Welcome Screen */
     _backend.token = await StorageServices.fetchData('user_token');
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/userprofile",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.api}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
     return null;

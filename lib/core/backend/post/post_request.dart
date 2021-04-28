@@ -393,25 +393,25 @@ class PostRequest {
       print(product.imageUrl);
       print(product.category);
       print(product.paymentOpt);
-    _backend.token = await StorageServices.fetchData('user_token');
-    _backend.bodyEncode = json.encode({
-      "name": product.productName.text,
-      "price": product.price.text,
-      "shipping": product.shipping,
-      "weight": product.weight,
-      "description": product.description.text,
-      "thumbnail": product.imageUrl,
-      "category-id": product.category,
-      "payment-id": product.paymentOpt
-    });
-    if (_backend.token != null) {
-      _backend.response = await _http.post('${_sldApi.api}/add-product',
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"),
-          body: _backend.bodyEncode);
-      return _backend.response;
-    }
-    return product;
+    // _backend.token = await StorageServices.fetchData('user_token');
+    // _backend.bodyEncode = json.encode({
+    //   "name": product.productName.text,
+    //   "price": product.price.text,
+    //   "shipping": product.shipping,
+    //   "weight": product.weight,
+    //   "description": product.description.text,
+    //   "thumbnail": product.imageUrl,
+    //   "category-id": product.category,
+    //   "payment-id": product.paymentOpt
+    // });
+    // if (_backend.token != null) {
+    //   _backend.response = await _http.post('${_sldApi.api}/add-product',
+    //       headers: _backend.conceteHeader(
+    //           "authorization", "Bearer ${_backend.token['token']}"),
+    //       body: _backend.bodyEncode);
+    //   return _backend.response;
+    // }
+    // return product;
   }
 
   /* OCR Image */

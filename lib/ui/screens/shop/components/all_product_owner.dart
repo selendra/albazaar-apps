@@ -23,7 +23,6 @@ class AllProductOwner extends StatelessWidget{
   Widget build(BuildContext context){
     print(productProvider.addProductProvider.addProduct.weightList.toString() +"weight");
     // final _listImages = Provider.of<ShopProvider>(context).listImages;
-    print(enableDelete);
 
     return ListView.builder(
       itemCount: listProductOwner.length,
@@ -80,7 +79,6 @@ class AllProductOwner extends StatelessWidget{
                               alignment: Alignment.centerRight,
                               child: GestureDetector(
                                 onTapDown: (TapDownDetails detail) async {
-                                  print("My category edit ${listProductOwner[index].categoryId}");
                                   // var x = getBox.localToGlobal(detail.globalPosition.dx);
                                   print(detail.globalPosition);
                                   // print("Box ${getBox.size}");
@@ -90,8 +88,10 @@ class AllProductOwner extends StatelessWidget{
                                       MyDropDownCustom.productEdit(context: context,x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
                                     )
                                   );
-                                  print(result);
                                   if (result == 'edit'){
+                                    listProductOwner[index].categoryName = FindingServices().findCategoryById(listProductOwner[index].categoryId, Provider.of<AddProductProvider>(context, listen: false).addProduct.categoriesList);
+                                    print("Finding Category ${listProductOwner[index].categoryName}");
+                                    print("Finding Weight ${listProductOwner[index].weight}");
                                     await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProductOwner[index], addProductProvider: productProvider.addProductProvider,))).then((value) async {
                                       if(value != null){
                                         await uploadRemainUrlImage(value['productModel'], value['productId']);
@@ -160,7 +160,7 @@ class AllProductOwner extends StatelessWidget{
                         pBottom: pd10,
                         child: Row(
                           children: [
-                            SvgPicture.asset('${AppConfig.symbolPath}/riel.svg', width: 9, height: 15),
+                            SvgPicture.asset('${AppConfig.symbolPath}riel.svg', color: AppServices.hexaCodeToColor(AppColors.primary), width: 9, height: 15),
                             MyText(
                               left: 6,
                               textAlign: TextAlign.left,

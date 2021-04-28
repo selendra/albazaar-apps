@@ -236,6 +236,8 @@ class MyDropDownCustom{
                       itemCount: weightList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
+                        print(weightList[index]['weight_option']);
+                        print(weightList[index]['id']);
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -297,6 +299,8 @@ class MyDropDownCustom{
                       itemCount: categoriesList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
+                        print(categoriesList[index]['category_name']);
+                        print(categoriesList[index]['id']);
                         return Column(
                           children: [
                             MyTextButton(
@@ -355,6 +359,8 @@ class MyDropDownCustom{
                       itemCount: paymentList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
+                        print(paymentList[index]['options_name']);
+                        print(paymentList[index]['id']);
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -414,6 +420,8 @@ class MyDropDownCustom{
                       itemCount: shippingList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index){
+                        print(shippingList[index]['shipping_service']);
+                        print(shippingList[index]['id']);
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [

@@ -82,19 +82,38 @@ class _EditProductState extends State<EditProduct> {
     }
   }
   
-  void onChangeDropDown(String label, String value){
+  void onChangeDropDown(String label, Map<String, dynamic> value){
     print(value);
     setState((){
-      if (label == 'currency'){
-        _productModel.currency = value;
-      } 
-      else if (label == 'scale'){
-        _productModel.scale = value;
+
+      if (label == 'currency') {
+        _productModel.currency = value['currency_name'];
+      } else if (label == 'scale') {
+        _productModel.scale = value['weight_option'];
+        _productModel.scaleId = value['id'];
+      } else if (label == 'category') {
+        _productModel.categoryDropDown = value['category_name'];
+        _productModel.categoryId = value['id'];
+      } else if (label == 'shipping') {
+        _productModel.shippingOpt = value['shipping_service'];
+        _productModel.shippingOptId = value['id'];
+      } else if (label == 'payment') {
+        _productModel.paymentOpt = value['options_name'];
+        _productModel.paymentOptId = value['id'];
       }
-      else if (label == 'category'){
-        _productModel.categoryDropDown = value;
-        _productModel.category.text = value;
-      }
+
+      print("My category name ${_productModel.categoryDropDown}");
+
+      // if (label == 'currency'){
+      //   _productModel.currency = value;
+      // } 
+      // else if (label == 'scale'){
+      //   _productModel.scale = value;
+      // }
+      // else if (label == 'category'){
+      //   _productModel.categoryDropDown = value;
+      //   _productModel.category.text = value;
+      // }
     });
   }
 
@@ -160,9 +179,7 @@ class _EditProductState extends State<EditProduct> {
 
     widget.productOwner.weightName = FindingServices().findScaleById(widget.productOwner.weight, widget.addProductProvider.addProduct.weightList);
     widget.productOwner.shippingName = FindingServices().findShippingById(widget.productOwner.shippingId, widget.addProductProvider.addProduct.shippingList);
-    print(widget.productOwner.shippingName);
     widget.productOwner.paymentName = FindingServices().findPaymentById(widget.productOwner.paymentId, widget.addProductProvider.addProduct.paymentOptsList);
-    print(widget.productOwner.shippingName);
     // print("My weight ${widget.productOwner.weightName}");
 
     _productModel = ProductModel.fromOwner(widget.productOwner);
@@ -180,9 +197,7 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
-    // Finding Category By CategoryID
-    _productModel.category.text = Provider.of<CategoriesModel>(context).findCategoriesById(widget.productOwner.categoryId);
-    _productModel.categoryDropDown = _productModel.category.text;
+    // _productModel.categoryDropDown = _productModel.category.text;
     
     return SafeArea(
       child: Scaffold(
