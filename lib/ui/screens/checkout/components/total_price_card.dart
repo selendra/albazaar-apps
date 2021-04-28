@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class TotalPriceCard extends StatelessWidget {
+
   final String action;
   TotalPriceCard({@required this.action});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -14,11 +16,14 @@ class TotalPriceCard extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              margin:
-                  const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+              margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
               child: Text(
                 AppLocalizeService.of(context).translate('price') + ': ',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold, 
+                  color: AppServices.hexaCodeToColor(AppColors.primary)
+                ),
               ),
             ),
           ),
@@ -29,14 +34,9 @@ class TotalPriceCard extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   action == 'buy_now'
-                      // void filterSearchResults(String query) {} //Now u
-                      ? '${value.totalPrice}៛'
-                      : '${value.totalAmount}៛',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: kDefaultColor,
-                  ),
+                  // void filterSearchResults(String query) {} //Now u
+                  ? '${value.totalPrice}'
+                  : '${value.totalAmount}',
                 ),
               ),
             ),

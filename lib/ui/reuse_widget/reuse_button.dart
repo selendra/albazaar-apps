@@ -8,20 +8,21 @@ class ReuseButton {
     BuildContext context,
     {double height = 59}
   ) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: height,
-      child: RaisedButton(
-        onPressed: onTap,
-        child: Text(
-          text,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        color: kDefaultColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-        ),
+    return ElevatedButton(
+      onPressed: onTap,
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+        backgroundColor: MaterialStateProperty.all(AppServices.hexaCodeToColor(AppColors.primary)),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+          ),
+        )
+      )
     );
   }
 }

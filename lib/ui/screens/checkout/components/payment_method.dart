@@ -14,6 +14,8 @@ class ShippingInformation extends StatefulWidget {
 class _ShippingInformationState extends State<ShippingInformation> {
   String _address;
   final _formKey = GlobalKey<FormState>();
+  
+  TextEditingController address = TextEditingController();
 
   void validateAndSubmit() {
     if (_formKey.currentState.validate()) {
@@ -81,28 +83,6 @@ class _ShippingInformationState extends State<ShippingInformation> {
                         validateAndSubmit();
                       }, context),
                     ),
-                    // RadioListTile(
-                    //   activeColor: kDefaultColor,
-                    //   title: Text('Direct Payment'),
-                    //   value: 'Direct Payment',
-                    //   groupValue: widget._character,
-                    //   onChanged: (value) {
-                    //     print(value);
-                    //     widget.setVal(value);
-                    //     setState(() {});
-                    //   },
-                    // ),
-                    // RadioListTile(
-                    //   activeColor: kDefaultColor,
-                    //   title: Text('Escrow Payment'),
-                    //   value: 'Escrow Payment',
-                    //   groupValue: widget._character,
-                    //   onChanged: (value) {
-                    //     print(value);
-                    //     widget.setVal(value);
-                    //     setState(() {});
-                    //   },
-                    // )
                   ],
                 ),
               );
@@ -110,23 +90,42 @@ class _ShippingInformationState extends State<ShippingInformation> {
           ),
         );
       },
-      child: Card(
-        elevation: 0,
-        shape: kDefaultShape,
-        child: Container(
-          child: ListTile(
-            title: Text(
-              widget._character,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
-            ),
-            // leading: Icon(Icons.payment),
-            trailing: Icon(
-              Icons.edit,
-              color: kDefaultColor,
-            ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyText(
+            textAlign: TextAlign.left,
+            text: "Shipping Address",
+            color: AppColors.primary,
+            bottom: 12,
           ),
-        ),
+
+          Row(
+            children: [
+              Expanded(
+                child: MyInputField(
+                  labelText: "Your address",
+                  controller: address,
+                  focusNode: FocusScopeNode(),
+                  validateField: (String value){
+
+                  },
+                  onChanged: (String value){
+
+                  },
+                  onSubmit: (String value){
+
+                  },
+                )
+              ),
+
+              Container(
+                padding: EdgeInsets.only(left: 6, right: 6),
+                child: SvgPicture.asset("${AppConfig.iconPath}check_in.svg", width: 20, height: 20)
+              )
+            ],
+          )
+        ],
       ),
     );
   }

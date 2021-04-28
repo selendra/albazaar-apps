@@ -20,10 +20,10 @@ class _CheckoutState extends State<Checkout> {
 
   void validate(context) async {
     if (_address == 'Shipping Information') {
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('You need to fill in your address.'),
-        duration: Duration(milliseconds: 3000),
-      ));
+      // _scaffoldKey.currentState.showSnackBar(SnackBar(
+      //   content: Text('You need to fill in your address.'),
+      //   duration: Duration(milliseconds: 3000),
+      // ));
     } else {
       try {
         if (widget.action == 'buy_now') {
@@ -36,8 +36,7 @@ class _CheckoutState extends State<Checkout> {
             );
           }
         } else {
-          final cartProduct =
-              Provider.of<CartProvider>(context, listen: false).items;
+          final cartProduct = Provider.of<CartProvider>(context, listen: false).items;
           for (int i = 0; i < cartProduct.length; i++) {
             Provider.of<ProductsProvider>(context, listen: false).addOrder(
               cartProduct.values.toList()[i].id,
@@ -73,17 +72,21 @@ class _CheckoutState extends State<Checkout> {
           margin: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              TotalPriceCard(
-                action: widget.action,
-              ),
-              //ShippingInformation(),
-              SizedBox(
-                height: 20,
-              ),
+              // TotalPriceCard(
+              //   action: widget.action,
+              // ),
+              // //ShippingInformation(),
+              // SizedBox(
+              //   height: 20,
+              // ),
               ProductDisplay(
                 action: widget.action,
               ),
+              SizedBox(
+                height: 20,
+              ),
               ShippingInformation(_address, setVal),
+              
               SizedBox(height: 40),
               Container(
                 margin: const EdgeInsets.all(10.0),

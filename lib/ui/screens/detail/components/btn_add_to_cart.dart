@@ -10,7 +10,7 @@ class BtnAddToCart extends StatelessWidget {
       builder: (context, value, child) => Container(
         width: 150,
         height: 50,
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             value.addCart(
               loadedProduct.id.toString(),
@@ -28,10 +28,15 @@ class BtnAddToCart extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          color: kDefaultColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius)),
-          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(EdgeInsets.all(6)),
+            backgroundColor: MaterialStateProperty.all(AppServices.hexaCodeToColor(AppColors.primary)),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(kDefaultRadius))
+              ),
+            )
+          )
         ),
       ),
     );

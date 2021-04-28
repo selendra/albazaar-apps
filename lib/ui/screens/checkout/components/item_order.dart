@@ -4,6 +4,7 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/models/cart.dart';
 
 class ItemOrder extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     final order = Provider.of<Cart>(context);
@@ -42,38 +43,58 @@ class ItemOrder extends StatelessWidget {
                   child:CachedNetworkImage(imageUrl: order.image,fit: BoxFit.cover,) //Image.network(order.image, fit: BoxFit.cover),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 20,
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: ListTile(
-                      title: Text(
-                        order.title,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      isThreeLine: true,
-                      subtitle: Text('Qty: ${order.qty}'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 20,
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: ListTile(
-                      subtitle: Text(
-                        'Price: ${order.price}៛ ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: kDefaultColor,
+              MyPadding(
+                pLeft: 12, pRight: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        MyText(
+                          text: "Name:",
+                          bottom: 10,
                         ),
-                      ),
+
+                        MyText(
+                          left: 6,
+                          text: "${order.title}",
+                          bottom: 10,
+                        )
+                      ],
                     ),
-                  ),
-                ],
+                    
+                    Row(
+                      children: [
+                        MyText(
+                          text: "Qty:",
+                          bottom: 10,
+                        ),
+
+                        MyText(
+                          left: 6,
+                          text: "${order.qty}",
+                          bottom: 10,
+                        )
+                      ],
+                    ),
+
+                    Row(
+                      children: [
+                        MyText(
+                          text: "Price:",
+                          bottom: 10,
+                        ),
+
+                        MyText(
+                          left: 6,
+                          text: "${order.price}",
+                          bottom: 10,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

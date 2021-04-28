@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/services/auth/find_service.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,6 @@ class BottomNavigationDetail extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final cartProvider = Provider.of<CartProvider>(context);
-    print(cartProvider.totalAmount);
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       color: AppServices.hexaCodeToColor(AppColors.white),
@@ -57,15 +57,15 @@ class BottomNavigationDetail extends StatelessWidget {
                   children: [
                     MyText(
                       textAlign: TextAlign.left,
-                      text: "( ",
+                      text: "(",
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                       color: "#000000",
                     ),
-                    Image.asset('assets/symbols/l.png', width: 12.3, height: 20),
+                    SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 12.3, height: 20),
                     MyText(
                       textAlign: TextAlign.right,
-                      text: " )",
+                      text: ")",
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                       color: "#000000",
@@ -75,7 +75,7 @@ class BottomNavigationDetail extends StatelessWidget {
                 MyText(
                   left: 8,
                   textAlign: TextAlign.left,
-                  text: "${cartProvider.totalPrice} /Kg",
+                  text: "${cartProvider.totalPrice} / ${FindingServices().findScaleById(loadedProduct.weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList)}",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
@@ -84,32 +84,26 @@ class BottomNavigationDetail extends StatelessWidget {
             )
           ),
           
-          Container(
-            width: 100,
-            child: Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('check_out'), () {
+          Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            child: ReuseButton.getItem(
+              AppLocalizeService.of(context).translate('check_out'), () {
 
-                    print(loadedProduct.id);
-                    print(loadedProduct.thumbnail);
-                    print(loadedProduct.name);
-                    print(loadedProduct.price);
-                    print(loadedProduct.orderQty);
-                  // cartProvider.addBuyNow(
-                  //   loadedProduct.id,
-                  //   loadedProduct.thumbnail,
-                  //   loadedProduct.name,
-                  //   loadedProduct.price,
-                  //   loadedProduct.orderQty,
-                  // );
-                  // Navigator.pop(context);
-                  // Navigator.push(context,
-                  //     RouteAnimation(enterPage: Checkout(action: 'buy_now'))
-                  // );
-                }, 
-                context,
-              ),
+                  // print(loadedProduct.id);
+                  // print(loadedProduct.thumbnail);
+                  // print(loadedProduct.name);
+                  // print(loadedProduct.price);
+                  // print(loadedProduct.orderQty);
+                cartProvider.addBuyNow(
+                  loadedProduct.id,
+                  loadedProduct.thumbnail,
+                  loadedProduct.name,
+                  loadedProduct.price,
+                  loadedProduct.orderQty,
+                );
+                Navigator.push(context, RouteAnimation(enterPage: Checkout(action: 'buy_now')));
+              }, 
+              context,
             ),
           )
           // Row(

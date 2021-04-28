@@ -555,7 +555,7 @@ class _BodyState extends State<Body> {
                         pLeft: padding, pRight: padding,
                         pBottom: padding,
                         child: ReadMoreText(
-                          widget.product.description,
+                          widget.product.description == '' ? 'No descrition' : widget.product.description,
                           trimLines: 5,
                           colorClickableText: AppServices.hexaCodeToColor(AppColors.black),
                           trimMode: TrimMode.Line,
