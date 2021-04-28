@@ -189,9 +189,13 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
           .then((value) {
         if (value != null) {
           ReuseAlertDialog().successDialog(context, value);
+          
+          // Close Loading
+          Navigator.pop(context);
         }
       });
     } on SocketException catch (e) {
+      print("SOcket");
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),
@@ -200,6 +204,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
       // Close Loading
       Navigator.pop(context);
     } on FormatException catch (e) {
+      print("Format");
       await Components.dialog(
           context,
           Text(e.message.toString(), textAlign: TextAlign.center),

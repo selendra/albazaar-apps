@@ -72,15 +72,15 @@ class _CreateShopState extends State<CreateShop> {
         print(_backend.data['message']);
       });
 
-      // await Future.delayed(Duration(seconds: 1), (){
-      //   // Close Dialog Loading
-      //   Navigator.pop(context);
-      // });
+      await Future.delayed(Duration(seconds: 1), (){
+        // Close Dialog Loading
+        Navigator.pop(context);
+      });
 
-      // await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
+      await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
 
-      // Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
-      // Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+      Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+      Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
     } catch (e) {
       // Close Dialog Loading
       Navigator.pop(context);

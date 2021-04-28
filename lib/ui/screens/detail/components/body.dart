@@ -470,7 +470,7 @@ class _BodyState extends State<Body> {
                             Row(
                               children: [
                                 MyText(
-                                  text: "Shipping: Riel",
+                                  text: "Shipping: ",
                                   fontWeight: FontWeight.bold,
                                 ),
 

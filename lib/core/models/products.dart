@@ -198,6 +198,11 @@ class ProductModel {
     shippingOpt = productOwner.shippingName ?? shippingOpt;
     paymentOpt = productOwner.paymentName ?? paymentOpt;
 
+    scaleId = productOwner.weight;
+    categoryId = productOwner.categoryId;
+    paymentOptId = productOwner.paymentId;
+    shippingOptId = productOwner.shippingId;
+
     description.text = productOwner.description;
   }
   AddProduct fromAddProduct(ProductModel productModel){
@@ -399,22 +404,24 @@ class OwnerProduct extends Product{
 
   factory OwnerProduct.fromEdit(ProductModel productModel, OwnerProduct owner){
     return OwnerProduct(
+      updatedAt: owner.updatedAt,
+      phonenumber: owner.phonenumber,
+      id: owner.id,
+      updatedBy: owner.updatedBy,
+
+      thumbnail: productModel.images[0],
       description: productModel.description.text,
-      shippingService: owner.shippingService,
       name: productModel.productName.text,
       categoryName: productModel.categoryDropDown,
-      updatedAt: owner.updatedAt,
-      thumbnail: productModel.images[0],
-      phonenumber: owner.phonenumber,
-      weight: productModel.scale == "Scale" ? owner.weight : productModel.scale,
-      id: owner.id,
-      paymentId: owner.paymentId,
-      updatedBy: owner.updatedBy,
-      shippingId: owner.shippingId,
+      weight: productModel.scaleId, //productModel.scale == "Scale" ? owner.weight : productModel.scale,
+      shippingService: productModel.shippingOptId,
+      paymentId: productModel.paymentOptId,
+      shippingId: productModel.shippingOptId,
+      categoryId: productModel.categoryId,
       price: int.parse(productModel.price.text),
+
       shippingFee: owner.shippingFee,
       createdBy: owner.createdBy,
-      categoryId: owner.categoryId,
       createdAt: owner.createdAt,
       seller: owner.seller,
       isSold: owner.isSold,

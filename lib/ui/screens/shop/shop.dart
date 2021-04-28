@@ -67,6 +67,8 @@ class _ShopScreenState extends State<ShopScreen> with SingleTickerProviderStateM
 
     // Refetch Data product Owner
     await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+    await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+    
   }
 
   // This Function Pass By Parameter (Shop -> Body -> All)

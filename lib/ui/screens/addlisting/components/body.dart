@@ -412,9 +412,9 @@ class Body extends StatelessWidget {
             print(productModel.productName.text);
             print(productModel.price.text);
             print(productModel.shippingOptId);
-            print(productModel.paymentOptId);
-            print(productModel.scaleId);
-            print(productModel.categoryId);
+            print(productModel.paymentOptId); 
+            print(productModel.scaleId); // C
+            print(productModel.categoryId); // C
             print(productModel.description.text);
             print(productModel.tmpImagesUrl);
             await submitProduct(ProductModel().fromAddProduct(productModel));

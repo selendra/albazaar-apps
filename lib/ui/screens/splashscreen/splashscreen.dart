@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
             print("Status ${user.statusCode}");
 
             // Check Expired Token
-            if (user.statusCode.toString() == '200') {
+            if (user.statusCode == 200) {
 
               // Fetching Listing Product
               response = await Provider.of<ProductsProvider>(
@@ -80,29 +80,30 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                   } else {
                     validateNormalUser();
                   }
-              });
-            } 
+                });
+              } 
+            }
+            // Expired token
+            else if (user.statusCode == 401){
+              
+              var isShow = await _pref.read('isshow');
+
+              // Clear All Local Data
+              await AppServices.clearStorage();
+
+              // Save Carousel Screen
+              await _pref.saveString('isshow', isShow);
+
+              await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
+              Navigator.pushReplacementNamed(context, WelcomeView);
+            }
 
             // Throw Error If Something With Fetching 
             else {
               print("My response error $response");
-              await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
-              Navigator.pushReplacementNamed(context, WelcomeView);
+              throw (response);
             }
-          }
 
-          // Expired Token And Navigate To Welcome Screen 
-          else {
-            
-            var isShow = await _pref.read('isshow');
-
-            // Clear All Local Data
-            await AppServices.clearStorage();
-
-            // Save Carousel Screen
-            await _pref.saveString('isshow', isShow);
-            throw (response);
-          }
           });
         }
         // No Token Or Not Yet Login In Before 
