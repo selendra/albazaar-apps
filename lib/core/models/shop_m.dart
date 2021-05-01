@@ -1,4 +1,5 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:latlong/latlong.dart';
 
 class ShopModel {
 
@@ -8,16 +9,27 @@ class ShopModel {
   List<dynamic> shopCreate = [];
 
   String thumbnail;
-  String bgImage;
-  String address;
+  String profile;
+  String cover;
+
   List<Product> product;
   TextEditingController about;
+  
+  double lat, long;
+
+  String locationName;
+
+  MapController mapController = MapController();
+  LocationMarker marker = LocationMarker(lat: 11.56959, long: 104.92104);
 
   void init(){
+    lat = 11.56959;
+    long = 104.92104;
+    locationName = '';
     thumbnail = '';
-    bgImage = '';
-    address = '';
+    profile = '';
     product = [];
-    about = TextEditingController();
+    cover = '';
+    about = TextEditingController(text: 'Hello ! My name’s Daveat. I’m come from phnom penh and sell crops like broccoli, etc.');
   }
 }

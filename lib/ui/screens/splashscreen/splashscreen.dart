@@ -9,6 +9,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderStateMixin {
+
   PrefService _pref = PrefService();
   AnimationController controller;
   Animation<double> animation;
@@ -52,6 +53,8 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
               // if (response.runtimeType.toString() != "List<dynamic>"){
               if (response[0]['error'] == null){
 
+                print("No Error ");
+
                 //Fetch buyer order product list
                 await Provider.of<SellerProvider>(
                   context,
@@ -66,21 +69,19 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
                     /*call provider with function to set profile infomation
                     of the user*/
-                    Provider.of<UserProvider>(
-                      context,
-                      listen: false,
-                    ).fetchSocialUserInfo(
+                    Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
                       valueUser.email,
                       name.first,
                       name.last,
                       valueUser.photoURL,
                     );
                     Provider.of<UserProvider>(context, listen: false).socialUserInfo(value);
-                    Navigator.pushReplacementNamed(context, BottomNavigationView);
                   } else {
                     validateNormalUser();
                   }
                 });
+
+                Navigator.pushReplacementNamed(context, BottomNavigationView);
               } 
             }
             // Expired token
@@ -120,14 +121,11 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
   //It is use for validate normal user that register in sld api
   void validateNormalUser() async {
-    await UserProvider().fetchPortforlio().then(
-      (onValue) {
+    await UserProvider().fetchPortforlio().then((onValue) {
+      print("validate normal user");
         if (onValue == '200') {
           Provider.of<UserProvider>(context, listen: false).fetchUserInfo();
-          Navigator.pushReplacementNamed(context, BottomNavigationView);
-        } else {
-          Navigator.pushReplacementNamed(context, WelcomeView);
-        }
+        } 
       },
     );
   }
@@ -153,43 +151,48 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
   @override
   void initState() {
-    super.initState();
 
-    controller = AnimationController(
-      duration: Duration(seconds: 1),
-      vsync: this,
-    );
+    if (mounted){
+      controller = AnimationController(
+        duration: Duration(seconds: 1),
+        vsync: this,
+      );
 
-    animation = CurvedAnimation(
-      curve: Curves.easeIn,
-      parent: controller,
-    );
+      animation = CurvedAnimation(
+        curve: Curves.easeIn,
+        parent: controller,
+      );
 
-    /*Perform faded animation to logo*/
-    controller.forward().then(
-      (value) {
-        _pref.read('isshow').then(
-          (onValue) {
-            if (onValue == null) {
-              Navigator.pushReplacementNamed(context, IntroScreenView);
-            } else {
-              checkUser();
-            }
-          },
-        );
-      },
-    );
+      /*Perform faded animation to logo*/
+      controller.forward().then(
+        (value) {
+          _pref.read('isshow').then(
+            (onValue) {
+              if (onValue == null) {
+                Navigator.pushReplacementNamed(context, IntroScreenView);
+              } else {
+                checkUser();
+              }
+            },
+          );
+        },
+      );
+    }
 
     //Pre svg image
     preCacheSvg();
 
     //Set Language
     setDefaultLang();
+
+    super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    if (mounted){
+      controller.dispose();
+    }
     super.dispose();
   }
 

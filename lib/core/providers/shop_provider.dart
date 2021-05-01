@@ -25,7 +25,7 @@ class ShopProvider extends ChangeNotifier{
     _allOwnerProduct = value;
   }
 
-  Future<void> fetchOListingProduct() async {
+  Future<http.Response> fetchOListingProduct() async {
     _allOwnerProduct = [];
     try{
       await StorageServices.fetchData('user_token').then((token) async {
@@ -36,6 +36,15 @@ class ShopProvider extends ChangeNotifier{
             "authorization": "Bearer " + token['token'],
           });
 
+          _backend.data = json.decode(_backend.response.body);
+          if (_backend.data.runtimeType.toString() != "List<dynamic>"){
+
+            // Token Might Expired
+            if (!_backend.data.containsKey('error')){
+              return _backend.response;
+            }
+          }
+
           if (json.decode(_backend.response.body).isEmpty){
             shopCheck = 'create';
           } else {
@@ -44,7 +53,6 @@ class ShopProvider extends ChangeNotifier{
             
             print("Body ${_backend.response.body}");
 
-            _backend.data = json.decode(_backend.response.body);
             // print("My response ${_backend.data}");
             await StorageServices.setData(_backend.data, 'oproducts');
 

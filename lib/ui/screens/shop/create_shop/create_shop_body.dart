@@ -39,7 +39,7 @@ class CreateShopBody extends StatelessWidget {
                       onTap: (){
                         onChangeImage('bgImage');
                       },
-                      child: shopModel.bgImage != '' ? 
+                      child: shopModel.cover != '' ? 
                       // Image have picked
                       MyCard(
                         height: 228,
@@ -48,7 +48,7 @@ class CreateShopBody extends StatelessWidget {
                         image: DecorationImage(
                           alignment: Alignment.center,
                           fit: BoxFit.cover,
-                          image: FileImage(File(shopModel.bgImage))
+                          image: FileImage(File(shopModel.cover))
                         ),
                       ) 
                       // Default image
@@ -82,7 +82,8 @@ class CreateShopBody extends StatelessWidget {
                           ],
                         )
                       ),
-                    )    
+                    )   
+                     
                   ]   
                 ),
 

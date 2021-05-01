@@ -2,6 +2,14 @@ import 'package:albazaar_app/all_export.dart';
 
 class ShopHeader extends StatelessWidget{
 
+  final ShopModel shopModel;
+  final Function editHeader;
+
+  ShopHeader({
+    this.shopModel,
+    this.editHeader
+  });
+
   Widget build(BuildContext context){
     return MyPadding(
       pTop: pd10+2,
@@ -20,7 +28,7 @@ class ShopHeader extends StatelessWidget{
                 Container(
                   padding: EdgeInsets.only(top: 20),
                   height: 228,
-                  child: Image.asset('assets/shop_cover_image.jpg',fit: BoxFit.cover)
+                  child: shopModel.cover.isEmpty ? Image.asset('${AppConfig.imagePath}/shop_cover_image.jpg') : Image.file(File(shopModel.cover))
                 ),
 
                 Flexible(
@@ -45,7 +53,7 @@ class ShopHeader extends StatelessWidget{
                             top: pd10,
                             textAlign: TextAlign.left,
                             color: AppColors.white,
-                            text: "Hello ! My name’s Daveat. I’m come from phnom penh and sell crops like broccoli, etc.",
+                            text: "${shopModel.about.text}",
                             fontSize: 16,
                           )
                         ],
@@ -65,7 +73,7 @@ class ShopHeader extends StatelessWidget{
                 hexaColor: AppColors.black,
                 child: MyPadding(
                   pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
-                  child: Image.asset('assets/koompi_logo.png'),
+                  child: shopModel.profile.isEmpty ? Image.asset('assets/koompi_logo.png') : Image.file(File(shopModel.profile))
                 )
               ),
             ),   
@@ -76,12 +84,16 @@ class ShopHeader extends StatelessWidget{
               right: 0,
               child: GestureDetector(
                 onTapDown: (TapDownDetails detail) async {
-                  await Navigator.push(
+                  final response = await Navigator.push(
                     context, 
                     popUpRoute(
                       MyDropDownCustom.profileDropDownBtn(context: context, x: detail.globalPosition.dx, y: detail.globalPosition.dy,), sigmaX: 0.0, sigmaY: 0.0
                     )
                   );
+
+                  if (response != null){
+                    editHeader(response);
+                  }
                 },
                 child: MyPadding(
                   pRight: 8,

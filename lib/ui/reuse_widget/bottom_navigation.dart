@@ -22,8 +22,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
     setState(
       () {
         _selectedIndex = index;
-        _pageController.animateToPage(index,
-            duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+        _pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeOut);
       },
     );
   }

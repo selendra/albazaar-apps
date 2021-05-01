@@ -30,68 +30,69 @@ class _ShippingInformationState extends State<ShippingInformation> {
     var _lang = AppLocalizeService.of(context);
     return InkWell(
       onTap: () {
-        showBottomSheet(
-          shape: kDefaultShape,
-          context: context,
-          builder: (context) => StatefulBuilder(
-            builder: (context, setState) {
-              return Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height / 2,
-                // margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                      trailing: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.clear,
-                          color: kDefaultColor,
-                        ),
-                      ),
-                      title: Text(_lang.translate('shipping_information')),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Consumer<UserProvider>(
-                      builder: (context, value, child) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Form(
-                          key: _formKey,
-                          child: ReuseTextField(
-                            hintText: 'Address',
-                            initialValue: value.mUser.address == null
-                                ? ''
-                                : value.mUser.address,
-                            validator: (value) => value.isEmpty
-                                ? 'Address cannot be empty'
-                                : null,
-                            onSaved: (newValue) => _address = newValue,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: ReuseButton.getItem('Add', () {
-                        validateAndSubmit();
-                      }, context),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
+        // showBottomSheet(
+        //   shape: kDefaultShape,
+        //   context: context,
+        //   builder: (context) => StatefulBuilder(
+        //     builder: (context, setState) {
+        //       return Container(
+        //         color: Colors.white,
+        //         height: MediaQuery.of(context).size.height / 2,
+        //         // margin: EdgeInsets.symmetric(horizontal: 20.0),
+        //         child: Column(
+        //           children: [
+        //             ListTile(
+        //               trailing: IconButton(
+        //                 onPressed: () {
+        //                   Navigator.pop(context);
+        //                 },
+        //                 icon: Icon(
+        //                   Icons.clear,
+        //                   color: kDefaultColor,
+        //                 ),
+        //               ),
+        //               title: Text(_lang.translate('shipping_information')),
+        //             ),
+        //             SizedBox(
+        //               height: 10.0,
+        //             ),
+        //             Consumer<UserProvider>(
+        //               builder: (context, value, child) => Container(
+        //                 margin: EdgeInsets.symmetric(horizontal: 20.0),
+        //                 child: Form(
+        //                   key: _formKey,
+        //                   child: ReuseTextField(
+        //                     hintText: 'Address',
+        //                     initialValue: value.mUser.address == null
+        //                         ? ''
+        //                         : value.mUser.address,
+        //                     validator: (value) => value.isEmpty
+        //                         ? 'Address cannot be empty'
+        //                         : null,
+        //                     onSaved: (newValue) => _address = newValue,
+        //                   ),
+        //                 ),
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               height: 40.0,
+        //             ),
+        //             Container(
+        //               margin: EdgeInsets.symmetric(horizontal: 20.0),
+        //               child: ReuseButton.getItem('Add', () {
+        //                 validateAndSubmit();
+        //               }, context),
+        //             ),
+        //           ],
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           MyText(
             textAlign: TextAlign.left,
@@ -100,30 +101,47 @@ class _ShippingInformationState extends State<ShippingInformation> {
             bottom: 12,
           ),
 
-          Row(
-            children: [
-              Expanded(
-                child: MyInputField(
-                  labelText: "Your address",
-                  controller: address,
-                  focusNode: FocusScopeNode(),
-                  validateField: (String value){
+          Consumer<UserProvider>(
+            builder: (context, value, child) => Container(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MyInputField(
+                      labelText: "Your address",
+                      controller: address,
+                      focusNode: FocusScopeNode(),
+                      validateField: (String values){
+                      },
+                      onChanged: (String values){
+                        print(values);
+                        value.mUser.address = values;
+                      },
+                      onSubmit: (String value){
 
-                  },
-                  onChanged: (String value){
+                      },
+                    )
+                  ),
 
-                  },
-                  onSubmit: (String value){
-
-                  },
-                )
-              ),
-
-              Container(
-                padding: EdgeInsets.only(left: 6, right: 6),
-                child: SvgPicture.asset("${AppConfig.iconPath}check_in.svg", width: 20, height: 20)
+                  Container(
+                    padding: EdgeInsets.only(left: 12, right: 6),
+                    child: SvgPicture.asset("${AppConfig.iconPath}check_in.svg", width: 20, height: 20)
+                  )
+                ],
               )
-            ],
+              // Form(
+              //   key: _formKey,
+              //   child: ReuseTextField(
+              //     hintText: 'Address',
+              //     initialValue: value.mUser.address == null
+              //         ? ''
+              //         : value.mUser.address,
+              //     validator: (value) => value.isEmpty
+              //         ? 'Address cannot be empty'
+              //         : null,
+              //     onSaved: (newValue) => _address = newValue,
+              //   ),
+              // ),
+            ),
           )
         ],
       ),

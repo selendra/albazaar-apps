@@ -112,12 +112,14 @@ class MyDropDownCustom{
                       children: [
                         MyTextButton(
                           onTap: (){
+                            Navigator.pop(context, 'profile');
                           },
                           text: "Change profile",
                         ),
                         Divider(color: Colors.grey.withOpacity(0.2), height: 2),
                         MyTextButton(
                           onTap: ()  async {
+                            Navigator.pop(context, 'bg');
                           },
                           text: "Change background",
                         ),
@@ -125,6 +127,7 @@ class MyDropDownCustom{
                         Divider(color: Colors.grey.withOpacity(0.2), height: 2),
                         MyTextButton(
                           onTap: ()  async {
+                            Navigator.pop(context, 'about');
                           },
                           text: "Change about",
                         ),

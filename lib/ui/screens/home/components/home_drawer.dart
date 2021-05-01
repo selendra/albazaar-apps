@@ -10,7 +10,7 @@ class HomeDrawer extends StatelessWidget {
   final iconText = [
     {'icon': 'assets/icons/cart.svg', 'title': 'card', 'route': CartScreen()},
     {'icon': 'assets/icons/shop.svg', 'title': 'shop', 'route': ShopScreen()},
-    {'icon': 'assets/icons/order.svg', 'title': 'order'},
+    {'icon': 'assets/icons/order.svg', 'title': 'order', 'route': SalesScreen()},
     {'icon': 'assets/icons/chat.svg', 'title': 'chat', 'route': MessageScreen()},
 
 

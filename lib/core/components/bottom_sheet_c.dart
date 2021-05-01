@@ -251,7 +251,70 @@ class MyBottomSheet{
           ],
         ),
       );
-    },
-    );
+    });
+  }
+
+  Future locationOptions({BuildContext context}){
+    final locationList = [
+      "Search location",
+      "Current location"
+    ];
+
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: AppServices.hexaCodeToColor(AppColors.bgColor),
+        ),
+        // height: 200,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: AppColors.secondary,
+                fontWeight: FontWeight.bold,
+                top: 20,
+                bottom: 33,
+                text: "Location options",
+                fontSize: 20,
+              ),
+            ),
+
+            ListView.builder(
+              itemCount: locationList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index){
+                return Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context, index);
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: MyText(
+                            width: MediaQuery.of(context).size.width,
+                            text: locationList[index],
+                          ),
+                        ),
+                      ),
+
+                    ),
+                    if (index != locationList.length - 1 ) Divider(height: 1)
+                  ],
+                );
+              },
+            )
+          ],
+        ),
+      );
+    });
   }
 }

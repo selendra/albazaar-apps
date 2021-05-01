@@ -15,6 +15,7 @@ export 'dart:async';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
+export 'package:flutter_map/flutter_map.dart';
 export 'package:albazaar_app/app_config.dart';
 
 // core
@@ -31,10 +32,13 @@ export 'package:albazaar_app/ui/screens/shop/components/my_dropdown.dart';
 export 'package:albazaar_app/core/components/scaffold.dart';
 export 'package:albazaar_app/core/components/search.dart';
 
+export 'package:albazaar_app/core/components/location_marker_c.dart';
+
 export 'package:http_parser/http_parser.dart';
 export 'dart:io';
 export 'package:albazaar_app/core/models/sign_in_m.dart';
 export 'package:albazaar_app/core/models/sign_up_m.dart';
+export 'package:albazaar_app/core/models/shop_m.dart';
 
 
 //Pubspac

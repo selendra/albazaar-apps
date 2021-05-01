@@ -11,75 +11,75 @@ class ProductDisplay extends StatelessWidget {
 
     return Consumer<CartProvider>(
       builder: (context, value, child) {
+        print("My card $value");
         return Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(left: pd12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(
-                    text: _lang.translate('your_order'),
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary
-                  ),
-                  action != 'buy_now' && value.items.length > 1
-                      ? InkWell(
-                          onTap: () {
-                            showBottomSheet(
-                              context: context,
-                              shape: kDefaultShape,
-                              builder: (context) => Container(
-                                height: MediaQuery.of(context).size.height,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ListTile(
-                                      trailing: IconButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.clear,
-                                          color: kDefaultColor,
-                                        ),
-                                      ),
-                                      title: Text(
-                                        _lang.translate('your_order'),
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        child: ListView.builder(
-                                          itemCount: value.items.length,
-                                          itemBuilder: (context, index) =>
-                                              ChangeNotifierProvider.value(
-                                            value: value.items.values
-                                                .toList()[index],
-                                            child: ItemOrder(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                          splashColor: Colors.grey,
-                          child: Text(_lang.translate('see_all')),
-                        )
-                      : Container(),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyText(
+                  text: _lang.translate('your_order'),
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                  bottom: 12,
+                ),
+                action != 'buy_now' && value.items.length > 1
+                ? InkWell(
+                    onTap: () {
+                      // showBottomSheet(
+                      //   context: context,
+                      //   shape: kDefaultShape,
+                      //   builder: (context) => Container(
+                      //     height: MediaQuery.of(context).size.height,
+                      //     child: Column(
+                      //       mainAxisSize: MainAxisSize.min,
+                      //       children: [
+
+                      //         ListTile(
+                      //           trailing: IconButton(
+                      //             onPressed: () {
+                      //               Navigator.pop(context);
+                      //             },
+                      //             icon: Icon(
+                      //               Icons.clear,
+                      //               color: kDefaultColor,
+                      //             ),
+                      //           ),
+                      //           title: Text(
+                      //             _lang.translate('your_order'),
+                      //             style: TextStyle(fontWeight: FontWeight.bold),
+                      //           ),
+                      //         ),
+
+                      //         Expanded(
+                      //           child: Container(
+                      //             child: ListView.builder(
+                      //               itemCount: value.items.length,
+                      //               itemBuilder: (context, index) =>
+                      //                   ChangeNotifierProvider.value(
+                      //                 value: value.items.values .toList()[index],
+                      //                 child: ItemOrder(),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
+                    },
+                    splashColor: Colors.grey,
+                    child: Text(_lang.translate('see_all')),
+                  )
+                : Container(),
+              ],
             ),
 
             // Your Order
             ChangeNotifierProvider.value(
               value: action != 'buy_now'
-                  ? value.items.values.toList()[0]
-                  : value.isBuyNow,
+              ? value.items.values.toList()[0]
+              : value.isBuyNow,
               child: ItemOrder(),
             ),
             // Card(

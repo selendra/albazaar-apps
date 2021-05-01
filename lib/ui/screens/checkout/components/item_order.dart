@@ -7,17 +7,14 @@ class ItemOrder extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final order = Provider.of<Cart>(context);
+    final order = Provider.of<CartProvider>(context);
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/detail',
-          arguments: order.id,
-        );
-        Provider.of<ProductsProvider>(context, listen: false)
-            .findImgById(order.id);
+        // Product _product = Provider.of<ProductsProvider>(context, listen: false).findById(order.isBuyNow.id);
+        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailScreen(product: _product,)));
       },
       child: Card(
+        margin: EdgeInsets.zero,
         elevation: 0,
         shape: kDefaultShape,
         child: Container(
@@ -40,7 +37,7 @@ class ItemOrder extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child:CachedNetworkImage(imageUrl: order.image,fit: BoxFit.cover,) //Image.network(order.image, fit: BoxFit.cover),
+                  child:CachedNetworkImage(imageUrl: order.isBuyNow.image, fit: BoxFit.cover,) //Image.network(order.image, fit: BoxFit.cover),
                 ),
               ),
               MyPadding(
@@ -49,49 +46,55 @@ class ItemOrder extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        MyText(
-                          text: "Name:",
-                          bottom: 10,
-                        ),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          MyText(
+                            text: "Name:",
+                            bottom: 10,
+                          ),
 
-                        MyText(
-                          left: 6,
-                          text: "${order.title}",
-                          bottom: 10,
-                        )
-                      ],
+                          MyText(
+                            left: 6,
+                            text: "${order.isBuyNow.title}",
+                            bottom: 10,
+                          )
+                        ],
+                      )
                     ),
                     
-                    Row(
-                      children: [
-                        MyText(
-                          text: "Qty:",
-                          bottom: 10,
-                        ),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          MyText(
+                            text: "Qty:",
+                            bottom: 10,
+                          ),
 
-                        MyText(
-                          left: 6,
-                          text: "${order.qty}",
-                          bottom: 10,
-                        )
-                      ],
+                          MyText(
+                            left: 6,
+                            text: "${order.isBuyNow.qty}",
+                            bottom: 10,
+                          )
+                        ],
+                      )
                     ),
 
-                    Row(
-                      children: [
-                        MyText(
-                          text: "Price:",
-                          bottom: 10,
-                        ),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          MyText(
+                            text: "Price:",
+                            bottom: 10,
+                          ),
 
-                        MyText(
-                          left: 6,
-                          text: "${order.price}",
-                          bottom: 10,
-                        )
-                      ],
+                          MyText(
+                            left: 6,
+                            text: "${order.isBuyNow.price}",
+                            bottom: 10,
+                          )
+                        ],
+                      )
                     ),
                   ],
                 ),

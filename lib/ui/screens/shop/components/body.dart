@@ -1,4 +1,5 @@
 import 'package:albazaar_app/core/providers/shop_provider.dart';
+import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/home/components/header.dart';
 import 'package:albazaar_app/ui/screens/shop/components/all_product_owner.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_header.dart';
@@ -16,7 +17,7 @@ class Body extends StatefulWidget {
   
   final ShopProvider shopProvider;
 
-  final TabController _controller;
+  final ShopModel shopModel;
 
   final ProductsProvider productProvider;
   
@@ -24,13 +25,22 @@ class Body extends StatefulWidget {
 
   final Function deleteProduct;
 
-  Body(this._controller, {this.shopProvider, this.productProvider, this.uploadRemainUrlImage, this.deleteProduct});
+  final Function triggerLocation;
+
+  Body({
+    this.shopModel, 
+    this.shopProvider, 
+    this.productProvider, 
+    this.uploadRemainUrlImage, 
+    this.deleteProduct,
+    this.triggerLocation
+  });
 
   @override
   _BodyState createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> with TickerProviderStateMixin{
+class _BodyState extends State<Body> with TickerProviderStateMixin {
   //ProductsProvider productsProvider;
   //SellerProvider sellerProvider;
   bool enableDelete = false;
@@ -69,6 +79,54 @@ class _BodyState extends State<Body> with TickerProviderStateMixin{
   void validateProductDelete(String value, String currentProduct){
   }
 
+  void editHeader (String label) async {
+    if (label == 'profile'){
+      widget.shopModel.profile = await onChangeImage();
+    } else if (label == 'bg'){
+      widget.shopModel.cover = await onChangeImage();
+    } else if (label == 'about'){
+      final result = await Components.dialog(
+        context, 
+        TextFormField(
+          controller: widget.shopModel.about,
+          decoration: InputDecoration(
+            labelText: "About you...."
+          ),
+        ), 
+        MyText(text: "Edit about"),
+        action: TextButton(
+          onPressed: (){
+            Navigator.pop(context, "submit");
+          }, 
+          child: Text("Submit")
+        )
+      );
+
+      if (result == null){
+        setState((){
+          widget.shopModel.about.text = result;
+        });
+      }
+    }
+  }
+
+  Future<String> onChangeImage() async {
+    List<String> image;
+    // Trigger Image
+    List fromPicker = await MyImagePicker.imagePicker(maxImages: 1);
+    if (fromPicker != null){
+      // Get Image From List Asset 
+       image = await MyImagePicker.getAssettoFile(fromPicker);
+    }
+        
+    // _productModel.images.forEach((element) async {
+    //   if (!element.contains('https')){
+    //     await getImageUrl(element);
+    //   }
+    // });
+    return image[0];
+  }
+
   @override
   void initState() {
     _tabController =  TabController(length: 3, vsync: this);
@@ -87,11 +145,14 @@ class _BodyState extends State<Body> with TickerProviderStateMixin{
           onTapTab: (int index){
 
           },
+          shopModel: widget.shopModel,
           shopProvider: widget.shopProvider,
           productProvider: widget.productProvider,
           uploadRemainUrlImage: widget.uploadRemainUrlImage,
           deleteProduct: widget.deleteProduct,
-          onChanged: onChanged
+          onChanged: onChanged,
+          triggerLocation: widget.triggerLocation,
+          editHeader: editHeader
         );
       },
       body: Container()

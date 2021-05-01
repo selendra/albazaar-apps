@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:albazaar_app/all_export.dart';
+import 'package:latlong/latlong.dart';
 
 class AppServices {
   
@@ -36,6 +38,59 @@ class AppServices {
   static Future<void> clearStorage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.clear();
+  }
+
+  static Future<String> getLocation(double lat, double long) async {
+
+    String location;
+    await Geolocator().placemarkFromCoordinates(lat, long).then((value) {
+      location = "${value[0].thoroughfare}, ${value[0].subAdministrativeArea}, ${value[0].subLocality}, ${value[0].locality}";
+    });
+
+    return location;
+  }
+
+  static Future<Position> getLatLng() async {
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
+
+  static void mapAnimateMove(MapController mapController, LatLng desPlace, double desZoom, TickerProvider vsync){
+    var _latTween = Tween<double>(begin: mapController.center.latitude, end: desPlace.latitude);
+
+    var _longTween = Tween<double>(begin: mapController.center.longitude, end: desPlace.longitude);
+
+    var _zoomTween = Tween<double>(begin: mapController.zoom, end: desZoom);
+
+    var controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: vsync);
+
+    Animation<double> animation = CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn);
+    controller.addListener(() {
+      mapController.move(LatLng(_latTween.evaluate(animation), _longTween.evaluate(animation)), _zoomTween.evaluate(animation));
+    });
+
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.dispose();
+      } else if (status == AnimationStatus.dismissed) {
+        controller.dispose();
+      }
+    });
+
+    controller.forward();
+  }
+
+  static void markPin(LocationMarker marker, double lat, double long){
+    marker.markers.add(Marker(
+      point: LatLng(lat, long),
+      builder: (context) => Container(
+        child: Icon(
+          Icons.location_on,
+          color: AppServices.hexaCodeToColor(AppColors.secondary),
+          size: 50,
+        ),
+      ),
+    ));
   }
   
 }

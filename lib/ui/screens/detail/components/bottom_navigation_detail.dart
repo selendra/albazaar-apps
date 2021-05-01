@@ -104,6 +104,7 @@ class BottomNavigationDetail extends StatelessWidget {
                 Navigator.push(context, RouteAnimation(enterPage: Checkout(action: 'buy_now')));
               }, 
               context,
+              width: 100
             ),
           )
           // Row(

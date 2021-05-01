@@ -66,8 +66,7 @@ class CartProvider with ChangeNotifier {
   }
 
   //Add buynow
-  void addBuyNow(String productId, String image, String title, int price,
-      int productOrderQty) {
+  void addBuyNow(String productId, String image, String title, int price, int productOrderQty) {
     // _buyNow = {};
     totalPrice = 0;
 

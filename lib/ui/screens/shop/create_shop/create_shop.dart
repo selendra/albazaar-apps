@@ -57,7 +57,7 @@ class _CreateShopState extends State<CreateShop> {
         if(spotName == 'thumbnail'){
           widget.shopModel.thumbnail = listImage[0];
         } else {
-          widget.shopModel.bgImage = listImage[0];
+          widget.shopModel.cover = listImage[0];
         }
       });
     }
