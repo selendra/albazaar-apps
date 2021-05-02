@@ -128,12 +128,18 @@ class ShopSliverHeader{
                   Container(
                     // bTopLeft: 0, bTopRight: 0,
                     // hexaColor: AppColors.secondary,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+                      color: AppServices.hexaCodeToColor(AppColors.secondary),
+                    ),
+                    padding: EdgeInsets.only(left: pd10+2),
                     height: 70,
-                    color: AppServices.hexaCodeToColor(AppColors.secondary),
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerLeft,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MyText(text: "Location:", color: AppColors.white, textAlign: TextAlign.left, fontWeight: FontWeight.bold, fontSize: 20,),
+                        MyText(text: "Location:", color: AppColors.white, textAlign: TextAlign.left, fontWeight: FontWeight.bold, fontSize: 20, bottom: 5,),
                         MyText(text: "${shopModel.locationName}", fontSize: 16, color: AppColors.white, textAlign: TextAlign.left,),
                       ],
                     ),

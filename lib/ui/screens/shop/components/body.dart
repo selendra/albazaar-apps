@@ -82,8 +82,14 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   void editHeader (String label) async {
     if (label == 'profile'){
       widget.shopModel.profile = await onChangeImage();
+      setState(() {
+        
+      });
     } else if (label == 'bg'){
       widget.shopModel.cover = await onChangeImage();
+      setState(() {
+        
+      });
     } else if (label == 'about'){
       final result = await Components.dialog(
         context, 
@@ -124,6 +130,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     //     await getImageUrl(element);
     //   }
     // });
+    print("Image ${image[0]}");
     return image[0];
   }
 

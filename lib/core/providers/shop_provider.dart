@@ -37,12 +37,13 @@ class ShopProvider extends ChangeNotifier{
           });
 
           _backend.data = json.decode(_backend.response.body);
-          if (_backend.data.runtimeType.toString() != "List<dynamic>"){
+
+          print("Shop Response ${_backend.data}");
+          print("${_backend.data.runtimeType}");
+          if (_backend.data.runtimeType.toString() != "List<dynamic>" && _backend.data.runtimeType.toString() != "_GrowableList<dynamic>"){
 
             // Token Might Expired
-            if (!_backend.data.containsKey('error')){
-              return _backend.response;
-            }
+            return _backend.response;
           }
 
           if (json.decode(_backend.response.body).isEmpty){

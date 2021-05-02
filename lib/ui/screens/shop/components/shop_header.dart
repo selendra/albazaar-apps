@@ -26,9 +26,9 @@ class ShopHeader extends StatelessWidget{
               children: [
 
                 Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: shopModel.cover.isEmpty ? EdgeInsets.only(top: 20) : EdgeInsets.zero,
                   height: 228,
-                  child: shopModel.cover.isEmpty ? Image.asset('${AppConfig.imagePath}/shop_cover_image.jpg') : Image.file(File(shopModel.cover))
+                  child: shopModel.cover.isEmpty ? Image.asset('${AppConfig.imagePath}shop_cover_image.jpg') : Image.file(File(shopModel.cover),)
                 ),
 
                 Flexible(
@@ -72,8 +72,11 @@ class ShopHeader extends StatelessWidget{
                 height: 80, width: 80,
                 hexaColor: AppColors.black,
                 child: MyPadding(
-                  pBottom: pd10, pLeft: pd10, pRight: pd10, pTop: pd10,
-                  child: shopModel.profile.isEmpty ? Image.asset('assets/koompi_logo.png') : Image.file(File(shopModel.profile))
+                  pBottom: shopModel.profile.isEmpty ? pd10 : 0, 
+                  pLeft: shopModel.profile.isEmpty ? pd10 : 0, 
+                  pRight: shopModel.profile.isEmpty ? pd10 : 0,
+                  pTop: shopModel.profile.isEmpty ? pd10 : 0,
+                  child: shopModel.profile.isEmpty ? Image.asset('assets/koompi_logo.png') : Image.file(File(shopModel.profile), fit: BoxFit.cover,)
                 )
               ),
             ),   
