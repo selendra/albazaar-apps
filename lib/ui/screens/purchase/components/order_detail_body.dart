@@ -53,12 +53,10 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child:
-                                reuseText(_lang.translate('phone_hint') + ":"),
+                            child: reuseText(_lang.translate('phone_hint') + ":"),
                           ),
                           Expanded(
-                            child:
-                                reuseText("${productOrder.sellerPhonenumber}"),
+                            child: reuseText("${productOrder.sellerPhonenumber}"),
                           )
                         ],
                       ),
@@ -68,8 +66,7 @@ class OrderDetailBody extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: reuseText(
-                                _lang.translate('order_total') + ": "),
+                            child: reuseText(_lang.translate('order_total') + ": "),
                           ),
                           Expanded(
                             child: reuseText('${productOrder.total}៛'),
@@ -87,39 +84,38 @@ class OrderDetailBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      reuseText(_lang.translate('shipping_address') + ":\n",
-                          fontSize: 15),
+                      reuseText(_lang.translate('shipping_address') + ":\n", fontSize: 15),
                       reuseText('${productOrder.shippingAddress}'),
                     ],
                   ),
                 ),
-                RaisedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      RouteAnimation(
-                        enterPage: Tracking(
-                          productOrder: productOrder,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Track Order',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  color: kDefaultColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        kDefaultRadius,
-                      ),
-                    ),
-                  ),
-                ),
+                // RaisedButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       RouteAnimation(
+                //         enterPage: Tracking(
+                //           productOrder: productOrder,
+                //         ),
+                //       ),
+                //     );
+                //   },
+                //   child: Text(
+                //     'Track Order',
+                //     style: TextStyle(
+                //       color: Colors.white,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                //   color: kDefaultColor,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.all(
+                //       Radius.circular(
+                //         kDefaultRadius,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -132,6 +128,8 @@ class OrderDetailBody extends StatelessWidget {
               margin: EdgeInsets.all(10.0),
               child: Row(
                 children: [
+
+                  // Image Product
                   ClipRRect(
                     borderRadius: BorderRadius.circular(kDefaultRadius),
                     child: Container(
@@ -152,41 +150,94 @@ class OrderDetailBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 20,
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: ListTile(
-                          title: Text(
-                            productOrder.name,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          isThreeLine: true,
-                          subtitle: Text(
-                            'Qty: ${productOrder.qauantity}',
-                          ),
+                  
+                  // User Data
+                  MyPadding(
+                    pLeft: 12, pRight: 0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Row(
+                            children: [
+                              MyText(
+                                text: "Name:",
+                                bottom: 10,
+                              ),
+
+                              MyText(
+                                left: 6,
+                                text: "${productOrder.name}",
+                                bottom: 10,
+                              )
+                            ],
+                          )
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 20,
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: ListTile(
-                          subtitle: Text(
-                            'Price: ${productOrder.price}៛ ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kDefaultColor,
-                            ),
-                          ),
+                        
+                        Flexible(
+                          child: Row(
+                            children: [
+                              MyText(
+                                text: "Qty:",
+                                bottom: 10,
+                              ),
+
+                              MyText(
+                                left: 6,
+                                text: "${productOrder.qauantity}",
+                                bottom: 10,
+                              )
+                            ],
+                          )
                         ),
-                      ),
-                    ],
+
+                        Flexible(
+                          child: Row(
+                            children: [
+                              MyText(
+                                text: "Price:",
+                                bottom: 10,
+                              ),
+
+                              MyText(
+                                left: 6,
+                                text: "${productOrder.price}",
+                                bottom: 10,
+                              )
+                            ],
+                          )
+                        ),
+                      ],
+                    ),
                   ),
+
+                  Expanded(child: Container(),),
+
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: Row(
+                      children: [
+                        Text(
+                          "Track",
+                          style: TextStyle(color: AppServices.hexaCodeToColor(AppColors.primary))
+                        ),
+                        Flexible(
+                          child: Icon(Icons.arrow_forward_ios_outlined, size: 14, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                        )
+                      ],
+                    ),
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        RouteAnimation(
+                          enterPage: Tracking(
+                            productOrder: productOrder,
+                          ),
+                        ),
+                      );
+                    }
+                  )
                 ],
               ),
             ),
@@ -194,29 +245,25 @@ class OrderDetailBody extends StatelessWidget {
           SizedBox(height: 10),
           Container(
             margin: const EdgeInsets.all(20),
-            child: ReuseButton.getItem(
-                'Recieved',
-                productOrder.orderStatus == 'Place Order' ||
-                        productOrder.orderStatus == 'Order Complete'
-                    ? null
-                    : () async {
-                        await Components.dialog(
-                          context,
-                          Text("Do you want to complete order?"),
-                          Text("Message"),
-                          action: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Provider.of<ProductsProvider>(context,
-                                      listen: false)
-                                  .markOrderComplete(
-                                      productOrder.id, context, productOrder);
-                            },
-                            child: Text("Yes"),
-                          ),
-                        );
-                      },
-                context),
+            child: ReuseButton.getItem('Recieve',
+              productOrder.orderStatus == 'Place Order' || productOrder.orderStatus == 'Order Complete'
+              ? null : () async {
+                await Components.dialog(
+                  context,
+                  Text("Do you want to complete order?"),
+                  Text("Message"),
+                  action: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Provider.of<ProductsProvider>(context, listen: false).markOrderComplete(productOrder.id, context, productOrder);
+                    },
+                    child: Text("Yes"),
+                  ),
+                );
+              },
+              context,
+              width: MediaQuery.of(context).size.width
+            ),
           ),
         ],
       ),

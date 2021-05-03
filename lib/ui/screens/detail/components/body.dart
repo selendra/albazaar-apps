@@ -277,7 +277,7 @@ class _BodyState extends State<Body> {
                             pBottom: padding,
                             child: Row(
                               children: [
-                                SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 13.52, height: 22),
+                                SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 10, height: 19),
                                 MyText(
                                   left: 8,
                                   textAlign: TextAlign.left,
@@ -352,7 +352,7 @@ class _BodyState extends State<Body> {
                                     width: 40, height: 40,
                                     child: MyText(
                                       fontSize: 12,
-                                      text: "${listAmount[index]}Kg"
+                                      text: "${listAmount[index]} Kg"
                                     ), 
                                   )
                                   );
@@ -486,14 +486,16 @@ class _BodyState extends State<Body> {
 
                                 Expanded(child: Container()),
 
-                                Icon(Icons.arrow_forward_ios)
+                                Icon(Icons.arrow_forward_ios, size: 14)
                               ],
                             ),
 
                             MyText(
                               top: padding,
                               textAlign: TextAlign.left,
-                              text: "To Phnom Penh via SW Logistic Standard Shipping"
+                              text: "To Phnom Penh via SW Logistic Standard Shipping",
+                              color: AppColors.lowBlack,
+                              fontSize: 14,
                             )
                           ],
                         ),
@@ -561,7 +563,7 @@ class _BodyState extends State<Body> {
                           trimMode: TrimMode.Line,
                           trimCollapsedText: 'Show more',
                           trimExpandedText: 'Show less',
-                          style: TextStyle(fontSize: 18, color: AppServices.hexaCodeToColor(AppColors.black)),
+                          style: TextStyle(fontSize: 14, color: AppServices.hexaCodeToColor(AppColors.lowBlack)),
                           lessStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppServices.hexaCodeToColor(AppColors.black)),
                           moreStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppServices.hexaCodeToColor(AppColors.black)),
                         )
@@ -642,7 +644,7 @@ class _BodyState extends State<Body> {
 
                                     Expanded(child: Container(),),
 
-                                    Icon(Icons.arrow_forward_ios)
+                                    Icon(Icons.arrow_forward_ios, size: 14)
                                   ],
                                 ),
                               )

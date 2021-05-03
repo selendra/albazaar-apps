@@ -10,7 +10,7 @@ class HomeDrawer extends StatelessWidget {
   final iconText = [
     {'icon': 'assets/icons/cart.svg', 'title': 'card', 'route': CartScreen()},
     {'icon': 'assets/icons/shop.svg', 'title': 'shop', 'route': ShopScreen()},
-    {'icon': 'assets/icons/order.svg', 'title': 'order', 'route': SalesScreen()},
+    {'icon': 'assets/icons/order.svg', 'title': 'order', 'route': PurchaseScreen()},
     {'icon': 'assets/icons/chat.svg', 'title': 'chat', 'route': MessageScreen()},
 
 
@@ -82,7 +82,7 @@ class HomeDrawer extends StatelessWidget {
 
                   Container(
                     margin: EdgeInsets.only(left:  10),
-                    child: Icon(Icons.arrow_forward_ios),
+                    child: Icon(Icons.arrow_forward_ios, size: 12),
                   )
                 ],
               )
@@ -142,7 +142,8 @@ class HomeDrawer extends StatelessWidget {
 
                           Icon(
                             Icons.arrow_forward_ios,
-                            color: AppServices.hexaCodeToColor(AppColors.black)
+                            color: AppServices.hexaCodeToColor(AppColors.black),
+                            size: 12,
                           )
                         ],
                       ),
@@ -184,7 +185,8 @@ class HomeDrawer extends StatelessWidget {
 
                           Icon(
                             Icons.arrow_forward_ios,
-                            color: AppServices.hexaCodeToColor(AppColors.black)
+                            color: AppServices.hexaCodeToColor(AppColors.black),
+                            size: 12,
                           )
                         ],
                       ),

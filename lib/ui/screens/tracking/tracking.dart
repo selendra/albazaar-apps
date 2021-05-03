@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class Tracking extends StatefulWidget {
+
   final OrderProduct productOrder;
+
   Tracking({this.productOrder});
+
   @override
   _TrackingState createState() => _TrackingState();
 }
 
 class _TrackingState extends State<Tracking> {
+  
   double _currentValue = 0;
   String statusReminder = '';
 
@@ -30,9 +34,9 @@ class _TrackingState extends State<Tracking> {
 
   @override
   Widget build(BuildContext context) {
-    final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(
-      widget.productOrder.productId,
-    );
+
+    final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(widget.productOrder.productId);
+
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('Tracking', context),
       body: Container(
@@ -49,28 +53,20 @@ class _TrackingState extends State<Tracking> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5),
                     Text(
                       '${widget.productOrder.name}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
 
-                    SizedBox(
-                      height: 10.0,
-                    ),
+                    SizedBox(height: 10.0),
                     Text('Order: ${widget.productOrder.id}'),
 
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5),
                     Text('Reminder: Product ${widget.productOrder.orderStatus}'),
 
-                    SizedBox(
-                      height: 40,
-                    ),
+                    SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -14,11 +14,8 @@ class MyWallet extends StatelessWidget {
     var _lang = AppLocalizeService.of(context);
     return RefreshIndicator(
       onRefresh: () async {
-        // await Future.delayed(Duration(seconds: 0));
-        await Provider.of<TrxHistoryProvider>(context, listen: false)
-            .fetchTrxHistory();
-        await Provider.of<UserProvider>(context, listen: false)
-            .fetchPortforlio();
+        await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
+        await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -39,23 +36,23 @@ class MyWallet extends StatelessWidget {
                       Text(
                         'TOTAL BALANCE',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
                       SizedBox(height: 40),
                       Flexible(
                         child: Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Text(
-                            '${mBalance.data.balance}',
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: Text('${mBalance.data.balance}',
                             overflow: TextOverflow.ellipsis,
                             softWrap: true,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 45.0,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontSize: 45.0,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ),
@@ -71,12 +68,14 @@ class MyWallet extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 4,
-                  right: 10.0,
-                  left: 10.0),
+                top: MediaQuery.of(context).size.height / 4,
+                right: 10.0,
+                left: 10.0
+              ),
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    
                     // List All Asset
                     WalletList(),
 
@@ -87,22 +86,30 @@ class MyWallet extends StatelessWidget {
                       margin: const EdgeInsets.all(16.0),
                       child: Column(
                         children: <Widget>[
-                          SizedBox(
-                            height: 20,
-                          ),
-                          ReuseButton.getItem(_lang.translate('send'),
-                              () async {
-                            await MyBottomSheet().trxOptions(
+                          
+                          SizedBox(height: 20),
+                          ReuseButton.getItem(
+                            _lang.translate('send'),
+                            () async {
+                              await MyBottomSheet().trxOptions(
                                 context: context,
                                 portfolioList: [],
-                                resetState: resetState);
-                          }, context),
-                          SizedBox(
-                            height: 10,
+                                resetState: resetState
+                              );
+                            }, 
+                            context,
+                            width: MediaQuery.of(context).size.width,
                           ),
-                          ReuseButton.getItem(_lang.translate('recieve'), () {
-                            Navigator.pushNamed(context, MyQrView);
-                          }, context)
+
+                          SizedBox(height: 10),
+                          ReuseButton.getItem(
+                            _lang.translate('recieve'), 
+                            () {
+                              Navigator.pushNamed(context, MyQrView);
+                            }, 
+                            context,
+                            width: MediaQuery.of(context).size.width,
+                          )
                         ],
                       ),
                     ),

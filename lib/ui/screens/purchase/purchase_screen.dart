@@ -9,8 +9,8 @@ class PurchaseScreen extends StatefulWidget {
   _PurchaseScreenState createState() => _PurchaseScreenState();
 }
 
-class _PurchaseScreenState extends State<PurchaseScreen>
-    with SingleTickerProviderStateMixin {
+class _PurchaseScreenState extends State<PurchaseScreen> with SingleTickerProviderStateMixin {
+
   TabController _controller;
 
   var result;
@@ -32,13 +32,19 @@ class _PurchaseScreenState extends State<PurchaseScreen>
     var _lang = AppLocalizeService.of(context);
     return Scaffold(
       appBar: ReuseAppBar.getTitle(
-          _lang.translate('order'),
-          context,
-          _lang.translate('all_buyer'),
-          _lang.translate('pending'),
-          _lang.translate('complete'),
-          _controller),
-      body: Body(_controller),
+        _lang.translate('order'),
+        context,
+        _lang.translate('all_buyer'),
+        _lang.translate('pending'),
+        _lang.translate('complete'),
+        _controller
+      ),
+      body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        top: 12,
+        left: 12, right: 12,
+        child: Body(_controller),
+      ),
     );
   }
 }
