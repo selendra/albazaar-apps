@@ -3,7 +3,7 @@ import 'package:latlong/latlong.dart';
 
 class ShopModel {
 
-  TabController controller;
+  TabController tabController;
 
   bool isSold = false;
   List<dynamic> shopCreate = [];

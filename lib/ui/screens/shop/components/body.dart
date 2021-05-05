@@ -1,7 +1,7 @@
 import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/core/services/image_picker.dart';
 import 'package:albazaar_app/ui/screens/home/components/header.dart';
-import 'package:albazaar_app/ui/screens/shop/components/all_product_owner.dart';
+import 'package:albazaar_app/ui/screens/shop/components/tabBar/all_product_owner.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_header.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_sliver_header.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_tabbar.dart';
@@ -23,7 +23,12 @@ class Body extends StatefulWidget {
   
   final Function uploadRemainUrlImage;
 
+  final Function onTapTabBar;
+
   final Function deleteProduct;
+
+  // From Shop.dart
+  final Function refresh;
 
   final Function triggerLocation;
 
@@ -31,8 +36,10 @@ class Body extends StatefulWidget {
     this.shopModel, 
     this.shopProvider, 
     this.productProvider, 
-    this.uploadRemainUrlImage, 
+    this.uploadRemainUrlImage,
+    this.onTapTabBar,
     this.deleteProduct,
+    this.refresh,
     this.triggerLocation
   });
 
@@ -149,9 +156,12 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
         return ShopSliverHeader().sliverHeader(
           context: context,
           tabController: _tabController,
-          onTapTab: (int index){
 
-          },
+          //From Shop.dart
+          onTapTabBar: widget.onTapTabBar,
+          refresh: _refresh,
+          refreshSellerList: _refreshSellerList,
+
           shopModel: widget.shopModel,
           shopProvider: widget.shopProvider,
           productProvider: widget.productProvider,
@@ -159,7 +169,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
           deleteProduct: widget.deleteProduct,
           onChanged: onChanged,
           triggerLocation: widget.triggerLocation,
-          editHeader: editHeader
+          editHeader: editHeader,
         );
       },
       body: Container()

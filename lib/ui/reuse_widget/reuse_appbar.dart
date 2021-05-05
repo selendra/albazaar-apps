@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class ReuseAppBar {
-  static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller, {ShopProvider shopProvider, Function upLoadedProduct}) {
+  static getTitle(String title, context, appBarItemOne, appBarItemTwo,appBarItemThree, controller, {ShopProvider shopProvider, Function upLoadedProduct, bool enableAddIcon = false}) {
     return AppBar(
       toolbarHeight: 70,
       brightness: Brightness.light,
@@ -31,7 +31,7 @@ class ReuseAppBar {
         },
       ),
       actions: [
-        IconButton(
+        if (enableAddIcon) IconButton(
           padding: EdgeInsets.only(right: 25),
           icon: Icon(
             Icons.add,

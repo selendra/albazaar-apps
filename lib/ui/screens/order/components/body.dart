@@ -1,9 +1,7 @@
-import 'package:albazaar_app/ui/screens/purchase/components/all_order.dart';
-import 'package:albazaar_app/ui/screens/purchase/components/complete_order.dart';
-import 'package:albazaar_app/ui/screens/purchase/components/pending_order.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:albazaar_app/ui/screens/order/components/all_order.dart';
+import 'package:albazaar_app/ui/screens/order/components/complete_order.dart';
+import 'package:albazaar_app/ui/screens/order/components/pending_order.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:albazaar_app/all_export.dart';
 
 class Body extends StatefulWidget {

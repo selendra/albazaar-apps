@@ -159,8 +159,8 @@ export 'ui/screens/cart/components/dismissable_background.dart';
 export 'ui/screens/cart/components/checkout_card.dart';
 
 //purchase screen
-export 'ui/screens/purchase/purchase_screen.dart';
-export 'ui/screens/purchase/components/order_detail.dart';
+export 'ui/screens/order/purchase_screen.dart';
+export 'ui/screens/order/components/order_detail.dart';
 
 //transaction view
 export 'ui/screens/transaction/transaction_history.dart';

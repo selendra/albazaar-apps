@@ -1,6 +1,13 @@
 import 'package:albazaar_app/all_export.dart';
 
 class ShopTabbar extends StatelessWidget{
+
+  final TabController tabController;
+
+  final Function onTapTabBar;
+
+  ShopTabbar({this.onTapTabBar, this.tabController});
+
   Widget build(BuildContext context){
     return MyPadding(
       pTop: pd20,
@@ -34,27 +41,46 @@ class ShopTabbar extends StatelessWidget{
             )
           ),
 
-          Expanded(
-            child: MyText(
-              text: "All",
-              color: AppColors.secondary,
+          Flexible(
+            child: TabBar(
+              labelPadding: EdgeInsets.zero,
+              controller: tabController,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicator: new BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.transparent
+                // indicatorHeight: 40,
+                // indicatorRadius: kDefaultRadius,
+                // indicatorColor: kDefaultColor,
+                // tabBarIndicatorSize: TabBarIndicatorSize.tab,
+              ),
+              unselectedLabelColor: Colors.black,
+              labelColor: AppServices.hexaCodeToColor(AppColors.secondary),
+              onTap: onTapTabBar,
+              tabs: [
+                Text(
+                  "All",
+                  style: TextStyle(
+                    fontSize: 18
+                  )
+                ),
+                
+                Text(
+                  "Pending",
+                  style: TextStyle(
+                    fontSize: 18
+                  ),
+                ),
+                
+                Text(
+                  "Sold",
+                  style: TextStyle(
+                    fontSize: 18
+                  ),
+                )
+              ]
             )
           ),
-          
-          Expanded(
-            child: MyText(
-              text: "Pending"
-            )
-          ),
-          
-          Expanded(
-            child: MyText(
-            left: 10,
-            text: "Sold"
-          )
-          ),
-
-          // SvgPicture.asset('assets/icons/plus.svg', height: 18, width: 18, color: AppServices.hexaCodeToColor(AppColors.secondary)),
           
         ],
       ),

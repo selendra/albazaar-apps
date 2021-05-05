@@ -112,7 +112,18 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
       });
-    } catch (e){
+    } 
+    // When Don't Have Internet Or Enable Connection
+    on SocketException catch (e) {
+      print("Exception socket ${e.message}");
+      print(e);
+      await Components.dialog(
+        context, 
+        Text("Please check your connection", textAlign: TextAlign.center),
+        Text("Oops")
+      );
+      Navigator.pushReplacementNamed(context, WelcomeView);
+    } catch (e) {
       print(e);
       await Components.dialog(context, Text(e[0]['error']['message'].toString(), textAlign: TextAlign.center), Text("Message"));
       Navigator.pushReplacementNamed(context, WelcomeView);

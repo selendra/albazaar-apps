@@ -43,9 +43,10 @@ class SellerProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Fetch All Customer Order
   Future<void> fetchBuyerOrder() async {
     try {
-      _backend.response = await _getRequest.getAllBuyerOrder();
+      _backend.response = await _getRequest.fetchAllOrder();
       var responseJson = json.decode(_backend.response.body);
       _allBuyerOrder.clear();
       _buyerPendingList.clear();

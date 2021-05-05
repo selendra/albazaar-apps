@@ -26,7 +26,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
-
   # Social
   google_sign_in: ^4.5.1
 
@@ -151,6 +150,7 @@ flutter:
      - assets/icons/
      - assets/animation/
      - assets/categories/
+     - assets/illustrate/
      - lang/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -197,18 +197,20 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     } on SocketException catch (e) {
       print("SOcket");
       await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
+        context,
+        Text("Please check your connection", textAlign: TextAlign.center),
+        Text("Oops")
+      );
           
       // Close Loading
       Navigator.pop(context);
     } on FormatException catch (e) {
       print("Format");
       await Components.dialog(
-          context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
-          Text("Message"));
+        context,
+        Text("Please check your connection", textAlign: TextAlign.center),
+        Text("Oops")
+      );
       // Close Loading
       Navigator.pop(context);
     } finally {
@@ -223,9 +225,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
       _signInModel.isLoading = true;
     });
     try {
-      await AuthProvider()
-          .signInByEmail(_signInModel.email.text, _signInModel.password.text, context)
-          .then((onValue) {
+      await AuthProvider().signInByEmail(_signInModel.email.text, _signInModel.password.text, context).then((onValue) {
         if (onValue != null) {
           ReuseAlertDialog().successDialog(context, onValue);
         }
@@ -233,7 +233,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     } on SocketException catch (e) {
       await Components.dialog(
           context,
-          Text(e.message.toString(), textAlign: TextAlign.center),
+          Text("Failed host lookup", textAlign: TextAlign.center),
           Text("Message"));
     } on FormatException catch (e) {
       await Components.dialog(

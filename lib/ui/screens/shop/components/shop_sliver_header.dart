@@ -1,8 +1,10 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/providers/shop_provider.dart';
-import 'package:albazaar_app/ui/screens/shop/components/all_product_owner.dart';
+import 'package:albazaar_app/ui/screens/shop/components/tabBar/all_product_owner.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_header.dart';
 import 'package:albazaar_app/ui/screens/shop/components/shop_tabbar.dart';
+import 'package:albazaar_app/ui/screens/shop/components/tabBar/pending.dart';
+import 'package:albazaar_app/ui/screens/shop/components/tabBar/sold.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
@@ -18,8 +20,12 @@ class ShopSliverHeader{
     ProductsProvider productProvider,
     BuildContext context,
     TabController tabController,
-    Function onTapTab,
+    Function onTapTabBar,
+
+    // From Body.dart
     Function refresh,
+    Function refreshSellerList,
+
     Function uploadRemainUrlImage,
     Function deleteProduct,
     Function onChanged,
@@ -87,12 +93,6 @@ class ShopSliverHeader{
               ],
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              // image: DecorationImage(
-              //   fit: BoxFit.cover,
-              //   image: AssetImage(
-              //     'assets/map.png'
-              //   )
-              // ),
               child: Column(
                 children: [
                   Container(
@@ -126,8 +126,6 @@ class ShopSliverHeader{
                   ),
 
                   Container(
-                    // bTopLeft: 0, bTopRight: 0,
-                    // hexaColor: AppColors.secondary,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
                       color: AppServices.hexaCodeToColor(AppColors.secondary),
@@ -146,64 +144,8 @@ class ShopSliverHeader{
                   )
                 ]
               )
-              // Column(
-              //   children: [
-              //     FlutterMap(
-              //       mapController: MapController(), //shopModel.mapController,
-              //       options: MapOptions(
-              //         center: LatLng(12.509, 105.634),
-              //         // shopModel.lat != null && shopModel.long != null
-              //         // ? LatLng(shopModel.lat, shopModel.long)
-              //         // : LatLng(12.509, 105.634),
-              //         zoom: 13.0,
-              //         screenSize: MediaQuery.of(context).size,
-              //         slideOnBoundaries: true,
-              //         maxZoom: kDefaultMaxZoom,
-              //         minZoom: kDefaultMinZoom,
-              //       ),
-              //       layers: [
-              //         TileLayerOptions(
-              //           tileFadeInStart: 0.1,
-              //           maxZoom: kDefaultMaxZoom,
-              //           keepBuffer: 100,
-              //           urlTemplate: osmMapTemplate,
-              //           subdomains: ['a', 'b', 'c'],
-              //         ),
-              //         MarkerLayerOptions(
-              //           markers: shopModel.marker.markers,
-              //         ),
-              //       ],
-              //     ),
-
-              //     // MyCard(
-              //     //   bTopLeft: 0, bTopRight: 0,
-              //     //   hexaColor: AppColors.secondary,
-              //     //   child: Column(
-              //     //     children: [
-              //     //       Text("Location: Steng Mean Chey, Phnom Penh"),
-              //     //     ],
-              //     //   ),
-              //     // )
-              //   ],
-              // ),
             )
           ),
-      //     minHeight: 50,
-      //     maxHeight: 50,
-      //     child: Container(
-      //       color: AppServices.hexaCodeToColor(AppColors.bgColor),
-      //       child: MyPadding(
-      //         pLeft: padding, pRight: padding,
-      //         child: Align(
-      //           alignment: Alignment.topLeft,
-      //           child: MyText(
-      //             text: "All Products",
-      //             fontWeight: FontWeight.w600,
-      //             fontSize: 20.0,
-      //           )
-      //         )
-      //       )
-      //     )
         ),
       ),
 
@@ -215,7 +157,12 @@ class ShopSliverHeader{
           maxHeight: 90,
           child: Container(
             color: AppServices.hexaCodeToColor(AppColors.bgColor),
-            child: ShopTabbar()
+            child: ShopTabbar(
+              tabController: shopModel.tabController,
+
+              // From Shop.dart
+              onTapTabBar: onTapTabBar,
+            )
           ),
         )
       ),
@@ -228,7 +175,29 @@ class ShopSliverHeader{
           maxHeight: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              Expanded(child: AllProductOwner(enableDelete: enableDelete, productProvider: productProvider, listProductOwner: shopProvider.allOwnerProduct, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct, onChanged: onChanged,)),
+
+              Expanded(
+                child: TabBarView(
+                controller: shopModel.tabController,
+                children: [
+
+                  Expanded(child: AllProductOwner(enableDelete: enableDelete, productProvider: productProvider, listProductOwner: shopProvider.allOwnerProduct, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct, onChanged: onChanged,)),
+
+                  Expanded(
+                    child: Pending(
+                      refresh: refreshSellerList,
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Sold(
+                      refresh: refreshSellerList,
+                    )
+                  )
+                ]
+              ),
+              ),
+              
               // For Empty Size From Bottom
               SizedBox(
                 height: 185,

@@ -199,9 +199,10 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
         });
       } on SocketException catch (e) {
         await Components.dialog(
-            context,
-            Text(e.message.toString(), textAlign: TextAlign.center),
-            Text("Message"));
+          context,
+          Text("Please check your connection", textAlign: TextAlign.center),
+          Text("Oops")
+        );
       } on FormatException catch (e) {
         await Components.dialog(
             context,

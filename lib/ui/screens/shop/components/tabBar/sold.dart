@@ -1,46 +1,50 @@
 import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 
-class CompleteOrder extends StatelessWidget{
+class Sold extends StatelessWidget{
 
   final Function refresh;
 
-  CompleteOrder({this.refresh});
+  Sold({this.refresh});
 
-  Widget build(BuildContext context){
-    //complete
+  Widget build(BuildContext context) {
+
+    // Sold
     return RefreshIndicator(
       onRefresh: refresh,
-      child: Consumer<ProductsProvider>(
+      child: Consumer<SellerProvider>(
         builder: (context, value, child) {
           return Container(
-            child: value.completeProduct.isNotEmpty
+            child: value.buyerCompleteList.isNotEmpty
             ? ListView.builder(
-              itemCount: value.completeProduct.length,
+              itemCount: value.buyerCompleteList.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      RouteAnimation(
-                        enterPage: OrderDetail(
-                          productOrder:value.completeProduct[index],
-                        ),
-                      ), //productsProvider.orItems[index]))
-                    );
+                    // Navigator.of(context).push(
+                    //   RouteAnimation(
+                    //     enterPage: OrderDetail(
+                    //       productOrder: value.buyerCompleteList[index],
+                    //     ),
+                    //   ), //productsProvider.orItems[index]))
+                    // );
                   },
                   child: Card(
                     elevation: 0,
                     shape: kDefaultShape,
                     child: Container(
-                      height: 100,
+                      height: 120,
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.all(10.0),
+                      margin: EdgeInsets.all(10.0),
                       child: Row(
                         children: [
+
                           ClipRRect(
                             borderRadius: BorderRadius.circular(kDefaultRadius),
                             child: Container(
-                              width: 100,
-                              height: 100,
+                              width: 120,
+                              height: 120,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -50,9 +54,9 @@ class CompleteOrder extends StatelessWidget{
                                   ),
                                 ],
                               ),
-                              child: Image.network(
-                                value.completeProduct[index].thumbnail,
-                                fit: BoxFit.cover,
+                              child: CachedNetworkImage(
+                                imageUrl: value.buyerCompleteList[index].thumbnail,
+                                fit: BoxFit.cover
                               ),
                             ),
                           ),
@@ -73,9 +77,10 @@ class CompleteOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].name}",
+                                        text: "${value.buyerCompleteList[index].name}",
                                         bottom: 10,
-                                      )
+                                        overflow: TextOverflow.clip,
+                                      ),
                                     ],
                                   )
                                 ),
@@ -90,7 +95,7 @@ class CompleteOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].qauantity}",
+                                        text: "${value.buyerCompleteList[index].qauantity}",
                                         bottom: 10,
                                       )
                                     ],
@@ -107,54 +112,49 @@ class CompleteOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].price}",
+                                        text: "${value.buyerCompleteList[index].price}",
                                         bottom: 10,
                                       )
                                     ],
                                   )
                                 ),
+
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      MyText(
+                                        text: "Status:",
+                                        bottom: 10,
+                                      ),
+
+                                      MyText(
+                                        left: 6,
+                                        text: "${value.buyerCompleteList[index].orderStatus}",
+                                        color: AppColors.secondary,
+                                        bottom: 10,
+                                      )
+                                    ],
+                                  )
+                                )
                               ],
                             ),
+                          ),
+
+                          Flexible(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 12, right: 5),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(Icons.arrow_forward_ios_outlined, size: 16)
+                              )
+                            )
                           )
-                          // Column(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     Container(
-                          //       height: 20,
-                          //       width: MediaQuery.of(context).size.width / 2,
-                          //       child: ListTile(
-                          //         title: Text(
-                          //           value.completeProduct[index].name,
-                          //           style: TextStyle(fontWeight: FontWeight.bold),
-                          //         ),
-                          //         isThreeLine: true,
-                          //         subtitle: Text('Qty: ${value.completeProduct[index].qauantity}'),
-                          //       ),
-                          //     ),
-                          //     SizedBox(
-                          //       height: 10,
-                          //     ),
-                          //     Container(
-                          //       height: 20,
-                          //       width: MediaQuery.of(context).size.width / 2,
-                          //       child: ListTile(
-                          //         subtitle: Text(
-                          //           'Price: ${value.completeProduct[index].price}៛ ',
-                          //           style: TextStyle(
-                          //             fontWeight: FontWeight.bold,
-                          //             color: kDefaultColor,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),
                   ),
                 );
-              },
+              }
             )
             : Center(
               child: SvgPicture.asset(

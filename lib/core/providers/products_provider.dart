@@ -92,7 +92,7 @@ class ProductsProvider with ChangeNotifier {
             
             // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
               // Sort Products By Category 
-            await fetchOrListingProduct(token);
+            await fetchOrFromBuyer(token);
             getAllProductImg(token);
           }
 
@@ -192,7 +192,8 @@ class ProductsProvider with ChangeNotifier {
     return List<Map<String, dynamic>>.from(_backend.data);
   }
 
-  Future<void> fetchOrListingProduct(token) async {
+  // List Order You Bought
+  Future<void> fetchOrFromBuyer(token) async {
     print("hey");
     try {
       http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{

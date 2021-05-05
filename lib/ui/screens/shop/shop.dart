@@ -129,19 +129,20 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     Navigator.pop(context);
   }
 
-
+  void onTapTabBar(int index){
+    print("Shop change index $index");
+    _shopModel.tabController.addListener(() {
+      setState((){});
+    });
+  }
 
   @override
   void initState() {
 
-    // _shopModel.lat = 11.56959; 
-    // _shopModel.long = 104.92104;
-
     _shopProvider.listProductCreateShop = [];
-    print("_shopProvider.listProductCreateShop + ${_shopProvider.listProductCreateShop.toString()}");
 
     _shopModel.init();
-    _shopModel.controller = TabController(vsync: this, length: 3);
+    _shopModel.tabController = TabController(vsync: this, length: 3);
     
     super.initState();
     
@@ -149,7 +150,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _shopModel.controller.dispose();
+    _shopModel.tabController.dispose();
     super.dispose();
   }
 
@@ -162,92 +163,97 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     // Use Product Provder Here to get All Product Images
     _productProvider = Provider.of<ProductsProvider>(context);
 
-    return Scaffold(
-      appBar: ReuseAppBar.getTitle(
-        _lang.translate('listing'),
-        context,
-        _lang.translate('all_seller'),
-        _lang.translate('pending'),
-        _lang.translate('complete'),
-        _shopModel.controller,
-        shopProvider: _shopProvider,
-        upLoadedProduct: upLoadedProduct,
-      ), //lang.translate('Products')x
-      body: Stack(
-        children: [
-          
-          _shopProvider.shopCheck == 'create'
-          ? BodyScaffold(
-            height: MediaQuery.of(context).size.height,
-            physics: BouncingScrollPhysics(),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
-
-                  MyFlatButton(
-                    edgeMargin: EdgeInsets.only(left: 110, right: 110),
-                    height: 70,
-                    border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
-                    isTransparent: true,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                        MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
-                      ],
-                    ),
-                    action: (){
-                      setState(() {
-                        _shopProvider.shopCheck = 'creating';
-                        print("After set ${_shopProvider.allOwnerProduct}");
-                      });
-                    },
-                  )
-                ],
-              ),
-            )
-          ) 
-          // Check User Press Create Shop
-          : _shopProvider.shopCheck == 'creating'
+    return DefaultTabController(
+      length: 3, 
+      child: Scaffold(
+        appBar: ReuseAppBar.getTitle(
+          _lang.translate('listing'),
+          context,
+          _lang.translate('all_seller'),
+          _lang.translate('pending'),
+          _lang.translate('complete'),
+          _shopModel.tabController,
+          shopProvider: _shopProvider,
+          upLoadedProduct: upLoadedProduct,
+          enableAddIcon: true
+        ), //lang.translate('Products')x
+        body: Stack(
+          children: [
+            
+            _shopProvider.shopCheck == 'create'
             ? BodyScaffold(
-              // height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height,
               physics: BouncingScrollPhysics(),
-              child: CreateShop(
-                shopModel: _shopModel,
-                shopProvider: _shopProvider,
-                uploadedProduct: upLoadedProduct
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset('assets/create_shop.svg', width: 293, height: 293),
+
+                    MyFlatButton(
+                      edgeMargin: EdgeInsets.only(left: 110, right: 110),
+                      height: 70,
+                      border: Border.all(color: AppServices.hexaCodeToColor(AppColors.primary), width: 2),
+                      isTransparent: true,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/icons/plus.svg', width: 15, height: 15, color: AppServices.hexaCodeToColor(AppColors.primary)),
+                          MyText(left: pd10, text: "Create Shop", fontWeight: FontWeight.w600, color: AppColors.primary,),
+                        ],
+                      ),
+                      action: (){
+                        setState(() {
+                          _shopProvider.shopCheck = 'creating';
+                          print("After set ${_shopProvider.allOwnerProduct}");
+                        });
+                      },
+                    )
+                  ],
+                ),
               )
             ) 
-            // Check Shop Already Create And Display Shop
-            : Body(
-              shopModel: _shopModel, 
-              shopProvider: _shopProvider, 
-              productProvider: _productProvider, 
-              uploadRemainUrlImage: uploadRemainUrlImage, 
-              deleteProduct: deleteProduct,
-              triggerLocation: triggerLocation
-            ),
-
-              
-            
-          // Check User Not Yet Create Shop And Show Create Shop Screen
-          if ( _shopProvider.shopCheck == '')
-          Container(
-            color: AppServices.hexaCodeToColor(AppColors.bgColor),
-            child: Center(
-              child: MyCard(
-                pTop: 20, pRight: 20, pLeft: 20, pBottom: 20,
-                hexaColor: AppColors.white,
-                width: 80,
-                height: 80,
-                alignChild: Alignment.center,
-                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppServices.hexaCodeToColor(AppColors.primary)))
+            // Check User Press Create Shop
+            : _shopProvider.shopCheck == 'creating'
+              ? BodyScaffold(
+                // height: MediaQuery.of(context).size.height,
+                physics: BouncingScrollPhysics(),
+                child: CreateShop(
+                  shopModel: _shopModel,
+                  shopProvider: _shopProvider,
+                  uploadedProduct: upLoadedProduct
+                )
               ) 
+              // Check Shop Already Create And Display Shop
+              : Body(
+                shopModel: _shopModel, 
+                shopProvider: _shopProvider, 
+                productProvider: _productProvider, 
+                uploadRemainUrlImage: uploadRemainUrlImage, 
+                onTapTabBar: onTapTabBar,
+                deleteProduct: deleteProduct,
+                triggerLocation: triggerLocation
+              ),
+
+                
+              
+            // Check User Not Yet Create Shop And Show Create Shop Screen
+            if ( _shopProvider.shopCheck == '')
+            Container(
+              color: AppServices.hexaCodeToColor(AppColors.bgColor),
+              child: Center(
+                child: MyCard(
+                  pTop: 20, pRight: 20, pLeft: 20, pBottom: 20,
+                  hexaColor: AppColors.white,
+                  width: 80,
+                  height: 80,
+                  alignChild: Alignment.center,
+                  child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(AppServices.hexaCodeToColor(AppColors.primary)))
+                ) 
+              )
             )
-          )
-        ],
+          ],
+        )
       )
     );
   }

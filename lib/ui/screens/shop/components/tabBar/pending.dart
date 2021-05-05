@@ -1,46 +1,49 @@
 import 'package:albazaar_app/all_export.dart';
 
-class PendingOrder extends StatelessWidget{
+class Pending extends StatelessWidget{
 
   final Function refresh;
 
-  PendingOrder({this.refresh});
+  Pending({this.refresh});
 
   Widget build(BuildContext context) {
-    //pending
+
+    // Pending
     return RefreshIndicator(
       onRefresh: refresh,
-      child: Consumer<ProductsProvider>(
+      child: Consumer<SellerProvider>(
         builder: (context, value, child) {
           return Container(
-            child: value.orItems.isNotEmpty
+            child: value.buyerPendingList.isNotEmpty
             ? ListView.builder(
-              itemCount: value.orItems.length,
+              itemCount: value.buyerPendingList.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      RouteAnimation(
-                        enterPage: OrderDetail(
-                          productOrder: value.orItems[index],
-                        ),
-                      ),
-                    );
+                    // Navigator.of(context).push(
+                    //   RouteAnimation(
+                    //     enterPage: OrderDetail(
+                    //       productOrder: value.buyerPendingList[index],
+                    //     ),
+                    //   ), //productsProvider.orItems[index]))
+                    // );
                   },
                   child: Card(
                     elevation: 0,
                     shape: kDefaultShape,
                     child: Container(
-                      height: 100,
+                      height: 120,
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.all(10.0),
+                      margin: EdgeInsets.all(10.0),
                       child: Row(
                         children: [
+
                           ClipRRect(
                             borderRadius: BorderRadius.circular(kDefaultRadius),
                             child: Container(
-                              width: 100,
-                              height: 100,
+                              width: 120,
+                              height: 120,
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
@@ -50,9 +53,9 @@ class PendingOrder extends StatelessWidget{
                                   ),
                                 ],
                               ),
-                              child: Image.network(
-                                value.orItems[index].thumbnail,
-                                fit: BoxFit.cover,
+                              child: CachedNetworkImage(
+                                imageUrl: value.buyerPendingList[index].thumbnail,
+                                fit: BoxFit.cover
                               ),
                             ),
                           ),
@@ -73,9 +76,10 @@ class PendingOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].name}",
+                                        text: "${value.buyerPendingList[index].name}",
                                         bottom: 10,
-                                      )
+                                        overflow: TextOverflow.clip,
+                                      ),
                                     ],
                                   )
                                 ),
@@ -90,7 +94,7 @@ class PendingOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].qauantity}",
+                                        text: "${value.buyerPendingList[index].qauantity}",
                                         bottom: 10,
                                       )
                                     ],
@@ -107,14 +111,42 @@ class PendingOrder extends StatelessWidget{
 
                                       MyText(
                                         left: 6,
-                                        text: "${value.allOrderItems[index].price}",
+                                        text: "${value.buyerPendingList[index].price}",
                                         bottom: 10,
                                       )
                                     ],
                                   )
                                 ),
+
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      MyText(
+                                        text: "Status:",
+                                        bottom: 10,
+                                      ),
+
+                                      MyText(
+                                        left: 6,
+                                        text: "${value.buyerPendingList[index].orderStatus}",
+                                        color: AppColors.secondary,
+                                        bottom: 10,
+                                      )
+                                    ],
+                                  )
+                                )
                               ],
                             ),
+                          ),
+
+                          Flexible(
+                            child: Container(
+                              padding: EdgeInsets.only(left: 12, right: 5),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(Icons.arrow_forward_ios_outlined, size: 16)
+                              )
+                            )
                           )
                         ],
                       ),
