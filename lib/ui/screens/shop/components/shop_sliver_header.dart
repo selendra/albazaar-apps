@@ -181,18 +181,20 @@ class ShopSliverHeader{
                 controller: shopModel.tabController,
                 children: [
 
-                  Expanded(child: AllProductOwner(enableDelete: enableDelete, productProvider: productProvider, listProductOwner: shopProvider.allOwnerProduct, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct, onChanged: onChanged,)),
+                  AllProductOwner(enableDelete: enableDelete, productProvider: productProvider, listProductOwner: shopProvider.allOwnerProduct, uploadRemainUrlImage: uploadRemainUrlImage, deleteProduct: deleteProduct, onChanged: onChanged,),
 
-                  Expanded(
+                  MyPadding(
+                    pLeft: 12, pRight: 12,
                     child: Pending(
                       refresh: refreshSellerList,
                     ),
                   ),
 
-                  Expanded(
+                  MyPadding(
+                    pLeft: 12, pRight: 12,
                     child: Sold(
                       refresh: refreshSellerList,
-                    )
+                    ),
                   )
                 ]
               ),

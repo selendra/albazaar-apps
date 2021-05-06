@@ -47,52 +47,52 @@ class MyInputField extends StatelessWidget{
       padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       height: height,
       child: TextFormField(
-          key: this.key,
-          enabled: enableInput,
-          focusNode: focusNode,
-          keyboardType: inputType,
-          obscureText: obcureText,
-          controller: controller,
-          textInputAction: inputAction,
-          style: TextStyle(color: Colors.black54, fontSize: 18.0),
-          validator: validateField,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            prefix: icon,
-            labelText: labelText,
-            labelStyle: TextStyle(
-              fontSize: 18.0,
-              color: focusNode.hasFocus || controller.text != ""
-              ? Colors.black.withOpacity(0.3)
-              : Colors.black
-            ),
-            /* Prefix Text */
-            prefixText: prefixText,
-            prefixStyle: TextStyle(color: AppServices.hexaCodeToColor(AppColors.primary), fontSize: 18.0),
-
-            /* SuffixIcon */
-            suffixIcon: suffexIcon,
-            filled: true, 
-            fillColor: Colors.white,
-            enabledBorder: myTextInputBorder(controller.text != ""
-              ? Colors.black.withOpacity(0.3)
-              : Colors.transparent
-            ),
-            /* Enable Border But Not Show Error */
-            border: errorOutline(),
-            /* Show Error And Red Border */
-            focusedBorder: myTextInputBorder(Colors.black.withOpacity(0.3)),
-            /* Default Focuse Border Color*/
-            focusColor: Colors.black,
-            /* Border Color When Focusing */
-            contentPadding: EdgeInsets.fromLTRB(21, 23, 21, 23), // Default padding = -10.0 px
-            // suffixIcon: icon,
+        key: this.key,
+        enabled: enableInput,
+        focusNode: focusNode,
+        keyboardType: inputType,
+        obscureText: obcureText,
+        controller: controller,
+        textInputAction: inputAction,
+        style: TextStyle(color: Colors.black54, fontSize: 18.0),
+        validator: validateField,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          prefix: icon,
+          labelText: labelText,
+          labelStyle: TextStyle(
+            fontSize: 18.0,
+            color: focusNode.hasFocus || controller.text != ""
+            ? Colors.black.withOpacity(0.3)
+            : Colors.black
           ),
-          inputFormatters: textInputFormatter,
-          /* Limit Length Of Text Input */
-          onChanged: onChanged,
-          onFieldSubmitted: onSubmit,
-        )
+          /* Prefix Text */
+          prefixText: prefixText,
+          prefixStyle: TextStyle(color: AppServices.hexaCodeToColor(AppColors.primary), fontSize: 18.0),
+
+          /* SuffixIcon */
+          suffixIcon: suffexIcon,
+          filled: true, 
+          fillColor: Colors.white,
+          enabledBorder: myTextInputBorder(controller.text != ""
+            ? Colors.black.withOpacity(0.3)
+            : Colors.transparent
+          ),
+          /* Enable Border But Not Show Error */
+          border: errorOutline(),
+          /* Show Error And Red Border */
+          focusedBorder: myTextInputBorder(Colors.black.withOpacity(0.3)),
+          /* Default Focuse Border Color*/
+          focusColor: Colors.black,
+          /* Border Color When Focusing */
+          contentPadding: EdgeInsets.fromLTRB(21, 23, 21, 23), // Default padding = -10.0 px
+          // suffixIcon: icon,
+        ),
+        inputFormatters: textInputFormatter,
+        /* Limit Length Of Text Input */
+        onChanged: onChanged,
+        onFieldSubmitted: onSubmit,
+      )
     );
   }
 }
