@@ -37,6 +37,7 @@ class ShopHeader extends StatelessWidget{
                     hexaColor: AppColors.secondary,
                     child: Container(
                       padding: EdgeInsets.only(left: pd20, right: pd20, top: pd20+15, bottom: pd20),
+                      alignment: Alignment.centerLeft,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

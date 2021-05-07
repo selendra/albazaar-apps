@@ -41,12 +41,13 @@ class ShopProvider extends ChangeNotifier{
           print("Shop Response ${_backend.data}");
           print("${_backend.data.runtimeType}");
           if (_backend.data.runtimeType.toString() != "List<dynamic>" && _backend.data.runtimeType.toString() != "_GrowableList<dynamic>"){
-
+            if (shopCheck != 'created') shopCheck = 'create';
             // Token Might Expired
             return _backend.response;
           }
 
           if (json.decode(_backend.response.body).isEmpty){
+            print(2);
             shopCheck = 'create';
           } else {
 

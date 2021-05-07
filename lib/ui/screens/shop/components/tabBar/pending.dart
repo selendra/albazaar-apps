@@ -63,7 +63,7 @@ class Pending extends StatelessWidget{
                   )
                   : Center(
                     child: SvgPicture.asset(
-                      'assets/undraw_loving_it.svg',
+                      '${AppConfig.illustratePath}empty.svg',
                       height: MediaQuery.of(context).size.height * 0.3,
                       width: MediaQuery.of(context).size.width * 0.3,
                     ),

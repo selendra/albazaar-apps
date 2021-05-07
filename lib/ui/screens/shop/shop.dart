@@ -72,6 +72,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
       // Refetch All Product After Deleted
       setState((){});
       await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+      await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
     } catch (e){
       //CLose Loading
       Navigator.pop(context);
@@ -138,7 +139,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
+    print("Hello init");
     _shopProvider.listProductCreateShop = [];
 
     _shopModel.init();
@@ -158,7 +159,6 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
     _shopProvider = Provider.of<ShopProvider>(context);
-    print("My all ${_shopProvider.allOwnerProduct}");
 
     // Use Product Provder Here to get All Product Images
     _productProvider = Provider.of<ProductsProvider>(context);

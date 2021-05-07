@@ -30,6 +30,6 @@ class ShopModel {
     profile = '';
     product = [];
     cover = '';
-    about = TextEditingController(text: 'Hello ! My name’s Daveat. I’m come from phnom penh and sell crops like broccoli, etc.');
+    about = TextEditingController();
   }
 }

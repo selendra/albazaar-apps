@@ -86,7 +86,7 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   void validateProductDelete(String value, String currentProduct){
   }
 
-  void editHeader (String label) async {
+  void editHeader(String label) async {
     if (label == 'profile'){
       widget.shopModel.profile = await onChangeImage();
       setState(() {
@@ -109,17 +109,17 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
         MyText(text: "Edit about"),
         action: TextButton(
           onPressed: (){
-            Navigator.pop(context, "submit");
+            Navigator.pop(context, widget.shopModel.about);
           }, 
           child: Text("Submit")
         )
       );
 
-      if (result == null){
-        setState((){
-          widget.shopModel.about.text = result;
-        });
+      if (result != null){
+        widget.shopModel.about.text = result;
       }
+      setState((){
+      });
     }
   }
 

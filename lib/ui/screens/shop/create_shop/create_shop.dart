@@ -64,7 +64,7 @@ class _CreateShopState extends State<CreateShop> {
   }
 
   Future<void> submit() async {
-    // Components.dialogLoading(context: context);
+    Components.dialogLoading(context: context);
     try {
       widget.shopProvider.listProductCreateShop.forEach((element) async {
         _backend.response = await _postRequest.addListing(OwnerProduct().toAddProduct(element));
