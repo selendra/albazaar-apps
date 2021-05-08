@@ -42,4 +42,5 @@ class SellerModel with ChangeNotifier {
     });
     // notifyListeners();
   }
+
 }

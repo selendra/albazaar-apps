@@ -230,6 +230,7 @@ class ProductModel {
 //     final orderProduct = orderProductFromJson(jsonString);
 
 class OrderProduct with ChangeNotifier {
+
   OrderProduct({
     this.shippingService,
     this.orderStatus,
@@ -261,20 +262,20 @@ class OrderProduct with ChangeNotifier {
   Seller seller;
 
   factory OrderProduct.fromJson(Map<String, dynamic> json) => OrderProduct(
-        shippingService: json["shipping_service"],
-        orderStatus: json["order_status_dec"],
-        productId: json["product_id"],
-        name: json["name"],
-        buyerId: json["buyer_id"],
-        sellerPhonenumber: json["seller_phonenumber"],
-        total: json["total"].toDouble(),
-        thumbnail: json["thumbnail"],
-        id: json["id"],
-        price: json["price"],
-        qauantity: json["qauantity"],
-        shippingAddress: json["shipping_address"],
-        seller: Seller.fromJson(json["seller"]),
-      );
+    shippingService: json["shipping_service"],
+    orderStatus: json["order_status_dec"],
+    productId: json["product_id"],
+    name: json["name"],
+    buyerId: json["buyer_id"],
+    sellerPhonenumber: json["seller_phonenumber"],
+    total: json["total"].toDouble(),
+    thumbnail: json["thumbnail"],
+    id: json["id"],
+    price: json["price"],
+    qauantity: json["qauantity"],
+    shippingAddress: json["shipping_address"],
+    seller: Seller.fromJson(json["seller"]),
+  );
 
   Map<String, dynamic> toJson() => {
         "shipping_service": shippingService,

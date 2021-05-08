@@ -1,6 +1,7 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/row_of_product.dart';
 import 'package:albazaar_app/core/providers/shop_provider.dart';
+import 'package:albazaar_app/ui/screens/seller_confirmation/seller_confrmation_body.dart';
 
 class Sold extends StatelessWidget{
 
@@ -17,7 +18,7 @@ class Sold extends StatelessWidget{
           alignment: Alignment.centerLeft,
           child: MyText(
             bottom: 8,
-            text: "Sold",
+            text: "Products Sold",
             fontSize: 25,
             color: AppColors.secondary,
             textAlign: TextAlign.left,
@@ -50,13 +51,13 @@ class Sold extends StatelessWidget{
                         sellerModel: value.buyerCompleteList[index],
                         onTap: (){
 
-                          // Navigator.of(context).push(
-                          //   RouteAnimation(
-                          //     enterPage: OrderDetail(
-                          //       productOrder: value.buyerPendingList[index],
-                          //     ),
-                          //   ), //productsProvider.orItems[index]))
-                          // );
+                          Navigator.of(context).push(
+                            RouteAnimation(
+                              enterPage: SellerConfirmBody(
+                                productOrder: value.buyerCompleteList[index],
+                              ),
+                            ), //productsProvider.orItems[index]))
+                          );
                         },
                       );
                     }

@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:albazaar_app/all_export.dart';
 
-
-
 class OrderDetailBody extends StatelessWidget {
   final OrderProduct productOrder;
 
@@ -25,98 +23,72 @@ class OrderDetailBody extends StatelessWidget {
             ),
           ),
           Card(
-            margin: const EdgeInsets.all(10.0),
-            child: Column(
+            margin: const EdgeInsets.all(12),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      reuseText(_lang.translate('summary') + ":\n",
-                          fontSize: 15),
-                      Row(
-                        children: [
-                          Expanded(
-                            child:
-                                reuseText(_lang.translate('seller_name') + ":"),
-                          ),
-                          Expanded(
-                            child: reuseText('${productOrder.seller.value}'),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: reuseText(_lang.translate('phone_hint') + ":"),
-                          ),
-                          Expanded(
-                            child: reuseText("${productOrder.sellerPhonenumber}"),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: reuseText(_lang.translate('order_total') + ": "),
-                          ),
-                          Expanded(
-                            child: reuseText('${productOrder.total}៛'),
-                          ),
-                        ],
-                      ),
-                    ],
+                  padding: const EdgeInsets.only(bottom: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        reuseText(_lang.translate('summary') + ":\n",fontSize: 15),
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                                  reuseText(_lang.translate('seller_name') + ":"),
+                            ),
+                            Expanded(
+                              child: reuseText('${productOrder.seller.value}'),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: reuseText(_lang.translate('phone_hint') + ":"),
+                            ),
+                            Expanded(
+                              child: reuseText("${productOrder.sellerPhonenumber}"),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: reuseText(_lang.translate('order_total') + ": "),
+                            ),
+                            Expanded(
+                              child: reuseText('${productOrder.total}៛'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Divider(),
-                Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      reuseText(_lang.translate('shipping_address') + ":\n", fontSize: 15),
-                      reuseText('${productOrder.shippingAddress}'),
-                    ],
+                  
+                  Divider(),
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        reuseText(_lang.translate('shipping_address') + ":\n", fontSize: 15),
+                        reuseText('${productOrder.shippingAddress}'),
+                      ],
+                    ),
                   ),
-                ),
-                // RaisedButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       RouteAnimation(
-                //         enterPage: Tracking(
-                //           productOrder: productOrder,
-                //         ),
-                //       ),
-                //     );
-                //   },
-                //   child: Text(
-                //     'Track Order',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                //   color: kDefaultColor,
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.all(
-                //       Radius.circular(
-                //         kDefaultRadius,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
+                ],
+              ),
             ),
           ),
           Card(
@@ -250,7 +222,10 @@ class OrderDetailBody extends StatelessWidget {
               ? null : () async {
                 await Components.dialog(
                   context,
-                  Text("Do you want to complete order?"),
+                  Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Text("Do you want to complete order?", textAlign: TextAlign.center)
+                  ),
                   Text("Message"),
                   action: TextButton(
                     onPressed: () {

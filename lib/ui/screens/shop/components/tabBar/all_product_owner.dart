@@ -30,7 +30,7 @@ class AllProductOwner extends StatelessWidget{
         Align(
           alignment: Alignment.centerLeft,
           child: MyText(
-            text: "Your goods",
+            text: "In Stock",
             fontSize: 25,
             color: AppColors.secondary,
             textAlign: TextAlign.left,

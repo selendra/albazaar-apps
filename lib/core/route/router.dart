@@ -34,7 +34,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       break;
     case SellerInfoView:
       return MaterialPageRoute(
-        builder: (context) => SellerConfirm(),
+        builder: (context) => SoldDetails(),
       );
       break;
     case ProfileView:

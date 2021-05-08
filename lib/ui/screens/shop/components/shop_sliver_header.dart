@@ -138,7 +138,7 @@ class ShopSliverHeader{
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(text: "Location:", color: AppColors.white, textAlign: TextAlign.left, fontWeight: FontWeight.bold, fontSize: 20, bottom: 5,),
-                        MyText(text: "${shopModel.locationName}", fontSize: 16, color: AppColors.white, textAlign: TextAlign.left,),
+                        MyText(text: "${shopModel.locationName.isEmpty ? 'No location' : shopModel.locationName}", fontSize: 16, color: AppColors.white, textAlign: TextAlign.left,),
                       ],
                     ),
                   )

@@ -1,7 +1,8 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/seller_confirmation/seller_tracking.dart';
 
-class SellerConfirm extends StatelessWidget {
+class SoldDetails extends StatelessWidget {
+
   PostRequest _postRequest = PostRequest();
 
   @override
@@ -9,18 +10,16 @@ class SellerConfirm extends StatelessWidget {
     var _lang = AppLocalizeService.of(context);
     final productId = ModalRoute.of(context).settings.arguments as String;
     var loadedProduct = Provider.of<SellerProvider>(context).findById(productId);
+
     return Scaffold(
-      appBar: ReuseSimpleAppBar.getItem(
-          AppLocalizeService.of(context).translate('payment_n_shipment'),
-          context),
+      appBar: ReuseSimpleAppBar.getItem(AppLocalizeService.of(context).translate('payment_n_shipment'), context),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               margin: const EdgeInsets.only(top: 20),
-              child: SvgPicture.asset("assets/packaging.svg",
-                  width: 150, height: 150),
+              child: SvgPicture.asset("assets/packaging.svg", width: 150, height: 150),
             ),
             Card(
               margin: EdgeInsets.all(10),
@@ -83,14 +82,13 @@ class SellerConfirm extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        reuseText("SHIPPING ADDRESS:\n",
-                            fontSize: 17, fontWeight: FontWeight.bold),
+                        reuseText("SHIPPING ADDRESS:\n", fontSize: 17, fontWeight: FontWeight.bold),
                         reuseText("${loadedProduct.shippingAddress}")
                       ],
                     ),
                   ),
 
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -108,14 +106,14 @@ class SellerConfirm extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    color: kDefaultColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          kDefaultRadius,
-                        ),
-                      ),
-                    ),
+                    // color: kDefaultColor,
+                    // shape: RoundedRectangleBorder(
+                    //   borderRadius: BorderRadius.all(
+                    //     Radius.circular(
+                    //       kDefaultRadius,
+                    //     ),
+                    //   ),
+                    // ),
                   )
                 ],
               ),
@@ -188,12 +186,12 @@ class SellerConfirm extends StatelessWidget {
                 ),
               ),
             ),
+            
             Consumer<SellerProvider>(
               builder: (context, value, child) {
                 var item = value.findById(loadedProduct.id);
                 return Container(
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 40.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
                   child: item.orderStatus == 'Place Order'
                       ? ReuseButton.getItem(_lang.translate('confirm_payment'),
                           () async {

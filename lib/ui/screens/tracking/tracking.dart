@@ -13,14 +13,35 @@ class Tracking extends StatefulWidget {
 }
 
 class _TrackingState extends State<Tracking> {
+
+  int trackingProgress = 1;
   
   double _currentValue = 0;
+  
   String statusReminder = '';
 
   @override
   void initState() {
     super.initState();
     // checkProgress();
+  }
+
+  void checkTrackingProgress(){
+    if (widget.productOrder.orderStatus == "Pay Success"){
+      setState((){
+        trackingProgress = 1;
+      });
+    } 
+    else if (widget.productOrder.orderStatus == "Shipment"){
+      setState((){
+        trackingProgress = 2;
+      });
+    }
+    else if (widget.productOrder.orderStatus == "Order Complete"){
+      setState((){
+        trackingProgress = 3;
+      });
+    }
   }
 
   void checkProgress() {
@@ -36,7 +57,7 @@ class _TrackingState extends State<Tracking> {
   @override
   Widget build(BuildContext context) {
 
-    final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(widget.productOrder.productId);
+    // final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(widget.productOrder.productId);
 
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('Tracking', context),
@@ -65,7 +86,7 @@ class _TrackingState extends State<Tracking> {
 
                     SizedBox(height: 10),
                     Text(
-                      '${widget.productOrder.name}',
+                      '{widget.productOrder.name}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold, 
                         fontSize: 20,
@@ -74,17 +95,17 @@ class _TrackingState extends State<Tracking> {
                     ),
 
                     SizedBox(height: 10.0),
-                    Text('Order: ${widget.productOrder.id}'),
+                    Text('Order: {widget.productOrder.id}'),
 
                     SizedBox(height: 5),
-                    Text('Reminder: ${widget.productOrder.orderStatus}'),
+                    Text('Reminder: {widget.productOrder.orderStatus}'),
 
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText("${loadedProduct.address}", TextAlign.start),
-                        reuseText("${widget.productOrder.shippingAddress}", TextAlign.end),
+                        reuseText("{loadedProduct.address}", TextAlign.start),
+                        reuseText("{widget.productOrder.shippingAddress}", TextAlign.end),
                       ],
                     ),
 
@@ -125,6 +146,7 @@ class _TrackingState extends State<Tracking> {
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           isFirst: true,
+                          afterLineStyle: trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           indicatorStyle: IndicatorStyle(
                             width: 40,
                             height: 40,
@@ -158,6 +180,8 @@ class _TrackingState extends State<Tracking> {
 
                       Expanded(
                         child: TimelineTile(
+                          beforeLineStyle: trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          afterLineStyle: trackingProgress != 0  ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           indicatorStyle: IndicatorStyle(
@@ -187,6 +211,8 @@ class _TrackingState extends State<Tracking> {
 
                       Expanded(
                         child: TimelineTile(
+                          beforeLineStyle: trackingProgress != 1 && trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          afterLineStyle: trackingProgress == 3 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           indicatorStyle: IndicatorStyle(
@@ -216,6 +242,8 @@ class _TrackingState extends State<Tracking> {
                       
                       Expanded(
                         child: TimelineTile(
+                          beforeLineStyle: trackingProgress == 3 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          afterLineStyle: LineStyle(),
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           isLast: true,

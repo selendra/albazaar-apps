@@ -21,15 +21,6 @@ class RowOfProduct extends StatelessWidget{
   Widget build(BuildContext context){
     return InkWell(
       onTap: onTap,
-      // () {
-      //   // Navigator.of(context).push(
-      //   //   RouteAnimation(
-      //   //     enterPage: OrderDetail(
-      //   //       productOrder: seller ? sellerModel, : orderProduct.
-      //   //     ),
-      //   //   ), //productsProvider.orItems[index]))
-      //   // );
-      // },
       child: Card(
         elevation: 0,
         shape: kDefaultShape,
@@ -72,11 +63,12 @@ class RowOfProduct extends StatelessWidget{
                         children: [
                           MyText(
                             text: "Name:",
+                            fontWeight: FontWeight.w700,
                             bottom: 10,
                           ),
 
                           MyText(
-                            left: 6,
+                            left: 12,
                             text: "${seller ? sellerModel.name : orderProduct.name}",
                             bottom: 10,
                             overflow: TextOverflow.clip,
@@ -90,11 +82,12 @@ class RowOfProduct extends StatelessWidget{
                         children: [
                           MyText(
                             text: "Qty:",
+                            fontWeight: FontWeight.w700,
                             bottom: 10,
                           ),
 
                           MyText(
-                            left: 6,
+                            left: 12,
                             text: "${seller ? sellerModel.qauantity : orderProduct.qauantity}",
                             bottom: 10,
                           )
@@ -107,11 +100,12 @@ class RowOfProduct extends StatelessWidget{
                         children: [
                           MyText(
                             text: "Price:",
+                            fontWeight: FontWeight.w700,
                             bottom: 10,
                           ),
 
                           MyText(
-                            left: 6,
+                            left: 12,
                             text: "${seller ? sellerModel.price : orderProduct.price}",
                             bottom: 10,
                           )
@@ -124,11 +118,12 @@ class RowOfProduct extends StatelessWidget{
                         children: [
                           MyText(
                             text: "Status:",
+                            fontWeight: FontWeight.w700,
                             bottom: 10,
                           ),
 
                           MyText(
-                            left: 6,
+                            left: 12,
                             text: "${seller ? sellerModel.orderStatus : orderProduct.orderStatus}",
                             color: AppColors.secondary,
                             bottom: 10,

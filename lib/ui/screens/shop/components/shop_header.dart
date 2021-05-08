@@ -54,7 +54,7 @@ class ShopHeader extends StatelessWidget{
                             top: pd10,
                             textAlign: TextAlign.left,
                             color: AppColors.white,
-                            text: "${shopModel.about.text}",
+                            text: "${shopModel.about.text.isEmpty ? 'No information' : shopModel.about.text.isEmpty}",
                             fontSize: 16,
                           )
                         ],

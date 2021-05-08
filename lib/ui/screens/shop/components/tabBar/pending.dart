@@ -1,5 +1,6 @@
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/core/components/row_of_product.dart';
+import 'package:albazaar_app/ui/screens/seller_confirmation/seller_confrmation_body.dart';
 
 class Pending extends StatelessWidget{
 
@@ -15,7 +16,7 @@ class Pending extends StatelessWidget{
         Align(
           alignment: Alignment.centerLeft,
           child: MyText(
-            text: "Pending",
+            text: "Products Pending",
             fontSize: 25,
             color: AppColors.secondary,
             textAlign: TextAlign.left,
@@ -50,13 +51,13 @@ class Pending extends StatelessWidget{
                         sellerModel: value.buyerPendingList[index],
                         onTap: (){
 
-                          // Navigator.of(context).push(
-                          //   RouteAnimation(
-                          //     enterPage: OrderDetail(
-                          //       productOrder: value.buyerPendingList[index],
-                          //     ),
-                          //   ), //productsProvider.orItems[index]))
-                          // );
+                          Navigator.of(context).push(
+                            RouteAnimation(
+                              enterPage: SellerConfirmBody(
+                                productOrder: value.buyerPendingList[index],
+                              ),
+                            ), //productsProvider.orItems[index]))
+                          );
                         },
                       );
                     }
