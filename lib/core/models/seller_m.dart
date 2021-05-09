@@ -19,6 +19,8 @@ class SellerModel with ChangeNotifier {
   String type = '';
   String value = '';
 
+  SellerModel();
+
   SellerModel.fromJson(Map<String, dynamic> data) {
     shippingService = data['shipping_service'];
     orderStatus = data["order_status_dec"];
@@ -41,6 +43,25 @@ class SellerModel with ChangeNotifier {
       }
     });
     // notifyListeners();
+  }
+
+  OrderProduct sellerToOrder(SellerModel seller){
+    OrderProduct order = OrderProduct();
+
+    order.shippingService = seller.shippingService;
+    order.orderStatus = seller.orderStatus;
+    order.productId = seller.productId;
+    order.name = seller.name;
+    order.buyerId = seller.buyerId;
+    // order.sellerPhonenumber = seller.
+    order.total = seller.total;
+    order.thumbnail = seller.thumbnail;
+    order.id = seller.id;
+    order.price = seller.price;
+    order.qauantity = seller.qauantity;
+    order.shippingAddress = seller.shippingAddress;
+    
+    return order;
   }
 
 }

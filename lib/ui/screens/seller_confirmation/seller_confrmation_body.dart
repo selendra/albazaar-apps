@@ -211,14 +211,14 @@ class SellerConfirmBody extends StatelessWidget {
                       ],
                     ),
                     onPressed: (){
-                      // Navigator.push(
-                      //   context,
-                      //   RouteAnimation(
-                      //     enterPage: Tracking(
-                      //       productOrder: productOrder,
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        RouteAnimation(
+                          enterPage: Tracking(
+                            productOrder: SellerModel().sellerToOrder(productOrder),
+                          ),
+                        ),
+                      );
                     }
                   )
                 ],

@@ -14,7 +14,7 @@ class Tracking extends StatefulWidget {
 
 class _TrackingState extends State<Tracking> {
 
-  int trackingProgress = 1;
+  int trackingProgress = 0;
   
   double _currentValue = 0;
   
@@ -22,8 +22,8 @@ class _TrackingState extends State<Tracking> {
 
   @override
   void initState() {
+    checkTrackingProgress();
     super.initState();
-    // checkProgress();
   }
 
   void checkTrackingProgress(){
@@ -42,22 +42,13 @@ class _TrackingState extends State<Tracking> {
         trackingProgress = 3;
       });
     }
-  }
-
-  void checkProgress() {
-    if (widget.productOrder.orderStatus == "Order Complete") {
-      setState(() {
-        _currentValue = 100;
-      });
-    } else if (widget.productOrder.orderStatus == "Shipment") {
-      _currentValue = 50;
-    }
+    print(trackingProgress);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    // final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(widget.productOrder.productId);
+    final loadedProduct = Provider.of<ProductsProvider>(context, listen: false).findById(widget.productOrder.productId);
 
     return Scaffold(
       appBar: ReuseSimpleAppBar.getItem('Tracking', context),
@@ -86,7 +77,7 @@ class _TrackingState extends State<Tracking> {
 
                     SizedBox(height: 10),
                     Text(
-                      '{widget.productOrder.name}',
+                      '${widget.productOrder.name}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold, 
                         fontSize: 20,
@@ -95,17 +86,17 @@ class _TrackingState extends State<Tracking> {
                     ),
 
                     SizedBox(height: 10.0),
-                    Text('Order: {widget.productOrder.id}'),
+                    Text('Order: ${widget.productOrder.id}'),
 
                     SizedBox(height: 5),
-                    Text('Reminder: {widget.productOrder.orderStatus}'),
+                    Text('Reminder: ${widget.productOrder.orderStatus}'),
 
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        reuseText("{loadedProduct.address}", TextAlign.start),
-                        reuseText("{widget.productOrder.shippingAddress}", TextAlign.end),
+                        reuseText("${loadedProduct.address}", TextAlign.start),
+                        reuseText("${widget.productOrder.shippingAddress}", TextAlign.end),
                       ],
                     ),
 
@@ -148,16 +139,16 @@ class _TrackingState extends State<Tracking> {
                           isFirst: true,
                           afterLineStyle: trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           indicatorStyle: IndicatorStyle(
-                            width: 40,
-                            height: 40,
+                            width: trackingProgress == 0 ? 40 : 30,
+                            height: trackingProgress == 0 ? 40 : 30,
                             padding: const EdgeInsets.all(8),
                             indicator: Container(
-                              padding: EdgeInsets.all(6),
-                              decoration: BoxDecoration(
+                              padding: trackingProgress == 0 ? EdgeInsets.all(6) : EdgeInsets.zero,
+                              decoration: trackingProgress == 0 ? BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppServices.hexaCodeToColor(AppColors.primary),
-                              ),
-                              child: SvgPicture.asset("${AppConfig.iconPath}package.svg", color: Colors.white),
+                              ) : BoxDecoration(),
+                              child: SvgPicture.asset("${AppConfig.iconPath}package.svg", color: trackingProgress == 0 ? Colors.white : Colors.black),
                             ),
                           ),
                           startChild: Align(
@@ -180,16 +171,24 @@ class _TrackingState extends State<Tracking> {
 
                       Expanded(
                         child: TimelineTile(
+                          // If TrackingProgress == Tracking 
                           beforeLineStyle: trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
-                          afterLineStyle: trackingProgress != 0  ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          afterLineStyle: trackingProgress > 1 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           indicatorStyle: IndicatorStyle(
-                            width: 30,
-                            height: 30,
+                            width: trackingProgress == 1 ? 40 : 30,
+                            height: trackingProgress == 1 ? 40 : 30,
                             drawGap: true,
                             padding: const EdgeInsets.all(8),
-                            indicator: SvgPicture.asset("${AppConfig.iconPath}receive.svg"),
+                            indicator: Container(
+                              padding: trackingProgress == 1 ? EdgeInsets.all(6) : EdgeInsets.zero,
+                              decoration: trackingProgress == 1 ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppServices.hexaCodeToColor(AppColors.primary),
+                              ) : BoxDecoration(),
+                              child: SvgPicture.asset("${AppConfig.iconPath}receive.svg", color: trackingProgress == 1 ? Colors.white : Colors.black),
+                            )
                           ),
                           startChild: Align(
                             alignment: Alignment.centerRight,
@@ -211,16 +210,23 @@ class _TrackingState extends State<Tracking> {
 
                       Expanded(
                         child: TimelineTile(
-                          beforeLineStyle: trackingProgress != 1 && trackingProgress != 0 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
-                          afterLineStyle: trackingProgress == 3 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          beforeLineStyle: trackingProgress > 1 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
+                          afterLineStyle: trackingProgress > 2 ? LineStyle(color: AppServices.hexaCodeToColor(AppColors.primary)) : LineStyle(),
                           alignment: TimelineAlign.manual,
                           lineXY: 0.4,
                           indicatorStyle: IndicatorStyle(
-                            width: 30,
-                            height: 30,
+                            width: trackingProgress == 2 ? 40 : 30,
+                            height: trackingProgress == 2 ? 40 : 30,
                             padding: const EdgeInsets.all(8),
                             drawGap: true,
-                            indicator: SvgPicture.asset("${AppConfig.iconPath}transmit.svg"),
+                            indicator: Container(
+                              padding: trackingProgress == 2 ? EdgeInsets.all(6) : EdgeInsets.zero,
+                              decoration: trackingProgress == 2 ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppServices.hexaCodeToColor(AppColors.primary),
+                              ) : BoxDecoration(),
+                              child: SvgPicture.asset("${AppConfig.iconPath}transmit.svg", color: trackingProgress == 2 ? Colors.white : Colors.black),
+                            )
                           ),
                           startChild: Align(
                             alignment: Alignment.centerRight,
@@ -248,11 +254,18 @@ class _TrackingState extends State<Tracking> {
                           lineXY: 0.4,
                           isLast: true,
                           indicatorStyle: IndicatorStyle(
-                            width: 30,
-                            height: 30,
+                            width: trackingProgress == 3 ? 40 : 30,
+                            height: trackingProgress == 3 ? 40 : 30,
                             padding: const EdgeInsets.all(8),
                             drawGap: true,
-                            indicator: SvgPicture.asset("${AppConfig.iconPath}arrived.svg"),
+                            indicator: Container(
+                              padding: trackingProgress == 3 ? EdgeInsets.all(6) : EdgeInsets.zero,
+                              decoration: trackingProgress == 3 ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppServices.hexaCodeToColor(AppColors.primary),
+                              ) : BoxDecoration(),
+                              child: SvgPicture.asset("${AppConfig.iconPath}arrived.svg", color: trackingProgress == 3 ? Colors.white : Colors.black),
+                            )
                           ),
                           startChild: Align(
                             alignment: Alignment.centerRight,
