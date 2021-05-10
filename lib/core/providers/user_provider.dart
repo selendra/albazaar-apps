@@ -245,9 +245,11 @@ class UserProvider with ChangeNotifier {
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
+          
           if (responseBody.containsKey('error')) {
             alertText = responseBody['error']['message'];
           } else {
+
             if (mBalance.data != null) mBalance.data.balance = '';
             mBalance = Balance.fromMap(responseBody);
             print(responseBody);

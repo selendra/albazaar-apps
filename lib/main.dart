@@ -1,5 +1,6 @@
 import 'package:albazaar_app/core/providers/app_provider_p.dart';
 import 'package:albazaar_app/ui/screens/edit_product/edit_product.dart';
+import 'package:albazaar_app/ui/screens/invitation/inviation.dart';
 import 'package:albazaar_app/ui/screens/shop/create_shop/create_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -102,7 +103,7 @@ class _SelendraAppState extends State<SelendraApp> {
             SellerInfoView: (context) => SoldDetails(),
             OTPScreen.route: (context) => OTPScreen('', '')
           },
-          home: SplashScreen(),
+          home: Invitation(), //SplashScreen(),
           navigatorKey: navigationKey,
         ),
       ),

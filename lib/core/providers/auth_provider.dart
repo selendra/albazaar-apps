@@ -264,38 +264,47 @@ class AuthProvider with ChangeNotifier {
 
   //USER SIGN IN USING PHONE NUMBER AND PASSWORD
   Future<String> signInByPhone(String phone, String password, BuildContext context) async {
-    var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
-      headers: ApiHeader.headers,
-      body: jsonEncode(<String, String>{
-        'phone': phone,
-        'password': password,
-      })
-    );
-    if (response.statusCode == 200) {
-      dynamic responseJson = json.decode(response.body);
+    try {
+      var response = await http.post("https://testnet-api.selendra.com/pub/v1/loginbyphone", //ApiUrl.LOG_IN_PHONE,
+        headers: ApiHeader.headers,
+        body: jsonEncode(<String, String>{
+          'phone': phone,
+          'password': password,
+        })
+      );
 
-      _token = responseJson['token'];
-      await StorageServices.setData(responseJson, 'user_token');
-      print(responseJson.toString()+"My token");
+      if (response.statusCode == 200) {
+        
+        Map<String,dynamic> responseJson = json.decode(response.body);
+        print(responseJson);
+        print(responseJson.runtimeType);
 
-      mBalance = Balance();
+        if (responseJson.containsKey('error')){
+          return responseJson['error']['message'];
+        } else {
 
-      if (_token != null) {
-        _pref.saveString('token', _token);
-        Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
-        Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-        Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
-        Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
-        Navigator.pushReplacementNamed(context, BottomNavigationView);
-      } else {
-        try {
-          _alertText = responseJson['error']['message'];
-        } catch (e) {
-          _alertText = responseJson['message'];
+          // Store Token
+          _token = responseJson['token'];
+          await StorageServices.setData(responseJson, 'user_token');
+
+          mBalance = Balance();
+
+          print("Hello success");
+
+          if (_token != null) {
+            _pref.saveString('token', _token);
+            Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+            Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+            Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+            await Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+            Navigator.pushReplacementNamed(context, BottomNavigationView);
+          }
         }
+      } else {
+        _alertText = "Please try again later";
       }
-    } else {
-      _alertText = "Please try again later";
+    } catch(e){
+      print("Sign In error $e");
     }
     return _alertText;
   }

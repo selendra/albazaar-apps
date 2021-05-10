@@ -45,6 +45,16 @@ class _TrackingState extends State<Tracking> {
     print(trackingProgress);
   }
 
+  // void checkProgress() {
+  //   if (widget.productOrder.orderStatus == "Order Complete") {
+  //     setState(() {
+  //       _currentValue = 100;
+  //     });
+  //   } else if (widget.productOrder.orderStatus == "Shipment") {
+  //     _currentValue = 50;
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
 
@@ -100,22 +110,22 @@ class _TrackingState extends State<Tracking> {
                       ],
                     ),
 
-                    _sliderTheme(
-                      AbsorbPointer(
-                        child: Slider(
-                          value: _currentValue,
-                          min: 0,
-                          max: 100,
-                          divisions: 2,
-                          //label: 'Battambong',
-                          onChanged: (double value) {
-                            setState(() {
-                              _currentValue = value;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
+                    // _sliderTheme(
+                    //   AbsorbPointer(
+                    //     child: Slider(
+                    //       value: _currentValue,
+                    //       min: 0,
+                    //       max: 100,
+                    //       divisions: 2,
+                    //       //label: 'Battambong',
+                    //       onChanged: (double value) {
+                    //         setState(() {
+                    //           _currentValue = value;
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

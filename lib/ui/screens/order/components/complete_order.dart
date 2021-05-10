@@ -39,9 +39,9 @@ class CompleteOrder extends StatelessWidget{
             onRefresh: refresh,
             child: Consumer<ProductsProvider>(
               builder: (context, value, child) {
-                return Container(
-                  child: value.completeProduct.isNotEmpty
-                  ? ListView.builder(
+                return value.completeProduct.isNotEmpty
+                 ? Container(
+                  child: ListView.builder(
                     itemCount: value.completeProduct.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -61,12 +61,12 @@ class CompleteOrder extends StatelessWidget{
                       );
                     },
                   )
-                  : Center(
-                    child: SvgPicture.asset(
-                      '${AppConfig.illustratePath}empty.svg}',
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                    ),
+                )
+                : Center(
+                  child: SvgPicture.asset(
+                    '${AppConfig.illustratePath}empty.svg',
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width * 0.3,
                   ),
                 );
               },

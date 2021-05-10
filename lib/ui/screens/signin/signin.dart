@@ -185,17 +185,17 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
     Components.dialogLoading(context: context);
 
     try {
-      await AuthProvider().signInByPhone("+855" + AppServices.removeZero(_signInModel.phone.text), _signInModel.password.text, context)
-          .then((value) {
-        if (value != null) {
-          ReuseAlertDialog().successDialog(context, value);
+      await AuthProvider().signInByPhone("+855" + AppServices.removeZero(_signInModel.phone.text), _signInModel.password.text, context).then((value) async {
+        print(value+"hello");
           
-          // Close Loading
-          Navigator.pop(context);
+        // Close Loading
+        Navigator.pop(context);
+
+        if (value != null) {
+          await ReuseAlertDialog().successDialog(context, value);
         }
       });
     } on SocketException catch (e) {
-      print("SOcket");
       await Components.dialog(
         context,
         Text("Please check your connection", textAlign: TextAlign.center),

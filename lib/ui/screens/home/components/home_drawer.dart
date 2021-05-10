@@ -1,3 +1,4 @@
+import 'package:albazaar_app/ui/screens/invitation/inviation.dart';
 import 'package:flutter/material.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class HomeDrawer extends StatelessWidget {
     {'icon': 'assets/icons/chat.svg', 'title': 'chat', 'route': MessageScreen()},
 
 
-    {'icon': 'assets/icons/referral.svg', 'title': 'invitation', 'route': MessageScreen()},
+    {'icon': 'assets/icons/referral.svg', 'title': 'invitation', 'route': Invitation() },
     {'icon': 'assets/icons/belt.svg', 'title': 'notificatioin', 'route': NotificationScreen()},
     {'icon': 'assets/icons/favorite.svg', 'title': 'favorite', 'route': FavoriteScreen()},
     {'icon': 'assets/icons/setting.svg', 'title': 'settings', 'route': FavoriteScreen()},
