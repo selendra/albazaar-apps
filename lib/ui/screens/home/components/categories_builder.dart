@@ -32,6 +32,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
   @override
   Widget build(BuildContext context) {
     productsProvider = Provider.of<ProductsProvider>(context);
+    
     return Scaffold(
       body: Column(
         children: [
@@ -49,7 +50,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                   children: [
                     MyPadding(
                       pLeft: 0, pRight: 10,
-                      child: SvgPicture.asset(AppConfig.iconPath+'back.svg')
+                      child: SvgPicture.asset('${AppConfig.iconPath}back.svg')
                     ),
 
                     MyText(
@@ -157,7 +158,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                                           SvgPicture.asset('${AppConfig.symbolPath}riel.svg', width: 9, height: 15),
                                           MyText(
                                             textAlign: TextAlign.left,
-                                            text: "${widget.productCategories[index].price} / " + FindingServices().findScaleById(widget.productCategories[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList),
+                                            text: "${widget.productCategories[index].price} / ${FindingServices().findScaleById(widget.productCategories[index].weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList) ?? 'KG'}",
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,

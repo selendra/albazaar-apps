@@ -6,8 +6,11 @@ import 'components/pin_screen.dart';
 class OTPScreen extends StatefulWidget {
 
   final String phoneNumber, password;
+
   OTPScreen(this.phoneNumber, this.password);
+
   static const String route = '/otpScreen';
+  
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }

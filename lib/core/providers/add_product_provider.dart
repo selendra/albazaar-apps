@@ -7,10 +7,18 @@ class AddProductProvider with ChangeNotifier {
   AddProductProvider() {
     addProduct = AddProduct();
     _getRequest = GetRequest();
-    fetchShippingServices();
-    fetchCategories();
-    fetchPaymentOpt();
-    fetchWeightOpt();
+    guestAccChecker();
+  }
+
+  void guestAccChecker() async {
+    await StorageServices.fetchData(DbKey.guestAcc).then((value) {
+      if (value == null){
+        fetchShippingServices();
+        fetchCategories();
+        fetchPaymentOpt();
+        fetchWeightOpt();
+      }
+    });
   }
 
   // Fetch Shipping To Shipping Listing

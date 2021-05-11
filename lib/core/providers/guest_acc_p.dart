@@ -24,7 +24,7 @@ class GuestAccProvider extends ProductsProvider{
 
         _productList = [];
         for(var i in _backend.listData){
-          _productList.add(Product.fromGuestAccount(i));
+          // _productList.add(Product.fromGuestAccount(i));
         }
 
         _productListToMap = [];
@@ -35,9 +35,9 @@ class GuestAccProvider extends ProductsProvider{
 
       } else {
         _productList = [];
-        for(var i in value){
-          _productList.add(Product.fromGuestAccount(i));
-        }
+        // for(var i in value){
+        //   // _productList.add(Product.fromGuestAccount(i));
+        // }
 
         _productListToMap = [];
         for(var i in _productList){

@@ -13,12 +13,13 @@ import 'package:readmore/readmore.dart';
 
 class Body extends StatefulWidget {
 
+  final bool isGuestAcc;
   final Product product;
   final List<String> listImage;
   final CartProvider cartProvider;
   final List<Product> productByCategory;
 
-  Body({this.product, this.listImage, this.cartProvider, this.productByCategory});
+  Body({this.isGuestAcc, this.product, this.listImage, this.cartProvider, this.productByCategory});
 
   @override
   _BodyState createState() => _BodyState();
@@ -96,6 +97,7 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: Stack(
         children: [
+
           NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return <Widget>[
@@ -187,49 +189,11 @@ class _BodyState extends State<Body> {
                                   index: i,
                                   onPressed: (){
                                     onChangeImage(i);
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => InteractView(/*value.url[index]*/widget.listImage[i]),
-                                    //   ),
-                                    // );
                                   }
                                 );
                               }
                             )
                           )
-                          // Row(
-                          //   children: [,
-
-                          //     GestureDetector(
-                          //       onTap: () => Navigator.pop(context),
-                          //       child: MyCard(
-                          //         hexaColor: "#FFFFFF",
-                          //         mRight: 10,
-                          //         // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                          //         width: 40, height: 40,
-                          //         image: DecorationImage(
-                          //           fit: BoxFit.cover,
-                          //           image: CachedNetworkImageProvider(widget.product.thumbnail)
-                          //         ), 
-                          //       ),
-                          //     ),
-
-                          //     GestureDetector(
-                          //       onTap: () => Navigator.pop(context),
-                          //       child: MyCard(
-                          //         hexaColor: "#FFFFFF",
-                          //         mRight: 10,
-                          //         // boxBorder: Border.all(width: 2, color: AppServices.hexaCodeToColor(AppColors.primary)),
-                          //         width: 40, height: 40,
-                          //         image: DecorationImage(
-                          //           fit: BoxFit.cover,
-                          //           image: CachedNetworkImageProvider(widget.product.thumbnail)
-                          //         ), 
-                          //       ),
-                          //     )
-                          //   ],
-                          // )
                         )
                       ],
                     ),
@@ -697,7 +661,17 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-          ), 
+          ),
+          
+          // widget.isGuestAcc == false ? Container() : GestureDetector(
+          //   onTap: () {
+          //     requestSignUpDialog(context);
+          //   },
+          //   child: Container(
+          //     color: Colors.red.withOpacity(5),
+          //     // height: MediaQuery.of(context).size.height,
+          //   ),
+          // ), 
 
           Positioned(
             left: 20, top: 20,

@@ -54,7 +54,7 @@ class CategoriesModel with ChangeNotifier{
     clearAllData();
     clearDataCategory();
     if (fromDb != null) {
-      sortDataByCategory(fromDb, 'guest');
+      sortDataByCategory(fromDb);
     }
   }
 
@@ -76,18 +76,22 @@ class CategoriesModel with ChangeNotifier{
   }
 
   void getCategories() async {
-    try{
-      _backend.response = await _getRequest.categories();
-      _backend.data = json.decode(_backend.response.body);
+    await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
+      if (value == null){
+        try{
+          _backend.response = await _getRequest.categories();
+          _backend.data = json.decode(_backend.response.body);
 
-      listCategories = List.from(_backend.data);
+          listCategories = List.from(_backend.data);
 
-      await StorageServices.setData(listCategories, DbKey.categories);
-    } catch (e){
-      print(e);
-    }
+          await StorageServices.setData(listCategories, DbKey.categories);
+        } catch (e){
+          print("Get category error ${e.toString()}");
+        }
 
-    notifyListeners();
+        notifyListeners();
+      }
+    });
   }
 
   String findCategoriesById(String categoryId) {
@@ -100,10 +104,28 @@ class CategoriesModel with ChangeNotifier{
     return null;
   }
 
-  sortDataByCategory(dynamic data, String account) async {
-    clearDataCategory();
-    for(var i in data){
-      listProductByCategories(account == 'guest' ? Product.fromGuestAccount(i) : i);
+  // Run in Home Body
+  sortDataByCategory(dynamic data) async {
+
+    print("My List product $data");
+    try {
+      clearDataCategory();
+
+      // await StorageServices.fetchData('guestAcc').then((value) {
+      //   if (value != null){
+      //     print("From Guest");
+      //     for(var i in data){
+      //       listProductByCategories(Product.fromGuestAccount(i));
+      //     }
+      //   } else {
+      //     print("From User"); 
+      //   }
+      // });
+      for(var i in data){
+        listProductByCategories(i);
+      }
+    } catch (e){
+      print("Sort Data By Category Error ${e.toString()}");
     }
     // print("listProduct"+listProduct.length.toString());
     // print("vegetableList"+vegetableList.length.toString());

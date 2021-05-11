@@ -53,7 +53,7 @@ class Components {
     var text, 
     var title, 
     {
-      TextButton action, 
+      Widget action, 
       String firsTxtBtn = "Close", 
       Color bgColor, 
       Color barrierColor, 

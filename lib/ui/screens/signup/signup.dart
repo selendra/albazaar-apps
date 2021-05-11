@@ -237,8 +237,7 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
               _isLoading = false;
             });
             await ReuseAlertDialog().successDialog(context, value);
-            await Navigator.push(context,
-                RouteAnimation(enterPage: OTPScreen("+855" + AppServices.removeZero(_signUpModel.phone.text), _signUpModel.password.text)));
+            await Navigator.push(context, RouteAnimation(enterPage: OTPScreen("+855" + AppServices.removeZero(_signUpModel.phone.text), _signUpModel.password.text)));
           } else {
             setState(() {
               _isLoading = false;

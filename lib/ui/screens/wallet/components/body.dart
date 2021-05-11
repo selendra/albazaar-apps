@@ -68,9 +68,9 @@ class _BodyState extends State<Body> {
     // MyWallet(resetState: resetState);
     // WalletChoice(onGetWallet, showAlertDialog);
     mBalance.data == null
-        ? Center(
-            child: WalletChoice(onGetWallet, showAlertDialog),
-          )
-        : MyWallet(resetState: resetState);
+    ? Center(
+        child: WalletChoice(onGetWallet, showAlertDialog),
+      )
+    : MyWallet(resetState: resetState);
   }
 }

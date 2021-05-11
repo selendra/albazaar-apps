@@ -186,7 +186,6 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
     try {
       await AuthProvider().signInByPhone("+855" + AppServices.removeZero(_signInModel.phone.text), _signInModel.password.text, context).then((value) async {
-        print(value+"hello");
           
         // Close Loading
         Navigator.pop(context);
@@ -299,7 +298,7 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
                   validatePassword:  validatePassword,
                   showPassword: showPassword,
                   onChanged: onChanged,
-                  onSubmit: onSubmit
+                  onSubmit: onSubmit,
                 )
               )
             ],

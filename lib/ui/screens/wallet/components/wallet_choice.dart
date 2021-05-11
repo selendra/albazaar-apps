@@ -15,6 +15,7 @@ class WalletChoice extends StatefulWidget {
 }
 
 class _WalletChoiceState extends State<WalletChoice> {
+  
   String alertText;
 
   Future checkFirstSeen() async {
@@ -35,29 +36,35 @@ class _WalletChoiceState extends State<WalletChoice> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(30.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: SvgPicture.asset(
-                'assets/undraw_wallet.svg',
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.height * 0.2,
-                placeholderBuilder: (context) => Center(),
-              ),
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      margin: EdgeInsets.all(30.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: SvgPicture.asset(
+              'assets/undraw_wallet.svg',
+              height: MediaQuery.of(context).size.height * 0.2,
+              width: MediaQuery.of(context).size.height * 0.2,
+              placeholderBuilder: (context) => Center(),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            ReuseButton.getItem(
-                AppLocalizeService.of(context).translate('wallet'), () {
-              widget.onGetWallet();
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
+          ),
+          
+          Container(
+            width: MediaQuery.of(context).size.width/1.5,
+            child: ReuseButton.getItem(
+              AppLocalizeService.of(context).translate('wallet'), () {
+                widget.onGetWallet();
               // Navigator.push(context, MaterialPageRoute(builder: (context) => AddUserInfoScreen()));
-            }, context),
-          ],
-        ),
+              }, 
+              context
+            )
+          ),
+        ],
       ),
     );
   }

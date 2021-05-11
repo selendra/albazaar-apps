@@ -112,23 +112,25 @@ class Product with ChangeNotifier {
     // "is_sold": isSold,
   };
 
-  Product.fromGuestAccount(Map<String, dynamic> item){
-    description = item['description'];
-    shippingService = item["shipping_service"];
-    address = item["address"];
-    name = item["name"];
-    categoryName = item["category_name"];
-    thumbnail = item["thumbnail"];
-    phonenumber = item["phonenumber"];
-    weight = item["weight"];
-    id = item["id"];
-    paymentId = item["payment_id"];
-    price = item["price"];
-    shippingFee = item["shipping_fee"];
-    createdAt = item["created_at"];
-    seller = Seller.fromJson(item["seller"]);
-    isSold = item["is_sold"];
-  }
+  // Product.fromGuestAccount(Map<String, dynamic> item){
+  //   print(item);
+  //   print(item.runtimeType);
+  //   description = item['description'];
+  //   shippingService = item["shipping_service"];
+  //   address = item["address"];
+  //   name = item["name"];
+  //   categoryName = item["category_name"];
+  //   thumbnail = item["thumbnail"];
+  //   phonenumber = item["phonenumber"];
+  //   weight = item["weight"];
+  //   id = item["id"];
+  //   paymentId = item["payment_id"];
+  //   price = item["price"];
+  //   shippingFee = item["shipping_fee"];
+  //   createdAt = item["created_at"];
+  //   seller = Seller.fromJson(item["seller"]);
+  //   isSold = item["is_sold"];
+  // }
 }
 
 // Model Almost For Edit

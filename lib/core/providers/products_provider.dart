@@ -107,6 +107,47 @@ class ProductsProvider with ChangeNotifier {
     return responseJson;
   }
 
+  Future<dynamic> productListingGuestAcc() async {
+    List<Map<String, dynamic>> responseJson = [];
+    try {
+      
+      http.Response response = await http.get(ApiUrl.GUEST_ACC, headers: <String, String>{
+        "accept": "application/json",
+      });
+
+      // If Have Something Wrong Evern If Response 200
+      // Can't check with = responseJson.contains('error') directly
+      // _GrowableList<dynamic> Response When Run Release
+      if (json.decode(response.body).runtimeType.toString() != "List<dynamic>" && json.decode(response.body).runtimeType.toString() != "_GrowableList<dynamic>"){
+        responseJson.add(
+          {'error': json.decode(response.body)['error']}
+        );
+        print("Have error ");
+        throw(responseJson);
+      } else {
+        json.decode(response.body).forEach((value){
+          responseJson.add(value);
+        });
+        print("SUccess $responseJson");
+        clearProperty();
+        for (var mItem in responseJson) {
+          // print("My fetcing data ${mItem['is_sold']}");
+          _items.add(
+            Product.fromMap(mItem),
+          );
+
+        }
+        
+        // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
+        // Sort Products By Category
+      }
+    } catch (e) {
+      print(e.toString()+"Why error");
+      return e;
+    }
+    return responseJson;
+  }
+
   Future<void> addOrder(String productId, String qty, String address) async {
     try {
       await _prefService.read('token').then(

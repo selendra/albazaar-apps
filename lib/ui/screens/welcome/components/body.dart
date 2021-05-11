@@ -8,6 +8,12 @@ import 'package:albazaar_app/core/components/scaffold.dart';
 
 class Body extends StatelessWidget {
   
+  final Function guestAcc;
+
+  Body({
+    this.guestAcc
+  });
+
   @override
   Widget build(BuildContext context) {
     var _lang = AppLocalizeService.of(context);
@@ -151,8 +157,8 @@ class Body extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,
                     ),
-                    action: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    action: () async {
+                      guestAcc(context);
                     }
                   )
                 ],

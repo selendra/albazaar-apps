@@ -1,6 +1,7 @@
 import 'package:albazaar_app/core/constants/constants.dart';
 
 class ApiUrl {
+
   static const LOG_IN_URL = baseUrl + '/pub/v1/loginbyemail';
   static const LOG_IN_PHONE = baseUrl + '/pub/v1/loginbyphone';
   static const SIGN_UP_EMAIL = baseUrl + '/pub/v1/registerbyemail';
@@ -27,6 +28,8 @@ class ApiUrl {
   static const MAKE_ORDER = baseUrl + '/sdm/v1/make-order';
   static const MARK_COMPLETE = baseUrl + '/sdm/v1/mark-order-completed';
   static const LIST_FOR_BUYER = baseUrl + '/sdm/v1/list-order-from-buyer';
+  static const GUEST_ACC = baseUrl + '/sdm/v1/listing-guest';
+
   //map search
   static const MAP_SEARCH = 'http://photon.komoot.de/api/?q=';
 }

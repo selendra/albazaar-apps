@@ -75,7 +75,7 @@ class BottomNavigationDetail extends StatelessWidget {
                 MyText(
                   left: 8,
                   textAlign: TextAlign.left,
-                  text: "${cartProvider.totalPrice} / ${FindingServices().findScaleById(loadedProduct.weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList)}",
+                  text: "${cartProvider.totalPrice} / ${FindingServices().findScaleById(loadedProduct.weight, Provider.of<AddProductProvider>(context, listen: false).addProduct.weightList) ?? 'KG'}",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,

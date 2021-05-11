@@ -52,7 +52,8 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
     } else if (category == 'Others'){
       productCategories = _categoriesModel.othersList;
     }
-    print(category);
+
+    // print(category);
     print("Categoires $productCategories");
     // _scrollController.jumpTo(0);
     animationController.forward();
@@ -105,6 +106,7 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
                 child: GestureDetector(
                   onTap: (){
                     category = _categoriesModel.category[index].title;
+                    // print(category);
                     onTapCategoy();
                   },
                   child: MyCard(

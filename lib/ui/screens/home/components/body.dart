@@ -24,12 +24,14 @@ class Body extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+
     listProduct = Provider.of<ProductsProvider>(context).items;
 
     final weightList =  Provider.of<AddProductProvider>(context).addProduct.weightList;
 
     Provider.of<CategoriesModel>(context).init();
-    if (listProduct != null) Provider.of<CategoriesModel>(context).sortDataByCategory(listProduct, 'user');
+
+    if (listProduct != null) Provider.of<CategoriesModel>(context).sortDataByCategory(listProduct);
 
     return RefreshIndicator(
       onRefresh: refresh,

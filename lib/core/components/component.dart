@@ -1,3 +1,5 @@
+import 'package:albazaar_app/all_export.dart';
+import 'package:albazaar_app/ui/component.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -123,5 +125,26 @@ BoxShadow boxShadow(){
     spreadRadius: 2.0,
     offset: Offset(0,0),
     blurRadius: 5.0,
+  );
+}
+
+void requestSignUpDialog(BuildContext context) async {
+  await Components.dialog(
+    context, 
+    Padding(
+      padding: EdgeInsets.all(20),
+      child: Text("Sign Up for more details", textAlign: TextAlign.center)
+    ),
+    Text("Please sign up"),
+    action: ElevatedButton(
+      onPressed: (){
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+          ModalRoute.withName('/')
+        );
+      }, 
+      child: Text("Sign Up")
+    )
   );
 }

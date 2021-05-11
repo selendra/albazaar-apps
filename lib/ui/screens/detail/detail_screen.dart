@@ -21,6 +21,24 @@ class _DetailScreenState extends State<DetailScreen> {
   List<String> _listImage = [];
   CartProvider _cartProvider;
   List<Product> _productByCategory;
+  bool isGuestAcc = false;
+
+  void guestAccCheck() async {
+    await StorageServices.fetchData(DbKey.guestAcc).then((value) {
+      print(value);
+      if (value != null){
+        setState((){
+          isGuestAcc = value;
+        });
+      }
+    });
+  }
+
+  @override
+  initState(){
+    guestAccCheck();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -33,12 +51,18 @@ class _DetailScreenState extends State<DetailScreen> {
     // final loadedProduct = Provider.of<ProductsProvider>(context).findById(product[0].id);
     return Scaffold(
       body: widget.product == null ? Center(child: CircularProgressIndicator()) : Body(
+        isGuestAcc: isGuestAcc,
         product: widget.product,
         listImage: _listImage,
         cartProvider: _cartProvider,
         productByCategory: _productByCategory
       ),
-      bottomNavigationBar: BottomNavigationDetail(widget.product)
+      bottomNavigationBar: GestureDetector(
+        onTap: isGuestAcc == false ? null : () async {
+          requestSignUpDialog(context);
+        },
+        child: BottomNavigationDetail(widget.product),
+      )
     );
   }
 }
