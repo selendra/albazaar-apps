@@ -149,12 +149,24 @@ class HomeDrawer extends StatelessWidget {
                         ],
                       ),
                     ),
-                    action: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
+                    action: () async {
+                      await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
+                        if (value == null){
+                          
+                          // Tab On Chat
+                          if (i == 3){
+                            await Components.dialog(context, Text("This feature coming soon", textAlign: TextAlign.center,), Text("Message"));
+                          } else {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
+                          }
+                        } else {
+                          await requestSignUpDialog(context);
+                        }
+                      });
                     }
                   ),
 
-                  //Generl
+                  //General
                   MyText(
                     pTop: 8,
                     pBottom: 8,
@@ -194,19 +206,33 @@ class HomeDrawer extends StatelessWidget {
                     ),
                     action: ()async {
 
-                      if (i == iconText.length -1){
-                        var isShow = await _pref.read('isshow');
-                        
-                        // Clear All Local Data
-                        await AppServices.clearStorage();
+                      await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
+                        if (value == null){
 
-                        // Save Carousel Screen
-                        await _pref.saveString('isshow', isShow);
-                        HomeDialog().alertDialog(context);
-                        // Auth().signOut(context);
-                      } else {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
-                      }
+                          // Tab on Log Out
+                          if (i == iconText.length -1){
+                            var isShow = await _pref.read('isshow');
+                            
+                            // Clear All Local Data
+                            await AppServices.clearStorage();
+
+                            // Save Carousel Screen
+                            await _pref.saveString('isshow', isShow);
+                            HomeDialog().alertDialog(context);
+                            // Auth().signOut(context);
+                          } 
+                          
+                          // Tab On invitation Or Notification
+                          else if (i == 0 || i == 1){
+                            await Components.dialog(context, Text("This feature coming soon", textAlign: TextAlign.center,), Text("Message"));
+                          }
+                          else {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
+                          }
+                        } else {
+                          await requestSignUpDialog(context);
+                        }
+                      });
                     }
                   ),
                   

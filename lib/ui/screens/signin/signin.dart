@@ -186,11 +186,11 @@ class _SignInState extends State<SignIn> with SingleTickerProviderStateMixin {
 
     try {
       await AuthProvider().signInByPhone("+855" + AppServices.removeZero(_signInModel.phone.text), _signInModel.password.text, context).then((value) async {
-          
-        // Close Loading
-        Navigator.pop(context);
 
-        if (value != null) {
+        if (value != null) {  
+          print("Value Not Equal null");
+          // Close Loading
+          Navigator.pop(context);
           await ReuseAlertDialog().successDialog(context, value);
         }
       });

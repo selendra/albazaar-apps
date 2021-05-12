@@ -12,6 +12,8 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
 
+  bool isGuestAcc = false;
+
   LocationMarker _locationMarker = LocationMarker();
 
   MapController _mapController = MapController();
@@ -91,8 +93,20 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     }
   }
 
+  void guestAccCheck() async {
+    await StorageServices.fetchData(DbKey.guestAcc).then((value) {
+      print(value);
+      if (value != null){
+        setState((){
+          isGuestAcc = value;
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
+    guestAccCheck();
     _locationMarker = LocationMarker(lat: 11.56959, long: 104.92104);
     super.initState();
   }
@@ -102,6 +116,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: Stack(
         children: [
+
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
@@ -143,14 +158,14 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
               backgroundColor: kDefaultColor,
               onPressed: () => _getCurrentLocation(),
               child: _isLive
-                  ? Icon(
-                      Icons.gps_not_fixed,
-                      color: Colors.white,
-                    )
-                  : Icon(
-                      Icons.gps_fixed,
-                      color: Colors.white,
-                    ),
+              ? Icon(
+                Icons.gps_not_fixed,
+                color: Colors.white,
+              )
+              : Icon(
+                Icons.gps_fixed,
+                color: Colors.white,
+              ),
               //  backgroundColor: Colors.white,
             )
           ),
@@ -163,7 +178,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
               width: MediaQuery.of(context).size.width,
               buttonColor: AppColors.primary,
               child: MyText(
-                text: "Confirm lcation",
+                text: "Confirm location",
                 fontSize: 16,
                 color: AppColors.white,
               ),
@@ -171,6 +186,18 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 Navigator.pop(context, _currentPosition ?? placemark);
               }
             )
+          ),
+
+          isGuestAcc == false ? Container() : GestureDetector(
+            onTap: () async {
+              await requestSignUpDialog(context);
+              
+            },
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Text(""),
+            ),
           )
         ],
       ),

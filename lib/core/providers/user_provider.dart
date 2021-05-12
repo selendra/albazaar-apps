@@ -66,7 +66,7 @@ class UserProvider with ChangeNotifier {
   /*It read user information from share preference
    *(local storage on device)
    */
-  void fetchUserInfo() {
+  Future<void> fetchUserInfo() {
     _prefService.read('user').then((value) async {
       if (value != null) {
         var responseBody = json.decode(value);
@@ -77,7 +77,7 @@ class UserProvider with ChangeNotifier {
     });
   }
 
-  void socialUserInfo(String _token) async {
+  Future<void> socialUserInfo(String _token) async {
     http.Response response =
         await http.get(ApiUrl.SET_USER_PROFILE, headers: <String, String>{
       "accept": "application/json",
@@ -114,7 +114,7 @@ class UserProvider with ChangeNotifier {
   }
 
   //Fetch user info from social
-  void fetchSocialUserInfo(
+  Future<void> fetchSocialUserInfo(
       String _email, String _firstName, String _lastName, String _photoUrl) {
     email = _email;
     firstName = _firstName;

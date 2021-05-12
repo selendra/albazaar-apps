@@ -4,17 +4,17 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/wallet/get_wallet/adduserinfo/add_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class WalletChoice extends StatefulWidget {
+class GetWallet extends StatefulWidget {
   final Function onGetWallet;
   final Function showAlertDialog;
 
-  WalletChoice(this.onGetWallet, this.showAlertDialog);
+  GetWallet(this.onGetWallet, this.showAlertDialog);
 
   @override
-  _WalletChoiceState createState() => _WalletChoiceState();
+  _GetWalletState createState() => _GetWalletState();
 }
 
-class _WalletChoiceState extends State<WalletChoice> {
+class _GetWalletState extends State<GetWallet> {
   
   String alertText;
 
@@ -27,7 +27,6 @@ class _WalletChoiceState extends State<WalletChoice> {
       widget.showAlertDialog(context, alertText);
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -57,8 +56,18 @@ class _WalletChoiceState extends State<WalletChoice> {
           Container(
             width: MediaQuery.of(context).size.width/1.5,
             child: ReuseButton.getItem(
-              AppLocalizeService.of(context).translate('wallet'), () {
-                widget.onGetWallet();
+              "Get ${AppLocalizeService.of(context).translate('wallet')}", () async {
+                await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
+
+                  // Sign In By User
+                  if (value == null){
+                    widget.onGetWallet();
+                  }
+                  // Guest Account 
+                  else {
+                    await requestSignUpDialog(context);
+                  }
+                });
               // Navigator.push(context, MaterialPageRoute(builder: (context) => AddUserInfoScreen()));
               }, 
               context

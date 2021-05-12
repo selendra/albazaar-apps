@@ -663,15 +663,17 @@ class _BodyState extends State<Body> {
             ),
           ),
           
-          // widget.isGuestAcc == false ? Container() : GestureDetector(
-          //   onTap: () {
-          //     requestSignUpDialog(context);
-          //   },
-          //   child: Container(
-          //     color: Colors.red.withOpacity(5),
-          //     // height: MediaQuery.of(context).size.height,
-          //   ),
-          // ), 
+          widget.isGuestAcc == false ? Container() : GestureDetector(
+            onTap: () async {
+              await requestSignUpDialog(context);
+              
+            },
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Text(""),
+            ),
+          ), 
 
           Positioned(
             left: 20, top: 20,
@@ -697,6 +699,7 @@ class _BodyState extends State<Body> {
                     builder: (context, value, widgets){
                       return GestureDetector(
                         onTap: () async {
+                          if (widget.isGuestAcc == true) await requestSignUpDialog(context);
                           print(value);
                           // if (value.ite == (widget.product.id) {
                           //   value.addCart(widget.product.id, widget.product.thumbnail, widget.product.name, widget.product.price, widget.product.orderQty);
@@ -721,20 +724,25 @@ class _BodyState extends State<Body> {
                 Consumer<FavoriteProvider>(
                   builder: (context, value, widgets){
                     return GestureDetector(
-                      onTap: (){
-                        setState((){
+                      onTap: () async {
 
-                          // Not Yet Favorite and Click Add
-                          if (widget.product.isFav) {
-                            widget.product.isFav = false;
-                            value.removeFav(widget.product);
-                          }
-                          // Favorited and Click Remove
-                          else {
-                            widget.product.isFav = true;
-                            value.addFav(widget.product);
-                          }
-                        });
+                        if (widget.isGuestAcc == true) await requestSignUpDialog(context);
+                        else {
+
+                          setState((){
+                            
+                            // Not Yet Favorite and Click Add
+                            if (widget.product.isFav) {
+                              widget.product.isFav = false;
+                              value.removeFav(widget.product);
+                            }
+                            // Favorited and Click Remove
+                            else {
+                              widget.product.isFav = true;
+                              value.addFav(widget.product);
+                            }
+                          });
+                        }
                       },
                       child: MyCard(
                         hexaColor: AppColors.primary,

@@ -7,10 +7,14 @@ class WelcomeScreen extends StatelessWidget {
   Backend _backend = Backend();
 
   Future<void> guestAcc(BuildContext context) async {
+    Components.dialogLoading(context: context);
     try {
       await Provider.of<ProductsProvider>(context, listen: false).productListingGuestAcc();
       await StorageServices.setData(true, DbKey.guestAcc);
 
+      // Close Loading
+      Navigator.pop(context);
+      
       Navigator.pushReplacementNamed(context, BottomNavigationView);
     } catch (e){
       await Components.dialog(context, Text(e.toString(), textAlign: TextAlign.center,), Text("Oops"));

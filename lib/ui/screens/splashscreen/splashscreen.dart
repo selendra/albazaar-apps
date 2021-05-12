@@ -62,22 +62,22 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                 ).fetchBuyerOrder();
 
                 //Check if user is login by social media
-                await AuthProvider().currentUser.then((valueUser) {
+                await AuthProvider().currentUser.then((valueUser) async {
                   if (valueUser != null) {
                     //split the social user name into firstname and lastname
                     var name = valueUser.displayName.split(' ');
 
                     /*call provider with function to set profile infomation
                     of the user*/
-                    Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
+                    await Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
                       valueUser.email,
                       name.first,
                       name.last,
                       valueUser.photoURL,
                     );
-                    Provider.of<UserProvider>(context, listen: false).socialUserInfo(value);
+                    await Provider.of<UserProvider>(context, listen: false).socialUserInfo(value);
                   } else {
-                    validateNormalUser();
+                    await validateNormalUser();
                   }
                 });
 
@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
   }
 
   //It is use for validate normal user that register in sld api
-  void validateNormalUser() async {
+  Future<void> validateNormalUser() async {
     await UserProvider().fetchPortforlio().then((onValue) {
       print("validate normal user");
         if (onValue == '200') {
@@ -144,14 +144,14 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
   /*It precache all svg in the app
    *if help svg loaded faster when open the screen
    */
-  void preCacheSvg() {
+  Future<void> preCacheSvg() {
     for (int i = 0; i < svg.length; i++) {
       precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, svg[i]), null);
     }
   }
 
   //It read language from sharepreference(local storage)
-  void setDefaultLang() {
+  Future<void> setDefaultLang() {
     var _lang = Provider.of<LangProvider>(context, listen: false);
     _pref.read('lang').then(
       (value) {

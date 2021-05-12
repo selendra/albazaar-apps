@@ -292,11 +292,13 @@ class AuthProvider with ChangeNotifier {
           print("Hello success");
 
           if (_token != null) {
+            print("Logging in");
             _pref.saveString('token', _token);
             Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
             Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
             Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
-            await Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+            Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         }

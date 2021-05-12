@@ -31,6 +31,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
 
   @override
   Widget build(BuildContext context) {
+    
     productsProvider = Provider.of<ProductsProvider>(context);
     
     return Scaffold(

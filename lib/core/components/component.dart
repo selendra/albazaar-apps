@@ -128,23 +128,26 @@ BoxShadow boxShadow(){
   );
 }
 
-void requestSignUpDialog(BuildContext context) async {
+
+Future<void> requestSignUpDialog(BuildContext context) async {
   await Components.dialog(
     context, 
     Padding(
       padding: EdgeInsets.all(20),
-      child: Text("Sign Up for more details", textAlign: TextAlign.center)
+      child: Text("Back To Sign Up", textAlign: TextAlign.center)
     ),
     Text("Please sign up"),
     action: ElevatedButton(
-      onPressed: (){
+      onPressed: () async {
+        await StorageServices.removeKey(DbKey.guestAcc);
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => WelcomeScreen()),
           ModalRoute.withName('/')
         );
       }, 
-      child: Text("Sign Up")
+      child: Text("Back")
     )
   );
 }
