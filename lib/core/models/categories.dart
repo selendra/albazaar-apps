@@ -8,6 +8,7 @@ class CategoriesModel with ChangeNotifier{
   GetRequest _getRequest = GetRequest();
   Backend _backend = Backend();
 
+  // List Type Of Category
   List<CategoriesModel> category = [];
   List<Product> listProduct = [];
   List<Product> vegetableList = [];
@@ -17,10 +18,16 @@ class CategoriesModel with ChangeNotifier{
   List<Product> carealList = [];
   List<Product> othersList = [];
 
+  // For Related Product
+  List<Product> relatedProduct = [];
+
   List<Map<String, dynamic>> fromDb;
   List<Map<String, dynamic>> listCategories = [];
 
-  CategoriesModel({this.title, this.img}){getCategories();}
+  CategoriesModel({this.title, this.img}){
+    print("Run category ");
+    getCategories();
+  }
 
   void init(){
     category = [
@@ -59,6 +66,8 @@ class CategoriesModel with ChangeNotifier{
   }
 
   List<Product> fillProductByCategories(String category){
+
+    print("Fill category");
     if (category == 'Vegetable'){
       return vegetableList;
     } else if (category == 'Fruit') {
@@ -75,16 +84,53 @@ class CategoriesModel with ChangeNotifier{
     return null;
   }
 
+  List<Product> getRelatedProduct(String category){
+    if (category == 'Vegetable'){
+      vegetableList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    } else if (category == 'Fruit') {
+      fruitList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    } else if (category == 'Fish'){
+      fishList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    } else if (category == 'Meat'){
+      meatList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    } else if (category == 'Cereal'){
+      carealList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    } else if (category == 'Others'){
+      othersList.forEach((element) {
+        relatedProduct.add(element);
+      });
+    }
+    return relatedProduct;
+  }
+
   void getCategories() async {
     await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
       if (value == null){
         try{
-          _backend.response = await _getRequest.categories();
-          _backend.data = json.decode(_backend.response.body);
 
-          listCategories = List.from(_backend.data);
+          _backend.data = await StorageServices.fetchData(DbKey.categories);
+          // If Not Yet Get Categories
+          if (_backend.data == null){
+            _backend.response = await _getRequest.categories();
+            _backend.data = json.decode(_backend.response.body);
 
-          await StorageServices.setData(listCategories, DbKey.categories);
+            listCategories = List.from(_backend.data);
+
+            print("List Categories $listCategories");
+
+            await StorageServices.setData(listCategories, DbKey.categories);
+          }
+
         } catch (e){
           print("Get category error ${e.toString()}");
         }
@@ -95,7 +141,6 @@ class CategoriesModel with ChangeNotifier{
   }
 
   String findCategoriesById(String categoryId) {
-    print("Category ID $categoryId");
     for (var c in listCategories){
       if (c['id'] == categoryId) {
         return c['category_name'];
@@ -141,6 +186,9 @@ class CategoriesModel with ChangeNotifier{
   }
 
   void clearDataCategory(){
+    print("Before $vegetableList");
+    print("Start clear category data");
+    relatedProduct.clear();
     vegetableList.clear();
     fruitList.clear();
     fishList.clear();

@@ -35,6 +35,7 @@ class _SelendraAppState extends State<SelendraApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
     return MultiProvider(
       providers: AppProvider.listProvider,
       child: Consumer<LangProvider>(
@@ -71,6 +72,7 @@ class _SelendraAppState extends State<SelendraApp> {
 
             GlobalMaterialLocalizations.delegate,
           ],
+          
           localeResolutionCallback: (locale, supportedLocales) {
             // Check if the current device locale is supported
             if (locale != null) {

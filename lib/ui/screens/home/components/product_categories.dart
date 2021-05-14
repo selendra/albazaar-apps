@@ -32,6 +32,8 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   bool dispsseAnimation = false;
 
   List<Product> listProduct;
+
+  // List Of Product By Category
   List<Product> productCategories;
 
   ProductsProvider productsProvider;
@@ -60,11 +62,14 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
   }
 
   void popAnmation(){
+    print("Categoires $productCategories");
+    
     animationController.reverse();
   }
 
   @override
   initState(){
+
     _scrollController = ScrollController();
     listProduct = [];
     category = '';
@@ -89,8 +94,10 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
 
   @override
   Widget build(BuildContext context) {
+
     _categoriesModel = Provider.of<CategoriesModel>(context);
     listProduct = Provider.of<CategoriesModel>(context).listProduct;
+
     return Stack(
       children: [
         
@@ -146,6 +153,7 @@ class _CategoriesState extends State<ProductCategories> with TickerProviderState
             }
           ),   
         ),
+
         SlideTransition(
           position: animation,
           child: Opacity(

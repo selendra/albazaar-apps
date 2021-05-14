@@ -134,9 +134,13 @@ Future<void> requestSignUpDialog(BuildContext context) async {
     context, 
     Padding(
       padding: EdgeInsets.all(20),
-      child: Text("Back To Sign Up", textAlign: TextAlign.center)
+      child: MyText(
+        text: "You are in test account to access all features\nplease register and sign in", 
+        textAlign: TextAlign.center,
+        width: 300,
+      )
     ),
-    Text("Please sign up"),
+    Text("Hi"),
     action: ElevatedButton(
       onPressed: () async {
         await StorageServices.removeKey(DbKey.guestAcc);

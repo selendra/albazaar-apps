@@ -21,6 +21,7 @@ class _DetailScreenState extends State<DetailScreen> {
   List<String> _listImage = [];
   CartProvider _cartProvider;
   List<Product> _productByCategory;
+  List<Product> _relatedProduct;
   bool isGuestAcc = false;
 
   void guestAccCheck() async {
@@ -47,7 +48,9 @@ class _DetailScreenState extends State<DetailScreen> {
     _listImage = Provider.of<ProductsProvider>(context).url;
     
     _cartProvider = Provider.of<CartProvider>(context);
+
     _productByCategory = Provider.of<CategoriesModel>(context).fillProductByCategories(widget.product.categoryName);
+    _relatedProduct = Provider.of<CategoriesModel>(context).fillProductByCategories(widget.product.categoryName);
 
     // final loadedProduct = Provider.of<ProductsProvider>(context).findById(product[0].id);
     return Scaffold(
@@ -56,10 +59,12 @@ class _DetailScreenState extends State<DetailScreen> {
         product: widget.product,
         listImage: _listImage,
         cartProvider: _cartProvider,
-        productByCategory: _productByCategory
+        productByCategory: _productByCategory,
+        relatedProduct: _relatedProduct
       ),
       bottomNavigationBar: GestureDetector(
         onTap: isGuestAcc == false ? null : () async {
+          // For Guest Acc
           requestSignUpDialog(context);
         },
         child: BottomNavigationDetail(widget.product),

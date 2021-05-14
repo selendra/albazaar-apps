@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
   });
   
   final double cPadding = 10;
-  final double padding = 16;
+  final double  padding = 16;
   
   ProductsProvider productsProvider = ProductsProvider();
   List<Product> listProduct = [];
@@ -27,6 +27,7 @@ class Body extends StatelessWidget {
 
     listProduct = Provider.of<ProductsProvider>(context).items;
 
+    // For Weight, Categories, Shipping Services, 
     final weightList =  Provider.of<AddProductProvider>(context).addProduct.weightList;
 
     Provider.of<CategoriesModel>(context).init();

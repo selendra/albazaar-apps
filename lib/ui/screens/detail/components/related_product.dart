@@ -16,9 +16,8 @@ class RelatedProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    relatedProduct = Provider.of<CategoriesModel>(context).fillProductByCategories(category);
-
-    print("My length ${relatedProduct.length ?? ''}" );
+    print("related product");
+    relatedProduct = Provider.of<CategoriesModel>(context).getRelatedProduct(category);
     
     return ListView.builder(
       scrollDirection: Axis.horizontal,

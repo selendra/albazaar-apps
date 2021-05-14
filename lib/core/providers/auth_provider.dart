@@ -294,11 +294,11 @@ class AuthProvider with ChangeNotifier {
           if (_token != null) {
             print("Logging in");
             _pref.saveString('token', _token);
-            Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
-            Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
-            Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
-            Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
-
+            await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
+            await Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
+            await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+            await Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+            print("Start go to home page");
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         }
@@ -307,6 +307,7 @@ class AuthProvider with ChangeNotifier {
       }
     } catch(e){
       print("Sign In error $e");
+      _alertText = e.toString();
     }
     return _alertText;
   }

@@ -18,8 +18,9 @@ class Body extends StatefulWidget {
   final List<String> listImage;
   final CartProvider cartProvider;
   final List<Product> productByCategory;
+  final List<Product> relatedProduct;
 
-  Body({this.isGuestAcc, this.product, this.listImage, this.cartProvider, this.productByCategory});
+  Body({this.isGuestAcc, this.product, this.listImage, this.cartProvider, this.productByCategory, this.relatedProduct});
 
   @override
   _BodyState createState() => _BodyState();
@@ -45,13 +46,16 @@ class _BodyState extends State<Body> {
 
   TextEditingController _controller = TextEditingController();
 
+  // List<Product> relateList;
+
   void relatedProducts(){
-    for(var p in widget.productByCategory){
-      if (p.id == widget.product.id){
-        widget.productByCategory.remove(p);
-        break;
-      }
-    }
+    // for(var p in widget.relatedProduct){
+    //   if (p.id == widget.product.id){
+    //     widget.relatedProduct.remove(p);
+    //     break;
+    //   }
+    // }
+    print("Products By Category after remove related ${widget.productByCategory}");
   }
 
   void onChangeTotal(){

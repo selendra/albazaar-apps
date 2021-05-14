@@ -18,21 +18,18 @@ class CategoriesBuider extends StatefulWidget {
 
 class _CategoriesBuiderState extends State<CategoriesBuider> {
   
-  ProductsProvider productsProvider;
-  
   final double cPadding = 10;
 
   final double padding = 16;
 
   @override
   initState(){
+    print("My product by category ${widget.productCategories}");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    productsProvider = Provider.of<ProductsProvider>(context);
     
     return Scaffold(
       body: Column(
@@ -79,11 +76,13 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                   childAspectRatio: 0.75,
                 ),
                 itemCount: widget.productCategories == null ? 0 : widget.productCategories.length,
-                itemBuilder: (context, index) => MyPadding(
+                itemBuilder: (context, index) {
+                  return MyPadding(
                     pLeft: 0, pRight: 0,
                     pBottom: 0,
                     child: GestureDetector(
                       onTap: (){
+                        print(widget.productCategories[index].name);
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) => DetailScreen(product: widget.productCategories[index],)
                         ));
@@ -208,7 +207,8 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                         )
                       )
                     ),
-                )
+                  );
+                }
               )
             )
 

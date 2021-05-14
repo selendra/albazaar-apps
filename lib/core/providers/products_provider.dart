@@ -57,7 +57,7 @@ class ProductsProvider with ChangeNotifier {
     List<Map<String, dynamic>> responseJson = [];
     try {
       await _prefService.read('token').then((token) async {
-        print("Hello again");
+        
         if (token != null) {
           http.Response response = await http.get(ApiUrl.LISTING, headers: <String, String>{
             "accept": "application/json",
