@@ -26,6 +26,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://images6.alphacoders.com/348/348379.jpg',
       'Aliza buy your product', 
@@ -34,6 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://eskipaper.com/images/cute-little-girl-1.jpg',
       'Lona buy your grape', 
@@ -42,6 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://i.pinimg.com/originals/35/37/9f/35379f32387bb23dd48bf235b071eaf5.jpg',
       'Aliza sent you a message',
@@ -50,6 +53,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://s1.1zoom.me/big3/318/Little_girls_Smile_489609.jpg',
       'Aliza sent you a message',
@@ -58,6 +62,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://i.pinimg.com/originals/24/5e/34/245e341e485ca2d1178ac76230587e00.jpg',
       'Aliza sent you a message',
@@ -66,6 +71,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+
     NotificationModel(
       'https://img.freepik.com/free-photo/happy-cute-little-girl-running-grass-park-happiness_109285-143.jpg?size=626&ext=jpg',
       'Aliza sent you a message',
@@ -74,6 +80,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       '09:24 pm',
       '23/Jan/2021'
     ),
+    
     NotificationModel(
       'https://c4.wallpaperflare.com/wallpaper/982/256/975/cute-little-girl-kid-smiling-decoration-on-head-barefoot-wallpaper-preview.jpg',
       'Aliza sent you a message',

@@ -24,7 +24,6 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
 
   @override
   initState(){
-    print("My product by category ${widget.productCategories}");
     super.initState();
   }
 
@@ -82,7 +81,7 @@ class _CategoriesBuiderState extends State<CategoriesBuider> {
                     pBottom: 0,
                     child: GestureDetector(
                       onTap: (){
-                        print(widget.productCategories[index].name);
+                        print(widget.productCategories[index].thumbnail);
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) => DetailScreen(product: widget.productCategories[index],)
                         ));

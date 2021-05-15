@@ -16,6 +16,7 @@ export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 
 export 'package:flutter_map/flutter_map.dart';
+export 'package:carousel_pro/carousel_pro.dart';
 export 'package:albazaar_app/app_config.dart';
 
 // core

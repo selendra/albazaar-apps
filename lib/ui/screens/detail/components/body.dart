@@ -1,5 +1,6 @@
 // import 'package:badges/badges.dart';
 import 'package:albazaar_app/core/components/widget_builder.dart';
+import 'package:albazaar_app/ui/screens/detail/components/appbar_detail.dart';
 import 'package:albazaar_app/ui/screens/detail/components/comment_user.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,16 +47,14 @@ class _BodyState extends State<Body> {
 
   TextEditingController _controller = TextEditingController();
 
-  // List<Product> relateList;
-
   void relatedProducts(){
-    // for(var p in widget.relatedProduct){
-    //   if (p.id == widget.product.id){
-    //     widget.relatedProduct.remove(p);
-    //     break;
-    //   }
-    // }
-    print("Products By Category after remove related ${widget.productByCategory}");
+
+    for(var p in widget.relatedProduct){
+      if (p.id == widget.product.id){
+        widget.relatedProduct.remove(p);
+        break;
+      }
+    }
   }
 
   void onChangeTotal(){
@@ -91,9 +90,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {//ModalRoute.of(context).settings.arguments;
-    // final widget.product = Provider.of<widget.ProductsProvider>(
-    //   context,
-    // ).findById(widget.product.id);
     
     // Initailize total with product detail price
     if (widget.cartProvider != null) widget.cartProvider.caculateAmount(widget.product.price, widget.product.orderQty);
@@ -105,104 +101,13 @@ class _BodyState extends State<Body> {
           NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return <Widget>[
-                SliverAppBar(
-                  elevation: 0,
-                  iconTheme: IconThemeData(
-                    color: kDefaultColor,
-                  ),
-                  leading: Container(),
-                  toolbarHeight: 70,
-                  expandedHeight: MediaQuery.of(context).size.height * 0.5,
-                  floating: true,
-                  pinned: true,
-                  primary: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
-                      children: [
-                        Hero(
-                          tag: "${widget.product.id}",
-                          child: SizedBox(
-                            child: Consumer<ProductsProvider>(
-                              builder: (context, value, child) => Carousel(
-                                onImageChange: (i,j){
-                                  onChangeImage(j);
-                                },
-                                autoplay: false,
-                                dotSpacing: 15.0,
-                                dotColor: Colors.transparent,
-                                dotBgColor: Colors.transparent,
-                                dotIncreasedColor: Colors.transparent,
-                                indicatorBgPadding: 10.0,
-                                borderRadius: true,
-                                animationCurve: Curves.decelerate,
-                                // moveIndicatorFromBottom: 200.0,
-                                noRadiusForIndicator: true,
-                                boxFit: BoxFit.cover,
-                                images: List.generate(
-                                  value.url.isEmpty ? 1 : value.url.length,
-                                  (index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => InteractView(display),
-                                          ),
-                                        );
-                                      },
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        imageUrl: display,
-                                        placeholder: (context, str){
-                                          return Image.asset('assets/loading.gif');
-                                        },
-                                      ),
-                                      // child: FadeInImage(
-                                      //     fit: BoxFit.cover,
-                                      //     image: NetworkImage(
-                                      //       value.url.isNotEmpty
-                                      //           ? value.url[index]
-                                      //           : widget.product.thumbnail,
-                                      //     ),
-                                      //     placeholder:
-                                      //         AssetImage('assets/loading.gif')),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        Positioned(
-                          left: (MediaQuery.of(context).size.width/2) - (25.0 * widget.listImage.length),
-                          bottom: 20,
-                          child: SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: widget.listImage.length,
-                              itemBuilder: (context, i){
-                                return ListWidgetBuilder.imageRowBuilder(
-                                  context: context, 
-                                  image: widget.listImage[i],
-                                  selected: selected,
-                                  index: i,
-                                  onPressed: (){
-                                    onChangeImage(i);
-                                  }
-                                );
-                              }
-                            )
-                          )
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                DetailAppBar(
+                  image: display,
+                  selected: selected,
+                  productId: widget.product.id,
+                  listImage: widget.listImage,
+                  onChangeImage: onChangeImage,
+                )
               ];
             },
             body: SingleChildScrollView(
@@ -655,11 +560,11 @@ class _BodyState extends State<Body> {
                         child: SizedBox(
                           height: 240,
                           child: RelatedProduct(
-                            category: widget.product.categoryName,
-                            currentProductId: widget.product.id
+                            relatedProduct: widget.relatedProduct,
                           ),
                         )
                       )
+                      
                     ],
                   ),
                 ),
@@ -670,7 +575,6 @@ class _BodyState extends State<Body> {
           widget.isGuestAcc == false ? Container() : GestureDetector(
             onTap: () async {
               await requestSignUpDialog(context);
-              
             },
             child: SizedBox(
               height: MediaQuery.of(context).size.height,

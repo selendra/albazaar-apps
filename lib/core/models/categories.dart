@@ -40,7 +40,7 @@ class CategoriesModel with ChangeNotifier{
     ];
   }
 
-  void listProductByCategories(Product product){
+  void collectProductByCategories(Product product){
     if (product.categoryName == 'Vegetable'){
       vegetableList.add(product);
     } else if (product.categoryName == 'Fruit') {
@@ -65,7 +65,7 @@ class CategoriesModel with ChangeNotifier{
     }
   }
 
-  List<Product> fillProductByCategories(String category){
+  List<Product> getListProductCategory(String category){
 
     print("Fill category");
     if (category == 'Vegetable'){
@@ -160,14 +160,14 @@ class CategoriesModel with ChangeNotifier{
       //   if (value != null){
       //     print("From Guest");
       //     for(var i in data){
-      //       listProductByCategories(Product.fromGuestAccount(i));
+      //       collectProductByCategories(Product.fromGuestAccount(i));
       //     }
       //   } else {
       //     print("From User"); 
       //   }
       // });
       for(var i in data){
-        listProductByCategories(i);
+        collectProductByCategories(i);
       }
     } catch (e){
       print("Sort Data By Category Error ${e.toString()}");

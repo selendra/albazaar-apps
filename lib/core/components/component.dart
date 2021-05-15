@@ -135,7 +135,7 @@ Future<void> requestSignUpDialog(BuildContext context) async {
     Padding(
       padding: EdgeInsets.all(20),
       child: MyText(
-        text: "You are in test account to access all features\nplease register and sign in", 
+        text: "You are in guest account to access all features\nplease register and sign in", 
         textAlign: TextAlign.center,
         width: 300,
       )
@@ -143,6 +143,19 @@ Future<void> requestSignUpDialog(BuildContext context) async {
     Text("Hi"),
     action: ElevatedButton(
       onPressed: () async {
+
+        PrefService _pref = PrefService();
+                
+        // Clear All Local Data
+        await AppServices.clearStorage();
+
+        var isShow = await _pref.read('isshow');
+
+        // Save Carousel Screen
+        await _pref.saveString('isshow', isShow);
+        HomeDialog().alertDialog(context);
+        
+        // Auth().signOut(context);
         await StorageServices.removeKey(DbKey.guestAcc);
 
         Navigator.pushAndRemoveUntil(

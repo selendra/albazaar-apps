@@ -7,6 +7,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
   GetRequest _getRequest = GetRequest();
 
   showAlertDialog(BuildContext context, String alertText) {
@@ -69,8 +70,8 @@ class _BodyState extends State<Body> {
     // WalletChoice(onGetWallet, showAlertDialog);
     mBalance.data == null
     ? Center(
-        child: GetWallet(onGetWallet, showAlertDialog),
-      )
+      child: GetWallet(onGetWallet, showAlertDialog),
+    )
     : MyWallet(resetState: resetState);
   }
 }

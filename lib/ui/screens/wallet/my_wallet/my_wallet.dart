@@ -14,6 +14,7 @@ class MyWallet extends StatelessWidget {
     var _lang = AppLocalizeService.of(context);
     return RefreshIndicator(
       onRefresh: () async {
+        
         await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
         await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
       },

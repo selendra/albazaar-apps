@@ -235,6 +235,7 @@ class UserProvider with ChangeNotifier {
   //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
     // mBalance = Balance();
+    print("Portfolio");
     try {
       await _prefService.read('token').then((onValue) async {
         http.Response response =

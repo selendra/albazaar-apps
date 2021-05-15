@@ -155,7 +155,7 @@ class HomeDrawer extends StatelessWidget {
                           
                           // Tab On Chat
                           if (i == 3){
-                            await Components.dialog(context, Text("This feature coming soon", textAlign: TextAlign.center,), Text("Message"));
+                            await Components.dialog(context, Text("This feature is under development", textAlign: TextAlign.center,), Text("Coming soon"));
                           } else {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
                           }
@@ -223,8 +223,8 @@ class HomeDrawer extends StatelessWidget {
                           } 
                           
                           // Tab On invitation Or Notification
-                          else if (i == 0 || i == 1){
-                            await Components.dialog(context, Text("This feature coming soon", textAlign: TextAlign.center,), Text("Message"));
+                          else if (i >= 4 && i <= 7){
+                            await Components.dialog(context, Text("This feature is under development", textAlign: TextAlign.center,), Text("Coming soon"));
                           }
                           else {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));

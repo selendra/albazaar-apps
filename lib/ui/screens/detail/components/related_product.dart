@@ -5,21 +5,14 @@ import 'package:albazaar_app/core/components/card_c.dart';
 
 class RelatedProduct extends StatelessWidget {
 
-  List<Product> relatedProduct = [];
+  final List<Product> relatedProduct;
 
-  String currentProductId;
-
-  String category;
-
-  RelatedProduct({this.category, this.currentProductId});
+  RelatedProduct({this.relatedProduct});
 
   @override
   Widget build(BuildContext context) {
-
-    print("related product");
-    relatedProduct = Provider.of<CategoriesModel>(context).getRelatedProduct(category);
     
-    return ListView.builder(
+    return relatedProduct.isEmpty ? MyText(text: "No related product", left: 12) : ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: relatedProduct.length,
       shrinkWrap: true,
@@ -29,8 +22,6 @@ class RelatedProduct extends StatelessWidget {
       //   childAspectRatio: 0.75,
       // ),
       itemBuilder: (context, index) {
-
-        // if (currentProductId == relatedProduct[index].id) print(index.toString()+"INDex");
 
         print("My length after ${relatedProduct.length ?? ''}" );
         // Remove Current Reviewing Product From Ralated List && If Still have More Product Else Not Display
