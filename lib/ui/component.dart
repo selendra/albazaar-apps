@@ -16,8 +16,8 @@ class Components {
                 MyCard(
                   pLeft: 10, pRight: 10, pTop: 10, pBottom: 10,
                   hexaColor: AppColors.white,
-                  width: 80,
-                  height: 80,
+                  width: contents == null ? 80 : 300,
+                  height: contents == null ? 80 : 250,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,14 +28,12 @@ class Components {
                         // valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
                       ),
                       contents == null
-                          ? Container()
-                          : Padding(
-                              child: Text(
-                                contents,
-                                style: TextStyle(color: Color(0xffFFFFFF)),
-                              ),
-                              padding:
-                                  EdgeInsets.only(bottom: 10.0, top: 10.0)),
+                      ? Container()
+                      : MyText(
+                        top: 10,
+                        text: contents,
+                        color: AppColors.black,
+                      ),
                     ],
                   )
                 )

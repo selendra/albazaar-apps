@@ -8,6 +8,8 @@ import 'package:albazaar_app/core/services/app_localize_service.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'dart:async';
 
+import 'package:geolocator/geolocator.dart';
+
 class AddListing extends StatefulWidget {
 
   final String from;
@@ -326,40 +328,45 @@ class _AddListingState extends State<AddListing> {
 
   Future<void> triggerLocation() async {
 
-    // Components.dialogLoading(context: context);
-
-    // await Permission.location.request().then((value) {
-    //   print(value);
-    // });
-    
-    // if (await Permission.location.status.isGranted){
-    //   await Geolocator().isLocationServiceEnabled().then((value) async {
-    //     if (value){
-    //       await AppServices.getLatLng().then((location) {
-    //         print("Lat ${location.latitude}");
-    //         print("Long ${location.longitude}");
-    //         _shopModel.lat = location.latitude;
-    //         _shopModel.long = location.longitude;
-    //       });
-
-    //       _shopModel.locationName = await AppServices.getLocation(_shopModel.lat, _shopModel.long);
-
-    //       AppServices.mapAnimateMove(_shopModel.mapController, LatLng(_shopModel.lat, _shopModel.long), 15.0, this);
-
-    //       AppServices.markPin(_shopModel.marker, _shopModel.lat, _shopModel.long);
-    //       setState((){});
-          
-    //     } else {
-    //       await Components.dialog(context, Text("Please enable your location service"), Text("Message"));
-    //     }
-    //   });
+    Components.dialogLoading(context: context);
+    try{
+      await Permission.location.request().then((value) {
+        print(value);
+      });
       
-    // } else {
+      if (await Permission.location.status.isGranted){
+        await Geolocator().isLocationServiceEnabled().then((value) async {
 
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text("${Permission.location.status}"))
-    //   );
+          
+          if (value){
+            await AppServices.getLatLng().then((location) async {
+              _productModel.location.text = await AppServices.getLocation(location.latitude, location.longitude);
+            });
+
+
+            // AppServices.mapAnimateMove(_shopModel.mapController, LatLng(_shopModel.lat, _shopModel.long), 15.0, this);
+
+            // AppServices.markPin(_shopModel.marker, _shopModel.lat, _shopModel.long);
+            setState((){});
+            
+          } else {
+            await Components.dialog(context, Text("Please enable your location service"), Text("Message"));
+          }
+        });
+        
+      } else {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("${Permission.location.status}"))
+        );
+      }
+      
+      // Close Dialog
+      Navigator.pop(context);
+    } catch (e) {
+      await Components.dialog(context, MyText(text: e.toString()), Text("Oops"));
     }
+  }
 
   Future<void> submitProduct(AddProduct addProduct) async {
     
@@ -427,6 +434,7 @@ class _AddListingState extends State<AddListing> {
           onChanged: onChanged,
           onChangeCategory: onChangeCategory,
           onChangeDropDown: onChangeDropDown,
+          triggerLocation: triggerLocation,
           validateField: validateField,
           onChangedPaymentOption: onChangePaymentOption,
           submitProduct: submitProduct,

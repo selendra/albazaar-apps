@@ -23,6 +23,7 @@ class Body extends StatelessWidget {
 
   final Function validateField;
   final Function onChangeDropDown;
+  final Function triggerLocation;
   final Function submitProduct;
 
   Body({
@@ -39,6 +40,7 @@ class Body extends StatelessWidget {
     this.onChangedPaymentOption,
 
     this.validateField,
+    this.triggerLocation,
     this.onChangeDropDown,
     this.onSubmit,
     this.submitProduct
@@ -197,7 +199,7 @@ class Body extends StatelessWidget {
                       flex: 2,
                       child: MyInputField(
                         pLeft: pd12,
-                        labelText: "Search Location",
+                        labelText: "Fill location",
                         controller: productModel.location, 
                         focusNode: productModel.locationNode, 
                         validateField: (String value){
@@ -222,8 +224,8 @@ class Body extends StatelessWidget {
                             MyText(text: "location", pLeft: 5, color: AppColors.primary)
                           ],
                         ), 
-                        action: (){
-
+                        action: () async {
+                          await triggerLocation();
                         }, 
                       )
                     )

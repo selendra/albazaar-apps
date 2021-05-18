@@ -32,8 +32,15 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
       await _pref.read('token').then((value) async {
         print("My Token $value");
         if (value != null) {
+          
+          Components.dialogLoading(context: context, contents: "Please wait! We are fetching your data\n It's might be take too long");
+
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
+
+            // Close Dialog Loading
+            Navigator.pop(context);
+
             print("Status ${user.statusCode}");
 
             // Check Expired Token
@@ -86,16 +93,15 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
             }
             // Expired token
             else if (user.statusCode == 401){
-              
-              var isShow = await _pref.read('isshow');
-
-              // Clear All Local Data
-              await AppServices.clearStorage();
-
-              // Save Carousel Screen
-              await _pref.saveString('isshow', isShow);
-
+              await clearCache();
               await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
+              Navigator.pushReplacementNamed(context, WelcomeView);
+            }
+
+            // Server Down
+            else if (user.statusCode == 504){
+              await clearCache();
+              await Components.dialog(context, Text("Timeout server error", textAlign: TextAlign.center), Text("Message"));
               Navigator.pushReplacementNamed(context, WelcomeView);
             }
 
@@ -125,9 +131,20 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
       Navigator.pushReplacementNamed(context, WelcomeView);
     } catch (e) {
       print(e);
-      await Components.dialog(context, Text(e[0]['error']['message'].toString(), textAlign: TextAlign.center), Text("Message"));
+      await Components.dialog(context, Text("${e[0]['error']['message'].toString()}", textAlign: TextAlign.center), Text("Message"));
       Navigator.pushReplacementNamed(context, WelcomeView);
     }
+  }
+
+  Future<void> clearCache() async {              
+    var isShow = await _pref.read('isshow');
+
+    // Clear All Local Data
+    await AppServices.clearStorage();
+
+    // Save Carousel Screen
+    await _pref.saveString('isshow', isShow);
+
   }
 
   //It is use for validate normal user that register in sld api
