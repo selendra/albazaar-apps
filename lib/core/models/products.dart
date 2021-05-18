@@ -215,6 +215,7 @@ class ProductModel {
     _addProduct.weight = productModel.scaleId;
     _addProduct.description.text = productModel.description.text;
     _addProduct.imageUrl = productModel.tmpImagesUrl[0];
+    _addProduct.subImagesUrl = productModel.tmpImagesUrl.getRange(1, tmpImagesUrl.length);
     _addProduct.category = productModel.categoryId;
     _addProduct.paymentOpt = productModel.paymentOptId;
 
@@ -344,7 +345,9 @@ class OwnerProduct extends Product{
     // For Add Product Display
     this.weightName,
     this.shippingName,
-    this.paymentName
+    this.paymentName,
+
+    this.subImages
   }) : super(
     description: description,
     shippingService: shippingService,
@@ -371,6 +374,7 @@ class OwnerProduct extends Product{
   );
 
   List<String> listImages;
+  List<String> subImages;
 
   String weightName;
   String paymentName;
@@ -449,7 +453,9 @@ class OwnerProduct extends Product{
       categoryName: addProduct.hintCategory,
       paymentName: addProduct.hintPaymentOpt,
       weightName: addProduct.hintWeight,
-      shippingName: addProduct.hintShipping
+      shippingName: addProduct.hintShipping,
+      // For Remain Image Url
+      subImages: addProduct.subImagesUrl
     );
   }
 

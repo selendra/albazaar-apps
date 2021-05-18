@@ -16,55 +16,56 @@ class _BodyState extends State<Body> {
     final _fav = favData.items;
     return Container(
       child: _fav.isNotEmpty
-          ? ListView.builder(
-              itemCount: _fav.length,
-              itemBuilder: (context, index) {
-                return Dismissible(
-                  key: UniqueKey(),
-                  direction: DismissDirection.endToStart,
-                  background: DimissibleBackground(),
-                  onDismissed: (direction) {
-                    favData.removeFav(_fav[index]);
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text("Favorite Removed")));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(kDefaultRadius),
-                    ),
-                    child: ListTile(
-                      title: Text(_fav[index].name),
-                      subtitle: Text(
-                        _fav[index].description,
-                        maxLines: 1,
-                      ),
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage:
-                            CachedNetworkImageProvider(_fav[index].thumbnail),
-                      ),
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(DetailView, arguments: _fav[index].id);
-                      },
-                    ),
-                  ),
-                );
-              })
-          : Center(
-              child: SvgPicture.asset(
-                'assets/undraw_loving_it.svg',
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width * 0.3,
+      ? ListView.builder(
+        itemCount: _fav.length,
+        itemBuilder: (context, index) {
+          return Dismissible(
+            key: UniqueKey(),
+            direction: DismissDirection.endToStart,
+            background: DimissibleBackground(),
+            onDismissed: (direction) {
+              favData.removeFav(_fav[index]);
+              Scaffold.of(context).showSnackBar(
+                  SnackBar(content: Text("Favorite Removed")));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(kDefaultRadius),
               ),
-              // child: Image.network(
-              //   'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
-              //   width: 300,
-              //   height: 300,
-              // ),
+              child: ListTile(
+                title: Text(_fav[index].name),
+                subtitle: Text(
+                  _fav[index].description,
+                  maxLines: 1,
+                ),
+                leading: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage:
+                      CachedNetworkImageProvider(_fav[index].thumbnail),
+                ),
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(DetailView, arguments: _fav[index].id);
+                },
+              ),
             ),
+          );
+        }
+      )
+      : Center(
+        child: SvgPicture.asset(
+          'assets/undraw_loving_it.svg',
+          height: MediaQuery.of(context).size.height * 0.3,
+          width: MediaQuery.of(context).size.width * 0.3,
+        ),
+        // child: Image.network(
+        //   'https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg',
+        //   width: 300,
+        //   height: 300,
+        // ),
+      ),
     );
   }
 }

@@ -25,6 +25,16 @@ class GetRequest {
     _backend.response = await _http.get("${_sldApi.api}/listing-guest");
     return _backend.response;
   }
+
+  Future<_http.Response> listProductByOwner() async {
+    _backend.token = await StorageServices.fetchData('user_token');
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${_sldApi.walletAPI}/listing-by-owner", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      print("User profile response ${_backend.token}");
+    }
+    return _backend.response;
+  }
+
   Future<_http.Response> checkExpiredToken() async {
     /* Expired Token In Welcome Screen */
     _backend.token = await StorageServices.fetchData('user_token');

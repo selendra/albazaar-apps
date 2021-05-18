@@ -6,9 +6,13 @@ class ShopModel {
   TabController tabController;
 
   bool isSold = false;
+
+  // For Button
+  bool canSubmit = false;
   List<dynamic> shopCreate = [];
 
   String thumbnail;
+
   String profile;
   String cover;
 

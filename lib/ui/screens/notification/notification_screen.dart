@@ -95,7 +95,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: MyText(text: "Item  deleted", color: AppColors.white),)
     );
-  }
+  } 
 
   void removeMessage(List<int> items){
     _notification.removeRange(items.first, items.length);

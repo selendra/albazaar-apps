@@ -60,12 +60,14 @@ class _AddListingState extends State<AddListing> {
 
   void toSeller(AddProductProvider provider, UserProvider user) async {
     var response = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => FillSeller(
-                  addProduct: provider.addProduct,
-                  userProvider: user,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => FillSeller(
+          addProduct: provider.addProduct,
+          userProvider: user,
+        )
+      )
+    );
 
     if (response != null) Navigator.pop(context, response);
   }
@@ -118,8 +120,7 @@ class _AddListingState extends State<AddListing> {
     // Fetch Image From Asset
     _addProductProvider.addProduct.fileImagesList.clear();
     for (Asset asset in _addProductProvider.addProduct.images) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       _addProductProvider.addProduct.fileImagesList.add(File(filePath));
     }
   }
@@ -296,10 +297,10 @@ class _AddListingState extends State<AddListing> {
       );
 
       print(_productModel.images);
-      setState((){
-      });
+      setState((){ });
     }
-        
+    
+    // Get Remain Image And Upload To Get URL Image
     _productModel.images.forEach((element) async {
       if (!element.contains('https')){
         await getImageUrl(element);
@@ -323,9 +324,47 @@ class _AddListingState extends State<AddListing> {
     }
   }
 
+  Future<void> triggerLocation() async {
+
+    // Components.dialogLoading(context: context);
+
+    // await Permission.location.request().then((value) {
+    //   print(value);
+    // });
+    
+    // if (await Permission.location.status.isGranted){
+    //   await Geolocator().isLocationServiceEnabled().then((value) async {
+    //     if (value){
+    //       await AppServices.getLatLng().then((location) {
+    //         print("Lat ${location.latitude}");
+    //         print("Long ${location.longitude}");
+    //         _shopModel.lat = location.latitude;
+    //         _shopModel.long = location.longitude;
+    //       });
+
+    //       _shopModel.locationName = await AppServices.getLocation(_shopModel.lat, _shopModel.long);
+
+    //       AppServices.mapAnimateMove(_shopModel.mapController, LatLng(_shopModel.lat, _shopModel.long), 15.0, this);
+
+    //       AppServices.markPin(_shopModel.marker, _shopModel.lat, _shopModel.long);
+    //       setState((){});
+          
+    //     } else {
+    //       await Components.dialog(context, Text("Please enable your location service"), Text("Message"));
+    //     }
+    //   });
+      
+    // } else {
+
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text("${Permission.location.status}"))
+    //   );
+    }
+
   Future<void> submitProduct(AddProduct addProduct) async {
-    print("From ${widget.from}");
+    
     if(widget.from == "fromCreateShop"){
+      print("From create product");
       Navigator.pop(context, addProduct);
     } else {
       Components.dialogLoading(context: context);
@@ -357,7 +396,6 @@ class _AddListingState extends State<AddListing> {
 
   @override
   void initState() {
-    print("From my ${widget.from}}");
     _productModel = ProductModel.initalizeData();
     _addProductProvider = AddProductProvider();
     super.initState();

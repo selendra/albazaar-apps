@@ -28,6 +28,7 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   }
 
   void _pageChange(int index) {
+    print("index selected $index");
     setState(() {
       _selectedIndex = index;
     });
@@ -50,12 +51,25 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   @override
   Widget build(BuildContext context) {
     final addListData = Provider.of<AddProductProvider>(context);
+    print(_selectedIndex);
     // print(addListData.addProduct.imageUrlList);
     // print("My Product id ${addListData.addProduct.productId}");
     return Scaffold(
       key: scaffoldKey,
       drawer: HomeDrawer(),
-      body: _buildBody(),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          _pageChange(index);
+        },
+        pageSnapping: false,
+        children: <Widget>[
+          HomeScreen(),
+          WalletScreen(),
+          FavoriteScreen(),
+          MapScreen(),
+        ],
+      ),
       bottomNavigationBar: _buildBottomAppBar(),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () async {
@@ -82,21 +96,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
       //   ),
       // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-
-  Widget _buildBody() {
-    return PageView(
-      controller: _pageController,
-      onPageChanged: (index) {
-        _pageChange(index);
-      },
-      children: <Widget>[
-        HomeScreen(),
-        WalletScreen(),
-        FavoriteScreen(),
-        MapScreen(),
-      ],
     );
   }
 

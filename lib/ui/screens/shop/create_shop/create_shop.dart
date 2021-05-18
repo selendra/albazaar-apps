@@ -56,6 +56,11 @@ class _CreateShopState extends State<CreateShop> {
       setState((){
         if(spotName == 'thumbnail'){
           widget.shopModel.thumbnail = listImage[0];
+
+          // Save Sub Image Into shopmodel subimage
+          widget.shopProvider.listProductCreateShop.forEach((element) {
+            element.subImages = listImage;
+          });
         } else {
           widget.shopModel.cover = listImage[0];
         }
@@ -63,29 +68,45 @@ class _CreateShopState extends State<CreateShop> {
     }
   }
 
-  Future<void> submit() async {
+  Future<void> submitCreateShop() async {
     Components.dialogLoading(context: context);
     try {
       widget.shopProvider.listProductCreateShop.forEach((element) async {
         _backend.response = await _postRequest.addListing(OwnerProduct().toAddProduct(element));
-        _backend.data = json.decode(_backend.response.body);
-        print(_backend.data['message']);
       });
+
+      await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
 
       await Future.delayed(Duration(seconds: 1), (){
         // Close Dialog Loading
         Navigator.pop(context);
       });
+      
+      await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+      await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
 
-      await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
-
-      Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
-      Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
     } catch (e) {
       // Close Dialog Loading
       Navigator.pop(context);
       await Components.dialog(context, Text(e['message'].toString()), Text("Message"));
     }
+  }
+
+  // Upload Remain Image After Upload Product
+  Future<void> uploadSubImage() async {
+    _backend.response = await GetRequest().listProductByOwner();
+    _backend.data = json.decode(_backend.response.body);
+    
+    // Upload Image By Product Id
+    for (int i = 0; i < _backend.data.length; i++){
+      widget.shopProvider.listProductCreateShop[i].subImages.forEach((element) async {
+        await _postRequest.addProductImage(element, _backend.data[i]['id']);
+      });
+    }
+    // for (int i = 1; i < listImage.length; i++){
+    //   _postRequest.addProductImage(image, productId)
+    // }
+    print(_backend.response.body);
   }
 
   @override
@@ -100,7 +121,7 @@ class _CreateShopState extends State<CreateShop> {
       listProduct: widget.shopProvider.listProductCreateShop, 
       shopModel: widget.shopModel, 
       onChangeImage: onChangeImage,
-      submit: submit, 
+      submitCreateShop: submitCreateShop, 
       upLoadedProduct: widget.uploadedProduct
     );
     //_buildTapBarView();

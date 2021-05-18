@@ -268,7 +268,7 @@ class MyDropDownCustom{
   }
   
   static Widget categoryDdBtn({BuildContext context, double x, double y}){
-    final categoriesList = Provider.of<CategoriesModel>(context, listen: false).listCategories;
+    final categoriesList = Provider.of<AddProductProvider>(context, listen: false).addProduct.categoriesList;
     return GestureDetector(
       onTap: (){
         Navigator.pop(context);

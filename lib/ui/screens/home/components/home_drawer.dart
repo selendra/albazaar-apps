@@ -17,8 +17,8 @@ class HomeDrawer extends StatelessWidget {
 
     {'icon': 'assets/icons/referral.svg', 'title': 'invitation', 'route': Invitation() },
     {'icon': 'assets/icons/belt.svg', 'title': 'notificatioin', 'route': NotificationScreen()},
-    {'icon': 'assets/icons/favorite.svg', 'title': 'favorite', 'route': FavoriteScreen()},
-    {'icon': 'assets/icons/setting.svg', 'title': 'settings', 'route': FavoriteScreen()},
+    {'icon': 'assets/icons/favorite.svg', 'title': 'favorite', 'route': FavoriteScreen(hasBackBtn: true,)},
+    {'icon': 'assets/icons/setting.svg', 'title': 'settings', 'route': SettingScreen()},
     {'icon': 'assets/icons/sign_out.svg', 'title': 'sign_out',},
   ];
 
@@ -223,9 +223,9 @@ class HomeDrawer extends StatelessWidget {
                           } 
                           
                           // Tab On invitation Or Notification
-                          else if (i >= 4 && i <= 7){
-                            await Components.dialog(context, Text("This feature is under development", textAlign: TextAlign.center,), Text("Coming soon"));
-                          }
+                          // else if (i >= 4 && i <= 7){
+                          //   await Components.dialog(context, Text("This feature is under development", textAlign: TextAlign.center,), Text("Coming soon"));
+                          // }
                           else {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => iconText[i]['route']));
                           }

@@ -24,10 +24,7 @@ class CategoriesModel with ChangeNotifier{
   List<Map<String, dynamic>> fromDb;
   List<Map<String, dynamic>> listCategories = [];
 
-  CategoriesModel({this.title, this.img}){
-    print("Run category ");
-    getCategories();
-  }
+  CategoriesModel({this.title, this.img});
 
   void init(){
     category = [
@@ -111,33 +108,6 @@ class CategoriesModel with ChangeNotifier{
       });
     }
     return relatedProduct;
-  }
-
-  void getCategories() async {
-    await StorageServices.fetchData(DbKey.guestAcc).then((value) async {
-      if (value == null){
-        try{
-
-          _backend.data = await StorageServices.fetchData(DbKey.categories);
-          // If Not Yet Get Categories
-          if (_backend.data == null){
-            _backend.response = await _getRequest.categories();
-            _backend.data = json.decode(_backend.response.body);
-
-            listCategories = List.from(_backend.data);
-
-            print("List Categories $listCategories");
-
-            await StorageServices.setData(listCategories, DbKey.categories);
-          }
-
-        } catch (e){
-          print("Get category error ${e.toString()}");
-        }
-
-        notifyListeners();
-      }
-    });
   }
 
   String findCategoriesById(String categoryId) {

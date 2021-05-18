@@ -10,7 +10,7 @@ class AddProduct with ChangeNotifier {
   // Image Url For Upload First Time
   String imageUrl;
 
-  List<String> imageUrlList = List<String>();
+  List<String> subImagesUrl = List<String>();
   List<Asset> images = List<Asset>();
   List<File> fileImagesList = List<File>();
 

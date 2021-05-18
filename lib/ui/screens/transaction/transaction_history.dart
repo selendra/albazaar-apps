@@ -25,8 +25,7 @@ class TransactionHistory extends StatelessWidget {
                       ItemList(title: "Id", trailing: history[i].id),
                       ItemList(
                         title: "Created At",
-                        trailing:
-                            AppUtils.timeStampToDateTime(history[i].createdAt),
+                        trailing: AppUtils.timeStampToDateTime(history[i].createdAt),
                       ),
                       ItemList(title: "Sender", trailing: history[i].sender),
                       ItemList(

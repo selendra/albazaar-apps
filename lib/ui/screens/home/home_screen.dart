@@ -4,6 +4,7 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/home/components/body.dart';
 
 class HomeScreen extends StatefulWidget {
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

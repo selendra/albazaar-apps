@@ -5,13 +5,29 @@ import 'package:albazaar_app/core/constants/constants.dart';
 import 'package:albazaar_app/core/services/app_localize_service.dart';
 
 class FavoriteScreen extends StatelessWidget {
+
+  final bool hasBackBtn;
+
+  FavoriteScreen({
+    this.hasBackBtn = false
+  });
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: MyAppBar().appBar(
           title: AppLocalizeService.of(context).translate('favorite'),
-          leading: MyPadding(
+          leading: hasBackBtn == true ? GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: MyPadding(
+              pLeft: 25, pRight: 10,
+              child: SvgPicture.asset(AppConfig.iconPath+'back.svg')
+            )
+          ) 
+          : MyPadding(
             pLeft: 25, pRight: 10,
             child: SvgPicture.asset(AppConfig.iconPath+'favorite.svg')
           )

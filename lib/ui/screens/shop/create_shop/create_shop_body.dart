@@ -12,11 +12,11 @@ class CreateShopBody extends StatelessWidget {
 
   final Function onChangeImage;
 
-  final Function submit;
+  final Function submitCreateShop;
 
   final Function upLoadedProduct;
 
-  CreateShopBody({this.listProduct, this.addProductProvider, this.shopModel, this.onChangeImage, this.submit, this.upLoadedProduct});
+  CreateShopBody({this.listProduct, this.addProductProvider, this.shopModel, this.onChangeImage, this.submitCreateShop, this.upLoadedProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -356,12 +356,23 @@ class CreateShopBody extends StatelessWidget {
           width: MediaQuery.of(context).size.width/2,
           buttonColor: AppColors.secondary,
           child: MyText(
-            text: "Submit",
+            text: "SubmitCreateShop",
             fontSize: 20,
             color: AppColors.white,
           ),
           action: () async {
-            await submit();
+              await submitCreateShop();
+            // if (shopModel.canSubmit) {
+            // } else {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Align(
+            //         alignment: Alignment.centerLeft, 
+            //         child: MyText(text: "Please fill all field",)
+            //       ),
+            //     )
+            //   );
+            // }
           },
         )
       ],
