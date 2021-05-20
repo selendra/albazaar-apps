@@ -78,7 +78,9 @@ class _BodyState extends State<Body> {
               width: 45, height: 42,
               align: Alignment.centerLeft,
               child: SvgPicture.asset('assets/avatar_user.svg', width: 25, height: 25),
-            )
+            ),
+
+            
             // Container(
             //   margin: const EdgeInsets.only(
             //     left: 10.0,
