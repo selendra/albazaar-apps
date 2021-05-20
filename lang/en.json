@@ -83,6 +83,8 @@
     "general": "General",
     "language": "Language",
     "currency": "Currency",
+    "touch_id": "Touch ID",
+    "reset_pin": "Reset PIN",
     "version": "Version",
     "security": "Security",
     "english": "English",

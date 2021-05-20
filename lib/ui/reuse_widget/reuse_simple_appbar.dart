@@ -14,7 +14,7 @@ class ReuseSimpleAppBar {
         style: TextStyle(
           color: kDefaultColor,
           fontWeight: FontWeight.bold,
-          fontSize: 25,
+          fontSize: 28,
         ),
       ),
       leading: IconButton(

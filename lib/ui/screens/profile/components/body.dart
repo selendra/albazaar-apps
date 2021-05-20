@@ -10,11 +10,12 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _isLoading = false;
 
+  bool _isLoading = false;
   String imageUrl;
+
   Future<void> loadAsset() async {
-    List<Asset> resultList = List<Asset>();
+    List<Asset> resultList = List<Asset>.empty(growable: true);
 
     try {
       resultList = await MultiImagePicker.pickImages(
@@ -69,36 +70,44 @@ class _BodyState extends State<Body> {
       : Container(
         width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
-                top: 10.0,
-              ),
-              child: Card(
-                shape: kDefaultShape,
-                elevation: 0,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ListTile(
-                    onTap: () => loadAsset(),
-                    title: Text(AppLocalizeService.of(context)
-                        .translate('profile_photo')),
-                    trailing: Consumer<UserProvider>(
-                      builder: (context, value, child) => CircleAvatar(
-                        backgroundImage: value.mUser.profileImg != ''
-                            ?NetworkImage(value.mUser.profileImg)
-                            : AssetImage('assets/avatar.png'),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            ProfileForm(
-              imageUrl == null ? user.profileImg : imageUrl,
-            ),
+            MyCard(
+              hexaColor: AppColors.secondary,
+              mRight: 10,
+              width: 45, height: 42,
+              align: Alignment.centerLeft,
+              child: SvgPicture.asset('assets/avatar_user.svg', width: 25, height: 25),
+            )
+            // Container(
+            //   margin: const EdgeInsets.only(
+            //     left: 10.0,
+            //     right: 10.0,
+            //     top: 10.0,
+            //   ),
+            //   child: Card(
+            //     shape: kDefaultShape,
+            //     elevation: 0,
+            //     child: Container(
+            //       margin: const EdgeInsets.symmetric(horizontal: 10),
+            //       child: ListTile(
+            //         onTap: () => loadAsset(),
+            //         title: Text(AppLocalizeService.of(context)
+            //             .translate('profile_photo')),
+            //         trailing: Consumer<UserProvider>(
+            //           builder: (context, value, child) => CircleAvatar(
+            //             backgroundImage: value.mUser.profileImg != ''
+            //                 ?NetworkImage(value.mUser.profileImg)
+            //                 : AssetImage('assets/avatar.png'),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // ProfileForm(
+            //   imageUrl == null ? user.profileImg : imageUrl,
+            // ),
           ],
         ),
       ),
