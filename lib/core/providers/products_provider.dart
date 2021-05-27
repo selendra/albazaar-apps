@@ -93,7 +93,7 @@ class ProductsProvider with ChangeNotifier {
             // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
               // Sort Products By Category 
             await fetchOrFromBuyer(token);
-            getAllProductImg(token);
+            await getAllProductImg(token);
           }
 
           // fetchOListingProduct(token);
@@ -200,10 +200,13 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void getAllProductImg(String token) async {
+  Future<void> getAllProductImg(String token) async {
+    print("Fetching all image");
+    print("Token pass $token");
     for (int i = 0; i < _items.length; i++) {
       final listImagesResponse = await fetchImage(token, _items[i].id);
       for (var item in listImagesResponse) {
+        print("Fetching all image $item");
         _imageList.add(ProductImage.fromJson(item));
       }
     }
@@ -321,6 +324,7 @@ class ProductsProvider with ChangeNotifier {
 
   //find image of each product in image list using product Id
   void findImgById(String productId) async {
+    print("Finding image");
     _url = [];
 
     final product = findById(productId);
@@ -331,6 +335,7 @@ class ProductsProvider with ChangeNotifier {
         _url.add(_imageList[i].url);
       }
     }
+    print("URl $_url");
   }
 
   //Add Image thumbnail to show first index of all images

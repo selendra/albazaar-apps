@@ -8,34 +8,42 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:996789134951:android:1c57d1109cc658c9c996c2",
+        "mobilesdk_app_id": "1:996789134951:android:be22a8e3ead5031ec996c2",
         "android_client_info": {
-          "package_name": "com.example.selendra_marketplace_app"
+          "package_name": "com.selendra.albazaar"
         }
       },
       "oauth_client": [
         {
-          "client_id": "996789134951-3g0f4i5lecb64ii8dvb4tbrbdrlt9buq.apps.googleusercontent.com",
+          "client_id": "996789134951-cdu3fhcutcorp9e6bflu5vco1dlsdvlp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.selendra_marketplace_app",
-            "certificate_hash": "708c60b39bab5ba562b5bd9a3981cc20a3218a52"
+            "package_name": "com.selendra.albazaar",
+            "certificate_hash": "c3b0397fbab2eac69a0d32cec9e71313a0863934"
           }
         },
         {
-          "client_id": "996789134951-o5r8iajj3ku7ap4vs5v7e1232cp8ske8.apps.googleusercontent.com",
+          "client_id": "996789134951-dbckr9ds3v6h62t2fc9gevd3li06ou6g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.selendra_marketplace_app",
+            "package_name": "com.selendra.albazaar",
             "certificate_hash": "8262cad3c588eca29eee43675e5e186a7ee3f53c"
           }
         },
         {
-          "client_id": "996789134951-qcohbieh1lsh5d8hgbjnrdm9srhjn249.apps.googleusercontent.com",
+          "client_id": "996789134951-he3offhig06c9jg5m19smcevnb65r596.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.selendra_marketplace_app",
-            "certificate_hash": "c3b0397fbab2eac69a0d32cec9e71313a0863934"
+            "package_name": "com.selendra.albazaar",
+            "certificate_hash": "708c60b39bab5ba562b5bd9a3981cc20a3218a52"
+          }
+        },
+        {
+          "client_id": "996789134951-q50s4k92hdcmjvbkuakqb4ti2bsmdtq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.selendra.albazaar",
+            "certificate_hash": "e56d6872871547e5197b3591f3fcc48127e3a41a"
           }
         },
         {
@@ -74,6 +82,38 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "996789134951-held51b4tcmhmqcurfl4p30kq6ca54kv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.selendra.marketplace",
+            "certificate_hash": "708c60b39bab5ba562b5bd9a3981cc20a3218a52"
+          }
+        },
+        {
+          "client_id": "996789134951-i8impjumh2fg3rk0qqmj4lh7feq4j54r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.selendra.marketplace",
+            "certificate_hash": "8262cad3c588eca29eee43675e5e186a7ee3f53c"
+          }
+        },
+        {
+          "client_id": "996789134951-ruip6t113ed9g8bfn7henep1u2fpnvm3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.selendra.marketplace",
+            "certificate_hash": "e56d6872871547e5197b3591f3fcc48127e3a41a"
+          }
+        },
+        {
+          "client_id": "996789134951-vsgc7pih3n6928vc1b0f1schir56itmd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.selendra.marketplace",
+            "certificate_hash": "c3b0397fbab2eac69a0d32cec9e71313a0863934"
+          }
+        },
         {
           "client_id": "996789134951-1fh445nmi0fn7i6t2odtjr0fpujrpj81.apps.googleusercontent.com",
           "client_type": 3

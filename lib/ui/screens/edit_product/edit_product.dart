@@ -158,7 +158,7 @@ class _EditProductState extends State<EditProduct> {
           // Close Edit Screen
           // We pass productModel because we need images inside tmpImagesUrl To Upload One By One
           // We pass productOwner.Category because we need product Id
-          Navigator.pop(context, {'productModel': _productModel, 'productId': widget.productOwner.id});
+          Navigator.pop(context, {'remainUrlImage': _productModel.tmpImagesUrl, 'productId': widget.productOwner.id});
         }
       });
     } catch (e){

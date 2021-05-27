@@ -2,6 +2,7 @@
     "welcome_string": "សូមស្វាគមន៍មកកាន់",
     "signin_string": "ចូលគណនី",
     "signup_string": "ចុះឈ្មោះ",
+    "sign_out": "ចាកចេញ",
     "phone": "ទូរស័ព្ទ",
     "email": "អ៊ីមែល",
     "phone_hint": "លេខទូរស័ព្ទ",
@@ -15,6 +16,7 @@
     "market": "ផ្សារ",
     "shop": "ហាង",
     "profile": "គណនី",
+    "edit_profile": "កែគណនី",
     "logout_string": "ចាកចេញ",
     "purchase": "ទិញ",
     "listing": "ហាង",
@@ -125,5 +127,7 @@
     "quantity": "ចំនួន",
     "your_order": "ការបញ្ជាទិញរបស់អ្នក",
     "see_all": "មើលទាំងអស់",
-    "buy_now": "ទិញ​ឥឡូវនេះ"
+    "buy_now": "ទិញ​ឥឡូវនេះ",
+    "chat": "ជជែក",
+    "invite": "អញ្ជើញ"
 }

@@ -1,4 +1,5 @@
 
+import 'package:albazaar_app/core/providers/shop_provider.dart';
 import 'package:albazaar_app/ui/screens/home/components/product_categories.dart';
 import 'package:albazaar_app/all_export.dart';
 import 'package:albazaar_app/ui/screens/home/components/body.dart';
@@ -37,13 +38,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Future<Null> _refresh() async {
-    // await Future.delayed(Duration(seconds: 3)).then((value) async {
-    //   Provider.of<ProductsProvider>(context, listen: false)
-    //       .fetchListingProduct();
-    //   Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
-    //   await Provider.of<TrxHistoryProvider>(context, listen: false)
-    //       .fetchTrxHistory();
-    // });
+    await Future.delayed(Duration(seconds: 3)).then((value) async {
+      Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
+      Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+      Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
+      // await Provider.of<TrxHistoryProvider>(context, listen: false).fetchTrxHistory();
+    });
   }
 
   onTabChange() {

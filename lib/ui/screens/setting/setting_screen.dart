@@ -39,6 +39,10 @@ class _SettingScreenState extends State<SettingScreen> {
         "title": "language", "icon": "${AppConfig.iconPath}change_language.svg", 
         "action": () async {
           final response = await MyBottomSheet().changeLangauge(context: context);
+          print(response);
+          if (response != null){
+            Provider.of<LangProvider>(context, listen: false).setLocal(response, context);
+          }
         }
       },
       {
@@ -126,50 +130,37 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
+
+            // Security
             Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 12, top: 20, bottom: 20),
               color: Colors.grey[200],
-              child: ListTile(
-                title: Text(
-                  _lang.translate('security'),
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey[600],
-                  ),
-                ),
+              child: MyText(
+                text: _lang.translate('security'),
+                fontWeight: FontWeight.w600,
+                color2: Colors.grey[600],
               ),
             ),
 
-            Container(
-              color: Colors.white,
-              child: MyPadding(
-                pLeft: 25, pTop: 15, pBottom: 15, pRight: 15,
-                child: Row(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      width: 50,
-                      child: SvgPicture.asset("${items[2]['icon']}", color: AppServices.hexaCodeToColor(AppColors.primary), width: 30, height: 30),
-                    ),
-                    MyText(text: _lang.translate('${items[2]['title']}'), textAlign: TextAlign.left, fontWeight: FontWeight.bold,),
-
-                    Expanded(child: Container(),),
-                    Container(
-                      height: 50, width: 50,
-                      child: SwitchListTile(
-                        contentPadding: EdgeInsets.zero,
-                        // title: MyText(text: _lang.translate('${items[2]['title']}'), textAlign: TextAlign.left, fontWeight: FontWeight.bold,),
-                        value: _isTouchIdOn,
-                        activeColor: AppServices.hexaCodeToColor(AppColors.primary),
-                        activeTrackColor: AppServices.hexaCodeToColor(AppColors.primary),
-                        onChanged: (value) {
-                          checkTouchID();
-                        },
-                        // secondary: SvgPicture.asset("${items[2]['icon']}", width: 30, height: 30),
-                      ),
-                    )
-                  ],
-                )
+            SwitchListTile(
+              tileColor: Colors.white,
+              title: MyText(text: _lang.translate('${items[2]['title']}'), textAlign: TextAlign.left, left: 5),
+              secondary: Container(
+                margin: EdgeInsets.only(left: 12),
+                alignment: Alignment.centerRight,
+                width: 50,
+                child: SvgPicture.asset("${items[2]['icon']}", color: AppServices.hexaCodeToColor(AppColors.primary), width: 30, height: 30),
               ),
+              contentPadding: EdgeInsets.zero,
+              // title: MyText(text: _lang.translate('${items[2]['title']}'), textAlign: TextAlign.left, fontWeight: FontWeight.bold,),
+              value: _isTouchIdOn,
+              activeColor: AppServices.hexaCodeToColor(AppColors.primary),
+              activeTrackColor: AppServices.hexaCodeToColor(AppColors.primary),
+              onChanged: (value) {
+                checkTouchID();
+              },
+              // secondary: SvgPicture.asset("${items[2]['icon']}", width: 30, height: 30),
             ),
             
             for(int i = 3; i < items.length; i++)

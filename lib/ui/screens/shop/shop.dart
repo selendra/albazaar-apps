@@ -29,10 +29,10 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
   // }
 
   // This Function Pass By Parameter (Shop -> Body -> All)
-  Future<void> uploadRemainUrlImage(ProductModel productModel, String productId) async {
+  Future<void> uploadRemainUrlImage(List<String> remainUrlImage, String productId) async {
 
     print("After  Success edit");
-    print(productModel.tmpImagesUrl);
+    print(remainUrlImage);
     print(productId);
 
     // Remove File Images From Images Url
@@ -43,7 +43,8 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     // });
     
     // Upload Image One By One
-    productModel.tmpImagesUrl.forEach((element) async {
+    remainUrlImage.forEach((element) async {
+      print("Image ${element}");
       await _postRequest.addProductImage(element, productId).then((value) {
         print(value.body);
       });

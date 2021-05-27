@@ -1,3 +1,4 @@
+import 'package:albazaar_app/core/models/profile_m.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -5,6 +6,11 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 
 class Body extends StatefulWidget {
+
+  final ProfileModel profileModel;
+
+  Body({this.profileModel});
+
   @override
   _BodyState createState() => _BodyState();
 }
@@ -15,6 +21,7 @@ class _BodyState extends State<Body> {
   String imageUrl;
 
   Future<void> loadAsset() async {
+
     List<Asset> resultList = List<Asset>.empty(growable: true);
 
     try {
@@ -40,16 +47,12 @@ class _BodyState extends State<Body> {
 
   Future<void> getAssettoFile(List<Asset> resultList) async {
     for (Asset asset in resultList) {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
+      final filePath = await FlutterAbsolutePath.getAbsolutePath(asset.identifier);
       if (filePath != null) {
-        await Provider.of<UserProvider>(context, listen: false)
-            .upLoadImage(File(filePath))
-            .then((value) {
+        await Provider.of<UserProvider>(context, listen: false).upLoadImage(File(filePath)).then((value) {
           setState(() {
             imageUrl = json.decode(value)['uri'];
-            Provider.of<UserProvider>(context, listen: false).mUser.profileImg =
-                imageUrl;
+            Provider.of<UserProvider>(context, listen: false).mUser.profileImg = imageUrl;
           });
         });
       }
@@ -57,9 +60,9 @@ class _BodyState extends State<Body> {
   }
 
   Widget build(BuildContext context) {
-    // return buildDropDown();
     var user = Provider.of<UserProvider>(context).mUser;
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: _isLoading
       ? Container(
           height: MediaQuery.of(context).size.height,
@@ -68,18 +71,105 @@ class _BodyState extends State<Body> {
           ),
         )
       : Container(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.only(
+          left: 54, right: 54
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MyCard(
               hexaColor: AppColors.secondary,
-              mRight: 10,
-              width: 45, height: 42,
-              align: Alignment.centerLeft,
-              child: SvgPicture.asset('assets/avatar_user.svg', width: 25, height: 25),
+              width: 100, height: 100,
+              child: SvgPicture.asset('assets/avatar_user.svg'),
+              mBottom: 20,
+              mTop: 50,
             ),
 
+            MyText(
+              text: "${widget.profileModel.first.text} ${widget.profileModel.last.text.isEmpty ? ' ' : widget.profileModel.last.text}${widget.profileModel.last.text}", 
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              bottom: 50,
+            ),
+            
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  SvgPicture.asset("${AppConfig.iconPath}gender.svg", color: AppServices.hexaCodeToColor(AppColors.secondary), width: 30, height: 30,),
+                  MyText(
+                    left: 12,
+                    text: "${widget.profileModel.mGender}",
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  SvgPicture.asset("${AppConfig.iconPath}location.svg", color: AppServices.hexaCodeToColor(AppColors.secondary), width: 30, height: 30),
+                  MyText(
+                    left: 12,
+                    text: "${widget.profileModel.address.text}",
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  SvgPicture.asset("${AppConfig.iconPath}phone-call.svg", color: AppServices.hexaCodeToColor(AppColors.secondary), width: 30, height: 30),
+                  MyText(
+                    left: 12,
+                    text: "${widget.profileModel.phone.text}",
+                  )
+                ],
+              ),
+            ),
+            
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  SvgPicture.asset("${AppConfig.iconPath}mail.svg", color: AppServices.hexaCodeToColor(AppColors.secondary), width: 30, height: 30),
+                  MyText(
+                    left: 12,
+                    text: "${widget.profileModel.email.text}",
+                  )
+                ],
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(bottom: 70),
+              child: Row(
+                children: [
+                  SvgPicture.asset("${AppConfig.iconPath}goods.svg", color: AppServices.hexaCodeToColor(AppColors.secondary), width: 30, height: 30),
+                  MyText(
+                    left: 12,
+                    text: "830 Products",
+                  )
+                ],
+              ),
+            ),
+
+            MyFlatButton(
+              child: MyText(
+                pTop: 20,
+                pBottom: 20,
+                text: "Edit profile"
+              ),
+              buttonColor: AppColors.secondary,
+              action: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileForm(imageUrl: '', profileModel: widget.profileModel,)));
+              }
+            )
             
             // Container(
             //   margin: const EdgeInsets.only(
@@ -87,7 +177,7 @@ class _BodyState extends State<Body> {
             //     right: 10.0,
             //     top: 10.0,
             //   ),
-            //   child: Card(
+            //   child: Card( 
             //     shape: kDefaultShape,
             //     elevation: 0,
             //     child: Container(

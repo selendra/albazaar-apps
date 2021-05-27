@@ -359,7 +359,7 @@ class MyBottomSheet{
                       height: 50,
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.pop(context, index);
+                          Navigator.pop(context, index == 1 ? 'EN' : 'KH');
                         },
                         child: Align(
                           alignment: Alignment.center,

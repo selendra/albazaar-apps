@@ -71,7 +71,7 @@ dependencies:
   flutter_launcher_icons: ^0.8.1
 
   # Packages For Rename Android/iOS
-  rename: ^1.2.0
+  rename:
 
   # Qr 
   qr_flutter: ^3.2.0

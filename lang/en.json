@@ -2,6 +2,7 @@
     "welcome_string": "Welcome to",
     "signin_string": "SIGN IN",
     "signup_string": "SIGN UP",
+    "sign_out": "Sing Out",
     "phone": "Phone",
     "email": "Email",
     "phone_hint": "Phone Number",
@@ -15,6 +16,7 @@
     "market": "Market",
     "shop": "Shop",
     "profile": "Profile",
+    "edit_profile": "Edit profile",
     "logout_string": "Log out",
     "purchase": "Purchase",
     "listing": "Shop",
@@ -125,5 +127,7 @@
     "quantity": "Qty",
     "your_order": "Your Order",
     "see_all": "See all",
-    "buy_now": "Buy now"
+    "buy_now": "Buy now",
+    "chat": "Chat",
+    "invite": "Invite friend"
 }

@@ -9,16 +9,16 @@ class HomeDrawer extends StatelessWidget {
   final PrefService _pref = PrefService();
 
   final iconText = [
-    {'icon': 'assets/icons/cart.svg', 'title': 'card', 'route': CartScreen()},
+    {'icon': 'assets/icons/cart.svg', 'title': 'cart', 'route': CartScreen()},
     {'icon': 'assets/icons/shop.svg', 'title': 'shop', 'route': ShopScreen()},
     {'icon': 'assets/icons/order.svg', 'title': 'order', 'route': PurchaseScreen()},
     {'icon': 'assets/icons/chat.svg', 'title': 'chat', 'route': MessageScreen()},
 
 
-    {'icon': 'assets/icons/referral.svg', 'title': 'invitation', 'route': Invitation() },
-    {'icon': 'assets/icons/belt.svg', 'title': 'notificatioin', 'route': NotificationScreen()},
+    {'icon': 'assets/icons/referral.svg', 'title': 'invite', 'route': Invitation() },
+    {'icon': 'assets/icons/belt.svg', 'title': 'notification', 'route': NotificationScreen()},
     {'icon': 'assets/icons/favorite.svg', 'title': 'favorite', 'route': FavoriteScreen(hasBackBtn: true,)},
-    {'icon': 'assets/icons/setting.svg', 'title': 'settings', 'route': SettingScreen()},
+    {'icon': 'assets/icons/setting.svg', 'title': 'setting', 'route': SettingScreen()},
     {'icon': 'assets/icons/sign_out.svg', 'title': 'sign_out',},
   ];
 
@@ -116,7 +116,7 @@ class HomeDrawer extends StatelessWidget {
                     pTop: 8,
                     pBottom: 8,
                     textAlign: TextAlign.left,
-                    text: "Marketplace",
+                    text: _lang.translate("market"),
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     bottom: 8,
@@ -137,7 +137,7 @@ class HomeDrawer extends StatelessWidget {
                             child: SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
                           ),
 
-                          MyText(text: iconText[i]['title'], textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
+                          MyText(text: _lang.translate(iconText[i]['title']), textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
 
                           Expanded(child: Container()),
 
@@ -171,7 +171,7 @@ class HomeDrawer extends StatelessWidget {
                     pTop: 8,
                     pBottom: 8,
                     textAlign: TextAlign.left,
-                    text: "General",
+                    text: _lang.translate("general"),
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     bottom: 8,
@@ -192,7 +192,7 @@ class HomeDrawer extends StatelessWidget {
                             child: SvgPicture.asset(iconText[i]['icon'], width: 30, height: 30),
                           ),
 
-                          MyText(text: iconText[i]['title'], textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
+                          MyText(text: _lang.translate(iconText[i]['title']), textAlign: TextAlign.left), //_lang.translate(iconText[i]['title']),
 
                           Expanded(child: Container()),
 

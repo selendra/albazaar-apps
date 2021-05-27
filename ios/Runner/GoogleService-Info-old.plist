@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>996789134951-fi8s8k5mg7ahtu5uqkp303a5o8b0c6g1.apps.googleusercontent.com</string>
+	<string>996789134951-1dijvi95mjuf1p2uh2o97aivhf67qcdi.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.996789134951-fi8s8k5mg7ahtu5uqkp303a5o8b0c6g1</string>
+	<string>com.googleusercontent.apps.996789134951-1dijvi95mjuf1p2uh2o97aivhf67qcdi</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>996789134951-3g0f4i5lecb64ii8dvb4tbrbdrlt9buq.apps.googleusercontent.com</string>
+	<string>996789134951-o5r8iajj3ku7ap4vs5v7e1232cp8ske8.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCAIAu-tptIX0f6NNQ3W203x7W1iEHBmKY</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.selendra.albazaar</string>
+	<string>com.selendra.marketplace</string>
 	<key>PROJECT_ID</key>
 	<string>selendra-marketplace</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:996789134951:ios:b4f4a9695f78d9cdc996c2</string>
+	<string>1:996789134951:ios:a93258e261b8b770c996c2</string>
 	<key>DATABASE_URL</key>
 	<string>https://selendra-marketplace.firebaseio.com</string>
 </dict>

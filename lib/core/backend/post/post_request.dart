@@ -324,7 +324,7 @@ class PostRequest {
   Future<_http.Response> addProductImage(String image, String productId) async {
     print("Url image $image");
     print("product Id $productId");
-    _backend.token = await StorageServices.fetchData('token');
+    _backend.token = await StorageServices.fetchData('user_token');
     print("My token ${_backend.token['token']}");
     _backend.bodyEncode = json.encode({
       "url": image,

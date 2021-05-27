@@ -6,6 +6,7 @@ import 'package:albazaar_app/all_export.dart';
 import 'package:http_parser/http_parser.dart';
 
 class UserProvider with ChangeNotifier {
+  
   var _mUser = new User();
   User get mUser => _mUser;
   dynamic alertText;

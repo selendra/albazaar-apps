@@ -125,7 +125,9 @@ class AllProductOwner extends StatelessWidget{
                                           print("Finding Weight ${listProductOwner[index].weight}");
                                           await Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(productOwner: listProductOwner[index], addProductProvider: productProvider.addProductProvider,))).then((value) async {
                                             if(value != null){
-                                              await uploadRemainUrlImage(value['productModel'], value['productId']);
+
+                                              // At Shop.dart
+                                              await uploadRemainUrlImage(value['remainUrlImage'], value['productId']);
                                             }
                                           });
                                         }

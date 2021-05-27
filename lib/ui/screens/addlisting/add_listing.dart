@@ -285,7 +285,6 @@ class _AddListingState extends State<AddListing> {
   }
 
   void removeImageByIndex(int index){
-    print("My index $index");
     setState(()=> _productModel.images.removeAt(index));
   }
 
@@ -387,10 +386,11 @@ class _AddListingState extends State<AddListing> {
 
         await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center,), Text("Message"));
 
+        //  Fetching All Product
         Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
         Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
 
-        Navigator.pop(context);
+        // Navigator.pop(context, {'remainUrl': _productModel.tmpImagesUrl});
         
       } catch (e){
 
