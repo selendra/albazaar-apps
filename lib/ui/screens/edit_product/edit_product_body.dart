@@ -42,6 +42,7 @@ class EditProductBody extends StatelessWidget {
           // ) : null,
           alignChild: Alignment.center,
           child: productOwner.listImages.length != 0 ? GridView.count(
+            shrinkWrap: true,
             crossAxisCount: 3,
             children: List.generate(productModel.images.length, (index) {
               return MyCard(

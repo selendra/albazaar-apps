@@ -33,13 +33,11 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
         print("My Token $value");
         if (value != null) {
           
-          Components.dialogLoading(context: context, contents: "Please wait! We are fetching your data\n It's might be take too long");
+          // Dialog Loading
+          Components.dialogLoading(context: context, contents: "Please wait! We are fetching your data\n It's might be take a bit long");
 
           // Fetch all listing product
           await GetRequest().getUserProfile().then((user) async {
-
-            // Close Dialog Loading
-            Navigator.pop(context);
 
             print("Status ${user.statusCode}");
 
@@ -52,15 +50,9 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                 listen: false,
               ).fetchListingProduct();
 
-              print("REsponse ${response.runtimeType}");
-
-              print(!response[0].containsKey('error'));
-
               // Check Someting Wrong When Fetcing Listing Product
               // if (response.runtimeType.toString() != "List<dynamic>"){
               if (response[0]['error'] == null){
-
-                print("No Error ");
 
                 //Fetch buyer order product list
                 await Provider.of<SellerProvider>(
@@ -68,14 +60,13 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                   listen: false,
                 ).fetchBuyerOrder();
 
-                //Check if user is login by social media
+                // //Check if user is login by social media
                 await AuthProvider().currentUser.then((valueUser) async {
                   if (valueUser != null) {
                     //split the social user name into firstname and lastname
                     var name = valueUser.displayName.split(' ');
 
-                    /*call provider with function to set profile infomation
-                    of the user*/
+                    /*call provider with function to set profile infomation of the user*/
                     await Provider.of<UserProvider>(context, listen: false).fetchSocialUserInfo(
                       valueUser.email,
                       name.first,
@@ -83,16 +74,19 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
                       valueUser.photoURL,
                     );
                     await Provider.of<UserProvider>(context, listen: false).socialUserInfo(value);
-                  } else {
-                    await validateNormalUser();
-                  }
+                  } 
+                  else await validateNormalUser();
                 });
 
+                // Close Dialog Loading
+                Navigator.pop(context);
+
                 Navigator.pushReplacementNamed(context, BottomNavigationView);
-              } 
+              }
             }
             // Expired token
             else if (user.statusCode == 401){
+              print("401");
               await clearCache();
               await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
               Navigator.pushReplacementNamed(context, WelcomeView);
@@ -100,6 +94,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
             // Server Down
             else if (user.statusCode == 504){
+              print("504");
               await clearCache();
               await Components.dialog(context, Text("Timeout server error", textAlign: TextAlign.center), Text("Message"));
               Navigator.pushReplacementNamed(context, WelcomeView);
@@ -115,6 +110,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
         }
         // No Token Or Not Yet Login In Before 
         else {
+          print("No token");
           Navigator.pushReplacementNamed(context, WelcomeView);
         }
       });

@@ -10,13 +10,11 @@ class GetRequest {
   Backend _backend = Backend();
 
   Future<_http.Response> getUserProfile() async {
-    print("What wrong");
     /* Get User Profile */
     _backend.token = await StorageServices.fetchData('user_token');
     print(_backend.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
-      print("User profile response ${_backend.token}");
     }
     return _backend.response;
   }

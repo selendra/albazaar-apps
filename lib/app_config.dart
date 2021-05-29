@@ -13,4 +13,6 @@ class DbKey{
   static const String guestAcc = "guestAccData";
   static const String shop = "shopData";
   static const String categories = "categoriesData";
+  static const String products = "products";
+  static const String productsOrder = "productsOrder";
 }

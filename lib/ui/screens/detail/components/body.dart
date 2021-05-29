@@ -16,12 +16,12 @@ class Body extends StatefulWidget {
 
   final bool isGuestAcc;
   final Product product;
-  final List<String> listImage;
   final CartProvider cartProvider;
+  final List<String> imgUrls;
   final List<Product> productByCategory;
   final List<Product> relatedProduct;
 
-  Body({this.isGuestAcc, this.product, this.listImage, this.cartProvider, this.productByCategory, this.relatedProduct});
+  Body({this.isGuestAcc, this.product, this.imgUrls ,  this.cartProvider, this.productByCategory, this.relatedProduct});
 
   @override
   _BodyState createState() => _BodyState();
@@ -67,7 +67,7 @@ class _BodyState extends State<Body> {
 
   void onChangeImage(int i){
     setState((){
-      display = widget.listImage[i];
+      display = widget.imgUrls[i];
       selected = i;
     });
   }
@@ -77,6 +77,8 @@ class _BodyState extends State<Body> {
     display = widget.product.thumbnail;
     listAmount = [1, 3, 5, 10];
     selectedAmount = -1;
+
+    // Get Related Product
     relatedProducts();
 
     super.initState();
@@ -105,7 +107,7 @@ class _BodyState extends State<Body> {
                   image: display,
                   selected: selected,
                   productId: widget.product.id,
-                  listImage: widget.listImage,
+                  listImage: widget.imgUrls,
                   onChangeImage: onChangeImage,
                 )
               ];

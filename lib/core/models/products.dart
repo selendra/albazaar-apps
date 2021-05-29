@@ -50,6 +50,9 @@ class Product with ChangeNotifier {
   bool isSold;
   bool isFav;
   int orderQty;
+  
+  // For Sub Image Of Product
+  List<String> subImageUrl = [];
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
     description: json["description"],

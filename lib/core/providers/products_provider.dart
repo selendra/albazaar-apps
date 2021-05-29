@@ -56,50 +56,67 @@ class ProductsProvider with ChangeNotifier {
   Future<dynamic> fetchListingProduct() async {
     List<Map<String, dynamic>> responseJson = [];
     try {
-      await _prefService.read('token').then((token) async {
+      _backend.token = await _prefService.read('token');   
         
-        if (token != null) {
-          http.Response response = await http.get(ApiUrl.LISTING, headers: <String, String>{
-            "accept": "application/json",
-            "authorization": "Bearer " + token,
-          });
+      if (_backend.token != null) {
 
-          // If Have Something Wrong Evern If Response 200
-          // Can't check with = responseJson.contains('error') directly
-          // _GrowableList<dynamic> Response When Run Release
-          if (json.decode(response.body).runtimeType.toString() != "List<dynamic>" && json.decode(response.body).runtimeType.toString() != "_GrowableList<dynamic>"){
-            responseJson.add(
-              {'error': json.decode(response.body)['error']}
-            );
-            print("Have error ");
-            throw(responseJson);
-          } else {
-            print("NO");
-            json.decode(response.body).forEach((value){
-              responseJson.add(value);
+        // Check For Data has been Saved
+        // First Login
+        await _prefService.read(DbKey.products).then((value) async {
+          if (value == null){
+            print("Fetch data from Api");
+
+            _backend.response = await http.get(ApiUrl.LISTING, headers: <String, String>{
+              "accept": "application/json",
+              "authorization": "Bearer " + _backend.token,
             });
-            print("SUccess $responseJson");
-            clearProperty();
-            for (var mItem in responseJson) {
-              // print("My fetcing data ${mItem['is_sold']}");
-              _items.add(
-                Product.fromMap(mItem),
+
+            // If Have Something Wrong Evern If Response 200
+            // Can't check with = responseJson.contains('error') directly
+            // _GrowableList<dynamic> Response When Run Release
+            if (json.decode(_backend.response.body).runtimeType.toString() != "List<dynamic>" && json.decode(_backend.response.body).runtimeType.toString() != "_GrowableList<dynamic>"){
+              responseJson.add(
+                {'error': json.decode(_backend.response.body)['error']}
               );
+              throw(responseJson);
+
+            } else {
+
+              // Save Product Data Into Database
+              _prefService.saveString(DbKey.products, jsonEncode(responseJson));
+
+              // Parse String To Object
+              _backend.data = await json.decode(_backend.response.body);
 
             }
-
-            _prefService.saveString('products', jsonEncode(responseJson));
-            
-            // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
-              // Sort Products By Category 
-            await fetchOrFromBuyer(token);
-            await getAllProductImg(token);
+          // Already Save Data
+          } else {
+            print("Fetch data from  DB");
+            _backend.data = await json.decode(value);
           }
+
+          _backend.data.forEach((value){
+            responseJson.add(value);
+          });
+          clearProperty();
+          for (var mItem in responseJson) {
+            // print("My fetcing data ${mItem['is_sold']}");
+            _items.add(
+              Product.fromMap(mItem),
+            );
+
+          }
+          
+          // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
+          // Sort Products By Category 
+          await fetchOrFromBuyer(_backend.token);
+          await getAllProductImg(_backend.token);
 
           // fetchOListingProduct(token);
           _addProductProvider = AddProductProvider();
-        }
-      });
+        });
+      }
+
     } catch (e) {
       print(e.toString()+"Why error");
       return e;
@@ -122,13 +139,11 @@ class ProductsProvider with ChangeNotifier {
         responseJson.add(
           {'error': json.decode(response.body)['error']}
         );
-        print("Have error ");
         throw(responseJson);
       } else {
         json.decode(response.body).forEach((value){
           responseJson.add(value);
         });
-        print("SUccess $responseJson");
         clearProperty();
         for (var mItem in responseJson) {
           // print("My fetcing data ${mItem['is_sold']}");
@@ -200,16 +215,20 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  // Fetch All Image Url
   Future<void> getAllProductImg(String token) async {
-    print("Fetching all image");
-    print("Token pass $token");
+    print("Item length ${_items.length}");
     for (int i = 0; i < _items.length; i++) {
       final listImagesResponse = await fetchImage(token, _items[i].id);
+      print("Product id ${_items[i].id}");
       for (var item in listImagesResponse) {
-        print("Fetching all image $item");
-        _imageList.add(ProductImage.fromJson(item));
+        // _imageList.add(ProductImage.fromJson(item));
+        _items[i].subImageUrl.add(item['url']);
       }
+      print("SubImage id ${_items[i].subImageUrl.length}");
     }
+
+    // print("SubImageUrl length ${_items.sublist.length}");
   }
 
   /*Fetch all product image by looping all product id in list 
@@ -238,33 +257,47 @@ class ProductsProvider with ChangeNotifier {
 
   // List Order You Bought
   Future<void> fetchOrFromBuyer(token) async {
-    print("hey");
+    print("hey fetchOrFromBuyer");
+    dynamic responseJson;
     try {
-      http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
-        "accept": "application/json",
-        "authorization": "Bearer " + token,
+      await StorageServices.fetchData(DbKey.productsOrder).then((value) async {
+        
+        // Fetch Data From Api
+        if (value == null){
+          print("From Order From Api");
+          http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
+            "accept": "application/json",
+            "authorization": "Bearer " + token,
+          });
+          responseJson = json.decode(response.body);
+          _allOrderItems.clear();
+
+          await StorageServices.setData(responseJson, DbKey.productsOrder);
+        }
+        // Fetch Data From Db 
+        else {
+          print("From Order From Db");
+          responseJson = value;
+        }
       });
-      dynamic responseJson = json.decode(response.body);
-      _allOrderItems.clear();
+
       for (var item in responseJson) {
         _allOrderItems.add(OrderProduct.fromJson(item));
-        notifyListeners();
         var itemData = OrderProduct.fromJson(item);
         if (itemData.orderStatus == 'Order Complete') {
           _completeProduct.add(itemData);
-          notifyListeners();
         } else {
           _orItems.add(itemData);
-          notifyListeners();
         }
       }
+
+      notifyListeners();
     } catch (e) {
       // print(e.toString());
     }
   }
 
-  Future<void> markOrderComplete(
-      String orderId, BuildContext context, OrderProduct product) async {
+  Future<void> markOrderComplete(String orderId, BuildContext context, OrderProduct product) async {
     String message;
     try {
       await _prefService.read('token').then(

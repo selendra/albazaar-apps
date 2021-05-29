@@ -96,21 +96,21 @@ class DetailAppBar extends StatelessWidget{
               left: (MediaQuery.of(context).size.width/2) - (25.0 * listImage.length),
               bottom: 20,
               child: SizedBox(
-                height: 50,
-                width: 50,
+                height: 60,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: listImage.length,
-                  itemBuilder: (context, i){
+                  itemBuilder: (context, index){
+                    print("Sub image $listImage");
                     return ListWidgetBuilder.imageRowBuilder(
                       context: context, 
-                      image: listImage[i],
+                      image: listImage[index],
                       selected: selected,
-                      index: i,
+                      index: index,
                       onPressed: (){
-                        onChangeImage(i);
+                        onChangeImage(index);
                       }
                     );
                   }

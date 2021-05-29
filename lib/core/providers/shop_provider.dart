@@ -52,13 +52,9 @@ class ShopProvider extends ChangeNotifier{
           } else {
 
             shopCheck = 'created';
-            
-            print("Body ${_backend.response.body}");
 
             // print("My response ${_backend.data}");
             await StorageServices.setData(_backend.data, 'oproducts');
-
-            print("Hey My data very ${_backend.data}");
 
             for (var item in _backend.data) {
               // print(item);

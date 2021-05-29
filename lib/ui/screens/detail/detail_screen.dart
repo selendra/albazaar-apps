@@ -18,7 +18,8 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
 
-  List<String> _listImage = [];
+  List<String> imgUrls = [];
+
   CartProvider _cartProvider;
   List<Product> _productByCategory;
   List<Product> _relatedProduct;
@@ -35,8 +36,19 @@ class _DetailScreenState extends State<DetailScreen> {
     });
   }
 
+  void fillSubImgWithThumbnail(){
+    widget.product.subImageUrl.forEach((element) {
+      print("Sub image $element");
+      imgUrls.add(element);
+    });
+    print(imgUrls);
+    setState((){});
+  }
+
   @override
   initState(){
+    imgUrls.add(widget.product.thumbnail);
+    fillSubImgWithThumbnail();
     guestAccCheck();
     super.initState();
   }
@@ -45,7 +57,6 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     // final Product productId = ModalRoute.of(context).settings.arguments;
     Provider.of<ProductsProvider>(context).findImgById(widget.product.id);
-    _listImage = Provider.of<ProductsProvider>(context).url;
     
     _cartProvider = Provider.of<CartProvider>(context);
 
@@ -57,8 +68,8 @@ class _DetailScreenState extends State<DetailScreen> {
       body: widget.product == null ? Center(child: CircularProgressIndicator()) : Body(
         isGuestAcc: isGuestAcc,
         product: widget.product,
-        listImage: _listImage,
         cartProvider: _cartProvider,
+        imgUrls: imgUrls,
         productByCategory: _productByCategory,
         relatedProduct: _relatedProduct
       ),

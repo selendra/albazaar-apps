@@ -313,9 +313,9 @@ class PostRequest {
     _backend.bodyEncode = json.encode({"hashs": hashs});
     if (_backend.token != null) {
       _backend.response = await _http.post("${_sldApi.api}/get-rewards",
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"),
-          body: _backend.bodyEncode);
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
       return json.decode(_backend.response.body);
     }
     return null;

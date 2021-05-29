@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 
 class Backend{
 
-  Map<String, dynamic> token = {}; 
+  dynamic token; 
   
   String bodyEncode = "";
 
