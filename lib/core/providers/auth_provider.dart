@@ -116,7 +116,7 @@ class AuthProvider with ChangeNotifier {
     var responseJson = json.decode(response.body);
     if (response.statusCode == 200) {
       _token = responseJson['token'];
-      _pref.saveString('token', _token);
+      _pref.saveString(DbKey.token, _token);
 
       if (token == null) {
         await ReuseAlertDialog().successDialog(

@@ -64,7 +64,7 @@ class Components {
   ) async {
     var result = await showDialog(
       context: context,
-      barrierColor: barrierColor,
+      barrierColor: barrierColor ?? Colors.white.withOpacity(0),
       builder: (BuildContext context) {
         return StatefulBuilder(builder: (context, setState){
           return AlertDialog(

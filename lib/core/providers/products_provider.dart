@@ -63,7 +63,7 @@ class ProductsProvider with ChangeNotifier {
         // Check For Data has been Saved
         // First Login
         await _prefService.read(DbKey.products).then((value) async {
-          if (value == null){
+          if (value == null || value.length == 0){
             print("Fetch data from Api");
 
             _backend.response = await http.get(ApiUrl.LISTING, headers: <String, String>{
@@ -83,7 +83,7 @@ class ProductsProvider with ChangeNotifier {
             } else {
 
               // Save Product Data Into Database
-              _prefService.saveString(DbKey.products, jsonEncode(responseJson));
+              _prefService.saveString(DbKey.products, _backend.response.body);
 
               // Parse String To Object
               _backend.data = await json.decode(_backend.response.body);
@@ -94,10 +94,10 @@ class ProductsProvider with ChangeNotifier {
             print("Fetch data from  DB");
             _backend.data = await json.decode(value);
           }
-
           _backend.data.forEach((value){
             responseJson.add(value);
           });
+          
           clearProperty();
           for (var mItem in responseJson) {
             // print("My fetcing data ${mItem['is_sold']}");
@@ -110,7 +110,6 @@ class ProductsProvider with ChangeNotifier {
           // _categoriesModel.sortDataByCategory(_categoriesModel.listProduct, 'user');
           // Sort Products By Category 
           await fetchOrFromBuyer(_backend.token);
-          await getAllProductImg(_backend.token);
 
           // fetchOListingProduct(token);
           _addProductProvider = AddProductProvider();

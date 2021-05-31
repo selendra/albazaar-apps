@@ -39,4 +39,9 @@ class StorageServices{
     _decode = jsonDecode(_preferences.getString(_path));
     return _decode;
   }
+
+  static Future<void> clearStorage() async {
+    _preferences = await SharedPreferences.getInstance();
+    await _preferences.clear();
+  }
 }

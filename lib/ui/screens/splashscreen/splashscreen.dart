@@ -86,6 +86,9 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
             }
             // Expired token
             else if (user.statusCode == 401){
+
+              // Close Dialog Loading
+              Navigator.pop(context);
               print("401");
               await clearCache();
               await Components.dialog(context, Text("Your login was expired", textAlign: TextAlign.center), Text("Message"));
@@ -94,6 +97,9 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
 
             // Server Down
             else if (user.statusCode == 504){
+
+              // Close Dialog Loading
+              Navigator.pop(context);
               print("504");
               await clearCache();
               await Components.dialog(context, Text("Timeout server error", textAlign: TextAlign.center), Text("Message"));

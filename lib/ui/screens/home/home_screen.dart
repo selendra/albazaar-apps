@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    
+    getAllProductImage();
 
     StorageServices.removeKey(AppConfig.categoryPath);  
     _tabController = TabController(vsync: this, length: 3);
@@ -77,6 +79,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void resetState(){
     setState(() {
       
+    });
+  }
+  
+  getAllProductImage() async{
+
+    await StorageServices.fetchData(DbKey.token).then((value) async {
+      await Provider.of<ProductsProvider>(context).getAllProductImg(value);
     });
   }
 
