@@ -124,7 +124,7 @@ class AuthProvider with ChangeNotifier {
           responseJson['error']['message'],
         );
       } else {
-        await StorageServices.setData(responseJson, 'user_token');
+        await StorageServices.setData(responseJson, DbKey.token);
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
         Provider.of<UserProvider>(context, listen: false)
@@ -154,7 +154,7 @@ class AuthProvider with ChangeNotifier {
           responseJson['error']['message'],
         );
       } else {
-        await StorageServices.setData(responseJson, 'user_token');
+        await StorageServices.setData(responseJson, DbKey.token);
 
         Provider.of<ProductsProvider>(context, listen: false)
             .fetchListingProduct();
@@ -234,7 +234,7 @@ class AuthProvider with ChangeNotifier {
         _token = responseJson['token'];
         if (_token != null) {
           _pref.saveString('token', _token);
-          await StorageServices.setData(responseJson, 'user_token');
+          await StorageServices.setData(responseJson, DbKey.token);
 
           Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
           Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
@@ -285,7 +285,7 @@ class AuthProvider with ChangeNotifier {
 
           // Store Token
           _token = responseJson['token'];
-          await StorageServices.setData(responseJson, 'user_token');
+          await StorageServices.setData(responseJson, DbKey.token);
 
           mBalance = Balance();
 

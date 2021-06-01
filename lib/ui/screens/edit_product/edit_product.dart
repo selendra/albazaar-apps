@@ -149,6 +149,9 @@ class _EditProductState extends State<EditProduct> {
       await PostRequest().updateProduct(ownerProduct).then((value) async {
         // Close Loading
         Navigator.pop(context);
+
+        print("Edit ${value.body}");
+
         if (value.statusCode == 200){
           await Components.dialog(context, MyText(text: json.decode(value.body)['message']), Text("Message"));
 
@@ -184,8 +187,10 @@ class _EditProductState extends State<EditProduct> {
 
     _productModel = ProductModel.fromOwner(widget.productOwner);
 
-    // Insert Thumbnail Inot images of ProductModel
-    _productModel.images.insert(0, widget.productOwner.thumbnail);
+    // Insert Thumbnail Into images of ProductModel
+    if (_productModel.images.isEmpty){
+      _productModel.images.insert(0, widget.productOwner.thumbnail);
+    }
     _productModel.tmpImagesUrl = [];
 
     // widget.productOwner.productModel.currency = 'Currency';

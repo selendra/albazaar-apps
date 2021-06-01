@@ -71,9 +71,19 @@ class _CreateShopState extends State<CreateShop> {
   Future<void> submitCreateShop() async {
     Components.dialogLoading(context: context);
     try {
-      widget.shopProvider.listProductCreateShop.forEach((element) async {
-        _backend.response = await _postRequest.addListing(OwnerProduct().toAddProduct(element));
-      });
+      print("List createshop ${widget.shopProvider.listProductCreateShop}");
+      
+      for(int i = 0; i< widget.shopProvider.listProductCreateShop.length; i++){
+        print("Index ${widget.shopProvider.listProductCreateShop[i]}");
+        _backend.response = await _postRequest.addListing(OwnerProduct().toAddProduct(widget.shopProvider.listProductCreateShop[i]));
+      }
+      print(_backend.response.body);
+      print(widget.shopProvider.listProductCreateShop.length);
+
+      // Parse Json To Object
+      _backend.data = json.decode(_backend.response.body);
+
+      print("What wrong");
 
       await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
 
@@ -88,7 +98,7 @@ class _CreateShopState extends State<CreateShop> {
     } catch (e) {
       // Close Dialog Loading
       Navigator.pop(context);
-      await Components.dialog(context, Text(e['message'].toString()), Text("Message"));
+      await Components.dialog(context, Text(e.toString()), Text("Oops"));
     }
   }
 

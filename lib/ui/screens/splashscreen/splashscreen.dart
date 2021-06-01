@@ -26,6 +26,10 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
   ];
 
   void checkUser() async {
+
+
+    // await StorageServices.clearStorage();
+
     print("Hello check have user");
     try {
       //Read token

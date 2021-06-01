@@ -53,7 +53,7 @@ class Components {
     {
       Widget action, 
       String firsTxtBtn = "Close", 
-      Color bgColor, 
+      Color bgColor = Colors.white, 
       Color barrierColor, 
       bool removeBtn: false,
       double pLeft: 10,
@@ -66,7 +66,7 @@ class Components {
       context: context,
       barrierColor: barrierColor ?? Colors.white.withOpacity(0),
       builder: (BuildContext context) {
-        return StatefulBuilder(builder: (context, setState){
+        return StatefulBuilder(builder: (context2, setState){
           return AlertDialog(
             backgroundColor: bgColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
@@ -81,7 +81,7 @@ class Components {
                 child: Text(firsTxtBtn),
                 onPressed: () => Navigator.of(context).pop(text),
               ),
-              action
+              action ?? Container()
             ] : null,
           );
         });

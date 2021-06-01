@@ -146,6 +146,8 @@ class ProductModel {
   List<String> tmpImagesUrl;
 
   bool enable = false;
+  // For Search And Getting Location
+  bool isLocation = false;
 
   List<String> images;
   String currency;
@@ -191,6 +193,7 @@ class ProductModel {
 
   // Call When We Fetching Data From Server
   ProductModel.fromOwner(OwnerProduct productOwner){
+    images = [];
     print(productOwner.categoryName.toString()+"Category");
     images = productOwner.listImages;
     productName.text = productOwner.name;
@@ -218,7 +221,13 @@ class ProductModel {
     _addProduct.weight = productModel.scaleId;
     _addProduct.description.text = productModel.description.text;
     _addProduct.imageUrl = productModel.tmpImagesUrl[0];
-    _addProduct.subImagesUrl = productModel.tmpImagesUrl.getRange(1, tmpImagesUrl.length);
+
+    print(productModel.tmpImagesUrl.length);
+    // For Multiple Image
+    if (productModel.tmpImagesUrl.length > 1){
+      _addProduct.subImagesUrl = productModel.tmpImagesUrl.getRange(1, productModel.tmpImagesUrl.length);
+    }
+    
     _addProduct.category = productModel.categoryId;
     _addProduct.paymentOpt = productModel.paymentOptId;
 

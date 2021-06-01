@@ -15,5 +15,5 @@ class DbKey{
   static const String categories = "categoriesData";
   static const String products = "products";
   static const String productsOrder = "productsOrder";
-  static const String token = "token";
+  static const String token = "tokens";
 }

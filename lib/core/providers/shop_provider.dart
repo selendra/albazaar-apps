@@ -28,7 +28,7 @@ class ShopProvider extends ChangeNotifier{
   Future<http.Response> fetchOListingProduct() async {
     _allOwnerProduct = [];
     try{
-      await StorageServices.fetchData('user_token').then((token) async {
+      await StorageServices.fetchData(DbKey.token).then((token) async {
         print("My token ${token['token']} Hello");
         if(token != null){
           _backend.response = await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{

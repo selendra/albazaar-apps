@@ -10,7 +10,7 @@ class PostRequest {
   Backend _backend = Backend();
 
   Future<dynamic> inviteFriend(String phoneNumber) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     // _backend.bodyEncode = json.encode({"phone": phoneNumber});
     // if (_backend.token != null) {
     //   _backend.response = await _http.post("${_sldApi.walletAPI}/invite-phonenumber",
@@ -32,7 +32,7 @@ class PostRequest {
     print("shippingId" + ownerProduct.shippingId.toString());
     print("price" + ownerProduct.price.toString());
     print("paymentId" + ownerProduct.paymentId);
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     // _backend.token.addAll({"token": "eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0"});
     _backend.bodyEncode = json.encode({
       "description": ownerProduct.description,
@@ -55,7 +55,7 @@ class PostRequest {
   }
 
   Future<_http.Response> deleteProduct(String id) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "id": id,
     });
@@ -115,7 +115,7 @@ class PostRequest {
   /* Post User Information */
   Future<_http.Response> uploadProfile(var _model) async {
     //ModelUserInfo
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "first_name": _model.controlFirstName.text,
       "mid_name": _model.controlMidName.text,
@@ -134,7 +134,7 @@ class PostRequest {
 
   /* Post Get Wallet */
   Future<_http.Response> retreiveWallet(String _pins) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({"pin": _pins});
     if (_backend.token != null) {
       _backend.response = await _http.post("${_sldApi.api}/getwallet",
@@ -148,7 +148,7 @@ class PostRequest {
 
   Future<Map<String, dynamic>> addAsset(var _model) async {
     /* Add New Asset */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "asset_code": _model.controllerAssetCode.text,
       "asset_issuer": _model.controllerIssuer.text
@@ -165,7 +165,7 @@ class PostRequest {
 
   /* QR Code Send Request */
   Future<_http.Response> sendPayment(ModelScanPay _model) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "pin": _model.pin,
       "asset_code": _model.asset,
@@ -184,7 +184,7 @@ class PostRequest {
 
   Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
     /* Add New Merchant */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "asset-code": _model.controlAssetCode.text,
       "destination": _model.controlDestination.text,
@@ -210,7 +210,7 @@ class PostRequest {
       "image_uri": _modelScanInvoice.imageUrlList['uri'],
       "approval_code": _modelScanInvoice.controlApproveCode.text
     });
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.post("${_sldApi.api}/addreceipt",
           headers: _backend.conceteHeader(
@@ -233,7 +233,7 @@ class PostRequest {
 
   // Add Phone To Exist Email
   Future<_http.Response> addPhone(String phone) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({"phone": "+855$phone"});
     _backend.response = await _http.post("${_sldApi.api}/add-phonenumber",
         headers: _backend.conceteHeader(
@@ -277,7 +277,7 @@ class PostRequest {
   }
 
   Future<Map<String, dynamic>> changePIN(var _model) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "current_pin": _model.controllerOldPin.text,
       "new_pin": _model.controllerConfirmPin.text,
@@ -293,7 +293,7 @@ class PostRequest {
   }
 
   Future<Map<String, dynamic>> changePassword(var _model) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "current_password": _model.controlOldPassword.text,
       "new_password": _model.controlConfirmPassword.text,
@@ -309,7 +309,7 @@ class PostRequest {
   }
 
   Future<Map<String, dynamic>> getReward(String hashs) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({"hashs": hashs});
     if (_backend.token != null) {
       _backend.response = await _http.post("${_sldApi.api}/get-rewards",
@@ -324,7 +324,7 @@ class PostRequest {
   Future<_http.Response> addProductImage(String image, String productId) async {
     print("Url image $image");
     print("product Id $productId");
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     print("My token ${_backend.token['token']}");
     _backend.bodyEncode = json.encode({
       "url": image,
@@ -341,7 +341,7 @@ class PostRequest {
   }
 
   Future<_http.Response> markPamyment(String orderId) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "order-id": orderId
     });
@@ -356,7 +356,7 @@ class PostRequest {
   }
 
   Future<_http.Response> markShipment(String orderId) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "order-id": orderId
     });
@@ -372,7 +372,7 @@ class PostRequest {
 
   /* Post To Get Wallet Form Contact */
   Future<_http.Response>getWalletFromContact(String contact) async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({"phone": contact});
     if (_backend.token != null) {
       _backend.response = await _http.post('${_sldApi.walletAPI}/wallet-lookup',
@@ -384,7 +384,7 @@ class PostRequest {
     return null;
   }
 
-  Future<dynamic> addListing(AddProduct product) async {
+  Future<_http.Response> addListing(AddProduct product) async {
       print(product.productName.text);
       print(product.price.text);
       print(product.shipping);
@@ -393,7 +393,7 @@ class PostRequest {
       print(product.imageUrl);
       print(product.category);
       print(product.paymentOpt);
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     _backend.bodyEncode = json.encode({
       "name": product.productName.text,
       "price": product.price.text,
@@ -404,14 +404,16 @@ class PostRequest {
       "category-id": product.category,
       "payment-id": product.paymentOpt
     });
+    print("Token ${_backend.token['token']}");
     if (_backend.token != null) {
-      _backend.response = await _http.post('${_sldApi.api}/add-product',
-          headers: _backend.conceteHeader(
-              "authorization", "Bearer ${_backend.token['token']}"),
-          body: _backend.bodyEncode);
-      return _backend.response;
+      _backend.response = await _http.post(
+        '${_sldApi.api}/add-product',
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
+        body: _backend.bodyEncode
+      );
     }
-    return product;
+    print("Response ${_backend.response.body}");
+    return _backend.response;
   }
 
   /* OCR Image */
@@ -452,7 +454,6 @@ class PostRequest {
 
     /* Start send to server */
     String imageUrl;
-    print("MyImage url $imageUrl");
     try{
       var r = await request.send();
       if (r.statusCode != 522){

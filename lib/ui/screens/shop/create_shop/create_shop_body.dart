@@ -356,7 +356,7 @@ class CreateShopBody extends StatelessWidget {
           width: MediaQuery.of(context).size.width/2,
           buttonColor: AppColors.secondary,
           child: MyText(
-            text: "SubmitCreateShop",
+            text: "Submit",
             fontSize: 20,
             color: AppColors.white,
           ),

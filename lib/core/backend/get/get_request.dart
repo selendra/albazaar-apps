@@ -11,7 +11,7 @@ class GetRequest {
 
   Future<_http.Response> getUserProfile() async {
     /* Get User Profile */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     print(_backend.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
@@ -25,7 +25,7 @@ class GetRequest {
   }
 
   Future<_http.Response> listProductByOwner() async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/listing-by-owner", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       print("User profile response ${_backend.token}");
@@ -35,7 +35,7 @@ class GetRequest {
 
   Future<_http.Response> checkExpiredToken() async {
     /* Expired Token In Welcome Screen */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
@@ -59,7 +59,7 @@ class GetRequest {
 
   Future<_http.Response> categories() async {
     /* Expired Token In Welcome Screen */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     // _backend.token = {'token': 'eyJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1Y2U0YTg0Mi01OWVjLTQ4OTctODRkNC05MzFjZjAyMTQxZjAiLCJleHAiOjE2MTg2NDE5NTl9.SRizEOs7w6gGNq7QpBft_ZPzwBemC8MTpxbGHTXQnW0'};
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/product-categories",headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
@@ -114,7 +114,7 @@ class GetRequest {
 
   /* User History */
   Future<_http.Response> getTrxHistory() async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/trx-history",
           headers: _backend.conceteHeader(
@@ -127,7 +127,7 @@ class GetRequest {
 
   Future<_http.Response> getPortfolio() async {
     /* User Porfolio */
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/portforlio",
           headers: _backend.conceteHeader(
@@ -138,7 +138,7 @@ class GetRequest {
   }
 
   Future getAllBranches() async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/get-all-branches",
           headers: _backend.conceteHeader(
@@ -149,7 +149,7 @@ class GetRequest {
   }
 
   Future<dynamic> getReceipt() async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/get-receipt",
           headers: _backend.conceteHeader(
@@ -162,7 +162,7 @@ class GetRequest {
 
   /* List Branches */
   Future<List<dynamic>> listBranches() async {
-    _backend.token = await StorageServices.fetchData('user_token');
+    _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get('${_sldApi.walletAPI}/listBranches',
           headers: {
@@ -175,7 +175,7 @@ class GetRequest {
   }
 
   // Future<Map<String, dynamic>> submitInvoice(ModelInvoice _model) async { /* Confirm Receipt */
-  //   _backend.token = await StorageServices.fetchData('user_token');
+  //   _backend.token = await StorageServices.fetchData(DbKey.token);
   //   if (_backend.token != null){
   //     _backend.response = await _http.post(
   //       "${_sldApi.api}/confirmreceipt",
