@@ -53,17 +53,19 @@ class ProductsProvider with ChangeNotifier {
   AddProductProvider get addProductProvider => _addProductProvider;
   AddProductProvider _addProductProvider;
 
-  Future<dynamic> fetchListingProduct() async {
+  Future<dynamic> fetchListingProduct({bool refetch = false}) async {
     List<Map<String, dynamic>> responseJson = [];
     try {
       _backend.token = await _prefService.read('token');   
         
       if (_backend.token != null) {
 
-        // Check For Data has been Saved
+        /* --------Check For Data has been Saved-------- */
+
         // First Login
         await _prefService.read(DbKey.products).then((value) async {
-          if (value == null || value.length == 0){
+          // If we also want to refetch
+          if (value == null || value.length == 0 || refetch == true){
             print("Fetch data from Api");
 
             _backend.response = await http.get(ApiUrl.LISTING, headers: <String, String>{

@@ -14,9 +14,9 @@ class CreateShopBody extends StatelessWidget {
 
   final Function submitCreateShop;
 
-  final Function upLoadedProduct;
+  final Function addingProduct;
 
-  CreateShopBody({this.listProduct, this.addProductProvider, this.shopModel, this.onChangeImage, this.submitCreateShop, this.upLoadedProduct});
+  CreateShopBody({this.listProduct, this.addProductProvider, this.shopModel, this.onChangeImage, this.submitCreateShop, this.addingProduct});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +161,7 @@ class CreateShopBody extends StatelessWidget {
             action: () async {
               final uploadResponse = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddListing(from: "fromCreateShop",)));
               if (uploadResponse != null){
-                upLoadedProduct(uploadResponse);
+                addingProduct(uploadResponse);
               }
             },
           )

@@ -82,10 +82,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     });
   }
   
-  getAllProductImage() async{
+  void getAllProductImage() async{
 
     await StorageServices.fetchData(DbKey.token).then((value) async {
-      await Provider.of<ProductsProvider>(context, listen: false).getAllProductImg(value);
+      print("Token $value");
+      await Provider.of<ProductsProvider>(context, listen: false).getAllProductImg(value['token']);
     });
   }
 

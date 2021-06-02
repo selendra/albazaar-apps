@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>with SingleTickerProviderSta
               response = await Provider.of<ProductsProvider>(
                 context,
                 listen: false,
-              ).fetchListingProduct();
+              ).fetchListingProduct(refetch: true);
 
               // Check Someting Wrong When Fetcing Listing Product
               // if (response.runtimeType.toString() != "List<dynamic>"){

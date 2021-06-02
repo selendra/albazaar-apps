@@ -29,7 +29,6 @@ class ShopProvider extends ChangeNotifier{
     _allOwnerProduct = [];
     try{
       await StorageServices.fetchData(DbKey.token).then((token) async {
-        print("My token ${token['token']} Hello");
         if(token != null){
           _backend.response = await http.get(ApiUrl.OWNER_LISTING, headers: <String, String>{
             "accept": "application/json",

@@ -220,13 +220,17 @@ class ProductModel {
     _addProduct.shipping = productModel.shippingOptId;
     _addProduct.weight = productModel.scaleId;
     _addProduct.description.text = productModel.description.text;
+    
     _addProduct.imageUrl = productModel.tmpImagesUrl[0];
 
-    print(productModel.tmpImagesUrl.length);
     // For Multiple Image
     if (productModel.tmpImagesUrl.length > 1){
-      _addProduct.subImagesUrl = productModel.tmpImagesUrl.getRange(1, productModel.tmpImagesUrl.length);
+      print("True");
+      _addProduct.subImagesUrl = List<String>.from(productModel.tmpImagesUrl.getRange(1, productModel.tmpImagesUrl.length));
     }
+
+    print("Hey length ${productModel.tmpImagesUrl.length}");
+    print("Remain Image Url for upload ${_addProduct.subImagesUrl}");;
     
     _addProduct.category = productModel.categoryId;
     _addProduct.paymentOpt = productModel.paymentOptId;

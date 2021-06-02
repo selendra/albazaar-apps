@@ -311,7 +311,6 @@ class _AddListingState extends State<AddListing> {
   }
 
   Future<void> getImageUrl(String image) async {
-    print("Image path $image");
     try {
       await _postRequest.upLoadImage(File(image), 'upload').then((value) {
         _backend.data = json.decode(value);

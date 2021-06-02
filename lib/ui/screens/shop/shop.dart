@@ -81,7 +81,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
     }
   }
 
-  void displayProduct(AddProduct tmpProductOwner){
+  void addingProduct(AddProduct tmpProductOwner){
     setState((){
       // Parse Data From Input Into OwnerProduct Model
       _shopProvider.listProductCreateShop.add(OwnerProduct.fromCreateShop(tmpProductOwner));
@@ -101,8 +101,6 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
       await Geolocator().isLocationServiceEnabled().then((value) async {
         if (value){
           await AppServices.getLatLng().then((location) {
-            print("Lat ${location.latitude}");
-            print("Long ${location.longitude}");
             _shopModel.lat = location.latitude;
             _shopModel.long = location.longitude;
           });
@@ -174,7 +172,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
           _lang.translate('complete'),
           _shopModel.tabController,
           shopProvider: _shopProvider,
-          upLoadedProduct: displayProduct,
+          upLoadedProduct: addingProduct,
           enableAddIcon: true
         ), //lang.translate('Products')x
         body: Stack(
@@ -221,7 +219,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
                 child: CreateShop(
                   shopModel: _shopModel,
                   shopProvider: _shopProvider,
-                  uploadedProduct: displayProduct
+                  addingProduct: addingProduct
                 )
               ) 
               // Check Shop Already Create And Display Shop
@@ -234,8 +232,6 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
                 deleteProduct: deleteProduct,
                 triggerLocation: triggerLocation
               ),
-
-                
               
             // Check User Not Yet Create Shop And Show Create Shop Screen
             if ( _shopProvider.shopCheck == '')
