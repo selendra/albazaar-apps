@@ -235,7 +235,6 @@ class _AddListingState extends State<AddListing> {
 
   void onChangeDropDown(String label, Map<String, dynamic> value) {
     FocusScope.of(context).unfocus();
-    print(value);
     setState(() {
       if (label == 'currency') {
         _productModel.currency = value['currency_name'];
@@ -279,7 +278,6 @@ class _AddListingState extends State<AddListing> {
   }
 
   void enableBtn(bool value) {
-    print("Button ${_productModel.enable}");
     setState(() {
       _productModel.enable = value;
     });
@@ -314,13 +312,11 @@ class _AddListingState extends State<AddListing> {
     try {
       await _postRequest.upLoadImage(File(image), 'upload').then((value) {
         _backend.data = json.decode(value);
-        print("Image response ${_backend.data}");
 
         // Add Image Uri Into TmpImageUrl For After Submit Edit Will Submit later
         _productModel.tmpImagesUrl.add(_backend.data['uri']);
       });
 
-      print("Temp images url ${_productModel.tmpImagesUrl}");
     } catch (e){
       print("Error of get image ${e.toString()}");
     }
@@ -329,21 +325,15 @@ class _AddListingState extends State<AddListing> {
   Future<void> triggerLocation() async {
 
     // Components.dialogLoading(context: context);
-    print("Location");
     try{
-      await Permission.location.request().then((value) {
-        print(value);
-      });
+      await Permission.location.request();
       
       if (await Permission.location.status.isGranted){
-        print("True");
         await Geolocator().isLocationServiceEnabled().then((value) async {
-          print("Is location $value");
             // Open Loading For Location
           setState(()=> _productModel.isLocation = true);
           if (value){
             await AppServices.getLatLng().then((location) async {
-              print("Get Location $location");
               _productModel.location.text = await AppServices.getLocation(location.latitude, location.longitude);
             });
 
@@ -378,7 +368,6 @@ class _AddListingState extends State<AddListing> {
   Future<void> submitProduct(AddProduct addProduct) async {
     
     if(widget.from == "fromCreateShop"){
-      print("From create product");
       Navigator.pop(context, addProduct);
     } else {
       Components.dialogLoading(context: context);

@@ -71,7 +71,7 @@ class _CreateShopState extends State<CreateShop> {
   }
 
   Future<void> submitCreateShop() async {
-    Components.dialogLoading(context: context);
+    Components.dialogLoading(context: context, contents: "Please wait! Your products are uploading");
     try {
       print("List createshop ${widget.shopProvider.listProductCreateShop}");
       
@@ -92,18 +92,35 @@ class _CreateShopState extends State<CreateShop> {
 
       await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
 
+      print("2");
+
       // Upload Remain Image
-      await uploadSubImage();
+      uploadSubImage();
+      print("1");
 
       await Future.delayed(Duration(seconds: 1), (){
         // Close Dialog Loading
         Navigator.pop(context);
       });
       
-      // await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct(refetch: true);
-      // await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+      await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct(refetch: true);
+      // For Upload Image
+      await StorageServices.fetchData(DbKey.token).then((value) async {
+        await Provider.of<ProductsProvider>(context, listen: false).getAllProductImg(value['token']);
+      });
 
-    } catch (e) {
+      await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+
+
+    } on Exception catch (e){
+      
+      print(e);
+      // Close Dialog Loading
+      Navigator.pop(context);
+      await Components.dialog(context, Text("Connection timed out"), Text("Oops"));
+    }
+    catch (e) {
+      print(e);
       // Close Dialog Loading
       Navigator.pop(context);
       await Components.dialog(context, Text(e.toString()), Text("Oops"));
@@ -111,17 +128,24 @@ class _CreateShopState extends State<CreateShop> {
   }
 
   // Upload Remain Image After Upload Product
-  Future<void> uploadSubImage() async {
+  void uploadSubImage() async {
 
     print(dataUploadedImage);
+    print(dataUploadedImage.length);
+    int i = 0;
 
     // Upload Image By Product Id
-    for (int i = 0; i < dataUploadedImage[i].length; i++){
+    for (; i < dataUploadedImage.length; i++){
+
       print("REmain images ${widget.shopProvider.listProductCreateShop[i].subImages}");
       print(dataUploadedImage[i]['id']);
+      print("Leng ${widget.shopProvider.listProductCreateShop[i].subImages.length}");
+
+      if (widget.shopProvider.listProductCreateShop[i].subImages.isEmpty) break;
 
       for (int j = 0; j < widget.shopProvider.listProductCreateShop[i].subImages.length; j++){
         print("Hello j $j");
+        print("J length ${widget.shopProvider.listProductCreateShop[i].subImages.length}");
         final res = await _postRequest.addProductImage(widget.shopProvider.listProductCreateShop[i].subImages[j], dataUploadedImage[i]['id']);
         print("Upload remain image ${res.body}");
       }
@@ -131,9 +155,19 @@ class _CreateShopState extends State<CreateShop> {
       //   await _postRequest.addProductImage(element, _backend.data[i]['id']);
       // });
     }
+
+    
+
+    print("I $i");
     // for (int i = 1; i < listImage.length; i++){
     //   _postRequest.addProductImage(image, productId)
     // }
+  }
+  
+  // Clear All Upload Product
+  void cleanData(){
+    dataUploadedImage.clear();
+    widget.shopProvider.listProductCreateShop.clear();
   }
 
   @override

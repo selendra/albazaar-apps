@@ -28,7 +28,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   }
 
   void _pageChange(int index) {
-    print("index selected $index");
     setState(() {
       _selectedIndex = index;
     });
@@ -51,7 +50,6 @@ class _MyStatefulWidgetState extends State<BottomNavigation>
   @override
   Widget build(BuildContext context) {
     final addListData = Provider.of<AddProductProvider>(context);
-    print(_selectedIndex);
     // print(addListData.addProduct.imageUrlList);
     // print("My Product id ${addListData.addProduct.productId}");
     return Scaffold(

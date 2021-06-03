@@ -66,7 +66,6 @@ class ProductsProvider with ChangeNotifier {
         await _prefService.read(DbKey.products).then((value) async {
           // If we also want to refetch
           if (value == null || value.length == 0 || refetch == true){
-            print("Fetch data from Api");
 
             _backend.response = await http.get(ApiUrl.LISTING, headers: <String, String>{
               "accept": "application/json",
@@ -93,7 +92,6 @@ class ProductsProvider with ChangeNotifier {
             }
           // Already Save Data
           } else {
-            print("Fetch data from  DB");
             _backend.data = await json.decode(value);
           }
           _backend.data.forEach((value){
@@ -119,7 +117,6 @@ class ProductsProvider with ChangeNotifier {
       }
 
     } catch (e) {
-      print(e.toString()+"Why error");
       return e;
     }
     return responseJson;
@@ -158,7 +155,6 @@ class ProductsProvider with ChangeNotifier {
         // Sort Products By Category
       }
     } catch (e) {
-      print(e.toString()+"Why error");
       return e;
     }
     return responseJson;
@@ -218,15 +214,12 @@ class ProductsProvider with ChangeNotifier {
 
   // Fetch All Image Url
   Future<void> getAllProductImg(String token) async {
-    print("Item length ${_items.length}");
     for (int i = 0; i < _items.length; i++) {
       final listImagesResponse = await fetchImage(token, _items[i].id);
-      print("Product id ${_items[i].id}");
       for (var item in listImagesResponse) {
         // _imageList.add(ProductImage.fromJson(item));
         _items[i].subImageUrl.add(item['url']);
       }
-      print("SubImage id ${_items[i].subImageUrl.length}");
     }
 
     // print("SubImageUrl length ${_items.sublist.length}");
@@ -258,14 +251,12 @@ class ProductsProvider with ChangeNotifier {
 
   // List Order You Bought
   Future<void> fetchOrFromBuyer(token) async {
-    print("hey fetchOrFromBuyer");
     dynamic responseJson;
     try {
       await StorageServices.fetchData(DbKey.productsOrder).then((value) async {
         
         // Fetch Data From Api
         if (value == null){
-          print("From Order From Api");
           http.Response response = await http.get(ApiUrl.LIST_FOR_BUYER, headers: <String, String>{
             "accept": "application/json",
             "authorization": "Bearer " + token,
@@ -277,7 +268,6 @@ class ProductsProvider with ChangeNotifier {
         }
         // Fetch Data From Db 
         else {
-          print("From Order From Db");
           responseJson = value;
         }
       });
@@ -358,7 +348,6 @@ class ProductsProvider with ChangeNotifier {
 
   //find image of each product in image list using product Id
   void findImgById(String productId) async {
-    print("Finding image");
     _url = [];
 
     final product = findById(productId);
@@ -369,7 +358,6 @@ class ProductsProvider with ChangeNotifier {
         _url.add(_imageList[i].url);
       }
     }
-    print("URl $_url");
   }
 
   //Add Image thumbnail to show first index of all images

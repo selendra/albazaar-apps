@@ -194,7 +194,6 @@ class ProductModel {
   // Call When We Fetching Data From Server
   ProductModel.fromOwner(OwnerProduct productOwner){
     images = [];
-    print(productOwner.categoryName.toString()+"Category");
     images = productOwner.listImages;
     productName.text = productOwner.name;
     price.text = productOwner.price.toString();

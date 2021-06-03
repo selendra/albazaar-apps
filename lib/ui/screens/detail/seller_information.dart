@@ -92,9 +92,7 @@ class SellerInformation extends StatelessWidget {
                       width: 43, height: 50,
                       buttonColor: AppColors.white,
                       action: () async {
-
-                      print("Show");
-                      await MyBottomSheet().contactOption(context: context);
+                        await MyBottomSheet().contactOption(context: context);
                       },
                       child: SvgPicture.asset('assets/icons/options.svg', height: 20,),
                     )

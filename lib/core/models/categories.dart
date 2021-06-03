@@ -64,7 +64,6 @@ class CategoriesModel with ChangeNotifier{
 
   List<Product> getListProductCategory(String category){
 
-    print("Fill category");
     if (category == 'Vegetable'){
       return vegetableList;
     } else if (category == 'Fruit') {
@@ -122,7 +121,6 @@ class CategoriesModel with ChangeNotifier{
   // Run in Home Body
   sortDataByCategory(dynamic data) async {
 
-    print("My List product $data");
     try {
       clearDataCategory();
 
@@ -140,7 +138,7 @@ class CategoriesModel with ChangeNotifier{
         collectProductByCategories(i);
       }
     } catch (e){
-      print("Sort Data By Category Error ${e.toString()}");
+      // print("Sort Data By Category Error ${e.toString()}");
     }
     // print("listProduct"+listProduct.length.toString());
     // print("vegetableList"+vegetableList.length.toString());
@@ -156,8 +154,6 @@ class CategoriesModel with ChangeNotifier{
   }
 
   void clearDataCategory(){
-    print("Before $vegetableList");
-    print("Start clear category data");
     relatedProduct.clear();
     vegetableList.clear();
     fruitList.clear();

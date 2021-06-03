@@ -236,7 +236,6 @@ class UserProvider with ChangeNotifier {
   //This function is use to fetch portforlio of the logged in user
   Future<String> fetchPortforlio() async {
     // mBalance = Balance();
-    print("Portfolio");
     try {
       await _prefService.read('token').then((onValue) async {
         http.Response response =
@@ -254,7 +253,6 @@ class UserProvider with ChangeNotifier {
 
             if (mBalance.data != null) mBalance.data.balance = '';
             mBalance = Balance.fromMap(responseBody);
-            print(responseBody);
 
             // Check Balance Retrieve NULL
             if (mBalance.data != null)

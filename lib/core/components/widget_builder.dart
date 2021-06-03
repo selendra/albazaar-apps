@@ -3,10 +3,8 @@ import 'package:albazaar_app/all_export.dart';
 class ListWidgetBuilder{
 
   static Widget imageRowBuilder({BuildContext context, dynamic image, Function onPressed, int selected, int index}){
-    print("Index $image");
     return GestureDetector(
       onTap: (){
-        print(index);
         onPressed();
       },
       child: MyCard(

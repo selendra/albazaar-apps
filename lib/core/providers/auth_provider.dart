@@ -276,8 +276,6 @@ class AuthProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         
         Map<String,dynamic> responseJson = json.decode(response.body);
-        print(responseJson);
-        print(responseJson.runtimeType);
 
         if (responseJson.containsKey('error')){
           return responseJson['error']['message'];
@@ -289,16 +287,12 @@ class AuthProvider with ChangeNotifier {
 
           mBalance = Balance();
 
-          print("Hello success");
-
           if (_token != null) {
-            print("Logging in");
             _pref.saveString('token', _token);
             await Provider.of<UserProvider>(context, listen: false).fetchPortforlio();
             await Provider.of<UserProvider>(context, listen: false).fetchUserPf(_token);
             await Provider.of<ProductsProvider>(context, listen: false).fetchListingProduct();
             await Provider.of<SellerProvider>(context, listen: false).fetchBuyerOrder();
-            print("Start go to home page");
             Navigator.pushReplacementNamed(context, BottomNavigationView);
           }
         }
@@ -306,7 +300,6 @@ class AuthProvider with ChangeNotifier {
         _alertText = "Please try again later";
       }
     } catch(e){
-      print("Sign In error $e");
       _alertText = e.toString();
     }
     return _alertText;

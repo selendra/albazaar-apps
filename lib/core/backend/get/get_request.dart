@@ -12,7 +12,6 @@ class GetRequest {
   Future<_http.Response> getUserProfile() async {
     /* Get User Profile */
     _backend.token = await StorageServices.fetchData(DbKey.token);
-    print(_backend.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
     }
@@ -28,7 +27,6 @@ class GetRequest {
     _backend.token = await StorageServices.fetchData(DbKey.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.walletAPI}/listing-by-owner", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
-      print("User profile response ${_backend.token}");
     }
     return _backend.response;
   }

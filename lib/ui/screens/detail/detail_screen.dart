@@ -27,7 +27,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void guestAccCheck() async {
     await StorageServices.fetchData(DbKey.guestAcc).then((value) {
-      print(value);
       if (value != null){
         setState((){
           isGuestAcc = value;

@@ -60,7 +60,6 @@ class ApiGetServices with ChangeNotifier {
   //UPDATE USER GENDER
   void setGender(String value) {
     mUser.gender = value;
-    print(mUser.gender);
     notifyListeners();
   }
 
@@ -77,13 +76,11 @@ class ApiGetServices with ChangeNotifier {
 
         if (response.statusCode == 200) {
           var responseBody = json.decode(response.body);
-          print(responseBody);
 
           if (responseBody['error'] == null) {
             mBalance = Balance.fromMap(responseBody);
           } else {
             alertText = responseBody['error']['message'];
-            print(alertText);
           }
 
           alertText = response.statusCode.toString();
@@ -92,11 +89,11 @@ class ApiGetServices with ChangeNotifier {
         }
       });
     } on SocketException {
-      print('No Internet connection 😑');
+      // print('No Internet connection 😑');
     } on HttpException {
-      print("Couldn't find the post 😱");
+      // print("Couldn't find the post 😱");
     } on FormatException {
-      print("Bad response format 👎");
+      // print("Bad response format 👎");
     }
 
     return alertText ?? '';
@@ -105,11 +102,9 @@ class ApiGetServices with ChangeNotifier {
   //FETCH PLACE WHEN USER SEARCH IN MAP
   Future<Placemark> fetchPlaceList(String query) async {
     var response = await http.get(ApiUrl.MAP_SEARCH + query);
-    print(response.body);
     if (response.statusCode == 200) {
       return null;
     } else {
-      print(response.statusCode);
     }
     return null;
   }

@@ -36,9 +36,6 @@ class ShopProvider extends ChangeNotifier{
           });
 
           _backend.data = json.decode(_backend.response.body);
-
-          print("Shop Response ${_backend.data}");
-          print("${_backend.data.runtimeType}");
           if (_backend.data.runtimeType.toString() != "List<dynamic>" && _backend.data.runtimeType.toString() != "_GrowableList<dynamic>"){
             if (shopCheck != 'created') shopCheck = 'create';
             // Token Might Expired
@@ -68,7 +65,6 @@ class ShopProvider extends ChangeNotifier{
         }
       });
     } catch (e) {
-      print("My error ${e.toString()}");
     }
 
     notifyListeners();
@@ -90,13 +86,12 @@ class ShopProvider extends ChangeNotifier{
     try {
       for(int i =0; i < _allOwnerProduct.length; i++){
         final listImagesResponse = await productsProvider.fetchImage(token, _allOwnerProduct[i].id);
-        print("All Images Get response $listImagesResponse");
         await addImgIntoProductOwner(listImagesResponse, i);
         // print("Index $i");
         // print("My Product ${_allOwnerProduct[i].name}");
       }
     } catch (e){
-      print("Error ${e.toString()}"); 
+      // print("Error ${e.toString()}"); 
     }
   }
 

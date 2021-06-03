@@ -417,7 +417,7 @@ class Body extends StatelessWidget {
             productModel.scaleId = "b8fd8a60-242c-405d-8a62-1ae2880094a7";
             productModel.categoryId = "4e984edb-abd2-4691-990f-a6b1413cf472";
             productModel.description.text = "New meat";
-            productModel.tmpImagesUrl.add("https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf");
+            productModel.tmpImagesUrl.addAll(["https://selendra.s3-ap-southeast-1.amazonaws.com/d4c94173-61b8-467b-9544-8d077770ecaf", "https://selendra.s3-ap-southeast-1.amazonaws.com/3429675f-f342-4cf6-9afc-b1a837a17787"]);
 
             print(productModel.productName.text);
             print(productModel.price.text);
