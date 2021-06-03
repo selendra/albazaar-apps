@@ -105,11 +105,6 @@ class _CreateShopState extends State<CreateShop> {
 
       await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
 
-      await Future.delayed(Duration(seconds: 1), (){
-        // Close Dialog Loading
-        Navigator.pop(context);
-      });
-
 
     } on Exception catch (e){
       
