@@ -88,12 +88,6 @@ class _CreateShopState extends State<CreateShop> {
       // Parse Json To Object
       _backend.data = json.decode(_backend.response.body);
 
-      print("What wrong");
-
-      await Components.dialog(context, Text(_backend.data['message'].toString(), textAlign: TextAlign.center), Text("Message"));
-
-      print("2");
-
       // Upload Remain Image
       uploadSubImage();
       print("1");
@@ -110,6 +104,11 @@ class _CreateShopState extends State<CreateShop> {
       });
 
       await Provider.of<ShopProvider>(context, listen: false).fetchOListingProduct();
+
+      await Future.delayed(Duration(seconds: 1), (){
+        // Close Dialog Loading
+        Navigator.pop(context);
+      });
 
 
     } on Exception catch (e){
