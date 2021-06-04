@@ -89,8 +89,7 @@ class _CreateShopState extends State<CreateShop> {
       _backend.data = json.decode(_backend.response.body);
 
       // Upload Remain Image
-      uploadSubImage();
-      print("1");
+      uploadSubImage( );
 
       await Future.delayed(Duration(seconds: 1), (){
         // Close Dialog Loading
